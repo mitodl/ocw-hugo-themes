@@ -36,9 +36,9 @@ jobs:
         run: |
           export TMP=$(mktemp)
           echo 'ignoreErrors = ["error-remote-getjson"]' > $TMP
-          cat site/config.toml >> $TMP
-          rm site/config.toml
-          mv $TMP site/config.toml
+          cat config.toml >> $TMP
+          rm config.toml
+          mv $TMP config.toml
           npm run build
 
       - name: Code formatting
