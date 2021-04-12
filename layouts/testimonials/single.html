@@ -1,0 +1,30 @@
+{{ define "main" }}
+{{- $testimonial := . -}}
+<div>
+  {{ block "header" . }}
+  {{ partialCached "header" . }}
+  {{end}}
+  <div class="testimonial-single container standard-width mx-auto mt-5">
+    <h1>OCW Testimonies</h1>
+    <div class="testimonials">
+      <div class="testimonial d-flex flex-wrap flex-sm-nowrap">
+        <div class="img-container">
+          <img src="{{ $testimonial.Params.image }}" alt="{{ $testimonial.Title }}" />
+        </div>
+        <div class="detail d-flex flex-column flex-nowrap justify-content-between p-0 ml-sm-5">
+          <div class="text">
+            <h2>{{ $testimonial.Title }}</h2>
+            <p class="font-weight-bold">{{ $testimonial.Params.occupation }} | {{ $testimonial.Params.location }}</p>
+            <p class="summary">
+              "{{ $testimonial.Params.leadquote }}"
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="full-testimonial pt-5 pb-3">
+      {{ .Content }}
+    </div>
+  </div>
+</div>
+{{ end }}

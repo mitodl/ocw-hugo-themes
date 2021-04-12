@@ -1,0 +1,11 @@
+{{- $carouselId := . -}}
+<div class="carousel-controls d-flex">
+    <a href="#{{ $carouselId }}" role="button" data-slide="prev" class="bg-white prev">
+        <span class="material-icons">keyboard_arrow_left</span>
+        Previous
+    </a>
+    <a href="#{{ $carouselId }}" role="button" data-slide="next" class="bg-white next">
+        Next
+        <span class="material-icons">keyboard_arrow_right</span>
+    </a>
+</div>

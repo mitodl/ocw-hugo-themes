@@ -1,0 +1,67 @@
+#mobile-header {
+  #ocw-logo-mobile {
+    width: 250px;
+    height: 39px;
+    top: 50%;
+    left: 50%;
+    margin-left: -115px;
+    margin-top: -18px;
+  }
+}
+
+#desktop-header {
+  height: $desktop-header-height;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: black;
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+
+  .contents {
+    display: flex;
+    justify-content: space-between;
+    max-width: $max-content-width;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+
+    .right,
+    .left {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+    }
+
+    .left {
+      .ocw-logo {
+        img {
+          height: 40px;
+        }
+      }
+    }
+
+    .right {
+      justify-content: flex-end;
+
+      a {
+        font-size: 14px;
+        text-transform: uppercase;
+
+        &.orange-link {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+#home-header {
+  #desktop-header {
+    position: absolute;
+    background-color: transparent;
+  }
+}

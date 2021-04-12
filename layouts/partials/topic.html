@@ -1,0 +1,51 @@
+{{ $index := .index }}
+{{ $context := .context }}
+{{ $subtopics := .subtopics }}
+<div class="position-relative pt-1 pb-1{{ if gt (len .subtopics) 0 }} pl-4{{ end }}">
+  {{ if gt (len .subtopics) 0 }}
+  <a class="topic-toggle"
+    href="#subtopic-container_{{ $index }}"
+    data-toggle="collapse"
+    aria-controls="subtopic-container_{{ $index }}"
+    aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}">
+    <i class="material-icons"></i>
+  </a>
+  {{ end }}
+  <span class="topic-text-wrapper">
+    <a class="text-black course-info-topic" href="{{ .topic.url }}">
+    {{ title .topic.topic }}
+    </a>
+  </span>
+</div>
+{{ if gt (len .subtopics) 0 }}
+<div class="pl-4 subtopic-container collapse{{if eq $index 0 }} show{{ end }}" id="subtopic-container_{{ $index }}">
+  {{ range $subtopicIndex, $subtopic := .subtopics }}
+  {{ $specialities := $subtopic.specialities }}
+  <div class="position-relative pt-1 pb-1 {{ if gt (len $specialities) 0 }} pl-4{{ end }}">
+    {{ if gt (len $specialities) 0 }}
+    <a class="topic-toggle"
+      href="#speciality-container_{{ $index }}_{{ $subtopicIndex }}"
+      data-toggle="collapse"
+      aria-controls="speciality-container_{{ $index }}_{{ $subtopicIndex }}"
+      aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}">
+      <i class="material-icons"></i>
+    </a>
+    {{ end }}
+    <span class="topic-text-wrapper">
+      <a class="text-black course-info-topic" href="{{ $subtopic.url }}">
+      {{ title $subtopic.subtopic }}
+      </a>
+    </span>
+  </div>
+  {{ range $specialities }}
+  <div class="pt-1 pb-1 pl-5 collapse{{if eq $index 0 }} show{{ end }}" id="speciality-container_{{ $index }}_{{ $subtopicIndex }}">
+    <span class="topic-text-wrapper">
+      <a class="text-black course-info-topic" href="{{ .url }}">
+      {{ .speciality }}
+      </a>
+    </span>
+  </div>
+  {{ end }}
+  {{ end }}
+</div>
+{{ end }}

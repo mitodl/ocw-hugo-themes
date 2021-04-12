@@ -1,0 +1,15 @@
+{{ $courseId := .context.Params.course_id }}
+{{ $courseData := .context.Site.Data.course }}
+{{ $inPanel := .inPanel }}
+<div class="course-features w-100 {{ if $inPanel }}in-panel{{ else }}bg-light{{ end }}">
+  <div class="container px-0 mx-0">
+    <h4 class="course-info-title font-weight-bold">Course Features</h4>
+    <div class="row">
+      {{ range $courseData.course_features }}
+        <div class="{{ if $inPanel }}col-12{{ else }}col-6 col-xl-3{{ end }}">
+          {{ partial "course_feature.html" . }}
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

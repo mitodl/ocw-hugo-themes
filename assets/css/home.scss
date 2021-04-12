@@ -1,0 +1,532 @@
+$spacer1: map-get($spacers, 1);
+$spacer2: map-get($spacers, 2);
+$spacer3: map-get($spacers, 3);
+$spacer4: map-get($spacers, 4);
+$spacer5: map-get($spacers, 5);
+$spacer6: map-get($spacers, 6);
+$spacer7: map-get($spacers, 7);
+$spacer8: map-get($spacers, 8);
+
+$searchbox-height: 50px;
+
+.home-page-content {
+  .container {
+    @include breakpoint(mobile) {
+      width: 90%;
+    }
+  }
+}
+
+.view-all-link {
+  color: $blue;
+  font-size: 16px;
+}
+
+.home-banner {
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 500px;
+
+  @include media-breakpoint-down(lg) {
+    height: 550px;
+  }
+
+  @include media-breakpoint-down(md) {
+    height: 480px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    height: auto;
+  }
+
+  .banner-contents-container {
+    max-width: $max-content-width;
+    flex-direction: row;
+    margin-top: $desktop-header-height;
+
+    @include media-breakpoint-down(md) {
+      margin-top: 0;
+    }
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+    }
+
+    .first-column {
+      max-width: 550px;
+      width: 96%;
+      flex-shrink: 2;
+
+      @include media-breakpoint-down(md) {
+        width: 100%;
+      }
+
+      .discover {
+        color: white;
+        font-size: 16px;
+      }
+
+      div {
+        padding: 0;
+      }
+
+      .search-box-wrapper {
+        input,
+        button,
+        a {
+          height: $searchbox-height;
+        }
+
+        @include media-breakpoint-down(sm) {
+          button,
+          a {
+            height: 40px;
+          }
+        }
+
+        button,
+        a {
+          font-size: 16px;
+          border: none;
+        }
+
+        .home-search-box {
+          flex-grow: 2;
+        }
+
+        input {
+          border-top-left-radius: 4px;
+          border-bottom-left-radius: 4px;
+          border: none;
+
+          @include media-breakpoint-down(sm) {
+            border-radius: 4px;
+          }
+        }
+
+        @include media-breakpoint-up(md) {
+          button.submit {
+            background-color: $blue;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+          }
+        }
+
+        .or {
+          width: 50px;
+          color: white;
+          text-align: center;
+          font-size: 14px;
+        }
+
+        a.explore {
+          background-color: $highlight-red;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          color: white;
+        }
+      }
+    }
+
+    .new-or-educator {
+      background-color: rgba(0, 0, 0, 0.85);
+      opacity: 0.81;
+
+      .option.bordered {
+        @include media-breakpoint-up(md) {
+          border-right: 1px solid white;
+        }
+
+        @include media-breakpoint-down(sm) {
+          border-bottom: 1px solid white;
+        }
+      }
+
+      span {
+        color: white;
+        font-size: 16px;
+      }
+
+      a {
+        text-decoration: underline;
+        color: $link-blue;
+        font-size: 16px;
+      }
+    }
+
+    .unlock {
+      background-color: rgba(18, 111, 154, 0.65);
+      max-width: 550px;
+      flex-shrink: 0;
+
+      .unlocking {
+        font-size: 28px;
+        text-transform: uppercase;
+        line-height: 40px;
+
+        @include media-breakpoint-down(sm) {
+          font-size: 20px;
+          line-height: 22px;
+        }
+      }
+
+      .free {
+        font-size: 16px;
+        line-height: 19px;
+
+        @include media-breakpoint-down(sm) {
+          font-size: 16px;
+          line-height: 19px;
+        }
+      }
+
+      .learn-more {
+        color: $orange;
+        text-transform: uppercase;
+        font-size: 15px;
+        align-self: flex-end;
+        padding-top: 10px;
+      }
+    }
+  }
+}
+
+.beta-dialog {
+  p,
+  li {
+    font-size: 1rem;
+  }
+}
+
+.give-now-wrapper {
+  background-color: $transparency-gray;
+}
+
+.give-now {
+  max-width: 950px;
+  margin: 0 auto;
+
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding: $spacer3 $spacer3 $spacer5;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding: $spacer5 $spacer8;
+
+    div:not(:first-child) {
+      padding-left: $spacer6;
+    }
+  }
+
+  .give-button {
+    width: 158px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: $orange;
+    text-decoration: none;
+
+    @include media-breakpoint-down(sm) {
+      width: 100%;
+      justify-content: center;
+    }
+
+    div {
+      padding: $spacer3 $spacer5;
+    }
+
+    h1 {
+      font-size: 28px;
+    }
+
+    img {
+      height: 30px;
+    }
+  }
+}
+
+.social-cards-wrapper {
+  background-color: $blue;
+}
+
+.social-cards {
+  @include media-breakpoint-down(md) {
+    padding: 0;
+  }
+
+  .row {
+    padding: 60px 80px;
+
+    @include media-breakpoint-down(md) {
+      padding: 30px 0;
+    }
+  }
+
+  .social-card {
+    h5 {
+      padding-bottom: $spacer1;
+      font-size: 16px;
+    }
+
+    .social-icon-row {
+      width: 225px;
+    }
+
+    > div {
+      background-color: $white;
+      border: 1px solid $border-darker-gray;
+      border-radius: 5px;
+      padding: $spacer4 $spacer6;
+
+      @include media-breakpoint-down(md) {
+        padding: $spacer4 $spacer4;
+      }
+    }
+
+    .newsletter-form {
+      .btn {
+        background-color: $highlight-red;
+        font-size: 0.75rem;
+
+        @include media-breakpoint-down(md) {
+          font-size: 1rem;
+          font-weight: bold;
+        }
+      }
+
+      @include media-breakpoint-down(lg) {
+        flex-direction: column;
+      }
+
+      @include media-breakpoint-up(xl) {
+        flex-direction: row;
+      }
+    }
+  }
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.course-cards {
+  a {
+    text-decoration: none;
+  }
+
+  .course-card {
+    border: 1px solid $border-gray;
+
+    $radius: 10px;
+
+    border-radius: $radius;
+    height: 381px;
+    width: 100%;
+
+    h5 {
+      font-size: 16px;
+    }
+
+    img {
+      width: 100%;
+      object-fit: cover;
+      height: 186px;
+      border-radius: $radius $radius 0 0;
+    }
+
+    .course-level {
+      text-transform: uppercase;
+      color: $font-gray-mid;
+    }
+
+    .course-card-content {
+      font-size: 12px;
+
+      .card-label {
+        color: $give-heart-gray;
+      }
+    }
+  }
+}
+
+.sponsors {
+  max-width: $max-content-width;
+}
+
+.home-testimonials {
+  a.testimonial-link {
+    text-decoration: none;
+  }
+
+  .testimonial {
+    height: 280px;
+    width: 280px;
+    color: white;
+    background-size: cover;
+
+    .name {
+      font-size: 20px;
+    }
+
+    .occupation-location {
+      font-size: 18px;
+    }
+
+    .on-hover {
+      display: none;
+    }
+
+    .name-occ {
+      .name {
+        font-size: 16px;
+      }
+
+      .occupation-location {
+        font-size: 14px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      .name,
+      .occupation-location {
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+.ocw-news {
+  .item {
+    width: 100%;
+    background-size: cover !important;
+    display: flex;
+    align-items: end;
+
+    a {
+      font-size: 20px;
+      line-height: 24px;
+      font-weight: bold;
+    }
+  }
+
+  .carousel .item {
+    height: 215px;
+  }
+
+  .items-grid {
+    height: 375px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 20px;
+
+    @include media-breakpoint-down(md) {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+    }
+
+    .item {
+      &.item-0 {
+        grid-row: 1 / 3;
+        grid-column: 1 / 3;
+      }
+
+      &.item-1 {
+        grid-row: 1;
+        grid-column: 3;
+      }
+
+      &.item-2 {
+        grid-row: 1;
+        grid-column: 4;
+      }
+
+      &.item-3 {
+        grid-row: 2;
+        grid-column: 3 / 5;
+      }
+    }
+  }
+}
+
+$promo-carousel-height: 200px;
+
+.promo-carousel {
+  max-height: $promo-carousel-height;
+  margin-bottom: 30px;
+
+  .carousel-indicators {
+    margin-bottom: 0;
+    bottom: -30px;
+
+    li {
+      width: 10px;
+      height: 10px;
+      border-radius: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border: none;
+      background-color: #dee2e6;
+    }
+  }
+
+  .carousel-content {
+    max-width: 900px;
+    max-height: $promo-carousel-height;
+
+    .img-container {
+      position: relative;
+      width: 30%;
+      max-height: $promo-carousel-height;
+
+      @include media-breakpoint-down(xs) {
+        display: none;
+      }
+
+      &::after {
+        display: block;
+        content: "";
+
+        /* 16:9 aspect ratio */
+        padding-bottom: 56.25%;
+      }
+
+      img {
+        /* Image should match parent box size */
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .promo-info {
+      width: 70%;
+
+      @include media-breakpoint-down(sm) {
+        h2 {
+          font-size: 20px;
+        }
+
+        h3 {
+          font-size: 18px;
+        }
+      }
+
+      @include media-breakpoint-down(xs) {
+        width: 100%;
+
+        a.orange-link {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{{ $numStudents := .Get 0 }}
+{{/* Calculate the diameter based on the amount of digits */}}
+{{ $diameter := add 110 (mul (sub (len (string $numStudents)) 3) 16) }}
+<div class="approx-students" style="width: {{ $diameter }}px; height: {{ $diameter }}px;">
+  <h1>~{{ $numStudents }}</h1>
+  <h2>students</h2>
+</div>

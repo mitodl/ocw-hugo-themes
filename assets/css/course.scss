@@ -1,0 +1,12 @@
+@import "course-nav";
+@import "course-info";
+@import "course-home";
+
+#course-banner {
+  color: $white;
+  background-color: $blue;
+
+  a {
+      text-decoration: none;
+  }
+}

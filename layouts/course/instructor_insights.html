@@ -1,0 +1,7 @@
+{{ define "extrahead" }}
+{{- $instructor_insights := .Site.Data.webpack.instructor_insights -}}
+<link href="{{ partial "webpack_url.html" $instructor_insights.css }}" rel="stylesheet">
+{{ end }}
+{{ define "main" }}
+{{ partial "course_content.html" . }}
+{{ end }}

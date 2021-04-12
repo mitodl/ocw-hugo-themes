@@ -1,0 +1,45 @@
+button.blue-btn,
+a.blue-btn {
+  background-color: $blue;
+  color: white;
+  margin: 0 10px 5px 0;
+  padding: 9px 36px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button.blue-btn.outlined {
+  border: 1px solid $blue;
+  background: white;
+  color: black;
+  display: flex;
+  width: 160px;
+  text-align: center;
+  align-items: center;
+
+  &:enabled:hover {
+    border-color: $blue;
+    background: $blue;
+    color: white;
+  }
+
+  &:disabled {
+    border-color: $medium-gray;
+    color: $medium-gray;
+  }
+}
+
+.orange-link {
+  background-color: $orange;
+  font-size: 16px;
+  text-decoration: none;
+  color: white;
+
+  &:visited {
+    color: white;
+  }
+}

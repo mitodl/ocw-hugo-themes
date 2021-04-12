@@ -1,0 +1,49 @@
+.notification {
+  position: sticky;
+  background-color: $orange;
+  color: $white;
+  top: 0;
+  z-index: 999;
+
+  @include media-breakpoint-up(lg) {
+    padding: 1.5rem 1rem;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding: 0.5rem 2.5rem;
+  }
+
+  .notification-message {
+    text-align: center;
+
+    * {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    a {
+      color: $blue;
+    }
+  }
+
+  .notification-close {
+    position: absolute;
+    cursor: pointer;
+    user-select: none;
+
+    @include media-breakpoint-up(lg) {
+      top: 50%;
+      right: 60px;
+      transform: translateY(-50%);
+    }
+
+    @include media-breakpoint-down(md) {
+      top: 0;
+      right: 0;
+    }
+
+    i.material-icons {
+      font-size: 2.5rem !important;
+    }
+  }
+}

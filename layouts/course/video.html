@@ -1,0 +1,9 @@
+{{ define "main" }}
+{{ partial "course_content.html" . }}
+<div class="video-page">
+  <div class="description">
+    {{ .Params.about_this_resource_text | safeHTML }}
+  </div>
+  {{ partial "youtube_player.html" . }}
+</div>
+{{ end }}

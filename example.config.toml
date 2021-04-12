@@ -1,0 +1,19 @@
+baseURL = "http://localhost:3000/"
+languageCode = "en-us"
+title = "MIT OpenCourseWare"
+
+[module]
+  [[module.imports]]
+    path = "github.com/mitodl/ocw-hugo-theme"
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "data"
+    target = "data"
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "static"
+    target = "static"

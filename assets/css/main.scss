@@ -1,0 +1,352 @@
+@import "imports/reset";
+@import "bootstrap-overrides";
+@import "variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~offcanvas-bootstrap/src/sass/bootstrap.offcanvas";
+
+@import "breakpoints";
+@import "carousel";
+@import "header";
+@import "home";
+@import "course";
+@import "testimonials";
+@import "drawer";
+@import "pdf";
+@import "tables";
+@import "video";
+@import "spinner";
+@import "notification";
+@import "pages";
+
+a.coming-soon {
+  cursor: pointer;
+}
+
+/* CUSTOM STYLES */
+
+body {
+  font-family: "Helvetica";
+  font-size: 16px;
+}
+
+blockquote {
+  margin-left: 2em;
+}
+
+a {
+  color: black;
+  text-decoration: underline;
+
+  &:visited {
+    color: black;
+  }
+
+  &:hover {
+    color: black;
+  }
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 28px;
+
+  @include media-breakpoint-down(xs) {
+    font-size: 24px;
+  }
+
+  &.branded {
+    font-family: Helvetica, sans-serif;
+    font-weight: 300;
+
+    span {
+      color: $orange;
+      font-weight: 600;
+    }
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  h2 {
+    font-size: 24px;
+  }
+}
+
+h3 {
+  font-size: 24px;
+}
+
+@include media-breakpoint-down(xs) {
+  h3 {
+    font-size: 18px;
+  }
+}
+
+.standard-width {
+  max-width: $max-home-width;
+}
+
+.img-link,
+.img-link:visited,
+.img-link:hover,
+.img-link:active {
+  text-decoration: none;
+}
+
+.link-unstyled {
+  text-decoration: none;
+}
+
+.max-content-width {
+  max-width: $max-content-width;
+}
+
+.outer-wrapper {
+  min-height: 100vh;
+  margin: auto auto;
+
+  @include media-breakpoint-up(lg) {
+    max-width: $max-content-width;
+  }
+
+  @include media-breakpoint-down(md) {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+}
+
+.left-col-bg {
+  @include media-breakpoint-up(lg) {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 50vw;
+    height: 100vh;
+    background-color: $light-gray;
+    z-index: -1;
+  }
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.medium-and-below-only {
+  @include media-breakpoint-up(lg) {
+    display: none;
+  }
+}
+
+.large-and-above-only {
+  @include media-breakpoint-down(md) {
+    display: none !important;
+  }
+}
+
+.xl-and-above-only {
+  @include media-breakpoint-down(lg) {
+    display: none !important;
+  }
+}
+
+.sm-and-below-only {
+  @include media-breakpoint-up(md) {
+    display: none !important;
+  }
+}
+
+.md-and-above-only {
+  @include media-breakpoint-down(sm) {
+    display: none !important;
+  }
+}
+
+.column-below-medium {
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+  }
+
+  @include media-breakpoint-up(lg) {
+    flex-direction: row;
+  }
+}
+
+.m-0-auto {
+  margin: 0 auto;
+}
+
+.course-image {
+  @include media-breakpoint-down(md) {
+    height: 100px;
+    width: 150px;
+  }
+
+  object-fit: cover;
+}
+
+/* BOOTSTRAP EXTENSIONS / OVERRIDES */
+
+nav {
+  @extend .nav;
+}
+
+nav > ul {
+  @extend .navbar-nav;
+}
+
+nav > ul > li {
+  @extend .nav-item;
+}
+
+nav > ul > li > a {
+  @extend .nav-link;
+}
+
+table {
+  @extend .table;
+}
+
+.bg-black {
+  background-color: $black;
+}
+
+.bg-light {
+  background-color: $light-gray !important;
+}
+
+.bg-darker-gray {
+  background-color: $darker-gray;
+}
+
+.bg-dark-gray {
+  background-color: $dark-gray;
+}
+
+.bg-blue {
+  background-color: $blue;
+}
+
+.bg-white-desktop {
+  @include media-breakpoint-up(lg) {
+    background-color: $white !important;
+  }
+}
+
+.text-white-mobile {
+  @include media-breakpoint-down(md) {
+    color: $white !important;
+  }
+}
+
+.text-dark-gray {
+  color: $dark-gray;
+}
+
+.icon-text-box-wrapper {
+  border: 0.5px solid $text-box-border;
+  background-color: $text-box-background;
+}
+
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: "liga";
+}
+
+.border-left-light {
+  border-left: 1px solid $border-light-color;
+}
+
+.border-bottom-light {
+  border-bottom: 1px solid $border-light-color;
+}
+
+.border-light-gray {
+  border: 1px solid $border-gray;
+}
+
+.border-dark-gray {
+  border: 1px solid $border-dark-gray;
+}
+
+.content {
+  img {
+    max-width: 100%;
+  }
+}
+
+article.content {
+  font-size: 1rem;
+
+  h2 {
+    color: $highlight-red;
+    font-size: 1.15rem;
+    text-transform: uppercase;
+  }
+
+  // sometimes the tables can be wide, and on mobile that can ruin the overall page width
+  // this forces the table to scroll if it's too wide
+  table {
+    display: table;
+    overflow: auto;
+
+    thead {
+      background-color: $blue;
+      color: white;
+      text-transform: uppercase;
+
+      th {
+        border: none;
+      }
+    }
+
+    tbody {
+      tr:nth-child(odd) {
+        background-color: none;
+      }
+
+      tr:nth-child(even) {
+        background-color: $bg-light-gray;
+      }
+
+      td {
+        border: none;
+      }
+    }
+  }
+}
+
+.course-title-section {
+  font-size: 18px;
+}
+
+.course-section-title-container {
+  max-width: 795px;
+  border-bottom: 1px solid $border-dark-color;
+}

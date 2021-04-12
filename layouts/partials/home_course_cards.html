@@ -1,0 +1,60 @@
+{{- $courseItems := getJSON (print (strings.TrimSuffix "/" (getenv "OCW_STUDIO_BASE_URL")) "/api/websites/?type=course") -}}
+{{ if $courseItems.results }}
+    <div class="new-courses course-cards standard-width container mx-auto mt-3">
+        {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none") "lg" (dict "size" 3 "class" "d-none d-lg-flex d-xl-none") "xl" (dict "size" 4 "class" "d-none d-xl-flex")) }}
+        <!-- list adapted from https://getbootstrap.com/docs/4.0/utilities/display/#hiding-elements -->
+        {{ range $breakpoint, $carouselInfo := $breakdowns }}
+            {{ $itemsInCarousel := index $carouselInfo "size" }}
+            {{ $breakpointVisibilityClass := index $carouselInfo "class" }}
+            {{ $isMobile := (eq $itemsInCarousel 1) }}
+            {{ $carouselId := (printf "new-course-carousel-%v" $breakpoint) }}
+            <div class="{{ $breakpointVisibilityClass }}">
+                <div id="{{ $carouselId }}" class="carousel slide">
+                    <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold text-uppercase">
+                        <h3>New Courses</h3>
+                        {{ partial "carousel_controls.html" $carouselId }}
+                    </div>
+                    <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
+                        {{- range $index, $courseItem := (first 10 $courseItems.results) -}}
+                            {{ with $courseItem }}
+                                {{ $courseId := $courseItem.metadata.course_id }}
+                                {{ $courseData := $courseItem.metadata}}
+                                {{ $modulo := (mod $index $itemsInCarousel) }}
+                                {{ $group := (div $index $itemsInCarousel) }}
+                                {{ if eq $modulo 0 }}
+                                    <div class="carousel-item {{ if not $isMobile }}row{{end}} {{ if eq $group 0 }}active{{ end }}">
+                                {{ end }}
+                                        <div class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 $itemsInCarousel) }}{{ end }} w-100 d-flex justify-content-center">
+                                            <div class="course-card card bg-white">
+                                                <a href="/courses/{{ $courseData.course_id }}">
+                                                  <img src="{{ $courseData.course_image_url }}" alt="Thumbnail for {{ $courseData.course_title }}"/>
+                                                </a>
+                                                <div class="course-card-content pt-1 px-3 pb-3">
+                                                    <div class="course-level">
+                                                        {{ index $courseData.course_numbers 0 }} | {{ $courseData.level }}
+                                                    </div>
+                                                    <div class="pt-1">
+                                                        <h5>
+                                                            <a href="/courses/{{ $courseData.course_id }}">{{ $courseData.course_title }}</a>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="pt-1">
+                                                        <span class="card-label">Instructors(s):</span> {{ delimit (first 3 (uniq $courseData.instructors)) ", " }}
+                                                    </div>
+                                                    <div class="pt-2">
+                                                        <span class="card-label">Topic(s):</span> {{ partial "topics_summary.html" $courseData.topics }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub 10 1))) }}
+                                    </div>
+                                {{ end }}
+                            {{ end }}
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+        {{ end }}
+    </div>
+{{ end }}
