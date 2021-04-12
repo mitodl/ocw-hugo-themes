@@ -4,6 +4,9 @@ jobs:
   javascript-tests:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup env
+        run: cp .example.env .env
+
       - uses: actions/checkout@v2
 
       - name: Set up NodeJS
