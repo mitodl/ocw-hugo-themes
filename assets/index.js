@@ -46,7 +46,7 @@ $(document).ready(() => {
 
   initSentry()
   initNotifications()
-  setupEmailSignupForm()  
+  setupEmailSignupForm()
   initPdfViewers()
   initDesktopCourseInfoToggle()
   initCourseInfoExpander()

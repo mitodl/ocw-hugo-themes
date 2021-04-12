@@ -9,5 +9,13 @@ if test -f "$ENV_FILE"; then
 fi
 
 npm run build:webpack
-hugo -d dist --contentDir $OCW_WWW_CONTENT_PATH
-# npm run build:githash
+if [[ -z "${EXTERNAL_SITE_PATH}" ]]; then
+  # Build the site without external content
+  hugo -d dist -v
+else
+  # Prep our external site to use this theme
+  /bin/bash assets/build_scripts/prep_external_site.sh
+  # Build the site
+  cd $EXTERNAL_SITE_PATH
+  hugo -d $PWD/dist -v
+fi

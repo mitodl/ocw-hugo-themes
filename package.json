@@ -5,7 +5,7 @@
   "repository": "mitodl/ocw-hugo-theme",
   "main": "assets/index.js",
   "scripts": {
-    "lint": "eslint src",
+    "lint": "eslint assets",
     "start": "./assets/build_scripts/startp.sh",
     "start:course": "./assets/build_scripts/startp_course.sh",
     "startp:site": "run-p start:site:**",
@@ -15,7 +15,7 @@
     "start:course:hugo": "./assets/build_scripts/start_course.sh",
     "start:course:webpack": "webpack-dev-server --config assets/webpack/webpack.dev.js --hot --host 0.0.0.0",
     "prebuild": "rimraf dist",
-    "build": "./assets/build_scripts/build.sh",
+    "build": "./assets/build_scripts/build.sh && npm run build:githash",
     "build:githash": "mkdir -p dist/static && git rev-parse HEAD > dist/static/hash.txt",
     "build:hugo": "hugo -d ../dist -v",
     "build:hugo:debug": "hugo -d ../dist -v --templateMetrics --debug",
@@ -24,7 +24,7 @@
     "webpack:analyze": "webpack-bundle-analyzer stats.json dist",
     "fmt": "LOG_LEVEL= prettier-eslint --write --no-semi $PWD/'assets/**/*.js' $PWD/'assets/**/*.scss'",
     "fmt:check": "LOG_LEVEL= prettier-eslint --list-different --no-semi $PWD/'assets/**/*.js' $PWD/'assets/**/*.scss'",
-    "scss_lint": "node ./node_modules/sass-lint/bin/sass-lint.js --verbose --no-exit ./src",
+    "scss_lint": "node ./node_modules/sass-lint/bin/sass-lint.js --verbose --no-exit ./assets",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:verbose": "jest --verbose"
