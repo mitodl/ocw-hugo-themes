@@ -8,9 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup env
-        run: cp .env.example .env
-
       - uses: actions/checkout@v2
       - name: Set up node.js
         uses: actions/setup-node@v2-beta
@@ -43,6 +40,7 @@ jobs:
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
+          EXTERNAL_SITE_PATH: ""
 
       - name: Deploy PR Preview to Netlify
         uses: nwtgck/actions-netlify@v1.1

@@ -4,9 +4,6 @@ jobs:
   javascript-tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup env
-        run: cp .env.example .env
-
       - uses: actions/checkout@v2
 
       - name: Set up NodeJS
@@ -36,6 +33,8 @@ jobs:
         run: npm run test
 
       - name: Webpack build
+        env: 
+          EXTERNAL_SITE_PATH: ""
         run: |
           export TMP=$(mktemp)
           echo 'ignoreErrors = ["error-remote-getjson"]' > $TMP
