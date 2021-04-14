@@ -1,4 +1,4 @@
-<a href="{{- .url -}}">
+<a href="{{- strings.TrimSuffix "/" site.BaseURL -}}{{- .url -}}">
   <div class="d-inline-flex pr-5 pb-2 font-weight-bold align-items-center">
     <i class="course-feature-icon material-icons h2 pr-2 mb-0">
       {{- if eq .feature "Course Introduction" -}}
