@@ -7,7 +7,10 @@ const Dotenv = require("dotenv-webpack")
 
 module.exports = {
   entry: {
-    main: ["@babel/polyfill", path.join(__dirname, "..", "index.js")]
+    main: ["@babel/polyfill", path.join(__dirname, "..", "index.js")],
+    course: ["@babel/polyfill", path.join(__dirname, "..", "..", "course", "assets", "course.js")],
+    instructor_insights: ["@babel/polyfill", path.join(__dirname, "..", "..", "course", "assets", "instructor-insights.js")],
+    www: ["@babel/polyfill", path.join(__dirname, "..", "..", "www", "assets", "www.js")]
   },
 
   output: {

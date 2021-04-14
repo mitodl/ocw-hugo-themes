@@ -1,14 +1,5 @@
-{{ $courseData := .Site.Data.course }}
-<title>{{- $titleArray := (slice) -}}
-{{- if .Params.Title -}}
-  {{- $titleArray = $titleArray | append .Params.Title -}}
-{{- end -}}
-{{- if $courseData.course_title -}}
-  {{- $titleArray = $titleArray | append $courseData.course_title -}}
-  {{- if $courseData.departments -}}
-    {{- $titleArray = $titleArray | append (index $courseData.departments 0) -}}
-  {{- end -}}
-{{- end -}}
+<title>
+{{- $titleArray := (slice) -}}
 {{- $titleArray = $titleArray | append $.Site.Title -}}
 {{- if lt (len $titleArray) 3 -}}
   {{- $titleArray = $titleArray | append "Free Online Course Materials" -}}

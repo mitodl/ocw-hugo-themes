@@ -1,7 +1,6 @@
 {{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
 <!doctype html>
 <html lang="{{ $.Site.Language.Lang }}">
-  {{ block "extrahead" . }}{{ end }}
   {{ partial "head.html" . }}
 <body class="course-home-page">
   {{ if $gtmId }}
@@ -77,9 +76,11 @@
   {{ partialCached "navigation_js.html" . }}
   {{ partialCached "responsive_tables_js.html" . }}
   {{- $theme := .Site.Data.webpack.main -}}
+  {{- $courseTheme := .Site.Data.webpack.course -}}
   {{- $mathjax := .Site.Data.webpack.mathjax -}}
 
   <script src="{{ partial "webpack_url.html" $theme.js }}"></script>
+  <script src="{{ partial "webpack_url.html" $courseTheme.js }}"></script>
   <script src="{{ partial "webpack_url.html" "/mathjax/tex-svg.js" }}" defer></script>
   <!-- Appzi: Capture Insightful Feedback -->
 

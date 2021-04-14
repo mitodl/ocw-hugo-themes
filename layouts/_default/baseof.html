@@ -14,6 +14,7 @@
       {{ block "main" . }}{{ end }}
     </div>
     {{ $main := .Site.Data.webpack.main }}
+    {{ block "extrajs" . }}{{ end }}
     <script src="{{ partial "webpack_url.html" $main.js }}"></script>
     <!-- Appzi: Capture Insightful Feedback -->
 

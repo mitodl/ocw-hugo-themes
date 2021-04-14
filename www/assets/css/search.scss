@@ -1,6 +1,7 @@
-@import "variables";
-@import "breakpoints";
-@import "button";
+@import "../../../assets/css/imports/reset";
+@import "../../../assets/css/bootstrap-overrides";
+@import "../../../assets/css/breakpoints";
+@import "../../../assets/css/variables";
 @import "learning-resource-card";
 @import "learning-resource-icon";
 @import "card";

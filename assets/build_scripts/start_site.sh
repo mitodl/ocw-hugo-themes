@@ -9,6 +9,8 @@ fi
 
 if [[ -z "${EXTERNAL_SITE_PATH}" ]]; then
   # Run the site without external content
+  cd www
+  hugo mod get -u
   hugo server -p 3000 --bind 0.0.0.0 --renderToDisk
 else
   /bin/bash assets/build_scripts/prep_external_site.sh

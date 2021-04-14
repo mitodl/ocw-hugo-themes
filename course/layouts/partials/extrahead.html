@@ -1,0 +1,4 @@
+{{ define "extrahead" }}
+{{ $courseTheme := .Site.Data.webpack.course }}
+<link href="{{ partial "webpack_url.html" $courseTheme.css }}" rel="stylesheet">
+{{ end }}

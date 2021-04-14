@@ -1,12 +1,10 @@
-baseURL = "http://localhost:3000/"
+baseURL = ""
 languageCode = "en-us"
 title = "MIT OpenCourseWare"
 
 [module]
   [[module.imports]]
     path = "github.com/mitodl/ocw-hugo-theme"
-  [[module.imports]]
-    path = "github.com/mitodl/ocw-hugo-theme/course"
   [[module.mounts]]
     source = "assets"
     target = "assets"

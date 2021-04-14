@@ -1,6 +1,6 @@
-import { HIDE_COURSE_INFO_TEXT, SHOW_COURSE_INFO_TEXT } from "./lib/constants"
-
 export const initDesktopCourseInfoToggle = () => {
+  const HIDE_COURSE_INFO_TEXT = "HIDE COURSE INFO"
+  const SHOW_COURSE_INFO_TEXT = "SHOW COURSE INFO"
   const toggleElement = document.getElementById("desktop-course-info-toggle")
   if (toggleElement) {
     toggleElement.addEventListener("click", () => {

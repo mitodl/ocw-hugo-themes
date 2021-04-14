@@ -1,0 +1,23 @@
+@import "../../../assets/css/imports/reset";
+@import "../../../assets/css/bootstrap-overrides";
+@import "../../../assets/css/breakpoints";
+@import "../../../assets/css/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~offcanvas-bootstrap/src/sass/bootstrap.offcanvas";
+
+@import "course-nav";
+@import "course-info";
+@import "course-home";
+@import "drawer";
+@import "pdf";
+@import "tables";
+@import "video";
+
+#course-banner {
+  color: $white;
+  background-color: $blue;
+
+  a {
+    text-decoration: none;
+  }
+}
