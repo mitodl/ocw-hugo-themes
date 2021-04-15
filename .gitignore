@@ -42,7 +42,7 @@ node_modules
 yarn-debug.log*
 yarn-error.log*
 .yarn-integrity
-data/webpack.json
+base-theme/data/webpack.json
 static/pdfjs
 static/zips
 content/courses/*

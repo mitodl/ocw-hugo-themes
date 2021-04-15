@@ -36,7 +36,7 @@ module.exports = merge(common, {
       cleanOnceBeforeBuildPatterns: [
         "dist/**/*.js",
         "dist/**/*.css",
-        "content/webpack.json"
+        "data/webpack.json"
       ]
     }),
 

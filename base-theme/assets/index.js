@@ -1,4 +1,4 @@
-import "../node_modules/tippy.js/dist/tippy.css"
+import "../../node_modules/tippy.js/dist/tippy.css"
 
 import "./css/main.scss"
 
@@ -9,7 +9,6 @@ import "shifty"
 import "hammerjs"
 import "imagesloaded"
 import "screenfull"
-
 
 import { initSentry } from "./js/sentry"
 
