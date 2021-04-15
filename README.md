@@ -46,28 +46,134 @@ For development you'll need to set a few environment variables. The
 | `AWS_BUCKET_NAME` | `open-learning-course-data-production` | The S3 bucket `ocw-to-hugo` should source course data from |
 | `OCW_TEST_COURSE` | `18-06-linear-algebra-spring-2010` | An OCW course ID to use when spinning up a course site for local development with `npm run start:course` |
 
-### Run the website
+### Hugo modules
+The various components of this theme are meant to be included in your project as modules.  To include any of them, you will need to make an edit to your `config.toml` file and place a `go.mod` alongside it.  Let's say you wanted to create a site named `my-ocw-site` using the tempaltes in the `www` theme.  First, you would add the following to your `config.toml` file:
 
-If you have content in a separate folder that you'd like to use with local development, set the `EXTERNAL_SITE_PATH` variable.  Then, run:
+```toml
+[module]
+  [[module.imports]]
+    path = "github.com/mitodl/ocw-hugo-theme/base-theme"
+  [[module.imports]]
+    path = "github.com/mitodl/ocw-hugo-theme/www"
+  [[module.mounts]]
+    source = "archetypes"
+    target = "archetypes"
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "data"
+    target = "data"
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+```
+
+Then, you would run the following commands at the root of your project to initialize your project as a module and pull in the imports we added:
+
+```bash
+hugo mod init github.com/username/my-ocw-site
+hugo mod get -u
+```
+
+After running these commands, you should have a new `go.mod` file in your project with the following contents:
+
+```
+module github.com/username/my-ocw-site
+
+go 1.16
+```
+
+The github URL should match a repository where you will store your Hugo project.  The repository does not have to exist yet.  If you want to source the modules from a folder on your hard drive add the following lines, replacing your path to `ocw-hugo-theme`.
+
+`go.mod`:
+```
+module github.com/username/my-ocw-site
+
+go 1.16
+
+replace github.com/mitodl/ocw-hugo-theme/base-theme => /path/to/ocw-hugo-theme/base-theme
+replace github.com/mitodl/ocw-hugo-theme/www => /path/to/ocw-hugo-theme/www
+
+```
+
+### Run the website locally
+
+If you have a Hugo site using this theme in another folder that you would like to run locally, set the `EXTERNAL_SITE_PATH` variable to the path to your site and run:
 
 `npm start`
 
-Keep in mind that this will deposit a `config.toml` and a `go.mod` file in your site's folder, tieing this theme to it as a module.  If these files exist in your site already, they will be overwritten.
+After a short while, your site should be available at http://localhost:3000/
 
-### Testimonials
+### Archetypes
 
-Testimonials are stored as Markdown files managed by Hugo. To create a new one
-you can use `hugo new` like this:
+The `www` theme contains a number of different archetypes with which to create content in your Hugo site.
+
+#### Pages
+
+There are generic pages that only include the header and a page title, followed by your content.  A new page can be created like this:
+
+`hugo new pages/page.md`
+
+The following file should be created at `content/pages/page.md`:
+
+```markdown
+---
+title: "Page"
+date: 2021-04-15T17:58:31-04:00
+---
+
+**Insert content here**
+
+```
+
+#### Testimonials
+
+Testimonial pages are linked from the OCW home page, and are meant to showcase student testimonials.  They can be created like this:
 
 `hugo new testimonials/firstname-lastname.md`
 
-The filename of `firstname-lastname.md` will allow hugo to automatically pull the testimonial student's name out. Once you run the command there will be a new file in `site/content/testimonials/` with some placeholder content. Edit that file to add the content for that student.
+The filename of `firstname-lastname.md` will allow hugo to automatically pull the testimonial student's name out. Once you run the command there will be a new file in `site/content/testimonials/` with some placeholder content. Edit that file to add the content for that student:
 
-### Homepage Promo Carousel
+```markdown
+---
+title: "Firstaname Lastname"
+name: "Firstaname Lastname"
+date: 2021-04-15T17:56:15-04:00
+location: ADD LOCATION
+occupation: ADD OCCUPATION
+image: /images/testimonials/[filename].jpg
+leadquote: "One sentence that stands out from the testimonial."
+---
 
-These are checked into the repo, stored as Markdown files managed by Hugo. To create a new one you can use `hugo new` like this:
+# Firstaname Lastname
 
-`hugo -s site new promos/filename.md`
+**Insert learner biography here**
+
+```
+
+#### Homepage Promo Carousel
+
+These are displayed in a carousel on the home page.  You can create a new one using:
+
+`hugo new promos/filename.md`
+
+You should get a file at `content/promos/filename.md` that looks like this:
+
+```markdown
+---
+title: "Filename"
+subtitle: 
+link_title:
+link_url: https://example.com/promo
+date: 2021-04-15T18:02:41-04:00
+image: /images/promo-carousel/[filename].jpg
+---
+
+```
 
 You'll then also need to check an image file into `static/images/promo-carousel/` and add it to the front matter in the file you just created alongside the URL for the promo. You'll also need to set a title, subtitle, and link text.
 
