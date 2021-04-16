@@ -100,7 +100,7 @@ replace github.com/mitodl/ocw-hugo-theme/www => /path/to/ocw-hugo-theme/www
 
 ```
 
-After making changes to `go.mod` you will need to run `hugo mod get -u` again.
+After making changes to `go.mod` or the module section of `config.toml` you will need to run `hugo mod get -u` again.
 
 ### Run the website locally
 
