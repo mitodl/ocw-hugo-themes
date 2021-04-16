@@ -100,6 +100,8 @@ replace github.com/mitodl/ocw-hugo-theme/www => /path/to/ocw-hugo-theme/www
 
 ```
 
+After making changes to `go.mod` you will need to run `hugo mod get -u` again.
+
 ### Run the website locally
 
 If you have a Hugo site using this theme in another folder that you would like to run locally, set the `EXTERNAL_SITE_PATH` variable to the path to your site and run:
