@@ -2,6 +2,9 @@ baseURL = ""
 languageCode = "en-us"
 title = "MIT OpenCourseWare"
 
+# Make sure errors with getJSON don't stop the build
+ignoreErrors = ["error-remote-getjson"]
+
 [module]
   [[module.imports]]
     path = "github.com/mitodl/ocw-hugo-theme/base-theme"
