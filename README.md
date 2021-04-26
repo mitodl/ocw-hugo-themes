@@ -34,8 +34,7 @@ The search page at `/search` uses the `open-discussions` search API to source re
 - [Firefox](https://addons.mozilla.org/en-US/firefox/addon/moesif-origin-cors-changer1/)
 ### Environment variables
 
-For development you'll need to set a few environment variables. The
-`.env.example` file will get you started.  Here are the variables and what they do:
+There are some environment variables you can use to configure optional funcionality such as search, `ocw-studio` API integration for new courses and news items on the home page and `ocw-to-hugo` integration to easily source existing OCW course content for testing.  The `.env.example` file will get you started.  Here are the variables and what they do:
 
 | Variable | Example | Description |
 | --- | --- | --- |
