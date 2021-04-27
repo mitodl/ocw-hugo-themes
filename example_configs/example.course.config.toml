@@ -4,9 +4,9 @@ title = "MIT OpenCourseWare"
 
 [module]
   [[module.imports]]
-    path = "github.com/mitodl/ocw-hugo-theme/base-theme"
+    path = "github.com/mitodl/ocw-hugo-themes/base-theme"
   [[module.imports]]
-    path = "github.com/mitodl/ocw-hugo-theme/course"
+    path = "github.com/mitodl/ocw-hugo-themes/course"
   [[module.mounts]]
     source = "assets"
     target = "assets"

@@ -1,8 +1,8 @@
 {
-  "name": "ocw-hugo-theme",
+  "name": "ocw-hugo-themes",
   "version": "1.11.0",
   "description": "A Hugo theme for building OCW websites",
-  "repository": "mitodl/ocw-hugo-theme",
+  "repository": "mitodl/ocw-hugo-themes",
   "main": "base-theme/assets/index.js",
   "scripts": {
     "lint": "eslint **/assets",

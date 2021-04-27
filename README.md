@@ -51,9 +51,9 @@ The various components of this theme are meant to be included in your project as
 ```toml
 [module]
   [[module.imports]]
-    path = "github.com/mitodl/ocw-hugo-theme/base-theme"
+    path = "github.com/mitodl/ocw-hugo-themes/base-theme"
   [[module.imports]]
-    path = "github.com/mitodl/ocw-hugo-theme/www"
+    path = "github.com/mitodl/ocw-hugo-themes/www"
   [[module.mounts]]
     source = "archetypes"
     target = "archetypes"
@@ -86,7 +86,7 @@ module github.com/username/my-ocw-site
 go 1.16
 ```
 
-The github URL should match a repository where you will store your Hugo project.  The repository does not have to exist yet.  If you want to source the modules from a folder on your hard drive add the following lines, replacing your path to `ocw-hugo-theme`.
+The github URL should match a repository where you will store your Hugo project.  The repository does not have to exist yet.  If you want to source the modules from a folder on your hard drive add the following lines, replacing your path to `ocw-hugo-themes`.
 
 `go.mod`:
 ```
@@ -94,8 +94,8 @@ module github.com/username/my-ocw-site
 
 go 1.16
 
-replace github.com/mitodl/ocw-hugo-theme/base-theme => /path/to/ocw-hugo-theme/base-theme
-replace github.com/mitodl/ocw-hugo-theme/www => /path/to/ocw-hugo-theme/www
+replace github.com/mitodl/ocw-hugo-themes/base-theme => /path/to/ocw-hugo-themes/base-theme
+replace github.com/mitodl/ocw-hugo-themes/www => /path/to/ocw-hugo-themes/www
 
 ```
 
