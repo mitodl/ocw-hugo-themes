@@ -1,5 +1,8 @@
+{{- $studioBaseUrl := getenv "OCW_STUDIO_BASE_URL" -}}
 <div class="new-courses course-cards standard-width container mx-auto mt-3">
-{{- with getJSON (print (strings.TrimSuffix "/" (getenv "OCW_STUDIO_BASE_URL")) "/api/websites/?type=course") -}}
+{{ if $studioBaseUrl }}
+{{- with getJSON (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/websites/?type=course") -}}
+  {{ if .results }}
   {{- $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none") "lg" (dict "size" 3 "class" "d-none d-lg-flex d-xl-none") "xl" (dict "size" 4 "class" "d-none d-xl-flex")) -}}
   <!-- list adapted from https://getbootstrap.com/docs/4.0/utilities/display/#hiding-elements -->
   {{- range $breakpoint, $carouselInfo := $breakdowns -}}
@@ -57,5 +60,9 @@
   {{- end -}}
 {{- else -}}
 Error fetching new courses
+{{- end -}}
+{{- end -}}
+{{- else -}}
+OCW Studio URL not configured
 {{- end -}}
 </div>

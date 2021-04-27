@@ -1,6 +1,8 @@
+{{- $studioBaseUrl := getenv "OCW_STUDIO_BASE_URL" -}}
 <div class="ocw-news standard-width container mx-auto">
+{{ if $studioBaseUrl }}
 {{- with getJSON (print (strings.TrimSuffix "/" (getenv "OCW_STUDIO_BASE_URL")) "/api/news/") -}}
-{{- if .items -}}
+{{- if .results -}}
   {{- $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none")) -}}
   {{- range $breakpoint, $carouselInfo := $breakdowns -}}
     {{- $itemsInCarousel := index $carouselInfo "size" -}}
@@ -13,7 +15,7 @@
           {{- partial "carousel_controls.html" $carouselId -}}
         </div>
         <div class="carousel-inner d-flex mt-2 px-0">
-        {{- range $index, $newsItem := (first 4 .items) -}}
+        {{- range $index, $newsItem := (first 4 .results) -}}
           {{- $modulo := (mod $index $itemsInCarousel) -}}
           {{- $group := (div $index $itemsInCarousel) -}}
           {{- if eq $modulo 0 -}}
@@ -39,7 +41,7 @@
   <div class="d-none d-lg-block">
     <h2 class="branded"><span>OCW</span> News</h2>
     <div class="d-grid items-grid">
-      {{- range $index, $item := (first 4 .items) -}}
+      {{- range $index, $item := (first 4 .results) -}}
         <div class="item item-{{- $index -}}"
               style="background: linear-gradient(to bottom, transparent, #777777), url({{- $item.image -}})">
           <a href="{{- $item.link.text -}}" class="py-2 px-3 text-white text-decoration-none">
@@ -55,8 +57,11 @@
       <a class="view-all-link" href="https://www.ocw-openmatters.org/">View All News Stories</a>
     </div>
   </div>
-{{- end -}}
 {{- else -}}
 Error fetching news items
+{{- end -}}
+{{- end -}}
+{{- else -}}
+OCW Studio URL not configured
 {{- end -}}
 </div>
