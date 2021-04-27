@@ -1,4 +1,4 @@
-# ocw-hugo-theme
+# ocw-hugo-themes
 
 This is a [Hugo](https://gohugo.io/) theme implemented as a [module](https://gohugo.io/hugo-modules/).  It can be used to generate pages related to the OCW website as well as OCW course sites.
 ## Local development
