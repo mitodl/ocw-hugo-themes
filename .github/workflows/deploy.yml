@@ -1,0 +1,126 @@
+name: Deploy PR build and run Lighthouse
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up node.js
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12.13.1
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --ignore-engines --prefer-offline
+
+      - name: build site
+        run: |
+          export TMP=$(mktemp)
+          echo 'ignoreErrors = ["error-remote-getjson"]' > $TMP
+          cat example_configs/example.base.config.toml >> $TMP
+          mv $TMP base-theme/config.toml
+          export EXTERNAL_SITE_PATH=base-theme
+          npm run build
+        env:
+          OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
+          SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
+          EXTERNAL_SITE_PATH: ""
+
+      - name: Deploy PR Preview to Netlify
+        uses: nwtgck/actions-netlify@v1.1
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          publish-dir: './dist'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: true
+          enable-commit-comment: false
+          overwrites-pull-request-comment: true
+          alias: ocw-www-pr-${{ github.event.number }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Deploy CI build to Netlify
+        uses: nwtgck/actions-netlify@v1.1
+        if: ${{ github.event_name == 'push' }}
+        with:
+          publish-dir: './dist'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: false
+          production-deploy: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+  lighthouse:
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' }}
+    steps:
+      - uses: actions/checkout@master
+      - run: mkdir /tmp/artifacts
+
+      - name: Set up node.js
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12.13.1
+
+      - name: Run Lighthouse
+        uses: foo-software/lighthouse-check-action@master
+        id: lighthouseCheck
+        with:
+          branch: ${{ github.ref }}
+          outputDirectory: /tmp/artifacts
+          urls: 'https://ocw-www-pr-${{ github.event.number }}--ocw-next.netlify.app/,https://ocw-www-pr-${{ github.event.number }}--ocw-next.netlify.app/search/'
+          sha: ${{ github.sha }}
+
+      - name: Set comment body
+        id: set-comment-body
+        run: |
+          body=$(echo '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
+          body="${body//'%'/'%25'}"
+          body="${body//$'\n'/'%0A'}"
+          body="${body//$'\r'/'%0D'}"
+          echo ::set-output name=body::$body
+
+      - name: Find Comment
+        uses: peter-evans/find-comment@v1
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: "Lighthouse results:"
+
+      - name: Create comment
+        if: ${{ steps.fc.outputs.comment-id == 0 }}
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: ${{ steps.set-comment-body.outputs.body }}
+
+      - name: Update comment
+        if: ${{ steps.fc.outputs.comment-id != 0 }}
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          edit-mode: replace
+          body: ${{ steps.set-comment-body.outputs.body }}

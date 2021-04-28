@@ -1,0 +1,34 @@
+<a href="{{- strings.TrimSuffix "/" site.BaseURL -}}{{- .url -}}">
+  <div class="d-inline-flex pr-5 pb-2 font-weight-bold align-items-center">
+    <i class="course-feature-icon material-icons h2 pr-2 mb-0">
+      {{- if eq .feature "Course Introduction" -}}
+      groups
+      {{- else if in .feature "Audio" -}}
+      equalizer
+      {{- else if in .feature "Video" -}}
+      theaters
+      {{- else if or (in .feature "Problem Sets") (in .feature "Assignment") -}}
+        {{- if or (in .feature "with Examples") (in .feature "with Solutions") -}}
+        assignment_turned_in
+        {{- else -}}
+        assignment
+        {{- end -}}
+      {{- else if in .feature "Exams" -}}
+      grading
+      {{- else if eq .feature "Image Gallery" -}}
+      collections
+      {{- else if eq .feature "Lecture Notes" -}}
+      notes
+      {{- else if eq .feature "Online Textbook" -}}
+      menu_book
+      {{- else if in .feature "Projects" -}}
+      group_work
+      {{- else if in .feature "Simulations" -}}
+      laptop_windows
+      {{- end -}}
+    </i>
+    <span>
+      {{- .feature -}}
+    </span>
+  </div>
+</a>

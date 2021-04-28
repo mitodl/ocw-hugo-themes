@@ -1,0 +1,31 @@
+{{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
+<head>
+  {{ block "extrahead" . }}{{ end }}
+  {{ if $gtmId }}
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','{{ $gtmId }}');</script>
+    <!-- End Google Tag Manager -->
+  {{ end }}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  {{ partial "title.html" . }}
+  {{ $theme := .Site.Data.webpack.main }}
+  <link href="{{ partial "webpack_url.html" $theme.css }}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
+  <style>
+  @font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Material Icons'),
+      local('MaterialIcons-Regular'),
+      url({{ partial "webpack_url.html" "/fonts/MaterialIcons-Regular.woff2" }}) format('woff2'),
+      url({{ partial "webpack_url.html" "/fonts/MaterialIcons-Regular.woff" }}) format('woff'),
+      url({{ partial "webpack_url.html" "/fonts/MaterialIcons-Regular.ttf" }}) format('truetype');
+  }
+  </style>
+</head>

@@ -1,0 +1,165 @@
+@import "../../../base-theme/assets/css/imports/reset";
+@import "../../../base-theme/assets/css/bootstrap-overrides";
+@import "../../../base-theme/assets/css/breakpoints";
+@import "../../../base-theme/assets/css/variables";
+@import "learning-resource-card";
+@import "learning-resource-icon";
+@import "card";
+@import "search-filter";
+
+.search-wrapper {
+  a {
+    color: black;
+  }
+
+  .search-nav {
+    background-color: transparent;
+    border: initial;
+
+    &.active {
+      color: $blue;
+      font-weight: bold;
+    }
+
+    font-size: 1rem;
+    text-decoration: none !important;
+    text-transform: uppercase;
+  }
+
+  .search-box-description {
+    font-size: 1rem;
+    letter-spacing: 0.8px;
+  }
+
+  .results-total {
+    font-size: 14px;
+  }
+
+  form.search-box {
+    input {
+      border: 1px solid $text-box-border;
+      border-radius: 5px 0 0 5px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+      height: 50px;
+      background-color: $text-box-background;
+      letter-spacing: 0.54px;
+    }
+
+    button {
+      background-color: $blue;
+      border: 0;
+      border-radius: 0 5px 5px 0;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+  }
+
+  .search-page {
+    .container {
+      max-width: $max-content-width;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .no-results-found {
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-style: italic;
+    }
+
+    .suggestions {
+      justify-content: center;
+      margin: 0;
+      font-style: italic;
+
+      a.suggestion {
+        text-decoration: underline;
+        color: $blue;
+        cursor: pointer;
+      }
+    }
+
+    .card {
+      border-color: $border-dark-color;
+
+      .card-contents {
+        padding: 13px;
+      }
+    }
+
+    h1 {
+      font-size: 34px;
+    }
+  }
+
+  .search-toggle {
+    margin-left: -15px;
+    &,
+    button {
+      color: $text-gray;
+    }
+
+    .suggestions {
+      color: black;
+    }
+  }
+
+  .search-filter-drawer-open {
+    position: fixed;
+    top: 0px;
+    height: 100%;
+    left: 0;
+    background: white;
+    width: 100%;
+    overflow: scroll;
+    z-index: 1;
+
+    .contents {
+      margin: 0 20px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: flex-end;
+
+      i {
+        margin-right: 18px;
+        margin-top: 18px;
+        font-size: 33px;
+        cursor: pointer;
+      }
+    }
+
+    .apply-filters {
+      margin: 25px;
+
+      button {
+        width: 100%;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .filter-controls {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+
+    i.material-icons {
+      font-size: 36px;
+    }
+  }
+
+  .listitem {
+    .topic-link {
+      float: left;
+      white-space: nowrap;
+    }
+  }
+}

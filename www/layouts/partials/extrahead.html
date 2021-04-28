@@ -1,0 +1,4 @@
+{{ define "extrahead" }}
+{{ $wwwTheme := .Site.Data.webpack.www }}
+<link href="{{ partial "webpack_url.html" $wwwTheme.css }}" rel="stylesheet">
+{{ end }}

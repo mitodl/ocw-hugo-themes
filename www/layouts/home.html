@@ -1,0 +1,173 @@
+{{ define "main" }}
+<div id="home-header">
+{{ block "header" . }}{{ partial "header" . }}{{ end }}
+</div>
+<div class="d-flex flex-column align-items-center home-banner" style="background-image: url(/images/homepage_hero.jpg);">
+  <div class="banner-contents-container mx-auto d-flex justify-content-start justify-content-md-around w-100 align-items-center h-100">
+    <div class="first-column m-md-2 d-flex flex-column">
+      <div class="discover font-weight-bold pb-2 md-and-above-only">
+        Discover courses, materials, &amp; teaching resources
+      </div>
+      <div class="w-100 d-flex align-items-center search-box-wrapper">
+        <form action="/search" method="GET" class="home-search-box">
+          <div class="d-flex flex-column flex-md-row p-2 p-md-0">
+            <input
+              class="w-100"
+              type="text"
+              name="q"
+              />
+            <button type="submit" class="submit btn font-weight-bold px-3 btn-primary md-and-above-only">
+              Search
+            </button>
+            <div class="sm-and-below-only d-flex pt-3">
+              <button type="submit" class="submit w-50 mr-2 btn font-weight-bold px-3 btn-primary">
+                Search
+              </button>
+              <a class="btn explore font-weight-bold w-50 ml-2 px-3 btn-primary justify-content-center" href="/search">
+                Explore
+              </a>
+            </div>
+          </div>
+        </form>
+        <span class="or font-weight-bold md-and-above-only">OR</span>
+        <a class="btn explore font-weight-bold px-3 btn-primary md-and-above-only" href="/search">
+          Explore
+        </a>
+      </div>
+      <div class="new-or-educator w-100 px-2 px-md-5 mt-md-5 py-4 d-flex flex-column flex-md-row">
+        <div class="option bordered d-md-flex flex-md-column pb-3 pb-md-0 pr-md-3">
+          <span class="font-weight-bold">Are you new to OCW?</span>
+          <a class="coming-soon">
+            Get Started
+          </a>
+        </div>
+        <div class="option d-flex flex-column pt-3 pt-md-0 pl-md-3">
+          <span class="font-weight-bold">Looking for teaching materials?</span>
+          <a class="coming-soon">
+            Educators Start Here
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="unlock d-flex flex-column py-4 px-4 px-sm-7 m-2">
+      <span class="unlocking font-weight-bold text-white">
+        Unlocking knowledge,
+        <br />
+        Empowering Minds.
+      </span>
+      <span class="text-white free pt-3">
+        Free lecture notes, exams, and videos from MIT.<br>No registration required.
+      </span>
+      <a class="coming-soon learn-more font-weight-bold">
+        Learn More about the OCW mission
+      </a>
+    </div>
+
+  </div>
+</div>
+{{ partial "promo-carousel.html" . }}
+<div class="home-page-content" style="background-image: url(/images/homepage_bg.png);">
+  {{ $pages := .Site.Pages.ByPublishDate.Reverse }}
+  {{ $coursePages := where $pages "Type" "==" "course" }}
+  {{ $childPages := where $coursePages ".Params.layout" "==" "course_home" }}
+  {{ partial "home_course_cards.html" $childPages }}
+  <div class="beta-dialog bg-dark-gray px-8 py-4 d-none">
+    <h2>Next Generation OpenCourseWare</h2>
+    <p>
+    As we approach the 20th anniversary of MIT OpenCourseWare, we are redesigning our platform and user experience.
+    This site is the first instantiation of this redesign and is being used to collect feedback from users (like you).
+    We are currently focusing on the following features (each with varying levels of completeness). Be sure to checkout the following features:
+    </p>
+    <ul>
+      <li>Updated courses pages - new experience that works on mobile and desktop.</li>
+      <li>Search - find courses and individual resources from across the OpenCourseWare catalog.</li>
+      <li>...</li>
+    </ul>
+    <p>Please let us know if you have feedback or would like to be informed of new updates.</p>
+    <div class="d-flex justify-content-end w-100">
+      <a class="small-link coming-soon">
+        <div class="btn rounded-0 bg-dark text-white w-100 px-3 py-2">CONTACT</div>
+      </a>
+      <a class="small-link coming-soon">
+        <div class="btn rounded-0 text-black w-100 ml-3 px-3 py-2">DISMISS</div>
+      </a>
+    </div>
+  </div>
+  <div class="give-now-wrapper">
+    <div class="give-now my-5 d-flex justify-content-center">
+      <div class="d-flex flex-column justify-content-center">
+        <h2>GIVE NOW</h2>
+        <h2>Your Donation Makes a Difference</h2>
+        <h4 class="font-weight-normal">MIT OpenCourseWare is supported through the generosity of people like you, who believe that unlocking knowledge can empower minds.</h4>
+      </div>
+      <div class="d-flex align-items-center pl-3-md pl-3-lg">
+        <a
+          class="p-4 give-button small-link text-white d-flex align-items-center "
+          href="https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home"
+          >
+          <h1 class="m-0 pr-2">GIVE</h1>
+          <img src="/images/heart.png" alt="heart" />
+        </a>
+      </div>
+    </div>
+  </div>
+  {{ partial "ocw_news.html" . }}
+  {{ partial "home_testimonials.html" . }}
+  <div class="social-cards-wrapper">
+    <div class="social-cards standard-width d-flex justify-content-center container">
+      <div class="row w-100">
+        <div class="social-card col-12 col-md-6">
+          <div class="d-flex flex-column justify-content-center align-items-center h-100">
+            <h5>STAY CONNECTED WITH OCW</h5>
+            <div class="d-flex social-icon-row justify-content-between">
+              <a class="img-link" href="https://www.facebook.com/MITOCW" target="_blank">
+                <img class="social-icon" src="/images/social-facebook-blue.svg" alt="facebook" />
+              </a>
+              <a class="img-link" href="https://www.instagram.com/mitocw" target="_blank">
+                <img class="social-icon" src="/images/social-instagram-blue.svg" alt="instagram" />
+              </a>
+              <a class="img-link" href="https://twitter.com/MITOCW" target="_blank">
+                <img class="social-icon" src="/images/social-twitter-blue.svg" alt="twitter" />
+              </a>
+              <a class="img-link" href="https://www.youtube.com/mitocw" target="_blank">
+                <img class="social-icon" src="/images/social-youtube-blue.svg" alt="youtube" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="social-card col-12 col-md-6 mt-3 mt-md-0">
+          <div class="d-flex flex-column justify-content-center h-100">
+            <h5>SUBSCRIBE TO THE OCW NEWSLETTER</h5>
+            {{ partial "newsletter_signup.html" }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sponsors-wrapper bg-white">
+    <div class="sponsors d-flex flex-column align-items-center mx-auto px-4 py-3 py-md-5 container-fluid">
+      <h2 class="text-uppercase">Our Corporate Sponsors</h2>
+      <div class="row">
+        <div class="col-6 col-md-4 col-xl-2 d-flex align-items-center justify-content-center py-3">
+          <img class="sponsor" src="/images/sponsor_logos/accenture.png" />
+        </div>
+        <div class="col-6 col-md-4 col-xl-2 d-flex align-items-center justify-content-center py-3">
+          <img class="sponsor" src="/images/sponsor_logos/dow.png" />
+        </div>
+        <div class="col-6 col-md-4 col-xl-2 d-flex align-items-center justify-content-center py-3">
+          <img class="sponsor" src="/images/sponsor_logos/telmex.png" />
+        </div>
+        <div class="col-6 col-md-4 col-xl-2 d-flex align-items-center justify-content-center py-3">
+          <img class="sponsor" src="/images/sponsor_logos/lockheed.png" />
+        </div>
+        <div class="col-6 col-md-4 col-xl-2 d-flex align-items-center justify-content-center py-3">
+          <img class="sponsor" src="/images/sponsor_logos/ab_initio.png" />
+        </div>
+        <div class="col-6 col-md-4 col-xl-2 d-flex align-items-center justify-content-center py-3">
+          <img class="sponsor" src="/images/sponsor_logos/mathworks.png" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

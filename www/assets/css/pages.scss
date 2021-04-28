@@ -1,0 +1,25 @@
+.page-single {
+  .page-title {
+    color: $white;
+    background-color: $blue;
+
+    @include media-breakpoint-up(lg) {
+      padding: 3.5rem 5rem;
+
+      .title-text {
+        max-width: $max-content-width;
+        font-size: 3rem;
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      padding: 1rem;
+    }
+  }
+
+  ol,
+  ul,
+  dl {
+    margin: 2rem 0;
+  }
+}

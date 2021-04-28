@@ -1,0 +1,14 @@
+{{ $youtubeVideos := where .Params.embedded_media "title" "Video-YouTube-Stream" }}
+{{ $youtubeKey := (index $youtubeVideos 0).media_location }}
+<div class="video-container">
+  <iframe
+    class="youtube-player"
+    type="text/html"
+    width="640"
+    height="385"
+    src="https://www.youtube.com/embed/{{ $youtubeKey }}"
+    allowfullscreen
+    frameborder="0"
+    >
+  </iframe>
+</div>

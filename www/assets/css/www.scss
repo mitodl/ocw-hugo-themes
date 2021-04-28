@@ -1,0 +1,13 @@
+@import "../../../base-theme/assets/css/imports/reset";
+@import "../../../base-theme/assets/css/bootstrap-overrides";
+@import "../../../base-theme/assets/css/breakpoints";
+@import "../../../base-theme/assets/css/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~offcanvas-bootstrap/src/sass/bootstrap.offcanvas";
+
+@import "carousel";
+@import "home";
+@import "testimonials";
+@import "spinner";
+@import "notification";
+@import "pages";

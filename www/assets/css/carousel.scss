@@ -1,0 +1,78 @@
+.carousel:not(.promo-carousel) {
+  max-width: $max-home-width;
+  width: 100%;
+
+  .carousel-item.active,
+  .carousel-item-next,
+  .carousel-item-prev {
+    // this is display: block in bootstrap but we want to have cards laid out properly
+    display: flex;
+  }
+
+  .carousel-inner {
+    max-width: $max-home-width;
+    width: 100%;
+
+    .carousel-item {
+      margin-left: 0;
+    }
+  }
+
+  .carousel-header {
+    max-width: $max-home-width;
+    margin: 0;
+    align-items: center;
+
+    h2,
+    h3 {
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      border: 1px solid $border-dark-color;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      margin-left: 8px;
+      padding: 6px;
+      font-size: 16px;
+      height: 38px;
+
+      @include media-breakpoint-down(xs) {
+        font-size: 12px;
+      }
+
+      span {
+        display: inline;
+      }
+
+      &.prev,
+      &.next {
+        text-decoration: none;
+      }
+
+      @include media-breakpoint-down(xs) {
+        &.next {
+          padding: 6px 2px 6px 10px;
+        }
+
+        &.prev {
+          padding: 6px 10px 6px 2px;
+        }
+      }
+    }
+  }
+
+  .item-wrapper {
+    padding: 0 10px;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+}

@@ -1,0 +1,58 @@
+@import "../../../base-theme/assets/css/variables.scss";
+
+h2 {
+  margin-bottom: 1.25rem !important;
+}
+
+p {
+  margin-bottom: 1.25rem;
+}
+
+.quotewrapper {
+  margin: 0;
+  line-height: 1.75em;
+}
+
+.quotewrapper blockquote,
+figcaption {
+  font-family: "Helvetica-Oblique", "Helvetica", sans-serif;
+  font-style: italic;
+  margin: 0;
+}
+
+.quotewrapper blockquote.quote {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: $text-gray;
+}
+
+.quotewrapper .sigwrapper {
+  display: flex;
+}
+
+.quotewrapper figcaption.sig {
+  margin-left: auto;
+  text-transform: uppercase;
+  order: 2;
+  font-size: 1.25em;
+}
+
+.approx-students {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $approx-students-red;
+  border-radius: 50%;
+  h1 {
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+  }
+
+  h1,
+  h2 {
+    color: $white !important;
+    text-transform: none !important;
+    user-select: none;
+  }
+}

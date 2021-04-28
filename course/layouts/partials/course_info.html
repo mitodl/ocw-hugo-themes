@@ -1,0 +1,59 @@
+{{ $courseId := .context.Params.course_id }}
+{{ $courseData := .context.Site.Data.course }}
+{{ $inPanel := .inPanel }}
+<div class="table-responsive course-info {{ if not $inPanel }}collapsed{{ end }}">
+  <div class="course-info-expander">
+    {{ if not $inPanel }}
+    <a class="expand-link d-flex align-items-center text-decoration-none" aria-expanded="false" href="#">
+      <h4 class="course-info-title font-weight-bold d-inline m-0">Course Info</h4>
+      <span class="material-icons">keyboard_arrow_right</span>
+    </a>
+    {{ else }}
+    <h4 class="course-info-title font-weight-bold">Course Info</h4>
+    {{ end }}
+  </div>
+  <div class="position-relative">
+    <div class="opaque-layer"></div>
+    <table class="table table-borderless {{ if $inPanel }}border-bottom-light{{ end }} mb-2">
+      <tr>
+        <td class="pl-0">{{ if eq (len $courseData.instructors) 1 }}Instructor{{ else }}Instructors{{ end }}:</td>
+        <td>
+          {{ partial "partial_collapse_list.html" (dict "list" $courseData.instructors "id" "instructors" "key" "instructor" "klass" "course-info-instructor") }}
+        </td>
+      </tr>
+      <tr>
+        <td class="pl-0">Course Number:</td>
+        <td>{{ partial "partial_collapse_list.html" (dict "list" $courseData.course_numbers "id" "course_numbers" "useLinks" false) }}</td>
+      </tr>
+      <tr>
+        <td class="pl-0">Departments:</td>
+        <td>
+          {{ partial "partial_collapse_list.html" (dict "list" $courseData.departments "id" "departments" "key" "department" "klass" "course-info-department") }}
+        </td>
+      </tr>
+      {{ if not $inPanel }}
+      <tr>
+        <td class="pl-0">Topics:</td>
+        <td>
+          {{ partial "topics_oneline.html" . }}
+        </td>
+      </tr>
+      {{ end }}
+      <tr>
+        <td class="pl-0 text-nowrap">As Taught In:</td>
+        <td>
+          {{ $courseData.term }}
+        </td>
+      </tr>
+      <tr>
+        <td class="pl-0 pb-3">Level:</td>
+        <td>
+          <a href="{{ $courseData.level.url }}" class="course-info-level">
+            {{ $courseData.level.level }}
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+

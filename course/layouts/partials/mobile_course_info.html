@@ -1,0 +1,8 @@
+<div
+  id="course-info-drawer"
+  class="bg-faded pt-3 bg-light navbar-offcanvas navbar-offcanvas-right medium-and-below-only nav-drawer"
+>
+  {{ partial "course_info.html" (dict "context" . "inPanel" true) }}
+  {{ partial "topics.html" (dict "context" . "inPanel" true) }}
+  {{ partial "course_features.html" (dict "context" . "inPanel" true) }}
+</div>

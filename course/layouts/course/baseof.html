@@ -1,0 +1,92 @@
+{{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
+<!doctype html>
+<html lang="{{ $.Site.Language.Lang }}">
+  {{ partial "head.html" . }}
+<body class="course-home-page">
+  {{ if $gtmId }}
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId }}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  {{ end }}
+  <div class="overflow-auto">
+    {{ partialCached "mobile_course_nav.html" . .Params.course_id }}
+    {{ partialCached "mobile_course_info.html" . .Params.course_id }}
+    {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
+    {{ $isCourseHomePage := (eq .Params.layout "course_home") }}
+    {{ if not $isCourseHomePage }}
+    <div class="course-info-toggle medium-and-below-only bg-light shadow-sm border border-right-0 rounded-left">
+      <div class="btn px-2 m-0 toggle navbar-toggle offcanvas-toggle text-uppercase font-weight-bold"
+        data-toggle="offcanvas" data-target="#course-info-drawer">
+        Course Info
+      </div>
+    </div>
+    {{ end }}
+    {{ block "subheader" . }}{{ partialCached "course_banner.html" . .Params.course_id }}{{ end }}
+    <div class="container-fluid">
+      <div class="row outer-wrapper">
+        {{ partialCached "desktop_nav.html" . .Params.course_id }}
+        <div class="left-col-bg"></div>
+        <div id="main-content-wrapper" class="col-lg-9 p-0 bg-white">
+          <main aria-role="main">
+            <div class="container-fluid p-0">
+              <div class="row m-0">
+                <div id="main-content" class="col-12 col-lg-{{ if $isCourseHomePage }}12{{ else }}8{{ end }} col-xl-{{ if $isCourseHomePage }}12{{ else }}8{{ end }} px-3 pl-md-5 pr-md-8 mt-3 mt-lg-6">
+                  {{ if not $isCourseHomePage }}
+                  <div class="course-info-toggle large-and-above-only bg-light shadow-sm border border-right-0 rounded-left">
+                    <div id="desktop-course-info-toggle" class="btn px-2 m-0 toggle navbar-toggle offcanvas-toggle text-uppercase font-weight-bold"
+                      data-toggle="collapse">
+                      Hide Course Info
+                    </div>
+                  </div>
+                  {{ end }}
+                  {{ block "main" . }}{{ end }}
+                </div>
+                {{ if not $isCourseHomePage }}
+                {{ partialCached "desktop_course_info.html" . .Params.course_id }}
+                {{ end }}
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+    {{ block "footer" . }}{{ partial "footer" . }}{{end}}
+  </div>
+  <script>
+    window.MathJax = {
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      displayAlign: "left",
+      displayIndent: "2em",
+      menuSettings: {
+        zoom: "Double-Click",
+        mpContext: true,
+        mpMouse: true
+      },
+      errorSettings: {
+        message: ["[Math Error]"]
+      }
+    }
+
+  </script>
+  {{ partialCached "navigation_js.html" . }}
+  {{ partialCached "responsive_tables_js.html" . }}
+  {{- $theme := .Site.Data.webpack.main -}}
+  {{- $courseTheme := .Site.Data.webpack.course -}}
+  {{- $mathjax := .Site.Data.webpack.mathjax -}}
+
+  <script src="{{ partial "webpack_url.html" $theme.js }}"></script>
+  <script src="{{ partial "webpack_url.html" $courseTheme.js }}"></script>
+  <script src="{{ partial "webpack_url.html" "/mathjax/tex-svg.js" }}" defer></script>
+  <!-- Appzi: Capture Insightful Feedback -->
+
+  <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>
+
+  <!-- End Appzi -->
+</body>
+
+</html>

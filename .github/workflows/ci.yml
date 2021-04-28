@@ -1,0 +1,47 @@
+name: CI
+on: [push]
+jobs:
+  javascript-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up NodeJS
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12.13.1
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --ignore-engines --prefer-offline
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Tests
+        run: npm run test
+
+      - name: Webpack build
+        env: 
+          EXTERNAL_SITE_PATH: ""
+        run: |
+          export TMP=$(mktemp)
+          echo 'ignoreErrors = ["error-remote-getjson"]' > $TMP
+          cat example_configs/example.base.config.toml >> $TMP
+          mv $TMP base-theme/config.toml
+          export EXTERNAL_SITE_PATH=base-theme
+          npm run build
+
+      - name: Code formatting
+        run: npm run fmt:check

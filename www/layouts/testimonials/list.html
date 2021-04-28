@@ -1,0 +1,38 @@
+{{ define "main" }}
+{{ $pages := .Site.RegularPages }}
+{{ $testimonials := where $pages "Type" "==" "testimonials" }}
+<div>
+  {{ block "header" . }}
+  {{ partialCached "header" . }}
+  {{end}}
+  <div class="testimonial-section container standard-width mx-auto mt-5">
+    <h1>OCW Testimonies</h1>
+    <h3>Share your OCW story.</h3>
+    <p>
+      We'd love to hear from you! Please share your story about how OCW has made an impact in your life. Find out how.
+    </p>
+    <div class="testimonials">
+      {{ range $testimonial := $testimonials }}
+      <div class="testimonial d-flex flex-wrap flex-sm-nowrap">
+        <div class="img-container">
+          <img src="{{ $testimonial.Params.image }}" alt="{{ $testimonial.Title }}" />
+        </div>
+        <div class="detail d-flex flex-column flex-nowrap justify-content-between p-0 ml-sm-5">
+          <div class="text">
+            <h2>{{ $testimonial.Title }}</h2>
+            <p>{{ $testimonial.Params.occupation }}</p>
+            <p class="location">{{ $testimonial.Params.location }}</p>
+            <p class="summary">
+              {{ $testimonial.Params.leadquote }}
+            </p>
+          </div>
+          <div>
+            <a href="{{ $testimonial.RelPermalink }}">Read Full Story</a>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}
