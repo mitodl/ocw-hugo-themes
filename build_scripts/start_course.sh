@@ -9,6 +9,7 @@ fi
 
 if [[ -z "${OCW_TEST_COURSE}" ]]; then
   echo "OCW_TEST_COURSE not set"
+  exit 1
 else
   mkdir -p private
   rm -f private/test_course.json
