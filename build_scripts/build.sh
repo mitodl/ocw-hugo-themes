@@ -12,7 +12,7 @@ if [[ -z "${EXTERNAL_SITE_PATH}" ]]; then
   exit 1
 else
   # Prep our external site to use this theme
-  /bin/bash base-theme/assets/build_scripts/prep_external_site.sh
+  /bin/bash build_scripts/prep_external_site.sh
   # Build the site
   cd $EXTERNAL_SITE_PATH
   hugo -d $PWD/dist -v
