@@ -33,8 +33,7 @@ jobs:
         run: |
           export TMP=$(mktemp)
           echo 'ignoreErrors = ["error-remote-getjson"]' > $TMP
-          cat base-theme/config.toml >> $TMP
-          rm base-theme/config.toml
+          cat example_configs/example.base.config.toml >> $TMP
           mv $TMP base-theme/config.toml
           npm run build
         env:
