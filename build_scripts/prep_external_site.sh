@@ -1,13 +1,17 @@
 #!/bin/bash
 
 set -euo pipefail
-ENV_FILE=.env
 
-if test -f "$ENV_FILE"; then
+if test -f ".env"; then
   export $(cat .env | xargs)
 fi
 
-cd $EXTERNAL_SITE_PATH
-hugo mod tidy
-hugo mod clean
-hugo mod get -u
+if [[ -z "${EXTERNAL_SITE_PATH}" ]]; then
+  echo "EXTERNAL_SITE_PATH not set"
+  exit 1
+else
+  cd $EXTERNAL_SITE_PATH
+  hugo mod tidy
+  hugo mod clean
+  hugo mod get -u
+fi

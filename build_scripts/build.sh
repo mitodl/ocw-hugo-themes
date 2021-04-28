@@ -2,16 +2,14 @@
 
 set -euo pipefail
 
-ENV_FILE=.env
-
-if test -f "$ENV_FILE"; then
-    export $(cat .env | xargs)
+if test -f ".env"; then
+  export $(cat .env | xargs)
 fi
 
 npm run build:webpack
 if [[ -z "${EXTERNAL_SITE_PATH}" ]]; then
-  # Build the site without external content
-  hugo -s base-theme -d dist -v
+  echo "EXTERNAL_SITE_PATH not set"
+  exit 1
 else
   # Prep our external site to use this theme
   /bin/bash base-theme/assets/build_scripts/prep_external_site.sh

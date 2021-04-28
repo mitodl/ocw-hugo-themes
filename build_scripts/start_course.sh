@@ -1,10 +1,12 @@
 #!/bin/bash
 
 set -euo pipefail
-ENV_FILE=.env
 
-if test -f "$ENV_FILE"; then
+if test -f ".env"; then
   export $(cat .env | xargs)
+else
+  echo ".env file not found"
+  exit 1
 fi
 
 if [[ -z "${OCW_TEST_COURSE}" ]]; then
