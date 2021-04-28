@@ -35,6 +35,7 @@ jobs:
           echo 'ignoreErrors = ["error-remote-getjson"]' > $TMP
           cat example_configs/example.base.config.toml >> $TMP
           mv $TMP base-theme/config.toml
+          export EXTERNAL_SITE_PATH=base-theme
           npm run build
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
