@@ -16,7 +16,7 @@ else
     mv go.mod go.mod.bak
   fi
   touch go.mod
-  printf "module github.com/mitodl/ocw-website\n\n" >> go.mod
+  printf "module github.com/mitodl/ocw-www\n\n" >> go.mod
   printf "go 1.16\n\n" >> go.mod
   printf "replace github.com/mitodl/ocw-hugo-themes/base-theme => $THEME_DIR/base-theme\n\n" >> go.mod
   printf "replace github.com/mitodl/ocw-hugo-themes/www => $THEME_DIR/www\n\n" >> go.mod
