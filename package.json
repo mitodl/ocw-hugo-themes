@@ -15,7 +15,7 @@
     "start:course:hugo": "./build_scripts/start_course.sh",
     "start:course:webpack": "webpack-dev-server --config base-theme/assets/webpack/webpack.dev.js --hot --host 0.0.0.0",
     "prebuild": "rimraf dist",
-    "build": "./build_scripts/build.sh && npm run build:githash",
+    "build": "./build_scripts/build.sh",
     "build:githash": "mkdir -p dist/static && git rev-parse HEAD > dist/static/hash.txt",
     "build:hugo": "hugo -d ../dist -v",
     "build:hugo:debug": "hugo -d ../dist -v --templateMetrics --debug",
