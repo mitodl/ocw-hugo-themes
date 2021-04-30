@@ -28,8 +28,8 @@ elif [[ -z $COURSE_BASE_URL ]]; then
   exit 1
 fi
 
-echo "Preparing course theme..."
 # Make a tmp dir for staging and create boilerplate
+echo "Preparing course theme..."
 THEME_DIR=$(pwd)
 TMP_DIR=$(mktemp -d -t ocw-course-XXXXXXXXXX)
 cd $TMP_DIR
@@ -41,10 +41,12 @@ printf "go 1.16\n\n" >> go.mod
 printf "replace github.com/mitodl/ocw-hugo-themes/base-theme => $THEME_DIR/base-theme\n\n" >> go.mod
 printf "replace github.com/mitodl/ocw-hugo-themes/course => $THEME_DIR/course\n\n" >> go.mod
 hugo mod get -u
+
 # Trim any trailing slashes from path variables
 OCW_TO_HUGO_OUTPUT_DIR=$(echo $OCW_TO_HUGO_OUTPUT_DIR | sed 's:/*$::')
 COURSE_OUTPUT_DIR=$(echo $COURSE_OUTPUT_DIR | sed 's:/*$::')
 COURSE_BASE_URL=$(echo $COURSE_BASE_URL | sed 's:/*$::')
+
 # Run hugo on all courses
 echo "Running hugo on courses in $OCW_TO_HUGO_OUTPUT_DIR..."
 for COURSE in $OCW_TO_HUGO_OUTPUT_DIR/*; do
@@ -63,5 +65,6 @@ for COURSE in $OCW_TO_HUGO_OUTPUT_DIR/*; do
     eval $HUGO_COMMAND
   fi
 done
+
 # Remove the tmp dir
 rm -rf $TMP_DIR
