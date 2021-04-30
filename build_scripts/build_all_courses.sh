@@ -6,14 +6,25 @@ if test -f ".env"; then
   export $(cat .env | xargs)
 fi
 
+# If the VERBOSE variable isn't set, default it to 0
+if [[ -z "${VERBOSE+x}" ]]; then
+  VERBOSE=0
+fi
+
 if [[ -z $OCW_TO_HUGO_OUTPUT_DIR ]]; then
-  echo "OCW_TO_HUGO_OUTPUT_DIR not set"
+  if [[ $VERBOSE == 1 ]]; then
+    echo "OCW_TO_HUGO_OUTPUT_DIR not set"
+  fi
   exit 1
 elif [[ -z $COURSE_OUTPUT_DIR ]]; then
-  echo "COURSE_OUTPUT_DIR not set"
+  if [[ $VERBOSE == 1 ]]; then
+    echo "COURSE_OUTPUT_DIR not set"
+  fi
   exit 1
 elif [[ -z $COURSE_BASE_URL ]]; then
-  echo "COURSE_BASE_URL not set"
+  if [[ $VERBOSE == 1 ]]; then
+    echo "COURSE_BASE_URL not set"
+  fi
   exit 1
 fi
 
@@ -44,15 +55,10 @@ for COURSE in $OCW_TO_HUGO_OUTPUT_DIR/*; do
     if [[ -n $COURSE_BASE_URL ]]; then
       HUGO_COMMAND="$HUGO_COMMAND --baseUrl $COURSE_BASE_URL/$COURSE_ID/"
     fi
-    if ! [[ -z "${VERBOSE+x}" ]]; then
-      if [[ $VERBOSE -ne 1 ]]; then
-        HUGO_COMMAND="$HUGO_COMMAND --quiet"
-      fi
-      if [[ $VERBOSE == 1 ]]; then
-        echo "Rendering Hugo site for $COURSE_ID..."
-      fi
-    else
+    if [[ $VERBOSE != 1 ]]; then
       HUGO_COMMAND="$HUGO_COMMAND --quiet"
+    elif [[ $VERBOSE == 1 ]]; then
+      echo "Rendering Hugo site for $COURSE_ID..."
     fi
     eval $HUGO_COMMAND
   fi
