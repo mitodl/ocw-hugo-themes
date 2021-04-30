@@ -44,10 +44,15 @@ for COURSE in $OCW_TO_HUGO_OUTPUT_DIR/*; do
     if [[ -n $COURSE_BASE_URL ]]; then
       HUGO_COMMAND="$HUGO_COMMAND --baseUrl $COURSE_BASE_URL/$COURSE_ID/"
     fi
-    if [[ $VERBOSE -ne 1 ]]; then
-      HUGO_COMMAND="$HUGO_COMMAND --quiet"
+    if ! [[ -z "${VERBOSE+x}" ]]; then
+      if [[ $VERBOSE -ne 1 ]]; then
+        HUGO_COMMAND="$HUGO_COMMAND --quiet"
+      fi
+      if [[ $VERBOSE == 1 ]]; then
+        echo "Rendering Hugo site for $COURSE_ID..."
+      fi
     else
-      echo "Rendering Hugo site for $COURSE_ID..."
+      HUGO_COMMAND="$HUGO_COMMAND --quiet"
     fi
     eval $HUGO_COMMAND
   fi
