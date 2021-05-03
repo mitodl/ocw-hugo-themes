@@ -44,6 +44,10 @@ There are some environment variables you can use to configure optional funcional
 | `OCW_TO_HUGO_PATH` | `~/Code/ocw-to-hugo/` | A path to a local override of [`ocw-to-hugo`](https://github.com/mitodl/ocw-to-hugo), a library used to generate Hugo markdown content from parsed OCW JSON exports from the legacy site |
 | `AWS_BUCKET_NAME` | `open-learning-course-data-production` | The S3 bucket `ocw-to-hugo` should source course data from |
 | `OCW_TEST_COURSE` | `18-06-linear-algebra-spring-2010` | An OCW course ID to use when spinning up a course site for local development with `npm run start:course` |
+| `OCW_TO_HUGO_OUTPUT_DIR` | `/path/to/Code/ocw-to-hugo/private/output` | Used in `build_all_courses.sh`, this path is iterated and the courses in it have `hugo` run against them to produce course sites NOTE: This must be an absolute path |
+| `COURSE_OUTPUT_DIR` | `/path/to/Code/ocw-www/public/courses` | Used in `build_all_courses.sh`, this path is where the built course sites are output to NOTE: This must be an absolute path |
+| `COURSE_BASE_URL` | `http://localhost:3000/courses` | Used in `build_all_courses.sh`, this is the `--baseUrl` argument passed to each course build iterated by the script |
+| `VERBOSE` | `0` | Used in `build_all_courses.sh`, if set to `1` this will print verbose output from the course builds to the console |
 
 ### Hugo modules
 The various components of this theme are meant to be included in your project as modules.  To include any of them, you will need to make an edit to your `config.toml` file and place a `go.mod` alongside it.  Let's say you wanted to create a site named `my-ocw-site` using the tempaltes in the `www` theme.  First, you would add the following to your `config.toml` file:
