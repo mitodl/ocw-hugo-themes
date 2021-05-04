@@ -1,7 +1,8 @@
 {{ $params := . }}
 {{ $className := .klass | default "coming-soon" }}
 {{ $useLinks := .useLinks | default true }}
-{{ if gt (len .list) 4 }}
+{{ $showCollapse := .showCollapse | default true }}
+{{ if and (gt (len .list) 4) $showCollapse }}
 <div class="position-relative pr-3">
   <a class="partial-collapse-toggle-link" href="#partial-collapse-container_{{ .id }}" data-toggle="collapse"
     aria-controls="partial-collapse-container_{{ .id }}" aria-expanded="false">

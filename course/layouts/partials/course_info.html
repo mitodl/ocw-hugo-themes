@@ -18,7 +18,7 @@
       <tr>
         <td class="pl-0">{{ if eq (len $courseData.instructors) 1 }}Instructor{{ else }}Instructors{{ end }}:</td>
         <td>
-          {{ partial "partial_collapse_list.html" (dict "list" $courseData.instructors "id" "instructors" "key" "instructor" "klass" "course-info-instructor") }}
+          {{ partial "partial_collapse_list.html" (dict "list" $courseData.instructors "id" "instructors" "key" "instructor" "klass" "course-info-instructor" "showCollapse" .inPanel) }}
         </td>
       </tr>
       <tr>
