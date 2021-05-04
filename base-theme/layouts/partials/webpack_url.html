@@ -1,4 +1,4 @@
-{{- if or site.IsServer (isset site "BaseURL") -}}
+{{- if or site.IsServer (not (eq site.BaseURL "")) -}}
   {{- if or site.IsServer (in site.BaseURL ":3000") -}}
     {{- if hasPrefix . "/" -}}
       {{- print "http://localhost:3001" . -}}
