@@ -1,4 +1,6 @@
 import { INITIAL_FACET_STATE } from "@mitodl/course-search-utils/dist/constants"
+import sinon from "sinon"
+
 import {
   CONTENT_TYPE_PAGE,
   CONTENT_TYPE_PDF,
@@ -13,6 +15,7 @@ import {
   getCoverImageUrl,
   getResourceUrl,
   getResultUrl,
+  getSectionUrl,
   LEARN_SUGGEST_FIELDS,
   RESOURCE_QUERY_NESTED_FIELDS,
   RESOURCEFILE_QUERY_FIELDS,
@@ -26,6 +29,12 @@ const activeFacets = {
 }
 
 describe("search library", () => {
+  const sandbox = sinon.createSandbox()
+
+  afterEach(() => {
+    sandbox.restore()
+  })
+
   it("form a basic text query", () => {
     const { query } = buildSearchQuery({
       text: "Dogs are the best",
@@ -319,57 +328,50 @@ describe("search library", () => {
   ;[
     [
       CONTENT_TYPE_PAGE,
-      "18-23",
-      "mech_engineering",
+      "/courses/18-23/mech_engineering/",
       null,
-      "/courses/18-23/sections/mech_engineering/"
+      "/courses/run-slug/"
     ],
     [
       CONTENT_TYPE_PAGE,
-      "18-23",
-      "mech_engineering",
+      "/courses/18-23/mech_engineering/",
       "https://cdn.example.com",
-      "/courses/18-23/sections/mech_engineering/"
+      "/courses/run-slug/"
     ],
     [
       CONTENT_TYPE_PDF,
       "https://s3.amazonaws.com/18-23/test.pdf",
-      "shortlink1",
       null,
       "https://s3.amazonaws.com/18-23/test.pdf"
     ],
     [
       CONTENT_TYPE_PDF,
       "https://s3.amazonaws.com/18-23/test.pdf",
-      "shortlink1",
       "https://cdn.example.com",
       "https://cdn.example.com/18-23/test.pdf"
     ],
     [
       CONTENT_TYPE_VIDEO,
       "https://youtube.com/?s=2335",
-      null,
       "",
       "https://youtube.com/?s=2335"
     ],
     [
       CONTENT_TYPE_VIDEO,
       "https://youtube.com/?s=2335",
-      null,
       "/coursemedia",
       "https://youtube.com/?s=2335"
     ],
-    [CONTENT_TYPE_VIDEO, "/relative/url", null, false, "/relative/url"],
-    [CONTENT_TYPE_VIDEO, "/relative/url", null, "/coursemedia", "/relative/url"]
-  ].forEach(([contentType, url, shortUrl, cdnPrefix, expectedUrl]) => {
+    [CONTENT_TYPE_VIDEO, "/relative/url", false, "/relative/url"],
+    [CONTENT_TYPE_VIDEO, "/relative/url", "/coursemedia", "/relative/url"]
+  ].forEach(([contentType, url, cdnPrefix, expectedUrl]) => {
     it(`should return correct url for content type ${contentType} if the cdn is ${
       cdnPrefix ? "" : "not "
     }set`, () => {
       process.env["CDN_PREFIX"] = cdnPrefix
       const result = {
         url,
-        short_url:    shortUrl,
-        run_slug:     url,
+        run_slug:     "run-slug",
         content_type: contentType
       }
       expect(getResourceUrl(result)).toBe(expectedUrl)
@@ -390,7 +392,7 @@ describe("search library", () => {
       }
       const expected = isCourse ?
         `/courses/${result.runs[2].slug}/` :
-        `/courses/${result.run_slug}/sections/${result.short_url}/`
+        `/courses/${result.run_slug}${getSectionUrl(result)}`
       expect(getResultUrl(result)).toBe(expected)
     })
   })
@@ -403,5 +405,42 @@ describe("search library", () => {
     expect(getResultUrl(result)).toBe(null)
     delete result.runs
     expect(getResultUrl(result)).toBe(null)
+  })
+
+  describe("getSectionUrl", () => {
+    it("returns a / for a course site", () => {
+      const result = {
+        ...makeLearningResourceResult(),
+        url: "/courses/course-id/other-course-part/"
+      }
+      expect(getSectionUrl(result)).toBe("/")
+    })
+
+    it("handles a legacy prefix gracefully", () => {
+      const result = {
+        ...makeLearningResourceResult(),
+        url: "http://ocw.mit.edu/resources/a/resource"
+      }
+      expect(getSectionUrl(result)).toBe("/")
+    })
+
+    //
+    ;["index.htm", "index.html"].forEach(suffix => {
+      it(`removes a ${suffix} from the path`, () => {
+        const result = {
+          ...makeLearningResourceResult(),
+          url: `/courses/course-id/other-piece/${suffix}`
+        }
+        expect(getSectionUrl(result)).toBe("/")
+      })
+    })
+
+    it("adds a /sections if it is pointing to a section within a course url", () => {
+      const result = {
+        ...makeLearningResourceResult(),
+        url: "/courses/course-id/other-part/path/to/a/pdf"
+      }
+      expect(getSectionUrl(result)).toBe("/sections/path/to/a/pdf")
+    })
   })
 })

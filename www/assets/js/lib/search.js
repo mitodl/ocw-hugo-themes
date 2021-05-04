@@ -460,11 +460,34 @@ export const getCourseUrl = result => {
     null
 }
 
+export const getSectionUrl = result => {
+  let url = result.url
+  // a small number of urls still start with the legacy site prefix
+  const legacyPrefix = "http://ocw.mit.edu"
+  if (url.startsWith(legacyPrefix)) {
+    url = url.slice(legacyPrefix.length)
+  }
+
+  // cut off the /courses or /resources part, and the course id too
+  const urlPieces = url.split("/").slice(4)
+  const lastPiece = urlPieces[urlPieces.length - 1]
+  if (lastPiece === "index.htm" || lastPiece === "index.html") {
+    urlPieces[urlPieces.length - 1] = ""
+  }
+  if (
+    urlPieces.length === 0 ||
+    (urlPieces.length === 1 && urlPieces[0] === "")
+  ) {
+    return "/"
+  }
+  return `/sections/${urlPieces.join("/")}`
+}
+
 export const getResourceUrl = result => {
   if (result.content_type === CONTENT_TYPE_PAGE) {
-    // Formulate URL based on run slug and short url
-    const shortUrl = result.short_url ? `sections/${result.short_url}/` : ""
-    return `/courses/${result.run_slug}/${shortUrl}`
+    // parse the url to get section pieces, then construct a new section url
+    const sectionUrl = getSectionUrl(result)
+    return `/courses/${result.run_slug}${sectionUrl}`
   } else {
     // Non-page results should have full URLs, convert to CDN if it's an S3 URL
     try {
@@ -478,7 +501,6 @@ export const getResourceUrl = result => {
     }
   }
 }
-
 export const getResultUrl = result =>
   result.object_type === LR_TYPE_COURSE ?
     getCourseUrl(result) :
