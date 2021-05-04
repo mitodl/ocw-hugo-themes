@@ -117,7 +117,7 @@ export function LearningResourceDisplay(props) {
                     text: `"${instructor}"`
                   })}`}
                 >
-                  {`Prof. ${instructor}`}{" "}
+                  {instructor}{" "}
                 </a>
               ))}
             </Subtitle>

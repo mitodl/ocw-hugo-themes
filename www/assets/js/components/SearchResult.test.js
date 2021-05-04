@@ -42,7 +42,7 @@ describe("SearchResult component", () => {
         .find(".subtitles")
         .first()
         .text()
-    ).toContain(`Prof. ${object.instructors[0]}`)
+    ).toContain(object.instructors[0])
     expect(
       wrapper
         .find(".cover-image")
