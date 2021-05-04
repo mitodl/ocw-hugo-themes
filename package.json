@@ -120,6 +120,7 @@
     "screenfull": "3.2.0",
     "shelljs": "^0.8.4",
     "shifty": "1.5.3",
+    "sinon": "^10.0.0",
     "spinkit": "^2.0.1",
     "style-loader": "^1.0.0",
     "terser-webpack-plugin": "^2.2.1",
