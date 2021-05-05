@@ -1,4 +1,4 @@
-baseURL = "http://localhost:3000/"
+baseUrl = "/"
 languageCode = "en-us"
 title = "MIT OpenCourseWare"
 
