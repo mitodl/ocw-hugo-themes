@@ -6,5 +6,5 @@
     {{- printf "%s://%s/%s" $baseUrl.Scheme $baseUrl.Host (strings.TrimPrefix "/" .) -}}
   {{- end -}}
 {{- else -}}
-  {{- . -}}
+  {{- printf "/%s" . -}}
 {{- end -}}
