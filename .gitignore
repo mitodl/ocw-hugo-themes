@@ -43,14 +43,8 @@ yarn-debug.log*
 yarn-error.log*
 .yarn-integrity
 base-theme/data/webpack.json
-static/pdfjs
-static/zips
-content/courses/*
-!content/courses/_index.md
-data/*
+!www/static/pdfjs/build
 ocw-to-hugo.*.log
-*.tgz
-zips
 
 # Unit test / coverage reports
 htmlcov/
