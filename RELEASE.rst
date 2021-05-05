@@ -1,6 +1,23 @@
 Release Notes
 =============
 
+Version 1.11.1
+--------------
+
+- Disable collapse for instructors list (#13)
+- check if site.BaseURL is set before trying to use it (#18)
+- ocw-to-hugo 1.19.0 (#9)
+- Parse URL to fix section handling (#11)
+- separate things a little bit
+- default VERBOSE in the beginning of the file to zero and check it before logging which variables are not set
+- add a note in the readme about build_all_courses path arguments needing to be absolute ptahs
+- handle VERBOSE not being defined at all, and default to it being off
+- add env variables used in build_all_courses to the example env and update the readme
+- add a script for building an entire output folder from ocw-to-hugo
+- ocw-www not ocw-website
+- modify prep_external_site to automatically add a go.mod file with replacement lines to the target site when running locally
+- output all build artifacts to external site path's dist folder
+
 Version 1.11.0 (Released April 06, 2021)
 --------------
 
