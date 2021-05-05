@@ -1,6 +1,6 @@
 {{- if or (eq site.BaseURL "") (hasPrefix site.BaseURL "/") -}}
   {{/* No BaseURL is set or it is relative to the root, so simply prefix what's passed in with "/" */}}
-  {{- printf "/%s" . -}}
+  {{- printf "/%s" (strings.TrimPrefix "/" .) -}}
 {{- else if hasPrefix site.BaseURL "http" -}}
   {{/* A fully qualified BaseURL is set, so disassemble it and construct the root URL */}}
   {{- $baseUrl := urls.Parse site.BaseURL -}}
