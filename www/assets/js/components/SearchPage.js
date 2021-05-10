@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from "react"
-import debounce from "lodash.debounce"
 import InfiniteScroll from "react-infinite-scroller"
 import { useCourseSearch } from "@mitodl/course-search-utils"
 import {
@@ -95,16 +94,6 @@ export default function SearchPage() {
     setTotal(0)
   }, [setSearchResults, setCompletedInitialLoad, setTotal])
 
-  // this callback just echos the updated params up to the URL bar
-  // we debounce b/c it gets a little bit choppy otherwise
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const setURLParam = useCallback(
-    debounce(newSearch => {
-      window.history.replaceState(null, null, `?${newSearch}`)
-    }, 300),
-    []
-  )
-
   const {
     facetOptions,
     onUpdateFacets,
@@ -121,7 +110,6 @@ export default function SearchPage() {
   } = useCourseSearch(
     runSearch,
     clearSearch,
-    setURLParam,
     facets,
     completedInitialLoad,
     SEARCH_PAGE_SIZE
