@@ -3,7 +3,6 @@
 - [ ] Screenshots and design review for any changes that affect layout or styling
   - [ ] Desktop screenshots
   - [ ] Mobile width screenshots
-  - [ ] Tag @ferdi or @pdpinch for review
 - [ ] Testing
   - [ ] Code is tested
   - [ ] Changes have been manually tested
