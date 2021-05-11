@@ -47,6 +47,16 @@
     .right {
       justify-content: flex-end;
 
+      .search-icon {
+        display: flex;
+        text-decoration: none;
+        color: $orange;
+
+        .material-icons {
+          font-size: 1.75rem;
+        }
+      }
+
       a {
         font-size: 14px;
         text-transform: uppercase;
