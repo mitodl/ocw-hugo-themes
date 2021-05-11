@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.12.1
+--------------
+
+- add in a block for extra header content, then define extra header content for the course theme (#33)
+- remove default salutation from search
+- move over code from https://github.com/mitodl/ocw-course-hugo-theme/pull/87 (#24)
+- Add to history stack on changes to search UI, and support back button (#12)
+- edit PR template to remove autotag
+
 Version 1.12.0 (Released May 11, 2021)
 --------------
 
