@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.12.0
+Version 1.12.0 (Released May 11, 2021)
 --------------
 
 - move pdfjs static build to the www theme so it's built with the main site, and only copy the files into a course build if it's running locally for development (#21)
