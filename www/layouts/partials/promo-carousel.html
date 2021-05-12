@@ -1,27 +1,38 @@
 {{ $pages := .Site.RegularPages }}
 {{ $promos := where $pages "Type" "==" "promos" }}
-<div id="carouselExampleIndicators" class="promo-carousel pt-2 carousel slide" data-ride="carousel">
+{{ $carouselId := "promo-carousel" }}
+<div id="{{ $carouselId }}" class="promo-carousel pt-2 carousel carousel-fade slide" data-interval="false">
   <ol class="carousel-indicators">
     {{ range $index, $promo := $promos }}
-    <li data-target="#carouselExampleIndicators" data-slide-to="{{ $index }}" class="{{ if eq $index 0}}active{{ end }}"></li>
+    <li data-target="#{{ $carouselId }}" data-slide-to="{{ $index }}" class="{{ if eq $index 0}}active{{ end }}" />
     {{ end }}
   </ol>
-  <div class="carousel-inner h-100">
-    {{ range $index, $promo := $promos }}
-    <div class="carousel-item {{ if eq $index 0}}active{{ end }}">
-      <div class="carousel-content d-flex m-auto align-items-center">
-        <div class="img-container p-2">
-        <img class="promo-image img-fluid" src="{{ $promo.Params.image }}" />
-        </div>
-        <div class="promo-info d-flex flex-column px-2 px-md-4 align-items-start h-100">
-          <h2>{{ $promo.Params.title }}</h2>
-          <h3>{{ $promo.Params.subtitle }}</h3>
-          <a class="btn px-3 orange-link font-weight-bold" href="{{ $promo.Params.link_url }}">
-            {{ $promo.Params.link_title }}
-          </a>
+  <div class="d-flex flex-direction-row align-items-center">
+    <a href="#{{ $carouselId }}" role="button" data-slide="prev" class="bg-white prev">
+      <span class="material-icons" aria-hidden="true">keyboard_arrow_left</span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <div class="carousel-inner h-100">
+      {{ range $index, $promo := $promos }}
+      <div class="carousel-item {{ if eq $index 0}}active{{ end }}">
+        <div class="carousel-content d-flex m-auto align-items-center bg-white">
+          <div class="img-container p-2">
+            <img class="promo-image img-fluid" src="{{ $promo.Params.image }}" alt="{{ $promo.Params.image_alt }}" />
+          </div>
+          <div class="promo-info d-flex flex-column px-2 px-md-4 align-items-start h-100">
+            <h2>{{ $promo.Params.title }}</h2>
+            <h3>{{ $promo.Params.subtitle }}</h3>
+            <a class="btn px-3 orange-link font-weight-bold" href="{{ $promo.Params.link_url }}">
+              {{ $promo.Params.link_title }}
+            </a>
+          </div>
         </div>
       </div>
+      {{ end }}
     </div>
-    {{ end }}
+    <a href="#{{ $carouselId }}" role="button" data-slide="next" class="bg-white next">
+      <span class="material-icons" aria-hidden="true">keyboard_arrow_right</span>
+      <span class="sr-only">Next</span>
+    </a>
   </div>
 </div>

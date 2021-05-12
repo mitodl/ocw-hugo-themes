@@ -458,7 +458,24 @@ $promo-carousel-height: 200px;
 
 .promo-carousel {
   max-height: $promo-carousel-height;
+  margin: 0 auto;
   margin-bottom: 30px;
+  max-width: $max-content-width;
+
+  a {
+    cursor: pointer;
+    .material-icons {
+      font-size: 60px;
+      font-weight: 200;
+      color: $text_gray;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .carousel-item {
+      transition-property: none !important;
+    }
+  }
 
   .carousel-indicators {
     margin-bottom: 0;
