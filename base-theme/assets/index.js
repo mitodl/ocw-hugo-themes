@@ -1,6 +1,7 @@
 import "../../node_modules/tippy.js/dist/tippy.css"
 
 import "./css/main.scss"
+import "video.js/dist/video-js.css"
 
 import "bootstrap"
 import Popper from "popper.js"
