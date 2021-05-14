@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.13.0
+Version 1.13.0 (Released May 14, 2021)
 --------------
 
 - table not .table (#39)
