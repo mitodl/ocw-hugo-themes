@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.14.0
+--------------
+
+- force mobile course info table to not have forced mobile style applied to it (#45)
+- Add alt text (#36)
+
 Version 1.13.0 (Released May 14, 2021)
 --------------
 
