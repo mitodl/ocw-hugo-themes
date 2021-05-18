@@ -11,6 +11,7 @@ export default function SearchBox(props) {
         onChange={onChange}
         value={value ?? ""}
         placeholder="Enter Course Name, Department, Course Number..."
+        aria-label="Enter Course Name, Department, Course Number"
       />
       <button type="submit" className="py-2 px-3">
         Search
