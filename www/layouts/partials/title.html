@@ -1,5 +1,6 @@
 <title>
 {{- $titleArray := (slice) -}}
+{{- $titleArray = $titleArray | append .Title -}}
 {{- $titleArray = $titleArray | append $.Site.Title -}}
 {{- if lt (len $titleArray) 3 -}}
   {{- $titleArray = $titleArray | append "Free Online Course Materials" -}}

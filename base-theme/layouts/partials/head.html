@@ -12,7 +12,7 @@
   {{ end }}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  {{ partial "title.html" . }}
+  {{ block "title" . }}{{ end }}
   {{ $theme := .Site.Data.webpack.main }}
   <link href="{{ partial "webpack_url.html" $theme.css }}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">

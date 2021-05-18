@@ -1,7 +1,7 @@
 {{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
 <!doctype html>
 <html lang="{{ $.Site.Language.Lang }}">
-  {{ partial "head.html" . }}
+{{ partial "head.html" . }}
 <body class="course-home-page">
   {{ if $gtmId }}
     <!-- Google Tag Manager (noscript) -->
