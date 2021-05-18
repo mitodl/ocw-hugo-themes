@@ -6,7 +6,7 @@
 {{- if $courseData.course_title -}}
   {{- $titleArray = $titleArray | append $courseData.course_title -}}
   {{- if $courseData.departments -}}
-    {{- $titleArray = $titleArray | append (index $courseData.departments 0) -}}
+    {{- $titleArray = $titleArray | append (index $courseData.departments 0).department -}}
   {{- end -}}
 {{- end -}}
 {{- $titleArray = $titleArray | append $.Site.Title -}}
