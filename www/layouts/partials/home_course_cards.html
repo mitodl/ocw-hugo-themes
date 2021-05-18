@@ -37,9 +37,9 @@
                         {{ index $courseData.course_numbers 0 }} | {{ $courseData.level }}
                       </div>
                       <div class="pt-1">
-                        <h5>
+                        <div class="h5">
                           <a href="/courses/{{ $courseData.course_id }}">{{ $courseData.course_title }}</a>
-                        </h5>
+                        </div>
                       </div>
                       <div class="pt-1">
                         <span class="card-label">Instructors(s):</span> {{ delimit (first 3 (uniq $courseData.instructors)) ", " }}
