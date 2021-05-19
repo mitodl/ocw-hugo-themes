@@ -218,7 +218,7 @@ $searchbox-height: 50px;
   @include media-breakpoint-up(lg) {
     padding: $spacer5 $spacer8;
 
-    div:not(:first-child) {
+    > div:not(:first-child) {
       padding-left: $spacer6;
     }
   }
@@ -267,7 +267,7 @@ $searchbox-height: 50px;
   }
 
   .social-card {
-    h5 {
+    .h5 {
       padding-bottom: $spacer1;
       font-size: 16px;
     }
