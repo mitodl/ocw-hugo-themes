@@ -33,6 +33,7 @@ export default function SearchPage() {
   const [suggestions, setSuggestions] = useState([])
   const [total, setTotal] = useState(0)
   const [completedInitialLoad, setCompletedInitialLoad] = useState(false)
+  const [busy, setBusy] = useState(false)
 
   const runSearch = useCallback(
     async (text, activeFacets, from) => {
@@ -41,12 +42,14 @@ export default function SearchPage() {
         activeFacets["type"] = [LR_TYPE_COURSE]
       }
 
+      setBusy(true)
       const newResults = await search({
         text,
         from,
         activeFacets,
         size: SEARCH_PAGE_SIZE
       })
+      setBusy(false)
 
       const { suggest } = newResults
       if (!emptyOrNil(suggest) && !emptyOrNil(text)) {
@@ -84,7 +87,8 @@ export default function SearchPage() {
       results,
       setTotal,
       setCompletedInitialLoad,
-      setSuggestions
+      setSuggestions,
+      setBusy
     ]
   )
 
@@ -236,23 +240,31 @@ export default function SearchPage() {
               initialLoad={false}
               loader={completedInitialLoad ? <Spinner key="spinner" /> : null}
             >
-              {completedInitialLoad ? (
-                results.length === 0 ? (
-                  <div className="no-results-found">
-                    <span>No results found for your query</span>
-                  </div>
+              <section
+                role="feed"
+                aria-busy={busy}
+                aria-label="OpenCourseWare Search Results"
+              >
+                {completedInitialLoad ? (
+                  results.length === 0 ? (
+                    <div className="no-results-found">
+                      <span>No results found for your query</span>
+                    </div>
+                  ) : (
+                    results.map((hit, idx) => (
+                      <SearchResult
+                        key={`${hit._source.title}_${idx}`}
+                        id={`${hit._source.title}_${idx}`}
+                        index={idx}
+                        object={searchResultToLearningResource(hit._source)}
+                        searchResultLayout={SEARCH_LIST_UI}
+                      />
+                    ))
+                  )
                 ) : (
-                  results.map((hit, idx) => (
-                    <SearchResult
-                      key={`${hit._source.title}_${idx}`}
-                      object={searchResultToLearningResource(hit._source)}
-                      searchResultLayout={SEARCH_LIST_UI}
-                    />
-                  ))
-                )
-              ) : (
-                <Loading />
-              )}
+                  <Loading />
+                )}
+              </section>
             </InfiniteScroll>
           </div>
           <div className="col-12 col-lg-3" />

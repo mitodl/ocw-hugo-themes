@@ -4,41 +4,25 @@ import Dotdotdot from "react-dotdotdot"
 
 const featuredFacetNames = ["audience", "certification"]
 
-function updateFacetCheckbox(props) {
-  const { facet, isChecked, name, onUpdate } = props
-  onUpdate({
-    target: {
-      name,
-      value:   facet.key,
-      checked: !isChecked
-    }
-  })
-}
-
 export default function SearchFacetItem(props) {
   const { facet, isChecked, onUpdate, labelFunction, name } = props
 
   const labelText = labelFunction ? labelFunction(facet.key) : facet.key
 
+  const facetId = `${name}-${facet.key}`
   return (
-    <div
-      className={isChecked ? "facet-visible checked" : "facet-visible"}
-      onClick={() => updateFacetCheckbox(props)}
-      onKeyPress={e => {
-        if (e.key === "Space") {
-          updateFacetCheckbox(props)
-        }
-      }}
-    >
+    <div className={isChecked ? "facet-visible checked" : "facet-visible"}>
       <input
         type="checkbox"
+        id={facetId}
         name={name}
         value={facet.key}
         checked={isChecked}
         onChange={onUpdate}
       />
       <div className="facet-label-div">
-        <div
+        <label
+          htmlFor={facetId}
           className={
             featuredFacetNames.includes(name) ?
               "facet-key facet-key-large" :
@@ -46,7 +30,7 @@ export default function SearchFacetItem(props) {
           }
         >
           <Dotdotdot clamp={1}>{labelText}</Dotdotdot>
-        </div>
+        </label>
         <div className="facet-count">{facet.doc_count}</div>
       </div>
     </div>

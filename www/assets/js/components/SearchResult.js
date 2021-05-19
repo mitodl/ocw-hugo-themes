@@ -46,21 +46,28 @@ const CoverImage = ({ object }) => (
   </div>
 )
 
+const makeIdTitle = id => `${id}-title`
 export default function SearchResult(props) {
-  const { searchResultLayout, object } = props
+  const { searchResultLayout, object, id, index } = props
 
   return object.url ? (
-    <Card
-      className={getClassName(searchResultLayout)}
-      borderless={searchResultLayout === SEARCH_GRID_UI}
+    <article
+      aria-labelledby={makeIdTitle(id)}
+      aria-setsize="-1"
+      aria-posinset={index}
     >
-      <LearningResourceDisplay {...props} />
-    </Card>
+      <Card
+        className={getClassName(searchResultLayout)}
+        borderless={searchResultLayout === SEARCH_GRID_UI}
+      >
+        <LearningResourceDisplay {...props} />
+      </Card>
+    </article>
   ) : null
 }
 
 export function LearningResourceDisplay(props) {
-  const { object, searchResultLayout } = props
+  const { object, searchResultLayout, id } = props
   const isResource = object.object_type === LR_TYPE_RESOURCEFILE
 
   return (
@@ -85,7 +92,9 @@ export function LearningResourceDisplay(props) {
           {object.url ? (
             <a href={object.url} className="w-100">
               <Dotdotdot clamp={3}>
-                {object.content_title || object.title}
+                <span id={makeIdTitle(id)}>
+                  {object.content_title || object.title}
+                </span>
               </Dotdotdot>
             </a>
           ) : (

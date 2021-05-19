@@ -81,6 +81,11 @@
       flex-direction: row;
       justify-content: space-between;
       width: 100%;
+
+      label {
+        cursor: pointer;
+        margin-bottom: 0;
+      }
     }
 
     .facet-key {
