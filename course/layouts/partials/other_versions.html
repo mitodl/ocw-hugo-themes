@@ -1,6 +1,7 @@
 {{ $courseId := .Params.course_id }}
 {{ $courseData := .Site.Data.course }}
 {{ $otherVersions := .Params.other_versions }}
+{{ if gt (len $otherVersions) 0}}
 <div class="course-home-section w-100">
   <div class="container px-0 mx-0">
     <h4 class="course-info-title font-weight-bold">OTHER {{ index $courseData.course_numbers 0  }} OFFERINGS ON OPENCOURSEWARE</h4>
@@ -12,3 +13,4 @@
     </ul>
   </div>
 </div>
+{{ end }}
