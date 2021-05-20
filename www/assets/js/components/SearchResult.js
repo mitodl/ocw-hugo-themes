@@ -54,7 +54,8 @@ export default function SearchResult(props) {
     <article
       aria-labelledby={makeIdTitle(id)}
       aria-setsize="-1"
-      aria-posinset={index}
+      aria-posinset={index + 1}
+      tabIndex={0}
     >
       <Card
         className={getClassName(searchResultLayout)}
