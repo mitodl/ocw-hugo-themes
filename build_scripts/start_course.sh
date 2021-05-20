@@ -34,5 +34,5 @@ else
   cp -r www/static/pdfjs/* private/ocw-to-hugo-output/$OCW_TEST_COURSE/static/pdfjs
   cd private/ocw-to-hugo-output/$OCW_TEST_COURSE
   hugo mod get -u
-  hugo server -p 3000 --bind 0.0.0.0 --renderToDisk --gc
+  hugo server -p 3000 --bind 0.0.0.0 --renderToDisk
 fi
