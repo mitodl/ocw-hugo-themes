@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.15.0
+Version 1.15.0 (Released May 20, 2021)
 --------------
 
 - other versions (#44)
