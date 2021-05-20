@@ -41,13 +41,14 @@ There are some environment variables you can use to configure optional funcional
 | `SEARCH_API_URL` | `http://localhost:8063/api/v0/search/` | A URL to an `open-discussions` search API to fetch results from|
 | `OCW_STUDIO_BASE_URL` | `http://localhost:8043/` | A URL of an instance of [`ocw-studio`](https://github.com/mitodl/ocw-studio) to fetch home page content from |
 | `EXTERNAL_SITE_PATH` | `~/Code/ocw-www/site/` | A path to a Hugo site with content (Pages, Notifications, Promos, Testimonials) to use for local development |
-| `OCW_TO_HUGO_PATH` | `~/Code/ocw-to-hugo/` | A path to a local override of [`ocw-to-hugo`](https://github.com/mitodl/ocw-to-hugo), a library used to generate Hugo markdown content from parsed OCW JSON exports from the legacy site |
 | `AWS_BUCKET_NAME` | `open-learning-course-data-production` | The S3 bucket `ocw-to-hugo` should source course data from |
 | `OCW_TEST_COURSE` | `18-06-linear-algebra-spring-2010` | An OCW course ID to use when spinning up a course site for local development with `npm run start:course` |
-| `OCW_TO_HUGO_OUTPUT_DIR` | `/path/to/Code/ocw-to-hugo/private/output` | Used in `build_all_courses.sh`, this path is iterated and the courses in it have `hugo` run against them to produce course sites NOTE: This must be an absolute path |
+| `OCW_TO_HUGO_PATH` | `~/Code/ocw-to-hugo/` | A path to a local override of [`ocw-to-hugo`](https://github.com/mitodl/ocw-to-hugo), a library used to generate Hugo markdown content from parsed OCW JSON exports from the legacy site |\
+| `OCW_TO_HUGO_OUTPUT_DIR` | `/path/to/Code/ocw-to-hugo/private/output` | Used in `build_all_courses.sh`, this path is iterated and the courses in it have `hugo` run against them to produce course sites.  When running `npm run start:course`, if `DOWNLOAD` is set to 0 the course data will be sourced from this directory. NOTE: This must be an absolute path |
 | `COURSE_OUTPUT_DIR` | `/path/to/Code/ocw-www/public/courses` | Used in `build_all_courses.sh`, this path is where the built course sites are output to NOTE: This must be an absolute path |
 | `COURSE_BASE_URL` | `http://localhost:3000/courses` | Used in `build_all_courses.sh`, this is the `--baseUrl` argument passed to each course build iterated by the script |
 | `VERBOSE` | `0` | Used in `build_all_courses.sh`, if set to `1` this will print verbose output from the course builds to the console |
+| `DOWNLOAD` | `1` | Used in `npm run start:course`, if set to `0` this will not download course data from S3 and instead source `OCW_TEST_COURSE` from the specified `OCW_TO_HUGO_OUTPUT_DIR`. If not specified, it will default to 1 and try to download data from S3. |
 
 ### Hugo modules
 The various components of this theme are meant to be included in your project as modules.  To include any of them, you will need to make an edit to your `config.toml` file and place a `go.mod` alongside it.  Let's say you wanted to create a site named `my-ocw-site` using the tempaltes in the `www` theme.  First, you would add the following to your `config.toml` file:
