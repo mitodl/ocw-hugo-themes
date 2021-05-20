@@ -34,7 +34,7 @@
     font-size: 16px;
   }
 
-  .course-features {
+  .course-home-section {
     padding: 40px 80px;
 
     @include media-breakpoint-down(md) {
@@ -51,6 +51,13 @@
 
     .course-feature-icon {
       color: #ff8924;
+    }
+
+    .other-version-list {
+      a {
+        text-decoration: underline;
+        color: $blue;
+      }
     }
   }
 }
