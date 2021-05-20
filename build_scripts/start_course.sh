@@ -9,7 +9,7 @@ else
   exit 1
 fi
 
-# If the DOWNLOAD variable isn't set, default it to 0
+# If the DOWNLOAD variable isn't set, default it to 1
 if [[ -z "${DOWNLOAD+x}" ]]; then
   DOWNLOAD=1
 fi
