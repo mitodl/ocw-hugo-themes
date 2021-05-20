@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.15.0
+--------------
+
+- other versions (#44)
+- Update some headers to remove accessibility warning (#48)
+- Add labels for a couple input fields (#51)
+- Accessibility improvements for search (#49)
+- switch from node-sass to sass
+- fix title tag generation (#50)
+
 Version 1.14.0 (Released May 17, 2021)
 --------------
 
