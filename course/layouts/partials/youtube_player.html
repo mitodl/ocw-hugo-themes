@@ -1,5 +1,3 @@
-{{ $youtubeVideos := where .Params.embedded_media "title" "Video-YouTube-Stream" }}
-{{ $youtubeKey := (index $youtubeVideos 0).media_location }}
 <div class="video-container">
   <video
     id="vid1"
@@ -9,6 +7,6 @@
     width="640" height="385"
     data-setup='{
     "techOrder": ["youtube"],
-    "sources": [{"type": "video/youtube", "src": "https://www.youtube.com/watch?v={{ $youtubeKey }}"}]}'
+    "sources": [{"type": "video/youtube", "src": "https://www.youtube.com/watch?v={{ . }}"}]}'
   ></video>
 </div>
