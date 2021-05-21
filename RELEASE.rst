@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.15.1
+Version 1.15.1 (Released May 21, 2021)
 --------------
 
 - check length before rendering (#58)
