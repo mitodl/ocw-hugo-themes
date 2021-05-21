@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.15.1
+--------------
+
+- check length before rendering (#58)
+- allow launching of an externally converted course (#47)
+
 Version 1.15.0 (Released May 20, 2021)
 --------------
 
