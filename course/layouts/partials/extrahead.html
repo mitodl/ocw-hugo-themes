@@ -1,5 +1,9 @@
-{{ define "title" }}{{ partial "title.html" . }}{{ end }}
-{{ define "extrahead" }}
-{{ $courseTheme := .Site.Data.webpack.course }}
-<link href="{{ partial "webpack_url.html" $courseTheme.css }}" rel="stylesheet">
+{{- define "title" -}}{{ partial "title.html" . }}{{- end -}}
+{{- define "extrahead" -}}
+{{- $instructorInsights := .Site.Data.webpack.instructor_insights -}}
+{{- $courseTheme := .Site.Data.webpack.course -}}
+{{ if in .Page "instructor-insights" }}
+<link href="{{ partial "webpack_url.html" $instructorInsights.css }}" rel="stylesheet">
 {{ end }}
+<link href="{{ partial "webpack_url.html" $courseTheme.css }}" rel="stylesheet">
+{{- end -}}
