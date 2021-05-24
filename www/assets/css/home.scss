@@ -92,6 +92,10 @@ $searchbox-height: 50px;
 
         .home-search-box {
           flex-grow: 2;
+
+          input {
+            padding-left: 12px;
+          }
         }
 
         input {
