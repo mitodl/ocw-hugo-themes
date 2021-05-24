@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.15.2
+--------------
+
+- Tweaks to search accessibility page (#56)
+- Add padding to search textbox (#61)
+- Adjust color of notification banner and link text (#60)
+
 Version 1.15.1 (Released May 21, 2021)
 --------------
 
