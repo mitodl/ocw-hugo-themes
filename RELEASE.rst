@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.15.2
+Version 1.15.2 (Released May 24, 2021)
 --------------
 
 - Tweaks to search accessibility page (#56)
