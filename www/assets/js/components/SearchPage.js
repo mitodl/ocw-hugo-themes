@@ -254,7 +254,7 @@ export default function SearchPage() {
                     results.map((hit, idx) => (
                       <SearchResult
                         key={`${hit._source.title}_${idx}`}
-                        id={`${hit._source.title}_${idx}`}
+                        id={`search-result-${idx}`}
                         index={idx}
                         object={searchResultToLearningResource(hit._source)}
                         searchResultLayout={SEARCH_LIST_UI}
