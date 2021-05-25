@@ -26,8 +26,10 @@
   a:link {
     color: $course-content-link-unclicked;
   }
-  
-  a:visited, a:hover, a:active {
+
+  a:visited,
+  a:hover,
+  a:active {
     color: $course-content-link-hover-clicked;
   }
 }
