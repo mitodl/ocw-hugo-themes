@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.16.0
+Version 1.16.0 (Released May 25, 2021)
 --------------
 
 - Switch to div for subscribe title (#68)
