@@ -544,10 +544,6 @@ $promo-carousel-height: 200px;
 
       @include media-breakpoint-down(xs) {
         width: 100%;
-
-        a.orange-link {
-          width: 100%;
-        }
       }
     }
   }
