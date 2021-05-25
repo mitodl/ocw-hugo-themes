@@ -29,6 +29,7 @@ $(document).ready(() => {
         "qualitySelector",
         "fullscreenToggle"
       ]
-    }
+    },
+    youtube: { cc_lang_pref: 1, cc_load_policy: 1 }
   })
 })
