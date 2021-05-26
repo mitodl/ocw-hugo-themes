@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.16.1
+Version 1.16.1 (Released May 26, 2021)
 --------------
 
 - fix instructor insights styles (#64)
