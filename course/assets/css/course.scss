@@ -21,3 +21,15 @@
     text-decoration: none;
   }
 }
+
+#main-content article.content {
+  a:link {
+    color: $course-content-link-unclicked;
+  }
+
+  a:visited,
+  a:hover,
+  a:active {
+    color: $course-content-link-hover-clicked;
+  }
+}
