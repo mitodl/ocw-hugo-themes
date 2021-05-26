@@ -72,7 +72,7 @@
   {{ $coursePages := where $pages "Type" "==" "course" }}
   {{ $childPages := where $coursePages ".Params.layout" "==" "course_home" }}
   {{ partial "home_course_cards.html" $childPages }}
-  <div class="beta-dialog bg-dark-gray px-8 py-4 d-none">
+  <div class="beta-dialog bg-light px-8 py-4 d-none">
     <h2>Next Generation OpenCourseWare</h2>
     <p>
     As we approach the 20th anniversary of MIT OpenCourseWare, we are redesigning our platform and user experience.

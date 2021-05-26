@@ -1,5 +1,5 @@
 {{- $href := .Get "href" -}}
-<div class="mb-2 border-light-gray rounded video-gallery-card">
+<div class="mb-2 border-gray rounded video-gallery-card">
   {{- with .Site.GetPage $href }}
   <a class="video-link" href="{{- .URL -}}">
   {{ else }}

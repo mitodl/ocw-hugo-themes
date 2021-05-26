@@ -1,4 +1,4 @@
-$border-style: 1px solid $border-dark-color;
+$border-style: 1px solid $medium-gray;
 $row-padding: 20px;
 $row-max-height: 200px;
 
@@ -66,6 +66,6 @@ $row-max-height: 200px;
     font-size: 20px;
     font-weight: 600;
     font-style: italic;
-    color: $font-gray-mid;
+    color: $medium-gray;
   }
 }

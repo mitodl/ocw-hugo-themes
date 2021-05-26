@@ -205,14 +205,6 @@ table {
   background-color: $light-gray !important;
 }
 
-.bg-darker-gray {
-  background-color: $darker-gray;
-}
-
-.bg-dark-gray {
-  background-color: $dark-gray;
-}
-
 .bg-blue {
   background-color: $blue;
 }
@@ -229,13 +221,9 @@ table {
   }
 }
 
-.text-dark-gray {
-  color: $dark-gray;
-}
-
 .icon-text-box-wrapper {
-  border: 0.5px solid $text-box-border;
-  background-color: $text-box-background;
+  border: 0.5px solid $medium-gray;
+  background-color: $light-gray;
 }
 
 .container-fluid {
@@ -268,20 +256,16 @@ table {
   font-feature-settings: "liga";
 }
 
-.border-left-light {
-  border-left: 1px solid $border-light-color;
+.border-left-gray {
+  border-left: 1px solid $medium-gray;
 }
 
-.border-bottom-light {
-  border-bottom: 1px solid $border-light-color;
+.border-bottom-gray {
+  border-bottom: 1px solid $medium-gray;
 }
 
-.border-light-gray {
-  border: 1px solid $border-gray;
-}
-
-.border-dark-gray {
-  border: 1px solid $border-dark-gray;
+.border-gray {
+  border: 1px solid $medium-gray;
 }
 
 .content {
@@ -321,7 +305,7 @@ article.content {
       }
 
       tr:nth-child(even) {
-        background-color: $bg-light-gray;
+        background-color: $light-gray;
       }
 
       td {
@@ -337,5 +321,5 @@ article.content {
 
 .course-section-title-container {
   max-width: 795px;
-  border-bottom: 1px solid $border-dark-color;
+  border-bottom: 1px solid $medium-gray;
 }
