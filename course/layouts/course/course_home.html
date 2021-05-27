@@ -42,7 +42,7 @@
         {{ partial "course_features.html" (dict "context" . "inPanel" false) }}
       </div>
     </div>
-    {{ if not (eq .Params.other_versions_text "")  }}
+    {{ if gt (len $courseData.other_versions) 0}}
     <div class="row px-lg-3 pb-lg-2 p-0">
       <div class="col-12 p-0">
         {{ partial "other_versions.html" . }}
