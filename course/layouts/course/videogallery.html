@@ -2,7 +2,7 @@
 {{ $page := . }}
 {{ partial "course_content.html" . }}
 {{ range $index, $video := (where .Pages ".Params.layout" "video") }}
-  <div class="mb-2 border-light-gray rounded video-gallery-card">
+  <div class="mb-2 border-gray rounded video-gallery-card">
     <a class="video-link" href="{{ $video.Permalink }}">
       <div class="inner-container">
         <div class="left-col">

@@ -6,7 +6,7 @@
       position: absolute;
       right: 5px;
       top: 8px;
-      color: $font-gray;
+      color: $medium-gray;
     }
 
     i.clear-icon {
@@ -17,13 +17,13 @@
   input.facet-filter {
     background-color: initial;
     border-radius: 0;
-    border: 1px solid $podcast-border-gray;
+    border: 1px solid $medium-gray;
     padding: 10px;
     margin-bottom: 5px;
     width: 100%;
 
     &::placeholder {
-      color: $font-gray;
+      color: $medium-gray;
       line-height: unset;
     }
   }
@@ -93,7 +93,7 @@
     }
 
     .facet-count {
-      color: $font-gray-mid;
+      color: $medium-gray;
     }
   }
 
@@ -124,13 +124,13 @@
 
   .active-search-filter {
     margin: 0px 5px 9px 0px;
-    background-color: $bg-light-gray;
+    background-color: $light-gray;
     padding: 6px 10px;
     font-size: 14px;
     display: inline-flex;
     align-items: center;
     flex-wrap: nowrap;
-    border: 1px solid $font-gray-mid;
+    border: 1px solid $medium-gray;
     border-radius: 14px;
 
     .remove-filter {

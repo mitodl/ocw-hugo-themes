@@ -283,7 +283,7 @@ $searchbox-height: 50px;
 
     > div {
       background-color: $white;
-      border: 1px solid $border-darker-gray;
+      border: 1px solid $medium-gray;
       border-radius: 5px;
       padding: $spacer4 $spacer6;
 
@@ -325,7 +325,7 @@ $searchbox-height: 50px;
   }
 
   .course-card {
-    border: 1px solid $border-gray;
+    border: 1px solid $medium-gray;
 
     $radius: 10px;
 
@@ -346,14 +346,14 @@ $searchbox-height: 50px;
 
     .course-level {
       text-transform: uppercase;
-      color: $font-gray-mid;
+      color: $medium-gray;
     }
 
     .course-card-content {
       font-size: 12px;
 
       .card-label {
-        color: $give-heart-gray;
+        color: $medium-gray;
       }
     }
   }
@@ -472,7 +472,7 @@ $promo-carousel-height: 200px;
     .material-icons {
       font-size: 60px;
       font-weight: 200;
-      color: $text_gray;
+      color: $medium-gray;
     }
   }
 

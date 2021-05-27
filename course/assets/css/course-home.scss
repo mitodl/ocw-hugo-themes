@@ -9,7 +9,7 @@
   }
 
   .image-with-caption {
-    border: 1px solid $border-dark-color;
+    border: 1px solid $medium-gray;
     border-radius: 10px;
 
     img {
@@ -19,7 +19,7 @@
     }
 
     .caption {
-      border-top: 1px solid $border-dark-color;
+      border-top: 1px solid $medium-gray;
 
       p {
         margin-bottom: 0;

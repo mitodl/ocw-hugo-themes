@@ -1,6 +1,6 @@
 {{ $courseId := .context.Params.course_id }}
 {{ $courseData := .context.Site.Data.course }}
-<div class="border-bottom-light mb-2">
+<div class="border-bottom-gray mb-2">
   <h4 class="course-info-title font-weight-bold">Topics</h4>
   <ul class="list-unstyled pb-2 m-0">
     {{ range $index, $topic := $courseData.topics }}
