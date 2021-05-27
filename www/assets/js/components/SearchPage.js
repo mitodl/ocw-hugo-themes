@@ -165,7 +165,7 @@ export default function SearchPage() {
           </div>
           <div className="col-lg-3" />
         </div>
-        <div className="row">
+        <div className="row" role="search" aria-live="polite">
           <SearchFilterDrawer
             facetMap={facetMap}
             facetOptions={facetOptions}

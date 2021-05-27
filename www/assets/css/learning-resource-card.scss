@@ -128,7 +128,7 @@
           }
 
           .gray {
-            color: $medium-gray;
+            color: $dark-gray;
             padding-right: 10px;
             min-width: fit-content;
           }
@@ -143,7 +143,7 @@
     &.resource-type-audience-certificates {
       .resource-type {
         font-size: 14px;
-        color: $medium-gray;
+        color: $dark-gray;
         text-transform: uppercase;
         font-weight: 400;
       }
