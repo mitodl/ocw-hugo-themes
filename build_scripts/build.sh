@@ -17,7 +17,7 @@ else
   GIT_HASH=`git rev-parse HEAD`
   npm run build:webpack --  --output-path=$EXTERNAL_SITE_PATH/dist
   cd $EXTERNAL_SITE_PATH
-  hugo -d dist -v
-  mkdir -p dist/static 
+  hugo -d dist -v --log
+  mkdir -p dist/static
   printf $GIT_HASH >> dist/static/hash.txt
 fi

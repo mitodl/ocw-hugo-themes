@@ -35,24 +35,23 @@ jobs:
           echo 'ignoreErrors = ["error-remote-getjson"]' > $TMP
           cat example_configs/example.base.config.toml >> $TMP
           mv $TMP base-theme/config.toml
-          export EXTERNAL_SITE_PATH=base-theme
           npm run build
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
-          EXTERNAL_SITE_PATH: ""
+          EXTERNAL_SITE_PATH: "base-theme"
 
       - name: Deploy PR Preview to Netlify
         uses: nwtgck/actions-netlify@v1.1
         if: ${{ github.event_name == 'pull_request' }}
         with:
-          publish-dir: './dist'
+          publish-dir: './base-theme/dist'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: true
           enable-commit-comment: false
           overwrites-pull-request-comment: true
-          alias: ocw-www-pr-${{ github.event.number }}
+          alias: ocw-hugo-themes-pr-${{ github.event.number }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
@@ -61,7 +60,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.1
         if: ${{ github.event_name == 'push' }}
         with:
-          publish-dir: './dist'
+          publish-dir: './base-theme/dist'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: false
@@ -90,7 +89,7 @@ jobs:
         with:
           branch: ${{ github.ref }}
           outputDirectory: /tmp/artifacts
-          urls: 'https://ocw-www-pr-${{ github.event.number }}--ocw-next.netlify.app/,https://ocw-www-pr-${{ github.event.number }}--ocw-next.netlify.app/search/'
+          urls: 'https://ocw-hugo-themes-pr-${{ github.event.number }}--ocw-next.netlify.app/,https://ocw-hugo-themes-pr-${{ github.event.number }}--ocw-next.netlify.app/search/'
           sha: ${{ github.sha }}
 
       - name: Set comment body
