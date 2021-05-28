@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.16.2
+--------------
+
+- other versions to data template (#75)
+- Change label color for course info and metadata labels (#53)
+
 Version 1.16.1 (Released May 26, 2021)
 --------------
 
