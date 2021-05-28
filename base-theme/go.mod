@@ -1,3 +1,3 @@
-module github.com/mitodl/ocw-hugo-themes/tree/release/base-theme
+module github.com/mitodl/ocw-hugo-themes/tree/cg/release-branch-mod-test/base-theme
 
 go 1.16
