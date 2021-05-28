@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.16.2
+Version 1.16.2 (Released May 28, 2021)
 --------------
 
 - other versions to data template (#75)
