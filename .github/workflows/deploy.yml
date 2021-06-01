@@ -29,13 +29,16 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile --ignore-engines --prefer-offline
 
+      - name: Clone ocw-www for config
+        run: (cd ..; git clone https://github.com/mitodl/ocw-www)
+
       - name: build site
         run: |
           npm run build
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
-          EXTERNAL_SITE_PATH: "base-theme"
+          EXTERNAL_SITE_PATH: "../ocw-www"
 
       - name: Deploy PR Preview to Netlify
         uses: nwtgck/actions-netlify@v1.1
