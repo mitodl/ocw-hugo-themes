@@ -8,7 +8,7 @@
 <div class="homepage-content d-flex">
   <div class="container-fluid pt-0 pb-4">
     <div class="row px-3 pb-2 justify-content-between">
-      <div class="col-lg-4 d-none d-lg-block">
+      <div class="col-lg-4 d-none d-lg-block pl-0">
         <div class="d-flex flex-column image-with-caption">
           <img class="course-image" src="
             {{- if hasPrefix $courseImageUrl "http" -}}
@@ -25,12 +25,12 @@
       </div>
       {{ partial "mobile_nav_toggle.html" . }}
       <div class="col-lg-8 course-description {{ if $shouldCollapseContent }}collapsed{{ end }}">
-        <h4 class="font-weight-bold pt-2 course-description-title">Course Description</h4>
-        <div class="mb-3 description">{{- .Content -}}</div>
+        <h4 class="font-weight-bold course-description-title">Course Description</h4>
+        <div class="mb-1 description">{{- .Content -}}</div>
         <div class="mb-3">
           {{ if $shouldCollapseContent }}
             <button class="expand-link" aria-expanded="false">
-              <span class="text">Read More</span> <i class="material-icons">keyboard_arrow_right</i>
+              <span class="text">Read More</span>
             </button>
           {{ end }}
         </div>

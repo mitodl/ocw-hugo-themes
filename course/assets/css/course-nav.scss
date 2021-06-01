@@ -49,11 +49,7 @@
 }
 
 .course-nav-section-toggle {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 0;
-  z-index: 1;
+  margin-left: 20px;
 }
 
 .course-nav-section-toggle > i:after {

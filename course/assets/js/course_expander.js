@@ -1,16 +1,21 @@
 const toggleExpand = (button, container) => {
   const expanded = button.classList.contains("expanded")
   const text = button.querySelector(".text")
+  const arrow = button.querySelector(".material-icons")
   if (expanded) {
     button.classList.remove("expanded")
     button.setAttribute("aria-expanded", "false")
     container.classList.add("collapsed")
-    button.querySelector(".material-icons").textContent = "keyboard_arrow_right"
+    if (arrow) {
+      arrow.textContent = "keyboard_arrow_right"
+    }
   } else {
     button.classList.add("expanded")
     button.setAttribute("aria-expanded", "true")
     container.classList.remove("collapsed")
-    button.querySelector(".material-icons").textContent = "keyboard_arrow_down"
+    if (arrow) {
+      arrow.textContent = "keyboard_arrow_down"
+    }
   }
 
   if (text) {

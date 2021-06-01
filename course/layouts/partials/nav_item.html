@@ -4,7 +4,7 @@
 {{ $hasChildren := .menuItem.HasChildren }}
 
 <li class="course-nav-list-item{{ if $hasParent }} course-nav-list-item-child{{ end }}">
-  <div class="position-relative a-wrapper pt-2 pb-2{{ if $hasChildren }} pr-3{{ end }}">
+  <div class="d-flex flex-direction-row align-items-center justify-content-between pt-2 pb-2{{ if $hasChildren }} pr-3{{ end }}">
     <span class="course-nav-text-wrapper">
       <a class="text-uppercase text-dark nav-link"
         href="{{ .menuItem.URL }}">
@@ -12,10 +12,10 @@
       </a>
     </span>
     {{ if .menuItem.HasChildren }}
-    <a class="course-nav-section-toggle" 
-      href="#nav-container_{{ .menuItem.Identifier }}" 
-      data-toggle="collapse" 
-      aria-controls="nav-container_{{ .menuItem.Identifier }}" 
+    <a class="course-nav-section-toggle"
+      href="#nav-container_{{ .menuItem.Identifier }}"
+      data-toggle="collapse"
+      aria-controls="nav-container_{{ .menuItem.Identifier }}"
       aria-expanded="">
       <i class="material-icons md-18"></i>
     </a>
@@ -24,7 +24,7 @@
   {{ if or (not $hasParent) $hasChildren }}
   <span class="medium-and-below-only"><hr/></span>
   {{ end }}
-  <div class="collapse" 
+  <div class="collapse"
     id="nav-container_{{ .menuItem.Identifier }}">
     <ul class="course-nav-child-nav m-auto">
       {{ range .menuItem.Children }}
