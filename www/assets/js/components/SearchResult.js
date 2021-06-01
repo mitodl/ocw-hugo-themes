@@ -84,7 +84,7 @@ export function LearningResourceDisplay(props) {
             </div>
           ) : null}
         </div>
-        <div className="lr-row course-title" tabIndex="0">
+        <div className="lr-row course-title">
           {isResource ? (
             <i className="material-icons md-24 align-bottom pr-2">
               {getContentIcon(object.content_type)}
@@ -103,7 +103,7 @@ export function LearningResourceDisplay(props) {
           )}
         </div>
         {object.run_title ? (
-          <div className="lr-row subtitles lr-subheader" tabIndex="0">
+          <div className="lr-row subtitles lr-subheader">
             <a href={`/courses/${object.run_slug}`}>
               <Dotdotdot clamp={3}>
                 {object.coursenum ? `${object.coursenum} ` : ""}
