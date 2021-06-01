@@ -32,16 +32,5 @@ jobs:
       - name: Tests
         run: npm run test
 
-      - name: Webpack build
-        env: 
-          EXTERNAL_SITE_PATH: ""
-        run: |
-          export TMP=$(mktemp)
-          echo 'ignoreErrors = ["error-remote-getjson"]' > $TMP
-          cat example_configs/example.base.config.toml >> $TMP
-          mv $TMP base-theme/config.toml
-          export EXTERNAL_SITE_PATH=base-theme
-          npm run build
-
       - name: Code formatting
         run: npm run fmt:check
