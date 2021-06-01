@@ -18,6 +18,6 @@ else
   npm run build:webpack --  --output-path=$EXTERNAL_SITE_PATH/dist
   cd $EXTERNAL_SITE_PATH
   hugo -d dist -v
-  mkdir -p dist/static
+  mkdir -p dist/static 
   printf $GIT_HASH >> dist/static/hash.txt
 fi
