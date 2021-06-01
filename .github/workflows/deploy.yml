@@ -44,7 +44,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.1
         if: ${{ github.event_name == 'pull_request' }}
         with:
-          publish-dir: './base-theme/dist'
+          publish-dir: '../ocw-www/dist'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: true
@@ -59,7 +59,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.1
         if: ${{ github.event_name == 'push' }}
         with:
-          publish-dir: './base-theme/dist'
+          publish-dir: '../ocw-www/dist'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: false
