@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.17.0
+--------------
+
+- Fix netlify deploy (#77)
+
 Version 1.16.2 (Released May 28, 2021)
 --------------
 
