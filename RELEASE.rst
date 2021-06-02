@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.17.1
+--------------
+
+- Remove unused dialog (#73)
+- Add search role and mark search area with aria-live, adjust label colors (#74)
+
 Version 1.17.0 (Released June 01, 2021)
 --------------
 
