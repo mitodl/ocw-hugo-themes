@@ -72,28 +72,6 @@
   {{ $coursePages := where $pages "Type" "==" "course" }}
   {{ $childPages := where $coursePages ".Params.layout" "==" "course_home" }}
   {{ partial "home_course_cards.html" $childPages }}
-  <div class="beta-dialog bg-light px-8 py-4 d-none">
-    <h2>Next Generation OpenCourseWare</h2>
-    <p>
-    As we approach the 20th anniversary of MIT OpenCourseWare, we are redesigning our platform and user experience.
-    This site is the first instantiation of this redesign and is being used to collect feedback from users (like you).
-    We are currently focusing on the following features (each with varying levels of completeness). Be sure to checkout the following features:
-    </p>
-    <ul>
-      <li>Updated courses pages - new experience that works on mobile and desktop.</li>
-      <li>Search - find courses and individual resources from across the OpenCourseWare catalog.</li>
-      <li>...</li>
-    </ul>
-    <p>Please let us know if you have feedback or would like to be informed of new updates.</p>
-    <div class="d-flex justify-content-end w-100">
-      <a class="small-link coming-soon">
-        <div class="btn rounded-0 bg-dark text-white w-100 px-3 py-2">CONTACT</div>
-      </a>
-      <a class="small-link coming-soon">
-        <div class="btn rounded-0 text-black w-100 ml-3 px-3 py-2">DISMISS</div>
-      </a>
-    </div>
-  </div>
   <div class="give-now-wrapper">
     <div class="give-now my-5 d-flex justify-content-center">
       <div class="d-flex flex-column justify-content-center">
