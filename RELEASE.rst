@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.17.1
+Version 1.17.1 (Released June 02, 2021)
 --------------
 
 - Remove unused dialog (#73)
