@@ -1,6 +1,6 @@
 .course-info {
   overflow: hidden;
-  $collapsedHeight: 70px;
+  $collapsedHeight: 200px;
   $opaqueLayerHeight: 30px;
 
   &.collapsed {
@@ -31,7 +31,7 @@
 
   .course-info-expander {
     .material-icons {
-      margin-left: 150px;
+      margin-left: 48px;
     }
   }
 }
@@ -127,6 +127,10 @@
 .course-description {
   .description {
     font-size: 1rem;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &.collapsed {
