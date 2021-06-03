@@ -13,9 +13,8 @@ if [[ -z "${EXTERNAL_SITE_PATH}" ]]; then
   echo "EXTERNAL_SITE_PATH not set"
   exit 1
 else
-  /bin/bash build_scripts/prep_external_site.sh
-  # Change to our content directory, update modules and run hugo server
+  # Change to our content directory and run hugo server
+  THEME_DIR=$PWD
   cd $EXTERNAL_SITE_PATH
-  hugo mod get -u
-  hugo server -p 3000 --bind 0.0.0.0 --renderToDisk
+  hugo server -p 3000 --bind 0.0.0.0 --renderToDisk --themesDir $THEME_DIR --theme "base-theme,www"
 fi
