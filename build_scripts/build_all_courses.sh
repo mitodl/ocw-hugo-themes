@@ -28,19 +28,7 @@ elif [[ -z $COURSE_BASE_URL ]]; then
   exit 1
 fi
 
-# Make a tmp dir for staging and create boilerplate
-echo "Preparing course theme..."
 THEME_DIR=$(pwd)
-TMP_DIR=$(mktemp -d -t ocw-course-XXXXXXXXXX)
-cd $TMP_DIR
-mkdir data
-cp $THEME_DIR/example_configs/example.course.config.toml config.toml
-touch go.mod
-printf "module github.com/mitodl/ocw-course\n\n" >> go.mod
-printf "go 1.16\n\n" >> go.mod
-printf "replace github.com/mitodl/ocw-hugo-themes/base-theme => $THEME_DIR/base-theme\n\n" >> go.mod
-printf "replace github.com/mitodl/ocw-hugo-themes/course => $THEME_DIR/course\n\n" >> go.mod
-hugo mod get -u
 
 # Trim any trailing slashes from path variables
 OCW_TO_HUGO_OUTPUT_DIR=$(echo $OCW_TO_HUGO_OUTPUT_DIR | sed 's:/*$::')
@@ -49,11 +37,11 @@ COURSE_BASE_URL=$(echo $COURSE_BASE_URL | sed 's:/*$::')
 
 # Run hugo on all courses
 echo "Running hugo on courses in $OCW_TO_HUGO_OUTPUT_DIR..."
-for COURSE in $OCW_TO_HUGO_OUTPUT_DIR/*; do
-  if [[ -d $COURSE ]]; then
-    COURSE_ID=${COURSE#"$OCW_TO_HUGO_OUTPUT_DIR/"}
-    cp $COURSE/data/course.json $TMP_DIR/data/course.json
-    HUGO_COMMAND="hugo --config config.toml --configDir $COURSE/config --contentDir $COURSE/content -d $COURSE_OUTPUT_DIR/$COURSE_ID/"
+for COURSE_DIR in $OCW_TO_HUGO_OUTPUT_DIR/*; do
+  if [[ -d $COURSE_DIR ]]; then
+    cd $COURSE_DIR
+    COURSE_ID=${COURSE_DIR#"$OCW_TO_HUGO_OUTPUT_DIR/"}
+    HUGO_COMMAND="hugo --themesDir $THEME_DIR --destination $COURSE_OUTPUT_DIR/$COURSE_ID/"
     if [[ -n $COURSE_BASE_URL ]]; then
       HUGO_COMMAND="$HUGO_COMMAND --baseUrl $COURSE_BASE_URL/$COURSE_ID/"
     fi
@@ -65,6 +53,3 @@ for COURSE in $OCW_TO_HUGO_OUTPUT_DIR/*; do
     eval $HUGO_COMMAND
   fi
 done
-
-# Remove the tmp dir
-rm -rf $TMP_DIR
