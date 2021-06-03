@@ -127,6 +127,10 @@
 .course-description {
   .description {
     font-size: 1rem;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &.collapsed {

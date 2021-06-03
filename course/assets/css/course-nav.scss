@@ -42,6 +42,12 @@
   @include media-breakpoint-up(lg) {
     padding-right: 2rem;
   }
+
+  &:first-child {
+    .course-nav-parent {
+      padding-top: 0 !important;
+    }
+  }
 }
 
 .course-nav-list-item-child {
