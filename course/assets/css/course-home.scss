@@ -35,7 +35,7 @@
   }
 
   .course-home-section {
-    padding: 40px;
+    padding: 20px 40px 0px 40px;
 
     @include media-breakpoint-down(md) {
       padding: 30px;
@@ -57,6 +57,10 @@
       a {
         text-decoration: underline;
         color: $blue;
+      }
+
+      li {
+        padding-bottom: 4px;
       }
     }
   }
