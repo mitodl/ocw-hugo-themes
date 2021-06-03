@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.17.2
+Version 1.17.2 (Released June 03, 2021)
 --------------
 
 - Course home page tweaks (#82)
