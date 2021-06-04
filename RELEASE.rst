@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.17.3
+--------------
+
+- Video.js player for customized video controls (#35)
+- open learning library (#80)
+
 Version 1.17.2 (Released June 03, 2021)
 --------------
 
