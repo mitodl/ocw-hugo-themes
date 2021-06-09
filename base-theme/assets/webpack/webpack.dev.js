@@ -1,4 +1,5 @@
 const { merge } = require("webpack-merge")
+const path = require("path")
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
@@ -8,9 +9,9 @@ module.exports = merge(common, {
   mode: "development",
 
   output: {
-    filename:      "[name].js",
-    chunkFilename: "[id].css",
-    publicPath:    "/"
+    path:       path.join(__dirname, "../../dist/static"),
+    publicPath: "/static",
+    filename:   "js/[name].js"
   },
 
   devtool: "eval-source-map",
@@ -41,8 +42,8 @@ module.exports = merge(common, {
     }),
 
     new MiniCssExtractPlugin({
-      filename:      "[name].css",
-      chunkFilename: "[id].css"
+      filename:      "css/[name].css",
+      chunkFilename: "css/[id].css"
     })
   ]
 })

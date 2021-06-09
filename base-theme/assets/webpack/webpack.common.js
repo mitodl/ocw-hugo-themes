@@ -31,7 +31,8 @@ module.exports = {
   },
 
   output: {
-    path: path.join(__dirname, "../../dist")
+    path:     path.join(__dirname, "../../dist/static"),
+    filename: "js/[name].js"
   },
 
   module: {
@@ -77,8 +78,10 @@ module.exports = {
           {
             loader:  MiniCssExtractPlugin.loader,
             options: {
-              publicPath: "./",
-              hmr:        process.env.NODE_ENV !== "production"
+              publicPath:    "./",
+              filename:      "css/[name].css",
+              chunkFilename: "css/[id].css",
+              hmr:           process.env.NODE_ENV !== "production"
             }
           },
           "css-loader",
