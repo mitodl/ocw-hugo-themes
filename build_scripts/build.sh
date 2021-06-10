@@ -15,7 +15,7 @@ else
   # Build the site
   rm -rf $EXTERNAL_SITE_PATH/dist
   GIT_HASH=`git rev-parse HEAD`
-  npm run build:webpack --  --output-path=$EXTERNAL_SITE_PATH/dist
+  npm run build:webpack --  --output-path=$EXTERNAL_SITE_PATH/dist/static
   cd $EXTERNAL_SITE_PATH
   hugo -d dist -v
   mkdir -p dist/static 
