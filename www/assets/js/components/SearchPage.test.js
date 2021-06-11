@@ -96,7 +96,8 @@ describe("SearchPage component", () => {
           activeFacets: {
             ...defaultCourseFacets,
             ...params.activeFacets
-          }
+          },
+          sort: null
         }
       ])
     })
@@ -118,7 +119,8 @@ describe("SearchPage component", () => {
           text:         "",
           from:         0,
           size:         SEARCH_PAGE_SIZE,
-          activeFacets: defaultCourseFacets
+          activeFacets: defaultCourseFacets,
+          sort:         null
         }
       ],
       [
@@ -126,7 +128,8 @@ describe("SearchPage component", () => {
           text:         "New Search Text",
           from:         0,
           size:         SEARCH_PAGE_SIZE,
-          activeFacets: defaultCourseFacets
+          activeFacets: defaultCourseFacets,
+          sort:         null
         }
       ]
     ])
@@ -157,7 +160,8 @@ describe("SearchPage component", () => {
           text:         parameters.text,
           from:         0,
           size:         SEARCH_PAGE_SIZE,
-          activeFacets: { ...defaultCourseFacets, ...parameters.activeFacets }
+          activeFacets: { ...defaultCourseFacets, ...parameters.activeFacets },
+          sort:         null
         }
       ],
       [
@@ -165,7 +169,8 @@ describe("SearchPage component", () => {
           text:         parameters.text,
           from:         0,
           size:         SEARCH_PAGE_SIZE,
-          activeFacets: defaultResourceFacets
+          activeFacets: defaultResourceFacets,
+          sort:         null
         }
       ]
     ])
@@ -205,6 +210,44 @@ describe("SearchPage component", () => {
     expect(!wrapper.find(".suggestions").exists())
   })
 
+  it("should allow the user to toggle sort", async () => {
+    const sortParam = "-sortablefieldname",
+      differentSortParam = "differentsortparam"
+    const parameters = {
+      sort: { field: sortParam, option: "asc" }
+    }
+    const searchString = serializeSearchParams(parameters)
+    const wrapper = await render(searchString)
+    const select = wrapper.find(".sort-nav-item select")
+    expect(select.prop("value")).toBe(sortParam)
+    act(() => {
+      select.prop("onChange")({ target: { value: differentSortParam } })
+    })
+    expect(search.mock.calls[1][0].sort).toEqual({
+      field:  differentSortParam,
+      option: "asc"
+    })
+  })
+
+  //
+  ;[
+    [LR_TYPE_COURSE, true],
+    [LR_TYPE_RESOURCEFILE, false]
+  ].forEach(([type, sortExists]) => {
+    it(`${
+      sortExists ? "should" : "shouldn't"
+    } show the sort option if the user is on the ${type} page`, async () => {
+      const parameters = {
+        activeFacets: {
+          type: [type]
+        }
+      }
+      const searchString = serializeSearchParams(parameters)
+      const wrapper = await render(searchString)
+      expect(wrapper.find(".sort-nav-item").exists()).toBe(sortExists)
+    })
+  })
+
   it("should show spinner when searching", async () => {
     const wrapper = await render()
     await resolveSearch()
@@ -239,7 +282,8 @@ describe("SearchPage component", () => {
           text:         "",
           from:         0,
           size:         SEARCH_PAGE_SIZE,
-          activeFacets: defaultCourseFacets
+          activeFacets: defaultCourseFacets,
+          sort:         null
         }
       ],
       [
@@ -247,7 +291,8 @@ describe("SearchPage component", () => {
           text:         "",
           from:         SEARCH_PAGE_SIZE,
           size:         SEARCH_PAGE_SIZE,
-          activeFacets: defaultCourseFacets
+          activeFacets: defaultCourseFacets,
+          sort:         null
         }
       ],
       [
@@ -255,7 +300,8 @@ describe("SearchPage component", () => {
           text:         "",
           from:         2 * SEARCH_PAGE_SIZE,
           size:         SEARCH_PAGE_SIZE,
-          activeFacets: defaultCourseFacets
+          activeFacets: defaultCourseFacets,
+          sort:         null
         }
       ]
     ])
