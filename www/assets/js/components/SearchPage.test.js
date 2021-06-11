@@ -239,7 +239,8 @@ describe("SearchPage component", () => {
           text:         "",
           from:         0,
           size:         SEARCH_PAGE_SIZE,
-          activeFacets: defaultCourseFacets
+          activeFacets: defaultCourseFacets,
+          sort:         null
         }
       ],
       [
@@ -247,7 +248,8 @@ describe("SearchPage component", () => {
           text:         "",
           from:         SEARCH_PAGE_SIZE,
           size:         SEARCH_PAGE_SIZE,
-          activeFacets: defaultCourseFacets
+          activeFacets: defaultCourseFacets,
+          sort:         null
         }
       ],
       [
@@ -255,7 +257,8 @@ describe("SearchPage component", () => {
           text:         "",
           from:         2 * SEARCH_PAGE_SIZE,
           size:         SEARCH_PAGE_SIZE,
-          activeFacets: defaultCourseFacets
+          activeFacets: defaultCourseFacets,
+          sort:         null
         }
       ]
     ])
