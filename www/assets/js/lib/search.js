@@ -109,7 +109,17 @@ export const buildSearchQuery = ({ text, from, size, sort, activeFacets }) => {
   }
   if (sort && !activeFacets.type.includes(LR_TYPE_RESOURCEFILE)) {
     const { field, option } = sort
-    builder.sort(field, option)
+    if (field.includes(".")) {
+      const fieldPieces = field.split(".")
+      builder.sort(field, {
+        order:  option,
+        nested: {
+          path: fieldPieces[0]
+        }
+      })
+    } else {
+      builder.sort(field, option)
+    }
   }
 
   for (const type of activeFacets.type) {
