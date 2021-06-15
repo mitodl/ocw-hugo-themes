@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.18.0
+Version 1.18.0 (Released June 15, 2021)
 --------------
 
 - Revert "Video.js player for customized video controls (#35)" (#109)
