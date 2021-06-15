@@ -1,12 +1,14 @@
+{{ $youtubeVideos := where .Params.embedded_media "title" "Video-YouTube-Stream" }}
+{{ $youtubeKey := (index $youtubeVideos 0).media_location }}
 <div class="video-container">
-  <video
-    id="vid1"
-    class="video-js vjs-default-skin vjs-big-play-centered vjs-ocw"
-    autoplay
-    controls
-    width="640" height="385"
-    data-setup='{
-    "techOrder": ["youtube"],
-    "sources": [{"type": "video/youtube", "src": "https://www.youtube.com/watch?v={{ . }}"}]}'
-  ></video>
+  <iframe
+    class="youtube-player"
+    type="text/html"
+    width="640"
+    height="385"
+    src="https://www.youtube.com/embed/{{ $youtubeKey }}"
+    allowfullscreen
+    frameborder="0"
+    >
+  </iframe>
 </div>
