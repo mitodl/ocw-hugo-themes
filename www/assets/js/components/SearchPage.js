@@ -34,7 +34,7 @@ export default function SearchPage() {
   const [suggestions, setSuggestions] = useState([])
   const [total, setTotal] = useState(0)
   const [completedInitialLoad, setCompletedInitialLoad] = useState(false)
-  const [busy, setBusy] = useState(false)
+  const [requestInFlight, setRequestInFlight] = useState(false)
 
   const runSearch = useCallback(
     async (text, activeFacets, from, sort) => {
@@ -43,7 +43,7 @@ export default function SearchPage() {
         activeFacets["type"] = [LR_TYPE_COURSE]
       }
 
-      setBusy(true)
+      setRequestInFlight(true)
       const newResults = await search({
         text,
         from,
@@ -51,7 +51,7 @@ export default function SearchPage() {
         size: SEARCH_PAGE_SIZE,
         sort: sort
       })
-      setBusy(false)
+      setRequestInFlight(false)
 
       const { suggest } = newResults
       if (!emptyOrNil(suggest) && !emptyOrNil(text)) {
@@ -76,7 +76,7 @@ export default function SearchPage() {
 
       setSearchFacets(new Map(Object.entries(newResults.aggregations ?? {})))
 
-      setSearchResults(
+      setSearchResults(results =>
         from === 0 ?
           newResults.hits.hits :
           [...results, ...newResults.hits.hits]
@@ -86,11 +86,10 @@ export default function SearchPage() {
     },
     [
       setSearchResults,
-      results,
       setTotal,
       setCompletedInitialLoad,
       setSuggestions,
-      setBusy
+      setRequestInFlight
     ]
   )
 
@@ -119,7 +118,9 @@ export default function SearchPage() {
     runSearch,
     clearSearch,
     facets,
-    completedInitialLoad,
+    // this is the 'loaded' value, which is what useCourseSearch uses
+    // to determine whether to fire off a request or not.
+    completedInitialLoad && !requestInFlight,
     SEARCH_PAGE_SIZE
   )
 
@@ -259,7 +260,7 @@ export default function SearchPage() {
             >
               <section
                 role="feed"
-                aria-busy={busy}
+                aria-busy={requestInFlight}
                 aria-label="OpenCourseWare Search Results"
               >
                 {completedInitialLoad ? (

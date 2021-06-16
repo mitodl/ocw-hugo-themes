@@ -316,6 +316,45 @@ describe("SearchPage component", () => {
     expect(wrapper.find("SearchResult").length).toBe(3 * SEARCH_PAGE_SIZE)
   })
 
+  test("InfiniteScroll should only trigger one search request at a time", async () => {
+    const wrapper = await render()
+    await resolveSearch()
+    wrapper.update()
+    await act(async () => {
+      wrapper.find("InfiniteScroll").prop("loadMore")()
+    })
+    wrapper.update()
+    // first request is still in-flight now because we haven't called resolveSearch yet
+    // so loaded prop passed to useCourseSearch will be false (and therefore this second
+    // call to the `loadMore` function should be a no-op).
+    await act(async () => {
+      wrapper.find("InfiniteScroll").prop("loadMore")()
+    })
+    await resolveSearch()
+    wrapper.update()
+    expect(search.mock.calls).toEqual([
+      [
+        {
+          text:         "",
+          from:         0,
+          size:         SEARCH_PAGE_SIZE,
+          activeFacets: defaultCourseFacets,
+          sort:         null
+        }
+      ],
+      [
+        {
+          text:         "",
+          from:         SEARCH_PAGE_SIZE,
+          size:         SEARCH_PAGE_SIZE,
+          activeFacets: defaultCourseFacets,
+          sort:         null
+        }
+      ]
+    ])
+    expect(wrapper.find("SearchResult").length).toBe(2 * SEARCH_PAGE_SIZE)
+  })
+
   test("should show spinner during initial load", async () => {
     const wrapper = await render()
     expect(wrapper.find("Loading").exists()).toBeTruthy()
