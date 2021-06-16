@@ -1,7 +1,7 @@
 const toggleExpand = (button, container) => {
   const expanded = button.classList.contains("expanded")
-  const text = button.querySelector(".text")
-  const arrow = button.querySelector(".material-icons")
+  const readmoreText = button.querySelector(".read-more-text")
+  const arrow = button.querySelector(".expander-arrow")
   if (expanded) {
     button.classList.remove("expanded")
     button.setAttribute("aria-expanded", "false")
@@ -18,42 +18,24 @@ const toggleExpand = (button, container) => {
     }
   }
 
-  if (text) {
-    text.innerText = expanded ? "Read More" : "Show Less"
+  if (readmoreText) {
+    readmoreText.textContent = expanded ? "Read More" : "Show Less"
   }
 }
 
-const initCourseInfoExpander = () => {
-  for (const container of document.querySelectorAll(".course-info")) {
-    const expanderButton = container.querySelector(".expand-link")
-    if (expanderButton) {
-      expanderButton.addEventListener("click", event => {
+const initCourseInfoExpander = document => {
+  for (const expanderButton of document.querySelectorAll(".expand-link")) {
+    const container = expanderButton.closest(".expand-container")
+    expanderButton.addEventListener("click", event => {
+      event.preventDefault()
+      toggleExpand(expanderButton, container)
+    })
+    expanderButton.addEventListener("keypress", event => {
+      if (event.key === "Enter") {
         event.preventDefault()
         toggleExpand(expanderButton, container)
-      })
-      expanderButton.addEventListener("keypress", event => {
-        if (event.key === "Enter") {
-          event.preventDefault()
-          toggleExpand(expanderButton, container)
-        }
-      })
-    }
-  }
-
-  for (const container of document.querySelectorAll(".course-description")) {
-    const expanderButton = container.querySelector(".expand-link")
-    if (expanderButton) {
-      expanderButton.addEventListener("click", event => {
-        event.preventDefault()
-        toggleExpand(expanderButton, container)
-      })
-      expanderButton.addEventListener("keypress", event => {
-        if (event.key === "Enter") {
-          event.preventDefault()
-          toggleExpand(expanderButton, container)
-        }
-      })
-    }
+      }
+    })
   }
 }
 

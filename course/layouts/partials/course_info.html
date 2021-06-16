@@ -1,12 +1,12 @@
 {{ $courseId := .context.Params.course_id }}
 {{ $courseData := .context.Site.Data.course }}
 {{ $inPanel := .inPanel }}
-<div class="table-responsive course-info {{ if not $inPanel }}collapsed{{ end }}">
+<div class="table-responsive course-info expand-container {{ if not $inPanel }}collapsed{{ end }}">
   <div class="course-info-expander">
     {{ if not $inPanel }}
     <a class="expand-link d-flex align-items-center text-decoration-none" aria-expanded="false" href="#">
       <h4 class="course-info-title font-weight-bold d-inline m-0">Course Info</h4>
-      <span class="material-icons">keyboard_arrow_right</span>
+      <span class="expander-arrow material-icons">keyboard_arrow_right</span>
     </a>
     {{ else }}
     <h4 class="course-info-title font-weight-bold">Course Info</h4>
