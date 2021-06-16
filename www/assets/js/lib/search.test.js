@@ -23,13 +23,16 @@ import {
 } from "./search"
 import { makeLearningResourceResult } from "../factories/search"
 
-const activeFacets = {
-  ...INITIAL_FACET_STATE,
-  type: [LR_TYPE_COURSE]
-}
-
 describe("search library", () => {
   const sandbox = sinon.createSandbox()
+  let activeFacets
+
+  beforeEach(() => {
+    activeFacets = {
+      ...INITIAL_FACET_STATE,
+      type: [LR_TYPE_COURSE]
+    }
+  })
 
   afterEach(() => {
     sandbox.restore()
@@ -303,6 +306,26 @@ describe("search library", () => {
     const query = buildSearchQuery({ from: 10, size: 100, activeFacets })
     expect(query.from).toBe(10)
     expect(query.size).toBe(100)
+  })
+
+  //
+  ;[
+    [
+      { field: "field", option: "asc" },
+      LR_TYPE_COURSE,
+      [{ field: { order: "asc" } }]
+    ],
+    [{ field: "field", option: "asc" }, LR_TYPE_RESOURCEFILE, undefined],
+    [null, LR_TYPE_COURSE, undefined],
+    [undefined, LR_TYPE_COURSE, undefined]
+  ].forEach(([sortField, type, expectedSort]) => {
+    it(`should add a sort option if field is ${JSON.stringify(
+      sortField
+    )} and type is ${type}`, () => {
+      activeFacets["type"] = [type]
+      const query = buildSearchQuery({ sort: sortField, activeFacets })
+      expect(query.sort).toStrictEqual(expectedSort)
+    })
   })
 
   //

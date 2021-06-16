@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react"
 import InfiniteScroll from "react-infinite-scroller"
 import { useCourseSearch } from "@mitodl/course-search-utils"
+import { serializeSort } from "@mitodl/course-search-utils/dist/url_utils"
 import {
   LR_TYPE_COURSE,
   LR_TYPE_RESOURCEFILE
@@ -36,7 +37,7 @@ export default function SearchPage() {
   const [busy, setBusy] = useState(false)
 
   const runSearch = useCallback(
-    async (text, activeFacets, from) => {
+    async (text, activeFacets, from, sort) => {
       if (activeFacets && activeFacets.type.length > 1) {
         // Default is LR_TYPE_ALL, don't want that here. course or resourcefile only
         activeFacets["type"] = [LR_TYPE_COURSE]
@@ -47,7 +48,8 @@ export default function SearchPage() {
         text,
         from,
         activeFacets,
-        size: SEARCH_PAGE_SIZE
+        size: SEARCH_PAGE_SIZE,
+        sort: sort
       })
       setBusy(false)
 
@@ -102,8 +104,10 @@ export default function SearchPage() {
     facetOptions,
     onUpdateFacets,
     updateText,
+    updateSort,
     loadMore,
     text,
+    sort,
     activeFacets,
     onSubmit,
     from,
@@ -232,6 +236,19 @@ export default function SearchPage() {
                 <li className="nav-item flex-grow-1 d-flex align-items-center justify-content-center results-total">
                   {completedInitialLoad ? `${total} Results` : null}
                 </li>
+                {!isResourceSearch ? (
+                  <li className="sort-nav-item nav-item flex-grow-1 d-flex align-items-center justify-content-end">
+                    Sort By:{" "}
+                    <select
+                      value={serializeSort(sort)}
+                      onChange={updateSort}
+                      className="ml-2"
+                    >
+                      <option value="">Relevance</option>
+                      <option value="coursenum">MIT course nr</option>
+                    </select>
+                  </li>
+                ) : null}
               </ul>
             </div>
             <InfiniteScroll

@@ -107,7 +107,7 @@ export const buildSearchQuery = ({ text, from, size, sort, activeFacets }) => {
   if (size !== undefined) {
     builder = builder.size(size)
   }
-  if (sort !== undefined) {
+  if (sort && !activeFacets.type.includes(LR_TYPE_RESOURCEFILE)) {
     const { field, option } = sort
     builder.sort(field, option)
   }
