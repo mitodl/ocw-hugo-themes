@@ -30,8 +30,9 @@ jest.mock("../lib/api", () => ({
   search:     jest.fn(async () => {
     return new Promise(resolve => {
       resolver = (extraData = {}) => {
+        const results = mockGetResults()
         resolve({
-          hits: { hits: mockGetResults() },
+          hits: { hits: results, total: results.length },
           ...extraData
         })
       }
@@ -227,6 +228,13 @@ describe("SearchPage component", () => {
       field:  differentSortParam,
       option: "asc"
     })
+  })
+
+  it("should display the number of results", async () => {
+    const wrapper = await render()
+    await resolveSearch()
+    const resultsText = wrapper.find(".results-total").text()
+    expect(resultsText).toBe("10 Results")
   })
 
   //

@@ -233,6 +233,9 @@ export default function SearchPage() {
                     Resources
                   </button>
                 </li>
+                <li className="nav-item flex-grow-1 d-flex align-items-center justify-content-center results-total">
+                  {completedInitialLoad ? `${total} Results` : null}
+                </li>
                 {!isResourceSearch ? (
                   <li className="sort-nav-item nav-item flex-grow-1 d-flex align-items-center justify-content-end">
                     Sort By:{" "}
