@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.18.1
+--------------
+
+- Show archived versions on course home page (#94)
+
 Version 1.18.0 (Released June 15, 2021)
 --------------
 
