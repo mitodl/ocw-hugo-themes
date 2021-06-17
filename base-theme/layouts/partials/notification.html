@@ -1,6 +1,7 @@
 {{- range ( where site.RegularPages "Section" "notifications" | first 1 ) -}}
-{{- if isset .Params "id" -}}
-<div id="notification_{{ .Params.id }}" class="notification d-none">
+{{- if isset .Params "date" -}}
+{{- $unixTimeStamp := (time .Params.date).Unix -}}
+<div id="notification_{{ $unixTimeStamp }}" class="notification d-none">
   <div class="notification-message">
     {{ .Content }}
   </div>
