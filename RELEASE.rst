@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.18.2
+Version 1.18.2 (Released June 17, 2021)
 --------------
 
 - Fix infinite scroll issue on course search
