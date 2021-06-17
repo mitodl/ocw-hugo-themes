@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.18.1
+--------------
+
+- Revert "Show archived versions on course home page (#94)" (#115)
+- Implement sort (#107)
+- Show archived versions on course home page (#94)
+
 Version 1.18.0 (Released June 15, 2021)
 --------------
 
