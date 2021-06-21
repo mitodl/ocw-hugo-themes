@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.19.0
+--------------
+
+- Add sorting by date (#117)
+
 Version 1.18.2 (Released June 17, 2021)
 --------------
 
