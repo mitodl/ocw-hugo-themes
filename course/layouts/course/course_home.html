@@ -49,6 +49,13 @@
       </div>
     </div>
     {{ end }}
+    {{ if gt (len $courseData.archived_versions) 0}}
+    <div class="row px-lg-3 pb-lg-2 p-0">
+      <div class="col-12 p-0">
+        {{ partial "archived_versions.html" . }}
+      </div>
+    </div>
+    {{ end }}
     {{ if gt (len $courseData.open_learning_library_versions) 0}}
     <div class="row px-lg-3 pb-lg-2 p-0">
       <div class="col-12 p-0">
