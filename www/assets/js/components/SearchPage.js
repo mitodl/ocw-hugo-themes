@@ -247,6 +247,7 @@ export default function SearchPage() {
                     >
                       <option value="">Relevance</option>
                       <option value="coursenum">MIT course nr</option>
+                      <option value="-runs.best_start_date">Date</option>
                     </select>
                   </li>
                 ) : null}

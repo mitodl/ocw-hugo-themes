@@ -317,7 +317,17 @@ describe("search library", () => {
     ],
     [{ field: "field", option: "asc" }, LR_TYPE_RESOURCEFILE, undefined],
     [null, LR_TYPE_COURSE, undefined],
-    [undefined, LR_TYPE_COURSE, undefined]
+    [undefined, LR_TYPE_COURSE, undefined],
+    [
+      { field: "nested.field", option: "desc" },
+      LR_TYPE_RESOURCEFILE,
+      undefined
+    ],
+    [
+      { field: "nested.field", option: "desc" },
+      LR_TYPE_COURSE,
+      [{ "nested.field": { order: "desc", nested: { path: "nested" } } }]
+    ]
   ].forEach(([sortField, type, expectedSort]) => {
     it(`should add a sort option if field is ${JSON.stringify(
       sortField
