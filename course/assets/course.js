@@ -12,5 +12,5 @@ import { initCourseInfoExpander } from "./js/course_expander"
 $(document).ready(() => {
   initPdfViewers()
   initDesktopCourseInfoToggle()
-  initCourseInfoExpander()
+  initCourseInfoExpander(document)
 })
