@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.19.1
+--------------
+
+- Fix course info expander (#113)
+- use uid instead of id (#122)
+- Revert "Revert "Show archived versions on course home page (#94)" (#115)" (#118)
+
 Version 1.19.0 (Released June 21, 2021)
 --------------
 
