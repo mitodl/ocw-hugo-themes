@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.19.1
+Version 1.19.1 (Released June 28, 2021)
 --------------
 
 - Fix course info expander (#113)
