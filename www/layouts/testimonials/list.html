@@ -1,6 +1,6 @@
 {{ define "main" }}
-{{ $pages := .Site.RegularPages }}
-{{ $testimonials := where $pages "Type" "==" "testimonials" }}
+{{- $pages := .Site.RegularPages -}}
+{{- $testimonials := where $pages "Type" "==" "testimonials" -}}
 <div>
   {{ block "header" . }}
   {{ partialCached "header" . }}
@@ -15,7 +15,7 @@
       {{ range $testimonial := $testimonials }}
       <div class="testimonial d-flex flex-wrap flex-sm-nowrap">
         <div class="img-container">
-          <img src="{{ $testimonial.Params.image }}" alt="{{ $testimonial.Title }}" />
+          <img src="{{ partial "resource_url" (dict "filetype" "Image" "uid" $testimonial.Params.image.content) }}" alt="{{ $testimonial.Title }}" />
         </div>
         <div class="detail d-flex flex-column flex-nowrap justify-content-between p-0 ml-sm-5">
           <div class="text">

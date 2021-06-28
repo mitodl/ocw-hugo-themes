@@ -1,0 +1,4 @@
+{{- $resources := where (where site.RegularPages "Type" "==" "resource") ".Params.filetype" "==" .filetype -}}
+{{- $resource := index (where $resources ".Params.uid" "==" .uid) 0 -}}
+{{- $resourceUrl := urls.Parse $resource.Params.file -}}
+{{- return printf $resourceUrl.Path -}}
