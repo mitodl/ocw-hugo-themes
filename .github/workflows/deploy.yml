@@ -43,6 +43,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile --ignore-engines --prefer-offline
 
+      - name: Clear ocw-www directory
+        run: (cd ..; rm -rf ocw-www) 
+
       - name: Clone ocw-www for content
         run: (cd ..; git clone git@github.mit.edu:ocw-content-rc/ocw-www_eb8b70174c714752a91dbe730af76769.git ocw-www)
 
