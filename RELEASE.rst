@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.19.2
+--------------
+
+- move sponsor logos to the correct location (#128)
+
 Version 1.19.1 (Released June 28, 2021)
 --------------
 
