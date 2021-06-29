@@ -8,6 +8,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          if_key_exists: replace
       - uses: actions/checkout@v2
       - name: Set up node.js
         uses: actions/setup-node@v2-beta
