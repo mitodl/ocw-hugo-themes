@@ -50,7 +50,7 @@ jobs:
         run: (cd ..; git clone https://github.com/mitodl/ocw-hugo-projects)
 
       - name: Run webpack build
-        run: npm run build:webpack
+        run: npm run build:webpack -- --output-path=../ocw-www/public/static
 
       - name: Run hugo build
         run: (cd ../ocw-www; hugo --config ../ocw-hugo-projects/ocw-www/config.yaml --themesDir ../ocw-hugo-themes; cat ../ocw-hugo-themes/base-theme/data/webpack.json; ls -lah ../ocw-hugo-themes/base-theme/static/)
