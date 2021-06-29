@@ -41,10 +41,10 @@ jobs:
       - name: Clone ocw-hugo-projects for config
         run: (cd ..; git clone https://github.com/mitodl/ocw-hugo-projects)
 
-      - name: run webpack build
+      - name: Run webpack build
         run: npm run build:webpack
 
-      - name: run hugo build
+      - name: Run hugo build
         run: (cd ../ocw-www; hugo --config ../ocw-hugo-projects/ocw-www/config.yaml --themesDir ../)
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
