@@ -43,9 +43,6 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile --ignore-engines --prefer-offline
 
-      - name: Clear ocw-www directory
-        run: (cd ..; rm -rf ocw-www) 
-
       - name: Clone ocw-www for content
         run: (cd ..; git clone git@github.mit.edu:ocw-content-rc/ocw-www_eb8b70174c714752a91dbe730af76769.git ocw-www)
 
@@ -56,7 +53,7 @@ jobs:
         run: npm run build:webpack
 
       - name: Run hugo build
-        run: (cd ../ocw-www; hugo --config ../ocw-hugo-projects/ocw-www/config.yaml --themesDir ../)
+        run: (ls -lah; cd ../ocw-www; hugo --config ../ocw-hugo-projects/ocw-www/config.yaml --themesDir ../)
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
