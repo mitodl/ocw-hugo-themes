@@ -1,6 +1,5 @@
-{{ $pages := .Site.RegularPages }}
-{{ $testimonials := where $pages "Type" "==" "testimonials" }}
-{{ $testimonialSection := .Site.GetPage "section" "testimonials" }}
+{{- $testimonials := where .Site.RegularPages "Type" "==" "testimonials" -}}
+{{- $testimonialSection := .Site.GetPage "section" "testimonials" -}}
 <div class="home-testimonials standard-width container mx-auto my-3">
   <h2 class="branded mb-3">
     <span>OpenCourseWare</span> Testimonies
@@ -11,7 +10,7 @@
     {{ end }}
   </div>
   <div class="d-flex d-md-none">
-    {{ $carouselId := "testimonial-carousel-xs-sm" }}
+    {{- $carouselId := "testimonial-carousel-xs-sm" -}}
     <div id="{{ $carouselId }}" class="carousel slide">
       <div class="carousel-header d-flex flex-row justify-content-end font-weight-bold text-uppercase">
         {{ partial "carousel_controls.html" $carouselId }}
@@ -28,7 +27,7 @@
     </div>
   </div>
   <div class="d-none d-md-flex d-lg-none">
-    {{ $carouselId := "testimonial-carousel-md" }}
+    {{- $carouselId := "testimonial-carousel-md" -}}
     <div id="{{ $carouselId }}" class="carousel slide">
       <div class="carousel-header d-flex flex-row justify-content-end font-weight-bold text-uppercase">
         {{ partial "carousel_controls.html" $carouselId }}
@@ -49,7 +48,7 @@
     </div>
   </div>
   <div class="d-none d-lg-flex d-xl-none">
-    {{ $carouselId := "testimonial-carousel-lg" }}
+    {{- $carouselId := "testimonial-carousel-lg" -}}
     <div id="{{ $carouselId }}" class="carousel slide">
       <div class="carousel-header d-flex flex-row justify-content-end font-weight-bold text-uppercase">
         {{ partial "carousel_controls.html" $carouselId }}

@@ -8,11 +8,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+          if_key_exists: replace
+
       - uses: actions/checkout@v2
+
       - name: Set up node.js
         uses: actions/setup-node@v2-beta
         with:
           node-version: 12.13.1
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -29,21 +43,26 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile --ignore-engines --prefer-offline
 
-      - name: Clone ocw-www for config
-        run: (cd ..; git clone https://github.com/mitodl/ocw-www)
+      - name: Clone ocw-www for content
+        run: (cd ..; git clone git@github.mit.edu:ocw-content-rc/ocw-www_eb8b70174c714752a91dbe730af76769.git ocw-www)
 
-      - name: build site
-        run: npm run build
+      - name: Clone ocw-hugo-projects for config
+        run: (cd ..; git clone https://github.com/mitodl/ocw-hugo-projects)
+
+      - name: Run webpack build
+        run: npm run build:webpack -- --output-path=../ocw-www/public/static/
+
+      - name: Run hugo build
+        run: (cd ../ocw-www; hugo --config ../ocw-hugo-projects/ocw-www/config.yaml --themesDir ../ocw-hugo-themes)
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
-          EXTERNAL_SITE_PATH: "../ocw-www"
 
       - name: Deploy PR Preview to Netlify
         uses: nwtgck/actions-netlify@v1.1
         if: ${{ github.event_name == 'pull_request' }}
         with:
-          publish-dir: '../ocw-www/dist'
+          publish-dir: '../ocw-www/public'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: true
@@ -58,7 +77,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.1
         if: ${{ github.event_name == 'push' }}
         with:
-          publish-dir: '../ocw-www/dist'
+          publish-dir: '../ocw-www/public'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: false
