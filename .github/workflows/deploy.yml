@@ -14,11 +14,19 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
           if_key_exists: replace
+
       - uses: actions/checkout@v2
+
       - name: Set up node.js
         uses: actions/setup-node@v2-beta
         with:
           node-version: 12.13.1
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
