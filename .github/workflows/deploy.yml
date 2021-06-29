@@ -53,7 +53,7 @@ jobs:
         run: npm run build:webpack
 
       - name: Run hugo build
-        run: (cd ../ocw-www; hugo --config ../ocw-hugo-projects/ocw-www/config.yaml --themesDir ../ocw-hugo-themes; cat ../ocw-hugo-themes/base-theme/data/webpack.json; ls -lah public)
+        run: (cd ../ocw-www; hugo --config ../ocw-hugo-projects/ocw-www/config.yaml --themesDir ../ocw-hugo-themes; cat ../ocw-hugo-themes/base-theme/data/webpack.json; ls -lah ../ocw-hugo-themes/base-theme/static/)
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
