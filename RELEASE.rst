@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.19.3
+--------------
+
+- adapt to use ocw-studio generated ocw-www content (#126)
+
 Version 1.19.2 (Released June 29, 2021)
 --------------
 
