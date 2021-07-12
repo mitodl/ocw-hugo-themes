@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.20.0
+--------------
+
+- Video.js player for custom video controls (#131)
+
 Version 1.19.3 (Released June 30, 2021)
 --------------
 
