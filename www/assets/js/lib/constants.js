@@ -55,3 +55,5 @@ export const DESKTOP = "DESKTOP"
 export const PHONE_WIDTH = 599
 // Based on desktop-wide breakpoint
 export const TABLET_WIDTH = 999
+
+export const COURSENUM_SORT_FIELD = "department_course_numbers.sort_coursenum"

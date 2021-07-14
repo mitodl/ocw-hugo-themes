@@ -310,29 +310,78 @@ describe("search library", () => {
 
   //
   ;[
-    [
-      { field: "field", option: "asc" },
-      LR_TYPE_COURSE,
-      [{ field: { order: "asc" } }]
-    ],
-    [{ field: "field", option: "asc" }, LR_TYPE_RESOURCEFILE, undefined],
-    [null, LR_TYPE_COURSE, undefined],
-    [undefined, LR_TYPE_COURSE, undefined],
+    [null, LR_TYPE_COURSE, undefined, []],
+    [undefined, LR_TYPE_COURSE, undefined, []],
     [
       { field: "nested.field", option: "desc" },
       LR_TYPE_RESOURCEFILE,
-      undefined
+      undefined,
+      []
     ],
     [
       { field: "nested.field", option: "desc" },
       LR_TYPE_COURSE,
-      [{ "nested.field": { order: "desc", nested: { path: "nested" } } }]
+      [{ "nested.field": { order: "desc", nested: { path: "nested" } } }],
+      []
+    ],
+    [
+      { field: "department_course_numbers.sort_coursenum", option: "asc" },
+      LR_TYPE_COURSE,
+      [
+        {
+          "department_course_numbers.sort_coursenum": {
+            nested: {
+              filter: {
+                term: {
+                  "department_course_numbers.primary": true
+                }
+              },
+              path: "department_course_numbers"
+            },
+            order: "asc"
+          }
+        }
+      ],
+      []
+    ],
+    [
+      { field: "department_course_numbers.sort_coursenum", option: "asc" },
+      LR_TYPE_COURSE,
+      [
+        {
+          "department_course_numbers.sort_coursenum": {
+            nested: {
+              filter: {
+                bool: {
+                  should: [
+                    {
+                      term: {
+                        "department_course_numbers.department": "Physics"
+                      }
+                    }
+                  ]
+                }
+              },
+              path: "department_course_numbers"
+            },
+            order: "asc"
+          }
+        }
+      ],
+      ["Physics"]
+    ],
+    [
+      { field: "department_course_numbers.sort_coursenum", option: "asc" },
+      LR_TYPE_RESOURCEFILE,
+      undefined,
+      []
     ]
-  ].forEach(([sortField, type, expectedSort]) => {
+  ].forEach(([sortField, type, expectedSort, departmentFilter]) => {
     it(`should add a sort option if field is ${JSON.stringify(
       sortField
     )} and type is ${type}`, () => {
       activeFacets["type"] = [type]
+      activeFacets["department_name"] = departmentFilter
       const query = buildSearchQuery({ sort: sortField, activeFacets })
       expect(query.sort).toStrictEqual(expectedSort)
     })

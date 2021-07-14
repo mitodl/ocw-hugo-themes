@@ -15,6 +15,7 @@ import Loading, { Spinner } from "./Loading"
 
 import { search } from "../lib/api"
 import { searchResultToLearningResource, SEARCH_LIST_UI } from "../lib/search"
+import { COURSENUM_SORT_FIELD } from "../lib/constants"
 import { emptyOrNil, isDoubleQuoted } from "../lib/util"
 
 export const SEARCH_PAGE_SIZE = 10
@@ -246,7 +247,9 @@ export default function SearchPage() {
                       className="ml-2"
                     >
                       <option value="">Relevance</option>
-                      <option value="coursenum">MIT course nr</option>
+                      <option value={COURSENUM_SORT_FIELD}>
+                        MIT course nr
+                      </option>
                       <option value="-runs.best_start_date">Date</option>
                     </select>
                   </li>

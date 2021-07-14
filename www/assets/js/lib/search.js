@@ -10,7 +10,8 @@ import {
   OCW_PLATFORM,
   CONTENT_TYPE_PAGE,
   CONTENT_TYPE_PDF,
-  CONTENT_TYPE_VIDEO
+  CONTENT_TYPE_VIDEO,
+  COURSENUM_SORT_FIELD
 } from "./constants"
 
 export const LEARN_SUGGEST_FIELDS = [
@@ -107,19 +108,38 @@ export const buildSearchQuery = ({ text, from, size, sort, activeFacets }) => {
   if (size !== undefined) {
     builder = builder.size(size)
   }
+
   if (sort && !activeFacets.type.includes(LR_TYPE_RESOURCEFILE)) {
     const { field, option } = sort
-    if (field.includes(".")) {
-      const fieldPieces = field.split(".")
-      builder.sort(field, {
-        order:  option,
-        nested: {
-          path: fieldPieces[0]
-        }
-      })
-    } else {
-      builder.sort(field, option)
+    const fieldPieces = field.split(".")
+
+    const sortQuery = {
+      order:  option,
+      nested: {
+        path: fieldPieces[0]
+      }
     }
+
+    if (field === COURSENUM_SORT_FIELD) {
+      if (activeFacets.department_name.length === 0) {
+        sortQuery["nested"]["filter"] = {
+          term: {
+            "department_course_numbers.primary": true
+          }
+        }
+      } else {
+        const filterClause = []
+        addFacetClauseToArray(
+          filterClause,
+          "department_course_numbers.department",
+          activeFacets.department_name,
+          LR_TYPE_COURSE
+        )
+        sortQuery["nested"]["filter"] = filterClause[0]
+      }
+    }
+
+    builder.sort(field, sortQuery)
   }
 
   for (const type of activeFacets.type) {
