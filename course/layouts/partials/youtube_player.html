@@ -9,6 +9,8 @@
     "techOrder": ["youtube"],
     "sources": [{"type": "video/youtube", "src": "https://www.youtube.com/embed/{{ .youtubeKey }}"}]}'
   >
-      <track kind="captions" src="{{ .captionsLocation }}" srclang="en" label="English" default>
+      {{ if .captionsLocation }}
+        <track kind="captions" src="{{ .captionsLocation }}" srclang="en" label="English" default>
+      {{ end }}
   </video>
 </div>
