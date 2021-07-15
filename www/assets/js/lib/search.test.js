@@ -12,6 +12,7 @@ import {
 import {
   buildSearchQuery,
   buildSuggestQuery,
+  DEPARTMENT_COURSE_NUMBERS_NESTED_FIELDS,
   getCoverImageUrl,
   getResourceUrl,
   getResultUrl,
@@ -58,6 +59,17 @@ describe("search library", () => {
               multi_match: {
                 query:  "Dogs are the best",
                 fields: RESOURCE_QUERY_NESTED_FIELDS
+              }
+            }
+          }
+        },
+        {
+          nested: {
+            path:  "department_course_numbers",
+            query: {
+              multi_match: {
+                query:  "Dogs are the best",
+                fields: DEPARTMENT_COURSE_NUMBERS_NESTED_FIELDS
               }
             }
           }
