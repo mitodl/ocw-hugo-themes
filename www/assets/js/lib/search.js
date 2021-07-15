@@ -28,10 +28,6 @@ export const RESOURCE_QUERY_NESTED_FIELDS = [
   "department_name"
 ]
 
-export const DEPARTMENT_COURSE_NUMBERS_NESTED_FIELDS = [
-  "department_course_numbers.coursenum^5"
-]
-
 export const RESOURCEFILE_QUERY_FIELDS = [
   "content",
   "title",
@@ -147,17 +143,6 @@ export const buildSearchQuery = ({ text, from, size, sort, activeFacets }) => {
                     [queryType]: {
                       query:  text,
                       fields: RESOURCE_QUERY_NESTED_FIELDS
-                    }
-                  }
-                }
-              },
-              {
-                nested: {
-                  path:  "department_course_numbers",
-                  query: {
-                    [queryType]: {
-                      query:  text,
-                      fields: DEPARTMENT_COURSE_NUMBERS_NESTED_FIELDS
                     }
                   }
                 }
