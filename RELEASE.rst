@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.20.0
+--------------
+
+- Add captions location as an argument to youtube shortcode (#135)
+- department course number sort
+- Revert "fix search fields"
+- fix search fields
+- Video.js player for custom video controls (#131)
+
 Version 1.19.3 (Released June 30, 2021)
 --------------
 
