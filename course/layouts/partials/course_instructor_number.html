@@ -16,7 +16,8 @@
     <tr>
       <td class="px-2 py-2">Course No.</td>
       <td class="px-2 py-2">
-        {{- range $index, $course_number := $courseData.course_numbers -}}
+        {{- $courseData.primary_course_number -}},&nbsp;
+        {{- range $index, $course_number := $courseData.extra_course_numbers -}}
         {{- if $index -}},&nbsp;{{- end -}}
         {{- $course_number -}}
         {{- end -}}
