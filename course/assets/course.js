@@ -4,7 +4,6 @@ import "offcanvas-bootstrap/dist/js/bootstrap.offcanvas.js"
 import "nanogallery2/src/jquery.nanogallery2.core.js"
 
 import "./css/course.scss"
-import videojs from "video.js"
 import "videojs-youtube"
 
 import { initPdfViewers } from "./js/pdf_viewer"
@@ -15,20 +14,4 @@ $(document).ready(() => {
   initPdfViewers()
   initDesktopCourseInfoToggle()
   initCourseInfoExpander(document)
-  videojs("vid1", {
-    controlBar: {
-      children: [
-        "playToggle",
-        "volumePanel",
-        "progressControl",
-        "currentTimeDisplay",
-        "timeDivider",
-        "durationDisplay",
-        "playbackRateMenuButton",
-        "subsCapsButton",
-        "qualitySelector",
-        "fullscreenToggle"
-      ]
-    }
-  })
 })
