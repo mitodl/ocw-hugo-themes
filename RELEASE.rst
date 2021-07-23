@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.21.0
+Version 1.21.0 (Released July 23, 2021)
 --------------
 
 - update ocw-to-hugo to 1.25.0 (#137)
