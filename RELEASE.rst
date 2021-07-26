@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.22.0
+--------------
+
+- separate primary course number and extra course numbers (#141)
+- Don't initialize the video player setup (#143)
+
 Version 1.21.0 (Released July 23, 2021)
 --------------
 
