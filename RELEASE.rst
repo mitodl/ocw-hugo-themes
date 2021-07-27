@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.22.0
+Version 1.22.0 (Released July 27, 2021)
 --------------
 
 - separate primary course number and extra course numbers (#141)
