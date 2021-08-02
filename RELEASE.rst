@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.23.0
+Version 1.23.0 (Released August 02, 2021)
 --------------
 
 - use primary_course_number on home_course_cards partial (#148)
