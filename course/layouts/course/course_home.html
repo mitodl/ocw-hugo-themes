@@ -26,7 +26,7 @@
       {{ partial "mobile_nav_toggle.html" . }}
       <div class="col-lg-8 course-description expand-container {{ if $shouldCollapseContent }}collapsed{{ end }}">
         <h4 class="font-weight-bold course-description-title">Course Description</h4>
-        <div class="mb-1 description">{{- .Content -}}</div>
+        <div class="mb-1 description">{{- $courseData.course_description | markdownify -}}</div>
         <div class="mb-3">
           {{ if $shouldCollapseContent }}
             <button class="expand-link" aria-expanded="false">
