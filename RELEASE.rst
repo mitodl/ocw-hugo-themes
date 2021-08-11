@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.24.0
+--------------
+
+- update ocw-to-hugo to 1.27.0 (#153)
+- update ocw-to-hugo to 1.26.1 and adjust rendering of course description to source from the course data template (#151)
+
 Version 1.23.0 (Released August 02, 2021)
 --------------
 
