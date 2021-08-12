@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.24.1
+Version 1.24.1 (Released August 12, 2021)
 --------------
 
 - update lockfile (#156)
