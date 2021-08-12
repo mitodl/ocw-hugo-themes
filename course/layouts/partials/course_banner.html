@@ -2,7 +2,6 @@
 {{ $currentPage := . }}
 <div id="course-banner" class="p-0">
   <div class="max-content-width m-auto px-5 py-6">
-    {{ $courseId := $currentPage.Params.course_id }}
     {{ $courseData := .Site.Data.course }}
     {{ $courseHomePage := .Site.GetPage "/" }}
     <a

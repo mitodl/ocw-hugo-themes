@@ -10,8 +10,8 @@
     <!-- End Google Tag Manager (noscript) -->
   {{ end }}
   <div class="overflow-auto">
-    {{ partialCached "mobile_course_nav.html" . .Params.course_id }}
-    {{ partialCached "mobile_course_info.html" . .Params.course_id }}
+    {{ partialCached "mobile_course_nav.html" . }}
+    {{ partialCached "mobile_course_info.html" . }}
     {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
     {{ $isCourseHomePage := (eq .Params.layout "course_home") }}
     {{ if not $isCourseHomePage }}
@@ -22,10 +22,10 @@
       </div>
     </div>
     {{ end }}
-    {{ block "subheader" . }}{{ partialCached "course_banner.html" . .Params.course_id }}{{ end }}
+    {{ block "subheader" . }}{{ partialCached "course_banner.html" . }}{{ end }}
     <div class="container-fluid">
       <div class="row outer-wrapper">
-        {{ partialCached "desktop_nav.html" . .Params.course_id }}
+        {{ partialCached "desktop_nav.html" . }}
         <div class="left-col-bg"></div>
         <div id="main-content-wrapper" class="col-lg-9 p-0 bg-white">
           <main>
@@ -43,7 +43,7 @@
                   {{ block "main" . }}{{ end }}
                 </div>
                 {{ if not $isCourseHomePage }}
-                {{ partialCached "desktop_course_info.html" . .Params.course_id }}
+                {{ partialCached "desktop_course_info.html" . }}
                 {{ end }}
               </div>
             </div>

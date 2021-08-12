@@ -1,4 +1,3 @@
-{{ $courseId := .Params.course_id }}
 {{ $courseData := .Site.Data.course }}
 {{ $openLearningLibraryVersions := $courseData.open_learning_library_versions }}
 {{ if gt (len $openLearningLibraryVersions) 0}}
