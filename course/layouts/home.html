@@ -1,0 +1,115 @@
+{{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
+{{ $courseData := .Site.Data.course }}
+{{ $courseThumbnailUrl := $courseData.course_thumbnail_image_url }}
+{{ $courseImageUrl := $courseData.course_image_url }}
+<!doctype html>
+<html lang="{{ $.Site.Language.Lang }}">
+{{ partial "head.html" . }}
+<body class="course-home-page">
+  {{ if $gtmId }}
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId }}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  {{ end }}
+  <div class="overflow-auto">
+    {{ partialCached "mobile_course_nav.html" . }}
+    {{ partialCached "mobile_course_info.html" . }}
+    {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
+    {{ block "subheader" . }}{{ partialCached "course_banner.html" . }}{{ end }}
+    <div class="container-fluid">
+      <div class="row outer-wrapper">
+        {{ partialCached "desktop_nav.html" . }}
+        <div class="left-col-bg"></div>
+        <div id="main-content-wrapper" class="col-lg-9 p-0 bg-white">
+          <main>
+            <div class="container-fluid p-0">
+              <div class="row m-0">
+                <div id="main-content" class="col-12 col-lg-12 col-xl-12 px-3 pl-md-5 pr-md-8 mt-3 mt-lg-5">
+                  <!-- the number here is a estimate, a count of 5 lines of characters on a sample course at minimum browser width -->
+                  {{ $shouldCollapseContent := gt (len .Content) 320 }}
+                  <div class="homepage-content d-flex">
+                    <div class="container-fluid pt-0 pb-4">
+                      <div class="row px-3 pb-2 justify-content-between">
+                        <div class="col-lg-4 d-none d-lg-block pl-0">
+                          <div class="d-flex flex-column image-with-caption">
+                            <img class="course-image" src="
+                              {{- if hasPrefix $courseImageUrl "http" -}}
+                                {{ $courseImageUrl }}
+                              {{- else -}}
+                                {{ partial "site_root_url.html" $courseImageUrl }}
+                              {{- end -}}"
+                              alt="{{ $courseData.course_image_alternate_text }}"
+                            />
+                            <span class="caption p-3">
+                              {{ $courseData.course_image_caption_text | safeHTML }}
+                            </span>
+                          </div>
+                        </div>
+                        {{ partial "mobile_nav_toggle.html" . }}
+                        <div class="col-lg-8 course-description expand-container {{ if $shouldCollapseContent }}collapsed{{ end }}">
+                          <h4 class="font-weight-bold course-description-title">Course Description</h4>
+                          <div class="mb-1 description">{{- $courseData.course_description | markdownify -}}</div>
+                          <div class="mb-3">
+                            {{ if $shouldCollapseContent }}
+                              <button class="expand-link" aria-expanded="false">
+                                <span class="read-more-text">Read More</span>
+                              </button>
+                            {{ end }}
+                          </div>
+                          {{ partial "course_info.html" (dict "context" . "inPanel" false) }}
+                        </div>
+                      </div>
+                      <div class="row px-lg-3 pb-lg-2 p-0">
+                        <div class="col-12 p-0">
+                          {{ partial "course_features.html" (dict "context" . "inPanel" false) }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+    {{ block "footer" . }}{{ partial "footer" . }}{{end}}
+  </div>
+  <script>
+    window.MathJax = {
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      displayAlign: "left",
+      displayIndent: "2em",
+      menuSettings: {
+        zoom: "Double-Click",
+        mpContext: true,
+        mpMouse: true
+      },
+      errorSettings: {
+        message: ["[Math Error]"]
+      }
+    }
+
+  </script>
+  {{ partialCached "navigation_js.html" . }}
+  {{ partialCached "responsive_tables_js.html" . }}
+  {{- $theme := .Site.Data.webpack.main -}}
+  {{- $courseTheme := .Site.Data.webpack.course -}}
+  {{- $mathjax := .Site.Data.webpack.mathjax -}}
+
+  <script src="{{ partial "webpack_url.html" $theme.js }}"></script>
+  <script src="{{ partial "webpack_url.html" $courseTheme.js }}"></script>
+  <script src="{{ partial "webpack_url.html" "/mathjax/tex-svg.js" }}" defer></script>
+  <!-- Appzi: Capture Insightful Feedback -->
+
+  <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>
+
+  <!-- End Appzi -->
+</body>
+
+</html>
