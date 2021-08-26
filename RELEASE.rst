@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.24.2
+Version 1.24.2 (Released August 26, 2021)
 --------------
 
 - remove references to course_id in front matter and the data template (#157)
