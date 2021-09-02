@@ -1,0 +1,8 @@
+{
+  "title": "{{ .Params.title }}",
+  "first_name": "{{ .Params.first_name }}",
+  "last_name": "{{ .Params.last_name }}",
+  "middle_initial": "{{ .Params.middle_initial }}",
+  "salutation": "{{ .Params.salutation }}",
+  "uid": "{{ .Params.uid }}"
+}
