@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.24.3
+--------------
+
+- Disable autoplay (#164)
+- add json templates to render instructor static JSON API responses (#167)
+- use level text and search url (#165)
+- ocw studio structure adjustments (#162)
+
 Version 1.24.2 (Released August 26, 2021)
 --------------
 
