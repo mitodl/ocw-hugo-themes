@@ -1,0 +1,6 @@
+{{- $uuid := index .Params 0 -}}
+{{- range $.Site.Pages -}}
+  {{- if eq (replace .Params.uid "-" "") (replace $uuid "-" "") -}}
+    {{- .Permalink -}}
+  {{- end -}}
+{{- end -}}

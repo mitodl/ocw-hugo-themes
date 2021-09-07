@@ -1,0 +1,8 @@
+{{ $youtubeKey := .Params.video_metadata.youtube_id }}
+{{ $captionsLocation := .Params.video_files.video_captions_file }}
+<div class="video-page">
+  <div class="description">
+    {{ .Params.about_this_resource_text | safeHTML }}
+  </div>
+  {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation) }}
+</div>
