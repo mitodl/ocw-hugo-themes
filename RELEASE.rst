@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.24.3
+Version 1.24.3 (Released September 07, 2021)
 --------------
 
 - Disable autoplay (#164)
