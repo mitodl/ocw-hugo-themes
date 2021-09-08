@@ -1,7 +1,9 @@
 <div class="new-courses course-cards standard-width container mx-auto mt-3">
 {{ $studioBaseUrl := getenv "OCW_STUDIO_BASE_URL" }}
-{{ if $studioBaseUrl }}
-{{  with getJSON (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/websites/?type=course")  }}
+{{ $courseStarterSlug := getenv "OCW_IMPORT_STARTER_SLUG" }}
+{{ $typeQuery := querify "type" $courseStarterSlug }}
+{{ if and $studioBaseUrl $courseStarterSlug }}
+{{  with getJSON (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/websites/?" $typeQuery)  }}
   {{ $results := .results }}
   {{ if $results }}
   {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none") "lg" (dict "size" 3 "class" "d-none d-lg-flex d-xl-none") "xl" (dict "size" 4 "class" "d-none d-xl-flex")) }}

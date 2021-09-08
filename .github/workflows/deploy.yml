@@ -57,6 +57,7 @@ jobs:
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
+          OCW_IMPORT_STARTER_SLUG: ${{ secrets.OCW_IMPORT_STARTER_SLUG }}
 
       - name: Deploy PR Preview to Netlify
         uses: nwtgck/actions-netlify@v1.1
