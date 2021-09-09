@@ -2,9 +2,8 @@
 
 set -euo pipefail
 
-if test -f ".env"; then
-  export $(cat .env | xargs)
-fi
+source build_scripts/common.sh
+load_env
 
 if [[ -z "${OCW_TO_HUGO_PATH}" ]]; then
   OCW_TO_HUGO_PATH="node_modules/@mitodl/ocw-to-hugo"

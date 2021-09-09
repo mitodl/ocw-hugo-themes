@@ -2,9 +2,8 @@
 
 set -euo pipefail
 
-if test -f ".env"; then
-  export $(cat .env | xargs)
-fi
+source build_scripts/common.sh
+load_env
 
 # If the VERBOSE variable isn't set, default it to 0
 if [[ -z "${VERBOSE+x}" ]]; then

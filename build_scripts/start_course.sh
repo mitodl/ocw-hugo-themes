@@ -2,12 +2,8 @@
 
 set -euo pipefail
 
-if test -f ".env"; then
-  export $(cat .env | xargs)
-else
-  echo ".env file not found"
-  exit 1
-fi
+source build_scripts/common.sh
+load_env --require-dot-env
 
 # If the DOWNLOAD variable isn't set, default it to 1
 if [[ -z "${DOWNLOAD+x}" ]]; then

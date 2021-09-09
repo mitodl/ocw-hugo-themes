@@ -2,9 +2,8 @@
 
 set -euo pipefail
 
-if test -f ".env"; then
-  export $(cat .env | xargs)
-fi
+source build_scripts/common.sh
+load_env
 
 if [[ -z "${EXTERNAL_SITE_PATH}" ]]; then
   echo "EXTERNAL_SITE_PATH not set"

@@ -2,12 +2,8 @@
 
 set -euo pipefail
 
-if test -f ".env"; then
-  export $(cat .env | xargs)
-else
-  echo ".env file not found"
-  exit 1
-fi
+source build_scripts/common.sh
+load_env --require-dot-env
 
 if [[ -z "${EXTERNAL_SITE_PATH}" ]]; then
   echo "EXTERNAL_SITE_PATH not set"
