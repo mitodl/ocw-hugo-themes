@@ -1,0 +1,8 @@
+{{ $instructors := slice }}
+{{ range . }}
+{{ $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" }}
+{{ with getJSON (print (strings.TrimSuffix "/" $staticApiBaseUrl) "/instructors/" . "/index.json")  }}
+{{ $instructors = $instructors | append .data }}
+{{ end }}
+{{ end }}
+{{ return $instructors }}
