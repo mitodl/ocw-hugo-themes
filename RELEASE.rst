@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.25.0
+Version 1.25.0 (Released September 09, 2021)
 --------------
 
 - use name and not course_id from the metadata (#176)
