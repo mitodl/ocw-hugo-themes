@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.25.0
+--------------
+
+- use name and not course_id from the metadata (#176)
+- ocw-course not course (#171)
+
 Version 1.24.3 (Released September 07, 2021)
 --------------
 
