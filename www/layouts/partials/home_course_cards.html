@@ -22,7 +22,7 @@
         <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
           {{ range $index, $courseItem := (first 10 $results)  }}
             {{ with $courseItem }}
-              {{ $courseId := $courseItem.metadata.course_id }}
+              {{ $courseId := $courseItem.name }}
               {{ $courseData := $courseItem.metadata}}
               {{ $modulo := (mod $index $itemsInCarousel) }}
               {{ $group := (div $index $itemsInCarousel) }}
@@ -31,7 +31,7 @@
               {{ end }}
                 <div class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 $itemsInCarousel) }}{{ end }} w-100 d-flex justify-content-center">
                   <div class="course-card card bg-white">
-                    <a href="/courses/{{ $courseData.course_id }}">
+                    <a href="/courses/{{ $courseId }}">
                       <img src="{{ $courseData.course_image_url }}" alt="Thumbnail for {{ $courseData.course_title }}"/>
                     </a>
                     <div class="course-card-content pt-1 px-3 pb-3">
@@ -40,7 +40,7 @@
                       </div>
                       <div class="pt-1">
                         <div class="h5">
-                          <a href="/courses/{{ $courseData.course_id }}">{{ $courseData.course_title }}</a>
+                          <a href="/courses/{{ $courseId }}">{{ $courseData.course_title }}</a>
                         </div>
                       </div>
                       <div class="pt-1">
