@@ -40,11 +40,13 @@ There are some environment variables you can use to configure optional funcional
 | --- | --- | --- |
 | `SEARCH_API_URL` | `http://localhost:8063/api/v0/search/` | A URL to an `open-discussions` search API to fetch results from|
 | `OCW_STUDIO_BASE_URL` | `http://localhost:8043/` | A URL of an instance of [`ocw-studio`](https://github.com/mitodl/ocw-studio) to fetch home page content from |
+| `STATIC_API_BASE_URL` | `http://ocwnext.odl.mit.edu/` | A URL of a deployed Hugo site with a static JSON API to query against |
 | `EXTERNAL_SITE_PATH` | `~/Code/ocw-www/site/` | A path to a Hugo site with content (Pages, Notifications, Promos, Testimonials) to use for local development |
 | `AWS_BUCKET_NAME` | `open-learning-course-data-production` | The S3 bucket `ocw-to-hugo` should source course data from |
 | `OCW_TEST_COURSE` | `18-06-linear-algebra-spring-2010` | An OCW course ID to use when spinning up a course site for local development with `npm run start:course` |
 | `OCW_TO_HUGO_PATH` | `~/Code/ocw-to-hugo/` | A path to a local override of [`ocw-to-hugo`](https://github.com/mitodl/ocw-to-hugo), a library used to generate Hugo markdown content from parsed OCW JSON exports from the legacy site |\
 | `OCW_TO_HUGO_OUTPUT_DIR` | `/path/to/Code/ocw-to-hugo/private/output` | Used in `build_all_courses.sh`, this path is iterated and the courses in it have `hugo` run against them to produce course sites.  When running `npm run start:course`, if `DOWNLOAD` is set to 0 the course data will be sourced from this directory. NOTE: This must be an absolute path |
+| `OCW_IMPORT_STARTER_SLUG` | `ocw-course` | When generating "New Courses" cards on the home page, the `ocw-studio` API is queried using `OCW_STUDIO_BASE_URL`.  This value determines the `type` used in the query string against the API |
 | `COURSE_OUTPUT_DIR` | `/path/to/Code/ocw-www/public/courses` | Used in `build_all_courses.sh`, this path is where the built course sites are output to NOTE: This must be an absolute path |
 | `COURSE_BASE_URL` | `http://localhost:3000/courses` | Used in `build_all_courses.sh`, this is the `--baseUrl` argument passed to each course build iterated by the script |
 | `VERBOSE` | `0` | Used in `build_all_courses.sh`, if set to `1` this will print verbose output from the course builds to the console |
