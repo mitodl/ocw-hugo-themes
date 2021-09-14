@@ -1,6 +1,7 @@
 baseUrl = "/"
 languageCode = "en-us"
 title = "MIT OpenCourseWare"
+ignoreErrors = ["error-remote-getjson"]
 
 [module]
   [[module.imports]]
