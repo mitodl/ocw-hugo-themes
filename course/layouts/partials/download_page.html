@@ -17,24 +17,6 @@
             <div class="col-9">{{ .Params.file_type }}</div>
         </div>
     {{- end -}}
-    {{- $instructors := partial "get_instructors.html" $.Site.Data.course.instructors.content -}}
-    {{- if $instructors -}}
-        <div class="row">
-            <div class="label col-3">Instructor(s):</div>
-            <div class="col-9">
-                {{ range $instructors }}
-                    <a href="{{ .url }}">{{ .title }}</a>
-                {{ end }}
-            </div>
-        </div>
-    {{- end -}}
-    <div class="row">
-        <div class="label col-3">Course No(s):</div>
-        <div class="col-9">
-            {{ $.Site.Data.course.primary_course_number }}
-            {{ delimit $.Site.Data.course.extra_course_numbers " " }}
-        </div>
-    </div>
     {{- if .Params.file_location -}}
     <div class="row">
         <div class="label col-3">
