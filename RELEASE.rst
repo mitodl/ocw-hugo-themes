@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.26.0
+Version 1.26.0 (Released September 17, 2021)
 --------------
 
 - update .env file sourcing
