@@ -5,8 +5,9 @@
 {{- end -}}
 {{- if $courseData.course_title -}}
   {{- $titleArray = $titleArray | append $courseData.course_title -}}
-  {{- if $courseData.departments -}}
-    {{- $titleArray = $titleArray | append (index $courseData.departments 0).department -}}
+  {{- if $courseData.department_numbers -}}
+    {{ $departments := partial "get_departments.html" $courseData.department_numbers }}
+    {{- $titleArray = $titleArray | append (index $departments 0).title -}}
   {{- end -}}
 {{- end -}}
 {{- $titleArray = $titleArray | append $.Site.Title -}}
