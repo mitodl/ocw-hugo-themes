@@ -1206,10 +1206,10 @@
     query-string "^6.13.1"
     ramda "^0.27.1"
 
-"@mitodl/ocw-to-hugo@1.30.0":
-  version "1.30.0"
-  resolved "https://registry.yarnpkg.com/@mitodl/ocw-to-hugo/-/ocw-to-hugo-1.30.0.tgz#ac0f3b7a066c2699db2b79c32465e57a10a1cfb0"
-  integrity sha512-7wh9iSaQ1wbiJ7V9pPcSiNBhZUsD+SIf/55KpS3wxowy032h6v3lLnnFvd6feuV9yj3X8X9Zh2BGqL5/lWMHtQ==
+"@mitodl/ocw-to-hugo@1.30.1":
+  version "1.30.1"
+  resolved "https://registry.yarnpkg.com/@mitodl/ocw-to-hugo/-/ocw-to-hugo-1.30.1.tgz#852581301828e82bca1190853d984b850f631ee1"
+  integrity sha512-kdtgoaNbPyHEZrgvfR0taNK7cfkm8iBLsqxPSYvlq1n0h1fFgJEBL1l0jc8357r/RJS6BqSpLPBLUmSfVsE/nA==
   dependencies:
     "@mitodl/course-search-utils" "^1.1.4"
     aws-sdk "^2.671.0"
