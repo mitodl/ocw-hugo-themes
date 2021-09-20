@@ -2,11 +2,11 @@
 {{ $inPanel := .inPanel }}
 <div class="course-home-section w-100 {{ if $inPanel }}in-panel{{ else }}bg-light{{ end }}">
   <div class="container px-0 mx-0">
-    <h4 class="course-info-title font-weight-bold">Course Features</h4>
+    <h4 class="course-info-title font-weight-bold">Learning Resource Types</h4>
     <div class="row">
-      {{ range $courseData.course_features }}
+      {{ range $courseData.learning_resource_types }}
         <div class="{{ if $inPanel }}col-12{{ else }}col-6 col-xl-3{{ end }}">
-          {{ partial "course_feature.html" . }}
+          {{ partial "learning_resource_type.html" . }}
         </div>
       {{ end }}
     </div>

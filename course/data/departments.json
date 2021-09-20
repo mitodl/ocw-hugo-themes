@@ -1,0 +1,151 @@
+{
+  "5": {
+    "title": "Chemistry",
+    "id": "chemistry"
+  },
+  "20": {
+    "title": "Biological Engineering",
+    "id": "biological-engineering"
+  },
+  "16": {
+    "title": "Aeronautics and Astronautics",
+    "id": "aeronautics-and-astronautics"
+  },
+  "21G": {
+    "title": "Global Studies and Languages",
+    "id": "global-studies-and-languages"
+  },
+  "18": {
+    "title": "Mathematics",
+    "id": "mathematics"
+  },
+  "HST": {
+    "title": "Health Sciences and Technology",
+    "id": "health-sciences-and-technology"
+  },
+  "EC": {
+    "title": "Edgerton Center",
+    "id": "edgerton-center"
+  },
+  "WGS": {
+    "title": "Women's and Gender Studies",
+    "id": "womens-and-gender-studies"
+  },
+  "11": {
+    "title": "Urban Studies and Planning",
+    "id": "urban-studies-and-planning"
+  },
+  "15": {
+    "title": "Sloan School of Management",
+    "id": "sloan-school-of-management"
+  },
+  "21A": {
+    "title": "Anthropology",
+    "id": "anthropology"
+  },
+  "ESD": {
+    "title": "Engineering Systems Division",
+    "id": "engineering-systems-division"
+  },
+  "10": {
+    "title": "Chemical Engineering",
+    "id": "chemical-engineering"
+  },
+  "12": {
+    "title": "Earth, Atmospheric, and Planetary Sciences",
+    "id": "earth-atmospheric-and-planetary-sciences"
+  },
+  "21M": {
+    "title": "Music and Theater Arts",
+    "id": "music-and-theater-arts"
+  },
+  "PE": {
+    "title": "Athletics, Physical Education and Recreation",
+    "id": "athletics-physical-education-and-recreation"
+  },
+  "4": {
+    "title": "Architecture",
+    "id": "architecture"
+  },
+  "ES": {
+    "title": "Experimental Study Group",
+    "id": "experimental-study-group",
+    "depNo": "ES"
+  },
+  "21L": {
+    "title": "Literature",
+    "id": "literature"
+  },
+  "2": {
+    "title": "Mechanical Engineering",
+    "id": "mechanical-engineering"
+  },
+  "6": {
+    "title": "Electrical Engineering and Computer Science",
+    "id": "electrical-engineering-and-computer-science"
+  },
+  "3": {
+    "title": "Materials Science and Engineering",
+    "id": "materials-science-and-engineering"
+  },
+  "21H": {
+    "title": "History",
+    "id": "history"
+  },
+  "24": {
+    "title": "Linguistics and Philosophy",
+    "id": "linguistics-and-philosophy"
+  },
+  "IDS": {
+    "title": "Institute for Data, Systems, and Society",
+    "id": "institute-for-data-systems-and-society"
+  },
+  "7": {
+    "title": "Biology",
+    "id": "biology"
+  },
+  "1": {
+    "title": "Civil and Environmental Engineering",
+    "id": "civil-and-environmental-engineering"
+  },
+  "CMS-W": {
+    "title": "Comparative Media Studies/Writing",
+    "id": "comparative-media-studies-writing"
+  },
+  "22": {
+    "title": "Nuclear Science and Engineering",
+    "id": "nuclear-engineering"
+  },
+  "14": {
+    "title": "Economics",
+    "id": "economics"
+  },
+  "CC": {
+    "title": "Concourse",
+    "id": "concourse"
+  },
+  "9": {
+    "title": "Brain and Cognitive Sciences",
+    "id": "brain-and-cognitive-sciences"
+  },
+  "STS": {
+    "title": "Science, Technology, and Society",
+    "id": "science-technology-and-society"
+  },
+  "17": {
+    "title": "Political Science",
+    "id": "political-science"
+  },
+  "MAS": {
+    "title": "Media Arts and Sciences",
+    "id": "media-arts-and-sciences"
+  },
+  "8": {
+    "title": "Physics",
+    "id": "physics"
+  },
+  "RES": {
+    "title": "Supplemental Resources",
+    "id": "supplemental-resources"
+  }
+}

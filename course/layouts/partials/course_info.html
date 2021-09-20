@@ -23,14 +23,17 @@
       </tr>
       <tr>
         <td class="pl-0">Course Number:</td>
-        <td>{{ partial "partial_collapse_list.html" (dict "list" ((slice $courseData.primary_course_number) | append $courseData.extra_course_numbers) "id" "course_numbers" "useLinks" false) }}</td>
+        <td>{{ partial "partial_collapse_list.html" (dict "list" ((slice $courseData.primary_course_number) | append (split $courseData.extra_course_numbers ",")) "id" "course_numbers" "useLinks" false) }}</td>
       </tr>
+      {{ with $courseData.department_numbers }}
       <tr>
         <td class="pl-0">Departments:</td>
         <td>
-          {{ partial "partial_collapse_list.html" (dict "list" $courseData.departments "id" "departments" "key" "department" "klass" "course-info-department") }}
+          {{ $departments := partial "get_departments.html" . }}
+          {{ partial "partial_collapse_list.html" (dict "list" $departments "id" "departments" "key" "title" "klass" "course-info-department" "useLinks" true) }}
         </td>
       </tr>
+      {{ end }}
       {{ if not $inPanel }}
       <tr>
         <td class="pl-0">Topics:</td>
@@ -48,8 +51,9 @@
       <tr>
         <td class="pl-0 pb-3">Level:</td>
         <td>
-          <a href="{{ $courseData.level.url }}" class="course-info-level">
-            {{ $courseData.level.level }}
+          {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
+          <a href="{{ $levelSearchUrl }}" class="course-info-level">
+            {{ $courseData.level }}
           </a>
         </td>
       </tr>
