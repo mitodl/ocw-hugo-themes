@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.27.0
+--------------
+
+- Resource page template (#172)
+- more ocw-studio updates (#192)
+- Add shortcode for resource links (#185)
+- instructors from static api (#186)
+- Add joining slash if none exists to course feature urls (#183)
+
 Version 1.26.0 (Released September 17, 2021)
 --------------
 
