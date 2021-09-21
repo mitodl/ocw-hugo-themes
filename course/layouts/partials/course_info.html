@@ -14,13 +14,15 @@
   <div class="position-relative">
     <div class="opaque-layer"></div>
     <table id="course-info-table" class="table table-borderless {{ if $inPanel }}border-bottom-gray{{ end }} mb-2">
+      {{ with $courseData.instructors.content }}
       <tr>
-        {{ $instructors := partial "get_instructors.html" $courseData.instructors.content }}
+        {{ $instructors := partial "get_instructors.html" . }}
         <td class="pl-0">{{ if eq (len $instructors) 1 }}Instructor{{ else }}Instructors{{ end }}:</td>
         <td>
           {{ partial "partial_collapse_list.html" (dict "list" $instructors "id" "instructors" "key" "title" "klass" "course-info-instructor" "showCollapse" .inPanel) }}
         </td>
       </tr>
+      {{ end }}
       <tr>
         <td class="pl-0">Course Number:</td>
         <td>{{ partial "partial_collapse_list.html" (dict "list" ((slice $courseData.primary_course_number) | append (split $courseData.extra_course_numbers ",")) "id" "course_numbers" "useLinks" false) }}</td>
