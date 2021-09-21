@@ -37,7 +37,6 @@ wheels/
 *.egg
 MANIFEST
 public/
-resources/
 node_modules
 yarn-debug.log*
 yarn-error.log*

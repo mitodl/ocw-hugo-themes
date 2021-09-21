@@ -1,0 +1,33 @@
+<div class="download-page container">
+    {{- if .Params.description -}}
+        <div class="row">
+            <div class="label col-3">Description:</div>
+            <div class="col-9">{{ .Params.description }}</div>
+        </div>
+    {{- end -}}
+    {{- if .Params.resourcetype -}}
+        <div class="row">
+            <div class="label col-3">Resource Type:</div>
+            <div class="col-9">{{ .Params.resourcetype }}</div>
+        </div>
+    {{- end -}}
+    {{- if .Params.file_type -}}
+        <div class="row">
+            <div class="label col-3">File Type:</div>
+            <div class="col-9">{{ .Params.file_type }}</div>
+        </div>
+    {{- end -}}
+    {{- if .Params.file_location -}}
+    <div class="row">
+        <div class="label col-3">
+            File Name:
+        </div>
+        <div class="col-3">
+            {{ .Params.title }}
+            </div>
+        <div class="col-6">
+            <a class="download-file" href="{{ .Params.file_location }}"><span class="material-icons">file_download</span> Download File</a>
+        </div>
+    </div>
+    {{- end -}}
+</div>

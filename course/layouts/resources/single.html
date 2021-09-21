@@ -1,0 +1,10 @@
+{{ define "main" }}
+{{ partial "course_content.html" . }}
+{{ if eq .Params.file_type "application/pdf" }}
+{{ partial "pdf_viewer.html" . }}
+{{ else if eq .Params.resourcetype "Video" }}
+{{ partial "video.html" . }}
+{{ else }}
+{{ partial "download_page.html" . }}
+{{ end }}
+{{ end }}
