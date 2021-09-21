@@ -1,30 +1,11 @@
 {{ $courseData := .context.Site.Data.course }}
 <ul class="list-unstyled pb-2 m-0">
-{{ range $topic := $courseData.topics }}
-  {{ if gt (len $topic.subtopics) 0 }}
-    {{ range $subtopic := $topic.subtopics }}
-      {{ if gt (len $subtopic.specialities) 0 }}
-        {{ range $speciality := $subtopic.specialities }}
-          <li>
-            <a href="{{ $topic.url }}" class="text-black course-info-topic">{{ $topic.topic }}</a>
-            >
-            <a href="{{ $subtopic.url }}" class="text-black course-info-topic">{{ $subtopic.subtopic }}</a>
-            >
-            <a href="{{ $speciality.url }}" class="text-black course-info-topic">{{ $speciality.speciality }}</a>
-          </li>
-        {{ end }}
-      {{ else }}
-        <li>
-          <a href="{{ $topic.url }}" class="text-black course-info-topic">{{ $topic.topic }}</a>
-          >
-          <a href="{{ $subtopic.url }}" class="text-black course-info-topic">{{ $subtopic.subtopic }}</a>
-        </li>
-      {{ end }}
+{{ range $topicGroup := $courseData.topics }}
+  <li>
+    {{ range $index, $item := $topicGroup }}
+      <a href="{{ partial "get_search_url.html" (dict "key" "topic" "value" (title $item)) }}" class="text-black course-info-topic">{{ $item }}</a>
+      {{ if ne $index (sub (len $topicGroup) 1) }}>{{ end }}
     {{ end }}
-  {{ else }}
-    <li>
-      <a href="{{ $topic.url }}" class="text-black course-info-topic">{{ $topic.topic }}</a>
-    </li>
-  {{ end }}
+  </li>
 {{ end }}
 </ul>

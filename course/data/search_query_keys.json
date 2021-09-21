@@ -1,5 +1,6 @@
 {
   "instructors": "q",
   "department_numbers": "d",
-  "level": "l"
+  "level": "l",
+  "topic": "t"
 }

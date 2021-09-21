@@ -1,6 +1,7 @@
 {{ $index := .index }}
 {{ $context := .context }}
 {{ $subtopics := .subtopics }}
+{{ $scratch := newScratch }}
 <div class="position-relative pt-1 pb-1{{ if gt (len .subtopics) 0 }} pl-4{{ end }}">
   {{ if gt (len .subtopics) 0 }}
   <a class="topic-toggle"
@@ -12,17 +13,18 @@
   </a>
   {{ end }}
   <span class="topic-text-wrapper">
-    <a class="text-black course-info-topic" href="{{ .topic.url }}">
-    {{ title .topic.topic }}
+    <a class="text-black course-info-topic" href="{{ partial "get_search_url.html" (dict "key" "topic" "value" (title .topic)) }}">
+      {{ title .topic }}
     </a>
   </span>
 </div>
 {{ if gt (len .subtopics) 0 }}
 <div class="pl-4 subtopic-container collapse{{if eq $index 0 }} show{{ end }}" id="subtopic-container_{{ $index }}">
-  {{ range $subtopicIndex, $subtopic := .subtopics }}
-  {{ $specialities := $subtopic.specialities }}
-  <div class="position-relative pt-1 pb-1 {{ if gt (len $specialities) 0 }} pl-4{{ end }}">
-    {{ if gt (len $specialities) 0 }}
+  {{ $scratch.Set "index" 0 }}
+  {{ range $subtopic, $specialities := .subtopics }}
+  {{ $subtopicIndex := $scratch.Get "index" }}
+  <div class="position-relative pt-1 pb-1 {{ if gt (len ($specialities | default slice)) 0 }} pl-4{{ end }}">
+    {{ if gt (len ($specialities | default slice)) 0 }}
     <a class="topic-toggle"
       href="#speciality-container_{{ $index }}_{{ $subtopicIndex }}"
       data-toggle="collapse"
@@ -32,20 +34,21 @@
     </a>
     {{ end }}
     <span class="topic-text-wrapper">
-      <a class="text-black course-info-topic" href="{{ $subtopic.url }}">
-      {{ title $subtopic.subtopic }}
+      <a class="text-black course-info-topic" href="{{ partial "get_search_url.html" (dict "key" "topic" "value" (title $subtopic)) }}">
+      {{ title $subtopic }}
       </a>
     </span>
   </div>
-  {{ range $specialities }}
+  {{ range $speciality, $ignore := $specialities }}
   <div class="pt-1 pb-1 pl-5 collapse{{if eq $index 0 }} show{{ end }}" id="speciality-container_{{ $index }}_{{ $subtopicIndex }}">
     <span class="topic-text-wrapper">
-      <a class="text-black course-info-topic" href="{{ .url }}">
-      {{ .speciality }}
+      <a class="text-black course-info-topic" href="{{ partial "get_search_url.html" (dict "key" "topic" "value" (title $speciality)) }}">
+      {{ title $speciality }}
       </a>
     </span>
   </div>
   {{ end }}
+  {{ $scratch.Set "index" (add 1 ($scratch.Get "index")) }}
   {{ end }}
 </div>
 {{ end }}
