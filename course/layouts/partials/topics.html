@@ -1,11 +1,18 @@
 {{ $courseData := .context.Site.Data.course }}
+{{ $scratch := newScratch }}
+{{ $scratch.Set "index" 0 }}
 <div class="border-bottom-gray mb-2">
   <h4 class="course-info-title font-weight-bold">Topics</h4>
   <ul class="list-unstyled pb-2 m-0">
-    {{ range $index, $topic := $courseData.topics }}
+    {{- $topics := (slice (slice "Social Science" "Political Science" "American Politics") (slice "Social Science" "Public Administration" "Public Policy")) -}}
+
+    {{ $topics := partial "hierarchical_select_as_map.html" $courseData.topics }}
+
+    {{- range $topic, $subtopics := $topics -}}
     <li>
-      {{ partial "topic.html" (dict "index" $index "topic" $topic "subtopics" $topic.subtopics) }}
+      {{- partial "topic.html" (dict "index" ($scratch.Get "index") "topic" $topic "subtopics" $subtopics) -}}
     </li>
-    {{ end }}
+    {{ $scratch.Set "index" (add 1 ($scratch.Get "index")) }}
+    {{- end -}}
   </ul>
 </div>
