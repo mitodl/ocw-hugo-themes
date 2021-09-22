@@ -1,6 +1,20 @@
 Release Notes
 =============
 
+Version 1.27.0
+--------------
+
+- default subtopics to an empty slice (#202)
+- fix inpanel (#200)
+- Handle empty topics (#197)
+- use with on instructors before using it (#196)
+- Update template to use newer format for topics (#193)
+- Resource page template (#172)
+- more ocw-studio updates (#192)
+- Add shortcode for resource links (#185)
+- instructors from static api (#186)
+- Add joining slash if none exists to course feature urls (#183)
+
 Version 1.26.0 (Released September 17, 2021)
 --------------
 
