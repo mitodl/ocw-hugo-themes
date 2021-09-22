@@ -2,7 +2,7 @@
 {{ $context := .context }}
 {{ $subtopics := slice }}
 {{ if not (eq .subtopics nil) }}
-{{ $subtopics := .subtopics }}
+{{ $subtopics = .subtopics }}
 {{ end }}
 {{ $scratch := newScratch }}
 <div class="position-relative pt-1 pb-1{{ if gt (len $subtopics) 0 }} pl-4{{ end }}">
