@@ -1,9 +1,12 @@
 {{ $index := .index }}
 {{ $context := .context }}
+{{ $subtopics := slice }}
+{{ if not (eq .subtopics nil) }}
 {{ $subtopics := .subtopics }}
+{{ end }}
 {{ $scratch := newScratch }}
-<div class="position-relative pt-1 pb-1{{ if gt (len .subtopics) 0 }} pl-4{{ end }}">
-  {{ if gt (len .subtopics) 0 }}
+<div class="position-relative pt-1 pb-1{{ if gt (len $subtopics) 0 }} pl-4{{ end }}">
+  {{ if gt (len $subtopics) 0 }}
   <a class="topic-toggle"
     href="#subtopic-container_{{ $index }}"
     data-toggle="collapse"
@@ -18,10 +21,10 @@
     </a>
   </span>
 </div>
-{{ if gt (len .subtopics) 0 }}
+{{ if gt (len $subtopics) 0 }}
 <div class="pl-4 subtopic-container collapse{{if eq $index 0 }} show{{ end }}" id="subtopic-container_{{ $index }}">
   {{ $scratch.Set "index" 0 }}
-  {{ range $subtopic, $specialities := .subtopics }}
+  {{ range $subtopic, $specialities := $subtopics }}
   {{ $subtopicIndex := $scratch.Get "index" }}
   <div class="position-relative pt-1 pb-1 {{ if gt (len ($specialities | default slice)) 0 }} pl-4{{ end }}">
     {{ if gt (len ($specialities | default slice)) 0 }}
