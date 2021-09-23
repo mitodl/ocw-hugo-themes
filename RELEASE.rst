@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.27.0
+Version 1.27.0 (Released September 23, 2021)
 --------------
 
 - default subtopics to an empty slice (#202)
