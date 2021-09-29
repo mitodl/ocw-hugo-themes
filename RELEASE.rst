@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.28.0
+--------------
+
+- Update ocw-to-hugo to fix typo bug (#205)
+- adjust topics_summary to be compatible with newest ocw-to-hugo changes related to topics (#207)
+
 Version 1.27.0 (Released September 23, 2021)
 --------------
 
