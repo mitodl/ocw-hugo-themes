@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.28.0
+Version 1.28.0 (Released September 29, 2021)
 --------------
 
 - Update ocw-to-hugo to fix typo bug (#205)
