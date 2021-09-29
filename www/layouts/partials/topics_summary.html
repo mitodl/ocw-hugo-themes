@@ -1,11 +1,7 @@
 {{- $topicsList := slice -}}
-{{- range $topic := . -}}
-    {{- if not $topic.subtopics -}}
-        {{- $topicsList = $topicsList | append (title $topic.topic) -}}
-    {{- else -}}
-        {{- range $subtopic := $topic.subtopics -}}
-        {{- $topicsList = $topicsList | append (title $subtopic.subtopic) -}}
-        {{- end -}}
+{{- range $topicList := . -}}
+    {{- range $topic := $topicList -}}
+        {{- $topicsList = $topicsList | append (title $topic) -}}
     {{- end -}}
 {{- end -}}
 {{- delimit (first 3 (uniq $topicsList)) ", " -}}
