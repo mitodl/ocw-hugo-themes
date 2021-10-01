@@ -1,7 +1,9 @@
 {{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
-{{ $courseData := .Site.Data.course }}
-{{ $courseThumbnailUrl := $courseData.course_thumbnail_image_url }}
-{{ $courseImageUrl := $courseData.course_image_url }}
+{{- $courseData := .Site.Data.course -}}
+{{- $courseImageUid := index $courseData.course_image.content 0 -}}
+{{- $courseImageThumbnailUid := index $courseData.course_image_thumbnail.content 0 -}}
+{{- $courseImageUrl := partial "resource_url.html" (dict "resourcetype" "Image" "uid" $courseImageUid) -}}
+{{- $courseImageThumbnailUrl := partial "resource_url.html" (dict "resourcetype" "Image" "uid" $courseImageThumbnailUid) -}}
 <!doctype html>
 <html lang="{{ $.Site.Language.Lang }}">
 {{ partial "head.html" . }}
