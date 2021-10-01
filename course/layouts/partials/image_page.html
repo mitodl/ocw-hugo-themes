@@ -1,0 +1,29 @@
+{{- if .Params.image_metadata -}}
+    {{- $metadata := .Params.image_metadata -}}
+    {{- if index $metadata "image-alt" -}}
+        <div class="row">
+            <div class="label col-3">Alt text:</div>
+            <div class="col-9">{{ index $metadata "image-alt" }}</div>
+        </div>
+    {{- end -}}
+    {{- if $metadata.caption -}}
+        <div class="row">
+            <div class="label col-3">Caption:</div>
+            <div class="col-9">{{ $metadata.caption }}</div>
+        </div>
+    {{- end -}}
+    {{- if $metadata.credit -}}
+        <div class="row">
+            <div class="label col-3">Credit:</div>
+            <div class="col-9">{{ $metadata.credit }}</div>
+        </div>
+    {{- end -}}
+{{- end -}}
+
+{{- if .Params.file_location -}}
+    <div class="row">
+        <div class="col-12">
+            <img class="mw-100" src="{{ .Params.file_location }}" alt="{{ if .Params.image_metadata }}{{ index .Params.image_metadata "image-alt" }}{{ end }}" />
+        </div>
+    </div>
+{{- end -}}
