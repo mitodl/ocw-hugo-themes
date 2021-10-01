@@ -41,6 +41,7 @@ There are some environment variables you can use to configure optional funcional
 | `SEARCH_API_URL` | `http://localhost:8063/api/v0/search/` | A URL to an `open-discussions` search API to fetch results from|
 | `OCW_STUDIO_BASE_URL` | `http://localhost:8043/` | A URL of an instance of [`ocw-studio`](https://github.com/mitodl/ocw-studio) to fetch home page content from |
 | `STATIC_API_BASE_URL` | `http://ocwnext.odl.mit.edu/` | A URL of a deployed Hugo site with a static JSON API to query against |
+| `RESOURCE_BASE_URL` | `https://open-learning-course-data-rc.s3.amazonaws.com/` | A base URL to prefix the rendered path to resources with |
 | `EXTERNAL_SITE_PATH` | `~/Code/ocw-www/site/` | A path to a Hugo site with content (Pages, Notifications, Promos, Testimonials) to use for local development |
 | `AWS_BUCKET_NAME` | `open-learning-course-data-production` | The S3 bucket `ocw-to-hugo` should source course data from |
 | `OCW_TEST_COURSE` | `18-06-linear-algebra-spring-2010` | An OCW course ID to use when spinning up a course site for local development with `npm run start:course` |
