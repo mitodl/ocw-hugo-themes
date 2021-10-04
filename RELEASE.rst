@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.29.0
+--------------
+
+- Add image view and add metadata to document and download resource views (#204)
+
 Version 1.28.0 (Released September 29, 2021)
 --------------
 
