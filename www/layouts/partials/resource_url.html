@@ -1,9 +1,0 @@
-{{- $resources := where (where site.RegularPages "Type" "==" "resource") ".Params.filetype" "==" .filetype -}}
-{{- $resource := index (where $resources ".Params.uid" "==" .uid) 0 -}}
-{{/* 
-  Here we are disassembling the URL and returning it without the host and schema.
-  This is done because it is expected that ocw-studio currently returns fully 
-  qualified S3 URLs, and when deployed these will need to be behind CDN.
-*/}}
-{{- $resourceUrl := urls.Parse $resource.Params.file -}}
-{{- return printf $resourceUrl.Path -}}
