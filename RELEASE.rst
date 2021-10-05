@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.29.1
+Version 1.29.1 (Released October 05, 2021)
 --------------
 
 - course images from resources (#212)
