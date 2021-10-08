@@ -1,4 +1,3 @@
 {{ $youtubeId := index .Params 0 }}
 {{ $captionsLocation := index .Params 1}}
-{{ $transcriptLocation := index .Params 2}}
-{{ partial "youtube_player.html" (dict "youtubeKey" $youtubeId "captionsLocation" $captionsLocation "transcriptLocation" $transcriptLocation) }}
+{{ partial "youtube_player.html" (dict "youtubeKey" $youtubeId "captionsLocation" $captionsLocation) }}
