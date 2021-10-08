@@ -6,4 +6,12 @@
     flex-direction: row;
     align-items: center;
   }
+
+  .download-file {
+    display: inline-flex;
+    padding: 10px 22px;
+    background-color: $medium-gray;
+    color: white;
+    text-decoration: none;
+  }
 }
