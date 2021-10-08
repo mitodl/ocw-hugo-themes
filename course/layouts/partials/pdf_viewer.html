@@ -1,12 +1,12 @@
 <div class="pdf-viewer w-100 pb-5">
   <div class="pr-4">
-    <a class="download-link" href="{{ .Params.file_location }}">
+    <a class="download-link" href="{{ .Params.file }}">
       <div class="btn bg-link-blue text-white rounded float-right mb-3">
         <span>DOWNLOAD</span>
         <div class="ripple-container"></div>
       </div>
     </a>
   </div>
-  <div class="pdf-wrapper w-100" data-pdfurl="{{ .Params.file_location }}">
+  <div class="pdf-wrapper w-100" data-pdfurl="{{ .Params.file }}">
   </div>
 </div>
