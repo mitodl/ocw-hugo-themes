@@ -323,3 +323,28 @@ article.content {
   max-width: 795px;
   border-bottom: 1px solid $medium-gray;
 }
+
+.download-file {
+  display: inline-flex;
+  padding: 10px 22px;
+  background-color: $medium-gray;
+  color: white;
+  text-decoration: none;
+}
+
+.video-buttons-container {
+  background-color: #f6f7f9;
+  overflow: hidden;
+}
+
+.download-transcript-container {
+  float: right;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-right: 25px;
+}
+
+.download-transcript-button {
+  float: right;
+  font-size: 14px;
+}
