@@ -5,12 +5,8 @@
   This is done because it is expected that ocw-studio currently returns fully
   qualified S3 URLs, and when deployed these will need to be behind CDN.
 
-  For temporarily backward compatability with ocw-to-hugo converted content, we check
-  file_location as well as file.
-
-  The RESOURCE_BASE_URL env variable is prefixed before the URL. That way for local
+  The RESOURCE_BASE_URL env variable is prefixed before the URL. That way for local 
   development, you can set this to the S3 URL you expect the resources to be available at.
 */}}
-{{- $resourceUrl := $resource.Params.file | default $resource.Params.file_location -}}
 {{- $prefix := getenv "RESOURCE_BASE_URL" | default "" -}}
-{{- return printf "%s%s" (strings.TrimSuffix "/" $prefix) (urls.Parse $resourceUrl).Path -}}
+{{- return printf "%s%s" (strings.TrimSuffix "/" $prefix) (urls.Parse $resource.Params.file).Path -}}
