@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.30.0
+Version 1.30.0 (Released October 12, 2021)
 --------------
 
 - Revert "Revert "download transcript theme""
