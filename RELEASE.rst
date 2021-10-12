@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.30.0
+--------------
+
+- Revert "Revert "download transcript theme""
+- fix course image (#222)
+- Revert "download transcript theme"
+- download transcript theme
+- Revert "since course images are a 1:1 relationship, don't access them as if they were an array"
+- since course images are a 1:1 relationship, don't access them as if they were an array
+
 Version 1.29.1 (Released October 05, 2021)
 --------------
 
