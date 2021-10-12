@@ -1,0 +1,3 @@
+{{ $youtubeKey := .Params.video_metadata.youtube_id }}
+{{ $captionsLocation := .Params.video_files.video_captions_file }}
+{{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation) }}
