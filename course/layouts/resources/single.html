@@ -14,10 +14,10 @@
                 <div class="col-9">{{ delimit (.Params.learning_resource_types | default slice) ", " }}</div>
             </div>
         {{- end -}}
-        {{- if .Params.file_location -}}
+        {{- if (partial "resource_url.html" .Params) -}}
         <div class="row">
             <div class="col-12 d-flex flex-direction-row align-items-center">
-                <a class="download-file" href="{{ .Params.file_location }}"><span class="material-icons">file_download</span> Download File</a>
+                <a class="download-file" href="{{ partial "resource_url.html" .Params }}"><span class="material-icons">file_download</span> Download File</a>
             </div>
         </div>
         {{- end -}}
