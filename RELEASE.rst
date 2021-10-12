@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.30.1
+--------------
+
+- Implement simple resource embed (#226)
+- use `file` over `file_location` (#225)
+
 Version 1.30.0 (Released October 12, 2021)
 --------------
 
