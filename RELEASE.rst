@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.30.1
+Version 1.30.1 (Released October 13, 2021)
 --------------
 
 - Implement simple resource embed (#226)
