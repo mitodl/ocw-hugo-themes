@@ -1,10 +1,27 @@
 {{ $youtubeKey := .Params.video_metadata.youtube_id }}
 {{ $captionsLocation := .Params.video_files.video_captions_file }}
-{{ $transcriptLocation := .Params.video_files.video_transcript_file }}
+{{ $transcriptPdfLocation := .Params.video_files.video_transcript_file }}
 
 <div class="video-page">
   <div class="description">
     {{ .Params.about_this_resource_text | safeHTML }}
   </div>
-  {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "transcriptLocation" $transcriptLocation) }}
+  {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "transcriptPdfLocation" $transcriptPdfLocation) }}
+  {{if $captionsLocation}}
+  <div class="transcript-box">
+  	<div class="transcript-header">
+	   	<span>
+	       Transcript
+	    </span>
+	    <a class="transcript-section-toggle course-nav-section-toggle"
+	      href="#transcript"
+	      data-toggle="collapse"
+	      aria-controls="transcript"
+	      aria-expanded="">
+	      <i class="material-icons md-18"></i>
+	    </a>
+	</div>
+  	<div id="transcript" class="collapse show"></div>
+  </div>
+  {{end}}
 </div>

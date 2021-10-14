@@ -9,9 +9,11 @@ import "videojs-youtube"
 import { initPdfViewers } from "./js/pdf_viewer"
 import { initDesktopCourseInfoToggle } from "./js/course_info_toggle"
 import { initCourseInfoExpander } from "./js/course_expander"
+import { initVideoTranscriptTrack } from "./js/video_transcript_track"
 
 $(document).ready(() => {
   initPdfViewers()
   initDesktopCourseInfoToggle()
   initCourseInfoExpander(document)
+  initVideoTranscriptTrack()
 })
