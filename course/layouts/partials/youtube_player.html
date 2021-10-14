@@ -16,10 +16,10 @@
         <track kind="captions" src="{{ .captionsLocation }}" srclang="en" label="English" default>
   {{ end }}
 </div>
-{{ if  .transcriptLocation}}
+{{ if  .transcriptPdfLocation}}
   <div class="video-buttons-container">
     <div class="col-6 download-transcript-container">
-      <a class="download-file download-transcript-button" href="{{ .transcriptLocation }}"><span class="material-icons">file_download</span> Download Transcript</a>
+      <a class="download-file download-transcript-button" href="{{ .transcriptPdfLocation }}"><span class="material-icons">file_download</span> Download Transcript</a>
     </div>
   </div>
 {{end}}

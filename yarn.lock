@@ -13478,6 +13478,11 @@ videojs-font@3.2.0:
   resolved "https://registry.yarnpkg.com/videojs-font/-/videojs-font-3.2.0.tgz#212c9d3f4e4ec3fa7345167d64316add35e92232"
   integrity sha512-g8vHMKK2/JGorSfqAZQUmYYNnXmfec4MLhwtEFS+mMs2IDY398GLysy6BH6K+aS1KMNu/xWZ8Sue/X/mdQPliA==
 
+videojs-transcript-ac@^0.8.8:
+  version "0.8.8"
+  resolved "https://registry.yarnpkg.com/videojs-transcript-ac/-/videojs-transcript-ac-0.8.8.tgz#84620ddf24874569cc3be3e67487e76522f50f69"
+  integrity sha1-hGIN3ySHRWnMO+PmdIfnZSL1D2k=
+
 videojs-vtt.js@^0.15.2:
   version "0.15.3"
   resolved "https://registry.yarnpkg.com/videojs-vtt.js/-/videojs-vtt.js-0.15.3.tgz#84260393b79487fcf195d9372f812d7fab83a993"
