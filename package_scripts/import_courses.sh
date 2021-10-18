@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-source build_scripts/common.sh
+source package_scripts/common.sh
 load_env
 
 if [[ -z "${OCW_TO_HUGO_PATH}" ]]; then
