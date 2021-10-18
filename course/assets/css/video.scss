@@ -102,3 +102,34 @@
     height: 100%;
   }
 }
+
+.video-buttons-container {
+  background-color: #f6f7f9;
+  overflow: hidden;
+  margin-bottom: 35px;
+}
+
+.download-transcript-container {
+  float: right;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-right: 25px;
+}
+
+.download-transcript-button {
+  float: right;
+  font-size: 14px;
+}
+
+.video_page_link {
+  font-size: 16px;
+  text-transform: uppercase;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 10px;
+  font-weight: bold;
+}
+
+.video-page-link-icon {
+  transform: translateY(6px);
+}
