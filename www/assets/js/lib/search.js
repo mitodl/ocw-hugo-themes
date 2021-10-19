@@ -510,7 +510,7 @@ export const getSectionUrl = result => {
   ) {
     return "/"
   }
-  return `/sections/${urlPieces.join("/")}`
+  return `/pages/${urlPieces.join("/")}`
 }
 
 export const getResourceUrl = result => {
