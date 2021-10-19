@@ -517,12 +517,12 @@ describe("search library", () => {
       })
     })
 
-    it("adds a /sections if it is pointing to a section within a course url", () => {
+    it("adds a /pages if it is pointing to a section within a course url", () => {
       const result = {
         ...makeLearningResourceResult(),
         url: "/courses/course-id/other-part/path/to/a/pdf"
       }
-      expect(getSectionUrl(result)).toBe("/sections/path/to/a/pdf")
+      expect(getSectionUrl(result)).toBe("/pages/path/to/a/pdf")
     })
   })
 })
