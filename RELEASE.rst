@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.30.2 (Released October 20, 2021)
+--------------
+
+- show transcripts under video
+
 Version 1.30.1 (Released October 13, 2021)
 --------------
 
