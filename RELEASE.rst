@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.30.2
+Version 1.30.2 (Released October 20, 2021)
 --------------
 
 - show transcripts under video
