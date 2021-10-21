@@ -15,12 +15,12 @@ if [[ -z "${COURSE_HUGO_CONFIG_PATH}" ]]; then
   clone_or_pull_repo git@github.com:mitodl/ocw-hugo-projects.git private/ocw-hugo-projects
   COURSE_HUGO_CONFIG_PATH=$THEMES_PATH/private/ocw-hugo-projects/ocw-course/config.yaml
 fi
+if [[ -z "${OCW_TEST_COURSE}" ]]; then
+  # Test course not set, assign default
+  OCW_TEST_COURSE="18.06-spring-2010-2"
+fi
 if [[ -z "${COURSE_CONTENT_PATH}" ]]; then
   # Path to course content not set, fetch default from ocw-content-rc
-  if [[ -z "${OCW_TEST_COURSE}" ]]; then
-    # Test course not set, assign default
-    OCW_TEST_COURSE="18.06-spring-2010-2"
-  fi
   clone_or_pull_repo git@github.mit.edu:ocw-content-rc/$OCW_TEST_COURSE.git private/$OCW_TEST_COURSE
   COURSE_CONTENT_PATH=$THEMES_PATH/private/$OCW_TEST_COURSE
   echo $COURSE_CONTENT_PATH
