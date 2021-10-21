@@ -85,6 +85,8 @@ If you're running the site for the first time, or if dependencies have changed, 
 
 `yarn install`
 
+You will also need git access to clone repos from https://github.mit.edu/ocw-content-rc, so make sure your command line `git` interface is configured to do so.
+
 ### Obtaining content
 
 Content for the themes in this repo can be generated using an instance of [`ocw-studio`](https://github.com/mitodl/ocw-studio), a CMS used to author OCW sites.  The RC instance is located at https://ocw-studio-rc.odl.mit.edu.  Its content is published to MIT's Github Enterprise instance under the [`ocw-content-rc`](https://github.mit.edu/ocw-content-rc) organization.  For the `www` theme, content can be found in the [`ocw-www`](https://github.mit.edu/ocw-content-rc/ocw-www) repo.  For the `course` theme, use any other repo in the [`ocw-content-rc`](https://github.mit.edu/ocw-content-rc) organization or create and publish your own.
@@ -114,6 +116,10 @@ An example environment file can be found at `.env.example`.  To futher explain t
 
 To run `ocw-www` locally for working on the `www` theme:
 
+`npm run start:www`
+
+To customize your `www` site:
+
  - Clone the `ocw-www` content repo: https://github.mit.edu/ocw-content-rc/ocw-www
  - Clone `ocw-hugo-projects` to obtain the relevant configuration file: https://github.com/mitocw/ocw-hugo-projects
  - Set the following environment variables in your `.env` file, replacing `/path/to` with your path to the repos indicated:
@@ -129,6 +135,10 @@ To run `ocw-www` locally for working on the `www` theme:
 ### Running a course site
 
 To run a course site locally for working on the `course` theme:
+
+`npm run start:course`
+
+To customize your `course` site:
 
  - Create a course site at https://ocw-studio-rc.odl.mit.edu/sites/ using the `ocw-course` starter
  - Add content and resources to your site relevant to what you're working on and publish your site to staging
