@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.30.3
+--------------
+
+- replace "sections" with "pages" (#234)
+
 Version 1.30.2 (Released October 20, 2021)
 --------------
 
