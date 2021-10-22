@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.30.4
+Version 1.30.4 (Released October 22, 2021)
 --------------
 
 - link from embed video to video page
