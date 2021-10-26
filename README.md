@@ -121,7 +121,7 @@ To run `ocw-www` locally for working on the `www` theme:
 To customize your `www` site:
 
  - Clone the `ocw-www` content repo: https://github.mit.edu/ocw-content-rc/ocw-www
- - Clone `ocw-hugo-projects` to obtain the relevant configuration file: https://github.com/mitocw/ocw-hugo-projects
+ - Clone `ocw-hugo-projects` to obtain the relevant configuration file: https://github.com/mitodl/ocw-hugo-projects
  - Set the following environment variables in your `.env` file, replacing `/path/to` with your path to the repos indicated:
    - `WWW_HUGO_CONFIG_PATH=/path/to/ocw-hugo-projects/ocw-www/config.yaml`
    - `WWW_CONTENT_PATH=/path/to/ocw-content-rc/ocw-www/`
@@ -143,7 +143,7 @@ To customize your `course` site:
  - Create a course site at https://ocw-studio-rc.odl.mit.edu/sites/ using the `ocw-course` starter
  - Add content and resources to your site relevant to what you're working on and publish your site to staging
  - Find your site at https://github.mit.edu/ocw-content-rc/ and clone it locally (it's recommended to have a parent folder locally for all cloned courses, in this case `ocw-content-rc`)
- - Clone `ocw-hugo-projects` to obtain the relevant configuration file: https://github.com/mitocw/ocw-hugo-projects
+ - Clone `ocw-hugo-projects` to obtain the relevant configuration file: https://github.com/mitodl/ocw-hugo-projects
  - Set the following environment variables in your `.env` file, replacing `/path/to` with your path to the repos indicated and `your-course-slug` with the folder your course was cloned into in a previous step:
    - `COURSE_HUGO_CONFIG_PATH=/path/to/ocw-hugo-projects/ocw-course/config.yaml`
    - `COURSE_CONTENT_PATH=/path/to/ocw-content-rc/`
