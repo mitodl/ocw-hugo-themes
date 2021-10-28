@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.31.0
+Version 1.31.0 (Released October 28, 2021)
 --------------
 
 - overhaul local dev / package scripts / documentation (#231)
