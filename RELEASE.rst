@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.31.1
+--------------
+
+- add table shortcodes
+- video galleries redesign (#240)
+- mitodl not mitocw (#239)
+
 Version 1.31.0 (Released October 28, 2021)
 --------------
 
