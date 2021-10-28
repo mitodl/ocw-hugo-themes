@@ -1,6 +1,10 @@
 {{ $youtubeKey := .Params.video_metadata.youtube_id }}
 {{ $captionsLocation := .Params.video_files.video_captions_file }}
 {{ $uid := .Params.uid }}
+{{ $downloadLink := .Params.file }}
+{{ if (eq $downloadLink nil) }}
+{{ $downloadLink = .Params.video_files.archive_url }}
+{{ end }}
 
 {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation) }}
 {{- range where $.Site.Pages "Params.uid" $uid -}}
@@ -9,5 +13,10 @@
       <a href="{{- .Permalink -}}">View Video Page</a>
       <i class="material-icons video-page-link-icon">chevron_right</i>
     </div>
+   	{{ if  $downloadLink }}
+	  <div class="video-download-container">
+	    <a class="download-file video-download-button" href="{{ $downloadLink }}"><span class="material-icons">file_download</span> Download Video</a>
+	  </div>
+	{{end}}
   </div>
 {{- end -}}

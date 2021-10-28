@@ -79,27 +79,54 @@
   margin-bottom: 35px;
 }
 
-.download-transcript-container {
+.video-download-container {
   float: right;
   padding-top: 25px;
   padding-bottom: 25px;
   padding-right: 25px;
 }
 
-.download-transcript-button {
+.video-download-button {
   float: right;
   font-size: 14px;
+  color: white;
+}
+
+a.video-download-button:visited {
+  color: white;
 }
 
 .video_page_link {
   font-size: 16px;
   text-transform: uppercase;
-  padding-top: 25px;
+  padding-top: 35px;
   padding-bottom: 25px;
   padding-left: 10px;
   font-weight: bold;
+  display: inline-flex;
 }
 
-.video-page-link-icon {
-  transform: translateY(6px);
+#main-content a.download-file.video-download-button:link {
+  color: white;
+}
+
+#main-content a.download-file.video-download-button:visited {
+  color: white;
+}
+
+@include media-breakpoint-down(md) {
+  .video-download-container {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+  }
+  .video-download-container:first-child {
+    padding-bottom: 0px;
+  }
+
+  .video_page_link {
+    float: right;
+    padding-top: 15px;
+    padding-bottom: 0px;
+  }
 }

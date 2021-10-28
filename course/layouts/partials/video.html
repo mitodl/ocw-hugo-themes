@@ -1,12 +1,29 @@
 {{ $youtubeKey := .Params.video_metadata.youtube_id }}
 {{ $captionsLocation := .Params.video_files.video_captions_file }}
 {{ $transcriptPdfLocation := .Params.video_files.video_transcript_file }}
+{{ $downloadLink := .Params.file }}
+{{ if (eq $downloadLink nil) }}
+{{ $downloadLink = .Params.video_files.archive_url }}
+{{ end }}
 
 <div class="video-page">
   <div class="description">
     {{ .Params.about_this_resource_text | safeHTML }}
   </div>
-  {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "transcriptPdfLocation" $transcriptPdfLocation) }}
+  {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation)}}
+  <div class="video-buttons-container">
+	{{ if  $transcriptPdfLocation}}
+	  <div class="video-download-container">
+	    <a class="download-file video-download-button" href="{{ $transcriptPdfLocation }}"><span class="material-icons">file_download</span> Download Transcript</a>
+	  </div>
+	{{end}}
+	{{ if  $downloadLink }}
+	  <div class="video-download-container">
+	    <a class="download-file video-download-button" href="{{ $downloadLink }}"><span class="material-icons">file_download</span> Download Video</a>
+	  </div>
+	{{end}}
+	</div>
+
   {{if $captionsLocation}}
   <div class="transcript-box">
   	<div class="transcript-header">
