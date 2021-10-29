@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.31.1
+--------------
+
+- move instructor json to instructors (#247)
+- add back td-colspan shortcode (#246)
+- add table shortcodes
+- video galleries redesign (#240)
+- mitodl not mitocw (#239)
+
 Version 1.31.0 (Released October 28, 2021)
 --------------
 
