@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.31.1
+Version 1.31.1 (Released November 01, 2021)
 --------------
 
 - move instructor json to instructors (#247)
