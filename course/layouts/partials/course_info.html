@@ -47,16 +47,25 @@
       <tr>
         <td class="pl-0 text-nowrap">As Taught In:</td>
         <td>
-          {{ $courseData.term }}
+          {{ $courseData.term }} {{ if isset $courseData "year" }}{{ $courseData.year }}{{ end }}
         </td>
       </tr>
       <tr>
         <td class="pl-0 pb-3">Level:</td>
         <td>
-          {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
-          <a href="{{ $levelSearchUrl }}" class="course-info-level">
-            {{ $courseData.level }}
-          </a>
+          {{ if eq (printf "%T" $courseData.level) "string" }}
+            {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
+            <a href="{{ $levelSearchUrl }}" class="course-info-level">
+              {{ $courseData.level }}
+            </a>
+          {{ else }}
+            {{ range $courseData.level }}
+              {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) }}
+              <a href="{{ $levelSearchUrl }}" class="course-info-level">
+                {{ . }}
+              </a><br />
+            {{ end }}
+          {{ end }}
         </td>
       </tr>
     </table>
