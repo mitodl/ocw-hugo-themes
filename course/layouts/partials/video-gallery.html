@@ -1,4 +1,9 @@
 {{- $ctx := . -}}
+{{ if isset .Params "description" }}
+<div class="pb-5">
+{{ $ctx.RenderString .Params.description }}
+</div>
+{{ end }}
 {{- range .Params.videos.content -}}
   {{- $uuid := . -}}
   {{- range $ctx.Site.Pages -}}
