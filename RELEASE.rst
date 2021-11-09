@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.32.1
+--------------
+
+- render the video gallery description if set (#253)
+- Adjust level, term to new ocw-to-hugo format (#249)
+
 Version 1.32.0 (Released November 09, 2021)
 --------------
 
