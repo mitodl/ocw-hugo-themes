@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.32.0
+Version 1.32.0 (Released November 09, 2021)
 --------------
 
 - Video Downloads
