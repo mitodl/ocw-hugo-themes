@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.32.1
+Version 1.32.1 (Released November 10, 2021)
 --------------
 
 - render the video gallery description if set (#253)
