@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.33.0
+--------------
+
+- move department and query key data to the base theme and set up home_course_cards to generate search url for level (#257)
+
 Version 1.32.1 (Released November 10, 2021)
 --------------
 
