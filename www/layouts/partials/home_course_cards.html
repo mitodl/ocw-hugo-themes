@@ -36,7 +36,8 @@
                     </a>
                     <div class="course-card-content pt-1 px-3 pb-3">
                       <div class="course-level">
-                        {{ $courseData.primary_course_number }} | <a href="{{ $courseData.level.url }}">{{ $courseData.level.level }}</a>
+                        {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
+                        {{ $courseData.primary_course_number }} | <a href="{{ $levelSearchUrl }}">{{ $courseData.level }}</a>
                       </div>
                       <div class="pt-1">
                         <div class="h5">
