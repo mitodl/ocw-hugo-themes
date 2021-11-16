@@ -42,16 +42,7 @@
                     </a>
                     <div class="course-card-content pt-1 px-3 pb-3">
                       <div class="course-level">
-                        {{ $courseData.primary_course_number }} | 
-                        {{ if eq (printf "%T" $courseData.level) "string" }}
-                          {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
-                          <a href="{{ $levelSearchUrl }}">{{ $courseData.level }}</a>
-                        {{ else }}
-                          {{ range $courseData.level }}
-                            {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) }}
-                            <a href="{{ $levelSearchUrl }}">{{ . }}</a>
-                          {{ end }}
-                        {{ end }}
+                        {{ $courseData.primary_course_number }} | {{ partial "home_course_cards_level.html" $courseData.level }}
                       </div>
                       <div class="pt-1">
                         <div class="h5">

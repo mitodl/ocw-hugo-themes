@@ -1,0 +1,12 @@
+{{- if eq (printf "%T" .) "string" -}}
+  {{- $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) -}}
+  <a href="{{ $levelSearchUrl }}">{{ . }}</a>
+{{- else -}}
+  {{- $levels := slice -}}
+  {{- range . -}}
+    {{- $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) -}}
+    {{- $levelLink := print "<a href=\"" $levelSearchUrl "\">" . "</a>" -}}
+    {{- $levels = $levels | append $levelLink -}}
+  {{- end -}}
+  {{ delimit $levels ", " }}
+{{- end -}}
