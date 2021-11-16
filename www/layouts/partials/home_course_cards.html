@@ -32,7 +32,13 @@
                 <div class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 $itemsInCarousel) }}{{ end }} w-100 d-flex justify-content-center">
                   <div class="course-card card bg-white">
                     <a href="/courses/{{ $courseId }}">
-                      <img src="{{ $courseData.course_image_url }}" alt="Thumbnail for {{ $courseData.course_title }}"/>
+                      {{/* The following is a temporary hack that should be removed following the decommissioning of the EC2 OCW Next build servers */}}
+                      {{ $courseBaseUrl := getenv "COURSE_BASE_URL" | default "" }}
+                      {{ $courseImageUrl := $courseData.course_image_url }}
+                      {{ if in $courseBaseUrl "ocwnext" }}
+                        {{ $courseImageUrl = replace $courseData.course_image_url "/courses" "/coursemedia" }}
+                      {{ end }}
+                      <img src="{{ $courseImageUrl }}" alt="Thumbnail for {{ $courseData.course_title }}"/>
                     </a>
                     <div class="course-card-content pt-1 px-3 pb-3">
                       <div class="course-level">
