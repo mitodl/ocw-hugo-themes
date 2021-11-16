@@ -1,0 +1,10 @@
+{{- $topicsList := slice -}}
+{{- range $topicList := . -}}
+  {{- range $topic := $topicList -}}
+    {{- $topicTitle := title $topic -}}
+    {{- $topicSearchUrl := partial "get_search_url.html" (dict "key" "topic" "value" $topicTitle) -}}
+    {{- $topicLink := print "<a href=\"" $topicSearchUrl "\">" (title $topicTitle) "</a>" -}}
+    {{- $topicsList = $topicsList | append $topicLink -}}
+  {{- end -}}
+{{- end -}}
+{{ delimit (first 3 (uniq $topicsList)) ", " }}
