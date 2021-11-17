@@ -19,7 +19,7 @@
 	{{end}}
 	{{ if  $downloadLink }}
 	  <div class="video-download-container">
-	    <a class="download-file video-download-button" href="{{ $downloadLink }}"><span class="material-icons">file_download</span> Download Video</a>
+	    <a class="download-file video-download-button" href="{{ partial "resource_url" $downloadLink }}"><span class="material-icons">file_download</span> Download Video</a>
 	  </div>
 	{{end}}
 	</div>

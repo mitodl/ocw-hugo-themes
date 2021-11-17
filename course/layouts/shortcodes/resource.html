@@ -3,11 +3,11 @@
   {{- if eq (replace .Params.uid "-" "") (replace $uuid "-" "") -}}
     {{- if eq .Params.resourcetype "Image" -}}
       {{- $metadata := .Params.image_metadata | default dict -}}
-      <img src="{{ .Params.file }}" {{ if index $metadata "image-alt" -}}alt="{{ index $metadata "image-alt" }}"{{- end }} />
+      <img src="{{ partial "resource_url" .Params.file }}" {{ if index $metadata "image-alt" -}}alt="{{ index $metadata "image-alt" }}"{{- end }} />
     {{- else if eq .Params.resourcetype "Video" -}}
       {{ partial "video_embed.html" . }}
     {{- else -}}
-      <a href="{{ .Params.file }}">{{ .Params.title }}</a>
+      <a href="{{ partial "resource_url" .Params.file }}">{{ .Params.title }}</a>
     {{- end -}}
   {{- end -}}
 {{- end -}}

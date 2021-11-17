@@ -1,0 +1,1 @@
+{{- return index (where (where site.RegularPages "Section" "==" "resources") ".Params.uid" "==" .) 0 -}}
