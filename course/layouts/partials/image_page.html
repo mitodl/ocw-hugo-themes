@@ -15,7 +15,7 @@
     {{- if $metadata.credit -}}
         <div class="row">
             <div class="label col-3">Credit:</div>
-            <div class="col-9">{{ $metadata.credit }}</div>
+            <div class="col-9">{{ $metadata.credit | .RenderString }}</div>
         </div>
     {{- end -}}
 {{- end -}}
