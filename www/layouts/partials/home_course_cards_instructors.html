@@ -1,10 +1,11 @@
-{{- $instructors := slice -}}
 {{- with first 3 (uniq .) -}}
-  {{- range . -}}
-    {{- $instructorName := .instructor -}}
+  {{- $numInstructors := len . -}}
+  {{- range $index, $instructorObject := . -}}
+    {{- $instructorName := $instructorObject.instructor -}}
     {{- $instructorSearchUrl := partial "get_search_url.html" (dict "key" "instructors" "value" $instructorName) -}}
-    {{- $instructorLink := print "<a href=\"" $instructorSearchUrl "\">" $instructorName "</a>" -}}
-    {{- $instructors = $instructors | append $instructorLink -}}
+    <a href="{{ $instructorSearchUrl }}">{{ $instructorName }}</a>
+    {{- if ne (add $index 1) $numInstructors -}}
+    ,&nbsp;
+    {{- end -}}
   {{- end -}}
 {{- end -}}
-{{ delimit $instructors ", " }}
