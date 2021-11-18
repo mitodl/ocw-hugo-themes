@@ -20,7 +20,8 @@
           {{ partial "carousel_controls.html" $carouselId }}
         </div>
         <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
-          {{ range $index, $courseItem := (first 10 $results)  }}
+          {{ $resultsSlice := first 10 $results }}
+          {{ range $index, $courseItem := $resultsSlice  }}
             {{ with $courseItem }}
               {{ $courseId := $courseItem.name }}
               {{ $courseData := $courseItem.metadata}}
@@ -58,7 +59,7 @@
                     </div>
                   </div>
                 </div>
-              {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub 10 1))) }}
+              {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $resultsSlice) 1))) }}
               </div>
               {{ end }}
             {{ end }}
