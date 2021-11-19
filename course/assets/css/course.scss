@@ -36,13 +36,3 @@
     color: $course-content-link-hover-clicked;
   }
 }
-
-div[class^="toggle"]:not(.toggle-visible) {
-  display: none;
-}
-
-div[class^="reveal"]{
-  color: #115f83;
-  cursor:pointer;
-}
-
