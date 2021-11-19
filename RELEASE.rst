@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.33.0
+--------------
+
+- update home course cards instructors, topics and level (#269)
+- Revert "hide/show toggle"
+- hide/show toggle
+- add in a hack for /coursemedia (#264)
+- if $courseData.level is an array, iterate the levels (#262)
+- move department and query key data to the base theme and set up home_course_cards to generate search url for level (#257)
+
 Version 1.32.1 (Released November 10, 2021)
 --------------
 
