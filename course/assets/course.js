@@ -8,6 +8,7 @@ import "videojs-youtube"
 
 import { initPdfViewers } from "./js/pdf_viewer"
 import { initDesktopCourseInfoToggle } from "./js/course_info_toggle"
+import { initDivToggle } from "./js/div_toggle"
 import { initCourseInfoExpander } from "./js/course_expander"
 import { initVideoTranscriptTrack } from "./js/video_transcript_track"
 
@@ -16,4 +17,5 @@ $(document).ready(() => {
   initDesktopCourseInfoToggle()
   initCourseInfoExpander(document)
   initVideoTranscriptTrack()
+  initDivToggle()
 })
