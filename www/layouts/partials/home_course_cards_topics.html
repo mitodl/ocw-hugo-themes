@@ -1,0 +1,16 @@
+{{- $topics := slice -}}
+{{- range . -}}
+  {{- range . -}}
+    {{- $topics = $topics | append (title .) -}}
+  {{- end -}}
+{{- end -}}
+{{- $topics = (first 3 (uniq $topics)) -}}
+{{- $numTopics := len $topics -}}
+{{- range $index, $rawTopic := $topics -}}
+  {{- $topic := title $rawTopic -}}
+  {{- $topicSearchUrl := partial "get_search_url.html" (dict "key" "topic" "value" $topic) -}}
+  <a href="{{ $topicSearchUrl }}">{{ $topic }}</a>
+  {{- if ne (add $index 1) $numTopics -}}
+  ,&nbsp;
+  {{- end -}}
+{{- end -}}
