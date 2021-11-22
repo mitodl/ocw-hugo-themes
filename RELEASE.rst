@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.33.0
+Version 1.33.0 (Released November 22, 2021)
 --------------
 
 - update home course cards instructors, topics and level (#269)
