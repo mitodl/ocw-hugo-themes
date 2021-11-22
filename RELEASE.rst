@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.34.0
+--------------
+
+- hide/show toggle
+- add the resource_file shortcode to the course theme (#273)
+- Fix calculation for course home page cards (#272)
+- Use alt-text for course image (#270)
+
 Version 1.33.0 (Released November 22, 2021)
 --------------
 
