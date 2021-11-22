@@ -1,0 +1,4 @@
+{{- $uuid := index .Params 0 -}}
+{{- range where $.Site.Pages "Params.uid" $uuid -}}
+{{- .Params.file -}}
+{{- end -}}
