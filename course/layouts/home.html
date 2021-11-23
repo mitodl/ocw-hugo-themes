@@ -36,7 +36,7 @@
                         <div class="col-lg-4 d-none d-lg-block pl-0">
                           <div class="d-flex flex-column image-with-caption">
                             <img class="course-image" src="{{ $courseImageUrl }}"
-                              alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}"
+                              alt="{{ index ($courseImageMetadata.Params.image_metadata | default dict) "image-alt" }}"
                             />
                             <span class="caption p-3">
                               {{ $courseImageMetadata.Params.image_metadata.caption | .RenderString }}
