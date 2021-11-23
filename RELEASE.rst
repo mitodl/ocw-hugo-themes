@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.34.0
+Version 1.34.0 (Released November 23, 2021)
 --------------
 
 - Revert "Use alt-text for course image (#270)" (#282)
