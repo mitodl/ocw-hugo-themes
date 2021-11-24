@@ -40,7 +40,11 @@ const CoverImage = ({ object }) => (
         alt={`cover image for ${object.title}`}
       />
       {[object.object_type, object.content_type].includes(LR_TYPE_VIDEO) ? (
-        <img src="/images/video_play_overlay.png" className="video-play-icon" />
+        <img
+          src="/images/video_play_overlay.png"
+          className="video-play-icon"
+          alt="Play video icon"
+        />
       ) : null}
     </a>
   </div>

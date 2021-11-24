@@ -17,7 +17,7 @@
         {{- if .Params.file -}}
         <div class="row">
             <div class="col-12 d-flex flex-direction-row align-items-center">
-                <a class="download-file" href="{{ .Params.file }}"><span class="material-icons">file_download</span> Download File</a>
+                <a class="download-file" href="{{ partial "resource_url" .Params.file }}"><span class="material-icons">file_download</span> Download File</a>
             </div>
         </div>
         {{- end -}}

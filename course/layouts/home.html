@@ -1,9 +1,9 @@
 {{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
 {{- $courseData := .Site.Data.course -}}
+
 {{- $courseImageUid := $courseData.course_image.content -}}
-{{- $courseImageThumbnailUid := $courseData.course_image_thumbnail.content -}}
-{{- $courseImageUrl := partial "resource_url.html" (dict "resourcetype" "Image" "uid" $courseImageUid) -}}
-{{- $courseImageThumbnailUrl := partial "resource_url.html" (dict "resourcetype" "Image" "uid" $courseImageThumbnailUid) -}}
+{{- $courseImageMetadata := partial "resource_metadata.html" $courseImageUid }}
+{{- $courseImageUrl := partial "resource_url.html" $courseImageMetadata.Params.file -}}
 <!doctype html>
 <html lang="{{ $.Site.Language.Lang }}">
 {{ partial "head.html" . }}
@@ -35,16 +35,11 @@
                       <div class="row px-3 pb-2 justify-content-between">
                         <div class="col-lg-4 d-none d-lg-block pl-0">
                           <div class="d-flex flex-column image-with-caption">
-                            <img class="course-image" src="
-                              {{- if hasPrefix $courseImageUrl "http" -}}
-                                {{ $courseImageUrl }}
-                              {{- else -}}
-                                {{ partial "site_root_url.html" $courseImageUrl }}
-                              {{- end -}}"
-                              alt="{{ $courseData.course_image_alternate_text }}"
+                            <img class="course-image" src="{{ $courseImageUrl }}"
+                              alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}"
                             />
                             <span class="caption p-3">
-                              {{ $courseData.course_image_caption_text | safeHTML }}
+                              {{ $courseImageMetadata.Params.image_metadata.caption | .RenderString }}
                             </span>
                           </div>
                         </div>

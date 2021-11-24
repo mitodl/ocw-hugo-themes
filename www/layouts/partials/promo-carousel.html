@@ -17,7 +17,7 @@
       <div class="carousel-item {{ if eq $index 0}}active{{ end }}">
         <div class="carousel-content d-flex m-auto align-items-center bg-white">
           <div class="img-container p-2">
-            <img class="promo-image img-fluid" src="{{ partial "resource_url" (dict "filetype" "Image" "uid" $promo.Params.image.content) }}" alt="{{ $promo.Params.image_alt }}" />
+            <img class="promo-image img-fluid" src="{{ partial "resource_url" (partial "resource_metadata" $promo.Params.image.content).Params.file }}" alt="{{ $promo.Params.image_alt }}" />
           </div>
           <div class="promo-info d-flex flex-column px-2 px-md-4 align-items-start h-100">
             <h2>{{ $promo.Params.title }}</h2>
