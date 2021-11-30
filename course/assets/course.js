@@ -11,6 +11,11 @@ import { initDesktopCourseInfoToggle } from "./js/course_info_toggle"
 import { initDivToggle } from "./js/div_toggle"
 import { initCourseInfoExpander } from "./js/course_expander"
 import { initVideoTranscriptTrack } from "./js/video_transcript_track"
+import {
+  clearSolution,
+  checkAnswer,
+  showSolution
+} from "./js/quiz_multiple_choice"
 
 $(document).ready(() => {
   initPdfViewers()
@@ -18,4 +23,7 @@ $(document).ready(() => {
   initCourseInfoExpander(document)
   initVideoTranscriptTrack()
   initDivToggle()
+  clearSolution()
+  checkAnswer()
+  showSolution()
 })

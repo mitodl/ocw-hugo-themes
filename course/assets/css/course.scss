@@ -37,11 +37,36 @@
   }
 }
 
-div[class^="toggle"]:not(.toggle-visible) {
+div[class^="toggle"]:not(.toggle-visible),
+span[class^="toggle"]:not(.toggle-visible) {
   display: none;
 }
 
-div[class^="reveal"] {
+div[class^="reveal"],
+.multiple-choice-check-button,
+.multiple-choice-show-button {
   color: #115f83;
   cursor: pointer;
+}
+
+.correctness-icon-correct {
+  color: green;
+}
+
+.correctness-icon-wrong {
+  color: red;
+}
+
+.correctness-icon {
+  position: relative;
+  top: 6px;
+}
+
+.multiple-choice-radio {
+  margin-top: 11px;
+  margin-bottom: 11px;
+}
+
+.multiple_choice_buttons {
+  margin: 10px;
 }

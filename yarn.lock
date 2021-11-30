@@ -1206,12 +1206,14 @@
     query-string "^6.13.1"
     ramda "^0.27.1"
 
-"@mitodl/ocw-to-hugo@1.35.2":
-  version "1.35.2"
-  resolved "https://registry.yarnpkg.com/@mitodl/ocw-to-hugo/-/ocw-to-hugo-1.35.2.tgz#6902a69b8132b253c1a50fb1f53f24ea344f0029"
-  integrity sha512-sW04+N6uHdwvKlAas/BQAoJF/OFV5lL5yRVAVXhyszAC4VK0rS47SiRv28odcNbRbMP1waITX2b/Vp6FyoKsZA==
+"@mitodl/ocw-to-hugo@1.36.0":
+  version "1.36.0"
+  resolved "https://registry.yarnpkg.com/@mitodl/ocw-to-hugo/-/ocw-to-hugo-1.36.0.tgz#2445e07dc912f9bd39ba9834fe47aff2e02ec455"
+  integrity sha512-xqkxcRRilQuG6hWuLdk2764VzX8hN1/oLkHqbkAgjuJdr0ZNsEuOP6iPYDN7B6zlEFmwzA81mBj6ymxjpDgJsQ==
   dependencies:
     "@mitodl/course-search-utils" "^1.1.4"
+    acorn "^8.6.0"
+    acorn-walk "^8.2.0"
     aws-sdk "^2.671.0"
     cli-progress "^3.4.0"
     dotenv "^8.2.0"
@@ -1805,6 +1807,11 @@ acorn-walk@^7.1.1:
   resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-7.2.0.tgz#0de889a601203909b0fbe07b8938dc21d2e967bc"
   integrity sha512-OPdCF6GsMIP+Az+aWfAAOEt2/+iVDKE7oy6lJ098aoe59oAmK76qV6Gw60SbZ8jHuG2wH058GF4pLFbYamYrVA==
 
+acorn-walk@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-8.2.0.tgz#741210f2e2426454508853a2f44d0ab83b7f69c1"
+  integrity sha512-k+iyHEuPgSw6SbuDpGQM+06HQUa04DZ3o+F6CSzXMvvI5KMvnaEqXe+YVe555R9nn6GPt404fos4wcgpw12SDA==
+
 acorn@^3.0.4:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-3.3.0.tgz#45e37fb39e8da3f25baee3ff5369e2bb5f22017a"
@@ -1829,6 +1836,11 @@ acorn@^8.1.0:
   version "8.2.4"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.2.4.tgz#caba24b08185c3b56e3168e97d15ed17f4d31fd0"
   integrity sha512-Ibt84YwBDDA890eDiDCEqcbwvHlBvzzDkU2cGBBDDI1QWT12jTiXIOn2CIw5KK4i6N5Z2HUxwYjzriDyqaqqZg==
+
+acorn@^8.6.0:
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.6.0.tgz#e3692ba0eb1a0c83eaa4f37f5fa7368dd7142895"
+  integrity sha512-U1riIR+lBSNi3IbxtaHOIKdH8sLFv3NYfNv8sg7ZsNhcfl4HF2++BfqqrNAxoCLQW1iiylOj76ecnaUxz+z9yw==
 
 aes-decrypter@3.1.2:
   version "3.1.2"
