@@ -4,11 +4,9 @@ export const initDivToggle = () => {
     for (const elementClass of reveal.classList) {
       if (elementClass.match(/^reveal/)) {
         reveal.addEventListener("click", () => {
-          const revealNumber = elementClass.match(/\d+$/)[0]
+          const revealId = elementClass.replace("reveal", "")
 
-          const hideables = document.getElementsByClassName(
-            `toggle${revealNumber}`
-          )
+          const hideables = document.getElementsByClassName(`toggle${revealId}`)
           for (const hidable of hideables) {
             hidable.classList.toggle("toggle-visible")
           }
