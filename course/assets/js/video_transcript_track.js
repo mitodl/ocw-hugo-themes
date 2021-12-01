@@ -1,20 +1,31 @@
 import videojs from "video.js"
 
 export const initVideoTranscriptTrack = () => {
-  if (document.querySelector("#video-player")) {
-    videojs("video-player").ready(function() {
-      window.videojs = videojs
-      require("videojs-transcript-ac")
+  if (document.querySelector(".video-container")) {
+    const videoPlayers = document.querySelectorAll(".vjs-ocw")
 
-      const options = {
-        showTitle:         false,
-        showTrackSelector: false
-      }
+    for (const videoPlayer of videoPlayers) {
+      videojs(videoPlayer.id).ready(function() {
+        window.videojs = videojs
+        require("videojs-transcript-ac")
 
-      const transcript = this.transcript(options)
+        const options = {
+          showTitle:         false,
+          showTrackSelector: false
+        }
 
-      const transcriptContainer = document.querySelector("#transcript")
-      transcriptContainer.appendChild(transcript.el())
-    })
+        const transcript = this.transcript(options)
+
+        if (videoPlayer.closest(".video-page")) {
+          const transcriptContainer = videoPlayer
+            .closest(".video-page")
+            .querySelector(".transcript")
+
+          if (transcriptContainer) {
+            transcriptContainer.appendChild(transcript.el())
+          }
+        }
+      })
+    }
   }
 }
