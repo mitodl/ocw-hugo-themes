@@ -1,6 +1,7 @@
+{{ $random := delimit (shuffle (split (md5 "seed") "" )) "" }}
 <div class="video-container">
   <video
-    id="video-player"
+    id="video-player-{{ .youtubeKey }}-{{ $random }}"
     class="video-js vjs-default-skin vjs-big-play-centered vjs-ocw"
     controls
     data-setup='{
