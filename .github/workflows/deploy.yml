@@ -94,7 +94,7 @@ jobs:
     if: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@master
-      - run: mkdir ${{ github.workspace }}/tmp/artifacts
+      - run: mkdir -p ${{ github.workspace }}/tmp/artifacts
 
       - name: Set up node.js
         uses: actions/setup-node@v2-beta
