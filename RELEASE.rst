@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.35.0 (Released December 02, 2021)
+--------------
+
+- set up some defaults for the course image metadata (#292)
+- Revert "Revert "Use alt-text for course image (#270)"" (#284)
+
 Version 1.34.0 (Released November 23, 2021)
 --------------
 
