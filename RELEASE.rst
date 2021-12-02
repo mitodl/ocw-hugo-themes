@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.35.0
+Version 1.35.0 (Released December 02, 2021)
 --------------
 
 - set up some defaults for the course image metadata (#292)
