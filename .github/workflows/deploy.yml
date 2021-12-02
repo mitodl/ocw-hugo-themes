@@ -94,7 +94,7 @@ jobs:
     if: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@master
-      - run: mkdir /tmp/artifacts
+      - run: mkdir -p ${{ github.workspace }}/tmp/artifacts
 
       - name: Set up node.js
         uses: actions/setup-node@v2-beta
@@ -106,7 +106,7 @@ jobs:
         id: lighthouseCheck
         with:
           branch: ${{ github.ref }}
-          outputDirectory: /tmp/artifacts
+          outputDirectory: ${{ github.workspace }}/tmp/artifacts
           urls: 'https://ocw-hugo-themes-pr-${{ github.event.number }}--ocw-next.netlify.app/,https://ocw-hugo-themes-pr-${{ github.event.number }}--ocw-next.netlify.app/search/'
           sha: ${{ github.sha }}
 
