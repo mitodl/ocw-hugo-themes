@@ -11,12 +11,16 @@
 }
 
 #timeline-column-left {
-  padding-right: 128px;
+  padding-right: $timeline-spacing;
 
   .timeline-card {
     .timeline-card-img {
+      .timeline-card-img-dot {
+        right: -21px;
+      }
+
       .timeline-red-dot {
-        right: -128px;
+        right: -$timeline-spacing;
         transform: translateX(50%);
       }
     }
@@ -24,13 +28,21 @@
 }
 
 #timeline-column-right {
-  padding-left: 128px;
+  padding-left: $timeline-spacing;
 
   .timeline-card {
     .timeline-card-img {
+      .timeline-card-img-dot {
+        left: -21px;
+      }
+
       .timeline-red-dot {
-        left: -128px;
+        left: -$timeline-spacing;
         transform: translateX(-50%);
+      }
+
+      .timeline-red-line {
+        left: -$timeline-spacing;
       }
     }
   }
@@ -54,15 +66,39 @@
   border-radius: 50%;
 }
 
+.timeline-card-img-dot {
+  position: absolute;
+  display: inline-block;
+  height: 36px;
+  width: 36px;
+  bottom: -11px;
+  z-index: 2;
+  background-color: $timeline-red;
+  border-radius: 50%;
+  border: 3px $white solid;
+  outline: 3px $timeline-red solid;  
+}
+
 .timeline-red-dot {
   position: absolute;
   display: inline-block;
   height: 19px;
   width: 19px;
-  bottom: 0;
-  background-color: $highlight-red;
+  bottom: -2px;
+  z-index: 2;
+  background-color: $timeline-red;
   border-radius: 50%;
   border: 2px $white solid;
+}
+
+.timeline-red-line {
+  position: absolute;
+  display: inline-block;
+  width: $timeline-spacing;
+  height: 1px;
+  bottom: 6px;
+  z-index: 1;
+  background-color: $timeline-red;
 }
 
 .timeline-card {
