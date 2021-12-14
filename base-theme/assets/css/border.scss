@@ -28,6 +28,10 @@ $border-width-customs: (
   }
 }
 
+.border-black {
+  border-color: $black !important;
+}
+
 .border-red {
   border-color: $highlight-red !important;
 }
