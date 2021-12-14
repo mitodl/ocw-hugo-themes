@@ -10,6 +10,18 @@
   margin-top: 170px;
 }
 
+#timeline-card-3 {
+  margin-top: 80px;
+}
+
+#timeline-card-4 {
+  margin-top: 242px;
+}
+
+#timeline-card-5 {
+  margin-top: 80px;
+}
+
 #timeline-column-left {
   padding-right: $timeline-spacing;
 
@@ -22,6 +34,10 @@
       .timeline-red-dot {
         right: -$timeline-spacing;
         transform: translateX(50%);
+      }
+
+      .timeline-red-line {
+        right: -$timeline-spacing;
       }
     }
   }
