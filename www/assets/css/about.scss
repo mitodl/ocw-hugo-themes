@@ -92,7 +92,7 @@
   background-color: $timeline-red;
   border-radius: 50%;
   border: 3px $white solid;
-  outline: 3px $timeline-red solid;  
+  outline: 3px $timeline-red solid;
 }
 
 .timeline-red-dot {
@@ -120,7 +120,7 @@
 .timeline-card {
   max-width: 432px;
   height: fit-content;
-  box-shadow: 0px 2px 13px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px 2px 13px 0px rgba(0, 0, 0, 0.1);
 
   .timeline-card-img {
     position: relative;
@@ -139,13 +139,13 @@
     ul {
       list-style: none;
       padding: 0;
-  
+
       li {
         position: relative;
         margin-left: 0;
         padding: 0 0 2em 1.5em;
       }
-      
+
       li:before {
         content: "remove";
         font-family: "Material Icons";
