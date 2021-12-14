@@ -2,6 +2,40 @@
   line-height: 38px;
 }
 
+#timeline-card-1 {
+  margin-top: 18px;
+}
+
+#timeline-card-2 {
+  margin-top: 170px;
+}
+
+#timeline-column-left {
+  padding-right: 128px;
+
+  .timeline-card {
+    .timeline-card-img {
+      .timeline-red-dot {
+        right: -128px;
+        transform: translateX(50%);
+      }
+    }
+  }
+}
+
+#timeline-column-right {
+  padding-left: 128px;
+
+  .timeline-card {
+    .timeline-card-img {
+      .timeline-red-dot {
+        left: -128px;
+        transform: translateX(-50%);
+      }
+    }
+  }
+}
+
 .timeline {
   position: absolute;
   background-color: $black;
@@ -10,14 +44,39 @@
   height: 100%;
 }
 
+.timeline-black-dot {
+  position: absolute;
+  display: inline-block;
+  height: 5px;
+  width: 5px;
+  transform: translateX(-50%);
+  background-color: $black;
+  border-radius: 50%;
+}
+
+.timeline-red-dot {
+  position: absolute;
+  display: inline-block;
+  height: 19px;
+  width: 19px;
+  bottom: 0;
+  background-color: $highlight-red;
+  border-radius: 50%;
+  border: 2px $white solid;
+}
+
 .timeline-card {
   max-width: 432px;
   height: fit-content;
   box-shadow: 0px 2px 13px 0px rgba(0,0,0,0.1);
 
   .timeline-card-img {
+    position: relative;
+    background-color: $white;
+
     img {
       width: 432px;
+      height: 328px;
       object-fit: none;
     }
   }

@@ -18,3 +18,11 @@ $spacers: map-merge(
 
 $screen-xs-max: 991px;
 $display4-size: 2.25rem !default;
+
+.top-0 {
+  top: 0;
+}
+
+.bottom-0 {
+  bottom: 0;
+}

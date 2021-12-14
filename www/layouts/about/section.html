@@ -136,12 +136,16 @@
   <div class="background-color-light-grey pt-7">
     <h1 class="text-center w-100 pb-6">OCW Milestones</h1>
     <div class="container position-relative">
-      <div class="timeline"></div>
+      <div class="timeline">
+        <span class="timeline-black-dot top-0"></span>
+        <span class="timeline-black-dot bottom-0"></span>
+      </div>
       <div class="row">
-        <div class="col-6 d-flex justify-content-center mt-4">
-          <div class="timeline-card">
+        <div id="timeline-column-left" class="col-6 d-flex justify-content-end">
+          <div id="timeline-card-1" class="timeline-card">
             <div class="timeline-card-img">
               <img src="/images/about/timeline-image-1.png" />
+              <span class="timeline-red-dot"></span>
             </div>
             <div class="timeline-card-content">
               <h3>2001-2005 <i class="material-icons md-18"></i></h3>
@@ -181,10 +185,11 @@
             </div>
           </div>
         </div>
-        <div class="col-6 d-flex justify-content-center">
-          <div class="timeline-card">
+        <div id="timeline-column-right" class="col-6 d-flex justify-content-start">
+          <div id="timeline-card-2" class="timeline-card">
             <div class="timeline-card-img">
               <img src="/images/about/timeline-image-2.png" />
+              <span class="timeline-red-dot"></span>
             </div>
             <div class="timeline-card-content">
               <h3>2006-2010</h3>
