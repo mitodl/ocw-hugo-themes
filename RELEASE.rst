@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.36.0
+Version 1.36.0 (Released December 15, 2021)
 --------------
 
 - ensure unique video id
