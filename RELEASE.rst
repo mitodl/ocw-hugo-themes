@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.36.0 (Released December 15, 2021)
+--------------
+
+- ensure unique video id
+- fix lighthouse checks (#295)
+
 Version 1.35.0 (Released December 02, 2021)
 --------------
 
