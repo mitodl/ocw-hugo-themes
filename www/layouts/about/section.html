@@ -1,7 +1,7 @@
 {{ define "main" }}
-<div class="page-single overflow-hidden">
+<div id="about-us" class="page-single overflow-hidden">
   {{ block "header" . }} {{ partialCached "header" . }} {{end}}
-  <div class="container standard-width mx-auto mt-5 pb-5">
+  <div class="container standard-width max-content-width mx-auto mt-5 pb-5">
     <div class="row">
       <div class="col px-0">
         <div class="w-75">
@@ -21,7 +21,7 @@
       </div>
     </div>
   </div>
-  <div class="container standard-width mx-auto pt-5 pb-5">
+  <div class="container standard-width max-content-width mx-auto pt-5 pb-5">
     <div class="row">
       <div class="col border-bottom-4 border-red px-0 mr-5">
         <p class="pb-5">
@@ -60,16 +60,18 @@
       </div>
     </div>
   </div>
-  <div class="container standard-width mx-auto px-0 pt-5 pb-5">
+  <div
+    class="container standard-width max-content-width mx-auto px-0 pt-5 pb-5"
+  >
     <h1>The OCW<span class="color-highlight-red">@20</span> Vision</h1>
   </div>
-  <div id="ocw-at-20" class="pt-5 pb-5">
+  <div id="ocw-at-20" class="max-content-width mx-auto pt-5 pb-5">
     <div class="row">
       <div class="col-6 overflow-hidden text-right pr-0">
         <img
           id="img-building-10"
           class="w-100"
-          src="/images/about/mit-building-10.jpg"
+          src="/images/about/image-mit-001crop.jpg"
           alt="MIT Building 10 aka The Dome"
         />
       </div>
@@ -133,7 +135,7 @@
       </div>
     </div>
   </div>
-  <div class="background-color-light-grey pt-7">
+  <div class="background-color-light-grey pt-7 pb-7">
     <h1 class="text-center w-100 pb-6">OCW Milestones</h1>
     <div id="timeline-wrapper" class="container position-relative">
       <div class="timeline">
@@ -421,6 +423,162 @@
         </div>
       </div>
     </div>
+  </div>
+  <div id="beyond-course-materials" class="container standard-width pt-7">
+    <div class="row">
+      <div class="col-6 pr-8">
+        <h1 class="pb-5">Beyond Course Materials</h1>
+        <p class="pb-5">
+          OCW is known for sharing the notes, videos, problem sets, and more
+          straight from the MIT curriculum. In addition, OCW has grown to
+          include other types of content that complement its core publication of
+          course materials.
+        </p>
+        <ul>
+          <li>
+            <span class="font-weight-bold"
+              >OCW Educator: Instructor Insights</span
+            >
+            <p>
+              The OCW Educator project is a faculty-inspired initiative designed
+              to pull back the curtain on MIT teaching for their colleagues at
+              the Institute and around the world.
+            </p>
+            <a class="red-btn coming-soon">Educators start here</a>
+            <p class="mt-3">
+              Through this project, many OCW courses now include an “Instructor
+              Insights” section, which shares the instructors' perspectives on
+              topics of interest to practicing teachers, such as course design,
+              active learning, and engaging learners.
+            </p>
+            <a class="red-btn coming-soon"
+              >Find course with Instructor Insights</a
+            >
+          </li>
+          <li>
+            <span class="font-weight-bold">Chalk Radio Podcast</span>
+            {{ partial "simplecast.html" "72fa3dbf-36dc-40b8-9353-faf6710c29f8" }}
+          </li>
+          <li>
+            <span class="font-weight-bold">Open Textbooks</span>
+            <p>
+              Open textbooks are transforming the educational landscape, and OCW
+              is glad to have many among our open educational resources. When
+              educators use open textbooks for their classes, they help keep
+              down the cost of education, so more students can afford to stay in
+              school, and pay for rent, food and other necessities.
+            </p>
+          </li>
+          <li>
+            <span class="font-weight-bold">MIT Open Learning Library</span>
+            <p>
+              MIT Open Learning Library MIT Open Learning Library provides
+              interactive course experiences, similar to MITx, that include
+              auto-graded assessments that give you instant feedback and allow
+              you to track your progress as you work your way through the
+              subject matter. And like OCW, this content is always open and
+              self-guided and includes no live support, discussion forum, or
+              certificates.
+            </p>
+            <a class="red-btn" href="/search">OCW Search</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-6">
+        <img
+          id="img-002"
+          class="w-100"
+          src="/images/about/image-mit-002crop.png"
+          alt="MIT Building"
+        />
+      </div>
+    </div>
+  </div>
+  <div id="president-dean-messages" class="bg-black text-white">
+    <div class="container standard-width mx-auto pt-8 pb-5">
+      <div class="row pb-7">
+        <div class="col-12">
+          <div class="text-center">
+            <h1 class="font-cardo-bold mx-auto pb-7">President's Message</h1>
+            <div id="president-image" class="d-inline-block">
+              <img
+                src="/images/about/president-reif.png"
+                alt="MIT President L. Rafael Reif"
+              />
+              <div class="text-left pt-4">MIT President L. Rafael Reif</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="presidents-message" class="row pb-7">
+        <div class="col-12">
+          <p>
+            In 2001, the age of digital sharing was just getting started. Google
+            was still in its infancy. January of that year saw the launch of a
+            little project called Wikipedia. And then, in the springtime, MIT
+            presented OpenCourseWare.
+          </p>
+          <p>
+            The idea for OCW came from MIT faculty: to give away MITs course
+            materials to the world online. The decision to move forward with
+            this bold idea belonged to MIT's 15th president, Chuck Vest.
+            Institute leaders could not have known it at the time, but in
+            creating OCW, MIT launched a quiet but profound educational
+            revolution. It unleashed the global open sharing movement, helping
+            to pave the way for the worldwide phenomenon of open digital
+            learning.
+          </p>
+          <p>
+            In its first 20 years, OCW has offered hundreds of millions of
+            individuals a new pathway to their future—a true gift to humanity.
+            But in those same 20 years, OCW has helped society prepare for the
+            challenges of its future, too.
+          </p>
+          <p>
+            Consider the vaccines for Covid-19. They may appear to be an
+            overnight success, but the truth is, this “medical miracle” sprang
+            from careful, deliberate scientific research—over decades. In the
+            same way, society responded to the pandemic emergency with a rapid
+            and radical shift to remote learning. That shift occurred in a
+            matter of weeks, but what made it possible was two decades of
+            transformative work in digital learning. From the beginning of that
+            long, transformative journey, OCW has been a guiding light.
+          </p>
+          <p>
+            If you ask MIT people to name those moments when they felt most
+            proud of the Institute, the birth of OCW is right at the top of the
+            list. That is a wonderful legacy and an inspiring challenge, for the
+            next twenty years and beyond.
+          </p>
+          <p>
+            Sincerely,<br />
+            L. Rafael Reif<br />
+            March 2021<br />
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="text-center">
+            <h1 class="font-cardo-italic mx-auto pb-7">
+              A Message from the Dean
+            </h1>
+            <iframe
+              frameborder="0"
+              scrolling="no"
+              marginheight="0"
+              marginwidth="0"
+              width="635.46"
+              height="357"
+              type="text/html"
+              src="https://www.youtube.com/embed/gC5QRayrYD4?autoplay=0&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&origin=http://youtubeembedcode.com"
+            >
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="red-bar"></div>
   </div>
 </div>
 {{ end }}

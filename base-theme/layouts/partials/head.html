@@ -27,5 +27,21 @@
       url({{ partial "webpack_url.html" "/static/fonts/MaterialIcons-Regular.woff" }}) format('woff'),
       url({{ partial "webpack_url.html" "/static/fonts/MaterialIcons-Regular.ttf" }}) format('truetype');
   }
+  @font-face {
+    font-family: 'Cardo Bold';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Cardo'),
+      local('Cardo-Bold'),
+      url({{ partial "webpack_url.html" "/static/fonts/Cardo-Bold.ttf" }}) format('truetype');
+  }
+  @font-face {
+    font-family: 'Cardo Italic';
+    font-style: italic;
+    font-weight: 400;
+    src: local('Cardo'),
+      local('Cardo-Italic'),
+      url({{ partial "webpack_url.html" "/static/fonts/Cardo-Italic.ttf" }}) format('truetype');
+  }
   </style>
 </head>

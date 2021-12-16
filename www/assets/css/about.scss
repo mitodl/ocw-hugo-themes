@@ -1,167 +1,206 @@
-#ocw-at-20 {
-  min-width: 1370px;
-}
+#about-us {
+  #ocw-at-20 {
+    min-width: 1370px;
+  }
 
-#ocw-20-text {
-  line-height: 38px;
-}
+  #ocw-20-text {
+    line-height: 38px;
+  }
 
-#timeline-wrapper {
-  min-width: 1110px;
-}
+  #timeline-wrapper {
+    min-width: 1110px;
+  }
 
-#timeline-card-1 {
-  margin-top: 18px;
-}
+  #timeline-card-1 {
+    margin-top: 18px;
+  }
 
-#timeline-card-2 {
-  margin-top: 170px;
-}
+  #timeline-card-2 {
+    margin-top: 170px;
+  }
 
-#timeline-card-3 {
-  margin-top: 80px;
-}
+  #timeline-card-3 {
+    margin-top: 80px;
+  }
 
-#timeline-card-4 {
-  margin-top: 242px;
-}
+  #timeline-card-4 {
+    margin-top: 242px;
+  }
 
-#timeline-card-5 {
-  margin-top: 80px;
-}
+  #timeline-card-5 {
+    margin-top: 80px;
+  }
 
-#timeline-column-left {
-  padding-right: $timeline-spacing;
+  #timeline-column-left {
+    padding-right: $timeline-spacing;
 
-  .timeline-card {
-    .timeline-card-img {
-      .timeline-card-img-dot {
-        right: -21px;
-      }
+    .timeline-card {
+      .timeline-card-img {
+        .timeline-card-img-dot {
+          right: -21px;
+        }
 
-      .timeline-red-dot {
-        right: -$timeline-spacing;
-        transform: translateX(50%);
-      }
+        .timeline-red-dot {
+          right: -$timeline-spacing;
+          transform: translateX(50%);
+        }
 
-      .timeline-red-line {
-        right: -$timeline-spacing;
+        .timeline-red-line {
+          right: -$timeline-spacing;
+        }
       }
     }
   }
-}
 
-#timeline-column-right {
-  padding-left: $timeline-spacing;
+  #timeline-column-right {
+    padding-left: $timeline-spacing;
 
-  .timeline-card {
-    .timeline-card-img {
-      .timeline-card-img-dot {
-        left: -21px;
-      }
+    .timeline-card {
+      .timeline-card-img {
+        .timeline-card-img-dot {
+          left: -21px;
+        }
 
-      .timeline-red-dot {
-        left: -$timeline-spacing;
-        transform: translateX(-50%);
-      }
+        .timeline-red-dot {
+          left: -$timeline-spacing;
+          transform: translateX(-50%);
+        }
 
-      .timeline-red-line {
-        left: -$timeline-spacing;
+        .timeline-red-line {
+          left: -$timeline-spacing;
+        }
       }
     }
   }
-}
 
-.timeline {
-  position: absolute;
-  background-color: $black;
-  left: 50%;
-  width: 1px;
-  height: 100%;
-}
+  ul {
+    list-style: none;
+    padding: 0;
 
-.timeline-black-dot {
-  position: absolute;
-  display: inline-block;
-  height: 5px;
-  width: 5px;
-  transform: translateX(-50%);
-  background-color: $black;
-  border-radius: 50%;
-}
+    li {
+      position: relative;
+      margin-left: 0;
+      padding: 0 0 2em 1.5em;
+    }
 
-.timeline-card-img-dot {
-  position: absolute;
-  display: inline-block;
-  height: 36px;
-  width: 36px;
-  bottom: -11px;
-  z-index: 2;
-  background-color: $timeline-red;
-  border-radius: 50%;
-  border: 3px $white solid;
-  outline: 3px $timeline-red solid;
-}
+    li:before {
+      content: "remove";
+      font-family: "Material Icons";
+      font-size: 24px;
+      position: absolute;
+      left: 0;
+      top: -6px;
+    }
+  }
 
-.timeline-red-dot {
-  position: absolute;
-  display: inline-block;
-  height: 19px;
-  width: 19px;
-  bottom: -2px;
-  z-index: 2;
-  background-color: $timeline-red;
-  border-radius: 50%;
-  border: 2px $white solid;
-}
+  .timeline {
+    position: absolute;
+    background-color: $black;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+  }
 
-.timeline-red-line {
-  position: absolute;
-  display: inline-block;
-  width: $timeline-spacing;
-  height: 1px;
-  bottom: 6px;
-  z-index: 1;
-  background-color: $timeline-red;
-}
+  .timeline-black-dot {
+    position: absolute;
+    display: inline-block;
+    height: 5px;
+    width: 5px;
+    transform: translateX(-50%);
+    background-color: $black;
+    border-radius: 50%;
+  }
 
-.timeline-card {
-  max-width: 432px;
-  height: fit-content;
-  box-shadow: 0px 2px 13px 0px rgba(0, 0, 0, 0.1);
+  .timeline-card-img-dot {
+    position: absolute;
+    display: inline-block;
+    height: 36px;
+    width: 36px;
+    bottom: -11px;
+    z-index: 2;
+    background-color: $about-red;
+    border-radius: 50%;
+    border: 3px $white solid;
+    outline: 3px $about-red solid;
+  }
 
-  .timeline-card-img {
+  .timeline-red-dot {
+    position: absolute;
+    display: inline-block;
+    height: 19px;
+    width: 19px;
+    bottom: -2px;
+    z-index: 2;
+    background-color: $about-red;
+    border-radius: 50%;
+    border: 2px $white solid;
+  }
+
+  .timeline-red-line {
+    position: absolute;
+    display: inline-block;
+    width: $timeline-spacing;
+    height: 1px;
+    bottom: 6px;
+    z-index: 1;
+    background-color: $about-red;
+  }
+
+  .timeline-card {
+    max-width: 432px;
+    height: fit-content;
+    box-shadow: 0px 2px 13px 0px rgba(0, 0, 0, 0.1);
+
+    .timeline-card-img {
+      position: relative;
+      background-color: $white;
+
+      img {
+        width: 432px;
+        height: 328px;
+        object-fit: none;
+      }
+    }
+
+    .timeline-card-content {
+      padding: 1em 1em 0 1em;
+    }
+  }
+
+  #beyond-course-materials {
+    ul > * {
+      font-size: 0.875em;
+    }
+  }
+
+  #president-dean-messages {
     position: relative;
-    background-color: $white;
 
-    img {
-      width: 432px;
-      height: 328px;
-      object-fit: none;
+    .container {
+      position: relative;
+      width: min-content;
+      z-index: 2;
+
+      h1 {
+        font-size: 3.75em;
+      }
+
+      #president-image {
+        font-size: 0.875em;
+      }
+
+      #presidents-message {
+        font-size: 1.75em;
+      }
     }
-  }
 
-  .timeline-card-content {
-    padding: 1em 1em 0 1em;
-
-    ul {
-      list-style: none;
-      padding: 0;
-
-      li {
-        position: relative;
-        margin-left: 0;
-        padding: 0 0 2em 1.5em;
-      }
-
-      li:before {
-        content: "remove";
-        font-family: "Material Icons";
-        font-size: 24px;
-        position: absolute;
-        left: 0;
-        top: -6px;
-      }
+    #red-bar {
+      position: absolute;
+      bottom: 0;
+      height: 100px;
+      width: 100%;
+      z-index: 1;
+      background-color: $about-red;
     }
   }
 }
