@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.37.0
+--------------
+
+- multiple choice
+- Fix MathJax Javascript URL (#299)
+
 Version 1.36.0 (Released December 15, 2021)
 --------------
 
