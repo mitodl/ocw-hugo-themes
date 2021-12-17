@@ -1,0 +1,17 @@
+<div class="w-100 d-flex justify-content-center mx-4 pb-4">
+  <div id="milestone-card-mobile-{{ .Title }}" class="milestone-card milestone-card-mobile">
+    <div class="milestone-card-img milestone-card-img-mobile">
+      <img src="{{ .Params.image }}" />
+    </div>
+    <div class="milestone-card-content milestone-card-content-mobile">
+      <h3>{{ .Title }}</h3>
+      <ul>
+        {{- range .Params.milestones -}}
+        <li>
+          {{ $.RenderString . }}
+        </li>
+        {{- end -}}
+      </ul>
+    </div>
+  </div>
+</div>

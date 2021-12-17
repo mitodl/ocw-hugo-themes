@@ -170,6 +170,29 @@
         </div>
       </div>
     </div>
+    <div id="milestones-mobile" class="medium-and-below-only">
+      <div id="milestones-carousel" class="position-relative carousel slide" data-interval="false">
+        <div class="carousel-inner">
+          {{- range $index, $milestone := where .Site.Pages "Section" "milestones" -}}
+          {{- if isset .Params "milestones" -}}
+          <div class="carousel-item{{ if eq $index 0 }} active{{ end }}">
+          {{ partial "milestone_card_mobile.html" $milestone }}
+          </div>
+          {{- end -}}
+          {{- end -}}
+        </div>
+        <div class="carousel-controls position-absolute d-flex justify-content-between w-100">
+          <a class="carousel-prev d-flex align-items-center" href="#milestones-carousel" role="button" data-slide="prev">
+            <i class="material-icons text-white" aria-hidden="true">chevron_left</i>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-next d-flex align-items-center" href="#milestones-carousel" role="button" data-slide="next">
+            <i class="material-icons text-white" aria-hidden="true">chevron_right</i>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
   <div id="beyond-course-materials" class="container standard-width pt-7">
     <div class="row">

@@ -13,58 +13,58 @@
     #milestone-card-desktop-2001-2005 {
       margin-top: 18px;
     }
-  
+
     #milestone-card-desktop-2006-2010 {
       margin-top: 170px;
     }
-  
+
     #milestone-card-desktop-2011-2015 {
       margin-top: 80px;
     }
-  
+
     #milestone-card-desktop-2016-2020 {
       margin-top: 242px;
     }
-  
+
     #milestone-card-desktop-2021 {
       margin-top: 80px;
     }
 
     #timeline-column-left {
       padding-right: $timeline-spacing;
-  
+
       .milestone-card {
         .milestone-card-img {
           .milestone-card-img-dot {
             right: -21px;
           }
-  
+
           .timeline-red-dot {
             right: -$timeline-spacing;
             transform: translateX(50%);
           }
-  
+
           .timeline-red-line {
             right: -$timeline-spacing;
           }
         }
       }
     }
-  
+
     #timeline-column-right {
       padding-left: $timeline-spacing;
-  
+
       .milestone-card {
         .milestone-card-img {
           .milestone-card-img-dot {
             left: -21px;
           }
-  
+
           .timeline-red-dot {
             left: -$timeline-spacing;
             transform: translateX(-50%);
           }
-  
+
           .timeline-red-line {
             left: -$timeline-spacing;
           }
@@ -79,7 +79,7 @@
       width: 1px;
       height: 100%;
     }
-  
+
     .timeline-black-dot {
       position: absolute;
       display: inline-block;
@@ -89,7 +89,7 @@
       background-color: $black;
       border-radius: 50%;
     }
-  
+
     .milestone-card-img-dot {
       position: absolute;
       display: inline-block;
@@ -102,7 +102,7 @@
       border: 3px $white solid;
       outline: 3px $about-red solid;
     }
-  
+
     .timeline-red-dot {
       position: absolute;
       display: inline-block;
@@ -114,7 +114,7 @@
       border-radius: 50%;
       border: 2px $white solid;
     }
-  
+
     .timeline-red-line {
       position: absolute;
       display: inline-block;
@@ -123,6 +123,38 @@
       bottom: 6px;
       z-index: 1;
       background-color: $about-red;
+    }
+  }
+
+  #milestones-mobile {
+    height: fit-content;
+
+    .milestone-card-mobile {
+      width: fit-content;
+  
+      .milestone-card-img-mobile {
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      .milestone-card-content-mobile {
+        height:377px;
+        overflow-y: scroll;
+      }
+    }
+  }
+
+  .carousel-controls {
+    top: 50%;
+    transform: translateY(-50%);
+
+    .carousel-prev, .carousel-next {
+      width: 27px;
+      height: 100px;
+      background-color: rgba(0,0,0,0.59);
+      text-decoration: none;
     }
   }
 
