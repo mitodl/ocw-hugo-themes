@@ -168,8 +168,11 @@
   }
 
   #beyond-course-materials {
-    ul > * {
+    ul {
       font-size: 0.875em;
+      li:before {
+        top: -8px !important;
+      }
     }
   }
 
@@ -201,6 +204,24 @@
       width: 100%;
       z-index: 1;
       background-color: $about-red;
+    }
+  }
+
+  #our-team {
+    .picture-placeholder {
+      width: 290px;
+      height: 320px;
+      margin-bottom: 16px;
+      background-color: $medium-light-gray;
+    }
+
+    h4 {
+      font-size: 1.125em;
+      margin-bottom: 4px;
+    }
+
+    .col div {
+      margin-bottom: 22px;
     }
   }
 }
