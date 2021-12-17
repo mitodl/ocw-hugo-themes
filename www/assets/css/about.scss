@@ -7,69 +7,122 @@
     line-height: 38px;
   }
 
-  #timeline-wrapper {
+  #milestones-desktop {
     min-width: 1110px;
-  }
 
-  #timeline-card-1 {
-    margin-top: 18px;
-  }
+    #milestone-card-desktop-2001-2005 {
+      margin-top: 18px;
+    }
+  
+    #milestone-card-desktop-2006-2010 {
+      margin-top: 170px;
+    }
+  
+    #milestone-card-desktop-2011-2015 {
+      margin-top: 80px;
+    }
+  
+    #milestone-card-desktop-2016-2020 {
+      margin-top: 242px;
+    }
+  
+    #milestone-card-desktop-2021 {
+      margin-top: 80px;
+    }
 
-  #timeline-card-2 {
-    margin-top: 170px;
-  }
-
-  #timeline-card-3 {
-    margin-top: 80px;
-  }
-
-  #timeline-card-4 {
-    margin-top: 242px;
-  }
-
-  #timeline-card-5 {
-    margin-top: 80px;
-  }
-
-  #timeline-column-left {
-    padding-right: $timeline-spacing;
-
-    .timeline-card {
-      .timeline-card-img {
-        .timeline-card-img-dot {
-          right: -21px;
-        }
-
-        .timeline-red-dot {
-          right: -$timeline-spacing;
-          transform: translateX(50%);
-        }
-
-        .timeline-red-line {
-          right: -$timeline-spacing;
+    #timeline-column-left {
+      padding-right: $timeline-spacing;
+  
+      .milestone-card {
+        .milestone-card-img {
+          .milestone-card-img-dot {
+            right: -21px;
+          }
+  
+          .timeline-red-dot {
+            right: -$timeline-spacing;
+            transform: translateX(50%);
+          }
+  
+          .timeline-red-line {
+            right: -$timeline-spacing;
+          }
         }
       }
     }
-  }
-
-  #timeline-column-right {
-    padding-left: $timeline-spacing;
-
-    .timeline-card {
-      .timeline-card-img {
-        .timeline-card-img-dot {
-          left: -21px;
-        }
-
-        .timeline-red-dot {
-          left: -$timeline-spacing;
-          transform: translateX(-50%);
-        }
-
-        .timeline-red-line {
-          left: -$timeline-spacing;
+  
+    #timeline-column-right {
+      padding-left: $timeline-spacing;
+  
+      .milestone-card {
+        .milestone-card-img {
+          .milestone-card-img-dot {
+            left: -21px;
+          }
+  
+          .timeline-red-dot {
+            left: -$timeline-spacing;
+            transform: translateX(-50%);
+          }
+  
+          .timeline-red-line {
+            left: -$timeline-spacing;
+          }
         }
       }
+    }
+
+    .timeline {
+      position: absolute;
+      background-color: $black;
+      left: 50%;
+      width: 1px;
+      height: 100%;
+    }
+  
+    .timeline-black-dot {
+      position: absolute;
+      display: inline-block;
+      height: 5px;
+      width: 5px;
+      transform: translateX(-50%);
+      background-color: $black;
+      border-radius: 50%;
+    }
+  
+    .milestone-card-img-dot {
+      position: absolute;
+      display: inline-block;
+      height: 36px;
+      width: 36px;
+      bottom: -11px;
+      z-index: 2;
+      background-color: $about-red;
+      border-radius: 50%;
+      border: 3px $white solid;
+      outline: 3px $about-red solid;
+    }
+  
+    .timeline-red-dot {
+      position: absolute;
+      display: inline-block;
+      height: 19px;
+      width: 19px;
+      bottom: -2px;
+      z-index: 2;
+      background-color: $about-red;
+      border-radius: 50%;
+      border: 2px $white solid;
+    }
+  
+    .timeline-red-line {
+      position: absolute;
+      display: inline-block;
+      width: $timeline-spacing;
+      height: 1px;
+      bottom: 6px;
+      z-index: 1;
+      background-color: $about-red;
     }
   }
 
@@ -93,65 +146,12 @@
     }
   }
 
-  .timeline {
-    position: absolute;
-    background-color: $black;
-    left: 50%;
-    width: 1px;
-    height: 100%;
-  }
-
-  .timeline-black-dot {
-    position: absolute;
-    display: inline-block;
-    height: 5px;
-    width: 5px;
-    transform: translateX(-50%);
-    background-color: $black;
-    border-radius: 50%;
-  }
-
-  .timeline-card-img-dot {
-    position: absolute;
-    display: inline-block;
-    height: 36px;
-    width: 36px;
-    bottom: -11px;
-    z-index: 2;
-    background-color: $about-red;
-    border-radius: 50%;
-    border: 3px $white solid;
-    outline: 3px $about-red solid;
-  }
-
-  .timeline-red-dot {
-    position: absolute;
-    display: inline-block;
-    height: 19px;
-    width: 19px;
-    bottom: -2px;
-    z-index: 2;
-    background-color: $about-red;
-    border-radius: 50%;
-    border: 2px $white solid;
-  }
-
-  .timeline-red-line {
-    position: absolute;
-    display: inline-block;
-    width: $timeline-spacing;
-    height: 1px;
-    bottom: 6px;
-    z-index: 1;
-    background-color: $about-red;
-  }
-
-  .timeline-card {
+  .milestone-card {
     max-width: 432px;
     height: fit-content;
     box-shadow: 0px 2px 13px 0px rgba(0, 0, 0, 0.1);
 
-    .timeline-card-img {
+    .milestone-card-img {
       position: relative;
       background-color: $white;
 
@@ -162,7 +162,7 @@
       }
     }
 
-    .timeline-card-content {
+    .milestone-card-content {
       padding: 1em 1em 0 1em;
     }
   }

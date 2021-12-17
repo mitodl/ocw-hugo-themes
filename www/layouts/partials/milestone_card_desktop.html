@@ -1,0 +1,18 @@
+<div id="milestone-card-desktop-{{ .Title }}" class="milestone-card">
+  <div class="milestone-card-img">
+    <img src="{{ .Params.image }}" />
+    <span class="milestone-card-img-dot"></span>
+    <span class="timeline-red-dot"></span>
+    <span class="timeline-red-line"></span>
+  </div>
+  <div class="milestone-card-content">
+    <h3>{{ .Title }}</h3>
+    <ul>
+      {{- range .Params.milestones -}}
+      <li>
+        {{ $.RenderString . }}
+      </li>
+      {{- end -}}
+    </ul>
+  </div>
+</div>
