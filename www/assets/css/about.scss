@@ -131,7 +131,7 @@
 
     .milestone-card-mobile {
       width: fit-content;
-  
+
       .milestone-card-img-mobile {
         img {
           width: 100%;
@@ -140,7 +140,7 @@
       }
 
       .milestone-card-content-mobile {
-        height:377px;
+        height: 377px;
         overflow-y: scroll;
       }
     }
@@ -150,10 +150,11 @@
     top: 50%;
     transform: translateY(-50%);
 
-    .carousel-prev, .carousel-next {
+    .carousel-prev,
+    .carousel-next {
       width: 27px;
       height: 100px;
-      background-color: rgba(0,0,0,0.59);
+      background-color: rgba(0, 0, 0, 0.59);
       text-decoration: none;
     }
   }
