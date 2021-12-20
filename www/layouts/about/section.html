@@ -147,39 +147,37 @@
           id="timeline-column-left"
           class="col-6 d-flex flex-column justify-content-end"
         >
-          {{- with $.Site.GetPage "/milestones/2001-2005" -}}
+          {{ with $.Site.GetPage "/milestones/2001-2005" }}
           {{ partial "milestone_card_desktop.html" . }}
-          {{- end -}}
-          {{- with $.Site.GetPage "/milestones/2011-2015" -}}
+          {{ end }}
+          {{ with $.Site.GetPage "/milestones/2011-2015" }}
           {{ partial "milestone_card_desktop.html" . }}
-          {{- end -}}
-          {{- with $.Site.GetPage "/milestones/2021" -}}
+          {{ end }}
+          {{ with $.Site.GetPage "/milestones/2021" }}
           {{ partial "milestone_card_desktop.html" . }}
-          {{- end -}}
+          {{ end }}
         </div>
         <div
           id="timeline-column-right"
           class="col-6 d-flex flex-column justify-content-start"
         >
-          {{- with $.Site.GetPage "/milestones/2006-2010" -}}
+          {{ with $.Site.GetPage "/milestones/2006-2010" }}
           {{ partial "milestone_card_desktop.html" . }}
-          {{- end -}}
-          {{- with $.Site.GetPage "/milestones/2016-2020" -}}
+          {{ end }}
+          {{ with $.Site.GetPage "/milestones/2016-2020" }}
           {{ partial "milestone_card_desktop.html" . }}
-          {{- end -}}
+          {{ end }}
         </div>
       </div>
     </div>
     <div id="milestones-mobile" class="medium-and-below-only">
       <div id="milestones-carousel" class="position-relative carousel slide" data-interval="false">
         <div class="carousel-inner">
-          {{- range $index, $milestone := where .Site.Pages "Section" "milestones" -}}
-          {{- if isset .Params "milestones" -}}
+          {{ range $index, $milestone := where .Site.RegularPages "Section" "milestones" }}
           <div class="carousel-item{{ if eq $index 0 }} active{{ end }}">
           {{ partial "milestone_card_mobile.html" $milestone }}
           </div>
-          {{- end -}}
-          {{- end -}}
+          {{ end }}
         </div>
         <div class="carousel-controls position-absolute d-flex justify-content-between w-100">
           <a class="carousel-prev d-flex align-items-center" href="#milestones-carousel" role="button" data-slide="prev">
@@ -361,48 +359,43 @@
         <h2>OCW Staff</h2>
       </div>
     </div>
+    <!-- These cards will be replaced with actual staff -->
+    <div id="staff-desktop" class="large-and-above-only">
+    {{ range $index, $staff := where .Site.RegularPages "Section" "staff" }}
+    {{ if eq (mod (sub $index 4) 4) 0 }}
     <div class="row pb-6">
+    {{ end }}
       <div class="col-3">
-        <div class="picture-placeholder"></div>
-        <h3>First Name Last Name</h3>
-        Job title
+        {{ partial "staff_card.html" . }}
       </div>
-      <div class="col-3">
-        <div class="picture-placeholder"></div>
-        <h3>First Name Last Name</h3>
-        Job title
-      </div>
-      <div class="col-3">
-        <div class="picture-placeholder"></div>
-        <h3>First Name Last Name</h3>
-        Job title
-      </div>
-      <div class="col-3">
-        <div class="picture-placeholder"></div>
-        <h3>First Name Last Name</h3>
-        Job title
-      </div>
+    {{ if eq (mod (sub $index 3) 4) 0 }}
     </div>
-    <div class="row pb-6">
-      <div class="col-3">
-        <div class="picture-placeholder"></div>
-        <h3>First Name Last Name</h3>
-        Job title
-      </div>
-      <div class="col-3">
-        <div class="picture-placeholder"></div>
-        <h3>First Name Last Name</h3>
-        Job title
-      </div>
-      <div class="col-3">
-        <div class="picture-placeholder"></div>
-        <h3>First Name Last Name</h3>
-        Job title
-      </div>
-      <div class="col-3">
-        <div class="picture-placeholder"></div>
-        <h3>First Name Last Name</h3>
-        Job title
+    {{ end }}        
+    {{ end }}
+    </div>
+    <div id="staff-mobile">
+      <div id="staff-carousel" class="position-relative carousel slide" data-interval="false">
+        <div class="carousel-inner">
+          {{ range $index, $staff := where .Site.RegularPages "Section" "staff" }}
+          <div class="carousel-item{{ if eq $index 0 }} active{{ end }}">
+            <div class="w-100 d-flex justify-content-center mx-4 pb-4">
+              <div>
+              {{ partial "staff_card.html" $staff }}
+              </div>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+        <div class="carousel-controls position-absolute d-flex justify-content-between w-100">
+          <a class="carousel-prev d-flex align-items-center" href="#staff-carousel" role="button" data-slide="prev">
+            <i class="material-icons text-white" aria-hidden="true">chevron_left</i>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-next d-flex align-items-center" href="#staff-carousel" role="button" data-slide="next">
+            <i class="material-icons text-white" aria-hidden="true">chevron_right</i>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
       </div>
     </div>
     <div class="row pb-6">
