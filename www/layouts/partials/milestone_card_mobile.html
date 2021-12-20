@@ -5,7 +5,7 @@
     </div>
     <div class="milestone-card-content milestone-card-content-mobile">
       <h3>{{ .Title }}</h3>
-      <ul>
+      <ul class="dash-bullet-list">
         {{- range .Params.milestones -}}
         <li>
           {{ $.RenderString . }}

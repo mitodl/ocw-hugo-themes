@@ -1,7 +1,40 @@
 {{ define "main" }}
-<div id="about-us" class="page-single overflow-hidden">
+<div id="about-us" class="page-single">
   {{ block "header" . }} {{ partialCached "header" . }} {{end}}
-  <div class="container standard-width max-content-width mx-auto mt-5 pb-5">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+    <div class="navbar-brand">
+      <span class="navbar-current-active medium-and-below-only">Intro</a>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#about-subnav" aria-controls="about-subnav" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="material-icons" aria-hidden="true">expand_more</i>
+    </button>
+    <div id="about-subnav" class="collapse navbar-collapse">
+      <ul class="navbar-nav justify-content-between mx-auto my-0 max-content-width w-100">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">Intro</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="#ocw-at-20-title">OCW@20 Vision</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="#future-of-ocw">Future of OCW</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="#milestones">OCW Milestones</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="#beyond-course-materials">Beyond Course Materials</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="#president-dean-messages">President & Dean's Message</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="#our-team">Our Team</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div id="intro" class="container max-content-width mx-auto mt-5 pb-5">
     <div class="row">
       <div class="col px-0">
         <div class="w-75">
@@ -21,7 +54,7 @@
       </div>
     </div>
   </div>
-  <div class="container standard-width max-content-width mx-auto pt-5 pb-5">
+  <div class="container max-content-width mx-auto pt-5 pb-5">
     <div class="row">
       <div class="col border-bottom-4 border-red px-0 mr-5">
         <p class="pb-5">
@@ -60,9 +93,7 @@
       </div>
     </div>
   </div>
-  <div
-    class="container standard-width max-content-width mx-auto px-0 pt-5 pb-5"
-  >
+  <div id="ocw-at-20-title" class="container max-content-width mx-auto px-0 pt-5 pb-5">
     <h1>The OCW<span class="color-highlight-red">@20</span> Vision</h1>
   </div>
   <div id="ocw-at-20" class="max-content-width mx-auto pt-5 pb-5">
@@ -96,7 +127,7 @@
       </div>
     </div>
   </div>
-  <div class="container standard-width mx-auto pt-6 pb-5">
+  <div id="future-of-ocw" class="container max-content-width mx-auto pt-6 pb-5">
     <h1 class="text-center w-100 pb-6">
       Here's what's in store in the months and years to come...
     </h1>
@@ -135,7 +166,7 @@
       </div>
     </div>
   </div>
-  <div class="background-color-light-grey pt-7 pb-7">
+  <div id="milestones" class="background-color-light-grey pt-7 pb-7">
     <h1 class="text-center w-100 pb-6">OCW Milestones</h1>
     <div id="milestones-desktop" class="container position-relative large-and-above-only">
       <div class="timeline">
@@ -192,7 +223,7 @@
       </div>
     </div>
   </div>
-  <div id="beyond-course-materials" class="container standard-width pt-7">
+  <div id="beyond-course-materials" class="container max-content-width pt-7">
     <div class="row">
       <div class="col-6 pr-8">
         <h1 class="pb-5">Beyond Course Materials</h1>
@@ -202,7 +233,7 @@
           include other types of content that complement its core publication of
           course materials.
         </p>
-        <ul>
+        <ul class="dash-bullet-list">
           <li>
             <span class="font-weight-bold"
               >OCW Educator: Instructor Insights</span
@@ -263,7 +294,7 @@
     </div>
   </div>
   <div id="president-dean-messages" class="bg-black text-white">
-    <div class="container standard-width mx-auto pt-8 pb-5">
+    <div class="container max-content-width mx-auto pt-8 pb-5">
       <div class="row pb-7">
         <div class="col-12">
           <div class="text-center">
@@ -348,7 +379,7 @@
     </div>
     <div id="red-bar"></div>
   </div>
-  <div id="our-team" class="container standard-width pt-7">
+  <div id="our-team" class="container max-content-width pt-7">
     <div class="row">
       <div class="col-12">
         <h1 class="text-center w-100 pb-6">Our Team</h1>
@@ -373,7 +404,7 @@
     {{ end }}        
     {{ end }}
     </div>
-    <div id="staff-mobile">
+    <div id="staff-mobile" class="medium-and-below-only">
       <div id="staff-carousel" class="position-relative carousel slide" data-interval="false">
         <div class="carousel-inner">
           {{ range $index, $staff := where .Site.RegularPages "Section" "staff" }}

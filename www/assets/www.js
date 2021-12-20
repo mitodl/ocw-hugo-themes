@@ -12,6 +12,7 @@ import SearchPage from "./js/components/SearchPage"
 
 import { setupEmailSignupForm } from "./js/mailchimp"
 import { initNotifications } from "./js/notification"
+import { initSubNav } from "./js/subnav"
 
 window.jQuery = $
 window.$ = $
@@ -25,4 +26,5 @@ $(document).ready(() => {
 
   initNotifications()
   setupEmailSignupForm()
+  initSubNav()
 })

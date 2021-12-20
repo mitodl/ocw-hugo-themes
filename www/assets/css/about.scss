@@ -1,4 +1,25 @@
 #about-us {
+  nav {
+    .navbar-current-active {
+      color: black;
+      font-weight: bold;
+    }
+
+    ul {
+      li {
+        a {
+          color: black;
+          font-weight: bold;
+          text-decoration: none;
+        }
+
+        .active {
+          color: $highlight-red;
+        }
+      }
+    }
+  }
+
   #ocw-at-20 {
     min-width: 1370px;
   }
@@ -159,7 +180,7 @@
     }
   }
 
-  ul {
+  ul.dash-bullet-list {
     list-style: none;
     padding: 0;
 
