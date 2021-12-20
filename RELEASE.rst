@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.37.0
+Version 1.37.0 (Released December 20, 2021)
 --------------
 
 - multiple choice
