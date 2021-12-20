@@ -8,6 +8,10 @@
       font-weight: bold;
     }
 
+    .navbar-toggler {
+      border: none;
+    }
+
     ul {
       li {
         a {
@@ -23,12 +27,18 @@
     }
   }
 
-  #ocw-at-20 {
-    min-width: 1370px;
+  #intro {
+    #intro-text {
+      @include media-breakpoint-up(lg) {
+        width: 75%;
+      }
+    }
   }
 
-  #ocw-20-text {
-    line-height: 38px;
+  #ocw-at-20 {
+    #ocw-20-text {
+      line-height: 38px;
+    }
   }
 
   #milestones-desktop {
