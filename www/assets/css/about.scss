@@ -2,6 +2,13 @@
   background-repeat: no-repeat;
   background-position: top right;
 
+  @include media-breakpoint-down(md) {
+    .container {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+  }
+
   nav {
     .navbar-current-active {
       color: black;
@@ -31,6 +38,23 @@
     #intro-text {
       @include media-breakpoint-up(lg) {
         width: 75%;
+      }
+    }
+  }
+
+  #intro-2 {
+    @include media-breakpoint-down(md) {
+      #intro-2-video-col {
+        min-height: 40vh;
+        padding: 0 1rem 2rem 1rem;
+        border-bottom: 4px solid;
+        border-color: $about-red;
+      }
+    }
+    @include media-breakpoint-up(lg) {
+      #intro-2-text-col {
+        border-bottom: 4px solid;
+        border-color: $about-red;
       }
     }
   }
@@ -248,7 +272,12 @@
 
     .container {
       position: relative;
-      width: min-content;
+      @include media-breakpoint-down(md) {
+        width: 100%;
+      }
+      @include media-breakpoint-up(lg) {
+        width: min-content;
+      }
       z-index: 2;
 
       h1 {
@@ -266,7 +295,24 @@
       }
 
       #presidents-message {
-        font-size: 1.75em;
+        @include media-breakpoint-down(md) {
+          font-size: 1.125em;
+        }
+        @include media-breakpoint-up(lg) {
+          font-size: 1.75em;
+        }
+      }
+
+      #deans-message-video {
+        @include media-breakpoint-down(md) {
+          width: 90vw;
+          height: 51vw;
+        }
+
+        @include media-breakpoint-up(lg) {
+          width: 50vw;
+          height: 28vw;
+        }
       }
     }
 
