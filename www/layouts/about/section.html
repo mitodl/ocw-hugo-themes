@@ -502,7 +502,7 @@
         <div class="carousel-inner">
           {{ range $index, $staff := where .Site.RegularPages "Section" "staff" }}
           <div class="carousel-item{{ if eq $index 0 }} active{{ end }}">
-            <div class="w-100 d-flex justify-content-center mx-4 pb-4">
+            <div class="w-100 d-flex justify-content-center mx-4">
               <div>
                 {{ partial "staff_card.html" $staff }}
               </div>

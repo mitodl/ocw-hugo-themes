@@ -327,14 +327,18 @@
   }
 
   #our-team {
-    .picture-placeholder {
-      width: 290px;
-      height: 320px;
-      margin-bottom: 16px;
-      background-color: $medium-light-gray;
+    .staff-card {
+      height: 410px;
+
+      .staff-picture {
+        width: 290px;
+        height: 320px;
+        margin-bottom: 16px;
+        background-color: $medium-light-gray;
+      }
     }
 
-    h4 {
+    h3 {
       font-size: 1.125em;
       margin-bottom: 4px;
     }

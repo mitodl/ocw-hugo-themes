@@ -1,3 +1,10 @@
-<div class="picture-placeholder"></div>
-<h3>{{ .Params.first_name }} {{ .Params.last_name }} </h3>
-{{ .Params.job_title }}
+{{- $fullName := printf "%s %s" .Params.first_name .Params.last_name -}}
+<div class="staff-card">
+  <div class="staff-picture d-flex justify-content-center align-item-center overflow-hidden">
+  {{- if .Params.image -}}
+    <img class="flex-shrink-0" src="{{ .Params.image }}" alt="{{ $fullName }}" />
+  {{- end -}}
+  </div>
+  <h3>{{ $fullName }}</h3>
+  {{ .Params.job_title }}
+</div>
