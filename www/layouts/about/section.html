@@ -479,7 +479,6 @@
         <h2>OCW Staff</h2>
       </div>
     </div>
-    <!-- These cards will be replaced with actual staff -->
     <div id="staff-desktop" class="large-and-above-only">
       {{ range $index, $staff := where .Site.RegularPages "Section" "staff" }}
       {{ if eq (mod (sub $index 4) 4) 0 }}
@@ -493,7 +492,7 @@
       {{ end }}
       {{ end }}
     </div>
-    <div id="staff-mobile" class="medium-and-below-only pb-5">
+    <div id="staff-mobile" class="medium-and-below-only row pb-5">
       <div
         id="staff-carousel"
         class="position-relative carousel slide"
