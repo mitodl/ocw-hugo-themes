@@ -230,7 +230,7 @@
     }
 
     .milestone-card-content {
-      padding: 1em 1em 0 1em;
+      padding: 1rem 1rem 0 1rem;
     }
   }
 
@@ -257,6 +257,12 @@
 
       #president-image {
         font-size: 0.875em;
+
+        @include media-breakpoint-down(md) {
+          img {
+            width: 100% !important;
+          }
+        }
       }
 
       #presidents-message {
