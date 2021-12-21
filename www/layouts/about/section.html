@@ -1,35 +1,91 @@
 {{ define "main" }}
-<div id="about-us" class="page-single" style="background-image: url('/images/about/logo-background.png');">
+<div
+  id="about-us"
+  class="page-single"
+  style="background-image: url('/images/about/logo-background.png');"
+>
   {{ block "header" . }} {{ partialCached "header" . }} {{end}}
   <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
     <div class="navbar-brand">
       <span class="navbar-current-active medium-and-below-only">Intro</span>
     </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#about-subnav" aria-controls="about-subnav" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#about-subnav"
+      aria-controls="about-subnav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <i class="material-icons" aria-hidden="true">expand_more</i>
     </button>
     <div id="about-subnav" class="collapse navbar-collapse">
-      <ul class="navbar-nav justify-content-between mx-auto my-0 max-content-width w-100">
+      <ul
+        class="navbar-nav justify-content-between mx-auto my-0 max-content-width w-100"
+      >
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">Intro</a>
+          <a
+            class="nav-link active"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#"
+            >Intro</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="#ocw-at-20-title">OCW@20 Vision</a>
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#ocw-at-20-title"
+            >OCW@20 Vision</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="#future-of-ocw">Future of OCW</a>
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#future-of-ocw"
+            >Future of OCW</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="#milestones">OCW Milestones</a>
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#milestones"
+            >OCW Milestones</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="#beyond-course-materials">Beyond Course Materials</a>
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#beyond-course-materials"
+            >Beyond Course Materials</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="#president-dean-messages">President & Dean's Message</a>
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#president-dean-messages"
+            >President & Dean's Message</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="#our-team">Our Team</a>
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#our-team"
+            >Our Team</a
+          >
         </li>
       </ul>
     </div>
@@ -60,8 +116,8 @@
         <div id="intro-2-text-col">
           <p class="pb-5">
             <b>MIT OpenCourseWare</b> is a free and open publication of material
-            from thousands of MIT courses, covering the entire MIT curriculum and
-            used by learners and educators around the world.
+            from thousands of MIT courses, covering the entire MIT curriculum
+            and used by learners and educators around the world.
           </p>
           <p class="pb-5">
             <b>Knowledge is your reward.</b> Use OCW to guide your own life-long
@@ -74,13 +130,16 @@
             dates.
           </p>
           <p class="pb-5">
-            <b>Made for sharing.</b> Download files for later. Send to friends and
-            colleagues. Modify, remix, and reuse (just remember to cite OCW as the
-            source.)
+            <b>Made for sharing.</b> Download files for later. Send to friends
+            and colleagues. Modify, remix, and reuse (just remember to cite OCW
+            as the source.)
           </p>
         </div>
       </div>
-      <div id="intro-2-video-col" class="col-12 col-lg-6 d-flex align-items-center">
+      <div
+        id="intro-2-video-col"
+        class="col-12 col-lg-6 d-flex align-items-center"
+      >
         <iframe
           class="w-100 h-100"
           frameborder="0"
@@ -95,7 +154,9 @@
     </div>
   </div>
   <div id="ocw-at-20-title" class="container max-content-width mx-auto py-5">
-    <h1 class="text-center-mobile">The OCW<span class="color-highlight-red">@20</span> Vision</h1>
+    <h1 class="text-center-mobile">
+      The OCW<span class="color-highlight-red">@20</span> Vision
+    </h1>
   </div>
   <div id="ocw-at-20" class="container max-content-width mx-auto py-5">
     <div class="row">
@@ -169,7 +230,10 @@
   </div>
   <div id="milestones" class="background-color-light-grey pt-7 pb-7">
     <h1 class="text-center w-100 pb-6">OCW Milestones</h1>
-    <div id="milestones-desktop" class="container position-relative large-and-above-only">
+    <div
+      id="milestones-desktop"
+      class="container position-relative large-and-above-only"
+    >
       <div class="timeline">
         <span class="timeline-black-dot top-0"></span>
         <span class="timeline-black-dot bottom-0"></span>
@@ -203,21 +267,41 @@
       </div>
     </div>
     <div id="milestones-mobile" class="medium-and-below-only">
-      <div id="milestones-carousel" class="position-relative carousel slide" data-interval="false">
+      <div
+        id="milestones-carousel"
+        class="position-relative carousel slide"
+        data-interval="false"
+      >
         <div class="carousel-inner">
           {{ range $index, $milestone := where .Site.RegularPages "Section" "milestones" }}
           <div class="carousel-item{{ if eq $index 0 }} active{{ end }}">
-          {{ partial "milestone_card_mobile.html" $milestone }}
+            {{ partial "milestone_card_mobile.html" $milestone }}
           </div>
           {{ end }}
         </div>
-        <div class="carousel-controls position-absolute d-flex justify-content-between w-100">
-          <a class="carousel-prev d-flex align-items-center" href="#milestones-carousel" role="button" data-slide="prev">
-            <i class="material-icons text-white" aria-hidden="true">chevron_left</i>
+        <div
+          class="carousel-controls position-absolute d-flex justify-content-between w-100"
+        >
+          <a
+            class="carousel-prev d-flex align-items-center"
+            href="#milestones-carousel"
+            role="button"
+            data-slide="prev"
+          >
+            <i class="material-icons text-white" aria-hidden="true"
+              >chevron_left</i
+            >
             <span class="sr-only">Previous</span>
           </a>
-          <a class="carousel-next d-flex align-items-center" href="#milestones-carousel" role="button" data-slide="next">
-            <i class="material-icons text-white" aria-hidden="true">chevron_right</i>
+          <a
+            class="carousel-next d-flex align-items-center"
+            href="#milestones-carousel"
+            role="button"
+            data-slide="next"
+          >
+            <i class="material-icons text-white" aria-hidden="true"
+              >chevron_right</i
+            >
             <span class="sr-only">Next</span>
           </a>
         </div>
@@ -299,14 +383,18 @@
       <div class="row pb-7">
         <div class="col-12 px-0 px-lg-3">
           <div class="text-center">
-            <h1 class="font-cardo-bold mx-auto px-3 px-lg-0 pb-7">President's Message</h1>
+            <h1 class="font-cardo-bold mx-auto px-3 px-lg-0 pb-7">
+              President's Message
+            </h1>
             <div id="president-image" class="d-inline-block">
               <img
                 class="img-responsive"
                 src="/images/about/president-reif.png"
                 alt="MIT President L. Rafael Reif"
               />
-              <div class="text-left px-3 px-lg-0 pt-4">MIT President L. Rafael Reif</div>
+              <div class="text-left px-3 px-lg-0 pt-4">
+                MIT President L. Rafael Reif
+              </div>
             </div>
           </div>
         </div>
@@ -393,38 +481,58 @@
     </div>
     <!-- These cards will be replaced with actual staff -->
     <div id="staff-desktop" class="large-and-above-only">
-    {{ range $index, $staff := where .Site.RegularPages "Section" "staff" }}
-    {{ if eq (mod (sub $index 4) 4) 0 }}
-    <div class="row pb-6">
-    {{ end }}
-      <div class="col-3">
-        {{ partial "staff_card.html" . }}
+      {{ range $index, $staff := where .Site.RegularPages "Section" "staff" }}
+      {{ if eq (mod (sub $index 4) 4) 0 }}
+      <div class="row pb-6">
+        {{ end }}
+        <div class="col-3">
+          {{ partial "staff_card.html" . }}
+        </div>
+        {{ if eq (mod (sub $index 3) 4) 0 }}
       </div>
-    {{ if eq (mod (sub $index 3) 4) 0 }}
-    </div>
-    {{ end }}        
-    {{ end }}
+      {{ end }}
+      {{ end }}
     </div>
     <div id="staff-mobile" class="medium-and-below-only pb-5">
-      <div id="staff-carousel" class="position-relative carousel slide" data-interval="false">
+      <div
+        id="staff-carousel"
+        class="position-relative carousel slide"
+        data-interval="false"
+      >
         <div class="carousel-inner">
           {{ range $index, $staff := where .Site.RegularPages "Section" "staff" }}
           <div class="carousel-item{{ if eq $index 0 }} active{{ end }}">
             <div class="w-100 d-flex justify-content-center mx-4 pb-4">
               <div>
-              {{ partial "staff_card.html" $staff }}
+                {{ partial "staff_card.html" $staff }}
               </div>
             </div>
           </div>
           {{ end }}
         </div>
-        <div class="carousel-controls position-absolute d-flex justify-content-between w-100">
-          <a class="carousel-prev d-flex align-items-center" href="#staff-carousel" role="button" data-slide="prev">
-            <i class="material-icons text-white" aria-hidden="true">chevron_left</i>
+        <div
+          class="carousel-controls position-absolute d-flex justify-content-between w-100"
+        >
+          <a
+            class="carousel-prev d-flex align-items-center"
+            href="#staff-carousel"
+            role="button"
+            data-slide="prev"
+          >
+            <i class="material-icons text-white" aria-hidden="true"
+              >chevron_left</i
+            >
             <span class="sr-only">Previous</span>
           </a>
-          <a class="carousel-next d-flex align-items-center" href="#staff-carousel" role="button" data-slide="next">
-            <i class="material-icons text-white" aria-hidden="true">chevron_right</i>
+          <a
+            class="carousel-next d-flex align-items-center"
+            href="#staff-carousel"
+            role="button"
+            data-slide="next"
+          >
+            <i class="material-icons text-white" aria-hidden="true"
+              >chevron_right</i
+            >
             <span class="sr-only">Next</span>
           </a>
         </div>
@@ -455,15 +563,18 @@
         </div>
         <div class="pb-4">
           <h4>Eric Grimson (Chair)</h4>
-          MIT Chancellor for Academic Advancement; Professor of Electrical Engineering and Computer Science
+          MIT Chancellor for Academic Advancement; Professor of Electrical
+          Engineering and Computer Science
         </div>
         <div class="pb-4">
           <h4>Nancy Kanwisher</h4>
-          Professor of Cognitive Science, Department of Brain & Cognitive Sciences
+          Professor of Cognitive Science, Department of Brain & Cognitive
+          Sciences
         </div>
         <div class="pb-4">
           <h4>Eric Klopfer</h4>
-          Professor and Section Head, Comparative Media Studies/Writing; Director of Scheller Teacher Education Program
+          Professor and Section Head, Comparative Media Studies/Writing;
+          Director of Scheller Teacher Education Program
         </div>
         <div class="pb-4">
           <h4>Haynes Miller</h4>
@@ -471,7 +582,8 @@
         </div>
         <div class="pb-4">
           <h4>Caitlin Mueller</h4>
-          Assistant Professor, Department of Architecture; Assistant Professor, Department of Civil and Environmental Engineering
+          Assistant Professor, Department of Architecture; Assistant Professor,
+          Department of Civil and Environmental Engineering
         </div>
         <div class="pb-4">
           <h4>Anjali Nambrath</h4>
@@ -481,7 +593,8 @@
       <div class="col-12 col-lg-6">
         <div class="pb-4">
           <h4>Rosalind Picard</h4>
-          Professor, Program in Media Arts and Sciences; Faculty Chair, MIT Mind+Hand+Heart
+          Professor, Program in Media Arts and Sciences; Faculty Chair, MIT
+          Mind+Hand+Heart
         </div>
         <div class="pb-4">
           <h4>Jeffrey S. Ravel</h4>
@@ -500,11 +613,13 @@
         </div>
         <div class="pb-4">
           <h4>Vijay Kumar</h4>
-          Associate Dean for Open Learning; Executive Director, Abdul Latif Jameel World Education Lab (J-WEL)
+          Associate Dean for Open Learning; Executive Director, Abdul Latif
+          Jameel World Education Lab (J-WEL)
         </div>
         <div class="pb-4">
           <h4>Shigeru Miyagawa</h4>
-          Senior Associate Dean for Open Learning; Professor of Linguistics & Kochi-Manjiro Professor of Japanese Language and Culture
+          Senior Associate Dean for Open Learning; Professor of Linguistics &
+          Kochi-Manjiro Professor of Japanese Language and Culture
         </div>
         <div class="pb-4">
           <h4>Curt Newton</h4>
