@@ -271,6 +271,8 @@
         id="milestones-carousel"
         class="position-relative carousel slide"
         data-interval="false"
+        data-touch="true"
+        data-ride="carousel"
       >
         <div class="carousel-inner">
           {{ range $index, $milestone := where .Site.RegularPages "Section" "milestones" }}
@@ -497,6 +499,8 @@
         id="staff-carousel"
         class="position-relative carousel slide"
         data-interval="false"
+        data-touch="true"
+        data-ride="carousel"
       >
         <div class="carousel-inner">
           {{ range $index, $staff := where .Site.RegularPages "Section" "staff" }}
