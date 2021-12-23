@@ -6,9 +6,13 @@ const initSubNav = () => {
       .removeClass("active")
     clickedLink.addClass("active")
     $(".navbar-current-active").text(clickedLink.text())
-    window.location = clickedLink.attr("href")
-    // console.log($(".navbar-collapse")[0].collapse)
-    // $(".navbar-collapse").collapse("hide")
+    const target = $(clickedLink.attr("href")).get(0)
+    const yOffset = -300
+    const y = target.getBoundingClientRect().top + window.scrollY + yOffset
+    window.scrollTo({
+      top:      y,
+      behavior: "smooth"
+    })
   })
 }
 
