@@ -1,0 +1,11 @@
+{{- $parsedUrl := urls.Parse .RelPermalink -}}
+{{- $slashCount := strings.Count "/" .RelPermalink -}}
+{{- $pathToRoot := "" -}}
+{{- if gt $slashCount 1 -}}
+  {{- range seq (sub $slashCount 1) -}}
+    {{- $pathToRoot = $pathToRoot | print "../" -}}
+  {{- end -}}
+{{- else -}}
+  {{- $pathToRoot = "./" -}}
+{{- end -}}
+{{ return $pathToRoot }}
