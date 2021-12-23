@@ -1,0 +1,6 @@
+{{- $destination := .Destination -}}
+{{- $isInternalLink := not (strings.HasPrefix $destination "http") -}}
+{{- if and site.Params.offline $isInternalLink -}}
+{{- $destination = printf "%s/index.html" (strings.TrimSuffix "/" $destination) -}}
+{{- end -}}
+<a href="{{ $destination | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}{{ if strings.HasPrefix $destination "http" }} target="_blank" rel="noopener"{{ end }}>{{ .Text | safeHTML }}</a>
