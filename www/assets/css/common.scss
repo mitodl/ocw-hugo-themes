@@ -1,0 +1,25 @@
+
+nav {
+    .navbar-current-active {
+      color: black;
+      font-weight: bold;
+    }
+
+    .navbar-toggler {
+      border: none;
+    }
+
+    ul {
+      li {
+        a {
+          color: black;
+          font-weight: bold;
+          text-decoration: none;
+        }
+
+        .active {
+          color: $highlight-red;
+        }
+      }
+    }
+}

@@ -1,0 +1,4 @@
+---
+title: Educator
+type: educator
+---

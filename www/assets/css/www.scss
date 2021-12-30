@@ -5,6 +5,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~offcanvas-bootstrap/src/sass/bootstrap.offcanvas";
 
+@import "common";
 @import "about";
 @import "carousel";
 @import "home";
@@ -12,3 +13,4 @@
 @import "spinner";
 @import "notification";
 @import "pages";
+@import "educator";
