@@ -10,6 +10,9 @@
 
   .section {
     margin-top: 5%;
+    max-width: $max-content-width;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 
   .section-content{
@@ -19,17 +22,26 @@
     line-height: 38px;
     margin-top: 2%;
   }
+
+  #welcome {
+    .text {
+      font-size: 24px;
+      letter-spacing: 0;
+      line-height: 38px;
+    }
+  }
   
   .section-gruber-quote {
-    height: 480px;
+    height: 460px;
     display: flex;
     align-items: center;
     justify-content: center;
   
     .quote-main {
       height: 103px;
-      width: 721px;
+      width: 800px;
       text-align: center;
+      // margin-top: 15%;
 
       .quote {
         color: $white;
@@ -50,12 +62,11 @@
         font-size: 22px;
         letter-spacing: -1.05px;
       }
-
     }
 
   }
 
-  .discover-eor-content {
+  .section-inner-content {
 
     .heading {
       font-weight: bold;
@@ -63,12 +74,50 @@
 
     .text {
       font-size: 18px;
-      margin-top: 4%;
+      margin-top: 3%;
       line-height: 25px;
+    }
+  
+  }
+
+  .section-chalk-radio {
+    height: 750px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $white;
+
+    .container {
+      width: 560px;
+    }
+    
+    .heading {
+      font-size: 36px;
+      font-weight: bold;
+      line-height: 36px;
+    }
+
+    .text {
+      font-size: 22px;
+      letter-spacing: 0;
+      line-height: 26px;
     }
 
   }
 
+  hr {
+    height: 4px;
+    background-color: $highlight-red;
+  }
 
- 
+  #cadogan-quote {
+
+    .container 
+    {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
 }
