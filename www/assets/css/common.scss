@@ -5,6 +5,10 @@ nav {
       font-weight: bold;
     }
 
+    .nav-link{
+      color: $black !important;
+    }
+
     .navbar-toggler {
       border: none;
     }
@@ -18,7 +22,7 @@ nav {
         }
 
         .active {
-          color: $highlight-red;
+          color: $highlight-red !important;
         }
       }
     }
