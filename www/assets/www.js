@@ -14,14 +14,14 @@ import { setupEmailSignupForm } from "./js/mailchimp"
 import { initNotifications } from "./js/notification"
 import { initSubNav } from "./js/subnav"
 
-window.jQuery = $;
-window.$ = $;
-window.Popper = Popper;
+window.jQuery = $
+window.$ = $
+window.Popper = Popper
 
 $(document).ready(() => {
-  const searchPageEl = document.querySelector("#search-page");
+  const searchPageEl = document.querySelector("#search-page")
   if (searchPageEl) {
-    ReactDOM.render(<SearchPage />, searchPageEl);
+    ReactDOM.render(<SearchPage />, searchPageEl)
   }
 
   initNotifications()
