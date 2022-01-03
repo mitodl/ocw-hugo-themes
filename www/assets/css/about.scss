@@ -1,0 +1,351 @@
+#about-us {
+  background-repeat: no-repeat;
+  background-position: top right;
+
+  @include media-breakpoint-down(md) {
+    .container {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+  }
+
+  nav {
+    .navbar-current-active {
+      color: black;
+      font-weight: bold;
+    }
+
+    .navbar-toggler {
+      border: none;
+    }
+
+    ul {
+      li {
+        a {
+          color: black;
+          font-weight: bold;
+          text-decoration: none;
+        }
+
+        .active {
+          color: $highlight-red;
+        }
+      }
+    }
+  }
+
+  #intro {
+    #intro-text {
+      @include media-breakpoint-up(lg) {
+        width: 75%;
+      }
+    }
+  }
+
+  #intro-2 {
+    @include media-breakpoint-down(md) {
+      #intro-2-video-col {
+        min-height: 40vh;
+        padding: 0 1rem 2rem 1rem;
+        border-bottom: 4px solid;
+        border-color: $about-red;
+      }
+    }
+    @include media-breakpoint-up(lg) {
+      #intro-2-text-col {
+        border-bottom: 4px solid;
+        border-color: $about-red;
+      }
+    }
+  }
+
+  #ocw-at-20 {
+    #ocw-20-text {
+      line-height: 38px;
+    }
+  }
+
+  #milestones-desktop {
+    min-width: 1110px;
+
+    #milestone-card-desktop-2001-2005 {
+      margin-top: 18px;
+    }
+
+    #milestone-card-desktop-2006-2010 {
+      margin-top: 170px;
+    }
+
+    #milestone-card-desktop-2011-2015 {
+      margin-top: 80px;
+    }
+
+    #milestone-card-desktop-2016-2020 {
+      margin-top: 242px;
+    }
+
+    #milestone-card-desktop-2021 {
+      margin-top: 80px;
+    }
+
+    #timeline-column-left {
+      padding-right: $timeline-spacing;
+
+      .milestone-card {
+        .milestone-card-img {
+          .milestone-card-img-dot {
+            right: -21px;
+          }
+
+          .timeline-red-dot {
+            right: -$timeline-spacing;
+            transform: translateX(50%);
+          }
+
+          .timeline-red-line {
+            right: -$timeline-spacing;
+          }
+        }
+      }
+    }
+
+    #timeline-column-right {
+      padding-left: $timeline-spacing;
+
+      .milestone-card {
+        .milestone-card-img {
+          .milestone-card-img-dot {
+            left: -21px;
+          }
+
+          .timeline-red-dot {
+            left: -$timeline-spacing;
+            transform: translateX(-50%);
+          }
+
+          .timeline-red-line {
+            left: -$timeline-spacing;
+          }
+        }
+      }
+    }
+
+    .timeline {
+      position: absolute;
+      background-color: $black;
+      left: 50%;
+      width: 1px;
+      height: 100%;
+    }
+
+    .timeline-black-dot {
+      position: absolute;
+      display: inline-block;
+      height: 5px;
+      width: 5px;
+      transform: translateX(-50%);
+      background-color: $black;
+      border-radius: 50%;
+    }
+
+    .milestone-card-img-dot {
+      position: absolute;
+      display: inline-block;
+      height: 36px;
+      width: 36px;
+      bottom: -11px;
+      z-index: 2;
+      background-color: $about-red;
+      border-radius: 50%;
+      border: 3px $white solid;
+      outline: 3px $about-red solid;
+    }
+
+    .timeline-red-dot {
+      position: absolute;
+      display: inline-block;
+      height: 19px;
+      width: 19px;
+      bottom: -2px;
+      z-index: 2;
+      background-color: $about-red;
+      border-radius: 50%;
+      border: 2px $white solid;
+    }
+
+    .timeline-red-line {
+      position: absolute;
+      display: inline-block;
+      width: $timeline-spacing;
+      height: 1px;
+      bottom: 6px;
+      z-index: 1;
+      background-color: $about-red;
+    }
+  }
+
+  #milestones-mobile {
+    height: fit-content;
+
+    .milestone-card-mobile {
+      width: fit-content;
+
+      .milestone-card-img-mobile {
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      .milestone-card-content-mobile {
+        height: 377px;
+        overflow-y: scroll;
+      }
+    }
+  }
+
+  .carousel-controls {
+    top: 50%;
+    transform: translateY(-50%);
+
+    .carousel-prev,
+    .carousel-next {
+      width: 27px;
+      height: 100px;
+      background-color: rgba(0, 0, 0, 0.59);
+      text-decoration: none;
+    }
+  }
+
+  ul.dash-bullet-list {
+    list-style: none;
+    padding: 0;
+
+    li {
+      position: relative;
+      margin-left: 0;
+      padding: 0 0 2em 1.5em;
+    }
+
+    li:before {
+      content: "remove";
+      font-family: "Material Icons";
+      font-size: 24px;
+      position: absolute;
+      left: 0;
+      top: -6px;
+    }
+  }
+
+  .milestone-card {
+    max-width: 432px;
+    height: fit-content;
+    box-shadow: 0px 2px 13px 0px rgba(0, 0, 0, 0.1);
+
+    .milestone-card-img {
+      position: relative;
+      background-color: $white;
+
+      img {
+        width: 432px;
+        height: 328px;
+        object-fit: none;
+      }
+    }
+
+    .milestone-card-content {
+      padding: 1rem 1rem 0 1rem;
+    }
+  }
+
+  #beyond-course-materials {
+    ul {
+      font-size: 0.875em;
+      li:before {
+        top: -8px !important;
+      }
+    }
+  }
+
+  #president-dean-messages {
+    position: relative;
+
+    .container {
+      position: relative;
+      @include media-breakpoint-down(md) {
+        width: 100%;
+      }
+      @include media-breakpoint-up(lg) {
+        width: min-content;
+      }
+      z-index: 2;
+
+      h1 {
+        font-size: 3.75em;
+      }
+
+      #president-image {
+        font-size: 0.875em;
+
+        @include media-breakpoint-down(md) {
+          img {
+            width: 100% !important;
+          }
+        }
+      }
+
+      #presidents-message {
+        @include media-breakpoint-down(md) {
+          font-size: 1.125em;
+        }
+        @include media-breakpoint-up(lg) {
+          font-size: 1.75em;
+        }
+      }
+
+      #deans-message-video {
+        @include media-breakpoint-down(md) {
+          width: 90vw;
+          height: 51vw;
+        }
+
+        @include media-breakpoint-up(lg) {
+          width: 50vw;
+          height: 28vw;
+        }
+      }
+    }
+
+    #red-bar {
+      position: absolute;
+      bottom: 0;
+      height: 100px;
+      width: 100%;
+      z-index: 1;
+      background-color: $about-red;
+    }
+  }
+
+  #our-team {
+    .staff-card {
+      max-width: 330px;
+      height: 410px;
+
+      .staff-picture {
+        width: 290px;
+        height: 320px;
+        margin-bottom: 16px;
+        background-color: $medium-light-gray;
+      }
+    }
+
+    h3 {
+      font-size: 1.125em;
+      margin-bottom: 4px;
+    }
+
+    .col div {
+      margin-bottom: 22px;
+    }
+  }
+}

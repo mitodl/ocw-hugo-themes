@@ -1,0 +1,639 @@
+{{ define "main" }}
+<div
+  id="about-us"
+  class="page-single"
+  style="background-image: url('/images/about/logo-background.png');"
+>
+  {{ block "header" . }} {{ partialCached "header" . }} {{end}}
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+    <div class="navbar-brand">
+      <span class="navbar-current-active medium-and-below-only">Intro</span>
+    </div>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#about-subnav"
+      aria-controls="about-subnav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="material-icons" aria-hidden="true">expand_more</i>
+    </button>
+    <div id="about-subnav" class="collapse navbar-collapse">
+      <ul
+        class="navbar-nav justify-content-between mx-auto my-0 max-content-width w-100"
+      >
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#about-us"
+            >Intro</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#ocw-at-20-title"
+            >OCW@20 Vision</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#future-of-ocw"
+            >Future of OCW</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#milestones"
+            >OCW Milestones</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#beyond-course-materials"
+            >Beyond Course Materials</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#president-dean-messages"
+            >President & Dean's Message</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#our-team"
+            >Our Team</a
+          >
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div id="intro" class="container max-content-width mx-auto mt-5 pb-5">
+    <div class="row">
+      <div class="col px-0">
+        <div id="intro-text" class="px-3">
+          <h2 class="font-weight-normal">
+            Since 2001, MIT OpenCourseWare has shared Open Educational Resources
+            (OER) from MIT, creating new opportunities for millions of learners
+            and educators, and helping launch a global revolution in free access
+            to knowledge.
+            <br />
+            <br />
+            MIT OpenCourseWare continues to build on this foundation. With a new
+            web platform, ever-growing content, and collaborations across the
+            vibrant open education ecosystem, we're creating a world of more
+            equitable and inclusive education for all.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="intro-2" class="container max-content-width mx-auto py-5">
+    <div class="row">
+      <div class="col-12 col-lg-6 px-3">
+        <div id="intro-2-text-col">
+          <p class="pb-5">
+            <b>MIT OpenCourseWare</b> is a free and open publication of material
+            from thousands of MIT courses, covering the entire MIT curriculum
+            and used by learners and educators around the world.
+          </p>
+          <p class="pb-5">
+            <b>Knowledge is your reward.</b> Use OCW to guide your own life-long
+            learning, or to teach others. We don't offer credit or certification
+            for using OCW.
+          </p>
+          <p class="pb-5">
+            <b>No enrollment or registration.</b> Freely browse and use OCW
+            materials at your own pace. There's no signup, and no start or end
+            dates.
+          </p>
+          <p class="pb-5">
+            <b>Made for sharing.</b> Download files for later. Send to friends
+            and colleagues. Modify, remix, and reuse (just remember to cite OCW
+            as the source.)
+          </p>
+        </div>
+      </div>
+      <div
+        id="intro-2-video-col"
+        class="col-12 col-lg-6 d-flex align-items-center"
+      >
+        <iframe
+          class="w-100 h-100"
+          frameborder="0"
+          scrolling="no"
+          marginheight="0"
+          marginwidth="0"
+          type="text/html"
+          src="https://www.youtube.com/embed/0aAEamhJHUI?autoplay=0&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&origin=http://youtubeembedcode.com"
+        >
+        </iframe>
+      </div>
+    </div>
+  </div>
+  <div id="ocw-at-20-title" class="container max-content-width mx-auto py-5">
+    <h1 class="text-center-mobile">
+      The OCW<span class="color-highlight-red">@20</span> Vision
+    </h1>
+  </div>
+  <div id="ocw-at-20" class="container max-content-width mx-auto py-5">
+    <div class="row">
+      <div class="col-12 col-lg-6 text-right p-0 pr-lg-0">
+        <img
+          id="img-building-10"
+          class="img-responsive w-100"
+          src="/images/about/image-mit-001crop.jpg"
+          alt="MIT Building 10 aka The Dome"
+        />
+      </div>
+      <div class="col-12 col-lg-6 px-0 py-lg-6">
+        <div
+          class="background-color-highlight-red d-flex justify-content-center align-items-center h-100 px-3 py-5 p-lg-7"
+        >
+          <h2 id="ocw-20-text" class="font-helvetica-light font-weight-light text-white">
+            We've made great progress in our first 20 years - unlocking access
+            to knowledge, helping launch the OER movement and opening the
+            complete MIT curriculum to the world. And we'll keep growing and
+            evolving.
+            <br />
+            <br />
+            We're excited to introduce our new platform - which you are using
+            now - to bring smartphone users into OCW's global community…provide
+            more powerful and insightful ways to discover just the content you
+            need… and be a foundation for new features and learning experiences
+            for years to come.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="future-of-ocw" class="container max-content-width mx-auto pt-6 pb-5">
+    <h1 class="text-center w-100 pb-6">
+      Here's what's in store in the months and years to come...
+    </h1>
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <p class="pb-5">
+          <b>Empowering more educators</b> to use OCW in their teaching,
+          seamlessly integrating with their institution's learning management
+          systems, and providing new content forms that can be easily remixed
+          and adapted to any learning context.
+        </p>
+        <p class="pb-5">
+          <b>Sharing emerging knowledge for big global challenges</b> like
+          systemic inequities, climate change, and the future of computing and
+          artificial intelligence.
+        </p>
+        <p class="pb-5">
+          <b>Expand rich media</b> like video lectures, podcasts, interactive
+          assessments, and new educational forms like augmented and virtual
+          reality.
+        </p>
+      </div>
+      <div class="col-12 col-lg-6">
+        <p class="pb-5">
+          <b>Showcase more project-based courses</b> that center MIT's "mind,
+          hand, and heart" approach to student-driven participatory solutions
+          for real-world problems.
+        </p>
+        <p class="pb-5">
+          <b>Launch new collaborations</b> across the Open Educational Resources
+          (OER) ecosystem to create the more inclusive learning opportunities
+          needed to advance educational equity, building the capacity for
+          learners with varied perspectives, preparation and voices to access,
+          adapt, contribute and apply open knowledge in their own contexts.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div id="milestones" class="background-color-light-grey pt-7 pb-7">
+    <h1 class="text-center w-100 pb-6">OCW Milestones</h1>
+    <div
+      id="milestones-desktop"
+      class="container position-relative large-and-above-only"
+    >
+      <div class="timeline">
+        <span class="timeline-black-dot top-0"></span>
+        <span class="timeline-black-dot bottom-0"></span>
+      </div>
+      <div class="row">
+        <div
+          id="timeline-column-left"
+          class="col-6 d-flex flex-column justify-content-end"
+        >
+          {{ with $.Site.GetPage "/milestones/2001-2005" }}
+          {{ partial "milestone_card_desktop.html" . }}
+          {{ end }}
+          {{ with $.Site.GetPage "/milestones/2011-2015" }}
+          {{ partial "milestone_card_desktop.html" . }}
+          {{ end }}
+          {{ with $.Site.GetPage "/milestones/2021" }}
+          {{ partial "milestone_card_desktop.html" . }}
+          {{ end }}
+        </div>
+        <div
+          id="timeline-column-right"
+          class="col-6 d-flex flex-column justify-content-start"
+        >
+          {{ with $.Site.GetPage "/milestones/2006-2010" }}
+          {{ partial "milestone_card_desktop.html" . }}
+          {{ end }}
+          {{ with $.Site.GetPage "/milestones/2016-2020" }}
+          {{ partial "milestone_card_desktop.html" . }}
+          {{ end }}
+        </div>
+      </div>
+    </div>
+    <div id="milestones-mobile" class="medium-and-below-only">
+      <div
+        id="milestones-carousel"
+        class="position-relative carousel slide"
+        data-interval="false"
+        data-touch="true"
+        data-ride="carousel"
+      >
+        <div class="carousel-inner">
+          {{ range $index, $milestone := where .Site.RegularPages "Section" "milestones" }}
+          <div class="carousel-item{{ if eq $index 0 }} active{{ end }}">
+            {{ partial "milestone_card_mobile.html" $milestone }}
+          </div>
+          {{ end }}
+        </div>
+        <div
+          class="carousel-controls position-absolute d-flex justify-content-between w-100"
+        >
+          <a
+            class="carousel-prev d-flex align-items-center"
+            href="#milestones-carousel"
+            role="button"
+            data-slide="prev"
+          >
+            <i class="material-icons text-white" aria-hidden="true"
+              >chevron_left</i
+            >
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-next d-flex align-items-center"
+            href="#milestones-carousel"
+            role="button"
+            data-slide="next"
+          >
+            <i class="material-icons text-white" aria-hidden="true"
+              >chevron_right</i
+            >
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="beyond-course-materials" class="container max-content-width py-5 py-lg-8">
+    <div class="row">
+      <div class="col-12 col-lg-6 pr-lg-8">
+        <h1 class="text-center-mobile pb-5">Beyond Course Materials</h1>
+        <p class="pb-lg-5">
+          OCW is known for sharing the notes, videos, problem sets, and more
+          straight from the MIT curriculum. In addition, OCW has grown to
+          include other types of content that complement its core publication of
+          course materials.
+        </p>
+        <ul class="dash-bullet-list">
+          <li>
+            <span class="font-weight-bold"
+              >OCW Educator: Instructor Insights</span
+            >
+            <p>
+              The OCW Educator project is a faculty-inspired initiative designed
+              to pull back the curtain on MIT teaching for their colleagues at
+              the Institute and around the world.
+            </p>
+            <a class="red-btn coming-soon">Educators start here</a>
+            <p class="mt-3">
+              Through this project, many OCW courses now include an “Instructor
+              Insights” section, which shares the instructors' perspectives on
+              topics of interest to practicing teachers, such as course design,
+              active learning, and engaging learners.
+            </p>
+            <a class="red-btn coming-soon"
+              >Find course with Instructor Insights</a
+            >
+          </li>
+          <li>
+            <span class="font-weight-bold">Chalk Radio Podcast</span>
+            {{ partial "simplecast.html" "a9349695-05d2-4150-bba6-271cbf875ba0" }}
+          </li>
+          <li>
+            <span class="font-weight-bold">Open Textbooks</span>
+            <p>
+              Open textbooks are transforming the educational landscape, and OCW
+              is glad to have many among our open educational resources. When
+              educators use open textbooks for their classes, they help keep
+              down the cost of education, so more students can afford to stay in
+              school, and pay for rent, food and other necessities.
+            </p>
+          </li>
+          <li>
+            <span class="font-weight-bold">MIT Open Learning Library</span>
+            <p>
+              MIT Open Learning Library MIT Open Learning Library provides
+              interactive course experiences, similar to MITx, that include
+              auto-graded assessments that give you instant feedback and allow
+              you to track your progress as you work your way through the
+              subject matter. And like OCW, this content is always open and
+              self-guided and includes no live support, discussion forum, or
+              certificates.
+            </p>
+            <a class="red-btn" href="/search">OCW Search</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-12 col-lg-6 px-0">
+        <img
+          id="img-002"
+          class="w-100"
+          src="/images/about/image-mit-002crop.png"
+          alt="MIT Building"
+        />
+      </div>
+    </div>
+  </div>
+  <div id="president-dean-messages" class="bg-black text-white">
+    <div class="container max-content-width mx-auto pt-8 pb-5">
+      <div class="row pb-3 pb-lg-6">
+        <div class="col-12 px-0 px-lg-3">
+          <div class="text-center">
+            <h1 class="font-cardo-bold mx-auto px-3 px-lg-0 pb-7">
+              President's Message
+            </h1>
+            <div id="president-image" class="d-inline-block">
+              <img
+                class="img-responsive"
+                src="/images/about/president-reif.png"
+                alt="MIT President L. Rafael Reif"
+              />
+              <div class="text-left px-3 px-lg-0 pt-4">
+                MIT President L. Rafael Reif
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="presidents-message" class="row pb-7">
+        <div class="col-12">
+          <p>
+            In 2001, the age of digital sharing was just getting started. Google
+            was still in its infancy. January of that year saw the launch of a
+            little project called Wikipedia. And then, in the springtime, MIT
+            presented OpenCourseWare.
+          </p>
+          <p>
+            The idea for OCW came from MIT faculty: to give away MITs course
+            materials to the world online. The decision to move forward with
+            this bold idea belonged to MIT's 15th president, Chuck Vest.
+            Institute leaders could not have known it at the time, but in
+            creating OCW, MIT launched a quiet but profound educational
+            revolution. It unleashed the global open sharing movement, helping
+            to pave the way for the worldwide phenomenon of open digital
+            learning.
+          </p>
+          <p>
+            In its first 20 years, OCW has offered hundreds of millions of
+            individuals a new pathway to their future—a true gift to humanity.
+            But in those same 20 years, OCW has helped society prepare for the
+            challenges of its future, too.
+          </p>
+          <p>
+            Consider the vaccines for Covid-19. They may appear to be an
+            overnight success, but the truth is, this “medical miracle” sprang
+            from careful, deliberate scientific research—over decades. In the
+            same way, society responded to the pandemic emergency with a rapid
+            and radical shift to remote learning. That shift occurred in a
+            matter of weeks, but what made it possible was two decades of
+            transformative work in digital learning. From the beginning of that
+            long, transformative journey, OCW has been a guiding light.
+          </p>
+          <p>
+            If you ask MIT people to name those moments when they felt most
+            proud of the Institute, the birth of OCW is right at the top of the
+            list. That is a wonderful legacy and an inspiring challenge, for the
+            next twenty years and beyond.
+          </p>
+          <p>
+            Sincerely,<br />
+            L. Rafael Reif<br />
+            March 2021<br />
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="text-center">
+            <h1 class="font-cardo-italic mx-auto pb-7">
+              A Message from the Dean
+            </h1>
+            <iframe
+              id="deans-message-video"
+              frameborder="0"
+              scrolling="no"
+              marginheight="0"
+              marginwidth="0"
+              type="text/html"
+              src="https://www.youtube.com/embed/gC5QRayrYD4?autoplay=0&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&origin=http://youtubeembedcode.com"
+            >
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="red-bar"></div>
+  </div>
+  <div id="our-team" class="container max-content-width pt-7">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="text-center w-100 pb-6">Our Team</h1>
+      </div>
+    </div>
+    <div class="row pb-2">
+      <div class="col-12">
+        <h2>OCW Staff</h2>
+      </div>
+    </div>
+    <div id="staff-desktop" class="large-and-above-only">
+      {{ range $index, $staff := where .Site.RegularPages "Section" "staff" }}
+      {{ if eq (mod (sub $index 4) 4) 0 }}
+      <div class="row pb-6">
+        {{ end }}
+        <div class="col-3">
+          {{ partial "staff_card.html" . }}
+        </div>
+        {{ if eq (mod (sub $index 3) 4) 0 }}
+      </div>
+      {{ end }}
+      {{ end }}
+    </div>
+    <div id="staff-mobile" class="medium-and-below-only row pb-5">
+      <div
+        id="staff-carousel"
+        class="position-relative carousel slide"
+        data-interval="false"
+        data-touch="true"
+        data-ride="carousel"
+      >
+        <div class="carousel-inner">
+          {{ range $index, $staff := where .Site.RegularPages "Section" "staff" }}
+          <div class="carousel-item{{ if eq $index 0 }} active{{ end }}">
+            <div class="w-100 d-flex justify-content-center mx-4">
+              <div>
+                {{ partial "staff_card.html" $staff }}
+              </div>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+        <div
+          class="carousel-controls position-absolute d-flex justify-content-between w-100"
+        >
+          <a
+            class="carousel-prev d-flex align-items-center"
+            href="#staff-carousel"
+            role="button"
+            data-slide="prev"
+          >
+            <i class="material-icons text-white" aria-hidden="true"
+              >chevron_left</i
+            >
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-next d-flex align-items-center"
+            href="#staff-carousel"
+            role="button"
+            data-slide="next"
+          >
+            <i class="material-icons text-white" aria-hidden="true"
+              >chevron_right</i
+            >
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row pb-6">
+      <div class="col-12">
+        <h2>OCW Faculty Advisory Committee</h2>
+      </div>
+    </div>
+    <div class="row pb-8">
+      <div class="col-12 col-lg-6">
+        <div class="pb-4">
+          <h4>Hal Abelson</h4>
+          Professor, Department of Electrical Engineering and Computer Science
+        </div>
+        <div class="pb-4">
+          <h4>Mussie Demisse</h4>
+          Undergraduate student, Electrical Engineering and Computer Science
+        </div>
+        <div class="pb-4">
+          <h4>M. Amah Edoh</h4>
+          Assistant Professor of Anthropology and African Studies
+        </div>
+        <div class="pb-4">
+          <h4>Zach Erdman</h4>
+          Graduate student, Sloan School of Management
+        </div>
+        <div class="pb-4">
+          <h4>Eric Grimson (Chair)</h4>
+          MIT Chancellor for Academic Advancement; Professor of Electrical
+          Engineering and Computer Science
+        </div>
+        <div class="pb-4">
+          <h4>Nancy Kanwisher</h4>
+          Professor of Cognitive Science, Department of Brain & Cognitive
+          Sciences
+        </div>
+        <div class="pb-4">
+          <h4>Eric Klopfer</h4>
+          Professor and Section Head, Comparative Media Studies/Writing;
+          Director of Scheller Teacher Education Program
+        </div>
+        <div class="pb-4">
+          <h4>Haynes Miller</h4>
+          Professor, Department of Mathematics
+        </div>
+        <div class="pb-4">
+          <h4>Caitlin Mueller</h4>
+          Assistant Professor, Department of Architecture; Assistant Professor,
+          Department of Civil and Environmental Engineering
+        </div>
+        <div class="pb-4">
+          <h4>Anjali Nambrath</h4>
+          Undergraduate student, Physics and Mathematics
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="pb-4">
+          <h4>Rosalind Picard</h4>
+          Professor, Program in Media Arts and Sciences; Faculty Chair, MIT
+          Mind+Hand+Heart
+        </div>
+        <div class="pb-4">
+          <h4>Jeffrey S. Ravel</h4>
+          Professor of History
+        </div>
+        <div class="pb-4">
+          <h4>Anjali Sastry</h4>
+          Senior Lecturer, Sloan School of Management
+        </div>
+        <div class="pb-4">
+          <h4>Michael Short</h4>
+          Associate Professor, Department of Nuclear Science and Engineering
+        </div>
+        <div class="pb-4">
+          <h4 class="color-highlight-red">Ex-Officio Members</h4>
+        </div>
+        <div class="pb-4">
+          <h4>Vijay Kumar</h4>
+          Associate Dean for Open Learning; Executive Director, Abdul Latif
+          Jameel World Education Lab (J-WEL)
+        </div>
+        <div class="pb-4">
+          <h4>Shigeru Miyagawa</h4>
+          Senior Associate Dean for Open Learning; Professor of Linguistics &
+          Kochi-Manjiro Professor of Japanese Language and Culture
+        </div>
+        <div class="pb-4">
+          <h4>Curt Newton</h4>
+          Director, MIT OpenCourseWare
+        </div>
+        <div class="pb-4">
+          <h4>Krishna Rajagopal</h4>
+          Dean for Digital Learning, Open Learning; Professor of Physics
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

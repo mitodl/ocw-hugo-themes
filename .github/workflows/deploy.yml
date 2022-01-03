@@ -47,7 +47,7 @@ jobs:
         run: (cd ..; git clone git@github.mit.edu:ocw-content-rc/ocw-www_eb8b70174c714752a91dbe730af76769.git ocw-www)
 
       - name: Clone ocw-hugo-projects for config
-        run: (cd ..; git clone https://github.com/mitodl/ocw-hugo-projects)
+        run: (cd ..; git clone -b cg/getenv-security https://github.com/mitodl/ocw-hugo-projects)
 
       - name: Run webpack build
         run: npm run build:webpack -- --output-path=../ocw-www/public/static/

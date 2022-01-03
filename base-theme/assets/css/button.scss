@@ -6,8 +6,7 @@ a.blue-btn {
   padding: 9px 36px;
   border: none;
   border-radius: 4px;
-  font-weight: 400;
-  font-size: 16px;
+  font-weight: bold;
   text-decoration: none;
   cursor: pointer;
 }
@@ -31,4 +30,17 @@ button.blue-btn.outlined {
     border-color: $medium-gray;
     color: $medium-gray;
   }
+}
+
+button.red-btn,
+a.red-btn {
+  background-color: $about-red;
+  color: white;
+  margin: 0 10px 5px 0;
+  padding: 9px 36px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
 }
