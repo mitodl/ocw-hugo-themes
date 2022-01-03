@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.38.0
+--------------
+
+- About Us Page (#303)
+- add course_data.json
+
 Version 1.37.0 (Released December 20, 2021)
 --------------
 
