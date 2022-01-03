@@ -9,7 +9,7 @@ const initSubNav = () => {
     const yOffset = -(navbar.height() + 20)
     const y = target.getBoundingClientRect().top + window.scrollY + yOffset
     window.scrollTo({
-      top: y,
+      top:      y,
       behavior: "smooth"
     })
   })
