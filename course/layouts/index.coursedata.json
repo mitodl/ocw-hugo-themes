@@ -1,7 +1,7 @@
 {{- $courseData := .Site.Data.course -}}
 {{- $instructors := slice -}}
-{{- if not (eq  $courseData.instructors nil) -}}
-{{- $instructors = partial "get_instructors.html" $courseData.instructors.content -}}
+{{- if not (or (eq $courseData.instructors nil) (eq $courseData.instructors.content nil)) -}}
+{{- $instructors = partial "get_instructors.html" $courseData.instructors.content  -}}
 {{- end -}}
 
 {
