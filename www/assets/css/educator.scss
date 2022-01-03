@@ -1,122 +1,68 @@
 #educator-main-section {
-  background-repeat: no-repeat;
-  background-position: top right;
-
-  // temporary
-  .bs {
-    border: 1px solid black;
-  }
-  // temporary
-
   .section {
     margin-top: 5%;
     max-width: $max-content-width;
     margin-left: auto !important;
     margin-right: auto !important;
-  }
 
-  .section-content{
-    font-size: 24px;
-    color: $black;
-    letter-spacing: 0;
-    line-height: 38px;
-    margin-top: 2%;
-  }
-
-  #welcome {
-    .text {
-      font-size: 24px;
+    .section-content {
+      // font-size: 24px;
+      color: $black;
       letter-spacing: 0;
       line-height: 38px;
+      margin-top: 2%;
     }
   }
-  
+
   .section-gruber-quote {
     height: 460px;
     display: flex;
     align-items: center;
     justify-content: center;
-  
+
     .quote-main {
-      height: 103px;
-      width: 800px;
       text-align: center;
-      // margin-top: 15%;
 
       .quote {
         color: $white;
-        font-size: 42px;
         letter-spacing: -2px;
         line-height: 48px;
       }
 
       .author {
-        color: #AEA7A7;
-        font-size: 18px;
+        color: #aea7a7;
       }
 
       .chalk-radio {
-
         color: $white;
-        font-size: 22px;
         letter-spacing: -1.05px;
       }
     }
-
   }
 
   .section-inner-content {
-
-    .heading {
-      font-weight: bold;
-    }
-
     .text {
-      font-size: 18px;
       margin-top: 3%;
       line-height: 25px;
     }
-  
+  }
+
+  @include media-breakpoint-down(xs) {
+    .section-inner-content {
+      margin-top: 5%;
+    }
   }
 
   .section-chalk-radio {
-    height: 750px;
+    height: 705px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: $white;
-
-    .container {
-      width: 560px;
-    }
-    
-    .heading {
-      font-size: 36px;
-      font-weight: bold;
-      line-height: 36px;
-    }
-
-    .text {
-      font-size: 22px;
-      letter-spacing: 0;
-      line-height: 26px;
-    }
-
   }
 
-  hr {
-    height: 4px;
-    background-color: $highlight-red;
+  .bg {
+    background-repeat: no-repeat;
+    background-position: center;
   }
-
-  #cadogan-quote {
-
-    .container 
-    {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-
 }

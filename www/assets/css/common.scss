@@ -1,29 +1,28 @@
-
 nav {
-    .navbar-current-active {
-      color: black;
-      font-weight: bold;
-    }
+  .navbar-current-active {
+    color: black;
+    font-weight: bold;
+  }
 
-    .nav-link{
-      color: $black !important;
-    }
+  .nav-link {
+    color: $black !important;
+  }
 
-    .navbar-toggler {
-      border: none;
-    }
+  .navbar-toggler {
+    border: none;
+  }
 
-    ul {
-      li {
-        a {
-          color: black;
-          font-weight: bold;
-          text-decoration: none;
-        }
+  ul {
+    li {
+      a {
+        color: black;
+        font-weight: bold;
+        text-decoration: none;
+      }
 
-        .active {
-          color: $highlight-red !important;
-        }
+      .active {
+        color: $highlight-red !important;
       }
     }
+  }
 }
