@@ -42,11 +42,10 @@ a {
 
 h1 {
   font-size: 36px;
-  
+
   @include media-breakpoint-down(xs) {
     font-size: 32px;
   }
-
 }
 
 h2 {
