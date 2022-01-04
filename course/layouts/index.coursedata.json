@@ -1,14 +1,11 @@
 {{- $courseData := .Site.Data.course -}}
-{{- $instructors := slice -}}
-{{- if not (or (eq $courseData.instructors nil) (eq $courseData.instructors.content nil)) -}}
-{{- $instructors = partial "get_instructors.html" $courseData.instructors.content  -}}
-{{- end -}}
-
 {
   "course_title": {{- $courseData.course_title | jsonify -}},
   "course_description": {{- $courseData.course_description | jsonify -}},
   "site_uid": {{- $courseData.site_uid | jsonify -}},
   "legacy_uid": {{- $courseData.legacy_uid | jsonify -}},
+  {{- with $courseData.instructors.content -}}
+  {{- $instructors := partial "get_instructors.html" .  -}}
   "instructors": [
   {{- range $index, $instructor := $instructors -}}
   {{- if $index -}}
@@ -22,6 +19,9 @@
     "title":  {{- $instructor.title | jsonify -}}
   }
   {{- end }}],
+  {{- else -}}
+  "instructors": [],
+  {{- end -}}
   "department_numbers": {{- $courseData.department_numbers | jsonify -}},
   "learning_resource_types": {{- $courseData.learning_resource_types | jsonify -}},
   "topics": {{- $courseData.topics | jsonify -}},
