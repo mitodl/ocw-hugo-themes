@@ -7,6 +7,17 @@
     margin-left: -115px;
     margin-top: -18px;
   }
+
+  .search-icon {
+    display: flex;
+    text-decoration: none;
+    color: $orange;
+    padding-bottom: 0;
+
+    .material-icons {
+      font-size: 1.75rem;
+    }
+  }
 }
 
 #desktop-header {
