@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.38.0
+Version 1.38.0 (Released January 04, 2022)
 --------------
 
 - fix instructors error take 2
