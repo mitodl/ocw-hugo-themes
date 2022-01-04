@@ -1,8 +1,7 @@
 {{ define "main" }}
+{{ block "header" . }} {{ partialCached "header" . }} {{end}}
 <div id="educator-main-section" class="page-single">
-
-  {{ block "header" . }} {{ partialCached "header" . }} {{end}}
-  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top on-page-sub-nav">
         <div class="navbar-brand">
             <span class="navbar-current-active medium-and-below-only">Welcome</span>
         </div>
@@ -207,14 +206,14 @@
           <div class="row my-6 section-chalk-radio bg" style="background-image: url('/images/educator/chalk-radio-bg.png');">
             <div class="container col-md-6 offset-md-3">
               <h1>
-                Get motivated
+                Get motivated.
               </h1>
-              <h3 class="font-weight-normal mt-5 ">
+              <h3 class="font-weight-normal mt-3">
                   Chalk Radio is an MIT OpenCourseWare podcast about inspired teaching at MIT. 
                   We take you behind the scenes of some of the most interesting courses on campus to 
                   talk with the professors who make those courses possible.
               </h3>
-              <div class="mt-5">
+              <div class="mt-7">
                 <iframe src="https://www.youtube.com/embed/FwRj2DL5zIg" 
                 title="Chalk Radio Season 3" frameborder="0" 
                 width="100%"
