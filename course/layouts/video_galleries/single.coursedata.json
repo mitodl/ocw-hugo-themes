@@ -1,0 +1,3 @@
+{{ define "main" }}
+{{ partial "video-gallery-page.json" . }}
+{{ end }}
