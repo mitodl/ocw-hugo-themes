@@ -26,7 +26,10 @@ const initSubNav = () => {
         const navLinks = $(".on-page-sub-nav  li a")
         const id = $(this).attr("id")
         navLinks.removeClass("active")
-        $(`.on-page-sub-nav  li a[href="#${id}"]`).addClass("active")
+        const currentNavItem = $(`.on-page-sub-nav  li a[href="#${id}"]`)
+        currentNavItem.addClass("active")
+        const brandText = currentNavItem.text()
+        $(".navbar-brand > span").text(brandText)
       }
     })
   })
