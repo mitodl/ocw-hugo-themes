@@ -1,6 +1,29 @@
 Release Notes
 =============
 
+Version 1.38.1
+--------------
+
+- fix: subnav scroll going a bit down
+- adding href for about page
+- adding search link for course theme
+- feat: menu for mobile devices
+- fix: showing navbrand while scrolling
+- fixing linting issues
+- changes in design
+- feat: highlight subnav items as user scrolls
+- changes to cater about page and few other css changes
+- importing about css file
+- fixing linting issues
+- font adjusted, last section changed, all images added
+- fix: adding missing space
+- fix: removing semicolons for linting check
+- navbar working, css reduced, global fonts used, mobile optimized
+- navabr adjusted
+- navbar colors and links
+- feat: main page done except few little things
+- feat: educator page in progress
+
 Version 1.38.0 (Released January 04, 2022)
 --------------
 
