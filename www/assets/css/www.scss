@@ -2,13 +2,16 @@
 @import "../../../base-theme/assets/css/bootstrap-overrides";
 @import "../../../base-theme/assets/css/breakpoints";
 @import "../../../base-theme/assets/css/variables";
+@import "../../../base-theme/assets/css/font";
 @import "~bootstrap/scss/bootstrap";
 @import "~offcanvas-bootstrap/src/sass/bootstrap.offcanvas";
 
 @import "about";
+@import "common";
 @import "carousel";
 @import "home";
 @import "testimonials";
 @import "spinner";
 @import "notification";
 @import "pages";
+@import "educator";

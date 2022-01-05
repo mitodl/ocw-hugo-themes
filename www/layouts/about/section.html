@@ -1,11 +1,11 @@
 {{ define "main" }}
+{{ block "header" . }} {{ partialCached "header" . }} {{end}}
 <div
   id="about-us"
   class="page-single"
   style="background-image: url('/images/about/logo-background.png');"
 >
-  {{ block "header" . }} {{ partialCached "header" . }} {{end}}
-  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top on-page-sub-nav">
     <div class="navbar-brand">
       <span class="navbar-current-active medium-and-below-only">Intro</span>
     </div>
@@ -29,7 +29,7 @@
             class="nav-link active"
             data-toggle="collapse"
             data-target=".navbar-collapse.show"
-            href="#about-us"
+            href="#intro"
             >Intro</a
           >
         </li>
@@ -38,7 +38,7 @@
             class="nav-link"
             data-toggle="collapse"
             data-target=".navbar-collapse.show"
-            href="#ocw-at-20-title"
+            href="#ocw-at-20"
             >OCW@20 Vision</a
           >
         </li>
@@ -90,7 +90,7 @@
       </ul>
     </div>
   </nav>
-  <div id="intro" class="container max-content-width mx-auto mt-5 pb-5">
+  <div id="intro" class="container max-content-width section mx-auto mt-5 pb-5">
     <div class="row">
       <div class="col px-0">
         <div id="intro-text" class="px-3">
@@ -110,7 +110,7 @@
       </div>
     </div>
   </div>
-  <div id="intro-2" class="container max-content-width mx-auto py-5">
+  <div id="intro" class="container max-content-width section mx-auto py-5">
     <div class="row">
       <div class="col-12 col-lg-6 px-3">
         <div id="intro-2-text-col">
@@ -153,12 +153,12 @@
       </div>
     </div>
   </div>
-  <div id="ocw-at-20-title" class="container max-content-width mx-auto py-5">
-    <h1 class="text-center-mobile">
-      The OCW<span class="color-highlight-red">@20</span> Vision
-    </h1>
-  </div>
-  <div id="ocw-at-20" class="container max-content-width mx-auto py-5">
+  <div id="ocw-at-20" class="container max-content-width section mx-auto py-5">
+    <div class="mx-auto py-5">
+      <h1 class="text-center-mobile">
+        The OCW<span class="color-highlight-red">@20</span> Vision
+      </h1>
+    </div>
     <div class="row">
       <div class="col-12 col-lg-6 text-right p-0 pr-lg-0">
         <img
@@ -189,7 +189,7 @@
       </div>
     </div>
   </div>
-  <div id="future-of-ocw" class="container max-content-width mx-auto pt-6 pb-5">
+  <div id="future-of-ocw" class="container max-content-width section mx-auto pt-6 pb-5">
     <h1 class="text-center w-100 pb-6">
       Here's what's in store in the months and years to come...
     </h1>
@@ -228,7 +228,7 @@
       </div>
     </div>
   </div>
-  <div id="milestones" class="background-color-light-grey pt-7 pb-7">
+  <div id="milestones" class="background-color-light-grey section pt-7 pb-7">
     <h1 class="text-center w-100 pb-6">OCW Milestones</h1>
     <div
       id="milestones-desktop"
@@ -310,7 +310,7 @@
       </div>
     </div>
   </div>
-  <div id="beyond-course-materials" class="container max-content-width py-5 py-lg-8">
+  <div id="beyond-course-materials" class="container max-content-width section py-5 py-lg-8">
     <div class="row">
       <div class="col-12 col-lg-6 pr-lg-8">
         <h1 class="text-center-mobile pb-5">Beyond Course Materials</h1>
@@ -380,7 +380,7 @@
       </div>
     </div>
   </div>
-  <div id="president-dean-messages" class="bg-black text-white">
+  <div id="president-dean-messages" class="section bg-black text-white">
     <div class="container max-content-width mx-auto pt-8 pb-5">
       <div class="row pb-3 pb-lg-6">
         <div class="col-12 px-0 px-lg-3">
@@ -470,7 +470,7 @@
     </div>
     <div id="red-bar"></div>
   </div>
-  <div id="our-team" class="container max-content-width pt-7">
+  <div id="our-team" class="container max-content-width section pt-7">
     <div class="row">
       <div class="col-12">
         <h1 class="text-center w-100 pb-6">Our Team</h1>

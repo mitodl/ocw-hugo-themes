@@ -1,0 +1,66 @@
+#educator-main-section {
+  .section {
+    margin-top: 5%;
+    max-width: $max-content-width;
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    .section-content {
+      color: $black;
+      letter-spacing: 0;
+      line-height: 38px;
+      margin-top: 2%;
+    }
+  }
+
+  .section-gruber-quote {
+    height: 460px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .quote-main {
+      text-align: center;
+
+      .quote {
+        color: $white;
+        letter-spacing: -2px;
+      }
+
+      .author {
+        color: #aea7a7;
+      }
+
+      .chalk-radio {
+        color: $white;
+        letter-spacing: -1.05px;
+      }
+    }
+  }
+
+  .section-inner-content {
+    .text {
+      margin-top: 3%;
+      line-height: 25px;
+    }
+  }
+
+  @include media-breakpoint-down(xs) {
+    .section-inner-content {
+      margin-top: 5%;
+    }
+  }
+
+  .section-chalk-radio {
+    height: 705px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $white;
+  }
+
+  .bg {
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
