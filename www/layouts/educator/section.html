@@ -1,54 +1,79 @@
-{{ define "main" }}
+{{ define "main" }} 
 {{ block "header" . }} {{ partialCached "header" . }} {{end}}
 <div id="educator-main-section" class="page-single">
   <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top on-page-sub-nav">
-        <div class="navbar-brand">
-            <span class="navbar-current-active medium-and-below-only">Welcome</span>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#about-subnav" aria-controls="about-subnav" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="material-icons" aria-hidden="true">expand_more</i>
-      </button>
-        <div id="about-subnav" class="collapse navbar-collapse">
-            <ul class="navbar-nav justify-content-between mx-auto my-0 max-content-width w-100">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="collapse" data-target=".navbar-collapse.show" href="#welcome">Welcome</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              data-toggle="collapse"
-              data-target=".navbar-collapse.show"
-              href="#discover-oer"
-              >Discover OER</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              data-toggle="collapse"
-              data-target=".navbar-collapse.show"
-              href="#adapt-oer"
-              >Retain, Re-use and Adapt OER</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              data-toggle="collapse"
-              data-target=".navbar-collapse.show"
-              href="#share-adaptions"
-              >Share Adaptations</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="#explore-reflective-practice">Explore Open Reflective Practice at MIT</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="#connect">Connect</a
-            >
-          </li>
-        </ul>
-      </div>
+    <div class="navbar-brand">
+      <span class="navbar-current-active medium-and-below-only">Welcome</span>
+    </div>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#about-subnav"
+      aria-controls="about-subnav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="material-icons" aria-hidden="true">expand_more</i>
+    </button>
+    <div id="about-subnav" class="collapse navbar-collapse">
+      <ul class="navbar-nav justify-content-between mx-auto my-0 max-content-width w-100">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#welcome"
+            >Welcome</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#discover-oer"
+            >Discover OER</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#adapt-oer"
+            >Retain, Re-use and Adapt OER</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#share-adaptions"
+            >Share Adaptations</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#explore-reflective-practice"
+            >Explore Open Reflective Practice at MIT</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            href="#connect"
+            >Connect</a
+          >
+        </li>
+      </ul>
+    </div>
   </nav>
   <div class="px-5 mt-6">
     <div id="welcome" class="section">
@@ -59,38 +84,44 @@
         <div class="row">
           <div class="col-lg-6 pr-6">
             <h3 class="font-weight-normal">
-              The MIT OpenCourseWare Educator Initiative supports and sustains open education teaching practices at 
-              scale. Here you’ll find pathways for discovering, adapting, and sharing the open educational resources 
-              (OER) you’ll find on our platforms. We also invite you to connect with and inspire the teaching community
-              at MIT. Welcome, we’re glad you’re here.
+              The MIT OpenCourseWare Educator Initiative supports and sustains open education
+              teaching practices at scale. Here you’ll find pathways for discovering, adapting, and
+              sharing the open educational resources (OER) you’ll find on our platforms. We also
+              invite you to connect with and inspire the teaching community at MIT. Welcome, we’re
+              glad you’re here.
             </h3>
           </div>
           <div class="col-lg-6">
-            <iframe 
-              width="100%" 
-              height="350px" 
-              src="https://www.youtube.com/embed/7UJ4CFRGd-U" 
-              title="Professor Gilbert Strang on how he teaches 18.06 Linear Algebra." 
-              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen>
+            <iframe
+              width="100%"
+              height="350px"
+              src="https://www.youtube.com/embed/7UJ4CFRGd-U"
+              title="Professor Gilbert Strang on how he teaches 18.06 Linear Algebra."
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            >
             </iframe>
           </div>
         </div>
         <div class="col-12">
-          <div class="row section-gruber-quote my-6 bg" style="background-image: url('/images/educator/you-only-really-understand.png');">
-              <div>
-                <div class="container quote-main">
-                  <h1 class="container font-cardo font-weight-normal quote col-md-8 offset-md-2">
-                      You only really understand something when you go out in the real world and apply it.
-                  </h1>
-                  <p class="font-Helvetica author font-weight-normal">
-                      - Professor Jonathan Gruber
-                  </p>
-                  <h3 class="font-cardo chalk-radio font-weight-normal mt-5">
-                    <b>Chalk Radio</b> &nbsp;Season 1 Eposide 9 Thinkin Like an &ldquo;Economist&rdquo;
-                  </h3>
-                </div>
+          <div
+            class="row section-gruber-quote my-6 bg"
+            style="background-image: url('/images/educator/you-only-really-understand.png')"
+          >
+            <div>
+              <div class="container quote-main">
+                <h1 class="container font-cardo font-weight-normal quote col-md-8 offset-md-2">
+                  You only really understand something when you go out in the real world and apply
+                  it.
+                </h1>
+                <p class="font-Helvetica author font-weight-normal">- Professor Jonathan Gruber</p>
+                <h3 class="font-cardo chalk-radio font-weight-normal mt-5">
+                  <b>Chalk Radio</b> &nbsp;Season 1 Eposide 9 Thinkin Like an
+                  &ldquo;Economist&rdquo;
+                </h3>
               </div>
+            </div>
           </div>
         </div>
       </div>
@@ -100,18 +131,39 @@
       <div class="section-content">
         <div class="row">
           <div class="col-lg-6">
-            <img width="100%" src="/images/educator/discover-oer-1.jpg" alt="Discover OER on MIT OpenCourseWare">
+            <img
+              width="100%"
+              src="/images/educator/discover-oer-1.jpg"
+              alt="Discover OER on MIT OpenCourseWare"
+            />
           </div>
           <div class="col-lg-6 d-flex my-auto">
             <div class="section-inner-content">
               <h3>Discover OER on MIT OpenCourseWare</h3>
-              <p class="text">MIT OpenCourseWare shares open educational resources (OER) from 2500+ MIT courses.</p>
-              <p class="text"><b>How would you like to discover OER for your teaching context?</b></p>
+              <p class="text">
+                MIT OpenCourseWare shares open educational resources (OER) from 2500+ MIT courses.
+              </p>
+              <p class="text">
+                <b>How would you like to discover OER for your teaching context?</b>
+              </p>
               <p class="text"><a href="/search">Browse</a> OER by topic or departmen</p>
-              <p class="text">Find courses for <a class="coming-soon">“Zero Textbook Cost” (ZTC) initiatives</a></p>
-              <p class="text">Find lecture videos on <a href="https://www.youtube.com/c/mitocw" target="_blank">OCW’s YouTube channel</a></p>
+              <p class="text">
+                Find courses for <a class="coming-soon">“Zero Textbook Cost” (ZTC) initiatives</a>
+              </p>
+              <p class="text">
+                Find lecture videos on
+                <a href="https://www.youtube.com/c/mitocw" target="_blank">OCW’s YouTube channel</a>
+              </p>
               <p class="text">Find<a class="coming-soon"> open online textbooks from MIT</a></p>
-              <p class="text"><a href="https://openlearning.mit.edu/courses-programs/open-learning-library" target="_blank"> Search the Open Learning Library</a> for interactive modules</p>
+              <p class="text">
+                <a
+                  href="https://openlearning.mit.edu/courses-programs/open-learning-library"
+                  target="_blank"
+                >
+                  Search the Open Learning Library</a
+                >
+                for interactive modules
+              </p>
             </div>
           </div>
         </div>
@@ -124,26 +176,62 @@
           <div class="col-lg-6 d-flex my-auto">
             <div class="section-inner-content">
               <h3>Retain, Re-Use and Adapt OER from our Platforms</h3>
-              <p class="text">MIT OpenCourseWare shares content under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons</a> license. 
-                You are welcome to retain, reuse, and adapt the teaching materials you find on our platforms. 
+              <p class="text">
+                MIT OpenCourseWare shares content under a
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"
+                  >Creative Commons</a
+                >
+                license. You are welcome to retain, reuse, and adapt the teaching materials you find
+                on our platforms.
               </p>
-              <p class="text"><b>How can we help you use OER from MIT OpenCourseWare?</b></p>  
-              <p class="text"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Take me to your license</a></p>
-              <p class="text"><a href="https://ocw.mit.edu/help/faq-cite-ocw-content/">Show me how to attribute OCW content</a></p>
-              <p class="text"><a href="https://ocw.mit.edu/about/contactus/">Ask a question</a> about reusing OER from OCW in my teaching context</p>
-              <p class="text"><a href="https://jwel.mit.edu/assets/video/getting-started-open-educational-resources-oer" target="_blank">Review the basics of teaching with OER</a></p>
+              <p class="text"><b>How can we help you use OER from MIT OpenCourseWare?</b></p>
+              <p class="text">
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"
+                  >Take me to your license</a
+                >
+              </p>
+              <p class="text">
+                <a href="https://ocw.mit.edu/help/faq-cite-ocw-content/"
+                  >Show me how to attribute OCW content</a
+                >
+              </p>
+              <p class="text">
+                <a href="https://ocw.mit.edu/about/contactus/">Ask a question</a> about reusing OER
+                from OCW in my teaching context
+              </p>
+              <p class="text">
+                <a
+                  href="https://jwel.mit.edu/assets/video/getting-started-open-educational-resources-oer"
+                  target="_blank"
+                  >Review the basics of teaching with OER</a
+                >
+              </p>
             </div>
           </div>
           <div class="col-lg-6">
-            <img width="100%" src="/images/educator/adapt-oer.jpg" alt="Retain, Re-Use and Adapt OER from our Platforms">
+            <img
+              width="100%"
+              src="/images/educator/adapt-oer.jpg"
+              alt="Retain, Re-Use and Adapt OER from our Platforms"
+            />
           </div>
         </div>
         <div class="row my-5">
-          <div class="col-12">
+          {{/* hide on small and extra-small devices */}}
+          <div class="col-12 d-none d-sm-block">
             <img
-              width="100%" 
-              src="/images/educator/students-discover-things.png" 
-              alt="Students discover things about themselves through nuclear science">
+              width="100%"
+              src="/images/educator/students-discover-things.png"
+              alt="Students discover things about themselves through nuclear science"
+            />
+          </div>
+          {{/* hide on medium, large and extra large devices. */}}
+          <div class="col-12 d-block d-sm-none">
+            <img
+              width="100%"
+              src="/images/educator/students-discover-things-mobile.png"
+              alt="Students discover things about themselves through nuclear science"
+            />
           </div>
         </div>
       </div>
@@ -153,20 +241,40 @@
       <div class="section-content">
         <div class="row">
           <div class="col-lg-6">
-            <img width="100%" src="/images/educator/share-adaptions.jpg" alt="Share Your OER Adaptations">
+            <img
+              width="100%"
+              src="/images/educator/share-adaptions.jpg"
+              alt="Share Your OER Adaptations"
+            />
           </div>
           <div class="col-lg-6 d-flex my-auto">
             <div class="section-inner-content">
               <h3>Share Your OER Adaptations</h3>
-              <p class="text">Open educational resources are only as powerful as the instructors who enhance 
-                them through adaptations for learners in different contexts. When you share your adaptations 
-                of OER from MIT OpenCourseWare, you create more opportunities for learners to unlock knowledge 
-                for themselves and their communities</p>
+              <p class="text">
+                Open educational resources are only as powerful as the instructors who enhance them
+                through adaptations for learners in different contexts. When you share your
+                adaptations of OER from MIT OpenCourseWare, you create more opportunities for
+                learners to unlock knowledge for themselves and their communities
+              </p>
               <p class="text"><b>How would you like to share your adaptations?</b></p>
-              <p class="text"><a href="https://forms.gle/k7cVTw94RCgojcvH8" target="_blank">Share my adaption</a> directly with the MIT OpenCourseWare community</p>
-              <p class="text"><a href="https://www.oercommons.org/" target="_blank">Add my adaptation to the OER Commons</a></p>
-              <p class="text"><a href="https://www.merlot.org/merlot/index.htm" target="_blank">Add my adaptation to MERLOT</a></p>
-              <p class="text">Share my adaptation or open education story on the <a class="coming-soon"></a>Chalk Radio podcast</p>
+              <p class="text">
+                <a href="https://forms.gle/k7cVTw94RCgojcvH8" target="_blank">Share my adaption</a>
+                directly with the MIT OpenCourseWare community
+              </p>
+              <p class="text">
+                <a href="https://www.oercommons.org/" target="_blank"
+                  >Add my adaptation to the OER Commons</a
+                >
+              </p>
+              <p class="text">
+                <a href="https://www.merlot.org/merlot/index.htm" target="_blank"
+                  >Add my adaptation to MERLOT</a
+                >
+              </p>
+              <p class="text">
+                Share my adaptation or open education story on the <a class="coming-soon"></a>Chalk
+                Radio podcast
+              </p>
             </div>
           </div>
         </div>
@@ -180,45 +288,76 @@
             <div class="section-inner-content">
               <h3>Explore Open Reflective Practice at MIT</h3>
               <p class="text">
-                In addition to openly sharing teaching materials on MIT OpenCourseWare, many MIT faculty 
-                also engage in open reflective practice, making their praxis accessible by educators, 
-                everywhere, in an effort to enhance the use and impact of the OER they share. Browse 
-                faculty interviews to explore how they approach teaching and learning, and how they taught 
-                on campus with the materials they share on MIT OpenCourseWare. Use their insights to inform 
-                your use of the OER you find on our platforms or to spark conversations about teaching and 
-                learning at your own institution. Like other content on MIT OpenCourseWare, the instructor 
-                interviews you’ll find on our platforms are shared under a Creative Commons license, so you 
-                can retain, re-use, and re-mix them in your own work. 
+                In addition to openly sharing teaching materials on MIT OpenCourseWare, many MIT
+                faculty also engage in open reflective practice, making their praxis accessible by
+                educators, everywhere, in an effort to enhance the use and impact of the OER they
+                share. Browse faculty interviews to explore how they approach teaching and learning,
+                and how they taught on campus with the materials they share on MIT OpenCourseWare.
+                Use their insights to inform your use of the OER you find on our platforms or to
+                spark conversations about teaching and learning at your own institution. Like other
+                content on MIT OpenCourseWare, the instructor interviews you’ll find on our
+                platforms are shared under a Creative Commons license, so you can retain, re-use,
+                and re-mix them in your own work.
               </p>
-              <p class="text"><b>How would you like to explore open reflective practice at MIT?</b></p>  
-              <p class="text"><a href="https://ocw.mit.edu/courses/instructor-insights/">Browse MIT instructor interviews by department</a></p>
-              <p class="text">Listen to MIT instructor interviews on the <a href="https://chalk-radio.simplecast.com/" target="_blank">Chalk Radio podcast</a></p>
-              <p class="text"><a href="https://ocw.mit.edu/educator/">Find MIT instructor interviews about specific teaching approaches </a></p>
-              <p class="text"><a href="https://openlearning.mit.edu/mit-faculty/residential-digital-innovations" target="_blank">Search case studies </a>about MIT digital teaching innovations and tools </p>
+              <p class="text">
+                <b>How would you like to explore open reflective practice at MIT?</b>
+              </p>
+              <p class="text">
+                <a href="https://ocw.mit.edu/courses/instructor-insights/"
+                  >Browse MIT instructor interviews by department</a
+                >
+              </p>
+              <p class="text">
+                Listen to MIT instructor interviews on the
+                <a href="https://chalk-radio.simplecast.com/" target="_blank"
+                  >Chalk Radio podcast</a
+                >
+              </p>
+              <p class="text">
+                <a href="https://ocw.mit.edu/educator/"
+                  >Find MIT instructor interviews about specific teaching approaches
+                </a>
+              </p>
+              <p class="text">
+                <a
+                  href="https://openlearning.mit.edu/mit-faculty/residential-digital-innovations"
+                  target="_blank"
+                  >Search case studies </a
+                >about MIT digital teaching innovations and tools
+              </p>
             </div>
           </div>
           <div class="col-lg-6">
-            <img width="100%" src="/images/educator/explore-reflective-practice.jpg" alt="Explore Open Reflective Practice at MIT">
+            <img
+              width="100%"
+              src="/images/educator/explore-reflective-practice.jpg"
+              alt="Explore Open Reflective Practice at MIT"
+            />
           </div>
         </div>
-        
+
         <div class="col-12 my-7">
-          <div class="row my-6 section-chalk-radio bg" style="background-image: url('/images/educator/chalk-radio-bg.png');">
+          <div
+            class="row my-6 section-chalk-radio bg"
+            style="background-image: url('/images/educator/chalk-radio-bg.png')"
+          >
             <div class="container col-md-6 offset-md-3">
-              <h1>
-                Get motivated.
-              </h1>
+              <h1>Get motivated.</h1>
               <h3 class="font-weight-normal mt-3">
-                  Chalk Radio is an MIT OpenCourseWare podcast about inspired teaching at MIT. 
-                  We take you behind the scenes of some of the most interesting courses on campus to 
-                  talk with the professors who make those courses possible.
+                Chalk Radio is an MIT OpenCourseWare podcast about inspired teaching at MIT. We take
+                you behind the scenes of some of the most interesting courses on campus to talk with
+                the professors who make those courses possible.
               </h3>
               <div class="mt-7">
-                <iframe src="https://www.youtube.com/embed/FwRj2DL5zIg" 
-                title="Chalk Radio Season 3" frameborder="0" 
-                width="100%"
-                height="360px"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe
+                  src="https://www.youtube.com/embed/FwRj2DL5zIg"
+                  title="Chalk Radio Season 3"
+                  frameborder="0"
+                  width="100%"
+                  height="360px"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
               </div>
             </div>
           </div>
@@ -230,23 +369,48 @@
       <div class="section-content">
         <div class="row">
           <div class="col-lg-6">
-            <img width="100%" src="/images/educator/connect.jpg" alt="Connect with the MIT Teaching Community">
+            <img
+              width="100%"
+              src="/images/educator/connect.jpg"
+              alt="Connect with the MIT Teaching Community"
+            />
           </div>
           <div class="col-lg-6 d-flex my-auto">
             <div class="section-inner-content">
               <h3>Connect with the MIT Teaching Community</h3>
               <p class="text">
-                We invite you to connect with the MIT teaching community. Open education practice improves 
-                when teaching materials reflect a diversity of voices and experiences, and we welcome yours. 
-                We invite you to share your instructional ideas and approaches with MIT faculty. When you 
-                share your teaching insights, you’ll inspire new ways of thinking and learning in MIT 
-                classrooms, which will in turn enhance the OER we offer learners around the world.
+                We invite you to connect with the MIT teaching community. Open education practice
+                improves when teaching materials reflect a diversity of voices and experiences, and
+                we welcome yours. We invite you to share your instructional ideas and approaches
+                with MIT faculty. When you share your teaching insights, you’ll inspire new ways of
+                thinking and learning in MIT classrooms, which will in turn enhance the OER we offer
+                learners around the world.
               </p>
               <p class="text"><b>How would you like to connect and inspire?</b></p>
-              <p class="text"><a href="https://forms.gle/XBwUwqn35abSdjNs8" target="_blank">Share my teaching insights</a> with MIT faculty</p>
-              <p class="text"><a href="https://ocw.mit.edu/subscribe/index.htm?utm_source=header"> Subscribe to the OCW Newsletter</a> to stay informed and connected</p>
-              <p class="text"><a href="https://chalk-radio.simplecast.com/" target="_blank">Subscribe to the Chalk Radio Podcast</a> to hear featured interviews with MIT faculty about teaching</p>
-              <p class="text"><a href="https://tll.mit.edu/subscribe/" target="_blank">Sign up for the MIT Teaching + Learning Lab Newsletter</a> to stay current on teaching topics important to the MIT community</p>
+              <p class="text">
+                <a href="https://forms.gle/XBwUwqn35abSdjNs8" target="_blank"
+                  >Share my teaching insights</a
+                >
+                with MIT faculty
+              </p>
+              <p class="text">
+                <a href="https://ocw.mit.edu/subscribe/index.htm?utm_source=header">
+                  Subscribe to the OCW Newsletter</a
+                >
+                to stay informed and connected
+              </p>
+              <p class="text">
+                <a href="https://chalk-radio.simplecast.com/" target="_blank"
+                  >Subscribe to the Chalk Radio Podcast</a
+                >
+                to hear featured interviews with MIT faculty about teaching
+              </p>
+              <p class="text">
+                <a href="https://tll.mit.edu/subscribe/" target="_blank"
+                  >Sign up for the MIT Teaching + Learning Lab Newsletter</a
+                >
+                to stay current on teaching topics important to the MIT community
+              </p>
             </div>
           </div>
         </div>
@@ -255,33 +419,32 @@
 
     <div id="cadogan-quote" class="mt-6">
       <div class="section-content">
-
         <div class="col-12">
-          <div class="row section-gruber-quote my-6 bg" style="background-image: url('/images/educator/cadogan2.png');">
-              <div>
-                <div class="container quote-main">
-                  <h2 class="container font-cardo font-weight-normal quote col-md-8 offset-md-2">
-                      What does it mean to think of the classroom as a place of encounter in which you're 
-                      continually encountering these issues, these histories, these landscapes, these complexities,
-                      these people?
-                      <br><br>
-                      And what it mean to truly listen, to truly understand?
-                  </h2>
-                  <p class="font-Helvetica author font-weight-normal">
-                      - Essayist Garnette Cadogan
-                  </p>
-                  <h3 class="font-cardo chalk-radio font-weight-normal mt-5">
-                    <b>Chalk Radio</b> &nbsp;Season 2 Eposide 5 &ldquo;Encountering Each Other&rdquo;
-                  </h3>
-                </div>
+          <div
+            class="row section-gruber-quote my-6 bg"
+            style="background-image: url('/images/educator/cadogan2.png')"
+          >
+            <div>
+              <div class="container quote-main">
+                <h2 class="container font-cardo font-weight-normal quote col-md-8 offset-md-2">
+                  What does it mean to think of the classroom as a place of encounter in which
+                  you're continually encountering these issues, these histories, these landscapes,
+                  these complexities, these people?
+                  <br /><br />
+                  And what it mean to truly listen, to truly understand?
+                </h2>
+                <p class="font-Helvetica author font-weight-normal">- Essayist Garnette Cadogan</p>
+                <h3 class="font-cardo chalk-radio font-weight-normal mt-5">
+                  <b>Chalk Radio</b> &nbsp;Season 2 Eposide 5 &ldquo;Encountering Each Other&rdquo;
+                </h3>
               </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    
     <div class="section">
-      <br>
+      <br />
     </div>
   </div>
 </div>
