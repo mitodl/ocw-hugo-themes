@@ -1,7 +1,7 @@
 const initSubNav = () => {
   // [START] Scrolling to appropriate section when subnav item is clicked
   $(".on-page-sub-nav .nav-link").on("click", e => {
-    const navbar = $(".navbar")
+    const navbar = $(".on-page-sub-nav")
     const clickedLink = $(e.target)
     navbar.find(".active").removeClass("active")
     clickedLink.addClass("active")
