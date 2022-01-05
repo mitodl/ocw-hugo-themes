@@ -1,17 +1,56 @@
-<div id="mobile-header" class="position-relative bg-black medium-and-below-only px-3 py-2">
-  <div class="container-fluid">
-    <div class="position-relative pt-1 pb-1">
-      <div class="">
-        <i class="material-icons display-4 text-white align-bottom">menu</i>
-      </div>
-      <div id="ocw-logo-mobile" class="position-absolute">
-        <a href="/">
-          <img width="250" src="/images/ocw_logo_white.png" alt="MIT OpenCourseWare" />
-        </a>
-      </div>
+<!-- navbar for mobile screens -->
+<div
+  id="mobile-header"
+  class="position-relative bg-black medium-and-below-only"
+>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="material-icons display-4 text-white align-bottom">menu</i>
+    </button>
+    <div class="mx-auto">
+      <a href="/">
+        <img
+          width="250"
+          src="/images/ocw_logo_white.png"
+          alt="MIT OpenCourseWare"
+        />
+      </a>
     </div>
-  </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto pl-2 pt-2">
+        <li class="nav-item">{{ block "extraheader" . }}{{ end }}</li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            href="https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home"
+            >Give Now</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About OCW</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link coming-soon" href="#">Help & Faqs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://ocw.mit.edu/about/contactus/"
+            >Contact Us</a
+          >
+        </li>
+      </ul>
+    </div>
+  </nav>
 </div>
+
+<!-- navbar for laptop/desktop screens -->
 <div id="desktop-header">
   <div class="contents px-6">
     <div class="left">
@@ -23,17 +62,26 @@
     </div>
     <div class="right">
       {{ block "extraheader" . }}{{ end }}
-      <a class="d-flex give-button-header py-2 px-3" href="https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home">
+      <a
+        class="d-flex give-button-header py-2 px-3"
+        href="https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home"
+      >
         <span class="font-weight-bold w-100">Give now</span>
       </a>
       <a href="/about">
-        <div class="text-white font-weight-bold w-100 px-3 pl-5 py-2">About OCW</div>
+        <div class="text-white font-weight-bold w-100 px-3 pl-5 py-2">
+          About OCW
+        </div>
       </a>
       <a class="coming-soon">
-        <div class="text-white font-weight-bold w-100 px-3 py-2 coming-soon">help & faqs</div>
+        <div class="text-white font-weight-bold w-100 px-3 py-2 coming-soon">
+          help & faqs
+        </div>
       </a>
       <a href="https://ocw.mit.edu/about/contactus/">
-        <div class="text-white font-weight-bold w-100 px-3 py-2">contact us</div>
+        <div class="text-white font-weight-bold w-100 px-3 py-2">
+          contact us
+        </div>
       </a>
     </div>
   </div>
