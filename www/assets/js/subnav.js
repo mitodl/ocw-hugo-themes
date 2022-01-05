@@ -11,7 +11,7 @@ const initSubNav = () => {
     const y = target.getBoundingClientRect().top + window.scrollY + yOffset
     window.scrollTo({
       top:      y,
-      behavior: "smooth",
+      behavior: "smooth"
     })
   })
   // [END] Scrolling to appropriate section when subnav item is clicked
@@ -26,7 +26,7 @@ const initSubNav = () => {
         const navLinks = $(".on-page-sub-nav  li a")
         const id = $(this).attr("id")
         navLinks.removeClass("active")
-        $(`.on-page-sub-nav  li a[href="#${  id  }"]`).addClass("active")
+        $(`.on-page-sub-nav  li a[href="#${id}"]`).addClass("active")
       }
     })
   })
