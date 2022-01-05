@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.38.1
+Version 1.38.1 (Released January 05, 2022)
 --------------
 
 - fix: subnav scroll going a bit down
