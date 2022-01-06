@@ -6,28 +6,31 @@ const AssetsPlugin = require("assets-webpack-plugin")
 const Dotenv = require("dotenv-webpack")
 
 module.exports = {
+  resolve: {
+    // Add `.ts` and `.tsx` as a resolvable extension.
+    extensions: [".ts", ".tsx", ".js"]
+  },
   entry: {
-    main:   ["@babel/polyfill", path.join(__dirname, "..", "index.js")],
-    course: [
-      "@babel/polyfill",
-      path.join(__dirname, "..", "..", "..", "course", "assets", "course.js")
-    ],
-    instructor_insights: [
-      "@babel/polyfill",
-      path.join(
-        __dirname,
-        "..",
-        "..",
-        "..",
-        "course",
-        "assets",
-        "instructor-insights.js"
-      )
-    ],
-    www: [
-      "@babel/polyfill",
-      path.join(__dirname, "..", "..", "..", "www", "assets", "www.js")
-    ]
+    main:   path.join(__dirname, "..", "index.ts"),
+    course: path.join(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "course",
+      "assets",
+      "course.js"
+    ),
+    instructor_insights: path.join(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "course",
+      "assets",
+      "instructor-insights.js"
+    ),
+    www: path.join(__dirname, "..", "..", "..", "www", "assets", "www.tsx")
   },
 
   output: {
@@ -64,10 +67,10 @@ module.exports = {
       { test: /\.json$/, loader: "json-loader" },
 
       {
-        test:    /\.js$/,
+        test:    /\.(t|j)sx?$/,
         exclude: /(node_modules)/,
         use:     {
-          loader: "babel-loader"
+          loader: "ts-loader"
         }
       },
 

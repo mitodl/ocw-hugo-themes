@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { INITIAL_FACET_STATE } from "@mitodl/course-search-utils/dist/constants"
 import sinon from "sinon"
 
@@ -5,8 +6,7 @@ import {
   CONTENT_TYPE_PAGE,
   CONTENT_TYPE_PDF,
   CONTENT_TYPE_VIDEO,
-  LR_TYPE_COURSE,
-  LR_TYPE_RESOURCEFILE
+  LearningResourceType
 } from "./constants"
 
 import {
@@ -22,15 +22,16 @@ import {
   searchFields
 } from "./search"
 import { makeLearningResourceResult } from "../factories/search"
+import { Facets } from "@mitodl/course-search-utils/dist/url_utils"
 
 describe("search library", () => {
   const sandbox = sinon.createSandbox()
-  let activeFacets
+  let activeFacets: Facets
 
   beforeEach(() => {
     activeFacets = {
       ...INITIAL_FACET_STATE,
-      type: [LR_TYPE_COURSE]
+      type: [LearningResourceType.Course]
     }
   })
 
@@ -48,7 +49,7 @@ describe("search library", () => {
         {
           multi_match: {
             query:  "Dogs are the best",
-            fields: searchFields(LR_TYPE_COURSE)
+            fields: searchFields(LearningResourceType.Course)
           }
         },
         {
@@ -87,7 +88,7 @@ describe("search library", () => {
                   must: [
                     {
                       term: {
-                        object_type: LR_TYPE_COURSE
+                        object_type: LearningResourceType.Course
                       }
                     },
                     {
@@ -121,7 +122,7 @@ describe("search library", () => {
                   must: [
                     {
                       term: {
-                        object_type: LR_TYPE_COURSE
+                        object_type: LearningResourceType.Course
                       }
                     }
                   ]
@@ -208,7 +209,7 @@ describe("search library", () => {
       activeFacets: {
         ...INITIAL_FACET_STATE,
         resource_type: ["Exams"],
-        type:          [LR_TYPE_RESOURCEFILE]
+        type:          [LearningResourceType.ResourceFile]
       }
     })
 
@@ -222,7 +223,7 @@ describe("search library", () => {
                   must: [
                     {
                       term: {
-                        object_type: LR_TYPE_RESOURCEFILE
+                        object_type: LearningResourceType.ResourceFile
                       }
                     }
                   ]
@@ -273,7 +274,7 @@ describe("search library", () => {
               should: [
                 {
                   term: {
-                    "object_type.keyword": LR_TYPE_RESOURCEFILE
+                    "object_type.keyword": LearningResourceType.ResourceFile
                   }
                 }
               ]
@@ -310,23 +311,23 @@ describe("search library", () => {
 
   //
   ;[
-    [null, LR_TYPE_COURSE, undefined, []],
-    [undefined, LR_TYPE_COURSE, undefined, []],
+    [null, LearningResourceType.Course, undefined, []],
+    [undefined, LearningResourceType.Course, undefined, []],
     [
       { field: "nested.field", option: "desc" },
-      LR_TYPE_RESOURCEFILE,
+      LearningResourceType.ResourceFile,
       undefined,
       []
     ],
     [
       { field: "nested.field", option: "desc" },
-      LR_TYPE_COURSE,
+      LearningResourceType.Course,
       [{ "nested.field": { order: "desc", nested: { path: "nested" } } }],
       []
     ],
     [
       { field: "department_course_numbers.sort_coursenum", option: "asc" },
-      LR_TYPE_COURSE,
+      LearningResourceType.Course,
       [
         {
           "department_course_numbers.sort_coursenum": {
@@ -346,7 +347,7 @@ describe("search library", () => {
     ],
     [
       { field: "department_course_numbers.sort_coursenum", option: "asc" },
-      LR_TYPE_COURSE,
+      LearningResourceType.Course,
       [
         {
           "department_course_numbers.sort_coursenum": {
@@ -372,7 +373,7 @@ describe("search library", () => {
     ],
     [
       { field: "department_course_numbers.sort_coursenum", option: "asc" },
-      LR_TYPE_RESOURCEFILE,
+      LearningResourceType.ResourceFile,
       undefined,
       []
     ]
@@ -452,6 +453,7 @@ describe("search library", () => {
     }set`, () => {
       process.env["CDN_PREFIX"] = cdnPrefix
       const result = {
+        ...makeLearningResourceResult(LearningResourceType.ResourceFile),
         url,
         run_slug:     "run-slug",
         content_type: contentType
@@ -461,26 +463,28 @@ describe("search library", () => {
   })
 
   //
-  ;[LR_TYPE_COURSE, LR_TYPE_RESOURCEFILE].forEach(objectType => {
-    it(`should return correct url for object type ${objectType}`, () => {
-      const isCourse = objectType === LR_TYPE_COURSE
-      const result = makeLearningResourceResult(objectType)
-      if (!isCourse) {
-        result.content_type = CONTENT_TYPE_PAGE
-      } else {
-        result.runs[0].best_start_date = "2001-11-11"
-        result.runs[1].published = false
-        result.runs[2].best_start_date = "2002-01-01"
-      }
-      const expected = isCourse ?
-        `/courses/${result.runs[2].slug}/` :
-        `/courses/${result.run_slug}${getSectionUrl(result)}`
-      expect(getResultUrl(result)).toBe(expected)
-    })
-  })
+  ;[LearningResourceType.Course, LearningResourceType.ResourceFile].forEach(
+    objectType => {
+      it(`should return correct url for object type ${objectType}`, () => {
+        const isCourse = objectType === LearningResourceType.Course
+        const result = makeLearningResourceResult(objectType)
+        if (!isCourse) {
+          result.content_type = CONTENT_TYPE_PAGE
+        } else {
+          result.runs[0].best_start_date = "2001-11-11"
+          result.runs[1].published = false
+          result.runs[2].best_start_date = "2002-01-01"
+        }
+        const expected = isCourse ?
+          `/courses/${result.runs[2].slug}/` :
+          `/courses/${result.run_slug}${getSectionUrl(result)}`
+        expect(getResultUrl(result)).toBe(expected)
+      })
+    }
+  )
 
   it(`should return a null url for a course without runs`, () => {
-    const result = makeLearningResourceResult("course")
+    const result = makeLearningResourceResult(LearningResourceType.Course)
     result.runs = []
     expect(getResultUrl(result)).toBe(null)
     result.runs = null
@@ -492,7 +496,7 @@ describe("search library", () => {
   describe("getSectionUrl", () => {
     it("returns a / for a course site", () => {
       const result = {
-        ...makeLearningResourceResult(),
+        ...makeLearningResourceResult(LearningResourceType.Course),
         url: "/courses/course-id/other-course-part/"
       }
       expect(getSectionUrl(result)).toBe("/")
@@ -500,7 +504,7 @@ describe("search library", () => {
 
     it("handles a legacy prefix gracefully", () => {
       const result = {
-        ...makeLearningResourceResult(),
+        ...makeLearningResourceResult(LearningResourceType.Course),
         url: "http://ocw.mit.edu/resources/a/resource"
       }
       expect(getSectionUrl(result)).toBe("/")
@@ -510,7 +514,7 @@ describe("search library", () => {
     ;["index.htm", "index.html"].forEach(suffix => {
       it(`removes a ${suffix} from the path`, () => {
         const result = {
-          ...makeLearningResourceResult(),
+          ...makeLearningResourceResult(LearningResourceType.Course),
           url: `/courses/course-id/other-piece/${suffix}`
         }
         expect(getSectionUrl(result)).toBe("/")
@@ -519,7 +523,7 @@ describe("search library", () => {
 
     it("adds a /pages if it is pointing to a section within a course url", () => {
       const result = {
-        ...makeLearningResourceResult(),
+        ...makeLearningResourceResult(LearningResourceType.Course),
         url: "/courses/course-id/other-part/path/to/a/pdf"
       }
       expect(getSectionUrl(result)).toBe("/pages/path/to/a/pdf")

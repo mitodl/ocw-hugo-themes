@@ -1,6 +1,12 @@
 import React from "react"
 
-export default function SearchFilter(props) {
+interface Props {
+  value: string
+  labelFunction?: (value: string) => string
+  clearFacet: () => void
+}
+
+export default function SearchFilter(props: Props) {
   const { value, clearFacet, labelFunction } = props
 
   return (
@@ -14,7 +20,7 @@ export default function SearchFilter(props) {
             clearFacet()
           }
         }}
-        tabIndex="0"
+        tabIndex={0}
       >
         <i className="material-icons">close</i>
       </div>

@@ -1,4 +1,4 @@
-// @flow
+// @ts-nocheck
 import React from "react"
 import Dotdotdot from "react-dotdotdot"
 

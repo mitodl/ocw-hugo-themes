@@ -13,6 +13,14 @@ import "screenfull"
 
 import { initSentry } from "./js/sentry"
 
+export interface OCWWindow extends Window {
+  $: JQueryStatic
+  jQuery: JQueryStatic
+  Popper: typeof Popper
+}
+
+declare let window: OCWWindow
+
 window.jQuery = $
 window.$ = $
 window.Popper = Popper
@@ -21,8 +29,8 @@ $(document).ready(() => {
   // hacky coming-soon popover
   document.querySelectorAll(".coming-soon").forEach(el => {
     tippy(el, {
-      content:   "Coming soon!",
-      trigger:   "click",
+      content: "Coming soon!",
+      trigger: "click",
       placement: "top"
     })
   })

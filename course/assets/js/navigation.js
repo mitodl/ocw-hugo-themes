@@ -16,11 +16,12 @@ function courseNav() {
         const collapseEl = navItemEl.querySelector(".collapse")
         if (collapseEl && collapseEl.contains(activeEl)) {
           collapseEl.classList.add("show")
+          // @ts-ignore
           navItemEl
             .querySelector(
               ".course-nav-section-toggle, transcript-section-toggle"
             )
-            .setAttribute("aria-expanded", true)
+            .setAttribute("aria-expanded", "true")
         }
       })
     })

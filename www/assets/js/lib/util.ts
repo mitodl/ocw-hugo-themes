@@ -4,4 +4,5 @@ export const emptyOrNil = either(isEmpty, isNil)
 
 export const getViewportWidth = () => window.innerWidth
 
-export const isDoubleQuoted = text => !emptyOrNil(match(/^".+"$/, text || ""))
+export const isDoubleQuoted = (text: string) =>
+  !emptyOrNil(match(/^".+"$/, text || ""))

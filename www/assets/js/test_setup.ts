@@ -1,4 +1,4 @@
-import "@babel/polyfill"
+// @ts-nocheck
 import Enzyme from "enzyme"
 import Adapter from "enzyme-adapter-react-16"
 

@@ -1,18 +1,22 @@
-import bodybuilder from "bodybuilder"
+// @ts-nocheck
+import bodybuilder, { Bodybuilder } from "bodybuilder"
 
 import { emptyOrNil } from "./util"
 import {
-  LR_TYPE_COURSE,
-  LR_TYPE_VIDEO,
-  LR_TYPE_PODCAST,
-  LR_TYPE_PODCAST_EPISODE,
-  LR_TYPE_RESOURCEFILE,
   OCW_PLATFORM,
   CONTENT_TYPE_PAGE,
   CONTENT_TYPE_PDF,
   CONTENT_TYPE_VIDEO,
-  COURSENUM_SORT_FIELD
+  COURSENUM_SORT_FIELD,
+  LearningResourceType,
+  ContentType
 } from "./constants"
+import { Facets, SortParam } from "@mitodl/course-search-utils/dist/url_utils"
+import {
+  CourseResult,
+  LearningResource,
+  LearningResourceResult
+} from "../LearningResources"
 
 export const LEARN_SUGGEST_FIELDS = [
   "title.trigram",
@@ -37,19 +41,20 @@ export const RESOURCEFILE_QUERY_FIELDS = [
   "resource_type"
 ]
 
-export const searchFields = type => {
-  if (type === LR_TYPE_COURSE) {
-    return COURSE_QUERY_FIELDS
-  } else if (type === LR_TYPE_VIDEO) {
-    return VIDEO_QUERY_FIELDS
-  } else if (type === LR_TYPE_PODCAST) {
-    return PODCAST_QUERY_FIELDS
-  } else if (type === LR_TYPE_PODCAST_EPISODE) {
-    return PODCAST_EPISODE_QUERY_FIELDS
-  } else if (type === LR_TYPE_RESOURCEFILE) {
-    return RESOURCEFILE_QUERY_FIELDS
-  } else {
-    return LIST_QUERY_FIELDS
+export const searchFields = (type: LearningResourceType): string[] => {
+  switch (type) {
+    case LearningResourceType.Course:
+      return COURSE_QUERY_FIELDS
+    case LearningResourceType.Video:
+      return VIDEO_QUERY_FIELDS
+    case LearningResourceType.Podcast:
+      return PODCAST_QUERY_FIELDS
+    case LearningResourceType.PodcastEpisode:
+      return PODCAST_EPISODE_QUERY_FIELDS
+    case LearningResourceType.ResourceFile:
+      return RESOURCEFILE_QUERY_FIELDS
+    default:
+      return LIST_QUERY_FIELDS
   }
 }
 
@@ -97,9 +102,23 @@ const LIST_QUERY_FIELDS = [
   "topics"
 ]
 
-export const isDoubleQuoted = string => /^".+"$/.test(string)
+export const isDoubleQuoted = (str: string) => /^".+"$/.test(str)
 
-export const buildSearchQuery = ({ text, from, size, sort, activeFacets }) => {
+export interface SearchQueryParams {
+  text: string
+  from?: number
+  size?: number
+  sort?: SortParam
+  activeFacets?: Facets
+}
+
+export const buildSearchQuery = ({
+  text,
+  from,
+  size,
+  sort,
+  activeFacets
+}: SearchQueryParams) => {
   let builder = bodybuilder()
 
   if (from !== undefined) {
@@ -109,12 +128,16 @@ export const buildSearchQuery = ({ text, from, size, sort, activeFacets }) => {
     builder = builder.size(size)
   }
 
-  if (sort && !activeFacets.type.includes(LR_TYPE_RESOURCEFILE)) {
+  if (
+    sort &&
+    activeFacets &&
+    !activeFacets.type.includes(LearningResourceType.ResourceFile)
+  ) {
     const { field, option } = sort
     const fieldPieces = field.split(".")
 
     const sortQuery = {
-      order:  option,
+      order: option,
       nested: {
         path: fieldPieces[0]
       }
@@ -122,6 +145,7 @@ export const buildSearchQuery = ({ text, from, size, sort, activeFacets }) => {
 
     if (field === COURSENUM_SORT_FIELD) {
       if (activeFacets.department_name.length === 0) {
+        // @ts-ignore
         sortQuery["nested"]["filter"] = {
           term: {
             "department_course_numbers.primary": true
@@ -133,8 +157,9 @@ export const buildSearchQuery = ({ text, from, size, sort, activeFacets }) => {
           filterClause,
           "department_course_numbers.department",
           activeFacets.department_name,
-          LR_TYPE_COURSE
+          LearningResourceType.Course
         )
+        // @ts-ignore
         sortQuery["nested"]["filter"] = filterClause[0]
       }
     }
@@ -142,86 +167,88 @@ export const buildSearchQuery = ({ text, from, size, sort, activeFacets }) => {
     builder.sort(field, sortQuery)
   }
 
-  for (const type of activeFacets.type) {
-    const queryType = isDoubleQuoted(text) ? "query_string" : "multi_match"
-    const textQuery = emptyOrNil(text) ?
-      {} :
-      {
-        should: [
-          {
-            [queryType]: {
-              query:  text,
-              fields: searchFields(type)
-            }
-          },
-          type === LR_TYPE_COURSE ?
-            [
+  if (activeFacets) {
+    for (const type of activeFacets.type) {
+      const queryType = isDoubleQuoted(text) ? "query_string" : "multi_match"
+      const textQuery = emptyOrNil(text)
+        ? {}
+        : {
+            should: [
               {
-                nested: {
-                  path:  "runs",
-                  query: {
-                    [queryType]: {
-                      query:  text,
-                      fields: RESOURCE_QUERY_NESTED_FIELDS
-                    }
-                  }
+                [queryType]: {
+                  query: text,
+                  fields: searchFields(type as LearningResourceType)
                 }
               },
-              {
-                has_child: {
-                  type:  "resourcefile",
-                  query: {
-                    [queryType]: {
-                      query:  text,
-                      fields: RESOURCEFILE_QUERY_FIELDS
+              type === LearningResourceType.Course
+                ? [
+                    {
+                      nested: {
+                        path: "runs",
+                        query: {
+                          [queryType]: {
+                            query: text,
+                            fields: RESOURCE_QUERY_NESTED_FIELDS
+                          }
+                        }
+                      }
+                    },
+                    {
+                      has_child: {
+                        type: "resourcefile",
+                        query: {
+                          [queryType]: {
+                            query: text,
+                            fields: RESOURCEFILE_QUERY_FIELDS
+                          }
+                        },
+                        score_mode: "avg"
+                      }
                     }
-                  },
-                  score_mode: "avg"
-                }
-              }
-            ] :
-            null
-        ]
-          .flat()
-          .filter(clause => clause !== null)
+                  ]
+                : null
+            ]
+              .flat()
+              .filter(clause => clause !== null)
+          }
+
+      // buildFacetSubQuery
+      const facets = {
+        ...activeFacets,
+        offered_by: [OCW_PLATFORM]
       }
 
-    // buildFacetSubQuery
-    const facets = {
-      ...activeFacets,
-      offered_by: [OCW_PLATFORM]
-    }
+      const facetClauses = buildFacetSubQuery(facets, builder, type)
 
-    const facetClauses = buildFacetSubQuery(facets, builder, type)
+      // buildOrQuery
+      builder = buildOrQuery(builder, type, textQuery, [])
+      builder = builder.rawOption("post_filter", {
+        bool: {
+          must: [...facetClauses]
+        }
+      })
 
-    // buildOrQuery
-    builder = buildOrQuery(builder, type, textQuery, [])
-    builder = builder.rawOption("post_filter", {
-      bool: {
-        must: [...facetClauses]
+      // Include suggest if search test is not null/empty
+      if (!emptyOrNil(text)) {
+        builder = builder.rawOption(
+          "suggest",
+          // $FlowFixMe: if we get this far, text is not null
+          buildSuggestQuery(text, LEARN_SUGGEST_FIELDS)
+        )
+      } else if (facetClauses.length === 0) {
+        builder = builder.rawOption("sort", buildDefaultSort())
       }
-    })
-
-    // Include suggest if search test is not null/empty
-    if (!emptyOrNil(text)) {
-      builder = builder.rawOption(
-        "suggest",
-        // $FlowFixMe: if we get this far, text is not null
-        buildSuggestQuery(text, LEARN_SUGGEST_FIELDS)
-      )
-    } else if (facetClauses.length === 0) {
-      builder = builder.rawOption("sort", buildDefaultSort())
     }
   }
 
   return builder.build()
 }
 
-const buildLevelQuery = (builder, values, facetClauses) => {
+const buildLevelQuery = (builder: Bodybuilder, values, facetClauses) => {
   if (values && values.length > 0) {
     const facetFilter = values.map(value => ({
       nested: {
-        path:  "runs",
+        path: "runs",
         query: {
           match: {
             "runs.level": value
@@ -237,7 +264,11 @@ const buildLevelQuery = (builder, values, facetClauses) => {
   }
 }
 
-export const buildFacetSubQuery = (facets, builder, objectType) => {
+export const buildFacetSubQuery = (
+  facets: Facets,
+  builder: Bodybuilder,
+  objectType
+) => {
   const facetClauses = []
   if (facets) {
     Object.entries(facets).forEach(([key, values]) => {
@@ -331,7 +362,12 @@ export const buildFacetSubQuery = (facets, builder, objectType) => {
   return facetClauses
 }
 
-export const buildOrQuery = (builder, searchType, textQuery, extraClauses) => {
+export const buildOrQuery = (
+  builder: Bodybuilder,
+  searchType,
+  textQuery,
+  extraClauses
+) => {
   const textFilter = emptyOrNil(textQuery) ? [] : [{ bool: textQuery }]
 
   builder = builder.orQuery("bool", {
@@ -366,7 +402,7 @@ const addFacetClauseToArray = (facetClauses, facet, values, type) => {
   const filterKey = facet === OBJECT_TYPE ? "object_type.keyword" : facet
   let valueClauses
   // Apply standard facet clause unless this is an offered_by facet for resources.
-  if (facet !== "offered_by" || type !== LR_TYPE_RESOURCEFILE) {
+  if (facet !== "offered_by" || type !== LearningResourceType.ResourceFile) {
     valueClauses = values.map(value => ({
       term: {
         [filterKey]: value
@@ -378,7 +414,7 @@ const addFacetClauseToArray = (facetClauses, facet, values, type) => {
       {
         has_parent: {
           parent_type: "resource",
-          query:       {
+          query: {
             bool: {
               should: values.map(value => ({
                 term: {
@@ -399,21 +435,20 @@ const addFacetClauseToArray = (facetClauses, facet, values, type) => {
   })
 }
 
-export const buildSuggestQuery = (text, suggestFields) => {
+export const buildSuggestQuery = (text: string, suggestFields: string[]) => {
   const suggest = {
     text
   }
   suggestFields.forEach(
     field =>
-      // $FlowFixMe: yes the fields are missing and I'm adding them
       (suggest[field] = {
         phrase: {
-          field:      `${field}`,
-          size:       5,
-          gram_size:  1,
+          field: `${field}`,
+          size: 5,
+          gram_size: 1,
           confidence: 0.0001,
           max_errors: 3,
-          collate:    {
+          collate: {
             query: {
               source: {
                 match_phrase: {
@@ -422,7 +457,7 @@ export const buildSuggestQuery = (text, suggestFields) => {
               }
             },
             params: { field_name: `${field}` },
-            prune:  true
+            prune: true
           }
         }
       })
@@ -440,35 +475,38 @@ export const buildDefaultSort = () => {
 
 export const SEARCH_GRID_UI = "grid"
 export const SEARCH_LIST_UI = "list"
+export type SearchLayout = typeof SEARCH_GRID_UI | typeof SEARCH_LIST_UI
 
-export const searchResultToLearningResource = result => ({
-  id:                  result.id,
-  title:               result.title,
-  image_src:           result.image_src,
-  object_type:         result.object_type,
-  platform:            "platform" in result ? result.platform : null,
-  topics:              result.topics ? result.topics.map(topic => ({ name: topic })) : [],
-  runs:                "runs" in result ? result.runs : [],
-  level:               !emptyOrNil(result.runs) ? result.runs[0].level : null,
-  instructors:         !emptyOrNil(result.runs) ? result.runs[0].instructors : [],
-  department:          result.department,
-  audience:            result.audience,
-  certification:       result.certification,
-  content_title:       result.content_title,
-  run_title:           result.run_title || null,
-  run_slug:            result.run_slug || null,
-  content_type:        result.content_type || null,
-  url:                 getResultUrl(result) || null,
-  short_url:           result.short_url || null,
-  course_id:           result.course_id || null,
-  coursenum:           result.coursenum || null,
-  description:         result.short_description || null,
-  course_feature_tags: result.course_feature_tags ?
-    result.course_feature_tags :
-    []
+export const searchResultToLearningResource = (
+  result: LearningResourceResult
+): LearningResource => ({
+  id: result.id,
+  title: result.title,
+  image_src: result.image_src,
+  object_type: result.object_type,
+  platform: "platform" in result ? result.platform : null,
+  topics: result.topics ? result.topics.map(topic => ({ name: topic })) : [],
+  runs: "runs" in result ? result.runs : [],
+  level: !emptyOrNil(result.runs) ? result.runs[0]?.level : null,
+  instructors: !emptyOrNil(result.runs) ? result.runs[0]?.instructors : [],
+  department: result.department,
+  audience: result.audience,
+  certification: result.certification,
+  content_title: result.content_title,
+  run_title: result.run_title || null,
+  run_slug: result.run_slug || null,
+  content_type: result.content_type || null,
+  url: getResultUrl(result) || null,
+  short_url: result.short_url || null,
+  course_id: result.course_id || null,
+  coursenum: result.coursenum || null,
+  description: result.short_description || null,
+  course_feature_tags: result.course_feature_tags
+    ? result.course_feature_tags
+    : []
 })
 
-export const getCoverImageUrl = result => {
+export const getCoverImageUrl = (result: LearningResource) => {
   if (!emptyOrNil(result.image_src)) {
     return result.image_src
   } else {
@@ -476,21 +514,21 @@ export const getCoverImageUrl = result => {
   }
 }
 
-export const getCourseUrl = result => {
+export const getCourseUrl = (result: CourseResult) => {
   if (emptyOrNil(result.runs)) {
     return null
   }
   const publishedRuns = result.runs.filter(run => run.published)
-  return !emptyOrNil(publishedRuns) ?
-    `/courses/${
-      publishedRuns.sort((a, b) =>
-        a.best_start_date < b.best_start_date ? 1 : -1
-      )[0].slug
-    }/` :
-    null
+  return !emptyOrNil(publishedRuns)
+    ? `/courses/${
+        publishedRuns.sort((a, b) =>
+          a.best_start_date < b.best_start_date ? 1 : -1
+        )[0].slug
+      }/`
+    : null
 }
 
-export const getSectionUrl = result => {
+export const getSectionUrl = (result: LearningResourceResult) => {
   let url = result.url
   // a small number of urls still start with the legacy site prefix
   const legacyPrefix = "http://ocw.mit.edu"
@@ -513,8 +551,11 @@ export const getSectionUrl = result => {
   return `/pages/${urlPieces.join("/")}`
 }
 
-export const getResourceUrl = result => {
-  if (result.content_type === CONTENT_TYPE_PAGE) {
+export const getResourceUrl = (result: LearningResourceResult) => {
+  if (
+    result.object_type === LearningResourceType.ResourceFile &&
+    result.content_type === CONTENT_TYPE_PAGE
+  ) {
     // parse the url to get section pieces, then construct a new section url
     const sectionUrl = getSectionUrl(result)
     return `/courses/${result.run_slug}${sectionUrl}`
@@ -531,20 +572,20 @@ export const getResourceUrl = result => {
     }
   }
 }
-export const getResultUrl = result =>
-  result.object_type === LR_TYPE_COURSE ?
-    getCourseUrl(result) :
-    getResourceUrl(result)
+export const getResultUrl = (result: LearningResourceResult) =>
+  result.object_type === LearningResourceType.Course
+    ? getCourseUrl(result)
+    : getResourceUrl(result)
 
-export const getContentIcon = contentType => {
+export const getContentIcon = (contentType: ContentType): string => {
   switch (contentType) {
-  case CONTENT_TYPE_PDF:
-    return "picture_as_pdf"
-  case CONTENT_TYPE_VIDEO:
-    return "theaters"
-  case CONTENT_TYPE_PAGE:
-    return "web"
-  default:
-    return "file_copy"
+    case CONTENT_TYPE_PDF:
+      return "picture_as_pdf"
+    case CONTENT_TYPE_VIDEO:
+      return "theaters"
+    case CONTENT_TYPE_PAGE:
+      return "web"
+    default:
+      return "file_copy"
   }
 }

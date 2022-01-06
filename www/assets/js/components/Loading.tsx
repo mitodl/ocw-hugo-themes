@@ -39,7 +39,11 @@ export default function Loading() {
   )
 }
 
-export function Spinner(props) {
+interface Props {
+  className?: string
+}
+
+export function Spinner(props: Props) {
   const { className } = props
 
   return (

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { JSDOM } from "jsdom"
 
 import { initCourseInfoExpander } from "./course_expander"

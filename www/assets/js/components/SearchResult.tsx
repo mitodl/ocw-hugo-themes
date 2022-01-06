@@ -1,28 +1,37 @@
+// @ts-nocheck
 import React from "react"
 import Dotdotdot from "react-dotdotdot"
 import { serializeSearchParams } from "@mitodl/course-search-utils/dist/url_utils"
-import {
-  LR_TYPE_RESOURCEFILE,
-  LR_TYPE_VIDEO
-} from "@mitodl/course-search-utils/dist/constants"
 
 import Card from "./Card"
 
-import { CAROUSEL_IMG_HEIGHT, SEARCH_URL } from "../lib/constants"
+import {
+  CAROUSEL_IMG_HEIGHT,
+  LearningResourceType,
+  SEARCH_URL
+} from "../lib/constants"
 import {
   getContentIcon,
   getCoverImageUrl,
+  SearchLayout,
   SEARCH_GRID_UI,
   SEARCH_LIST_UI
 } from "../lib/search"
 import { emptyOrNil } from "../lib/util"
+import { LearningResource } from "../LearningResources"
 
-const getClassName = searchResultLayout =>
+const getClassName = (searchResultLayout: SearchLayout | undefined) =>
   `learning-resource-card ${
     searchResultLayout === SEARCH_LIST_UI ? "list-view" : ""
   }`.trim()
 
-const Subtitle = ({ label, children, htmlClass }) => (
+interface SubtitleProps {
+  label: string
+  children: React.ReactNode
+  htmlClass: string
+}
+
+const Subtitle = ({ label, children, htmlClass }: SubtitleProps) => (
   <div className="lr-row subtitle">
     <div className={`lr-subtitle ${htmlClass}`}>
       <div className="gray">{label}</div>
@@ -31,15 +40,17 @@ const Subtitle = ({ label, children, htmlClass }) => (
   </div>
 )
 
-const CoverImage = ({ object }) => (
+const CoverImage = ({ object }: { object: LearningResource }) => (
   <div className="cover-image">
-    <a href={object.url}>
+    <a href={object.url ?? ""}>
       <img
         src={getCoverImageUrl(object)}
         height={CAROUSEL_IMG_HEIGHT}
         alt={`cover image for ${object.title}`}
       />
-      {[object.object_type, object.content_type].includes(LR_TYPE_VIDEO) ? (
+      {[object.object_type, object.content_type].includes(
+        LearningResourceType.Video
+      ) ? (
         <img
           src="/images/video_play_overlay.png"
           className="video-play-icon"
@@ -50,14 +61,22 @@ const CoverImage = ({ object }) => (
   </div>
 )
 
-const makeIdTitle = id => `${id}-title`
-export default function SearchResult(props) {
+const makeIdTitle = (id: string) => `${id}-title`
+
+interface SRProps {
+  searchResultLayout?: SearchLayout
+  object: LearningResource
+  id: string
+  index: number
+}
+
+export default function SearchResult(props: SRProps) {
   const { searchResultLayout, object, id, index } = props
 
   return object.url ? (
     <article
       aria-labelledby={makeIdTitle(id)}
-      aria-setsize="-1"
+      aria-setsize={-1}
       aria-posinset={index + 1}
       tabIndex={0}
     >
@@ -71,9 +90,12 @@ export default function SearchResult(props) {
   ) : null
 }
 
-export function LearningResourceDisplay(props) {
+function isResource(object: LearningResource): boolean {
+  return object.object_type === LearningResourceType.ResourceFile
+}
+
+export function LearningResourceDisplay(props: SRProps) {
   const { object, searchResultLayout, id } = props
-  const isResource = object.object_type === LR_TYPE_RESOURCEFILE
 
   return (
     <React.Fragment>
@@ -82,14 +104,14 @@ export function LearningResourceDisplay(props) {
       ) : null}
       <div className="lr-info search-result">
         <div className="lr-row resource-type-audience-certificates">
-          {!isResource ? (
+          {!isResource(object) ? (
             <div className="resource-type">
               {`${object.coursenum}${object.level ? " | " : ""}${object.level}`}
             </div>
           ) : null}
         </div>
         <div className="lr-row course-title">
-          {isResource ? (
+          {isResource(object) && object.content_type ? (
             <i className="material-icons md-24 align-bottom pr-2">
               {getContentIcon(object.content_type)}
             </i>
@@ -98,7 +120,7 @@ export function LearningResourceDisplay(props) {
             <a href={object.url} className="w-100">
               <Dotdotdot clamp={3}>
                 <span id={makeIdTitle(id)}>
-                  {object.content_title || object.title}
+                  {isResource(object) ? object.content_title : object.title}
                 </span>
               </Dotdotdot>
             </a>
@@ -148,9 +170,9 @@ export function LearningResourceDisplay(props) {
                   className="topic-link"
                   key={idx}
                   href={`${SEARCH_URL}?${serializeSearchParams({
-                    text:         undefined,
+                    text: undefined,
                     activeFacets: {
-                      topics: topic.name
+                      topics: [topic.name]
                     }
                   })}`}
                 >
@@ -161,7 +183,7 @@ export function LearningResourceDisplay(props) {
             </Subtitle>
           </div>
         ) : null}
-        {isResource ? (
+        {isResource(object) ? (
           <div className="lr-row subtitles">
             <Dotdotdot clamp={3}>{object.description}</Dotdotdot>
           </div>

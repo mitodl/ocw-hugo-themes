@@ -1,5 +1,6 @@
+// @ts-nocheck
 import React from "react"
-import { mount } from "enzyme"
+import { mount, ReactWrapper } from "enzyme"
 import { act } from "react-dom/test-utils"
 import { search } from "../lib/api"
 import { times } from "ramda"
@@ -53,12 +54,14 @@ const defaultResourceFacets = {
 }
 
 describe("SearchPage component", () => {
-  const render = async (searchParam = "") => {
+  const render = async (searchParam = ""): Promise<ReactWrapper> => {
     window.location.search = searchParam
     let wrapper
+    // @ts-ignore
     await act(async () => {
       wrapper = mount(<SearchPage />)
     })
+    // @ts-ignore
     return wrapper
   }
 
@@ -367,7 +370,9 @@ describe("SearchPage component", () => {
     const wrapper = await render()
     await resolveSearch()
     wrapper.update()
-    const [topic, features, department] = wrapper.find(FilterableFacet)
+    const [topic, features, department] = Array.from(
+      wrapper.find("FilterableSearchFacet")
+    )
     expect(topic.props.name).toEqual("topics")
     expect(topic.props.title).toEqual("Topics")
     expect(topic.props.currentlySelected).toEqual([])

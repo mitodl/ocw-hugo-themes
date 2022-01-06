@@ -27,10 +27,13 @@ jobs:
         run: yarn install --frozen-lockfile --ignore-engines --prefer-offline
 
       - name: Lint
-        run: npm run lint
+        run: yarn lint
 
       - name: Tests
-        run: npm run test
+        run: yarn test
 
       - name: Code formatting
-        run: npm run fmt:check
+        run: yarn fmt:check
+
+      - name: typechecking
+        run: yarn typecheck

@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const initDesktopCourseInfoToggle = () => {
   const HIDE_COURSE_INFO_TEXT = "HIDE COURSE INFO"
   const SHOW_COURSE_INFO_TEXT = "SHOW COURSE INFO"

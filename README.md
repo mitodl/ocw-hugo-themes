@@ -81,11 +81,21 @@ The www theme is primarily responsible for rendering the OCW home page, although
 - [Yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable)
 - [Hugo](https://gohugo.io/getting-started/installing/)
 
-If you're running the site for the first time, or if dependencies have changed, install dependencies with:
+If you're running the site for the first time, or if dependencies have changed,
+install dependencies with:
 
 `yarn install`
 
-You will also need git access to clone repos from https://github.mit.edu/ocw-content-rc, so make sure your command line `git` interface is configured to do so.
+You will also need git access to clone repos from
+https://github.mit.edu/ocw-content-rc, so make sure your command line `git`
+interface is configured to do so.
+
+The frontend JS code is built using webpack and Typescript. You can run the
+Typescript compiler separately by doing
+
+```
+yarn typecheck
+```
 
 ### Obtaining content
 
@@ -156,9 +166,23 @@ To customize your `course` site:
 
 ### External API's
 
-The `www` theme accesses external API's made available by [`ocw-studio`](https://github.com/mitodl/ocw-studio) and [`open-discussions`](https://github.com/mitodl/open-discussions) for some functionality.  Search results are provided by `open-discusisons` and `ocw-studio` provides some content for the home page, such as newly added courses and news items.  If you need to work with this functionality you can either run a local instance of either of these projects, or alternatively point at the RC instances and temporarily disable CORS in your browser.
+The `www` theme accesses external API's made available by
+[`ocw-studio`](https://github.com/mitodl/ocw-studio) and
+[`open-discussions`](https://github.com/mitodl/open-discussions) for some
+functionality.  Search results are provided by `open-discusisons` and
+`ocw-studio` provides some content for the home page, such as newly added
+courses and news items.  If you need to work with this functionality you can
+either run a local instance of either of these projects, or alternatively point
+at the RC instances and temporarily disable CORS in your browser.
 
 ### CORS
 
-The search page at `/search` uses the `open-discussions` search API to source results.  Running this locally and populating it with results can be tedious, so it's often easier to just point your local website at an already running version of the search API.  In order for this to work properly, you will need to disable CORS.  This is a generally unsafe thing to do and you should make sure that in whatever browser you open with CORS disabled, you are only testing your local `ocw-www` site and not visiting other sites.  Here is a link that shows how to do this in various browsers: https://medium.com/swlh/avoiding-cors-errors-on-localhost-in-2020-5a656ed8cefa
-
+The search page at `/search` uses the `open-discussions` search API to source
+results.  Running this locally and populating it with results can be tedious,
+so it's often easier to just point your local website at an already running
+version of the search API.  In order for this to work properly, you will need
+to disable CORS.  This is a generally unsafe thing to do and you should make
+sure that in whatever browser you open with CORS disabled, you are only testing
+your local `ocw-www` site and not visiting other sites.  Here is a link that
+shows how to do this in various browsers:
+https://medium.com/swlh/avoiding-cors-errors-on-localhost-in-2020-5a656ed8cefa

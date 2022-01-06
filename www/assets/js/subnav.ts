@@ -6,11 +6,13 @@ const initSubNav = () => {
     navbar.find(".active").removeClass("active")
     clickedLink.addClass("active")
     $(".navbar-current-active").text(clickedLink.text())
-    const target = $(clickedLink.attr("href")).get(0)
-    const yOffset = -(navbar.height() + 20)
-    const y = target.getBoundingClientRect().top + window.scrollY + yOffset
+
+    const target = $(clickedLink.attr("href")!).get(0)
+    const yOffset = -(navbar.height()! + 20)
+    const y = target!.getBoundingClientRect().top + window.scrollY + yOffset
+
     window.scrollTo({
-      top:      y,
+      top: y,
       behavior: "smooth"
     })
   })
@@ -19,15 +21,19 @@ const initSubNav = () => {
   // [START] highlight subnav item as user scrolls
   $(window).on("scroll", function() {
     const position = window.pageYOffset
+
     $(".section").each(function() {
-      const target = $(this).offset().top
+      const target = $(this).offset()?.top
       const navHeight = $(".on-page-sub-nav").height()
-      if (position >= target - navHeight - 50) {
+
+      if (navHeight && target && position >= target - navHeight - 50) {
         const navLinks = $(".on-page-sub-nav  li a")
-        const id = $(this).attr("id")
         navLinks.removeClass("active")
-        const currentNavItem = $(`.on-page-sub-nav  li a[href="#${id}"]`)
+
+        const currentId = $(this).attr("id")
+        const currentNavItem = $(`.on-page-sub-nav  li a[href="#${currentId}"]`)
         currentNavItem.addClass("active")
+
         const brandText = currentNavItem.text()
         $(".navbar-brand > span").text(brandText)
       }

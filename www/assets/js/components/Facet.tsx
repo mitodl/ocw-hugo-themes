@@ -1,4 +1,4 @@
-// @flow
+// @ts-nocheck
 import React, { useState } from "react"
 import { contains } from "ramda"
 import has from "lodash.has"
@@ -8,7 +8,12 @@ import SearchFacetItem from "./SearchFacetItem"
 const MAX_DISPLAY_COUNT = 5
 const FACET_COLLAPSE_THRESHOLD = 15
 
-function SearchFacet(props) {
+interface Props {
+  name: string
+  title: string
+}
+
+function SearchFacet(props: Props) {
   const {
     name,
     title,
@@ -34,9 +39,9 @@ function SearchFacet(props) {
       </div>
       {showFacetList ? (
         <React.Fragment>
-          {results && results.buckets ?
-            results.buckets.map((facet, i) =>
-              showAllFacets ||
+          {results && results.buckets
+            ? results.buckets.map((facet, i) =>
+                showAllFacets ||
                 i < MAX_DISPLAY_COUNT ||
                 results.buckets.length < FACET_COLLAPSE_THRESHOLD ? (
                   <SearchFacetItem
@@ -48,8 +53,8 @@ function SearchFacet(props) {
                     labelFunction={labelFunction}
                   />
                 ) : null
-            ) :
-            null}
+              )
+            : null}
           {results && results.buckets.length >= FACET_COLLAPSE_THRESHOLD ? (
             <div
               className={"facet-more-less"}
@@ -64,7 +69,7 @@ function SearchFacet(props) {
   )
 }
 
-const propsAreEqual = (prevProps, nextProps) => {
+const propsAreEqual = (prevProps: Props, nextProps: Props) => {
   // results.buckets is null while the search request is in-flight
   // we want to defer rendering in that case because it will cause
   // all the facets to briefly disappear before reappearing

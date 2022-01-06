@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react"
 import flatten from "lodash.flatten"
 import toArray from "lodash.toarray"

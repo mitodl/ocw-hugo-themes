@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const clearSolution = () => {
   const radioElements = document.getElementsByClassName("multiple-choice-radio")
   for (const radio of radioElements) {

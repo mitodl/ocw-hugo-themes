@@ -65,3 +65,5 @@ venv/
 
 # webpack bundle analysis
 stats.json
+
+tsconfig.tsbuildinfo

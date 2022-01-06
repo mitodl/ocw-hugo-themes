@@ -4,6 +4,7 @@ import { shallow } from "enzyme"
 import SearchBox from "./SearchBox"
 
 describe("SearchBox component", () => {
+  // @ts-ignore
   const render = (props = {}) => shallow(<SearchBox {...props} />)
 
   test("should pass value, onChange to <input>, onSubmit to <form>", () => {

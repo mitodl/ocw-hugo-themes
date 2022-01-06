@@ -1,4 +1,4 @@
-// @flow
+// @ts-nocheck
 import React, { useState, useEffect, useCallback } from "react"
 import { contains } from "ramda"
 import has from "lodash.has"

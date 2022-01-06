@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react"
 import upperCase from "lodash.uppercase"
 import { shallow } from "enzyme"

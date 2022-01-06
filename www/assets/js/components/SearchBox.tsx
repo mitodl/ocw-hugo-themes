@@ -1,6 +1,12 @@
 import React from "react"
 
-export default function SearchBox(props) {
+interface Props {
+  value: string
+  onChange: React.ChangeEventHandler<HTMLInputElement>
+  onSubmit: React.FormEventHandler<HTMLFormElement>
+}
+
+export default function SearchBox(props: Props) {
   const { value, onChange, onSubmit } = props
 
   return (

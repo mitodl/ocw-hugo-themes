@@ -1,3 +1,4 @@
+// @ts-nocheck
 const toggleExpand = (button, container) => {
   const expanded = button.classList.contains("expanded")
   const readmoreText = button.querySelector(".read-more-text")

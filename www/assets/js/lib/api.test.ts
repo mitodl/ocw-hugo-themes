@@ -7,12 +7,15 @@ jest.mock("./search", () => ({
 
 describe("API module", () => {
   beforeEach(() => {
+    // @ts-ignore
     fetch.resetMocks()
   })
 
   it("should run a search", () => {
+    // @ts-ignore
     fetch.mockResponse(JSON.stringify({}))
     search({ text: "my text!" })
+    // @ts-ignore
     expect(fetch.mock.calls[0]).toEqual([
       process.env.SEARCH_API_URL,
       {

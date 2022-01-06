@@ -1,3 +1,4 @@
+// @ts-nocheck
 function initResponsiveTables() {
   const tables = document
     .getElementById("main-content")

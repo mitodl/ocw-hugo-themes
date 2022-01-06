@@ -14,6 +14,14 @@ import { setupEmailSignupForm } from "./js/mailchimp"
 import { initNotifications } from "./js/notification"
 import { initSubNav } from "./js/subnav"
 
+export interface OCWWindow extends Window {
+  $: JQueryStatic
+  jQuery: JQueryStatic
+  Popper: typeof Popper
+}
+
+declare let window: OCWWindow
+
 window.jQuery = $
 window.$ = $
 window.Popper = Popper

@@ -17,6 +17,7 @@ import { search } from "../lib/api"
 import { searchResultToLearningResource, SEARCH_LIST_UI } from "../lib/search"
 import { COURSENUM_SORT_FIELD } from "../lib/constants"
 import { emptyOrNil, isDoubleQuoted } from "../lib/util"
+import { LearningResourceResult } from "../LearningResources"
 
 export const SEARCH_PAGE_SIZE = 10
 
@@ -29,10 +30,24 @@ const COURSE_FACETS = [
 
 const RESOURCE_FACETS = [["resource_type", "Resource Types", true]]
 
+interface Result {
+  _source: LearningResourceResult
+}
+
+type Aggregation = {
+  doc_count_error_upper_bound?: number
+  sum_other_doc_count?: number
+  buckets: Array<{
+    key: string
+    doc_count: number
+  }>
+}
+type Aggregations = Map<string, Aggregation>
+
 export default function SearchPage() {
-  const [results, setSearchResults] = useState([])
-  const [facets, setSearchFacets] = useState(null)
-  const [suggestions, setSuggestions] = useState([])
+  const [results, setSearchResults] = useState<Result[]>([])
+  const [aggregations, setAggregations] = useState<Aggregations>(new Map())
+  const [suggestions, setSuggestions] = useState<string[]>([])
   const [total, setTotal] = useState(0)
   const [completedInitialLoad, setCompletedInitialLoad] = useState(false)
   const [requestInFlight, setRequestInFlight] = useState(false)
@@ -72,15 +87,15 @@ export default function SearchPage() {
           )
         )
       } else {
-        setSuggestions(null)
+        setSuggestions([])
       }
 
-      setSearchFacets(new Map(Object.entries(newResults.aggregations ?? {})))
+      setAggregations(new Map(Object.entries(newResults.aggregations ?? {})))
 
       setSearchResults(results =>
-        from === 0 ?
-          newResults.hits.hits :
-          [...results, ...newResults.hits.hits]
+        from === 0
+          ? newResults.hits.hits
+          : [...results, ...newResults.hits.hits]
       )
       setTotal(newResults.hits.total)
       setCompletedInitialLoad(true)
@@ -118,7 +133,7 @@ export default function SearchPage() {
   } = useCourseSearch(
     runSearch,
     clearSearch,
-    facets,
+    aggregations,
     // this is the 'loaded' value, which is what useCourseSearch uses
     // to determine whether to fire off a request or not.
     completedInitialLoad && !requestInFlight,
@@ -128,15 +143,19 @@ export default function SearchPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const toggleResourceSearch = useCallback(
     toggleOn => async () => {
-      const toggledFacets = [
+      const toggledFacets: [string, string, boolean][] = [
         ["type", LR_TYPE_RESOURCEFILE, toggleOn],
         ["type", LR_TYPE_COURSE, !toggleOn]
       ]
       // Remove any facets not relevant to the new search type
-      const newFacets = new Map(toggleOn ? RESOURCE_FACETS : COURSE_FACETS)
+      const newFacets: Map<string, string> = new Map(
+        // @ts-ignore
+        toggleOn ? RESOURCE_FACETS : COURSE_FACETS
+      )
+
       Object.entries(activeFacets).forEach(([key, list]) => {
         if (!newFacets.has(key) && !emptyOrNil(list)) {
-          list.forEach(value => {
+          list.forEach((value: string) => {
             toggledFacets.push([key, value, false])
           })
         }
@@ -204,7 +223,7 @@ export default function SearchPage() {
                             setSuggestions([])
                           }
                         }}
-                        tabIndex="0"
+                        tabIndex={0}
                       >
                         {` ${suggestion}`}
                       </a>
@@ -260,7 +279,9 @@ export default function SearchPage() {
               hasMore={from + SEARCH_PAGE_SIZE < total}
               loadMore={loadMore}
               initialLoad={false}
-              loader={completedInitialLoad ? <Spinner key="spinner" /> : null}
+              loader={
+                completedInitialLoad ? <Spinner key="spinner" /> : undefined
+              }
             >
               <section
                 role="feed"
