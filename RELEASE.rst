@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.38.2
+--------------
+
+- replaced span with h1 tag and fixed contrast issue
+
 Version 1.38.1 (Released January 05, 2022)
 --------------
 
