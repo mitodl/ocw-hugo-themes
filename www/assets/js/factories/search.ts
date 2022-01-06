@@ -8,7 +8,8 @@ import {
   PodcastEpisodeResult,
   ResourceFileResult,
   VideoResult,
-  LearningResourceResult
+  LearningResourceResult,
+  CourseJSON
 } from "../LearningResources"
 
 import {
@@ -130,6 +131,44 @@ export const makeCourseResult = (): CourseResult => ({
   short_url: undefined
 })
 
+export const makeCourseJSON = (): CourseJSON => ({
+  site_uid: casual.uuid,
+  legacy_uid: casual.uuid,
+  primary_course_number: casual.word,
+  extra_course_numbers: casual.word,
+  term: casual.word,
+  course_title: casual.title,
+  course_description: casual.description,
+  image_src: casual.url,
+  topics: [
+    [casual.word],
+    [casual.word, casual.word],
+    [casual.word, casual.word]
+  ],
+  level: casual.random_element(["Graduate", "Undergraduate", null]),
+  instructors: [...Array(4)].map(() => {
+    let first_name = casual.first_name
+    let last_name = casual.last_name
+
+    return {
+      first_name,
+      last_name,
+      middle_initial: casual.letter.toUpperCase(),
+      salutation: "Prof.",
+      title: `Prof. ${first_name}, ${last_name}`
+    }
+  }),
+  department_numbers: [casual.word, casual.word],
+  learning_resource_types: [casual.word, casual.word],
+  year: String(casual.year),
+  course_image_metadata: {
+    file: casual.string,
+    image_metadata: {
+      "image-alt": casual.short_description,
+      caption: casual.short_description
+    }
+  }
+})
 export const makeResourceFileResult = (): ResourceFileResult => ({
   id: casual.integer(1, 1000),
   course_id: `course_${String(casual.random)}`,

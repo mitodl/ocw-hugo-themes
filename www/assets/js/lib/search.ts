@@ -13,7 +13,7 @@ import { Facets, SortParam } from "@mitodl/course-search-utils/dist/url_utils"
 import {
   CourseResult,
   CourseRun,
-  FacetKey,
+  CourseJSON,
   LearningResource,
   LearningResourceResult,
   Level
@@ -506,6 +506,38 @@ export const buildDefaultSort = () => {
 export const SEARCH_GRID_UI = "grid"
 export const SEARCH_LIST_UI = "list"
 export type SearchLayout = typeof SEARCH_GRID_UI | typeof SEARCH_LIST_UI
+
+export const courseJSONToLearningResource = (
+  name: string,
+  courseData: CourseJSON
+): LearningResource => ({
+  id: courseData.site_uid || courseData.legacy_uid,
+  title: courseData.course_title,
+  image_src: courseData.image_src,
+  object_type: LearningResourceType.Course,
+  platform: OCW_PLATFORM,
+  topics: courseData.topics
+    ? Array.from(new Set(courseData.topics.flat())).map(topic => ({
+        name: topic
+      }))
+    : [],
+  runs: [],
+  level: courseData.level,
+  instructors: courseData.instructors.map(instructor => instructor.title),
+  department: courseData.department_numbers.join(" "),
+  audience: undefined,
+  certification: undefined,
+  content_title: undefined,
+  run_title: null,
+  run_slug: null,
+  content_type: null,
+  url: `/courses/${name}/`,
+  short_url: null,
+  course_id: courseData.site_uid || courseData.legacy_uid,
+  coursenum: courseData.primary_course_number,
+  description: courseData.course_description,
+  course_feature_tags: []
+})
 
 export const searchResultToLearningResource = (
   result: LearningResourceResult

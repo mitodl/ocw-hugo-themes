@@ -9,6 +9,7 @@ import ReactDOM from "react-dom"
 import React from "react"
 
 import SearchPage from "./js/components/SearchPage"
+import CourseCollection from "./js/components/CourseCollection"
 
 import { setupEmailSignupForm } from "./js/mailchimp"
 import { initNotifications } from "./js/notification"
@@ -30,6 +31,13 @@ $(document).ready(() => {
   const searchPageEl = document.querySelector("#search-page")
   if (searchPageEl) {
     ReactDOM.render(<SearchPage />, searchPageEl)
+  }
+
+  const courseCollectionEl = document.querySelector(
+    "#course-collection-container"
+  )
+  if (courseCollectionEl) {
+    ReactDOM.render(<CourseCollection />, courseCollectionEl)
   }
 
   initNotifications()

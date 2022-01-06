@@ -76,9 +76,7 @@ export default function SearchResult(props: SRProps) {
       aria-posinset={index + 1}
       tabIndex={0}
     >
-      <Card className={getClassName(searchResultLayout)}>
-        <LearningResourceDisplay {...props} />
-      </Card>
+      <LearningResourceDisplay {...props} />
     </article>
   ) : null
 }
@@ -91,7 +89,7 @@ export function LearningResourceDisplay(props: SRProps) {
   const { object, searchResultLayout, id } = props
 
   return (
-    <React.Fragment>
+    <Card className={getClassName(searchResultLayout)}>
       {searchResultLayout === SEARCH_GRID_UI ? (
         <CoverImage object={object} />
       ) : null}
@@ -185,6 +183,6 @@ export function LearningResourceDisplay(props: SRProps) {
       {searchResultLayout === SEARCH_GRID_UI ? null : (
         <CoverImage object={object} />
       )}
-    </React.Fragment>
+    </Card>
   )
 }

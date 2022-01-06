@@ -1,0 +1,28 @@
+{{ define "main" }}
+{{- $collection := . -}}
+<div>
+  {{ block "header" . }}
+  {{ partialCached "header" . }}
+  {{ end }}
+  <div class="container standard-width mx-auto mt-5">
+    <h1>
+      {{ $collection.Title }}
+    </h1>
+    <div>
+      {{ $collection.Description | .RenderString }}
+    </div>
+    <div id="course-collection-container"></div>
+  </div>
+  <script>
+    {{ $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocwnext.odl.mit.edu"  }}
+    {{ $collectionData := dict }}
+    {{ range $collection.Params.courses }}
+        {{ $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/courses/" .id "/data.json") "" }}
+        {{ $data := getJSON $url }}
+        {{ $collectionData = merge $collectionData (dict .id $data) }}
+    {{ end }}
+    window.courseCollectionContents = JSON.parse("{{ $collectionData | jsonify }}");
+  </script>
+</div>
+{{ end }}
+

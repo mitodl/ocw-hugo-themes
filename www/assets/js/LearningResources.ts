@@ -41,6 +41,40 @@ export interface CourseResult {
   short_url: undefined
 }
 
+interface Instructor {
+  first_name: string
+  last_name: string
+  middle_initial: string
+  salutation: string
+  title: string
+}
+
+interface ImageMetadata {
+  file: string
+  image_metadata: {
+    "image-alt": string
+    caption: string
+  }
+}
+
+export interface CourseJSON {
+  course_title: string
+  course_description: string
+  site_uid: string
+  legacy_uid: string
+  instructors: Instructor[]
+  department_numbers: string[]
+  learning_resource_types: string[]
+  topics: string[][]
+  primary_course_number: string
+  extra_course_numbers: string
+  term: string
+  year: string
+  level: Level
+  image_src: string
+  course_image_metadata: ImageMetadata
+}
+
 interface CourseRunPrice {
   mode: string
   price: number
@@ -179,7 +213,7 @@ interface Topic {
 }
 
 export interface LearningResource {
-  id: number
+  id: number | string
   title: string
   image_src: string
   object_type: LearningResourceType

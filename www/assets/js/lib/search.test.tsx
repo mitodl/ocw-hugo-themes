@@ -20,9 +20,10 @@ import {
   LEARN_SUGGEST_FIELDS,
   RESOURCE_QUERY_NESTED_FIELDS,
   RESOURCEFILE_QUERY_FIELDS,
-  searchFields
+  searchFields,
+  courseJSONToLearningResource
 } from "./search"
-import { makeLearningResourceResult } from "../factories/search"
+import { makeLearningResourceResult, makeCourseJSON } from "../factories/search"
 import { Facets } from "@mitodl/course-search-utils/dist/url_utils"
 
 describe("search library", () => {
@@ -549,5 +550,13 @@ describe("search library", () => {
       }
       expect(getSectionUrl(result)).toBe("/pages/path/to/a/pdf")
     })
+  })
+
+  it("should let you convert a CourseJSON record to a LearningResource", () => {
+    const lr = courseJSONToLearningResource(
+      "course-name-i-made-up",
+      makeCourseJSON()
+    )
+    expect(lr.url).toBe("/courses/course-name-i-made-up/")
   })
 })
