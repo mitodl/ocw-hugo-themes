@@ -7,14 +7,14 @@ const toggleExpand = (button, container) => {
     button.setAttribute("aria-expanded", "false")
     container.classList.add("collapsed")
     if (arrow) {
-      arrow.textContent = "keyboard_arrow_right"
+      arrow.textContent = "keyboard_arrow_down"
     }
   } else {
     button.classList.add("expanded")
     button.setAttribute("aria-expanded", "true")
     container.classList.remove("collapsed")
     if (arrow) {
-      arrow.textContent = "keyboard_arrow_down"
+      arrow.textContent = "keyboard_arrow_up"
     }
   }
 

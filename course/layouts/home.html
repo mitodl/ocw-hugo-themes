@@ -31,29 +31,35 @@
             <div class="container-fluid p-0">
               <div class="row m-0">
                 <div id="main-content" class="col-12 col-lg-12 col-xl-12 px-3 pl-md-5 pr-md-8 mt-3 mt-lg-5">
-                  <!-- the number here is a estimate, a count of 5 lines of characters on a sample course at minimum browser width -->
-                  {{ $shouldCollapseContent := gt (len .Content) 320 }}
                   <div class="homepage-content d-flex">
                     <div class="container-fluid pt-0 pb-4">
-                      <div class="row px-3 pb-2 justify-content-between">
+                      <div class="row px-3 pb-2 justify-content-between">                          
                         <div class="col-lg-4 d-none d-lg-block pl-0">
                           <div class="d-flex flex-column image-with-caption">
                             <img class="course-image" src="{{ $courseImageUrl }}"
                               alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}"
                             />
-                            <span class="caption p-3">
+                            {{/*  <img class="course-image" src="https://www.3playmedia.com/wp-content/uploads/mit-ocw-laptop-1.png.webp"
+                            alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}"
+                          />  */}}
+                          <div class="caption p-3">
+                            <span class="image-description">
                               {{ $courseImageMetadata.Params.image_metadata.caption | .RenderString }}
                             </span>
                           </div>
                         </div>
+                        </div>
                         {{ partial "mobile_nav_toggle.html" . }}
-                        <div class="col-lg-8 course-description expand-container {{ if $shouldCollapseContent }}collapsed{{ end }}">
+                        <!-- the number here is a estimate, a count of 5 lines of characters on a sample course at minimum browser width -->
+                        {{ $shouldCollapseCourseDescription := gt (len $courseData.course_description) 320 }}
+                        <div class="col-lg-8 course-description expand-container {{ if $shouldCollapseCourseDescription }}collapsed{{ end }}">
                           <h4 class="font-weight-bold course-description-title">Course Description</h4>
-                          <div class="mb-1 description">{{- $courseData.course_description | markdownify -}}</div>
+                          <div class="description">{{- $courseData.course_description | markdownify -}}</div>
+                          <hr>
                           <div class="mb-3">
-                            {{ if $shouldCollapseContent }}
-                              <button class="expand-link" aria-expanded="false">
-                                <span class="read-more-text">Read More</span>
+                            {{ if $shouldCollapseCourseDescription }}
+                              <button class="expand-link float-right" aria-expanded="false">
+                                <span class="expander-arrow material-icons">keyboard_arrow_down</span>
                               </button>
                             {{ end }}
                           </div>
