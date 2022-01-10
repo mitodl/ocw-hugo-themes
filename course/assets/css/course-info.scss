@@ -152,4 +152,23 @@
       color: black;
     }
   }
+
+  a.collapsed span:after {
+    content: 'keyboard_arrow_down';
+  }
+  
+  a:not(.collapsed) span:after {
+    content: 'keyboard_arrow_up';
+  }
+  
+  #course-description.collapse:not(.show) {
+    display: block;
+    /* height = lineheight * no of lines to display */
+    height: 4.5em;
+    overflow: hidden;
+  }
+  
+  #course-description.collapsing {
+    height: 4.5em;
+  }
 }
