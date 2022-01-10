@@ -37,12 +37,9 @@
                         {{ $shouldCollapseCourseImageDescription := gt (len $courseImageMetadata.Params.image_metadata.caption) 100 }}                        
                         <div class="col-lg-4 d-none d-lg-block pl-0">
                           <div class="d-flex flex-column image-with-caption">
-                            {{/*  <img class="course-image" src="{{ $courseImageUrl }}"
+                            <img class="course-image" src="{{ $courseImageUrl }}"
                               alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}"
-                            />  */}}
-                            <img class="course-image" src="https://www.3playmedia.com/wp-content/uploads/mit-ocw-laptop-1.png.webp"
-                            alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}"
-                          />
+                            />
                           <div class="caption px-3 pt-3 expand-container {{ if $shouldCollapseCourseImageDescription }}collapsed{{ end }}">
                             <div class="image-description">
                               {{ $courseImageMetadata.Params.image_metadata.caption | .RenderString }}
