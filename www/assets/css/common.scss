@@ -26,3 +26,77 @@
     }
   }
 }
+
+@media (max-width: 900px) {
+  h2#ocw-20-text {
+    padding: 1rem 0 0 1rem;
+    font-size: 18px;
+  }
+  #about-us #ocw-at-20 #ocw-20-text {
+    line-height: 1.8rem;
+  }
+  #about-us .pb-7 {
+    padding: 2rem 0 !important;
+  }
+  #about-us h1,
+  #educator-main-section h1 {
+    font-size: 24px;
+  }
+  #about-us #ocw-at-20 {
+    padding-right: 0 !important;
+  }
+  #ocw-at-20 h1 {
+    padding-left: 0;
+    margin: 0 auto;
+  }
+  #beyond-course-materials {
+    padding: 0rem 0 4rem 4rem !important;
+  }
+  #about-us #president-dean-messages .container h1 {
+    font-size: 2.4rem;
+  }
+  #presidents-message p {
+    font-size: 18px;
+  }
+  #educator-main-section {
+    border: 1px solid red;
+    padding: 0;
+  }
+  #educator-main-section .px-5 {
+    padding: 0 1rem !important;
+  }
+  #educator-main-section h1 {
+    font-size: 24px;
+  }
+  #educator-main-section h3 {
+    line-height: 1.4rem;
+    margin-bottom: 2rem;
+  }
+  #discover-oer .section-inner-content,
+  #share-adaptions .section-inner-content,
+  #connect .section-inner-content {
+    padding-left: 0rem;
+  }
+  #adapt-oer .section-inner-content,
+  #explore-reflective-practice .section-inner-content {
+    padding-right: 0rem;
+  }
+  .section-inner-content {
+    padding-top: 1rem;
+  }
+  #adapt-oer .row,
+  #explore-reflective-practice .row {
+    flex-direction: column-reverse;
+  }
+  #explore-reflective-practice .section-chalk-radio {
+    padding: 4rem 0 2rem 0;
+    height: auto;
+  }
+  #cadogan-quote h2 {
+    letter-spacing: 0 !important;
+    font-size: 1.3rem;
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 1rem 0;
+  }
+}

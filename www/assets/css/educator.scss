@@ -1,4 +1,8 @@
 #educator-main-section {
+  max-width: $max-content-width;
+  margin: 0 auto;
+  padding: 0 1rem;
+
   .section {
     margin-top: 5%;
     max-width: $max-content-width;
@@ -45,10 +49,27 @@
     }
   }
 
-  @include media-breakpoint-down(xs) {
-    .section-inner-content {
-      margin-top: 5%;
-    }
+  #discover-oer .section-inner-content,
+  #share-adaptions .section-inner-content,
+  #connect .section-inner-content {
+    padding-left: 1.5rem;
+  }
+
+  #adapt-oer .section-inner-content,
+  #explore-reflective-practice .section-inner-content {
+    padding-right: 1.5rem;
+  }
+
+  #explore-reflective-practice .section-chalk-radio {
+    padding: 10rem 0 2rem 0;
+    height: auto;
+  }
+
+  #cadogan-quote h2 {
+    letter-spacing: 0 !important;
+    font-size: 2.2rem;
+    max-width: 80%;
+    margin: 0 auto;
   }
 
   .section-chalk-radio {
@@ -59,8 +80,21 @@
     color: $white;
   }
 
+  .row.bg {
+    background-size: cover;
+  }
+
   .bg {
     background-repeat: no-repeat;
     background-position: center;
+  }
+
+  @include media-breakpoint-down(xs) {
+    .section-inner-content {
+      margin-top: 5%;
+    }
+  }
+
+  @media (max-width: 900px) {
   }
 }
