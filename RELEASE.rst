@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.38.3
+--------------
+
+- json data pages
+- fixed issue regarding box overflow
+
 Version 1.38.2 (Released January 07, 2022)
 --------------
 
