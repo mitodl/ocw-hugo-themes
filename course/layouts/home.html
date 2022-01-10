@@ -40,13 +40,15 @@
                             <img class="course-image" src="{{ $courseImageUrl }}"
                               alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}"
                             />
-                            <div id="course-image-description" class="caption p-3 {{ if $shouldCollapseImageDescription }}collapse{{ end }}" aria-expanded="false">
-                              <span>
-                                {{ $courseImageMetadata.Params.image_metadata.caption | .RenderString }}
-                              </span>
+                            <div id="course-image-description" class="{{ if $shouldCollapseImageDescription }}collapse{{ end }}" aria-expanded="false">
+                              <div class="caption pt-3 px-3">
+                                <span>
+                                  {{ $courseImageMetadata.Params.image_metadata.caption | .RenderString }}
+                                </span>
+                              </div>
                             </div>
                             {{ if $shouldCollapseImageDescription }}
-                            <div class="float-right px-2">
+                            <div class="collapse-btn-section ml-auto pt-1 px-3">
                               <a role="button" class="collapsed" data-toggle="collapse" href="#course-image-description" aria-expanded="false" aria-controls="course-image-description">
                                 <span class="material-icons"></span>
                               </a>
@@ -64,7 +66,7 @@
                           </div>
                           <hr class="mt-2 mb-0">
                           {{ if $shouldCollapseDescription }}
-                          <div class="mb-3 float-right">
+                          <div class="collapse-btn-section mb-3 float-right">
                             <a role="button" class="collapsed" data-toggle="collapse" href="#course-description" aria-expanded="false" aria-controls="course-description">
                               <span class="material-icons"></span>
                             </a>
