@@ -86,5 +86,9 @@
   #desktop-header {
     position: absolute;
     background-color: transparent;
+
+    @include media-breakpoint-down(lg) {
+      height: 90px;
+    }
   }
 }
