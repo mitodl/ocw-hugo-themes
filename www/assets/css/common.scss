@@ -49,11 +49,11 @@
     padding-left: 0;
     margin: 0 auto;
   }
-  #beyond-course-materials {
-    padding: 0rem 0 4rem 4rem !important;
-  }
   #about-us #president-dean-messages .container h1 {
     font-size: 2.4rem;
+  }
+  #beyond-course-materials {
+    padding: 0rem 0rem 0rem 0rem !important;
   }
   #presidents-message p {
     font-size: 18px;
@@ -75,11 +75,11 @@
   #discover-oer .section-inner-content,
   #share-adaptions .section-inner-content,
   #connect .section-inner-content {
-    padding-left: 0rem;
+    padding-left: 0rem !important;
   }
   #adapt-oer .section-inner-content,
   #explore-reflective-practice .section-inner-content {
-    padding-right: 0rem;
+    padding-right: 0rem !important;
   }
   .section-inner-content {
     padding-top: 1rem;
@@ -94,7 +94,7 @@
   }
   #cadogan-quote h2 {
     letter-spacing: 0 !important;
-    font-size: 1.3rem;
+    font-size: 1.3rem !important;
     max-width: 80%;
     margin: 0 auto;
     padding: 1rem 0;
