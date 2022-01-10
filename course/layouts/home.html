@@ -34,14 +34,24 @@
                   <div class="homepage-content d-flex">
                     <div class="container-fluid pt-0 pb-4">
                       <div class="row px-3 pb-2 justify-content-between">
+                        {{ $shouldCollapseImageDescription := gt (len $courseImageMetadata.Params.image_metadata.caption) 100 }}
                         <div class="col-lg-4 d-none d-lg-block pl-0">
                           <div class="d-flex flex-column image-with-caption">
                             <img class="course-image" src="{{ $courseImageUrl }}"
                               alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}"
                             />
-                            <span class="caption p-3">
-                              {{ $courseImageMetadata.Params.image_metadata.caption | .RenderString }}
-                            </span>
+                            <div id="course-image-description" class="caption p-3 {{ if $shouldCollapseImageDescription }}collapse{{ end }}" aria-expanded="false">
+                              <span>
+                                {{ $courseImageMetadata.Params.image_metadata.caption | .RenderString }}
+                              </span>
+                            </div>
+                            {{ if $shouldCollapseImageDescription }}
+                            <div class="float-right px-2">
+                              <a role="button" class="collapsed" data-toggle="collapse" href="#course-image-description" aria-expanded="false" aria-controls="course-image-description">
+                                <span class="material-icons"></span>
+                              </a>
+                            </div>
+                            {{ end }}
                           </div>
                         </div>
                         {{ partial "mobile_nav_toggle.html" . }}
@@ -53,13 +63,13 @@
                             {{- $courseData.course_description | markdownify -}}
                           </div>
                           <hr class="mt-2 mb-0">
+                          {{ if $shouldCollapseDescription }}
                           <div class="mb-3 float-right">
-                            {{ if $shouldCollapseDescription }}
-                              <a role="button" class="collapsed" data-toggle="collapse" href="#course-description" aria-expanded="false" aria-controls="course-description">
-                                <span class="material-icons"></span>
-                              </a>
-                            {{ end }}
+                            <a role="button" class="collapsed" data-toggle="collapse" href="#course-description" aria-expanded="false" aria-controls="course-description">
+                              <span class="material-icons"></span>
+                            </a>
                           </div>
+                          {{ end }}
                           {{ partial "course_info.html" (dict "context" . "inPanel" false) }}
                         </div>
                       </div>
