@@ -33,19 +33,25 @@
                 <div id="main-content" class="col-12 col-lg-12 col-xl-12 px-3 pl-md-5 pr-md-8 mt-3 mt-lg-5">
                   <div class="homepage-content d-flex">
                     <div class="container-fluid pt-0 pb-4">
-                      <div class="row px-3 pb-2 justify-content-between">                          
+                      <div class="row px-3 pb-2 justify-content-between">  
+                        {{ $shouldCollapseCourseImageDescription := gt (len $courseImageMetadata.Params.image_metadata.caption) 100 }}                        
                         <div class="col-lg-4 d-none d-lg-block pl-0">
                           <div class="d-flex flex-column image-with-caption">
-                            <img class="course-image" src="{{ $courseImageUrl }}"
+                            {{/*  <img class="course-image" src="{{ $courseImageUrl }}"
                               alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}"
-                            />
-                            {{/*  <img class="course-image" src="https://www.3playmedia.com/wp-content/uploads/mit-ocw-laptop-1.png.webp"
+                            />  */}}
+                            <img class="course-image" src="https://www.3playmedia.com/wp-content/uploads/mit-ocw-laptop-1.png.webp"
                             alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}"
-                          />  */}}
-                          <div class="caption p-3">
-                            <span class="image-description">
+                          />
+                          <div class="caption px-3 pt-3 expand-container {{ if $shouldCollapseCourseImageDescription }}collapsed{{ end }}">
+                            <div class="image-description">
                               {{ $courseImageMetadata.Params.image_metadata.caption | .RenderString }}
-                            </span>
+                            </div>
+                            {{ if $shouldCollapseCourseImageDescription }}
+                            <button class="expand-link float-right" aria-expanded="false">
+                              <span class="expander-arrow material-icons">keyboard_arrow_down</span>
+                            </button>
+                            {{ end }}
                           </div>
                         </div>
                         </div>

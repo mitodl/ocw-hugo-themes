@@ -27,12 +27,6 @@
       }
     }
   }
-
-  .course-info-expander {
-    .material-icons {
-      margin-left: 48px;
-    }
-  }
 }
 
 .partial-collapse-overlay {
@@ -136,18 +130,6 @@
     .description {
       max-height: 6rem;
       overflow: hidden;
-    }
-  }
-
-  .expand-link {
-    align-items: center;
-    border: 0;
-    padding: 0;
-    background-color: white;
-    color: $blue;
-
-    .material-icons {
-      color: black;
     }
   }
 }

@@ -11,7 +11,7 @@ describe("initCourseInfoExpander", () => {
       <div class="course-info expand-container collapsed">
         <a class="expand-link course-info-link" aria-expanded="false">
           <h4>Course Info</h4>
-          <span class="expander-arrow material-icons">keyboard_arrow_right</span>
+          <span class="expander-arrow material-icons">keyboard_arrow_down</span>
         </a>
       </div>
       <button class="expand-link read-more" aria-expanded="false">
@@ -33,7 +33,7 @@ describe("initCourseInfoExpander", () => {
     const arrow = button.querySelector(".expander-arrow")
     if (arrow) {
       expect(arrow.textContent).toBe(
-        expanded ? "keyboard_arrow_down" : "keyboard_arrow_right"
+        expanded ? "keyboard_arrow_up" : "keyboard_arrow_down"
       )
     }
   }

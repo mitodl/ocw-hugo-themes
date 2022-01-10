@@ -24,6 +24,13 @@
       p {
         margin-bottom: 0;
       }
+
+      &.collapsed {
+        .image-description {
+          max-height: 4.5rem;
+          overflow: hidden;
+        }
+      }    
     }
   }
 
@@ -62,6 +69,17 @@
       li {
         padding-bottom: 4px;
       }
+    }
+  }
+
+  .expand-link {
+    border: 0;
+    padding: 0;
+    background-color: white;
+    color: $blue;
+
+    .material-icons {
+      color: black;
     }
   }
 }

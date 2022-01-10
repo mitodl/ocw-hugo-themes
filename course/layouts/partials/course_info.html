@@ -5,8 +5,8 @@
     <div>
       <h4 class="course-info-title font-weight-bold">Course Info</h4>
     </div>
-    <div class="position-relative" >
-      <table id="course-info-table" class="table table-borderless mb-2">
+    <div class="position-relative">
+      <table id="course-info-table" class="table table-borderless {{ if $inPanel }}border-bottom-gray{{ end }} mb-2">
         {{ with $courseData.instructors.content }}
         <tr>
           {{ $instructors := partial "get_instructors.html" . }}
@@ -64,7 +64,7 @@
       </table>
     </div>
   </div>
-  <div class="course-info-expander">
+  <div>
     <hr>
     {{ if not $inPanel }}
     <a class="expand-link float-right" aria-expanded="false" href="#">
