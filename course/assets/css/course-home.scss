@@ -64,4 +64,12 @@
       }
     }
   }
+
+  a.collapsed span:after {
+    content: "keyboard_arrow_down";
+  }
+
+  a:not(.collapsed) span:after {
+    content: "keyboard_arrow_up";
+  }
 }

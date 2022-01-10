@@ -49,7 +49,7 @@
                         {{ $shouldCollapseDescription := gt (len $courseData.course_description) 320 }}
                         <div class="col-lg-8 course-description">
                           <h4 class="font-weight-bold course-description-title">Course Description</h4>
-                          <div class="mb-1 description {{ if $shouldCollapseDescription }}collapse{{ end }}" id="course-description" aria-expanded="false">
+                          <div id="course-description" class="mb-1 description {{ if $shouldCollapseDescription }}collapse{{ end }}" aria-expanded="false">
                             {{- $courseData.course_description | markdownify -}}
                           </div>
                           <hr class="mt-2 mb-0">
