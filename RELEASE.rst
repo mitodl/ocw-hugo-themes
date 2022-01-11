@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.38.3
+Version 1.38.3 (Released January 11, 2022)
 --------------
 
 - json data pages
