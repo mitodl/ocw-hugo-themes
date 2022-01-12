@@ -1,4 +1,5 @@
 {{- $courseData := .Site.Data.course -}}
+{{- $courseImageMetadata := index (partial "course-image-url.html" .) 1 -}}
 {
   "course_title": {{- $courseData.course_title | jsonify -}},
   "course_description": {{- $courseData.course_description | jsonify -}},
@@ -29,6 +30,8 @@
   "extra_course_numbers":  {{- $courseData.extra_course_numbers | jsonify -}},
   "term":  {{- $courseData.term | jsonify -}},
   "year":  {{- $courseData.year | jsonify -}},
-  "level":  {{- $courseData.level | jsonify -}}
+  "level":  {{- $courseData.level | jsonify -}},
+  "image_src": {{- $courseImageMetadata.Params.file | jsonify -}},
+  "course_image_metadata": {{- $courseImageMetadata.Params | jsonify -}}
 }
 
