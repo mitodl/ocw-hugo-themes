@@ -636,4 +636,5 @@
     </div>
   </div>
 </div>
-{{ end }}
+{{ block "footer" . }} {{ partialCached "footer" . }} {{ end }}
+{{end}}
