@@ -1,0 +1,119 @@
+{{ define "main" }} {{ block "header" . }} {{ partialCached "header" . }}
+{{end}}
+<div id="contact-main-section" class="page-single">
+  <div class="px-lg-5 mt-6">
+    <div class="row">
+      <div class="col-12">
+        <h1>Contact Us</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="pr-lg-6 pr-4">
+          <div class="faq-section">
+            <h3>Frequently asked questions</h3>
+            <div class="faq">
+              <p class="question">
+                <b>What is MIT OpenCourseWare?</b>
+              </p>
+              <p class="answer">
+                MIT OpenCourseWare is a free and open publication of material
+                from thousands of MIT courses, covering the entire MIT
+                curriculum and used by millions of learners and educators around
+                the world.
+              </p>
+            </div>
+            <div class="faq">
+              <p class="question">
+                <b>Do I have to register or sign up?</b>
+              </p>
+              <p class="answer">
+                No enrollment or registration. Freely browse and use OCW
+                materials at your own pace. There's no signup, and no start or
+                end dates.
+              </p>
+            </div>
+            <div class="faq">
+              <p class="question">
+                <b>Why is OCW made free to the public?</b>
+              </p>
+              <p class="answer">
+                Knowledge is your reward. Use OCW to guide your own life-long
+                learning, or to teach others. We don't offer credit or
+                certification for using OCW.
+              </p>
+            </div>
+            <div class="faq">
+              <p class="question">
+                <b>Are there any restrictions on use of OCW materials?</b>
+              </p>
+              <p class="answer">
+                Made for sharing. Download files for later. Send to friends and
+                colleagues. Modify, remix, and reuse (just remember to cite OCW
+                as the source.)
+              </p>
+            </div>
+            <div class="faq">
+              <h3>Still have questions?</h3>
+              <p>
+                Please see our
+                <a href="#">Help pages for answers to many common questions</a>
+                about OCW.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div>
+          <img
+            width="100%"
+            src="/images/contact/frequently-asked-questions.jpg"
+            alt="Discover OER on MIT OpenCourseWare"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h3>Get in touch</h3>
+        <p class="my-1">
+          If you did not find the answer in the <a href="#">OCW help pages</a>,
+          please fill out the form below and a staff member will respond within
+          2 business days.
+        </p>
+      </div>
+      <div class="col-lg-6">
+        <form class="mt-4" action="#" method="POST">
+          <div class="form-group">
+            <label for="first-name">First Name <span class="color-red">*</span></label>
+            <input class="form-control custom-input" type="text" id="first-name">
+          </div>
+          <div class="form-group">
+            <label for="last-name">Last Name <span class="color-red">*</span></label>
+            <input class="form-control custom-input" type="text" id="last-name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email <span class="color-red">*</span></label>
+            <input class="form-control custom-input" type="email" id="email">
+          </div>
+          <div class="form-group">
+            <label for="cars">Choose a car:</label>
+
+            <select class="form-control custom-input" name="cars" id="cars">
+              <option value="volvo">Volvo</option>
+              <option value="saab">Saab</option>
+              <option value="mercedes">Mercedes</option>
+              <option value="audi">Audi</option>
+            </select>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{{ end }}
