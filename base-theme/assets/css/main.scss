@@ -364,3 +364,16 @@ article.content {
   box-shadow: 0 1px 1px 0 rgba(0,0,0,0.15);
   font-size: 16px;
 }
+
+.custom-btn{
+  height: 60px;
+  width: 180px;
+  border-radius: 4px;
+  font-size: 18px;
+  color: $white;
+  background-color: $highlight-red;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 22px;
+  text-align: center;
+}
