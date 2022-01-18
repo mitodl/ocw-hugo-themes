@@ -1,19 +1,11 @@
 {{ $courseData := .context.Site.Data.course }}
 {{ $inPanel := .inPanel }}
-<div class="table-responsive course-info expand-container {{ if not $inPanel }}collapsed{{ end }}">
+<div class="table-responsive course-info">
   <div class="course-info-expander">
-    {{ if not $inPanel }}
-    <a class="expand-link d-flex align-items-center text-decoration-none" aria-expanded="false" href="#">
-      <h4 class="course-info-title font-weight-bold d-inline m-0">Course Info</h4>
-      <span class="expander-arrow material-icons">keyboard_arrow_right</span>
-    </a>
-    {{ else }}
     <h4 class="course-info-title font-weight-bold">Course Info</h4>
-    {{ end }}
   </div>
-  <div class="position-relative">
-    <div class="opaque-layer"></div>
-    <table id="course-info-table" class="table table-borderless {{ if $inPanel }}border-bottom-gray{{ end }} mb-2">
+  <div id="course-info" class="position-relative {{ if not $inPanel }}collapse{{ end }}" aria-expanded="false">
+    <table id="course-info-table" class="table table-borderless" >
       {{ with $courseData.instructors.content }}
       <tr>
         {{ $instructors := partial "get_instructors.html" . }}
@@ -51,7 +43,7 @@
         </td>
       </tr>
       <tr>
-        <td class="pl-0 pb-3">Level:</td>
+        <td class="pl-0">Level:</td>
         <td>
           {{ if eq (printf "%T" $courseData.level) "string" }}
             {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
@@ -71,4 +63,13 @@
     </table>
   </div>
 </div>
-
+<div>
+  <hr class="mb-0">
+  {{ if not $inPanel }}
+  <div class="collapse-btn-section float-right mb-3">
+    <a role="button" class="collapsed" data-toggle="collapse" href="#course-info" aria-expanded="false" aria-controls="course-info">
+      <span class="material-icons"></span>
+    </a>
+  </div>
+  {{ end }}
+</div>

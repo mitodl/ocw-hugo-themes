@@ -34,6 +34,17 @@
       margin-left: 48px;
     }
   }
+
+  #course-info.collapse:not(.show) {
+    display: block;
+    /* height = lineheight * no of lines to display */
+    height: 12.5em;
+    overflow: hidden;
+  }
+
+  #course-info.collapsing {
+    height: 12.5em;
+  }
 }
 
 .partial-collapse-overlay {
@@ -151,5 +162,16 @@
     .material-icons {
       color: black;
     }
+  }
+
+  #course-description.collapse:not(.show) {
+    display: block;
+    /* height = lineheight * no of lines to display */
+    height: 4.5em;
+    overflow: hidden;
+  }
+
+  #course-description.collapsing {
+    height: 4.5em;
   }
 }
