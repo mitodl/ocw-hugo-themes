@@ -360,14 +360,14 @@ article.content {
 .custom-input {
   box-sizing: border-box;
   height: 48px !important;
-  background-color: #FEFEFE !important;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.15);
+  background-color: #fefefe !important;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.15);
   font-size: 16px;
 }
 
-.custom-btn{
-  height: 60px;
-  width: 180px;
+.custom-btn {
+  height: 50px;
+  width: 160px;
   border-radius: 4px;
   font-size: 18px;
   color: $white;
@@ -376,4 +376,15 @@ article.content {
   letter-spacing: 0;
   line-height: 22px;
   text-align: center;
+
+  @include media-breakpoint-down(md) {
+    height: 40px;
+    width: 120px;
+    font-size: 16px;
+    font-weight: normal;
+  }
+}
+
+.custom-btn:hover {
+  color: $white;
 }

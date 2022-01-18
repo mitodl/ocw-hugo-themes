@@ -1,0 +1,14 @@
+---
+option:
+- Independent Learner
+- MIT Alumnus/Alumna
+- Student - High School
+- Student - College/University
+- Student - Other
+- Educator - High School
+- Educator - College/University
+- Educator - Other
+- Parent - High School
+- Parent - College/University
+- Parent - Other
+---
