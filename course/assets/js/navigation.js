@@ -4,7 +4,14 @@ function courseNav() {
     .forEach(navEl => {
       // set .active on the currently active link
       navEl.querySelectorAll(".nav-link").forEach(navLinkEl => {
-        if (navLinkEl.getAttribute("href") === window.location.pathname) {
+        const navLink = navLinkEl.getAttribute("href") ?
+          navLinkEl.getAttribute("href") :
+          ""
+        if (
+          // @ts-ignore
+          navLink.replace(/\/$/, "") ===
+          window.location.pathname.replace(/\/$/, "")
+        ) {
           navLinkEl.classList.add("active")
         }
       })
