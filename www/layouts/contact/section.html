@@ -1,5 +1,5 @@
-{{ define "main" }} {{ block "header" . }} {{ partialCached "header" . }}
-{{end}}
+{{ define "main" }} {{ block "header" . }} {{ partialCached "header" . }} {{end}}
+
 <div id="contact-main-section" class="page-single">
   <div class="px-lg-5 mt-6">
     <div class="row">
@@ -17,10 +17,9 @@
                 <b>What is MIT OpenCourseWare?</b>
               </p>
               <p class="answer">
-                MIT OpenCourseWare is a free and open publication of material
-                from thousands of MIT courses, covering the entire MIT
-                curriculum and used by millions of learners and educators around
-                the world.
+                MIT OpenCourseWare is a free and open publication of material from thousands of MIT courses,
+                covering the entire MIT curriculum and used by millions of learners and educators around the
+                world.
               </p>
             </div>
             <div class="faq">
@@ -28,9 +27,8 @@
                 <b>Do I have to register or sign up?</b>
               </p>
               <p class="answer">
-                No enrollment or registration. Freely browse and use OCW
-                materials at your own pace. There's no signup, and no start or
-                end dates.
+                No enrollment or registration. Freely browse and use OCW materials at your own pace. There's
+                no signup, and no start or end dates.
               </p>
             </div>
             <div class="faq">
@@ -38,9 +36,8 @@
                 <b>Why is OCW made free to the public?</b>
               </p>
               <p class="answer">
-                Knowledge is your reward. Use OCW to guide your own life-long
-                learning, or to teach others. We don't offer credit or
-                certification for using OCW.
+                Knowledge is your reward. Use OCW to guide your own life-long learning, or to teach others. We
+                don't offer credit or certification for using OCW.
               </p>
             </div>
             <div class="faq">
@@ -48,9 +45,8 @@
                 <b>Are there any restrictions on use of OCW materials?</b>
               </p>
               <p class="answer">
-                Made for sharing. Download files for later. Send to friends and
-                colleagues. Modify, remix, and reuse (just remember to cite OCW
-                as the source.)
+                Made for sharing. Download files for later. Send to friends and colleagues. Modify, remix, and
+                reuse (just remember to cite OCW as the source.)
               </p>
             </div>
             <div class="faq">
@@ -78,81 +74,14 @@
     <div class="row">
       <div class="col-12">
         <h3>Get in touch</h3>
-        <p class="my-1">
-          If you did not find the answer in the <a href="#">OCW help pages</a>,
-          please fill out the form below and a staff member will respond within
-          2 business days.
+        <p>
+          If you did not find the answer in the <a href="#">OCW help pages</a>, please fill out the form below
+          and a staff member we will respond as soon as possible.
         </p>
       </div>
       <div class="col-lg-6">
-        <form class="mt-4" action="#" method="POST">
-          <div class="form-group">
-            <label for="first-name"
-              >First Name <span class="color-red">*</span></label
-            >
-            <input
-              class="form-control custom-input"
-              type="text"
-              id="first-name"
-            />
-          </div>
-          <div class="form-group">
-            <label for="last-name"
-              >Last Name <span class="color-red">*</span></label
-            >
-            <input
-              class="form-control custom-input"
-              type="text"
-              id="last-name"
-            />
-          </div>
-          <div class="form-group">
-            <label for="email">Email <span class="color-red">*</span></label>
-            <input class="form-control custom-input" type="email" id="email" />
-          </div>
-          <div class="form-group">
-            <label for="type"
-              >Type of question <span class="color-red">*</span></label
-            >
-            <select class="form-control custom-input" id="type">
-              {{ with $.Site.GetPage "/contact/question-type" }} 
-              {{ partial "dropdown-option.html" . }} {{ end }}
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="role"
-              >Educational Role <span class="color-red">*</span></label
-            >
-            <select class="form-control custom-input" id="role">
-              {{ with $.Site.GetPage "/contact/educational-roles" }} 
-              {{ partial "dropdown-option.html" . }} {{ end }}
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="country"
-              >Country <span class="color-red">*</span></label
-            >
-            <select class="form-control custom-input" id="country">
-              {{ with $.Site.GetPage "/contact/countries" }} 
-              {{ partial "dropdown-option.html" . }} {{ end }}
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="comments"
-              >Comments <span class="color-red">*</span></label
-            >
-            <textarea
-              class="form-control custom-input"
-              type="text"
-              id="comments"
-              rows="5"
-              style="height: auto !important"
-            ></textarea>
-          </div>
-          <div class="form-group">
-            <button class="btn custom-btn">Submit</button>
-          </div>
-        </form>
+        <div id="wufoo-z6wocqd1ghkc5f">Fill out my <a href="https://mitocw.wufoo.com/forms/z6wocqd1ghkc5f">online form</a>.</div>
+        <script type="text/javascript"> var z6wocqd1ghkc5f; (function(d, t) { var s = d.createElement(t), options = { 'userName':'mitocw', 'formHash':'z6wocqd1ghkc5f', 'autoResize':true, 'height':'803', 'async':true, 'host':'wufoo.com', 'header':'hide', 'defaultValues':'Field113=' + encodeURIComponent(document.referrer), 'ssl':true }; s.src = ('https:' == d.location.protocol ?'https://':'http://') + 'secure.wufoo.com/scripts/embed/form.js'; s.onload = s.onreadystatechange = function() { var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return; try { z6wocqd1ghkc5f = new WufooForm(); z6wocqd1ghkc5f.initialize(options); z6wocqd1ghkc5f.display(); } catch (e) { } }; var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr); })(document, 'script'); </script>
       </div>
     </div>
   </div>
