@@ -14,7 +14,7 @@
     "start:course:hugo": "./package_scripts/start_course.sh",
     "prebuild": "rimraf dist",
     "build": "./package_scripts/build.sh",
-    "build:githash": "mkdir -p dist/static && git rev-parse HEAD > dist/static/hash.txt",
+    "build:githash": "mkdir -p base-theme/dist/static && git rev-parse HEAD > base-theme/dist/static/hash.txt",
     "build:hugo": "hugo -d ../dist -v",
     "build:hugo:debug": "hugo -d ../dist -v --templateMetrics --debug",
     "build:webpack": "cross-env NODE_ENV=production webpack --config base-theme/assets/webpack/webpack.prod.js",
