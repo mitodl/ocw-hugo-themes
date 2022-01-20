@@ -1,6 +1,18 @@
 Release Notes
 =============
 
+Version 1.39.0
+--------------
+
+- output githash to base-theme/dist/static (#355)
+- add optional colspan and rowspan attributes to tdopen / thopen shortcodes (#348)
+- feat: expand/collapse enhancement (#330)
+- fix: updating css for about and educator page (#332)
+- switch to building the JS files with Typescript
+- add course image to the coursedata.json template
+- fix: placing mp_logo in static images of course theme
+- fix: removing font-size for h2 tag
+
 Version 1.38.3 (Released January 11, 2022)
 --------------
 
