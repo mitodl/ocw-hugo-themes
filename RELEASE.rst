@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.39.0
+Version 1.39.0 (Released January 21, 2022)
 --------------
 
 - output githash to base-theme/dist/static (#355)
