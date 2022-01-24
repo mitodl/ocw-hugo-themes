@@ -3,6 +3,13 @@
   $collapsedHeight: 200px;
   $opaqueLayerHeight: 30px;
 
+  // This media query is not defined gloabally as it
+  // is targeted/specific to a particular use case only
+  // Hiding horizontal scroll on screens where content already fits in
+  @media (min-width: 1270px) {
+    overflow-x: hidden !important;
+  }
+
   &.collapsed {
     table {
       display: block;

@@ -5,7 +5,7 @@
     <h4 class="course-info-title font-weight-bold">Course Info</h4>
   </div>
   <div id="course-info" class="position-relative {{ if not $inPanel }}collapse{{ end }}" aria-expanded="false">
-    <table id="course-info-table" class="table table-borderless" >
+    <table id="course-info-table" class="table table-borderless mb-0" >
       {{ with $courseData.instructors.content }}
       <tr>
         {{ $instructors := partial "get_instructors.html" . }}
@@ -63,8 +63,7 @@
     </table>
   </div>
 </div>
-<div>
-  <hr class="mb-0">
+<div class="border-top-gray {{ if not $inPanel }}mt-2{{ end }}">
   {{ if not $inPanel }}
   <div class="collapse-btn-section float-right mb-3">
     <a role="button" class="collapsed" data-toggle="collapse" href="#course-info" aria-expanded="false" aria-controls="course-info">

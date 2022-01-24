@@ -57,17 +57,18 @@
                         {{ $shouldCollapseDescription := gt (len $courseData.course_description) 320 }}
                         <div class="col-lg-8 course-description">
                           <h4 class="font-weight-bold course-description-title">Course Description</h4>
-                          <div id="course-description" class="mb-1 description {{ if $shouldCollapseDescription }}collapse{{ end }}" aria-expanded="false">
+                          <div id="course-description" class="description {{ if $shouldCollapseDescription }}collapse{{ end }}" aria-expanded="false">
                             {{- $courseData.course_description | markdownify -}}
                           </div>
-                          <hr class="mt-2 mb-0">
-                          {{ if $shouldCollapseDescription }}
-                          <div class="collapse-btn-section mb-3 float-right">
-                            <a role="button" class="collapsed" data-toggle="collapse" href="#course-description" aria-expanded="false" aria-controls="course-description">
-                              <span class="material-icons"></span>
-                            </a>
+                          <div class="border-top-gray mt-2">
+                            {{ if $shouldCollapseDescription }}
+                              <div class="collapse-btn-section float-right">
+                                <a role="button" class="collapsed" data-toggle="collapse" href="#course-description" aria-expanded="false" aria-controls="course-description">
+                                  <span class="material-icons"></span>
+                                </a>
+                              </div>
+                            {{ end }}
                           </div>
-                          {{ end }}
                           {{ partial "course_info.html" (dict "context" . "inPanel" false) }}
                         </div>
                       </div>
