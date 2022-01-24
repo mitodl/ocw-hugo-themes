@@ -1,15 +1,13 @@
-// @ts-nocheck
 import React from "react"
 import { mount, ReactWrapper } from "enzyme"
 import { act } from "react-dom/test-utils"
 import { search } from "../lib/api"
 import { times } from "ramda"
-import { INITIAL_FACET_STATE } from "@mitodl/course-search-utils/dist/constants"
-import { serializeSearchParams } from "@mitodl/course-search-utils/dist/url_utils"
 import {
-  LR_TYPE_COURSE,
-  LR_TYPE_RESOURCEFILE
+  INITIAL_FACET_STATE,
+  LearningResourceType
 } from "@mitodl/course-search-utils/dist/constants"
+import { serializeSearchParams } from "@mitodl/course-search-utils/dist/url_utils"
 
 import SearchPage, { SEARCH_PAGE_SIZE } from "./SearchPage"
 
@@ -18,16 +16,18 @@ import { makeCourseResult } from "../factories/search"
 const mockGetResults = () =>
   times(makeCourseResult, SEARCH_PAGE_SIZE).map(result => ({ _source: result }))
 
+// @ts-ignore
 let resolver
 
 const resolveSearch = (extraData = {}) =>
   act(async () => {
+    // @ts-ignore
     resolver(extraData)
   })
 
 jest.mock("../lib/api", () => ({
   __esModule: true,
-  search:     jest.fn(async () => {
+  search: jest.fn(async () => {
     return new Promise(resolve => {
       resolver = (extraData = {}) => {
         const results = mockGetResults()
@@ -44,12 +44,12 @@ jest.mock("lodash.debounce", () => jest.fn(fn => fn))
 
 const defaultCourseFacets = {
   ...INITIAL_FACET_STATE,
-  type: [LR_TYPE_COURSE]
+  type: [LearningResourceType.Course]
 }
 
 const defaultResourceFacets = {
   ...INITIAL_FACET_STATE,
-  type: [LR_TYPE_RESOURCEFILE]
+  type: [LearningResourceType.ResourceFile]
 }
 
 describe("SearchPage component", () => {
@@ -65,8 +65,10 @@ describe("SearchPage component", () => {
   }
 
   beforeEach(() => {
+    // @ts-ignore
     delete window.location
 
+    // @ts-ignore
     window.location = {
       search: ""
     }
@@ -77,11 +79,11 @@ describe("SearchPage component", () => {
     { text: "", activeFacets: {} },
     { text: "amazing text!", activeFacets: {} },
     {
-      text:         "great search",
+      text: "great search",
       activeFacets: { topics: ["mathematics"] }
     },
     {
-      text:         "",
+      text: "",
       activeFacets: { topics: ["science"] }
     }
   ].forEach(params => {
@@ -91,11 +93,12 @@ describe("SearchPage component", () => {
       const searchString = serializeSearchParams(params)
       await render(searchString)
 
+      // @ts-ignore
       expect(search.mock.calls[0]).toEqual([
         {
-          text:         params.text,
-          from:         0,
-          size:         SEARCH_PAGE_SIZE,
+          text: params.text,
+          from: 0,
+          size: SEARCH_PAGE_SIZE,
           activeFacets: {
             ...defaultCourseFacets,
             ...params.activeFacets
@@ -113,26 +116,29 @@ describe("SearchPage component", () => {
       .at(0)
       .simulate("change", { target: { value: "New Search Text" } })
     await act(async () => {
+      // @ts-ignore
       wrapper.find("SearchBox").prop("onSubmit")({ preventDefault: jest.fn() })
+      // @ts-ignore
       resolver()
     })
+    // @ts-ignore
     expect(search.mock.calls).toEqual([
       [
         {
-          text:         "",
-          from:         0,
-          size:         SEARCH_PAGE_SIZE,
+          text: "",
+          from: 0,
+          size: SEARCH_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort:         null
+          sort: null
         }
       ],
       [
         {
-          text:         "New Search Text",
-          from:         0,
-          size:         SEARCH_PAGE_SIZE,
+          text: "New Search Text",
+          from: 0,
+          size: SEARCH_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort:         null
+          sort: null
         }
       ]
     ])
@@ -142,9 +148,9 @@ describe("SearchPage component", () => {
 
   test("the user can switch to resource search", async () => {
     const parameters = {
-      text:         "Math 101",
+      text: "Math 101",
       activeFacets: {
-        topics:              ["mathematics"],
+        topics: ["mathematics"],
         course_feature_tags: ["Exams", "Problem Sets with Solutions"]
       }
     }
@@ -155,25 +161,27 @@ describe("SearchPage component", () => {
         .find(".search-nav")
         .at(1)
         .simulate("click")
+      // @ts-ignore
       resolver()
     })
+    // @ts-ignore
     expect(search.mock.calls).toEqual([
       [
         {
-          text:         parameters.text,
-          from:         0,
-          size:         SEARCH_PAGE_SIZE,
+          text: parameters.text,
+          from: 0,
+          size: SEARCH_PAGE_SIZE,
           activeFacets: { ...defaultCourseFacets, ...parameters.activeFacets },
-          sort:         null
+          sort: null
         }
       ],
       [
         {
-          text:         parameters.text,
-          from:         0,
-          size:         SEARCH_PAGE_SIZE,
+          text: parameters.text,
+          from: 0,
+          size: SEARCH_PAGE_SIZE,
           activeFacets: defaultResourceFacets,
-          sort:         null
+          sort: null
         }
       ]
     ])
@@ -224,10 +232,12 @@ describe("SearchPage component", () => {
     const select = wrapper.find(".sort-nav-item select")
     expect(select.prop("value")).toBe(sortParam)
     act(() => {
-      select.prop("onChange")({ target: { value: differentSortParam } })
+      // @ts-ignore
+      select.prop("onChange")!({ target: { value: differentSortParam } })
     })
+    // @ts-ignore
     expect(search.mock.calls[1][0].sort).toEqual({
-      field:  differentSortParam,
+      field: differentSortParam,
       option: "asc"
     })
   })
@@ -243,8 +253,8 @@ describe("SearchPage component", () => {
 
   //
   ;[
-    [LR_TYPE_COURSE, true],
-    [LR_TYPE_RESOURCEFILE, false]
+    [LearningResourceType.Course, true],
+    [LearningResourceType.ResourceFile, false]
   ].forEach(([type, sortExists]) => {
     it(`${
       sortExists ? "should" : "shouldn't"
@@ -254,6 +264,7 @@ describe("SearchPage component", () => {
           type: [type]
         }
       }
+      // @ts-ignore
       const searchString = serializeSearchParams(parameters)
       const wrapper = await render(searchString)
       expect(wrapper.find(".sort-nav-item").exists()).toBe(sortExists)
@@ -268,7 +279,9 @@ describe("SearchPage component", () => {
       .at(0)
       .simulate("change", { target: { value: "New Search Text" } })
     await act(async () => {
-      wrapper.find("SearchBox").prop("onSubmit")({ preventDefault: jest.fn() })
+      wrapper.find("SearchBox").prop("onSubmit")!(({
+        preventDefault: jest.fn()
+      } as any) as React.FormEvent<{}>)
     })
     wrapper.update()
     expect(wrapper.find("Loading").exists()).toBeTruthy()
@@ -279,41 +292,44 @@ describe("SearchPage component", () => {
     await resolveSearch()
     wrapper.update()
     await act(async () => {
+      // @ts-ignore
       wrapper.find("InfiniteScroll").prop("loadMore")()
     })
     await resolveSearch()
     wrapper.update()
     await act(async () => {
+      // @ts-ignore
       wrapper.find("InfiniteScroll").prop("loadMore")()
     })
     await resolveSearch()
     wrapper.update()
+    // @ts-ignore
     expect(search.mock.calls).toEqual([
       [
         {
-          text:         "",
-          from:         0,
-          size:         SEARCH_PAGE_SIZE,
+          text: "",
+          from: 0,
+          size: SEARCH_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort:         null
+          sort: null
         }
       ],
       [
         {
-          text:         "",
-          from:         SEARCH_PAGE_SIZE,
-          size:         SEARCH_PAGE_SIZE,
+          text: "",
+          from: SEARCH_PAGE_SIZE,
+          size: SEARCH_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort:         null
+          sort: null
         }
       ],
       [
         {
-          text:         "",
-          from:         2 * SEARCH_PAGE_SIZE,
-          size:         SEARCH_PAGE_SIZE,
+          text: "",
+          from: 2 * SEARCH_PAGE_SIZE,
+          size: SEARCH_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort:         null
+          sort: null
         }
       ]
     ])
@@ -325,6 +341,7 @@ describe("SearchPage component", () => {
     await resolveSearch()
     wrapper.update()
     await act(async () => {
+      // @ts-ignore
       wrapper.find("InfiniteScroll").prop("loadMore")()
     })
     wrapper.update()
@@ -332,27 +349,29 @@ describe("SearchPage component", () => {
     // so loaded prop passed to useCourseSearch will be false (and therefore this second
     // call to the `loadMore` function should be a no-op).
     await act(async () => {
+      // @ts-ignore
       wrapper.find("InfiniteScroll").prop("loadMore")()
     })
     await resolveSearch()
     wrapper.update()
+    // @ts-ignore
     expect(search.mock.calls).toEqual([
       [
         {
-          text:         "",
-          from:         0,
-          size:         SEARCH_PAGE_SIZE,
+          text: "",
+          from: 0,
+          size: SEARCH_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort:         null
+          sort: null
         }
       ],
       [
         {
-          text:         "",
-          from:         SEARCH_PAGE_SIZE,
-          size:         SEARCH_PAGE_SIZE,
+          text: "",
+          from: SEARCH_PAGE_SIZE,
+          size: SEARCH_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort:         null
+          sort: null
         }
       ]
     ])
@@ -372,6 +391,7 @@ describe("SearchPage component", () => {
     await resolveSearch()
     wrapper.update()
     const [topic, features, department] = Array.from(
+      // @ts-ignore
       wrapper.find("FilterableSearchFacet")
     )
     expect(topic.props.name).toEqual("topics")

@@ -1,12 +1,13 @@
-// @ts-nocheck
-import { INITIAL_FACET_STATE } from "@mitodl/course-search-utils/dist/constants"
+import {
+  INITIAL_FACET_STATE,
+  LearningResourceType
+} from "@mitodl/course-search-utils/dist/constants"
 import sinon from "sinon"
 
 import {
   CONTENT_TYPE_PAGE,
   CONTENT_TYPE_PDF,
-  CONTENT_TYPE_VIDEO,
-  LearningResourceType
+  CONTENT_TYPE_VIDEO
 } from "./constants"
 
 import {
@@ -40,6 +41,7 @@ describe("search library", () => {
   })
 
   it("form a basic text query", () => {
+    // @ts-ignore
     const { query } = buildSearchQuery({
       text: "Dogs are the best",
       activeFacets
@@ -107,7 +109,7 @@ describe("search library", () => {
 
   it("should do a nested query for level", () => {
     activeFacets["level"] = ["Undergraduate"]
-    // eslint-disable-next-line camelcase
+    // @ts-ignore eslint-disable-next-line camelcase
     const { query, post_filter, aggs } = buildSearchQuery({
       text: "",
       activeFacets
@@ -203,7 +205,7 @@ describe("search library", () => {
   })
 
   it("should include an appropriate resource query and aggregation for resource_type ", () => {
-    // eslint-disable-next-line camelcase
+    // @ts-ignore eslint-disable-next-line camelcase
     const { query, post_filter, aggs } = buildSearchQuery({
       text:         "",
       activeFacets: {
@@ -298,14 +300,19 @@ describe("search library", () => {
 
   it("should include suggest query, if text", () => {
     expect(
+      // @ts-ignore
       buildSearchQuery({ text: "text!", activeFacets }).suggest
     ).toStrictEqual(buildSuggestQuery("text!", LEARN_SUGGEST_FIELDS))
+    // @ts-ignore
     expect(buildSearchQuery({ activeFacets }).suggest).toBeUndefined()
   })
 
   it("should set from, size values", () => {
+    // @ts-ignore
     const query = buildSearchQuery({ from: 10, size: 100, activeFacets })
+    // @ts-ignore
     expect(query.from).toBe(10)
+    // @ts-ignore
     expect(query.size).toBe(100)
   })
 
@@ -381,9 +388,13 @@ describe("search library", () => {
     it(`should add a sort option if field is ${JSON.stringify(
       sortField
     )} and type is ${type}`, () => {
+      // @ts-ignore
       activeFacets["type"] = [type]
+      // @ts-ignore
       activeFacets["department_name"] = departmentFilter
+      // @ts-ignore
       const query = buildSearchQuery({ sort: sortField, activeFacets })
+      // @ts-ignore
       expect(query.sort).toStrictEqual(expectedSort)
     })
   })
@@ -401,6 +412,7 @@ describe("search library", () => {
           const expectedSrc = hasImageSrc ?
             result.image_src :
             `/images/${result.content_type}_thumbnail.png`
+          // @ts-ignore
           expect(getCoverImageUrl(result)).toBe(expectedSrc)
         })
       }
@@ -451,6 +463,7 @@ describe("search library", () => {
     it(`should return correct url for content type ${contentType} if the cdn is ${
       cdnPrefix ? "" : "not "
     }set`, () => {
+      // @ts-ignore
       process.env["CDN_PREFIX"] = cdnPrefix
       const result = {
         ...makeLearningResourceResult(LearningResourceType.ResourceFile),
@@ -458,6 +471,7 @@ describe("search library", () => {
         run_slug:     "run-slug",
         content_type: contentType
       }
+      // @ts-ignore
       expect(getResourceUrl(result)).toBe(expectedUrl)
     })
   })
@@ -467,16 +481,21 @@ describe("search library", () => {
     objectType => {
       it(`should return correct url for object type ${objectType}`, () => {
         const isCourse = objectType === LearningResourceType.Course
+        // @ts-ignore
         const result = makeLearningResourceResult(objectType)
         if (!isCourse) {
+          // @ts-ignore
           result.content_type = CONTENT_TYPE_PAGE
         } else {
+          // @ts-ignore
           result.runs[0].best_start_date = "2001-11-11"
+          // @ts-ignore
           result.runs[1].published = false
+          // @ts-ignore
           result.runs[2].best_start_date = "2002-01-01"
         }
-        const expected = isCourse ?
-          `/courses/${result.runs[2].slug}/` :
+        const expected = isCourse ? // @ts-ignore
+          `/courses/${result.runs[2].slug}/` : // @ts-ignore
           `/courses/${result.run_slug}${getSectionUrl(result)}`
         expect(getResultUrl(result)).toBe(expected)
       })
@@ -487,8 +506,10 @@ describe("search library", () => {
     const result = makeLearningResourceResult(LearningResourceType.Course)
     result.runs = []
     expect(getResultUrl(result)).toBe(null)
+    // @ts-ignore
     result.runs = null
     expect(getResultUrl(result)).toBe(null)
+    // @ts-ignore
     delete result.runs
     expect(getResultUrl(result)).toBe(null)
   })

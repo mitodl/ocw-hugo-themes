@@ -1,4 +1,3 @@
-// @ts-nocheck
 import bodybuilder, { Bodybuilder } from "bodybuilder"
 
 import { emptyOrNil } from "./util"
@@ -8,15 +7,23 @@ import {
   CONTENT_TYPE_PDF,
   CONTENT_TYPE_VIDEO,
   COURSENUM_SORT_FIELD,
-  LearningResourceType,
   ContentType
 } from "./constants"
 import { Facets, SortParam } from "@mitodl/course-search-utils/dist/url_utils"
 import {
   CourseResult,
+  CourseRun,
+  FacetKey,
   LearningResource,
-  LearningResourceResult
+  LearningResourceResult,
+  Level
 } from "../LearningResources"
+import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
+
+export interface Bucket {
+  key: string
+  doc_count: number
+}
 
 export const LEARN_SUGGEST_FIELDS = [
   "title.trigram",
@@ -131,7 +138,7 @@ export const buildSearchQuery = ({
   if (
     sort &&
     activeFacets &&
-    !activeFacets.type.includes(LearningResourceType.ResourceFile)
+    !(activeFacets.type ?? []).includes(LearningResourceType.ResourceFile)
   ) {
     const { field, option } = sort
     const fieldPieces = field.split(".")
@@ -144,7 +151,7 @@ export const buildSearchQuery = ({
     }
 
     if (field === COURSENUM_SORT_FIELD) {
-      if (activeFacets.department_name.length === 0) {
+      if ((activeFacets.department_name ?? []).length === 0) {
         // @ts-ignore
         sortQuery["nested"]["filter"] = {
           term: {
@@ -152,11 +159,11 @@ export const buildSearchQuery = ({
           }
         }
       } else {
-        const filterClause = []
+        const filterClause: any[] = []
         addFacetClauseToArray(
           filterClause,
           "department_course_numbers.department",
-          activeFacets.department_name,
+          activeFacets.department_name || [],
           LearningResourceType.Course
         )
         // @ts-ignore
@@ -168,7 +175,7 @@ export const buildSearchQuery = ({
   }
 
   if (activeFacets) {
-    for (const type of activeFacets.type) {
+    for (const type of activeFacets.type ?? []) {
       const queryType = isDoubleQuoted(text) ? "query_string" : "multi_match"
       const textQuery = emptyOrNil(text)
         ? {}
@@ -244,9 +251,24 @@ export const buildSearchQuery = ({
   return builder.build()
 }
 
-const buildLevelQuery = (builder: Bodybuilder, values, facetClauses) => {
+interface LevelFilter {
+  nested: {
+    path: "runs"
+    query: {
+      match: {
+        "runs.level": Level
+      }
+    }
+  }
+}
+
+const buildLevelQuery = (
+  _builder: Bodybuilder,
+  values: Level[],
+  facetClauses: any
+) => {
   if (values && values.length > 0) {
-    const facetFilter = values.map(value => ({
+    const facetFilter: LevelFilter[] = values.map(value => ({
       nested: {
         path: "runs",
         query: {
@@ -267,12 +289,12 @@ const buildLevelQuery = (builder: Bodybuilder, values, facetClauses) => {
 export const buildFacetSubQuery = (
   facets: Facets,
   builder: Bodybuilder,
-  objectType
+  objectType: string
 ) => {
-  const facetClauses = []
+  const facetClauses: object[] = []
   if (facets) {
     Object.entries(facets).forEach(([key, values]) => {
-      const facetClausesForFacet = []
+      const facetClausesForFacet: object[] = []
 
       if (values && values.length > 0) {
         if (key === "level") {
@@ -318,7 +340,7 @@ export const buildFacetSubQuery = (
                   "runs.level",
                   { size: 10000 },
                   "level",
-                  aggr => aggr.agg("reverse_nested", null, {}, "courses")
+                  aggr => aggr.agg("reverse_nested", null as any, {}, "courses")
                 )
               )
           )
@@ -345,7 +367,7 @@ export const buildFacetSubQuery = (
                 size: 10000
               },
               "level",
-              aggr => aggr.agg("reverse_nested", null, {}, "courses")
+              aggr => aggr.agg("reverse_nested", null as any, {}, "courses")
             )
           )
         } else {
@@ -364,9 +386,9 @@ export const buildFacetSubQuery = (
 
 export const buildOrQuery = (
   builder: Bodybuilder,
-  searchType,
-  textQuery,
-  extraClauses
+  searchType: string,
+  textQuery: object | undefined,
+  extraClauses: object[]
 ) => {
   const textFilter = emptyOrNil(textQuery) ? [] : [{ bool: textQuery }]
 
@@ -391,7 +413,12 @@ export const buildOrQuery = (
   return builder
 }
 
-const addFacetClauseToArray = (facetClauses, facet, values, type) => {
+const addFacetClauseToArray = (
+  facetClauses: object[],
+  facet: string,
+  values: string[],
+  type: string
+) => {
   if (
     facet === OBJECT_TYPE &&
     values.toString() === buildSearchQuery.toString()
@@ -435,8 +462,11 @@ const addFacetClauseToArray = (facetClauses, facet, values, type) => {
   })
 }
 
-export const buildSuggestQuery = (text: string, suggestFields: string[]) => {
-  const suggest = {
+export const buildSuggestQuery = (
+  text: string,
+  suggestFields: string[]
+): object => {
+  const suggest: any = {
     text
   }
   suggestFields.forEach(
@@ -486,9 +516,9 @@ export const searchResultToLearningResource = (
   object_type: result.object_type,
   platform: "platform" in result ? result.platform : null,
   topics: result.topics ? result.topics.map(topic => ({ name: topic })) : [],
-  runs: "runs" in result ? result.runs : [],
-  level: !emptyOrNil(result.runs) ? result.runs[0]?.level : null,
-  instructors: !emptyOrNil(result.runs) ? result.runs[0]?.instructors : [],
+  runs: "runs" in result ? (result.runs as CourseRun[]) : [],
+  level: !emptyOrNil(result.runs) ? result.runs![0]?.level : null,
+  instructors: !emptyOrNil(result.runs) ? result.runs![0]?.instructors : [],
   department: result.department,
   audience: result.audience,
   certification: result.certification,

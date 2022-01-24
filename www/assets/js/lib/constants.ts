@@ -1,10 +1,4 @@
-export enum LearningResourceType {
-  Course = "course",
-  Video = "video",
-  Podcast = "podcast",
-  PodcastEpisode = "podcastepisode",
-  ResourceFile = "resourcefile"
-}
+import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
 
 export const CONTENT_TYPE_PDF = "pdf"
 export const CONTENT_TYPE_PAGE = "page"

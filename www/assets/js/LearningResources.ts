@@ -1,5 +1,6 @@
+import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
+import { Facets } from "@mitodl/course-search-utils/dist/url_utils"
 import {
-  LearningResourceType,
   OCW_PLATFORM,
   COURSE_ARCHIVED,
   COURSE_CURRENT,
@@ -45,6 +46,8 @@ interface CourseRunPrice {
   price: number
 }
 
+export type Level = "Graduate" | "Undergraduate" | null
+
 export interface CourseRun {
   run_id: string
   id: number
@@ -54,7 +57,7 @@ export interface CourseRun {
   language: "es-US" | "fr" | null
   semester: "Fall" | "Spring" | null
   year: number
-  level: "Graduate" | "Undergraduate" | null
+  level: Level
   start_date: string
   end_date: string
   best_start_date: string
@@ -199,3 +202,7 @@ export interface LearningResource {
   description: string | null
   course_feature_tags: string[]
 }
+
+export type FacetKey = keyof Facets
+
+export type FacetManifest = [FacetKey, string, boolean][]

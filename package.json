@@ -34,7 +34,7 @@
   },
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
-    "@mitodl/course-search-utils": "1.3.0",
+    "@mitodl/course-search-utils": "^1.4.0",
     "@mitodl/ocw-to-hugo": "1.36.0",
     "@sentry/browser": "^5.19.0",
     "@types/enzyme": "^3.10.11",
@@ -82,7 +82,7 @@
     "expose-loader": "^0.7.5",
     "fancy-log": "^1.3.2",
     "file-loader": "^5.0.2",
-    "fuse.js": "^6.4.1",
+    "fuse.js": "^6.5.3",
     "gulp": "^4.0.2",
     "hammerjs": "2.0.7",
     "hugo-bin": "^0.68.0",

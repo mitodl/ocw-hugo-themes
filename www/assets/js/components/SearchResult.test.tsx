@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from "react"
 import { mount } from "enzyme"
 import { serializeSearchParams } from "@mitodl/course-search-utils/dist/url_utils"
@@ -6,13 +5,14 @@ import { serializeSearchParams } from "@mitodl/course-search-utils/dist/url_util
 import SearchResult from "./SearchResult"
 
 import { makeLearningResourceResult } from "../factories/search"
-import { LearningResourceType, SEARCH_URL } from "../lib/constants"
+import { SEARCH_URL } from "../lib/constants"
 import {
   getContentIcon,
   getCoverImageUrl,
   searchResultToLearningResource
 } from "../lib/search"
 import { LearningResource } from "../LearningResources"
+import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
 
 describe("SearchResult component", () => {
   const render = (object: LearningResource) =>
@@ -131,6 +131,7 @@ describe("SearchResult component", () => {
         `${SEARCH_URL}?${serializeSearchParams({
           text: undefined,
           activeFacets: {
+            // @ts-ignore
             topics: object.topics[i].name
           }
         })}`

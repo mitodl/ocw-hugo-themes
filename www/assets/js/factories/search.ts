@@ -1,9 +1,9 @@
+import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
 import casual from "casual-browserify"
 import { times } from "ramda"
 import {
   CourseResult,
   CourseRun,
-  LearningResource,
   PodcastResult,
   PodcastEpisodeResult,
   ResourceFileResult,
@@ -21,8 +21,7 @@ import {
   CERTIFICATE,
   CONTENT_TYPE_VIDEO,
   CONTENT_TYPE_PDF,
-  CONTENT_TYPE_PAGE,
-  LearningResourceType
+  CONTENT_TYPE_PAGE
 } from "../lib/constants"
 
 export function* incrementer() {
@@ -62,7 +61,7 @@ export function makeLearningResourceResult(
       return makePodcastResult()
     case LearningResourceType.PodcastEpisode:
       return makePodcastEpisodeResult()
-    case LearningResourceType.ResourceFile:
+    default:
       return makeResourceFileResult()
   }
 }

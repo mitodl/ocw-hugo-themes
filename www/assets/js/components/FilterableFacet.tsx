@@ -1,39 +1,40 @@
-// @ts-nocheck
 import React, { useState, useEffect, useCallback } from "react"
 import { contains } from "ramda"
 import has from "lodash.has"
-import Fuse from "fuse.js/dist/fuse.basic.common"
+import Fuse from "fuse.js"
 
 import SearchFacetItem from "./SearchFacetItem"
+import { Aggregation } from "@mitodl/course-search-utils"
+import { Bucket } from "../lib/search"
 
 // the `.search method returns records like { item, refindex }
 // where item is the facet and refIndex is it's index in the original
 // array. this helper just pulls out only the facets themselves
-const runSearch = (searcher, text) =>
-  // $FlowFixMe
+const runSearch = (searcher: Fuse<Bucket>, text: string) =>
   searcher.search(text).map(({ item }) => item)
 
-function FilterableSearchFacet(props) {
-  const {
-    name,
-    title,
-    results,
-    currentlySelected,
-    labelFunction,
-    onUpdate
-  } = props
+interface Props {
+  name: string
+  title: string
+  results: Aggregation | null
+  currentlySelected: string[]
+  onUpdate: React.ChangeEventHandler<HTMLInputElement>
+}
+
+function FilterableSearchFacet(props: Props) {
+  const { name, title, results, currentlySelected, onUpdate } = props
   const [showFacetList, setShowFacetList] = useState(true)
 
   // null is signal for no input yet or cleared input
-  const [filteredList, setFilteredList] = useState(null)
-  const [searcher, setSearcher] = useState(null)
+  const [filteredList, setFilteredList] = useState<Bucket[] | null>(null)
+  const [searcher, setSearcher] = useState<Fuse<Bucket>>(new Fuse([]))
 
   const [filterText, setFilterText] = useState("")
 
   useEffect(() => {
     if (results && results.buckets) {
       const searcher = new Fuse(results.buckets, {
-        keys:      ["key"],
+        keys: ["key"],
         threshold: 0.4
       })
       setSearcher(searcher)
@@ -56,14 +57,7 @@ function FilterableSearchFacet(props) {
 
   const titleLineIcon = showFacetList ? "arrow_drop_down" : "arrow_drop_up"
 
-  let facets
-  if (filteredList) {
-    facets = filteredList
-  } else if (results && results.buckets) {
-    facets = results.buckets
-  } else {
-    facets = []
-  }
+  const facets = (filteredList || results?.buckets) ?? []
 
   return results && results.buckets && results.buckets.length === 0 ? null : (
     <div className="facets filterable-facet pb-3">
@@ -95,7 +89,7 @@ function FilterableSearchFacet(props) {
                     setFilterText("")
                   }
                 }}
-                tabIndex="0"
+                tabIndex={0}
               >
                 clear
               </i>
@@ -108,7 +102,6 @@ function FilterableSearchFacet(props) {
                 facet={facet}
                 isChecked={contains(facet.key, currentlySelected || [])}
                 onUpdate={onUpdate}
-                labelFunction={labelFunction}
                 name={name}
               />
             ))}
@@ -119,7 +112,7 @@ function FilterableSearchFacet(props) {
   )
 }
 
-const propsAreEqual = (prevProps, nextProps) => {
+const propsAreEqual = (_prevProps: Props, nextProps: Props) => {
   // results.buckets is null while the search request is in-flight
   // we want to defer rendering in that case because it will cause
   // all the facets to briefly disappear before reappearing

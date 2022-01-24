@@ -1,11 +1,10 @@
 import React, { useState, useCallback } from "react"
 import InfiniteScroll from "react-infinite-scroller"
-import { useCourseSearch } from "@mitodl/course-search-utils"
-import { serializeSort } from "@mitodl/course-search-utils/dist/url_utils"
+import { Aggregations, useCourseSearch } from "@mitodl/course-search-utils"
 import {
-  LR_TYPE_COURSE,
-  LR_TYPE_RESOURCEFILE
-} from "@mitodl/course-search-utils/dist/constants"
+  Facets,
+  serializeSort
+} from "@mitodl/course-search-utils/dist/url_utils"
 import { without } from "ramda"
 
 import SearchResult from "./SearchResult"
@@ -17,32 +16,25 @@ import { search } from "../lib/api"
 import { searchResultToLearningResource, SEARCH_LIST_UI } from "../lib/search"
 import { COURSENUM_SORT_FIELD } from "../lib/constants"
 import { emptyOrNil, isDoubleQuoted } from "../lib/util"
-import { LearningResourceResult } from "../LearningResources"
+import { FacetManifest, LearningResourceResult } from "../LearningResources"
+import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
 
 export const SEARCH_PAGE_SIZE = 10
 
-const COURSE_FACETS = [
+const COURSE_FACETS: FacetManifest = [
   ["level", "Level", false],
   ["topics", "Topics", true],
   ["course_feature_tags", "Features", true],
   ["department_name", "Departments", true]
 ]
 
-const RESOURCE_FACETS = [["resource_type", "Resource Types", true]]
+const RESOURCE_FACETS: FacetManifest = [
+  ["resource_type", "Resource Types", true]
+]
 
 interface Result {
   _source: LearningResourceResult
 }
-
-type Aggregation = {
-  doc_count_error_upper_bound?: number
-  sum_other_doc_count?: number
-  buckets: Array<{
-    key: string
-    doc_count: number
-  }>
-}
-type Aggregations = Map<string, Aggregation>
 
 export default function SearchPage() {
   const [results, setSearchResults] = useState<Result[]>([])
@@ -56,7 +48,7 @@ export default function SearchPage() {
     async (text, activeFacets, from, sort) => {
       if (activeFacets && activeFacets.type.length > 1) {
         // Default is LR_TYPE_ALL, don't want that here. course or resourcefile only
-        activeFacets["type"] = [LR_TYPE_COURSE]
+        activeFacets["type"] = [LearningResourceType.Course]
       }
 
       setRequestInFlight(true)
@@ -144,8 +136,8 @@ export default function SearchPage() {
   const toggleResourceSearch = useCallback(
     toggleOn => async () => {
       const toggledFacets: [string, string, boolean][] = [
-        ["type", LR_TYPE_RESOURCEFILE, toggleOn],
-        ["type", LR_TYPE_COURSE, !toggleOn]
+        ["type", LearningResourceType.ResourceFile, toggleOn],
+        ["type", LearningResourceType.Course, !toggleOn]
       ]
       // Remove any facets not relevant to the new search type
       const newFacets: Map<string, string> = new Map(
@@ -165,7 +157,9 @@ export default function SearchPage() {
     [toggleFacets, activeFacets]
   )
 
-  const isResourceSearch = activeFacets["type"].includes(LR_TYPE_RESOURCEFILE)
+  const isResourceSearch = (activeFacets.type ?? []).includes(
+    LearningResourceType.ResourceFile
+  )
   const facetMap = isResourceSearch ? RESOURCE_FACETS : COURSE_FACETS
 
   return (
@@ -195,7 +189,11 @@ export default function SearchPage() {
             facetMap={facetMap}
             facetOptions={facetOptions}
             activeFacets={activeFacets}
-            onUpdateFacets={onUpdateFacets}
+            onUpdateFacets={
+              (onUpdateFacets as any) as React.ChangeEventHandler<
+                HTMLInputElement
+              >
+            }
             clearAllFilters={clearAllFilters}
             toggleFacet={toggleFacet}
           />

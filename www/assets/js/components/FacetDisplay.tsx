@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from "react"
 import flatten from "lodash.flatten"
 import toArray from "lodash.toarray"
@@ -6,9 +5,21 @@ import toArray from "lodash.toarray"
 import FilterableFacet from "./FilterableFacet"
 import Facet from "./Facet"
 import SearchFilter from "./SearchFilter"
+import { Facets } from "@mitodl/course-search-utils/dist/url_utils"
+import { Aggregation } from "@mitodl/course-search-utils"
+import { FacetManifest } from "../LearningResources"
+
+interface Props {
+  facetMap: FacetManifest
+  facetOptions: (group: string) => Aggregation | null
+  activeFacets: Facets
+  onUpdateFacets: React.ChangeEventHandler<HTMLInputElement>
+  clearAllFilters: () => void
+  toggleFacet: (name: string, value: string, isEnabled: boolean) => void
+}
 
 const FacetDisplay = React.memo(
-  function FacetDisplay(props) {
+  function FacetDisplay(props: Props) {
     const {
       facetMap,
       facetOptions,
@@ -35,18 +46,17 @@ const FacetDisplay = React.memo(
                     clearAllFilters()
                   }
                 }}
-                tabIndex="0"
+                tabIndex={0}
               >
                 Clear All
               </span>
             </div>
-            {facetMap.map(([name, , , labelFunction]) =>
+            {facetMap.map(([name]) =>
               (activeFacets[name] || []).map((facet, i) => (
                 <SearchFilter
                   key={i}
                   value={facet}
                   clearFacet={() => toggleFacet(name, facet, false)}
-                  labelFunction={labelFunction}
                 />
               ))
             )}

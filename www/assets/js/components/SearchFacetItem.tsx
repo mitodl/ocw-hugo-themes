@@ -1,15 +1,20 @@
-// @ts-nocheck
 import React from "react"
 import Dotdotdot from "react-dotdotdot"
+import { Bucket } from "../lib/search"
 
 import { slugify } from "../lib/util"
 
 const featuredFacetNames = ["audience", "certification"]
 
-export default function SearchFacetItem(props) {
-  const { facet, isChecked, onUpdate, labelFunction, name } = props
+interface Props {
+  facet: Bucket
+  isChecked: boolean
+  onUpdate: React.ChangeEventHandler<HTMLInputElement>
+  name: string
+}
 
-  const labelText = labelFunction ? labelFunction(facet.key) : facet.key
+export default function SearchFacetItem(props: Props) {
+  const { facet, isChecked, onUpdate, name } = props
 
   const facetId = slugify(`${name}-${facet.key}`)
 
@@ -27,12 +32,12 @@ export default function SearchFacetItem(props) {
         <label
           htmlFor={facetId}
           className={
-            featuredFacetNames.includes(name) ?
-              "facet-key facet-key-large" :
-              "facet-key"
+            featuredFacetNames.includes(name)
+              ? "facet-key facet-key-large"
+              : "facet-key"
           }
         >
-          <Dotdotdot clamp={1}>{labelText}</Dotdotdot>
+          <Dotdotdot clamp={1}>{facet.key}</Dotdotdot>
         </label>
         <div className="facet-count">{facet.doc_count}</div>
       </div>

@@ -696,20 +696,20 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@mitodl/course-search-utils@1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@mitodl/course-search-utils/-/course-search-utils-1.3.0.tgz#6da8701536c2a3f733eb37367d9bd444ec4e9c9f"
-  integrity sha512-HEbxFN+F9T7JEBPHH13Ud04IGRkgBW/7AcF2/3m6kDh/f1JWLZyPQFrvqyAdWi4Ja0yZi7uVe4iDGOh5nLOKtA==
-  dependencies:
-    history "^5.0.0"
-    query-string "^6.13.1"
-    ramda "^0.27.1"
-
 "@mitodl/course-search-utils@^1.1.4":
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/@mitodl/course-search-utils/-/course-search-utils-1.1.4.tgz#8605feda9be1f58ae889bedb10de28c53b2682a2"
   integrity sha512-UIhn8+3cvJzIqiNRAPyQ07XOjOLgat5hjOLJRX9DMg8Dplh1TlBvgfvOnzr8Ssk/FMaI9FawYvK/bVZA32r+4w==
   dependencies:
+    query-string "^6.13.1"
+    ramda "^0.27.1"
+
+"@mitodl/course-search-utils@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@mitodl/course-search-utils/-/course-search-utils-1.4.0.tgz#adcdd49250edb4268421f5e4425d50d2e3f701f0"
+  integrity sha512-3U+TQ07vfqaNujW/jVGBkBekZTEf/gatM1EHgP5FMM+IB3qHrqVgLaU+IaDoDoeu+MwDAqQvT3RoJNqJY7HmOw==
+  dependencies:
+    history "^5.0.0"
     query-string "^6.13.1"
     ramda "^0.27.1"
 
@@ -5614,10 +5614,10 @@ functions-have-names@^1.2.2:
   resolved "https://registry.yarnpkg.com/functions-have-names/-/functions-have-names-1.2.2.tgz#98d93991c39da9361f8e50b337c4f6e41f120e21"
   integrity sha512-bLgc3asbWdwPbx2mNk2S49kmJCuQeu0nfmaOgbs8WIyzzkw3r4htszdIi9Q9EMezDPTYuJx2wvjZ/EwgAthpnA==
 
-fuse.js@^6.4.1:
-  version "6.4.6"
-  resolved "https://registry.yarnpkg.com/fuse.js/-/fuse.js-6.4.6.tgz#62f216c110e5aa22486aff20be7896d19a059b79"
-  integrity sha512-/gYxR/0VpXmWSfZOIPS3rWwU8SHgsRTwWuXhyb2O6s7aRuVtHtxCkR33bNYu3wyLyNx/Wpv0vU7FZy8Vj53VNw==
+fuse.js@^6.5.3:
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/fuse.js/-/fuse.js-6.5.3.tgz#7446c0acbc4ab0ab36fa602e97499bdb69452b93"
+  integrity sha512-sA5etGE7yD/pOqivZRBvUBd/NaL2sjAu6QuSaFoe1H2BrJSkH/T/UXAJ8CdXdw7DvY3Hs8CXKYkDWX7RiP5KOg==
 
 generate-function@^2.0.0:
   version "2.3.1"

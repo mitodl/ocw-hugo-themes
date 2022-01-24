@@ -1,15 +1,10 @@
-// @ts-nocheck
 import React from "react"
 import Dotdotdot from "react-dotdotdot"
 import { serializeSearchParams } from "@mitodl/course-search-utils/dist/url_utils"
 
 import Card from "./Card"
 
-import {
-  CAROUSEL_IMG_HEIGHT,
-  LearningResourceType,
-  SEARCH_URL
-} from "../lib/constants"
+import { CAROUSEL_IMG_HEIGHT, SEARCH_URL } from "../lib/constants"
 import {
   getContentIcon,
   getCoverImageUrl,
@@ -19,6 +14,7 @@ import {
 } from "../lib/search"
 import { emptyOrNil } from "../lib/util"
 import { LearningResource } from "../LearningResources"
+import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
 
 const getClassName = (searchResultLayout: SearchLayout | undefined) =>
   `learning-resource-card ${
@@ -80,10 +76,7 @@ export default function SearchResult(props: SRProps) {
       aria-posinset={index + 1}
       tabIndex={0}
     >
-      <Card
-        className={getClassName(searchResultLayout)}
-        borderless={searchResultLayout === SEARCH_GRID_UI}
-      >
+      <Card className={getClassName(searchResultLayout)}>
         <LearningResourceDisplay {...props} />
       </Card>
     </article>

@@ -1,11 +1,22 @@
-// @ts-nocheck
 import React, { useCallback, useState } from "react"
 
 import FacetDisplay from "./FacetDisplay"
 import { DESKTOP } from "../lib/constants"
 import { useDeviceCategory } from "../hooks/util"
+import { Facets } from "@mitodl/course-search-utils/dist/url_utils"
+import { Aggregation } from "@mitodl/course-search-utils"
+import { FacetManifest } from "../LearningResources"
 
-export default function SearchFilterDrawer(props) {
+interface Props {
+  facetMap: FacetManifest
+  facetOptions: (group: string) => Aggregation | null
+  activeFacets: Facets
+  onUpdateFacets: React.ChangeEventHandler<HTMLInputElement>
+  clearAllFilters: () => void
+  toggleFacet: (name: string, value: string, isEnabled: boolean) => void
+}
+
+export default function SearchFilterDrawer(props: Props) {
   const deviceCategory = useDeviceCategory()
   const [drawerOpen, setDrawerOpen] = useState(false)
 

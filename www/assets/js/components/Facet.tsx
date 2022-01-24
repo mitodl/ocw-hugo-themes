@@ -1,9 +1,9 @@
-// @ts-nocheck
 import React, { useState } from "react"
 import { contains } from "ramda"
 import has from "lodash.has"
 
 import SearchFacetItem from "./SearchFacetItem"
+import { Aggregation } from "@mitodl/course-search-utils"
 
 const MAX_DISPLAY_COUNT = 5
 const FACET_COLLAPSE_THRESHOLD = 15
@@ -11,17 +11,13 @@ const FACET_COLLAPSE_THRESHOLD = 15
 interface Props {
   name: string
   title: string
+  results: Aggregation | null
+  currentlySelected: string[]
+  onUpdate: React.ChangeEventHandler<HTMLInputElement>
 }
 
 function SearchFacet(props: Props) {
-  const {
-    name,
-    title,
-    results,
-    currentlySelected,
-    onUpdate,
-    labelFunction
-  } = props
+  const { name, title, results, currentlySelected, onUpdate } = props
 
   const [showFacetList, setShowFacetList] = useState(true)
   const [showAllFacets, setShowAllFacets] = useState(false)
@@ -50,7 +46,6 @@ function SearchFacet(props: Props) {
                     isChecked={contains(facet.key, currentlySelected || [])}
                     onUpdate={onUpdate}
                     name={name}
-                    labelFunction={labelFunction}
                   />
                 ) : null
               )
@@ -69,7 +64,7 @@ function SearchFacet(props: Props) {
   )
 }
 
-const propsAreEqual = (prevProps: Props, nextProps: Props) => {
+const propsAreEqual = (_prevProps: Props, nextProps: Props) => {
   // results.buckets is null while the search request is in-flight
   // we want to defer rendering in that case because it will cause
   // all the facets to briefly disappear before reappearing

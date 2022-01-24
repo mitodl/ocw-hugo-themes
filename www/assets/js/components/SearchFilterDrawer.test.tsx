@@ -5,6 +5,7 @@ import SearchFilterDrawer from "./SearchFilterDrawer"
 import FacetDisplay from "./FacetDisplay"
 
 describe("SearchFilterDrawer component", () => {
+  // @ts-ignore
   const render = (props = {}) => shallow(<SearchFilterDrawer {...props} />)
   const utils = require("../lib/util")
   const getViewportWidthMock = jest.spyOn(utils, "getViewportWidth")
