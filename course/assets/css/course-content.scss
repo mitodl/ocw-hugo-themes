@@ -1,0 +1,9 @@
+#course-title.collapse:not(.show) {
+  display: block;
+  height: 5.7em;
+  overflow: hidden;
+}
+
+#course-title.collapsing {
+  height: 5.7em;
+}
