@@ -1,0 +1,99 @@
+{{ define "main" }} {{ block "header" . }} {{ partialCached "header" . }} {{end}}
+
+<div id="contact-main-section" class="page-single">
+  <div class="px-lg-5 mt-6">
+    <div class="row">
+      <div class="col-12">
+        <h1>Contact Us</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="pr-lg-6 pr-4">
+          <div class="faq-section">
+            <h3 class="mt-4">Frequently asked questions</h3>
+            <div class="faq">
+              <p class="question">
+                <b>What is MIT OpenCourseWare?</b>
+              </p>
+              <p class="answer">
+                MIT OpenCourseWare is a free and open publication of material from thousands of MIT courses,
+                covering the entire MIT curriculum and used by millions of learners and educators around the
+                world.
+              </p>
+            </div>
+            <div class="faq">
+              <p class="question">
+                <b>Do I have to register or sign up?</b>
+              </p>
+              <p class="answer">
+                No enrollment or registration. Freely browse and use OCW materials at your own pace. There's
+                no signup, and no start or end dates.
+              </p>
+            </div>
+            <div class="faq">
+              <p class="question">
+                <b>Why is OCW made free to the public?</b>
+              </p>
+              <p class="answer">
+                Knowledge is your reward. Use OCW to guide your own life-long learning, or to teach others. We
+                don't offer credit or certification for using OCW.
+              </p>
+            </div>
+            <div class="faq">
+              <p class="question">
+                <b>Are there any restrictions on use of OCW materials?</b>
+              </p>
+              <p class="answer">
+                Made for sharing. Download files for later. Send to friends and colleagues. Modify, remix, and
+                reuse (just remember to cite OCW as the source.)
+              </p>
+            </div>
+            <!-- d-none d-md-block = hiding only on large screens or less  -->
+            <div class="faq d-none d-lg-block">
+              <h3>Still have questions?</h3>
+              <p>
+                Please see our
+                <a href="https://ocw.mit.edu/help/">Help pages for answers to many common questions</a>
+                about OCW.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div>
+          <img
+            width="100%"
+            src="/images/contact/frequently-asked-questions.jpg"
+            alt="Discover OER on MIT OpenCourseWare"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <!-- d-block d-md-none = showing only on large screens or less  -->
+        <div class="d-block d-lg-none mt-2">
+          <h3>Still have questions?</h3>
+          <p>
+            Please see our
+            <a href="https://ocw.mit.edu/help/">Help pages for answers to many common questions</a>
+            about OCW.
+          </p>
+        </div>
+        <p class="mb-0">
+          If you did not find the answer in the <a href="https://ocw.mit.edu/help/">OCW help pages</a>, please fill out the form below
+          and a staff member we will respond as soon as possible.
+        </p>
+      </div>
+      <div class="col-lg-6 pl-2 mt-5">
+        <div id="wufoo-q1syqo410gn1jpb"> Fill out my <a href="https://mitocw.wufoo.com/forms/q1syqo410gn1jpb">online form</a>. </div> 
+        <script type="text/javascript"> var q1syqo410gn1jpb; (function(d, t) { var s = d.createElement(t), options = { 'userName':'mitocw', 'formHash':'q1syqo410gn1jpb', 'autoResize':true, 'height':'763', 'async':true, 'host':'wufoo.com', 'header':'show', 'ssl':true }; s.src = ('https:' == d.location.protocol ?'https://':'http://') + 'secure.wufoo.com/scripts/embed/form.js'; s.onload = s.onreadystatechange = function() { var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return; try { q1syqo410gn1jpb = new WufooForm(); q1syqo410gn1jpb.initialize(options); q1syqo410gn1jpb.display(); } catch (e) { } }; var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr); })(document, 'script'); </script>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ end }}
