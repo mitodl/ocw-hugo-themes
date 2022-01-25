@@ -2,6 +2,8 @@
 import React from "react"
 import Dotdotdot from "react-dotdotdot"
 
+import { slugify } from "../lib/util"
+
 const featuredFacetNames = ["audience", "certification"]
 
 export default function SearchFacetItem(props) {
@@ -9,7 +11,8 @@ export default function SearchFacetItem(props) {
 
   const labelText = labelFunction ? labelFunction(facet.key) : facet.key
 
-  const facetId = `${name}-${facet.key}`
+  const facetId = slugify(`${name}-${facet.key}`)
+
   return (
     <div className={isChecked ? "facet-visible checked" : "facet-visible"}>
       <input

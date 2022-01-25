@@ -6,3 +6,10 @@ export const getViewportWidth = () => window.innerWidth
 
 export const isDoubleQuoted = (text: string) =>
   !emptyOrNil(match(/^".+"$/, text || ""))
+
+export const slugify = (text: string) =>
+  text
+    .split(" ")
+    .map(subString => subString.toLowerCase())
+    .join("-")
+    .replace(/[\W_]/g, "-")
