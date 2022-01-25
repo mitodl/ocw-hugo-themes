@@ -37,12 +37,3 @@ $(document).ready(() => {
 
   initSentry()
 })
-
-// &nbsp; causes text to overflow and it doesn't wrap inside a div
-// not sure if this is a good approach but I couldn't ANY Hugo template function
-// with which we can get rid of &nbsp;
-// not wrapping this code in function for better efficiency and to avoid glitch for user
-const elements = document.getElementsByClassName("remove-nbsp")
-for (let i = 0; i < elements.length; i++) {
-  elements[i].innerHTML = elements[i].innerHTML.replace(/&nbsp;/g, " ")
-}
