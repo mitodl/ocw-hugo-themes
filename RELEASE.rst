@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.39.1
+--------------
+
+- added aspect ratio to class
+- fix: horizontal scroll bar on topics in drawer (#337)
+- fix: resource type hidden when count 0 (#362)
+- feat: contact page (#353)
+- remove trailing slash from match
+
 Version 1.39.0 (Released January 21, 2022)
 --------------
 
