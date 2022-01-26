@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react"
 import { contains } from "ramda"
 import has from "lodash.has"
 import Fuse from "fuse.js"
+import { slugify } from '../lib/util'
 
 import SearchFacetItem from "./SearchFacetItem"
 import { Aggregation } from "@mitodl/course-search-utils"
@@ -59,6 +60,8 @@ function FilterableSearchFacet(props: Props) {
 
   const facets = (filteredList || results?.buckets) ?? []
 
+  const facetID = slugify(`filter-${name}`)
+
   return results && results.buckets && results.buckets.length === 0 ? null : (
     <div className="facets filterable-facet mb-3">
       <div
@@ -74,10 +77,15 @@ function FilterableSearchFacet(props: Props) {
             <input
               className="facet-filter"
               type="text"
+              id={facetID + "-filter-input"}
               onChange={handleFilterInput}
               value={filterText}
               placeholder={`Search ${title || ""}`}
+              aria-label={`Filter options for ${name} facet`}
             />
+            <div aria-live="polite" className="sr-only">
+              {`${filteredList?.length || 0 } options`}
+            </div>
             {filterText === "" ? (
               <i className="material-icons search-icon mt-1">search</i>
             ) : (
@@ -95,7 +103,8 @@ function FilterableSearchFacet(props: Props) {
               </i>
             )}
           </div>
-          <div className="facet-list">
+          <div role="application">
+          <ul tabIndex={0} role="listbox" className="facet-list">
             {facets.map((facet, i) => (
               <SearchFacetItem
                 key={i}
@@ -105,7 +114,8 @@ function FilterableSearchFacet(props: Props) {
                 name={name}
               />
             ))}
-          </div>
+          </ul>
+            </div>
         </>
       ) : null}
     </div>
