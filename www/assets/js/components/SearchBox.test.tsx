@@ -14,8 +14,11 @@ describe("SearchBox component", () => {
     const wrapper = render({ onChange, value, onSubmit })
     expect(wrapper.find("input").prop("onChange")).toEqual(onChange)
     expect(wrapper.find("input").prop("value")).toBe(value)
+    expect(wrapper.find("input").prop("type")).toBe("search")
 
     expect(wrapper.find("form").prop("onSubmit")).toEqual(onSubmit)
+    expect(wrapper.find("form").prop("role")).toEqual("search")
+
     expect(wrapper.find("button").prop("type")).toEqual("submit")
   })
 })
