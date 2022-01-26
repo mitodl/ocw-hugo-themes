@@ -190,7 +190,7 @@ export default function SearchPage() {
           </div>
           <div className="col-lg-3" />
         </div>
-        <div className="row" role="search" aria-live="polite">
+        <div className="row">
           <SearchFilterDrawer
             facetMap={facetMap}
             facetOptions={facetOptions}
@@ -254,7 +254,11 @@ export default function SearchPage() {
                     Resources
                   </button>
                 </li>
-                <li className="nav-item flex-grow-1 d-flex align-items-center justify-content-center results-total">
+                <li
+                  aria-live="polite"
+                  aria-atomic="true"
+                  className="nav-item flex-grow-1 d-flex align-items-center justify-content-center results-total"
+                >
                   {completedInitialLoad ? `${total} Results` : null}
                 </li>
                 {!isResourceSearch ? (

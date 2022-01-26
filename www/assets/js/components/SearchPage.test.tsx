@@ -10,7 +10,6 @@ import {
   LR_TYPE_COURSE,
   LR_TYPE_RESOURCEFILE
 } from "@mitodl/course-search-utils/dist/constants"
-import FilterableFacet from "./FilterableFacet"
 
 import SearchPage, { SEARCH_PAGE_SIZE } from "./SearchPage"
 
@@ -236,8 +235,10 @@ describe("SearchPage component", () => {
   it("should display the number of results", async () => {
     const wrapper = await render()
     await resolveSearch()
-    const resultsText = wrapper.find(".results-total").text()
-    expect(resultsText).toBe("10 Results")
+    const results = wrapper.find(".results-total")
+    expect(results.text()).toBe("10 Results")
+    expect(results.prop("aria-live")).toBe("polite")
+    expect(results.prop("aria-atomic")).toBe("true")
   })
 
   //
