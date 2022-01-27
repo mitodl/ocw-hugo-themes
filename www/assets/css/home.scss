@@ -476,6 +476,14 @@ $promo-carousel-height: 200px;
     }
   }
 
+  .carousel-section {
+    height: $promo-carousel-height;
+
+    @include media-breakpoint-down(xs) {
+      padding-top: 5%;
+    }
+  }
+
   .carousel-indicators {
     margin-bottom: 0;
     bottom: -30px;
