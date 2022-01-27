@@ -3,6 +3,7 @@ import Dotdotdot from "react-dotdotdot"
 import { Bucket } from "../lib/search"
 
 import { slugify } from "../lib/util"
+import {Item } from '@adobe/react-spectrum'
 
 const featuredFacetNames = ["audience", "certification"]
 
@@ -19,7 +20,7 @@ export default function SearchFacetItem(props: Props) {
   const facetId = slugify(`${name}-${facet.key}`)
 
   return (
-    <li role="option" tabIndex={-1} aria-checked={isChecked} className={isChecked ? "facet-visible checked" : "facet-visible"}>
+    <Item key={facetId}>
       <input
         type="checkbox"
         id={facetId}
@@ -43,6 +44,6 @@ export default function SearchFacetItem(props: Props) {
           <div className="facet-count">{facet.doc_count}</div>
         </label>
       </div>
-    </li>
+    </Item>
   )
 }

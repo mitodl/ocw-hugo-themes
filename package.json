@@ -34,8 +34,10 @@
   },
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
+    "@adobe/react-spectrum": "^3.15.1",
     "@mitodl/course-search-utils": "^1.4.0",
     "@mitodl/ocw-to-hugo": "1.36.0",
+    "@react-aria/listbox": "^3.4.0",
     "@sentry/browser": "^5.19.0",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/enzyme": "^3.10.11",
