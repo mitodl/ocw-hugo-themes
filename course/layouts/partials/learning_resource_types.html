@@ -1,7 +1,7 @@
 {{ $courseData := .context.Site.Data.course }}
 {{ $inPanel := .inPanel }}
 
-{{if gt (len $courseData.learning_resource_types) 0}}
+{{ if gt (len ($courseData.learning_resource_types | default slice)) 0 }}
   <div class="course-home-section w-100 {{ if $inPanel }}in-panel{{ else }}bg-light{{ end }}">
     <div class="container px-0 mx-0">
       <h4 class="course-info-title font-weight-bold">Learning Resource Types</h4>
