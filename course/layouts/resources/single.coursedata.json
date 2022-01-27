@@ -1,4 +1,5 @@
 {
+  "title": {{- .Title | jsonify -}},
   "description": {{ .Params.description | jsonify }},
   "file": {{ .Params.file | jsonify }},
   "learning_resource_types": {{ .Params.learning_resource_types| jsonify }},
