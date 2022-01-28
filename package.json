@@ -21,7 +21,7 @@
     "webpack:stats": "NODE_ENV=production webpack --config base-theme/assets/webpack/webpack.prod.js --profile --json > stats.json",
     "webpack:analyze": "webpack-bundle-analyzer stats.json dist",
     "fmt": "LOG_LEVEL= prettier-eslint --write --no-semi $PWD/'**/assets/**/*.js' $PWD/'**/assets/**/*.ts' $PWD/'**/assets/**/*.tsx' $PWD/'**/assets/**/*.scss'",
-    "fmt:check": "LOG_LEVEL= prettier-eslint --list-different --no-semi $PWD/'**/assets/**/*.js' $PWD/'**/assets/**/*.scss'",
+    "fmt:check": "LOG_LEVEL= prettier-eslint --list-different --no-semi $PWD/'**/assets/**/*.js' $PWD/'**/assets/**/*.ts' $PWD/'**/assets/**/*.tsx' $PWD/'**/assets/**/*.scss'",
     "scss_lint": "node ./node_modules/sass-lint/bin/sass-lint.js --verbose --no-exit ./assets",
     "test": "jest",
     "test:watch": "jest --watch",
