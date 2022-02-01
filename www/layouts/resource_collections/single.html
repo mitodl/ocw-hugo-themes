@@ -1,0 +1,45 @@
+{{ define "main" }}
+{{- $collection := . -}}
+<div>
+  {{ block "header" . }}
+  {{ partialCached "header" . }}
+  {{ end }}
+  <div class="container standard-width mx-auto mt-5">
+    <h1>
+      {{ $collection.Title }}
+    </h1>
+    <div class="pb-2">
+      {{ $collection.Description | .RenderString }}
+    </div>
+    <div id="resource-collection-container"></div>
+  </div>
+  <script>
+    {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocwnext.odl.mit.edu"  -}}
+    {{- $contentMap := dict -}}
+    {{- $courseJSONMap := dict -}}
+    {{- $resourceJSONMap := dict -}}
+    {{- $resourceURLMap := dict -}}
+    {{- range $collection.Params.resources.content -}}
+      {{- $itemUUID := index . 0 -}}
+      {{- $courseId := index . 1 -}}
+      {{- if not (isset $contentMap $courseId) -}}
+        {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/courses/" $courseId "/content_map.json") "" -}}
+        {{- $mapData := getJSON $url -}}
+        {{- $contentMap = dict $courseId $mapData | merge $contentMap -}}
+      {{- end -}}
+      {{- if not (isset $courseJSONMap $courseId) -}}
+        {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/courses/" $courseId "/data.json") "" -}}
+        {{- $data := getJSON $url -}}
+        {{- $courseJSONMap = merge $courseJSONMap (dict $courseId $data) -}}
+      {{- end -}}
+      {{- $courseJSONRelpath := index (index $contentMap $courseId) $itemUUID -}}
+      {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) $courseJSONRelpath) "" -}}
+      {{- $resourceJSON := getJSON $url -}}
+      {{- $resourceJSONMap = dict $itemUUID $resourceJSON | merge $resourceJSONMap -}}
+      {{- $resourceURLMap = dict $itemUUID $url | merge $resourceURLMap -}}
+    {{- end -}}
+    {{- $resourceCollectionData := dict "courseJSONMap" $courseJSONMap "resourceJSONMap" $resourceJSONMap "resourceURLMap" $resourceURLMap "collection" $collection.Params.resources.content -}}
+    window.resourceCollectionData = JSON.parse("{{- $resourceCollectionData | jsonify -}}");
+  </script>
+</div>
+{{ end }}

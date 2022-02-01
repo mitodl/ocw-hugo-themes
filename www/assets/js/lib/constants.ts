@@ -44,6 +44,13 @@ export const readableLearningResources = {
   [LearningResourceType.ResourceFile]:   "Course Resource"
 }
 
+export enum RESOURCE_TYPE {
+  Image = "Image",
+  Video = "Video",
+  Other = "Other",
+  Document = "Document"
+}
+
 export const DISPLAY_DATE_FORMAT = "MMMM D, YYYY"
 
 export const SEARCH_URL = "/search/"

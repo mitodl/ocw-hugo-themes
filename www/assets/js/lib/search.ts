@@ -16,7 +16,8 @@ import {
   CourseJSON,
   LearningResource,
   LearningResourceResult,
-  Level
+  Level,
+  ResourceJSON
 } from "../LearningResources"
 import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
 
@@ -507,6 +508,13 @@ export const SEARCH_GRID_UI = "grid"
 export const SEARCH_LIST_UI = "list"
 export type SearchLayout = typeof SEARCH_GRID_UI | typeof SEARCH_LIST_UI
 
+const formatCourseJSONTopics = (courseJSON: CourseJSON) =>
+  courseJSON.topics
+    ? Array.from(new Set(courseJSON.topics.flat())).map(topic => ({
+        name: topic
+      }))
+    : []
+
 export const courseJSONToLearningResource = (
   name: string,
   courseData: CourseJSON
@@ -516,11 +524,7 @@ export const courseJSONToLearningResource = (
   image_src: courseData.image_src,
   object_type: LearningResourceType.Course,
   platform: OCW_PLATFORM,
-  topics: courseData.topics
-    ? Array.from(new Set(courseData.topics.flat())).map(topic => ({
-        name: topic
-      }))
-    : [],
+  topics: formatCourseJSONTopics(courseData),
   runs: [],
   level: courseData.level,
   instructors: courseData.instructors.map(instructor => instructor.title),
@@ -538,6 +542,55 @@ export const courseJSONToLearningResource = (
   description: courseData.course_description,
   course_feature_tags: []
 })
+
+const fileTypeToContentType = (mimeType: string): ContentType => {
+  switch (mimeType) {
+    case "application/pdf":
+      return CONTENT_TYPE_PDF
+    case "video/x-msvideo":
+    case "video/quicktime":
+    case "video/mpeg":
+    case "video/mp4":
+    case "video/x-ms-wmv":
+      return CONTENT_TYPE_VIDEO
+    default:
+      return CONTENT_TYPE_PAGE
+  }
+}
+
+export const resourceJSONToLearningResource = (
+  resourceJSON: ResourceJSON,
+  uuid: string,
+  url: string,
+  courseJSON: CourseJSON
+): LearningResource => {
+  let trimmedURL = url.replace(/data.json$/, "")
+
+  return {
+    id: uuid,
+    title: resourceJSON.title,
+    image_src: "",
+    object_type: LearningResourceType.ResourceFile,
+    platform: OCW_PLATFORM,
+    topics: formatCourseJSONTopics(courseJSON),
+    runs: [],
+    level: null,
+    instructors: [],
+    department: undefined,
+    audience: undefined,
+    certification: undefined,
+    content_title: resourceJSON.title,
+    run_title: null,
+    run_slug: null,
+    content_type: fileTypeToContentType(resourceJSON.file_type),
+    url: trimmedURL,
+    short_url: null,
+    course_id: null,
+    coursenum: null,
+    description: resourceJSON.description,
+    course_feature_tags: []
+  }
+}
 
 export const searchResultToLearningResource = (
   result: LearningResourceResult

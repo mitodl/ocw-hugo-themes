@@ -14,6 +14,7 @@ import CourseCollection from "./js/components/CourseCollection"
 import { setupEmailSignupForm } from "./js/mailchimp"
 import { initNotifications } from "./js/notification"
 import { initSubNav } from "./js/subnav"
+import ResourceCollection from "./js/components/ResourceCollection"
 
 export interface OCWWindow extends Window {
   $: JQueryStatic
@@ -38,6 +39,13 @@ $(document).ready(() => {
   )
   if (courseCollectionEl) {
     ReactDOM.render(<CourseCollection />, courseCollectionEl)
+  }
+
+  const resourceCollectionEl = document.querySelector(
+    "#resource-collection-container"
+  )
+  if (resourceCollectionEl) {
+    ReactDOM.render(<ResourceCollection />, resourceCollectionEl)
   }
 
   initNotifications()

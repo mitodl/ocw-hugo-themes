@@ -9,7 +9,8 @@ import {
   ResourceFileResult,
   VideoResult,
   LearningResourceResult,
-  CourseJSON
+  CourseJSON,
+  ResourceJSON
 } from "../LearningResources"
 
 import {
@@ -22,7 +23,8 @@ import {
   CERTIFICATE,
   CONTENT_TYPE_VIDEO,
   CONTENT_TYPE_PDF,
-  CONTENT_TYPE_PAGE
+  CONTENT_TYPE_PAGE,
+  RESOURCE_TYPE
 } from "../lib/constants"
 
 export function* incrementer() {
@@ -31,6 +33,18 @@ export function* incrementer() {
   while (true) {
     yield int++
   }
+}
+
+export function makeFakeUUID(): string {
+  return casual.uuid
+}
+
+export function makeFakeURL(): string {
+  return casual.url
+}
+
+export function makeFakeCourseName(): string {
+  return casual.title
 }
 
 const incrRun = incrementer()
@@ -169,6 +183,24 @@ export const makeCourseJSON = (): CourseJSON => ({
     }
   }
 })
+
+export const makeResourceJSON = (): ResourceJSON => ({
+  title: casual.title,
+  description: casual.description,
+  file: casual.string,
+  learning_resource_types: [casual.word, casual.word],
+  resource_type: RESOURCE_TYPE.Document,
+  file_type: "application/pdf",
+  image_metadata: {
+    "image-alt": casual.description,
+    caption: casual.description
+  },
+  youtube_key: casual.string,
+  captions_file: casual.string,
+  transcript_file: casual.string,
+  archive_url: casual.string
+})
+
 export const makeResourceFileResult = (): ResourceFileResult => ({
   id: casual.integer(1, 1000),
   course_id: `course_${String(casual.random)}`,

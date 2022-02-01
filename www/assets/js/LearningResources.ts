@@ -7,7 +7,8 @@ import {
   PROFESSIONAL,
   OPEN_CONTENT,
   CERTIFICATE,
-  ContentType
+  ContentType,
+  RESOURCE_TYPE
 } from "./lib/constants"
 
 type Audience =
@@ -48,15 +49,23 @@ interface Instructor {
   salutation: string
   title: string
 }
-
 interface ImageMetadata {
-  file: string
-  image_metadata: {
-    "image-alt": string
-    caption: string
-  }
+  "image-alt": string
+  caption: string
+  credit?: string
 }
 
+interface CourseImageMetadata {
+  file: string
+  image_metadata: ImageMetadata
+}
+
+/**
+ * This is the shape of the JSON in the `data.json` files created for each
+ * course.
+ *
+ * See the template at course/layouts/index.coursedata.json
+ */
 export interface CourseJSON {
   course_title: string
   course_description: string
@@ -72,7 +81,27 @@ export interface CourseJSON {
   year: string
   level: Level
   image_src: string
-  course_image_metadata: ImageMetadata
+  course_image_metadata: CourseImageMetadata
+}
+
+/**
+ * Interface describing the shape of the ResourceJSON files generated
+ * by the course theme for resource content items.
+ *
+ * See the template at course/layouts/resources/single.coursedata.json
+ */
+export interface ResourceJSON {
+  title: string
+  description: string
+  file: string
+  learning_resource_types: string[]
+  resource_type: RESOURCE_TYPE
+  file_type: string
+  image_metadata?: ImageMetadata
+  youtube_key?: string
+  captions_file?: string
+  transcript_file?: string
+  archive_url?: string
 }
 
 interface CourseRunPrice {

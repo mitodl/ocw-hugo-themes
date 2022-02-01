@@ -2,11 +2,12 @@ import { mount } from "enzyme"
 import { makeCourseJSON } from "../factories/search"
 import { LearningResource } from "../LearningResources"
 import { courseJSONToLearningResource } from "../lib/search"
-import { useCourseCollectionData } from "../hooks/course_collection"
+import * as hugoHooks from "../hooks/hugo_data"
 import React from "react"
 import CourseCollection from "./CourseCollection"
 
-jest.mock("../hooks/course_collection")
+const { useCourseCollectionData } = hugoHooks as jest.Mocked<typeof hugoHooks>
+jest.mock("../hooks/hugo_data")
 
 describe("CourseCollection component", () => {
   let data: LearningResource[]
@@ -19,8 +20,6 @@ describe("CourseCollection component", () => {
       .map((courseJSON, index) =>
         courseJSONToLearningResource(`course-${index}`, courseJSON)
       )
-
-    // @ts-ignore
     useCourseCollectionData.mockReturnValue(data)
   })
 

@@ -1,10 +1,10 @@
 import React from "react"
-import { useCourseCollectionData } from "../hooks/hugo_data"
+import { useResourceCollectionData } from "../hooks/hugo_data"
 import { SEARCH_LIST_UI } from "../lib/search"
 import { LearningResourceDisplay } from "./SearchResult"
 
-export default function CourseCollection() {
-  const data = useCourseCollectionData()
+export default function ResourceCollection() {
+  const data = useResourceCollectionData()
 
   return (
     <div className="col-12 col-lg-8 pb-2">
