@@ -13,3 +13,6 @@ export const slugify = (text: string) =>
     .map(subString => subString.toLowerCase())
     .join("-")
     .replace(/[\W_]/g, "-")
+
+export const parseQueryParams = () =>
+  new URLSearchParams(window.location.search)

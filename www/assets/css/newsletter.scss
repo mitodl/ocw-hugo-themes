@@ -1,0 +1,83 @@
+#mc_embed_signup {
+  background: #fff;
+  clear: left;
+  font: 14px Helvetica, Arial, sans-serif;
+
+  h1 {
+    font-size: 24px;
+  }
+
+  form {
+    width: 50% !important;
+    @include media-breakpoint-down(md) {
+      width: 100% !important;
+    }
+  }
+
+  label {
+    margin-bottom: 11px !important;
+    font-size: 16px !important;
+  }
+
+  input:not([type="submit"]) {
+    padding: 15px 0 !important;
+    border-color: $medium-gray !important;
+  }
+
+  select {
+    padding: 14px 0 !important;
+    border-color: $medium-gray;
+    border-radius: 3px;
+    width: 100% !important;
+    text-indent: 2% !important;
+    // rules to remove default arrow in very browser
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: none;
+  }
+
+  .button {
+    // had to add !important to stop style from being overriden
+    background-color: $about-red !important;
+    height: 58px !important;
+    width: 40% !important;
+    max-width: 211px !important ;
+    font-size: 18px !important;
+    font-weight: bold !important;
+
+    @include media-breakpoint-down(sm) {
+      width: 100% !important;
+      max-width: none !important;
+    }
+  }
+
+  #mce-responses {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 96% !important;
+    color: white;
+    border-radius: 3px;
+
+    a {
+      color: white;
+    }
+
+    #mce-error-response {
+      background-color: $about-red;
+      padding-left: 10px;
+      width: 100%;
+      margin: 0;
+      padding: 20px;
+    }
+
+    #mce-success-response {
+      background-color: $success-message-color;
+      padding-left: 10px;
+      width: 100%;
+      margin: 0;
+      padding: 20px;
+      color: white !important;
+    }
+  }
+}
