@@ -30,7 +30,8 @@
                   <div class="homepage-content d-flex">
                     <div class="container-fluid pt-0 pb-4">
                       <div class="row px-3 pb-2 justify-content-between">
-                        {{ $shouldCollapseImageDescription := gt (len $courseImageMetadata.Params.image_metadata.caption) 130 }}
+                        {{- $imageCaption := $courseImageMetadata.Params.image_metadata.caption -}}
+                        {{ $shouldCollapseImageDescription := gt (len $imageCaption) 130 }}
                         <div class="col-lg-4 d-none d-lg-block pl-0">
                           <div class="d-flex flex-column image-with-caption">
                             <img class="course-image" src="{{ $courseImageUrl }}"
@@ -39,7 +40,7 @@
                             <div id="course-image-description" class="{{ if $shouldCollapseImageDescription }}collapse{{ else }} mb-3 {{ end }}" aria-expanded="false">
                               <div class="caption pt-3 px-3">
                                 <span>
-                                  {{ $courseImageMetadata.Params.image_metadata.caption | .RenderString }}
+                                  {{ $imageCaption | .RenderString }}
                                 </span>
                               </div>
                             </div>
