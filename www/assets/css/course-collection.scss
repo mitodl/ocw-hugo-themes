@@ -1,0 +1,17 @@
+.course-collection {
+  .tab-container {
+      gap: 20px;
+      
+    a {
+      text-decoration: none;
+    }
+    .tab {
+      border: 1px solid aqua;
+      background-color: white;
+      border-radius: 40px;
+      p {
+        margin: 0;
+      }
+    }
+  }
+}
