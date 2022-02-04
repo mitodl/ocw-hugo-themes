@@ -1,15 +1,18 @@
 <div class="course-collection standard-width container mx-auto mt-3">
-    <h2>Discover Collections</h2>
-    <div class="give-now-wrapper w-100  p-4">
-      <p>OCW offers course content and materials related to a wide range of collection. Below are some  topics available for out to explore</p>
-      <div class="tab-container d-flex flex-row m-0 flex-wrap">
-        {{ range where .Site.Pages "Type" "course_collections" }}
-          <a href={{.Permalink}}>  
-            <div class="tab px-5">
-              <p>{{.Title}}</p>
-            </div>
-          </a>
+  <h2>Discover Collections</h2>
+  <div class=" transparent-background-light w-100  p-4">
+    <p>
+      OCW offers course content and materials related to a wide range of
+      collection. Below are some topics available for out to explore
+    </p>
+    <div class="tab-container d-flex flex-row m-0 flex-wrap">
+      {{ range where .Site.Pages "Type" "course_collections" }}
+      <a href="{{.Permalink}}">
+        <div class="tab">
+          <p>{{.Title}}</p>
+        </div>
+      </a>
       {{ end }}
-      </div>
     </div>
+  </div>
 </div>

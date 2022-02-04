@@ -72,6 +72,7 @@
   {{ $coursePages := where $pages "Type" "==" "course" }}
   {{ $childPages := where $coursePages ".Params.layout" "==" "course_home" }}
   {{ partial "home_course_cards.html" $childPages }}
+  {{ partial "course_collection_tab.html" . }}
   <div class="give-now-wrapper">
     <div class="give-now my-5 d-flex justify-content-center">
       <div class="d-flex flex-column justify-content-center">

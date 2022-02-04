@@ -1,16 +1,23 @@
 .course-collection {
+  .transparent-background-light {
+    background-color: $transparency-gray-light;
+  }
+
   .tab-container {
-      gap: 20px;
-      
+    gap: 16px;
+
     a {
       text-decoration: none;
     }
     .tab {
-      border: 1px solid aqua;
+      border: 1px solid $tab-border-color;
       background-color: white;
       border-radius: 40px;
+      padding: 12px 17px 12px 17px;
+
       p {
         margin: 0;
+        font-size: 16px;
       }
     }
   }
