@@ -1,0 +1,98 @@
+#footer-container {
+  background-color: $footer-background-color;
+  display: flex;
+  padding: 40px 50px 30px 50px;
+  flex-direction: column;
+
+  @include media-breakpoint-down(lg) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .columns {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 30%;
+
+    //
+    @include media-breakpoint-down(lg) {
+      width: 40%;
+    }
+
+    @include media-breakpoint-down(md) {
+      width: 100%;
+    }
+
+    & > div {
+      padding-bottom: 25px;
+
+      &:last-child {
+        padding-bottom: 0px;
+      }
+    }
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0px;
+  }
+
+  h5 {
+    font-size: 18px;
+  }
+
+  #open-learning-logo {
+    img {
+      height: 50px;
+      width: 260px;
+    }
+
+    @media (max-width: $extra-small-screen-width) {
+      padding-top: 2rem;
+      padding-left: 0 !important;
+    }
+  }
+
+  ul {
+    list-style: none;
+    text-transform: uppercase;
+    @include media-breakpoint-down(md) {
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 18px;
+      font-size: 16px;
+
+      &:last-child {
+        margin-bottom: 0px;
+      }
+    }
+  }
+
+  .social-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .horizontal-list {
+    display: flex;
+    margin-top: auto;
+    ul {
+      list-style: none;
+      margin: 0;
+
+      li {
+        display: inline-block;
+        padding-right: 28px;
+        margin-bottom: 5px;
+
+        &:last-child {
+          padding-right: 0px;
+        }
+      }
+    }
+  }
+}

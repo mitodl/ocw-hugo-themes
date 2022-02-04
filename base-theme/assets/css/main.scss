@@ -10,6 +10,7 @@
 @import "color";
 @import "font";
 @import "header";
+@import "footer";
 @import "text";
 
 a.coming-soon {
@@ -146,7 +147,7 @@ p {
 
 .medium-and-below-only {
   @include media-breakpoint-up(lg) {
-    display: none;
+    display: none !important;
   }
 }
 

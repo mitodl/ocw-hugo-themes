@@ -2,6 +2,7 @@ $desktop-nav-max-width: 470px;
 $max-content-width: 1447px;
 $desktop-header-height: 116px;
 $desktop-header-max-width: 1664px;
+$extra-small-screen-width: 400px;
 $enable-responsive-font-sizes: true;
 $font-size-base: 0.8rem;
 $headings-font-weight: 600;
@@ -39,3 +40,6 @@ $course-content-link-hover-clicked: #355b6b;
 // about page
 $timeline-spacing: 128px;
 $about-red: #a92d41;
+
+// footer partials
+$footer-background-color: #f6f7f9;
