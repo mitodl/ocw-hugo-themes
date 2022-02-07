@@ -1,7 +1,5 @@
 {{- $uuid := index .Params 0 -}}
 {{- $title := index .Params 1 -}}
 {{- range where $.Site.Pages "Params.uid" $uuid -}}
-    <p class="m-0 p-0">
-        <a href="{{- .Permalink -}}">{{ $title }}</a>
-    </p>    
+    <a class="d-block" href="{{- .Permalink -}}">{{ $title }}</a>
 {{- end -}}
