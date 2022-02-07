@@ -3,7 +3,6 @@ import Dotdotdot from "react-dotdotdot"
 import { Bucket } from "../lib/search"
 
 import { slugify } from "../lib/util"
-import {Item } from '@adobe/react-spectrum'
 
 const featuredFacetNames = ["audience", "certification"]
 
@@ -20,16 +19,14 @@ export default function SearchFacetItem(props: Props) {
   const facetId = slugify(`${name}-${facet.key}`)
 
   return (
-    <Item key={facetId}>
+    <div className={isChecked ? "facet-visible checked" : "facet-visible"}>
       <input
         type="checkbox"
         id={facetId}
         name={name}
         value={facet.key}
-        data-value={facet.key}
         checked={isChecked}
         onChange={onUpdate}
-        tabIndex={-1}
       />
       <div className="facet-label-div">
         <label
@@ -41,9 +38,9 @@ export default function SearchFacetItem(props: Props) {
           }
         >
           <Dotdotdot clamp={1}>{facet.key}</Dotdotdot>
-          <div className="facet-count">{facet.doc_count}</div>
         </label>
+        <div className="facet-count">{facet.doc_count}</div>
       </div>
-    </Item>
+    </div>
   )
 }
