@@ -16,7 +16,7 @@ interface Props {
 export default function SearchFacetItem(props: Props) {
   const { facet, isChecked, onUpdate, name } = props
 
-  const facetId = slugify(`${name}-${facet.key}`)
+  const facetId = slugify(`${name}-${facet.key}-input`)
 
   return (
     <div className={isChecked ? "facet-visible checked" : "facet-visible"}>
@@ -27,6 +27,7 @@ export default function SearchFacetItem(props: Props) {
         value={facet.key}
         checked={isChecked}
         onChange={onUpdate}
+        tabIndex={-1}
       />
       <div className="facet-label-div">
         <label

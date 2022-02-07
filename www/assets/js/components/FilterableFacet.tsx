@@ -3,11 +3,11 @@ import { contains } from "ramda"
 import has from "lodash.has"
 import Fuse from "fuse.js"
 import { slugify } from '../lib/util'
-import {ListBox, Item, Section} from '@adobe/react-spectrum'
 
 import SearchFacetItem from "./SearchFacetItem"
 import { Aggregation } from "@mitodl/course-search-utils"
 import { Bucket } from "../lib/search"
+import {ListBox} from "./ListBox"
 
 // the `.search method returns records like { item, refindex }
 // where item is the facet and refIndex is it's index in the original
@@ -105,7 +105,7 @@ function FilterableSearchFacet(props: Props) {
             )}
           </div>
           <div role="application">
-            <ListBox aria-label={`${name} filter options`}>
+            <ListBox label={`${name} filter options`}>
             {facets.map((facet, i) => (
               <SearchFacetItem
                 key={i}

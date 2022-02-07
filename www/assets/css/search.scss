@@ -6,6 +6,14 @@
 @import "card";
 @import "search-filter";
 
+ul {
+  li {
+    &:focus {
+      background: pink;
+    }
+  }
+}
+
 .search-wrapper {
   a {
     color: black;
