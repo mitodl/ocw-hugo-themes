@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.39.1
+Version 1.39.1 (Released February 07, 2022)
 --------------
 
 - populate resource title
