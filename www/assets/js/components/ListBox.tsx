@@ -1,6 +1,7 @@
-import React, {ReactNode, useEffect, useRef, useState} from 'react';
-import { useHotkeys } from 'react-hotkeys-hook'
-import mergeRefs from "react-merge-refs";
+import React, { ReactNode, useEffect, useRef, useState } from "react"
+import { useHotkeys } from "react-hotkeys-hook"
+import mergeRefs from "react-merge-refs"
+import {randomID} from "../lib/util"
 
 interface ListProps {
   label: string
@@ -10,43 +11,57 @@ interface ListProps {
 
 type RefMap = Map<number, HTMLLIElement>
 
-export function ListBox (props: ListProps) {
+export function ListBox(props: ListProps) {
   const { label, children } = props
 
-  const optionRefs = useRef<RefMap>(new Map)
+  const optionRefs = useRef<RefMap>(new Map())
 
   const [focusedIndex, setFocusedIndex] = useState(0)
 
   const mainRef = useRef<HTMLUListElement | null>(null)
 
+  const [idStem] = useState(randomID)
+
   // TODO limit this so you can't go off the end
-  const upRef = useHotkeys('up', (e) => {
-    e.preventDefault()
-    console.log('index going up');
-    setFocusedIndex(current => Math.max(current - 1, 0))
-  }, [setFocusedIndex])
+  const upRef = useHotkeys(
+    "up",
+    e => {
+      e.preventDefault()
+      console.log("index going up")
+      setFocusedIndex(current => Math.max(current - 1, 0))
+    },
+    [setFocusedIndex]
+  )
 
-  const downRef = useHotkeys('down', (e) => {
-    e.preventDefault()
-    setFocusedIndex(current => current + 1)
-    console.log('index going up');
-  }, [setFocusedIndex])
+  const downRef = useHotkeys(
+    "down",
+    e => {
+      e.preventDefault()
+      setFocusedIndex(current => current + 1)
+      console.log("index going up")
+    },
+    [setFocusedIndex]
+  )
 
-  const selectRef = useHotkeys('ctrl+space', (e) => {
-    e.preventDefault()
-    let el = optionRefs.current.get(focusedIndex)
+  const selectRef = useHotkeys(
+    "space",
+    e => {
+      e.preventDefault()
+      let el = optionRefs.current.get(focusedIndex)
 
-    if (el) {
-      let input = el.querySelector("input")!
-      let event = new MouseEvent('click', {
-        'view': window, 
-        'bubbles': true, 
-        'cancelable': false
-      });
-      input.dispatchEvent(event);
-    }
-  }, [focusedIndex, optionRefs.current])
-  
+      if (el) {
+        let input = el.querySelector("input")!
+        let event = new MouseEvent("click", {
+          view: window,
+          bubbles: true,
+          cancelable: false
+        })
+        input.dispatchEvent(event)
+      }
+    },
+    [focusedIndex, optionRefs.current]
+  )
+
   useEffect(() => {
     upRef.current = mainRef.current
     downRef.current = mainRef.current
@@ -55,40 +70,48 @@ export function ListBox (props: ListProps) {
 
   useEffect(() => {
     let el = optionRefs.current.get(focusedIndex)
-
     if (el) {
       el.focus()
     }
-  }, [optionRefs, focusedIndex])
+  },
+    [focusedIndex, optionRefs.current])
 
   const [activeDescendentId, setActiveDescendentId] = useState("")
-  // useEffect(() => {
-    
 
-  return <ul
-    role="listbox"
-    aria-multiselectable="true"
-    aria-label={label}
-    tabIndex={0}
-    ref={mainRef}
-    aria-activedescendent={activeDescendentId}
-  >
-    {React.Children.map(children, (child, index) => (
-      <li role="option"
-        ref={el => {
-          if (el) {
-            optionRefs.current.set(index,el)
-          }
-        }}
-      >
-        { child }
-      </li>
-    ))}
-  </ul>
+  useEffect(() => {
+      let el = optionRefs.current.get(focusedIndex)
+      if (el) {
+        setActiveDescendentId(el.id)
+      }
+    },
+    [focusedIndex, optionRefs.current]
+  )
+
+  return (
+    <ul
+      role="listbox"
+      aria-multiselectable="true"
+      aria-label={label}
+      tabIndex={0}
+      ref={mainRef}
+    >
+      {React.Children.map(children, (child, index) => (
+        <li
+          role="option"
+          id={`${idStem}-${String(index)}`}
+          ref={el => {
+            if (el) {
+              optionRefs.current.set(index, el)
+            }
+          }}
+          tabIndex={index === focusedIndex ? 0 : -1 }
+        >
+          {child}
+        </li>
+      ))}
+    </ul>
+  )
 }
-
-
-
 
 interface ListBoxOptionProps {
   children: ReactNode
@@ -96,10 +119,12 @@ interface ListBoxOptionProps {
   index: number
 }
 
-export function ListBoxOption (props: ListBoxOptionProps) {
+export function ListBoxOption(props: ListBoxOptionProps) {
   const { children, className } = props
 
-  return <li role="option" className={className ?? ""}>
-    { children }
-  </li>
+  return (
+    <li role="option" className={className ?? ""}>
+      {children}
+    </li>
+  )
 }
