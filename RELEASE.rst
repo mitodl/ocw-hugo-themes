@@ -1,6 +1,23 @@
 Release Notes
 =============
 
+Version 1.39.1 (Released February 07, 2022)
+--------------
+
+- populate resource title
+- fix: sanity check for Learning Resource Types (#377)
+- removed coming soon class
+- fix: carousel height and thumb swipe fixed (#368)
+- feat: expand/collapse in document title (#364)
+- updated help and faq link
+- updated header link
+- fix: adding data attributes to carousel (#365)
+- added aspect ratio to class
+- fix: horizontal scroll bar on topics in drawer (#337)
+- fix: resource type hidden when count 0 (#362)
+- feat: contact page (#353)
+- remove trailing slash from match
+
 Version 1.39.0 (Released January 21, 2022)
 --------------
 
