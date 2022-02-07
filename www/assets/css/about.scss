@@ -220,12 +220,11 @@
     }
 
     li:before {
-      content: "remove";
-      font-family: "Material Icons";
+      content: '\2013';
       font-size: 24px;
       position: absolute;
-      left: 0;
-      top: -6px;
+      left: 5px;
+      top: -8px;
     }
   }
 
