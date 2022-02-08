@@ -1,6 +1,23 @@
 Release Notes
 =============
 
+Version 1.40.0 (Released February 08, 2022)
+--------------
+
+- updated footer
+- added section to course theme
+- add a data template for creating a course content map
+- fix: alt text removed for lecture videos (#408)
+- fix: accessibility fixes (#389)
+- add UI for rendering course collections
+- added basic newsletter page
+- fix: instructor insights images scaled up (#388)
+- fix small oversight on typescript change
+- fix some more type issues, upgrade course-search-utils
+- fix handling of role="search"
+- fix usage of aria-live on the search page
+- slugify text before using it as an ID
+
 Version 1.39.1 (Released February 07, 2022)
 --------------
 
