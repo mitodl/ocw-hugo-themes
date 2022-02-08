@@ -15,8 +15,8 @@
     {{ $carouselId := (printf "new-course-carousel-%v" $breakpoint) }}
     <div class="{{ $breakpointVisibilityClass }}">
       <div id="{{ $carouselId }}" class="carousel slide" data-interval="false" data-touch="true" data-ride="carousel">
-        <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold text-uppercase">
-          <h3>New Courses</h3>
+        <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold">
+          <h2>New Courses</h2>
           {{ partial "carousel_controls.html" $carouselId }}
         </div>
         <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
@@ -32,14 +32,14 @@
               {{ end }}
                 <div class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 $itemsInCarousel) }}{{ end }} w-100 d-flex justify-content-center">
                   <div class="course-card card bg-white">
-                    <a href="/courses/{{ $courseId }}">
+                    <a href="/courses/{{ $courseId }}" aria-hidden="true" tabindex="-1">
                       {{/* The following is a temporary hack that should be removed following the decommissioning of the EC2 OCW Next build servers */}}
                       {{ $courseBaseUrl := getenv "COURSE_BASE_URL" | default "" }}
                       {{ $courseImageUrl := $courseData.course_image_url }}
                       {{ if in $courseBaseUrl "ocwnext" }}
                         {{ $courseImageUrl = replace $courseData.course_image_url "/courses" "/coursemedia" }}
                       {{ end }}
-                      <img src="{{ $courseImageUrl }}" alt="Thumbnail for {{ $courseData.course_title }}"/>
+                      <img src="{{ $courseImageUrl }}" alt=""/>
                     </a>
                     <div class="course-card-content pt-1 px-3 pb-3">
                       <div class="course-level">
