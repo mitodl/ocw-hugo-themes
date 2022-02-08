@@ -12,7 +12,7 @@
         <div class="{{ $breakpointVisibilityClass }}">
           <div id="{{ $carouselId }}" class="carousel slide">
             <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold text-uppercase">
-              <h2 class="branded">OCW News</h2>
+              <h2>OCW News</h2>
               {{ partial "carousel_controls.html" $carouselId }}
             </div>
             <div class="carousel-inner d-flex mt-2 px-0">
@@ -40,7 +40,7 @@
       {{ end }}
 
       <div class="d-none d-lg-block">
-        <h2 class="branded">OCW News</h2>
+        <h2>OCW News</h2>
         <div class="d-grid items-grid">
           {{ range $index, $item := (first 4 .items) }}
             <div class="item item-{{ $index }}"
