@@ -10,6 +10,8 @@
       text-decoration: none;
     }
     .tab {
+      min-width: 100px;
+      text-align: center;
       border: 1px solid $tab-border-color;
       background-color: white;
       border-radius: 40px;
