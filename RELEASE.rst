@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.40.0
+Version 1.40.0 (Released February 08, 2022)
 --------------
 
 - updated footer
