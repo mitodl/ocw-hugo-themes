@@ -33,12 +33,11 @@
               <div class="row m-0">
                 <div id="main-content" class="col-12 col-lg-{{ if $isCourseHomePage }}12{{ else }}8{{ end }} col-xl-{{ if $isCourseHomePage }}12{{ else }}8{{ end }} px-3 pl-md-5 pr-md-8 mt-3 mt-lg-5">
                   {{ if not $isCourseHomePage }}
-                  <div class="course-info-toggle large-and-above-only bg-light shadow-sm border border-right-0 rounded-left">
-                    <div id="desktop-course-info-toggle" class="btn px-2 m-0 toggle navbar-toggle offcanvas-toggle text-uppercase font-weight-bold"
-                      data-toggle="collapse">
+                  <button id="desktop-course-info-toggle" class="course-info-toggle large-and-above-only bg-light shadow-sm border border-right-0 rounded-left p-0" data-toggle="collapse">
+                    <span  class="btn px-2 m-0 toggle navbar-toggle offcanvas-toggle text-uppercase font-weight-bold">
                       Hide Course Info
-                    </div>
-                  </div>
+                  </span>
+                  </button>
                   {{ end }}
                   {{ block "main" . }}{{ end }}
                 </div>

@@ -15,9 +15,9 @@ export const initDesktopCourseInfoToggle = () => {
       mainContent.classList.toggle("col-lg-8")
       console.log(desktopCourseInfoToggle.innerText)
       if (desktopCourseInfoToggle.innerText === HIDE_COURSE_INFO_TEXT) {
-        desktopCourseInfoToggle.innerText = SHOW_COURSE_INFO_TEXT
+        desktopCourseInfoToggle.firstChild.innerText = SHOW_COURSE_INFO_TEXT
       } else {
-        desktopCourseInfoToggle.innerText = HIDE_COURSE_INFO_TEXT
+        desktopCourseInfoToggle.firstChild.innerText = HIDE_COURSE_INFO_TEXT
       }
     })
   }
