@@ -3,13 +3,13 @@
     background-color: $transparency-gray-light;
   }
 
-  .tab-container {
+  .course-collection-section {
     gap: 16px;
 
     a {
       text-decoration: none;
     }
-    .tab {
+    .collection-item {
       min-width: 100px;
       text-align: center;
       border: 1px solid $tab-border-color;
