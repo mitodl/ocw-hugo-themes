@@ -1,4 +1,4 @@
 {{- $uuid := index .Params 0 -}}
 {{- range where $.Site.Pages "Params.uid" $uuid -}}
-{{- .Params.file -}}
+{{- partial "resource_url.html" .Params.file -}}
 {{- end -}}
