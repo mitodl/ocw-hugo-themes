@@ -139,9 +139,8 @@ module.exports = {
 
     new CopyWebpackPlugin([
       {
-        from:    "./node_modules/mathjax/es5/",
-        to:      "mathjax/",
-        flatten: true
+        from: "./node_modules/mathjax/es5/",
+        to:   "mathjax/"
       }
     ]),
 
