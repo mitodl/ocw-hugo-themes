@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.42.0
+--------------
+
+- pass what's passed into `resource_file.html` through `resource_url.html` to either make it root relative or prefix with `RESOURCE_BASE_URL` (#434)
+- added course info button to tab order (#425)
+- fixed bug with boldsymbol not rendering (#431)
+- add resource collection rendering support
+- added search icon to base theme (#410)
+- fix: some margin botton added below course description (#427)
+
 Version 1.41.0 (Released February 11, 2022)
 --------------
 
