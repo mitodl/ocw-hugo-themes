@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.41.0
+Version 1.41.0 (Released February 11, 2022)
 --------------
 
 - add simple subscript, superscript shortcodes (#422)
