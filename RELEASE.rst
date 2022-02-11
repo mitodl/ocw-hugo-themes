@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.41.0 (Released February 11, 2022)
+--------------
+
+- add simple subscript, superscript shortcodes (#422)
+- Add course collection partial (#411)
+- fix: increased value for expand widget for course image description (#407)
+- fixed  typo which is causing link to be broken (#423)
+- accessibility: home page (#416)
+- accessibility: about page (#417)
+
 Version 1.40.0 (Released February 08, 2022)
 --------------
 
