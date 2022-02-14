@@ -135,6 +135,7 @@ export default function SearchPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const toggleResourceSearch = useCallback(
     toggleOn => async () => {
+      if (isActiveFacet(toggleOn)) return
       const toggledFacets: [string, string, boolean][] = [
         ["type", LearningResourceType.ResourceFile, toggleOn],
         ["type", LearningResourceType.Course, !toggleOn]
@@ -156,6 +157,14 @@ export default function SearchPage() {
     },
     [toggleFacets, activeFacets]
   )
+
+  const isActiveFacet = (toggleOn: boolean): boolean => {
+    const activeType = activeFacets.type ?? []
+    return (
+      activeType &&
+      activeType.includes(LearningResourceType.ResourceFile) === toggleOn
+    )
+  }
 
   const isResourceSearch = (activeFacets.type ?? []).includes(
     LearningResourceType.ResourceFile
