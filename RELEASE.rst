@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.42.0
+Version 1.42.0 (Released February 14, 2022)
 --------------
 
 - pass what's passed into `resource_file.html` through `resource_url.html` to either make it root relative or prefix with `RESOURCE_BASE_URL` (#434)
