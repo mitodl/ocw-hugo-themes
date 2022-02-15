@@ -134,16 +134,21 @@ export default function SearchPage() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const toggleResourceSearch = useCallback(
-    toggleOn => async () => {
-      if (isActiveFacet(toggleOn)) return
+    nextResourceFilterState => async () => {
+      if (isResourceFilterActive() === nextResourceFilterState) {
+        //Immediately return in case user clicks
+        // and already active facet.
+        //Githun issue https://github.com/mitodl/ocw-hugo-themes/issues/105
+        return
+      }
       const toggledFacets: [string, string, boolean][] = [
-        ["type", LearningResourceType.ResourceFile, toggleOn],
-        ["type", LearningResourceType.Course, !toggleOn]
+        ["type", LearningResourceType.ResourceFile, nextResourceFilterState],
+        ["type", LearningResourceType.Course, !nextResourceFilterState]
       ]
       // Remove any facets not relevant to the new search type
       const newFacets: Map<string, string> = new Map(
         // @ts-ignore
-        toggleOn ? RESOURCE_FACETS : COURSE_FACETS
+        nextResourceFilterState ? RESOURCE_FACETS : COURSE_FACETS
       )
 
       Object.entries(activeFacets).forEach(([key, list]) => {
@@ -158,12 +163,9 @@ export default function SearchPage() {
     [toggleFacets, activeFacets]
   )
 
-  const isActiveFacet = (toggleOn: boolean): boolean => {
+  const isResourceFilterActive = (): boolean => {
     const activeType = activeFacets.type ?? []
-    return (
-      activeType &&
-      activeType.includes(LearningResourceType.ResourceFile) === toggleOn
-    )
+    return activeType && activeType.includes(LearningResourceType.ResourceFile)
   }
 
   const isResourceSearch = (activeFacets.type ?? []).includes(
