@@ -9,6 +9,5 @@ const setupEmailSignupForm = () => {
 
   const queryParams = parseQueryParams()
   $("#mce-EMAIL").val(queryParams.get("EMAIL") || "")
-  $("#mce-EMAIL").trigger("focus")
 }
 export { setupEmailSignupForm }
