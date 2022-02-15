@@ -127,7 +127,7 @@ create and publish your own.
 
 ### Environment variables
 
-An example environment file can be found at `.env.example`.  To futher explain the various environment variables and what they do:
+An example environment file can be found at `.env.example`.  To further explain the various environment variables and what they do:
 
 | Variable | Relevant Themes | Example | Description |
 | --- | --- | --- | --- |
@@ -175,7 +175,7 @@ To run a course site locally for working on the `course` theme:
 To customize your `course` site:
 
  - Create a course site at https://ocw-studio-rc.odl.mit.edu/sites/ using the `ocw-course` starter
- - Add content and resources to your site relevant to what you're working on and publish your site to staging
+ - Add content and resources to your site relevant to what you're working on and publish your site to staging. Ensure course metadata has been created.
  - Find your site at https://github.mit.edu/ocw-content-rc/ and clone it locally (it's recommended to have a parent folder locally for all cloned courses, in this case `ocw-content-rc`)
  - Clone `ocw-hugo-projects` to obtain the relevant configuration file: https://github.com/mitodl/ocw-hugo-projects
  - Set the following environment variables in your `.env` file, replacing `/path/to` with your path to the repos indicated and `your-course-slug` with the folder your course was cloned into in a previous step:
