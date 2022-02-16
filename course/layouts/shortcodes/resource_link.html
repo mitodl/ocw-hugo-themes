@@ -1,5 +1,6 @@
 {{- $uuid := index .Params 0 -}}
 {{- $title := index .Params 1 -}}
+{{- $anchor_id := index .Params 2 | default ""}}
 {{- range where $.Site.Pages "Params.uid" $uuid -}}
-    <a href="{{- .Permalink -}}">{{ $title }}</a>
+    <a href="{{- .Permalink -}}{{- $anchor_id -}}">{{ $title }}</a>
 {{- end -}}
