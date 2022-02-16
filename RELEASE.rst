@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.42.1
+--------------
+
+- fixed resource toggling issue (#438)
+- added optional anchor id to resource link (#444)
+- Minor readme updates (#358)
+- removed focus casuing the page to scoll down (#439)
+- scoped css to prevent side-effects (#440)
+
 Version 1.42.0 (Released February 14, 2022)
 --------------
 
