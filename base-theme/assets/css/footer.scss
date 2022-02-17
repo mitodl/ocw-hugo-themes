@@ -1,52 +1,49 @@
 #footer-container {
   background-color: $footer-background-color;
   display: flex;
-  padding: 40px 50px 30px 50px;
+  padding: 35px 50px 30px 50px;
   flex-direction: column;
+  border-top: 1px solid #d2d2d2;
 
   @include media-breakpoint-down(lg) {
     padding-left: 2rem;
     padding-right: 2rem;
   }
 
-  .columns {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    width: 30%;
+  .row-gap-20 {
+    row-gap: 20px;
+  }
 
-    //
-    @include media-breakpoint-down(lg) {
-      width: 40%;
+  .support-link-column {
+    width: 55%;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .support-link-container {
+    font-weight: bold;
+    font-size: 14px;
+    a {
+      padding-left: 10px;
     }
+  }
 
-    @include media-breakpoint-down(md) {
+  .about-courseware {
+    width: 50%;
+    @include media-breakpoint-down(sm) {
       width: 100%;
-    }
-
-    & > div {
-      padding-bottom: 25px;
-
-      &:last-child {
-        padding-bottom: 0px;
-      }
     }
   }
 
   p {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 24px;
     margin: 0px;
   }
 
-  h5 {
-    font-size: 18px;
-  }
-
   #open-learning-logo {
     img {
-      height: 50px;
-      width: 260px;
+      width: 220px;
     }
 
     @media (max-width: $extra-small-screen-width) {
@@ -55,26 +52,8 @@
     }
   }
 
-  ul {
-    list-style: none;
-    text-transform: uppercase;
-    @include media-breakpoint-down(md) {
-      padding: 0;
-    }
-
-    li {
-      margin-bottom: 18px;
-      font-size: 16px;
-
-      &:last-child {
-        margin-bottom: 0px;
-      }
-    }
-  }
-
   .social-icon {
-    width: 32px;
-    height: 32px;
+    height: 24px;
   }
 
   .horizontal-list {
