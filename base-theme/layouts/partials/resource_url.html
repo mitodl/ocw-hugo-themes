@@ -6,13 +6,9 @@
 
   The RESOURCE_BASE_URL env variable is prefixed before the URL. That way for local
   development, you can set this to the S3 URL you expect the resources to be available at.
-
-  If the URL is for archive.org then we skip the above mentioneds steps.
 */}}
-{{- if not (hasPrefix $url "https://archive.org") -}}
-  {{- $prefix := getenv "RESOURCE_BASE_URL" | default "" -}}
-  {{- $url := printf "%s%s" (strings.TrimSuffix "/" $prefix) (urls.Parse $url).Path -}}
-{{- end -}}
+{{- $prefix := getenv "RESOURCE_BASE_URL" | default "" -}}
+{{- $url := printf "%s%s" (strings.TrimSuffix "/" $prefix) (urls.Parse $url).Path -}}
 {{- if hasPrefix $url "http" -}}
   {{- return $url -}}
 {{- else -}}
