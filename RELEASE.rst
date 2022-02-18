@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.42.1
+Version 1.42.1 (Released February 18, 2022)
 --------------
 
 - fixed resource toggling issue (#438)
