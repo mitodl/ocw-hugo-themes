@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.42.2
+--------------
+
+- fix: moving logo from course static to base static (#442)
+
 Version 1.42.1 (Released February 18, 2022)
 --------------
 
