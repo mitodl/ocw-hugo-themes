@@ -4,6 +4,8 @@
 {{ $downloadLink := .Params.file }}
 {{ if (eq $downloadLink nil) }}
 {{ $downloadLink = .Params.video_files.archive_url }}
+{{ else }}
+{{ $downloadLink =  partial "resource_url" $downloadLink  }}
 {{ end }}
 
 <div class="video-page">
@@ -19,7 +21,7 @@
 	{{end}}
 	{{ if  $downloadLink }}
 	  <div class="video-download-container">
-	    <a class="download-file video-download-button" href="{{ partial "resource_url" $downloadLink }}"><span class="material-icons">file_download</span> Download Video</a>
+	    <a class="download-file video-download-button" href="{{ $downloadLink }}"><span class="material-icons">file_download</span> Download Video</a>
 	  </div>
 	{{end}}
 	</div>

@@ -4,6 +4,8 @@
 {{ $downloadLink := .Params.file }}
 {{ if (eq $downloadLink nil) }}
 {{ $downloadLink = .Params.video_files.archive_url }}
+{{ else }}
+{{ $downloadLink =  partial "resource_url" $downloadLink  }}
 {{ end }}
 
 {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation) }}
