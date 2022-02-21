@@ -2,6 +2,9 @@
 {{ $captionsLocation := .Params.video_files.video_captions_file }}
 {{ $transcriptPdfLocation := .Params.video_files.video_transcript_file }}
 {{ $downloadLink := .Params.file }}
+{{ $relatedResourses := .Params.related_resources_text | default "" }}
+{{ $optionalTabTitle := .Params.optional_tab_title | default "" }}
+{{ $optionalTabContent := .Params.optional_text | default ""}}
 {{ if (eq $downloadLink nil) }}
 {{ $downloadLink = .Params.video_files.archive_url }}
 {{ else }}
@@ -28,7 +31,7 @@
 
   {{if $captionsLocation}}
   <div class="transcript-box">
-  	<div class="transcript-header">
+  	<div class="tab-header">
 	   	<span>
 	       Transcript
 	    </span>
@@ -40,8 +43,48 @@
 	      <i class="material-icons md-18"></i>
 	    </a>
 	</div>
-	<div class="transcript collapse show"></div>
+	<div class="transcript collapse"></div>
   </div>
-  <div class="transcript-footer"></div>
+  <div class="tab-footer"></div>
+  {{end}}
+  {{if $relatedResourses }}
+  <div class="related-resource-box">
+  	<div class="tab-header">
+	   	<span>
+	       Releated Resources
+	    </span>
+	    <a class="transcript-section-toggle course-nav-section-toggle"
+	      href=".related-resource"
+	      data-toggle="collapse"
+	      aria-controls="related-resource"
+	      aria-expanded="">
+	      <i class="material-icons md-18"></i>
+	    </a>
+	</div>
+	<div class="related-resource  tab-content collapse">
+		{{ .Page.RenderString $relatedResourses}}
+	</div>
+  </div>
+  <div class="tab-footer"></div>
+  {{end}}
+  {{if and $optionalTabTitle $optionalTabContent }}
+  <div class="related-resource-box">
+  	<div class="tab-header">
+	   	<span>
+	       {{ $optionalTabTitle }}
+	    </span>
+	    <a class="transcript-section-toggle course-nav-section-toggle"
+	      href=".related-resource"
+	      data-toggle="collapse"
+	      aria-controls="related-resource"
+	      aria-expanded="">
+	      <i class="material-icons md-18"></i>
+	    </a>
+	</div>
+	<div class="related-resource  tab-content collapse">
+		{{ .Page.RenderString $optionalTabContent}}
+	</div>
+  </div>
+  <div class="tab-footer"></div>
   {{end}}
 </div>
