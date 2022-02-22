@@ -7,5 +7,6 @@
   <div class="container standard-width mx-auto mt-5">    
     {{ .Content }}
   </div>
+  {{ block "footer" . }} {{ partialCached "footer" . }} {{ end }}
 </div>
 {{ end }}
