@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.42.2
+--------------
+
+- fix: style of h3 in td, name of an id changed (#452)
+- fixed video urls not linking to archive.org (#445)
+- fix: moving logo from course static to base static (#442)
+
 Version 1.42.1 (Released February 18, 2022)
 --------------
 
