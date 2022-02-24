@@ -69,6 +69,18 @@ a {
   }
 }
 
+p {
+  font-size: $normal-text-font-size;
+}
+
+ul li {
+  font-size: $normal-text-font-size;
+}
+
+table {
+  font-size: $normal-text-font-size;
+}
+
 h1 {
   font-size: 36px;
   color: $black;
@@ -116,10 +128,6 @@ a + h3 {
   h3 {
     font-size: 18px;
   }
-}
-
-p {
-  font-size: 18px;
 }
 
 @include media-breakpoint-down(xs) {
@@ -370,7 +378,7 @@ article.content {
 }
 
 .course-title-section {
-  font-size: 18px;
+  font-size: $normal-text-font-size;
 }
 
 .course-section-title-container {
