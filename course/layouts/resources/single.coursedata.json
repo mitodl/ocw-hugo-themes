@@ -13,6 +13,7 @@
   "youtube_key":  {{ .Params.video_metadata.youtube_id | jsonify}},
   "captions_file": {{ .Params.video_files.video_captions_file | jsonify }},
   "transcript_file": {{ .Params.video_files.video_transcript_file | jsonify }},
+  "thumbnail_file": {{ .Params.video_files.video_thumbnail_file | jsonify }},
   "archive_url": {{ .Params.video_files.archive_url | jsonify }}
   {{- end -}}
 }
