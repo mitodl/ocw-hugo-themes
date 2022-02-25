@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.42.3
+--------------
+
+- added footer to pages template (#467)
+- completed base footer design (#456)
+- fixed page title caching (#468)
+- fixed css
+- moved resource link to base theme (#473)
+
 Version 1.42.2 (Released February 25, 2022)
 --------------
 
