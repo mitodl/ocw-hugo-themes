@@ -299,6 +299,13 @@ table {
   img {
     max-width: 100%;
   }
+  td {
+    img {
+      // Incase of img in td setting maxwith to 100% will lead to img
+      // to only have the width of the table column
+      max-width: none;
+    }
+  }
 }
 
 article.content {
