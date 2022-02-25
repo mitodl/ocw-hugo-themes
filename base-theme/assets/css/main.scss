@@ -80,6 +80,10 @@ h3 {
   color: $black;
 }
 
+a + h3 {
+  margin-top: 1rem;
+}
+
 @include media-breakpoint-down(xs) {
   h3 {
     font-size: 18px;
