@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.42.2
+Version 1.42.2 (Released February 25, 2022)
 --------------
 
 - fix: style of h3 in td, name of an id changed (#452)
