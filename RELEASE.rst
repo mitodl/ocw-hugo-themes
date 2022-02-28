@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.42.3
+Version 1.42.3 (Released February 28, 2022)
 --------------
 
 - added footer to pages template (#467)
