@@ -1,6 +1,17 @@
 Release Notes
 =============
 
+Version 1.43.0
+--------------
+
+- return relative url for course images (#478)
+- add video thumbnail (#475)
+- change resource_link to be a markdown based shortcode (#485)
+- fixed spacing issue with h3 (#482)
+- added optional and related resources tab (#457)
+- fix: about page button links updated (#451)
+- fix: removing extra whitespace in sub and sup shortcodes (#481)
+
 Version 1.42.3 (Released February 28, 2022)
 --------------
 
