@@ -1,4 +1,6 @@
 {{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
+{{- $metaDataDescription := "MIT OpenCourseWare is a web-based publication of virtually all MIT course content. OCW is open and available to the world and is a permanent MIT activity" -}}
+{{- $metaDataKeywords := "MIT, OpenCourseWare, OCW, MIT activity, Online Education" -}}
 <head>
   {{ block "extrahead" . }}{{ end }}
   {{ if $gtmId }}
@@ -11,8 +13,25 @@
     <!-- End Google Tag Manager -->
   {{ end }}
   <meta charset="utf-8">
+  <meta name="description" content="{{- $metaDataDescription -}}">
+  <meta name="keywords" content="{{- $metaDataKeywords -}}">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   {{ block "title" . }}{{ end }}
+  <!-- [start] Google structured data -->
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@type" : "WebPage",
+      "name": "MIT OpenCourseWare",
+      "description": "{{- $metaDataDescription -}}",
+      "license": "http://creativecommons.org/licenses/by-nc-sa/4.0/", 
+      "publisher": {
+        "@type": "CollegeOrUniversity",
+        "name": "MIT OpenCourseWare"
+       }
+    }
+  </script>
+  <!-- [end] Google structured data -->
   {{ $theme := .Site.Data.webpack.main }}
   <link href="{{ partial "webpack_url.html" $theme.css }}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
