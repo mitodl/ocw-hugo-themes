@@ -1,11 +1,10 @@
 ---
 renderSearchIcon: false
-homePageCourseCollections:
-- Open Learning Library
-- Intro Programming
-- Energy
-- Entrepreneurship
-- Environment
-- Life Sciences
-- Transportation 
+homePageCourseCollectionsUrls:
+- /pages/introductory-programming 
+- /pages/open-learning-library/
+- /pages/open-learning-library/
+- /pages/open-learning-library/
+- /pages/open-learning-library/
+- /pages/open-learning-library/
 ---
