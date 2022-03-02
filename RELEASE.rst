@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.43.1
+--------------
+
+- CSS fix for errant empty paragraphs in table cells
+- removed paddings (#492)
+- fixed home page style leaking into footer (#488)
+
 Version 1.43.0 (Released March 02, 2022)
 --------------
 
