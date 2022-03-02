@@ -1,10 +1,10 @@
 ---
 renderSearchIcon: false
 homePageCourseCollectionsUrls:
-- /pages/introductory-programming 
-- /pages/open-learning-library/
-- /pages/open-learning-library/
-- /pages/open-learning-library/
-- /pages/open-learning-library/
-- /pages/open-learning-library/
+- /pages/open-learning-library
+- /pages/introductory-programming
+- /pages/energy
+- /pages/entrepreneurship
+- /pages/environment
+- /pages/transportation
 ---
