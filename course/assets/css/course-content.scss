@@ -8,6 +8,13 @@
   height: 5.7em;
 }
 
+th,
+td {
+  > p:empty {
+    display: none;
+  }
+}
+
 td {
   h3 {
     font-weight: normal !important;
