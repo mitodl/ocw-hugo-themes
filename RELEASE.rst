@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.43.0
+Version 1.43.0 (Released March 02, 2022)
 --------------
 
 - return relative url for course images (#478)
