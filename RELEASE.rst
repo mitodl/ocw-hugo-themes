@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.43.1
+Version 1.43.1 (Released March 03, 2022)
 --------------
 
 - CSS fix for errant empty paragraphs in table cells
