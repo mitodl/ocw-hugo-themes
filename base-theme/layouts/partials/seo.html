@@ -1,0 +1,25 @@
+{{ define "seo" }}
+  <!-- these are the default values of metadata description and keywords -->
+  {{- $defaultMetadataDescription := "MIT OpenCourseWare is a web-based publication of virtually all MIT course content. OCW is open and available to the world and is a permanent MIT activity" -}}
+  {{- $defaultMetadataKeywords := "opencourseware,MIT OCW,courseware,MIT opencourseware,Free Courses,class notes,class syllabus,class materials,tutorials,online courses,MIT courses" -}}
+  
+  {{- $metaDataDescription := .Params.metadataDescription | default $defaultMetadataDescription -}}
+  {{- $metaDataKeywords := .Params.metadataKeywords | default $defaultMetadataKeywords -}}
+
+  <meta name="description" content="{{- $metaDataDescription -}}">
+  <meta name="keywords" content="{{- $metaDataKeywords -}}">
+
+  <script type="application/ld+json">
+      {
+        "@context": "http://schema.org/",
+        "@type" : "WebPage",
+        "name": "MIT OpenCourseWare",
+        "description": "{{- $metaDataDescription -}}",
+        "license": "http://creativecommons.org/licenses/by-nc-sa/4.0/", 
+        "publisher": {
+          "@type": "CollegeOrUniversity",
+          "name": "MIT OpenCourseWare"
+        }
+      }
+  </script>
+{{ end }}
