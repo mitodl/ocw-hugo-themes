@@ -72,13 +72,7 @@ div[class^="reveal"],
   margin: 10px;
 }
 
-code {
-  color: $one-liner-code !important;
-  font-family: Courier New, Courier !important;
-}
-
 pre {
-  padding: 15px 0px 15px 15px !important;
-  background-color: $code-block-background !important;
-  border: thin dotted $highlight-red !important;
+  padding: 10px;
+  border: 1px solid $medium-gray;
 }
