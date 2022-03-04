@@ -71,3 +71,14 @@ div[class^="reveal"],
 .multiple_choice_buttons {
   margin: 10px;
 }
+
+code {
+  color: $one-liner-code !important;
+  font-family: Courier New, Courier !important;
+}
+
+pre {
+  padding: 15px 0px 15px 15px !important;
+  background-color: $code-block-background !important;
+  border: thin dotted $highlight-red !important;
+}
