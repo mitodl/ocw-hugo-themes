@@ -88,7 +88,6 @@ const COURSE_QUERY_FIELDS = [
   "topics",
   "platform",
   "course_id",
-  "coursenum^5",
   "offered_by",
   "department_name",
   "course_feature_tags"
@@ -190,6 +189,15 @@ export const buildSearchQuery = ({
               },
               type === LearningResourceType.Course
                 ? [
+                    {
+                      wildcard: {
+                        coursenum: {
+                          value: `${text.toUpperCase()}*`,
+                          boost: 100.0,
+                          rewrite: "constant_score"
+                        }
+                      }
+                    },
                     {
                       nested: {
                         path: "runs",

@@ -56,6 +56,15 @@ describe("search library", () => {
           }
         },
         {
+          wildcard: {
+            coursenum: {
+              boost:   100,
+              rewrite: "constant_score",
+              value:   "DOGS ARE THE BEST*"
+            }
+          }
+        },
+        {
           nested: {
             path:  "runs",
             query: {
