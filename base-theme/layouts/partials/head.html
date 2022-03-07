@@ -1,4 +1,5 @@
 {{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
+
 <head>
   {{ block "extrahead" . }}{{ end }}
   {{ if $gtmId }}
@@ -12,6 +13,7 @@
   {{ end }}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  {{ block "seo" . }}{{ end }}
   {{ block "title" . }}{{ end }}
   {{ $theme := .Site.Data.webpack.main }}
   <link href="{{ partial "webpack_url.html" $theme.css }}" rel="stylesheet">
