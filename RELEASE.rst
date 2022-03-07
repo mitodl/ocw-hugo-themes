@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.44.0
+Version 1.44.0 (Released March 07, 2022)
 --------------
 
 - Added course collection filter based on Title (#487)
