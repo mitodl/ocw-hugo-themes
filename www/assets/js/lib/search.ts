@@ -187,17 +187,17 @@ export const buildSearchQuery = ({
                   fields: searchFields(type as LearningResourceType)
                 }
               },
+              {
+                wildcard: {
+                  coursenum: {
+                    value: `${text.toUpperCase()}*`,
+                    boost: 100.0,
+                    rewrite: "constant_score"
+                  }
+                }
+              },
               type === LearningResourceType.Course
                 ? [
-                    {
-                      wildcard: {
-                        coursenum: {
-                          value: `${text.toUpperCase()}*`,
-                          boost: 100.0,
-                          rewrite: "constant_score"
-                        }
-                      }
-                    },
                     {
                       nested: {
                         path: "runs",
