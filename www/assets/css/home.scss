@@ -19,7 +19,6 @@ $searchbox-height: 50px;
 
 .view-all-link {
   color: $blue;
-  font-size: 16px;
 }
 
 .home-banner {
@@ -64,7 +63,6 @@ $searchbox-height: 50px;
 
       .discover {
         color: white;
-        font-size: 16px;
       }
 
       div {
@@ -87,7 +85,6 @@ $searchbox-height: 50px;
 
         button,
         a {
-          font-size: 16px;
           border: none;
         }
 
@@ -121,7 +118,7 @@ $searchbox-height: 50px;
           width: 50px;
           color: white;
           text-align: center;
-          font-size: 14px;
+          font-size: 0.875rem;
         }
 
         a.explore {
@@ -150,13 +147,11 @@ $searchbox-height: 50px;
 
       span {
         color: white;
-        font-size: 16px;
       }
 
       a {
         text-decoration: underline;
         color: $link-blue;
-        font-size: 16px;
       }
     }
 
@@ -166,30 +161,22 @@ $searchbox-height: 50px;
       flex-shrink: 0;
 
       .unlocking {
-        font-size: 28px;
         text-transform: uppercase;
         line-height: 40px;
 
         @include media-breakpoint-down(sm) {
-          font-size: 20px;
           line-height: 22px;
         }
       }
 
       .free {
-        font-size: 16px;
         line-height: 19px;
-
-        @include media-breakpoint-down(sm) {
-          font-size: 16px;
-          line-height: 19px;
-        }
       }
 
       .learn-more {
         text-transform: uppercase;
-        font-size: 15px;
         padding-top: 10px;
+        font-size: 1rem;
       }
     }
   }
@@ -236,10 +223,6 @@ $searchbox-height: 50px;
       padding: $spacer3 $spacer5;
     }
 
-    h1 {
-      font-size: 28px;
-    }
-
     img {
       height: 30px;
     }
@@ -266,7 +249,7 @@ $searchbox-height: 50px;
   .social-card {
     .h5 {
       padding-bottom: $spacer1;
-      font-size: 16px;
+      
     }
 
     .social-icon-row {
@@ -318,16 +301,10 @@ $searchbox-height: 50px;
 
   .course-card {
     border: 1px solid $medium-gray;
-
     $radius: 10px;
-
     border-radius: $radius;
     height: 381px;
     width: 100%;
-
-    h5 {
-      font-size: 16px;
-    }
 
     img {
       width: 100%;
@@ -342,7 +319,7 @@ $searchbox-height: 50px;
     }
 
     .course-card-content {
-      font-size: 12px;
+      font-size: 0.75rem;
 
       .card-label {
         color: $dark-gray;
@@ -367,7 +344,7 @@ $searchbox-height: 50px;
     background-size: cover;
 
     .name {
-      font-size: 20px;
+      font-size: 1.25rem;
     }
 
     .occupation-location {
@@ -379,10 +356,7 @@ $searchbox-height: 50px;
     }
 
     .name-occ {
-      .name {
-        font-size: 16px;
-      }
-
+    
       .occupation-location {
         font-size: 14px;
         text-overflow: ellipsis;

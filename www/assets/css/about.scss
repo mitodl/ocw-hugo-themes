@@ -221,7 +221,7 @@
 
     li:before {
       content: "\2013";
-      font-size: 24px;
+      font-size: $material-icon-font-normal;
       position: absolute;
       left: 5px;
       top: -8px;
@@ -279,6 +279,7 @@
 
       h1 {
         font-size: 3.75em;
+        color: $white;
       }
 
       #president-image {
@@ -293,7 +294,7 @@
 
       #presidents-message {
         p {
-          font-size: 24px;
+          font-size: 1.5rem;
         }
 
         @include media-breakpoint-down(md) {

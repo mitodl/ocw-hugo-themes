@@ -45,7 +45,7 @@ a.coming-soon {
 
 body {
   font-family: "Helvetica";
-  font-size: 16px;
+  font-size: $font-normal;
 }
 
 .underline {
@@ -69,33 +69,21 @@ a {
   }
 }
 
-p {
-  font-size: $normal-text-font-size;
-}
-
-li {
-  font-size: $normal-text-font-size;
-}
-
-table {
-  font-size: $normal-text-font-size;
-}
-
 h1 {
-  font-size: 36px;
+  font-size: $heading-one-font-lg;
   color: $black;
 
   @include media-breakpoint-down(xs) {
-    font-size: 32px;
+    font-size: $heading-one-font-xs;
   }
 }
 
 h2 {
-  font-size: 28px;
+  font-size: $heading-two-font-lg;
   color: $black;
 
   @include media-breakpoint-down(xs) {
-    font-size: 24px;
+    font-size: $heading-two-font-xs;
   }
 
   &.branded {
@@ -109,14 +97,8 @@ h2 {
   }
 }
 
-@include media-breakpoint-down(xs) {
-  h2 {
-    font-size: 24px;
-  }
-}
-
 h3 {
-  font-size: 24px;
+  font-size: $heading-three-font-lg;
   color: $black;
 }
 
@@ -126,13 +108,7 @@ a + h3 {
 
 @include media-breakpoint-down(xs) {
   h3 {
-    font-size: 18px;
-  }
-}
-
-@include media-breakpoint-down(xs) {
-  p {
-    font-size: 16px;
+    font-size: $heading-three-font-xs;
   }
 }
 
@@ -297,6 +273,24 @@ table {
 .material-icons {
   @include icon-styles;
   font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: $material-icon-font-normal;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .material-icons-round {
@@ -368,17 +362,9 @@ article.content {
 
       td {
         border: none;
-
-        p {
-          font-size: 1rem;
-        }
       }
     }
   }
-}
-
-.course-title-section {
-  font-size: $normal-text-font-size;
 }
 
 .course-section-title-container {
