@@ -39,7 +39,7 @@
       height: 38px;
 
       @include media-breakpoint-down(xs) {
-        font-size: 0.75rem;
+        font-size: $font-xs;
       }
 
       span {

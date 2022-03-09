@@ -1,7 +1,7 @@
 .course-nav {
   a {
     text-decoration: none;
-    font-size: 0.875rem;
+    font-size: $font-sm;
 
     &.active {
       font-weight: 600;
@@ -18,11 +18,11 @@
 
 .mobile-course-nav-toggle {
   *:not(i) {
-    font-size: 1rem;
+    font-size: $font-normal;
   }
 
   i {
-    font-size: 1.25rem;
+    font-size: $font-lg;
   }
 }
 
@@ -51,7 +51,7 @@
 }
 
 .course-nav-list-item-child {
-  font-size: 0.7rem;
+  font-size: $font-xs;
 }
 
 .course-nav-section-toggle {

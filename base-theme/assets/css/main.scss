@@ -45,7 +45,7 @@ a.coming-soon {
 
 body {
   font-family: "Helvetica";
-  font-size: $font-normal;
+  font-size: $font-root;
 }
 
 .underline {
@@ -328,7 +328,7 @@ table {
 }
 
 article.content {
-  font-size: 1rem;
+  font-size: $font-normal;
 
   h2 {
     color: $highlight-red;

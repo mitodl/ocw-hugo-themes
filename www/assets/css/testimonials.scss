@@ -4,8 +4,6 @@ $row-max-height: 200px;
 
 .testimonial-section,
 .testimonial-single {
-  font-size: 16px;
-
   .full-testimonial {
     border-bottom: $border-style;
   }
@@ -43,11 +41,7 @@ $row-max-height: 200px;
       height: 100%;
       width: 100%;
       content: "";
-      background: linear-gradient(
-        to top,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(255, 255, 255, 0) 10%
-      );
+      background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 10%);
       pointer-events: none; /* so the text is still selectable */
     }
 
@@ -63,7 +57,7 @@ $row-max-height: 200px;
 
 .testimonial-single {
   .summary {
-    font-size: 20px;
+    font-size: $font-lg;
     font-weight: 600;
     font-style: italic;
     color: $medium-gray;

@@ -1,10 +1,9 @@
 #mc_embed_signup {
   background: #fff;
   clear: left;
-  font: 14px Helvetica, Arial, sans-serif;
 
-  h1 {
-    font-size: 24px;
+  h2 {
+    font-size: $heading-two-font-lg !important;
   }
 
   form {
@@ -16,7 +15,7 @@
 
   label {
     margin-bottom: 11px !important;
-    font-size: 16px !important;
+    font-size: $font-normal !important;
   }
 
   input:not([type="submit"]) {
@@ -43,7 +42,7 @@
     height: 58px !important;
     width: 40% !important;
     max-width: 211px !important ;
-    font-size: 18px !important;
+    font-size: $font-md !important;
     font-weight: bold !important;
 
     @include media-breakpoint-down(sm) {
