@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.45.0
+Version 1.45.0 (Released March 09, 2022)
 --------------
 
 - feat: Home SEO (#493)
