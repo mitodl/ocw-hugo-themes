@@ -36,6 +36,7 @@ Object.defineProperty(window, "location", {
 
 process.env = {
   ...process.env,
-  SEARCH_API_URL: "http://search-the-planet.example.com/search",
-  CDN_PREFIX:     null
+  SEARCH_API_URL:    "http://search-the-planet.example.com/search",
+  RESOURCE_BASE_URL: "http://resources-galore.example.com/",
+  CDN_PREFIX:        null
 }

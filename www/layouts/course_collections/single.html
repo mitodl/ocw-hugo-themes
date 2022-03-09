@@ -5,13 +5,7 @@
   {{ partialCached "header" . }}
   {{ end }}
   <div class="container standard-width mx-auto mt-5">
-    <h1>
-      {{ $collection.Title }}
-    </h1>
-    <div>
-      {{ $collection.Description | .RenderString }}
-    </div>
-    <div id="course-collection-container"></div>
+    {{ partial "course_collection" . }}
   </div>
   <script>
     {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocwnext.odl.mit.edu"  -}}
@@ -21,7 +15,8 @@
         {{- $data := getJSON $url -}}
         {{- $collectionData = merge $collectionData (dict .id $data) -}}
     {{- end -}}
-    window.courseCollectionData = JSON.parse("{{ $collectionData | jsonify }}");
+    {{- $collectionsData := dict $collection.Params.uid $collectionData -}}
+    window.courseCollectionsData = JSON.parse("{{ $collectionsData | jsonify }}");
   </script>
 </div>
 {{ end }}

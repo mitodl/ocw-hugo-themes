@@ -1,3 +1,4 @@
+// this is for hugo-rendered content
 .course-collection {
   .transparent-background-light {
     background-color: $transparency-gray-light;
@@ -21,6 +22,35 @@
         margin: 0;
         font-size: 16px;
       }
+    }
+  }
+}
+
+// this if for content rendered w/ React
+.course-collection-row {
+  height: 90px;
+
+  .card-contents {
+    height: 100%;
+    padding: 8px !important;
+
+    img {
+      height: 74px;
+      width: 100px;
+      object-fit: cover;
+    }
+
+    .coursenum,
+    .level {
+      font-size: 0.8rem;
+    }
+
+    .coursenum {
+      color: $medium-gray;
+    }
+
+    .level {
+      color: $highlight-red;
     }
   }
 }

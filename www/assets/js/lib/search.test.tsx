@@ -21,7 +21,8 @@ import {
   RESOURCE_QUERY_NESTED_FIELDS,
   RESOURCEFILE_QUERY_FIELDS,
   searchFields,
-  courseJSONToLearningResource
+  courseJSONToLearningResource,
+  searchResultToLearningResource
 } from "./search"
 import { makeLearningResourceResult, makeCourseJSON } from "../factories/search"
 import { Facets } from "@mitodl/course-search-utils/dist/url_utils"
@@ -426,6 +427,15 @@ describe("search library", () => {
           expect(getCoverImageUrl(result)).toBe(expectedSrc)
         })
       }
+    )
+  })
+
+  it("getCoverImageUrl should return RESOURCE_BASE_URL+image_src when set", () => {
+    const lr = searchResultToLearningResource(
+      makeLearningResourceResult(LearningResourceType.Course)
+    )
+    expect(getCoverImageUrl({ ...lr, image_src: "/images/foobar.jpeg" })).toBe(
+      "http://resources-galore.example.com/images/foobar.jpeg"
     )
   })
 

@@ -4,10 +4,9 @@ import { serializeSearchParams } from "@mitodl/course-search-utils/dist/url_util
 
 import Card from "./Card"
 
-import { CAROUSEL_IMG_HEIGHT, SEARCH_URL } from "../lib/constants"
+import { SEARCH_URL } from "../lib/constants"
 import {
   getContentIcon,
-  getCoverImageUrl,
   SearchLayout,
   SEARCH_GRID_UI,
   SEARCH_LIST_UI
@@ -15,6 +14,7 @@ import {
 import { emptyOrNil } from "../lib/util"
 import { LearningResource } from "../LearningResources"
 import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
+import CoverImage from "./CoverImage"
 
 const getClassName = (searchResultLayout: SearchLayout | undefined) =>
   `learning-resource-card ${
@@ -36,27 +36,6 @@ const Subtitle = ({ label, children, htmlClass }: SubtitleProps) => (
   </div>
 )
 
-const CoverImage = ({ object }: { object: LearningResource }) => (
-  <div className="cover-image">
-    <a href={object.url ?? ""}>
-      <img
-        src={getCoverImageUrl(object)}
-        height={CAROUSEL_IMG_HEIGHT}
-        alt={`cover image for ${object.title}`}
-      />
-      {[object.object_type, object.content_type].includes(
-        LearningResourceType.Video
-      ) ? (
-        <img
-          src="/images/video_play_overlay.png"
-          className="video-play-icon"
-          alt="Play video icon"
-        />
-      ) : null}
-    </a>
-  </div>
-)
-
 const makeIdTitle = (id: string) => `${id}-title`
 
 interface SRProps {
@@ -67,7 +46,7 @@ interface SRProps {
 }
 
 export default function SearchResult(props: SRProps) {
-  const { searchResultLayout, object, id, index } = props
+  const { object, id, index } = props
 
   return object.url ? (
     <article

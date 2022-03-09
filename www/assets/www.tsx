@@ -34,12 +34,20 @@ $(document).ready(() => {
     ReactDOM.render(<SearchPage />, searchPageEl)
   }
 
-  const courseCollectionEl = document.querySelector(
-    "#course-collection-container"
+  const courseCollectionEls = document.querySelectorAll(
+    ".course-collection-container"
   )
-  if (courseCollectionEl) {
-    ReactDOM.render(<CourseCollection />, courseCollectionEl)
-  }
+  // iterate across all collection els, render a CourseCollection
+  // component for each one. This lets us support layouts with multiple
+  // instances of the component per-page.
+  courseCollectionEls.forEach(el => {
+    if (el) {
+      let collectionUid = el.getAttribute("data-collectionid")
+      if (collectionUid) {
+        ReactDOM.render(<CourseCollection uid={collectionUid} />, el)
+      }
+    }
+  })
 
   const resourceCollectionEl = document.querySelector(
     "#resource-collection-container"

@@ -22,8 +22,11 @@ export type CollectionItem = [string, string]
 export interface OCWWindow extends Window {
   /**
    * Data needed for course collection rendering in React
+   *
+   * Map is from collection UUID to CourseJSONMap (a map of
+   * the course JSON objects for that collection).
    */
-  courseCollectionData: CourseJSONMap
+  courseCollectionsData: Record<string, CourseJSONMap>
   /**
    * Data needed for resource collection rendering in React.
    *
@@ -68,14 +71,16 @@ declare let window: OCWWindow
  * pulling out the data and converting it to a format (`LearningResource`)
  * which can then be rendered.
  *
+ * Data is pulled out based on the uid property of the _course collection_.
+ *
  * **Note**: this hook will throw an error if the data it expects isn't
  * present.
  */
-export function useCourseCollectionData(): LearningResource[] {
+export function useCourseCollectionData(uid: string): LearningResource[] {
   const [data, setData] = useState<LearningResource[]>([])
 
   useEffect(() => {
-    const data = window.courseCollectionData
+    const data = window.courseCollectionsData?.[uid]
 
     if (data === undefined) {
       throw new Error("course collection data missing")

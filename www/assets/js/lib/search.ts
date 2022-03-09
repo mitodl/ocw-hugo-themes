@@ -629,9 +629,25 @@ export const searchResultToLearningResource = (
     : []
 })
 
+const IMAGE_URL_PREFIX = process.env["RESOURCE_BASE_URL"] || ""
+
+/**
+ * Get a properly formatted cover image URL for a given LearningResource
+ *
+ * If the resource doesn't have an `.image_src` set on it, get a URL for
+ * the corresponding generic thumbnail instead.
+ */
 export const getCoverImageUrl = (result: LearningResource) => {
   if (!emptyOrNil(result.image_src)) {
-    return result.image_src
+    let { image_src } = result
+    if (!image_src.startsWith("/")) {
+      return image_src
+    } else {
+      return `${IMAGE_URL_PREFIX.replace(/\/$/, "")}/${result.image_src.replace(
+        /^\//,
+        ""
+      )}`
+    }
   } else {
     return `/images/${result.content_type}_thumbnail.png`
   }
