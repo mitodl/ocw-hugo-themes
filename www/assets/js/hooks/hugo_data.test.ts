@@ -13,7 +13,7 @@ import {
 import {
   CollectionItem,
   OCWWindow,
-  useCourseCollectionData,
+  useCourseListData,
   useResourceCollectionData
 } from "./hugo_data"
 
@@ -21,8 +21,8 @@ declare let window: OCWWindow
 
 let testUid = "test-uuid-1234-5678"
 
-function courseCollectionSetup() {
-  window.courseCollectionsData = {
+function courseListsSetup() {
+  window.courseListsData = {
     [testUid]: Object.fromEntries(
       [...Array(10)].map((_, index) => [`course-${index}`, makeCourseJSON()])
     )
@@ -30,12 +30,10 @@ function courseCollectionSetup() {
 }
 
 test("course collection hook should return LearningResources", () => {
-  courseCollectionSetup()
-  const { result } = renderHook(() => useCourseCollectionData(testUid))
+  courseListsSetup()
+  const { result } = renderHook(() => useCourseListData(testUid))
   expect(result.current).toEqual(
-    Object.entries(
-      window.courseCollectionsData[testUid]
-    ).map(([name, courseJSON]) =>
+    Object.entries(window.courseListsData[testUid]).map(([name, courseJSON]) =>
       courseJSONToLearningResource(name, courseJSON)
     )
   )
@@ -44,7 +42,7 @@ test("course collection hook should return LearningResources", () => {
 test("course collection hook should throw if the property isn't set", () => {
   // @ts-ignore
   window.courseCollectionsData = undefined
-  const { result } = renderHook(useCourseCollectionData)
+  const { result } = renderHook(useCourseListData)
   expect(result.error).toEqual(Error("course collection data missing"))
 })
 

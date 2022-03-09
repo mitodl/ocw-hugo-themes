@@ -4,14 +4,14 @@ import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants
 
 import { makeLearningResourceResult } from "../factories/search"
 import { searchResultToLearningResource } from "../lib/search"
-import CourseCollectionRow from "./CourseCollectionRow"
+import CourseListRow from "./CourseListRow"
 
 function setup() {
   const course = searchResultToLearningResource(
     makeLearningResourceResult(LearningResourceType.Course)
   )
 
-  const wrapper = mount(<CourseCollectionRow course={course} />)
+  const wrapper = mount(<CourseListRow course={course} />)
 
   return { course, wrapper }
 }

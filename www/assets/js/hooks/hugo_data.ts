@@ -23,10 +23,10 @@ export interface OCWWindow extends Window {
   /**
    * Data needed for course collection rendering in React
    *
-   * Map is from collection UUID to CourseJSONMap (a map of
-   * the course JSON objects for that collection).
+   * Map is from collection UUID to CourseJSONMap (a map of the course JSON
+   * objects for that collection).
    */
-  courseCollectionsData: Record<string, CourseJSONMap>
+  courseListsData: Record<string, CourseJSONMap>
   /**
    * Data needed for resource collection rendering in React.
    *
@@ -36,8 +36,8 @@ export interface OCWWindow extends Window {
   resourceCollectionData: {
     courseJSONMap: CourseJSONMap
     /**
-     * A map from resource UUID to the ResourceJSON for that resource. by the
-     * Hugo template context in which this component will be rendered.
+     * A map from resource UUID to the ResourceJSON for that resource. Used by
+     * the Hugo template context in which this component will be rendered.
      */
     resourceJSONMap: {
       [uuid: string]: ResourceJSON
@@ -76,11 +76,11 @@ declare let window: OCWWindow
  * **Note**: this hook will throw an error if the data it expects isn't
  * present.
  */
-export function useCourseCollectionData(uid: string): LearningResource[] {
+export function useCourseListData(uid: string): LearningResource[] {
   const [data, setData] = useState<LearningResource[]>([])
 
   useEffect(() => {
-    const data = window.courseCollectionsData?.[uid]
+    const data = window.courseListsData?.[uid]
 
     if (data === undefined) {
       throw new Error("course collection data missing")

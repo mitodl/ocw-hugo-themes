@@ -4,16 +4,16 @@ import { LearningResource } from "../LearningResources"
 import { courseJSONToLearningResource } from "../lib/search"
 import * as hugoHooks from "../hooks/hugo_data"
 import React from "react"
-import CourseCollection from "./CourseCollection"
-import CourseCollectionRow from "./CourseCollectionRow"
+import CourseList from "./CourseList"
+import CourseListRow from "./CourseListRow"
 
-const { useCourseCollectionData } = hugoHooks as jest.Mocked<typeof hugoHooks>
+const { useCourseListData } = hugoHooks as jest.Mocked<typeof hugoHooks>
 jest.mock("../hooks/hugo_data")
 
-describe("CourseCollection component", () => {
+describe("CourseList component", () => {
   let data: LearningResource[]
 
-  const render = () => mount(<CourseCollection uid="test-uid" />)
+  const render = () => mount(<CourseList uid="test-uid" />)
 
   beforeEach(() => {
     data = [...Array(10)]
@@ -21,17 +21,15 @@ describe("CourseCollection component", () => {
       .map((courseJSON, index) =>
         courseJSONToLearningResource(`course-${index}`, courseJSON)
       )
-    useCourseCollectionData.mockReturnValue(data)
+    useCourseListData.mockReturnValue(data)
   })
 
   it("should show a list of courses", () => {
     const wrapper = render()
 
     expect(
-      wrapper
-        .find(CourseCollectionRow)
-        .map(component => component.prop("course"))
+      wrapper.find(CourseListRow).map(component => component.prop("course"))
     ).toEqual(data)
-    expect(useCourseCollectionData).toBeCalledWith("test-uid")
+    expect(useCourseListData).toBeCalledWith("test-uid")
   })
 })

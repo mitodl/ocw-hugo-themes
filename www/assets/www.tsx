@@ -9,7 +9,7 @@ import ReactDOM from "react-dom"
 import React from "react"
 
 import SearchPage from "./js/components/SearchPage"
-import CourseCollection from "./js/components/CourseCollection"
+import CourseList from "./js/components/CourseList"
 
 import { setupEmailSignupForm } from "./js/mailchimp"
 import { initNotifications } from "./js/notification"
@@ -37,14 +37,14 @@ $(document).ready(() => {
   const courseCollectionEls = document.querySelectorAll(
     ".course-collection-container"
   )
-  // iterate across all collection els, render a CourseCollection
+  // iterate across all collection els, render a CourseList
   // component for each one. This lets us support layouts with multiple
   // instances of the component per-page.
   courseCollectionEls.forEach(el => {
     if (el) {
       let collectionUid = el.getAttribute("data-collectionid")
       if (collectionUid) {
-        ReactDOM.render(<CourseCollection uid={collectionUid} />, el)
+        ReactDOM.render(<CourseList uid={collectionUid} />, el)
       }
     }
   })

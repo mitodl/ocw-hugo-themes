@@ -1,8 +1,0 @@
-{{- $collection := . -}}
-<h1>
-  {{ $collection.Title }}
-</h1>
-<div>
-  {{ $collection.Description | $.RenderString }}
-</div>
-<div class="course-collection-container" data-collectionid="{{- $collection.Params.uid -}}"></div>

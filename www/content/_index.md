@@ -1,6 +1,6 @@
 ---
 renderSearchIcon: false
-homePageCourseCollectionsUrls:
+homePageCourseListsUrls:
   - /pages/open-learning-library
   - /pages/introductory-programming
   - /pages/energy

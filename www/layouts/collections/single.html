@@ -1,0 +1,40 @@
+{{ define "main" }}
+{{- $collection := . -}}
+<div>
+  {{ block "header" . }}
+  {{ partialCached "header" . }}
+  {{ end }}
+  <div class="container standard-width mx-auto mt-5">
+    <h1>
+      {{ $collection.Title }}
+    </h1>
+    <div class="mb-3">
+      {{ $collection.Description | .RenderString }}
+    </div>
+    {{- range $collection.Params.courselists.content -}}
+      {{- $course_list := index (where $.Site.Pages ".Params.uid" .) 0 -}}
+      {{ partial "course_list" $course_list }}
+      <div>
+      <div class="col-12 col-lg-8 pb-2">
+        <a class="float-right" href="{{ $course_list.RelPermalink }}">See all</a>
+        </div>
+      </div>
+    {{- end -}}
+  </div>
+  <script>
+    {{- $course_lists_data := dict -}}
+    {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocwnext.odl.mit.edu"  -}}
+    {{- range $collection.Params.courselists.content -}}
+      {{- $course_list := index (where $.Site.Pages ".Params.uid" .) 0 -}}
+      {{- $course_list_data := dict -}}
+      {{- range (first 5 $course_list.Params.courses) -}}
+          {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/courses/" .id "/data.json") "" -}}
+          {{- $data := getJSON $url -}}
+          {{- $course_list_data = merge $course_list_data (dict .id $data) -}}
+      {{- end -}}
+      {{- $course_lists_data = merge $course_lists_data (dict $course_list.Params.uid $course_list_data) -}}
+    {{- end -}}
+    window.courseListsData = JSON.parse("{{ $course_lists_data | jsonify }}");
+  </script>
+</div>
+{{ end }}

@@ -1,5 +1,4 @@
 import React from "react"
-import Dotdotdot from "react-dotdotdot"
 
 import { LearningResource } from "../LearningResources"
 import { getCoverImageUrl } from "../lib/search"
@@ -9,7 +8,7 @@ interface Props {
   course: LearningResource
 }
 
-export default function CourseCollectionRow(props: Props) {
+export default function CourseListRow(props: Props) {
   const { course } = props
 
   return (

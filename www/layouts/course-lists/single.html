@@ -1,22 +1,22 @@
 {{ define "main" }}
-{{- $collection := . -}}
+{{- $courselist := . -}}
 <div>
   {{ block "header" . }}
   {{ partialCached "header" . }}
   {{ end }}
   <div class="container standard-width mx-auto mt-5">
-    {{ partial "course_collection" . }}
+    {{ partial "course_list" . }}
   </div>
   <script>
     {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocwnext.odl.mit.edu"  -}}
-    {{- $collectionData := dict -}}
-    {{- range $collection.Params.courses -}}
+    {{- $courseListData := dict -}}
+    {{- range $courselist.Params.courses -}}
         {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/courses/" .id "/data.json") "" -}}
         {{- $data := getJSON $url -}}
-        {{- $collectionData = merge $collectionData (dict .id $data) -}}
+        {{- $courseListData = merge $courseListData (dict .id $data) -}}
     {{- end -}}
-    {{- $collectionsData := dict $collection.Params.uid $collectionData -}}
-    window.courseCollectionsData = JSON.parse("{{ $collectionsData | jsonify }}");
+    {{- $courseListsData := dict $courselist.Params.uid $courseListData -}}
+    window.courseListsData = JSON.parse("{{ $courseListsData | jsonify }}");
   </script>
 </div>
 {{ end }}

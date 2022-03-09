@@ -1,0 +1,8 @@
+{{- $course_list := . -}}
+<h1>
+  {{ $course_list.Title }}
+</h1>
+<div class="mb-3">
+  {{ $course_list.Description | $.RenderString }}
+</div>
+<div class="course-collection-container" data-collectionid="{{- $course_list.Params.uid -}}"></div>
