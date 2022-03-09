@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.45.1
+--------------
+
+- Better search results for course numbers (#508)
+- update code block style
+
 Version 1.45.0 (Released March 09, 2022)
 --------------
 
