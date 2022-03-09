@@ -1,0 +1,36 @@
+{{/*
+    This is a link render hook. It tells Hugo how to render markdown links.
+    See https://gohugo.io/getting-started/configuration-markup#markdown-render-hooks
+
+    Notably, render hooks are supported by .RenderString. See
+    https://gohugo.io/functions/renderstring/
+
+    This render hook does two things:
+        - mimcs our existing resource_link shortcode via syntax
+            [text here](resource_link&uid=UID_VALUE_HERE)
+        - renders normal markdown links, with the twist that links beginning
+            with "http" will open in a new tab. (This is Hugo's example
+            render-hook use-case).
+*/}}
+{{- $is_resource_link := hasPrefix .Destination "resource_link" -}}
+{{- $uid := replaceRE `.*?uid=(.*)&?.*?` "$1" .Destination -}}
+{{- $text := .Text -}}
+{{- $dest := .Destination -}}
+{{- if $is_resource_link -}}
+{{- range where $.Page.Site.Pages "Params.uid" $uid -}}
+<a
+    href="{{ .Permalink }}"
+    {{ with .Title}} title="{{ . }}"{{ end }}
+>
+    {{- $text -}}
+</a>
+{{- end -}}
+{{- else -}}
+<a
+    href="{{ .Destination | safeURL }}"
+    {{ with .Title}} title="{{ . }}"{{ end }}
+    {{ if strings.HasPrefix .Destination "http" }} target="_blank" rel="noopener"{{ end }}
+>
+    {{- .Text -}}
+</a>
+{{- end -}}
