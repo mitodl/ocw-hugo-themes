@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.45.0 (Released March 09, 2022)
+--------------
+
+- feat: Home SEO (#493)
+- fix: style added for code elements (#471)
+- fixed typo (#503)
+
 Version 1.44.0 (Released March 07, 2022)
 --------------
 
