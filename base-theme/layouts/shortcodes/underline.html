@@ -1,2 +1,2 @@
 {{ $text := .Inner  | default "" }}
-<span class="underline">{{- $text -}}</span>
+<span class="underline">{{- $text | markdownify -}}</span>
