@@ -18,7 +18,6 @@
   {{ $theme := .Site.Data.webpack.main }}
   <link href="{{ partial "webpack_url.html" $theme.css }}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <style>
   @font-face {
     font-family: 'Material Icons';
@@ -29,6 +28,14 @@
       url({{ partial "webpack_url.html" "/static/fonts/MaterialIcons-Regular.woff2" }}) format('woff2'),
       url({{ partial "webpack_url.html" "/static/fonts/MaterialIcons-Regular.woff" }}) format('woff'),
       url({{ partial "webpack_url.html" "/static/fonts/MaterialIcons-Regular.ttf" }}) format('truetype');
+  }
+  @font-face {
+    font-family: 'Material Icons Round';
+    font-style: normal;
+    font-weight: 400;
+    src: local("MaterialIcons-Round"),
+    url({{ partial "webpack_url.html" "/static/fonts/MaterialIconsRound-Regular.woff2" }}) format('woff2');
+
   }
   @font-face {
     font-family: 'Cardo Bold';
