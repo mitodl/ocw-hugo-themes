@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.46.0
+--------------
+
+- display &nbsp in quotes correctly (#513)
+- remove description from video-gallery partial (#509)
+- Better search results for course numbers (#508)
+- update code block style
+
 Version 1.45.0 (Released March 09, 2022)
 --------------
 
