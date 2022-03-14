@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.46.0
+Version 1.46.0 (Released March 14, 2022)
 --------------
 
 - display &nbsp in quotes correctly (#513)
