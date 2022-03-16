@@ -29,7 +29,8 @@ const COURSE_FACETS: FacetManifest = [
 ]
 
 const RESOURCE_FACETS: FacetManifest = [
-  ["resource_type", "Resource Types", true]
+  ["resource_type", "Resource Types", true],
+  ["topics", "Topics", true]
 ]
 
 interface Result {

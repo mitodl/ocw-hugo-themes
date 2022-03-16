@@ -180,7 +180,10 @@ describe("SearchPage component", () => {
           text: parameters.text,
           from: 0,
           size: SEARCH_PAGE_SIZE,
-          activeFacets: defaultResourceFacets,
+          activeFacets: {
+            ...defaultResourceFacets,
+            ...{ topics: ["mathematics"] }
+          },
           sort: null
         }
       ]
