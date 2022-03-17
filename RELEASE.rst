@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.46.1 (Released March 17, 2022)
+--------------
+
+- Added shortcode for underline (#514)
+
 Version 1.46.0 (Released March 14, 2022)
 --------------
 
