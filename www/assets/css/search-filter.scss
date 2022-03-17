@@ -35,7 +35,7 @@
 }
 
 .filter-section-title {
-  font-size: 18px;
+  font-size: $font-md;
   font-weight: 600;
   margin-bottom: 10px;
   cursor: pointer;
@@ -67,7 +67,7 @@
     flex-direction: row;
     align-items: center;
     height: 25px;
-    font-size: 14px;
+    font-size: $font-sm;
     margin-right: 6px;
     cursor: pointer;
 
@@ -100,7 +100,7 @@
   .facet-more-less {
     cursor: pointer;
     color: $search-gray;
-    font-size: 14px;
+    font-size: $font-sm;
     text-align: right;
   }
 }
@@ -116,7 +116,7 @@
   margin-bottom: 10px;
 
   .clear-all-filters {
-    font-size: 18px;
+    font-size: $font-md;
     color: $blue;
     font-weight: normal;
     text-decoration: underline;
@@ -126,7 +126,7 @@
     margin: 0px 5px 9px 0px;
     background-color: $light-gray;
     padding: 6px 10px;
-    font-size: 14px;
+    font-size: $font-sm;
     display: inline-flex;
     align-items: center;
     flex-wrap: nowrap;
@@ -139,7 +139,7 @@
       cursor: pointer;
 
       i {
-        font-size: 18px;
+        font-size: $font-md;
       }
     }
   }

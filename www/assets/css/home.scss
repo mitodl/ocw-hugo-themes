@@ -19,7 +19,6 @@ $searchbox-height: 50px;
 
 .view-all-link {
   color: $blue;
-  font-size: 16px;
 }
 
 .home-banner {
@@ -64,7 +63,6 @@ $searchbox-height: 50px;
 
       .discover {
         color: white;
-        font-size: 16px;
       }
 
       div {
@@ -87,7 +85,6 @@ $searchbox-height: 50px;
 
         button,
         a {
-          font-size: 16px;
           border: none;
         }
 
@@ -121,7 +118,7 @@ $searchbox-height: 50px;
           width: 50px;
           color: white;
           text-align: center;
-          font-size: 14px;
+          font-size: $font-sm;
         }
 
         a.explore {
@@ -150,13 +147,11 @@ $searchbox-height: 50px;
 
       span {
         color: white;
-        font-size: 16px;
       }
 
       a {
         text-decoration: underline;
         color: $link-blue;
-        font-size: 16px;
       }
     }
 
@@ -166,29 +161,20 @@ $searchbox-height: 50px;
       flex-shrink: 0;
 
       .unlocking {
-        font-size: 28px;
         text-transform: uppercase;
         line-height: 40px;
 
         @include media-breakpoint-down(sm) {
-          font-size: 20px;
           line-height: 22px;
         }
       }
 
       .free {
-        font-size: 16px;
         line-height: 19px;
-
-        @include media-breakpoint-down(sm) {
-          font-size: 16px;
-          line-height: 19px;
-        }
       }
 
       .learn-more {
         text-transform: uppercase;
-        font-size: 15px;
         padding-top: 10px;
       }
     }
@@ -236,10 +222,6 @@ $searchbox-height: 50px;
       padding: $spacer3 $spacer5;
     }
 
-    h1 {
-      font-size: 28px;
-    }
-
     img {
       height: 30px;
     }
@@ -266,7 +248,6 @@ $searchbox-height: 50px;
   .social-card {
     .h5 {
       padding-bottom: $spacer1;
-      font-size: 16px;
     }
 
     .social-icon-row {
@@ -287,12 +268,7 @@ $searchbox-height: 50px;
     .newsletter-form {
       .btn {
         background-color: $highlight-red;
-        font-size: 0.75rem;
-
-        @include media-breakpoint-down(md) {
-          font-size: 1rem;
-          font-weight: bold;
-        }
+        font-weight: bold;
       }
 
       @include media-breakpoint-down(lg) {
@@ -318,16 +294,10 @@ $searchbox-height: 50px;
 
   .course-card {
     border: 1px solid $medium-gray;
-
     $radius: 10px;
-
     border-radius: $radius;
     height: 381px;
     width: 100%;
-
-    h5 {
-      font-size: 16px;
-    }
 
     img {
       width: 100%;
@@ -342,7 +312,7 @@ $searchbox-height: 50px;
     }
 
     .course-card-content {
-      font-size: 12px;
+      font-size: $font-xs;
 
       .card-label {
         color: $dark-gray;
@@ -367,11 +337,7 @@ $searchbox-height: 50px;
     background-size: cover;
 
     .name {
-      font-size: 20px;
-    }
-
-    .occupation-location {
-      font-size: 18px;
+      font-size: $font-lg;
     }
 
     .on-hover {
@@ -379,12 +345,8 @@ $searchbox-height: 50px;
     }
 
     .name-occ {
-      .name {
-        font-size: 16px;
-      }
-
       .occupation-location {
-        font-size: 14px;
+        font-size: $font-sm;
         text-overflow: ellipsis;
         overflow: hidden;
       }
@@ -405,7 +367,7 @@ $searchbox-height: 50px;
     align-items: end;
 
     a {
-      font-size: 20px;
+      font-size: $font-lg;
       line-height: 24px;
       font-weight: bold;
     }
@@ -462,7 +424,7 @@ $promo-carousel-height: 200px;
   a {
     cursor: pointer;
     .material-icons {
-      font-size: 60px;
+      font-size: 3.75rem;
       font-weight: 200;
       color: $dark-gray;
     }
@@ -531,16 +493,6 @@ $promo-carousel-height: 200px;
 
     .promo-info {
       width: 70%;
-
-      @include media-breakpoint-down(sm) {
-        h2 {
-          font-size: 20px;
-        }
-
-        h3 {
-          font-size: 18px;
-        }
-      }
 
       @include media-breakpoint-down(xs) {
         width: 100%;

@@ -15,7 +15,7 @@
     padding-bottom: 0;
 
     .material-icons {
-      font-size: 1.75rem;
+      font-size: $material-icon-font-lg;
     }
   }
 }
@@ -64,12 +64,12 @@
         color: $orange;
 
         .material-icons {
-          font-size: 1.75rem;
+          font-size: $material-icon-font-lg;
         }
       }
 
       a {
-        font-size: 14px;
+        font-size: $font-sm;
         text-transform: uppercase;
 
         &.give-button-header {

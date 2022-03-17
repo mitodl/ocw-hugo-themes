@@ -4,8 +4,6 @@ $row-max-height: 200px;
 
 .testimonial-section,
 .testimonial-single {
-  font-size: 16px;
-
   .full-testimonial {
     border-bottom: $border-style;
   }
@@ -63,7 +61,7 @@ $row-max-height: 200px;
 
 .testimonial-single {
   .summary {
-    font-size: 20px;
+    font-size: $font-lg;
     font-weight: 600;
     font-style: italic;
     color: $medium-gray;
