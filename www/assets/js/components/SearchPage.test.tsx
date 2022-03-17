@@ -249,7 +249,7 @@ describe("SearchPage component", () => {
     const wrapper = await render()
     await resolveSearch()
     const results = wrapper.find(".results-total")
-    expect(results.text()).toBe("10 Results")
+    expect(results.text()).toBe("10 results")
     expect(results.prop("aria-live")).toBe("polite")
     expect(results.prop("aria-atomic")).toBe("true")
   })

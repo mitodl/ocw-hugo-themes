@@ -10,13 +10,30 @@ interface Props {
 }
 
 export default function CoverImage({ object }: Props) {
+  let className
+  let altText = ""
+
+  if (object.object_type !== LearningResourceType.ResourceFile) {
+    className = "cover-image"
+  } else if (
+    [object.object_type, object.content_type].includes(
+      LearningResourceType.Video
+    )
+  ) {
+    className = "cover-image-video"
+    altText = "video"
+  } else {
+    className = "cover-image-resource"
+    altText = object.content_type ? object.content_type : ""
+  }
+
   return (
-    <div className="cover-image">
+    <div className={className}>
       <a href={object.url ?? ""}>
         <img
           src={getCoverImageUrl(object)}
           height={CAROUSEL_IMG_HEIGHT}
-          alt={`cover image for ${object.title}`}
+          alt={altText}
         />
         {[object.object_type, object.content_type].includes(
           LearningResourceType.Video

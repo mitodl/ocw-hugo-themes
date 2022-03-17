@@ -29,39 +29,34 @@ const FacetDisplay = React.memo(
       toggleFacet
     } = props
 
-    const anyFiltersActive =
-      flatten(toArray(Object.values(activeFacets))).length > 0
-
     return (
       <React.Fragment>
-        {anyFiltersActive ? (
-          <div className="active-search-filters">
-            <div className="filter-section-title">
-              Filters
-              <span
-                className="clear-all-filters"
-                onClick={clearAllFilters}
-                onKeyPress={e => {
-                  if (e.key === "Enter") {
-                    clearAllFilters()
-                  }
-                }}
-                tabIndex={0}
-              >
-                Clear All
-              </span>
-            </div>
-            {facetMap.map(([name]) =>
-              (activeFacets[name] || []).map((facet, i) => (
-                <SearchFilter
-                  key={i}
-                  value={facet}
-                  clearFacet={() => toggleFacet(name, facet, false)}
-                />
-              ))
-            )}
+        <div className="active-search-filters">
+          <div className="filter-section-main-title">
+            Filters
+            <span
+              className="clear-all-filters"
+              onClick={clearAllFilters}
+              onKeyPress={e => {
+                if (e.key === "Enter") {
+                  clearAllFilters()
+                }
+              }}
+              tabIndex={0}
+            >
+              Clear All
+            </span>
           </div>
-        ) : null}
+          {facetMap.map(([name]) =>
+            (activeFacets[name] || []).map((facet, i) => (
+              <SearchFilter
+                key={i}
+                value={facet}
+                clearFacet={() => toggleFacet(name, facet, false)}
+              />
+            ))
+          )}
+        </div>
         {facetMap.map(([name, title, useFilterableFacet], key) =>
           useFilterableFacet ? (
             <FilterableFacet

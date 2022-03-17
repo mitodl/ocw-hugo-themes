@@ -6,11 +6,7 @@ import SearchResult from "./SearchResult"
 
 import { makeLearningResourceResult } from "../factories/search"
 import { SEARCH_URL } from "../lib/constants"
-import {
-  getContentIcon,
-  getCoverImageUrl,
-  searchResultToLearningResource
-} from "../lib/search"
+import { getCoverImageUrl, searchResultToLearningResource } from "../lib/search"
 import { LearningResource } from "../LearningResources"
 import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
 
@@ -35,12 +31,6 @@ describe("SearchResult component", () => {
         .find(".subtitles")
         .first()
         .text()
-    ).toContain("Instructors")
-    expect(
-      wrapper
-        .find(".subtitles")
-        .first()
-        .text()
     ).toContain(object.instructors[0])
     expect(
       wrapper
@@ -57,9 +47,7 @@ describe("SearchResult component", () => {
       makeLearningResourceResult(LearningResourceType.ResourceFile)
     )
     const wrapper = render(object)
-    expect(wrapper.find(".course-title").text()).toBe(
-      `${getContentIcon(object.content_type!)}${object.content_title}`
-    )
+    expect(wrapper.find(".course-title").text()).toBe(object.content_title)
     expect(
       wrapper
         .find(".course-title")
@@ -71,20 +59,16 @@ describe("SearchResult component", () => {
         .find(".subtitles")
         .first()
         .text()
-    ).toBe(`${object.coursenum} ${object.run_title}`)
+    ).toBe(object.description)
     expect(
       wrapper
-        .find(".subtitles")
-        .at(1)
-        .text()
-    ).toContain("Topic")
-    expect(
-      wrapper
-        .find(".cover-image")
         .find("img")
         .first()
         .prop("src")
     ).toBe(getCoverImageUrl(object))
+    expect(wrapper.find(".resource-topics-div").text()).toContain(
+      object.topics[0]["name"]
+    )
     expect(wrapper.find("CoverImage").exists()).toBeTruthy()
   })
 
@@ -129,7 +113,7 @@ describe("SearchResult component", () => {
       const { href } = link.props()
       expect(href).toBe(
         `${SEARCH_URL}?${serializeSearchParams({
-          text: undefined,
+          text:         undefined,
           activeFacets: {
             // @ts-ignore
             topics: object.topics[i].name

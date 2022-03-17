@@ -35,8 +35,8 @@ describe("FacetDisplay component", () => {
   test("renders a FacetDisplay with expected FilterableFacets", async () => {
     const wrapper = render()
     const facets = wrapper.children()
-    expect(facets).toHaveLength(3)
-    facets.map((facet, key) => {
+    expect(facets).toHaveLength(4)
+    facets.slice(1, 4).map((facet, key) => {
       expect(facet.prop("name")).toBe(facetMap[key][0])
       expect(facet.prop("title")).toBe(facetMap[key][1])
     })

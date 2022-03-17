@@ -1,6 +1,5 @@
 import React from "react"
 import { useResourceCollectionData } from "../hooks/hugo_data"
-import { SEARCH_LIST_UI } from "../lib/search"
 import { LearningResourceDisplay } from "./SearchResult"
 
 export default function ResourceCollection() {
@@ -13,7 +12,6 @@ export default function ResourceCollection() {
           key={index}
           id={String(learningResource.id)}
           object={learningResource}
-          searchResultLayout={SEARCH_LIST_UI}
           index={index}
         />
       ))}
