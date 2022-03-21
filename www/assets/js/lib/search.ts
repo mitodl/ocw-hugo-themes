@@ -512,10 +512,6 @@ export const buildDefaultSort = () => {
   ]
 }
 
-export const SEARCH_GRID_UI = "grid"
-export const SEARCH_LIST_UI = "list"
-export type SearchLayout = typeof SEARCH_GRID_UI | typeof SEARCH_LIST_UI
-
 const formatCourseJSONTopics = (courseJSON: CourseJSON) =>
   courseJSON.topics
     ? Array.from(new Set(courseJSON.topics.flat())).map(topic => ({
@@ -715,16 +711,3 @@ export const getResultUrl = (result: LearningResourceResult) =>
   result.object_type === LearningResourceType.Course
     ? getCourseUrl(result)
     : getResourceUrl(result)
-
-export const getContentIcon = (contentType: ContentType): string => {
-  switch (contentType) {
-    case CONTENT_TYPE_PDF:
-      return "picture_as_pdf"
-    case CONTENT_TYPE_VIDEO:
-      return "theaters"
-    case CONTENT_TYPE_PAGE:
-      return "web"
-    default:
-      return "file_copy"
-  }
-}

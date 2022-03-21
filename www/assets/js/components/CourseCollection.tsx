@@ -1,6 +1,5 @@
 import React from "react"
 import { useCourseCollectionData } from "../hooks/hugo_data"
-import { SEARCH_LIST_UI } from "../lib/search"
 import CourseCollectionRow from "./CourseCollectionRow"
 import { LearningResourceDisplay } from "./SearchResult"
 

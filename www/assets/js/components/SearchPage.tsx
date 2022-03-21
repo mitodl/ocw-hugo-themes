@@ -13,7 +13,7 @@ import SearchFilterDrawer from "./SearchFilterDrawer"
 import Loading, { Spinner } from "./Loading"
 
 import { search } from "../lib/api"
-import { searchResultToLearningResource, SEARCH_LIST_UI } from "../lib/search"
+import { searchResultToLearningResource } from "../lib/search"
 import { COURSENUM_SORT_FIELD } from "../lib/constants"
 import { emptyOrNil, isDoubleQuoted } from "../lib/util"
 import { FacetManifest, LearningResourceResult } from "../LearningResources"
@@ -178,12 +178,14 @@ export default function SearchPage() {
       <div className="container">
         <div className="search-box py-sm-5 py-md-7 py-lg-5 row">
           <div className="col-lg-3" />
-          <div className="col-lg-6 search-box-inner d-flex flex-column align-items-center">
-            <h1 className="mb-2 mb-sm-5 mb-md-4">Explore OpenCourseWare</h1>
-            <div className="w-100 d-flex flex-column align-items-center search-input-wrapper">
-              <span className="align-self-start pb-1 pb-sm-3 search-box-description px-2">
+          <div className="col-lg-6 search-box-inner d-flex flex-column align-items-center mb-2 mb-sm-5 mb-md-4">
+            <h1>Explore OpenCourseWare</h1>
+            <div>
+              <span className="align-item-center search-box-description">
                 Search for courses, materials & teaching resources
               </span>
+            </div>
+            <div className="w-100 d-flex flex-column align-items-center search-input-wrapper mt-5">
               <div className="w-100">
                 <SearchBox
                   value={text}
@@ -208,7 +210,7 @@ export default function SearchPage() {
             clearAllFilters={clearAllFilters}
             toggleFacet={toggleFacet}
           />
-          <div className="col-12 col-lg-6 pb-2">
+          <div className="search-results-area col-12 col-lg-8 pb-2 pt-2">
             <div
               className={`search-toggle ${
                 isResourceSearch ? "nofacet" : "facet"
@@ -242,7 +244,7 @@ export default function SearchPage() {
                   ?
                 </div>
               ) : null}
-              <ul className="nav pl-2 pb-2 d-flex flex-direction-row">
+              <ul className="nav pl-2 pb-2 d-flex flex-direction-row mb-1">
                 <li className="nav-item flex-grow-0">
                   <button
                     className={`nav-link search-nav ${
@@ -266,17 +268,22 @@ export default function SearchPage() {
                 <li
                   aria-live="polite"
                   aria-atomic="true"
-                  className="nav-item flex-grow-1 d-flex align-items-center justify-content-center results-total"
+                  className="nav-item flex-grow-1 d-flex align-items-center justify-content-end results-total"
                 >
-                  {completedInitialLoad ? `${total} Results` : null}
+                  {completedInitialLoad ? (
+                    <span>
+                      <span className="results-total-number">{total}</span>{" "}
+                      results
+                    </span>
+                  ) : null}
                 </li>
                 {!isResourceSearch ? (
-                  <li className="sort-nav-item nav-item flex-grow-1 d-flex align-items-center justify-content-end">
-                    Sort By:{" "}
+                  <li className="sort-nav-item nav-item d-flex align-items-center justify-content-end">
+                    Sort by{" "}
                     <select
                       value={serializeSort(sort)}
                       onChange={updateSort}
-                      className="ml-2"
+                      className="ml-2 sort-dropdown"
                     >
                       <option value="">Relevance</option>
                       <option value={COURSENUM_SORT_FIELD}>
@@ -313,7 +320,6 @@ export default function SearchPage() {
                         id={`search-result-${idx}`}
                         index={idx}
                         object={searchResultToLearningResource(hit._source)}
-                        searchResultLayout={SEARCH_LIST_UI}
                       />
                     ))
                   )
@@ -323,7 +329,7 @@ export default function SearchPage() {
               </section>
             </InfiniteScroll>
           </div>
-          <div className="col-12 col-lg-3" />
+          <div className="search-results-area col-12 col-lg-1" />
         </div>
       </div>
     </div>

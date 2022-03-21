@@ -22,12 +22,12 @@ function SearchFacet(props: Props) {
   const [showFacetList, setShowFacetList] = useState(true)
   const [showAllFacets, setShowAllFacets] = useState(false)
 
-  const titleLineIcon = showFacetList ? "arrow_drop_down" : "arrow_drop_up"
+  const titleLineIcon = showFacetList ? "arrow_drop_down" : "arrow_right"
 
   return results && results.buckets && results.buckets.length === 0 ? null : (
-    <div className="facets pb-3">
+    <div className="facets mb-3">
       <div
-        className="filter-section-title"
+        className="filter-section-title pl-3 pt-2 pb-2"
         onClick={() => setShowFacetList(!showFacetList)}
       >
         {title}

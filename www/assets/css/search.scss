@@ -3,7 +3,6 @@
 @import "../../../base-theme/assets/css/breakpoints";
 @import "../../../base-theme/assets/css/variables";
 @import "learning-resource-card";
-@import "learning-resource-icon";
 @import "card";
 @import "search-filter";
 
@@ -17,31 +16,46 @@
     border: initial;
 
     &.active {
-      color: $blue;
       font-weight: bold;
+      text-decoration: underline rgb(163, 31, 52) solid 4px;
+      text-underline-offset: 5px;
     }
 
     font-size: $font-normal;
-    text-decoration: none !important;
     text-transform: uppercase;
   }
 
   .search-box-description {
-    font-size: $font-normal;
+    font-size: $font-xl;
+    font-weight: lighter;
     letter-spacing: 0.8px;
+    color: rgb(163, 31, 52);
   }
 
   .results-total {
     font-size: $font-sm;
+    padding-right: 20px;
+    .results-total-number {
+      font-weight: bold;
+    }
+  }
+
+  .sort-dropdown {
+    height: 41px;
+    width: 177px;
+    padding-left: 4px;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    background-color: #ffffff;
   }
 
   form.search-box {
     input {
-      border: 1px solid $medium-gray;
+      border: 1px solid #d2d2d2;
       border-radius: 5px 0 0 5px;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
       height: 50px;
-      background-color: $light-gray;
+      background-color: #f8f8f8;
       letter-spacing: 0.54px;
     }
 
@@ -52,6 +66,10 @@
       color: white;
       font-weight: bold;
       font-size: $font-normal;
+    }
+
+    ::placeholder {
+      color: #d2d2d2;
     }
   }
 
@@ -85,10 +103,18 @@
     }
 
     .card {
-      border-color: $medium-gray;
-
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
       .card-contents {
-        padding: 13px;
+        padding: 18px;
+        padding-bottom: 14px;
+      }
+    }
+
+    h1 {
+      font-size: $heading-one-font-xs;
+
+      @include breakpoint(phone) {
+        margin-top: 20px;
       }
     }
   }
@@ -97,12 +123,13 @@
     margin-left: -15px;
     &,
     button {
-      color: $medium-gray;
+      color: black;
     }
 
     .suggestions {
       color: black;
     }
+    padding-bottom: 5px;
   }
 
   .search-filter-drawer-open {
@@ -157,5 +184,14 @@
       float: left;
       white-space: nowrap;
     }
+  }
+
+  .search-results-area {
+    background-color: #f8f8f8;
+    border-top: 1px solid #d2d2d2;
+  }
+
+  .facet-display-wrapper {
+    border-top: 1px solid #d2d2d2;
   }
 }

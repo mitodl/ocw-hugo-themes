@@ -55,14 +55,14 @@ function FilterableSearchFacet(props: Props) {
     setFilterText(filterText)
   }, [])
 
-  const titleLineIcon = showFacetList ? "arrow_drop_down" : "arrow_drop_up"
+  const titleLineIcon = showFacetList ? "arrow_drop_down" : "arrow_right"
 
   const facets = (filteredList || results?.buckets) ?? []
 
   return results && results.buckets && results.buckets.length === 0 ? null : (
-    <div className="facets filterable-facet pb-3">
+    <div className="facets filterable-facet mb-3">
       <div
-        className="filter-section-title"
+        className="filter-section-title pl-3 pt-2 pb-2"
         onClick={() => setShowFacetList(!showFacetList)}
       >
         {title}
@@ -79,7 +79,7 @@ function FilterableSearchFacet(props: Props) {
               placeholder={`Search ${title || ""}`}
             />
             {filterText === "" ? (
-              <i className="material-icons search-icon">search</i>
+              <i className="material-icons search-icon mt-1">search</i>
             ) : (
               <i
                 className="material-icons clear-icon"
