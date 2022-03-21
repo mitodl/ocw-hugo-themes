@@ -4,8 +4,7 @@ import has from "lodash.has"
 import Fuse from "fuse.js"
 
 import SearchFacetItem from "./SearchFacetItem"
-import { Aggregation } from "@mitodl/course-search-utils"
-import { Bucket } from "../lib/search"
+import { Aggregation, Bucket } from "@mitodl/course-search-utils"
 
 // the `.search method returns records like { item, refindex }
 // where item is the facet and refIndex is it's index in the original

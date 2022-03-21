@@ -1,7 +1,8 @@
 import {
   INITIAL_FACET_STATE,
-  LearningResourceType
-} from "@mitodl/course-search-utils/dist/constants"
+  LearningResourceType,
+  Facets
+} from "@mitodl/course-search-utils"
 import sinon from "sinon"
 
 import {
@@ -25,7 +26,6 @@ import {
   searchResultToLearningResource
 } from "./search"
 import { makeLearningResourceResult, makeCourseJSON } from "../factories/search"
-import { Facets } from "@mitodl/course-search-utils/dist/url_utils"
 
 describe("search library", () => {
   const sandbox = sinon.createSandbox()

@@ -1,6 +1,6 @@
 import { mount } from "enzyme"
 import React from "react"
-import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
+import { LearningResourceType } from "@mitodl/course-search-utils"
 
 import { makeLearningResourceResult } from "../factories/search"
 import { searchResultToLearningResource } from "../lib/search"

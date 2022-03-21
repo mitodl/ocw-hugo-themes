@@ -1,4 +1,4 @@
-import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
+import { LearningResourceType } from "@mitodl/course-search-utils"
 import casual from "casual-browserify"
 import { times } from "ramda"
 import {

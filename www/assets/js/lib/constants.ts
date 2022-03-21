@@ -1,4 +1,4 @@
-import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
+import { LearningResourceType } from "@mitodl/course-search-utils"
 
 export const CONTENT_TYPE_PDF = "pdf"
 export const CONTENT_TYPE_PAGE = "page"

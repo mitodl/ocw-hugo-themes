@@ -1,4 +1,4 @@
-import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
+import { LearningResourceType } from "@mitodl/course-search-utils"
 import React from "react"
 
 import { LearningResource } from "../LearningResources"

@@ -1,12 +1,9 @@
 import React from "react"
-import flatten from "lodash.flatten"
-import toArray from "lodash.toarray"
 
 import FilterableFacet from "./FilterableFacet"
 import Facet from "./Facet"
 import SearchFilter from "./SearchFilter"
-import { Facets } from "@mitodl/course-search-utils/dist/url_utils"
-import { Aggregation } from "@mitodl/course-search-utils"
+import { Aggregation, Facets } from "@mitodl/course-search-utils"
 import { FacetManifest } from "../LearningResources"
 
 interface Props {

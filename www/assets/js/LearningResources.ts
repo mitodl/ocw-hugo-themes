@@ -1,5 +1,4 @@
-import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
-import { Facets } from "@mitodl/course-search-utils/dist/url_utils"
+import { LearningResourceType, Facets } from "@mitodl/course-search-utils"
 import {
   OCW_PLATFORM,
   COURSE_ARCHIVED,

@@ -1,6 +1,9 @@
 import React from "react"
 import { mount } from "enzyme"
-import { serializeSearchParams } from "@mitodl/course-search-utils/dist/url_utils"
+import {
+  serializeSearchParams,
+  LearningResourceType
+} from "@mitodl/course-search-utils"
 
 import SearchResult from "./SearchResult"
 
@@ -8,7 +11,6 @@ import { makeLearningResourceResult } from "../factories/search"
 import { SEARCH_URL } from "../lib/constants"
 import { getCoverImageUrl, searchResultToLearningResource } from "../lib/search"
 import { LearningResource } from "../LearningResources"
-import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
 
 describe("SearchResult component", () => {
   const render = (object: LearningResource) =>

@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from "react"
 import InfiniteScroll from "react-infinite-scroller"
-import { Aggregations, useCourseSearch } from "@mitodl/course-search-utils"
 import {
-  Facets,
-  serializeSort
-} from "@mitodl/course-search-utils/dist/url_utils"
+  Aggregations,
+  useCourseSearch,
+  serializeSort,
+  LearningResourceType
+} from "@mitodl/course-search-utils"
 import { without } from "ramda"
 
 import SearchResult from "./SearchResult"
@@ -17,7 +18,6 @@ import { searchResultToLearningResource } from "../lib/search"
 import { COURSENUM_SORT_FIELD } from "../lib/constants"
 import { emptyOrNil, isDoubleQuoted } from "../lib/util"
 import { FacetManifest, LearningResourceResult } from "../LearningResources"
-import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
 
 export const SEARCH_PAGE_SIZE = 10
 

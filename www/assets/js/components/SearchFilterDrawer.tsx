@@ -3,8 +3,7 @@ import React, { useCallback, useState } from "react"
 import FacetDisplay from "./FacetDisplay"
 import { DESKTOP } from "../lib/constants"
 import { useDeviceCategory } from "../hooks/util"
-import { Facets } from "@mitodl/course-search-utils/dist/url_utils"
-import { Aggregation } from "@mitodl/course-search-utils"
+import { Aggregation, Facets } from "@mitodl/course-search-utils"
 import { FacetManifest } from "../LearningResources"
 
 interface Props {

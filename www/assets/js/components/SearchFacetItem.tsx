@@ -1,6 +1,6 @@
 import React from "react"
 import Dotdotdot from "react-dotdotdot"
-import { Bucket } from "../lib/search"
+import { Bucket } from "@mitodl/course-search-utils"
 
 import { slugify } from "../lib/util"
 

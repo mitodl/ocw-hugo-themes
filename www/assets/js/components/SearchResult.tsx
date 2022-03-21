@@ -1,14 +1,15 @@
 import React from "react"
 import Dotdotdot from "react-dotdotdot"
-import { serializeSearchParams } from "@mitodl/course-search-utils/dist/url_utils"
+import {
+  serializeSearchParams,
+  LearningResourceType
+} from "@mitodl/course-search-utils"
 
 import Card from "./Card"
 
 import { SEARCH_URL } from "../lib/constants"
-import { getCoverImageUrl } from "../lib/search"
 import { emptyOrNil } from "../lib/util"
 import { LearningResource } from "../LearningResources"
-import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
 import CoverImage from "./CoverImage"
 
 interface SubtitleProps {

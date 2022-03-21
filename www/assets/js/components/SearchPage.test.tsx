@@ -5,9 +5,9 @@ import { search } from "../lib/api"
 import { times } from "ramda"
 import {
   INITIAL_FACET_STATE,
-  LearningResourceType
-} from "@mitodl/course-search-utils/dist/constants"
-import { serializeSearchParams } from "@mitodl/course-search-utils/dist/url_utils"
+  LearningResourceType,
+  serializeSearchParams
+} from "@mitodl/course-search-utils"
 
 import SearchPage, { SEARCH_PAGE_SIZE } from "./SearchPage"
 

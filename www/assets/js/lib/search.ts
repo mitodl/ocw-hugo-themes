@@ -9,7 +9,11 @@ import {
   COURSENUM_SORT_FIELD,
   ContentType
 } from "./constants"
-import { Facets, SortParam } from "@mitodl/course-search-utils/dist/url_utils"
+import {
+  Facets,
+  SortParam,
+  LearningResourceType
+} from "@mitodl/course-search-utils"
 import {
   CourseResult,
   CourseRun,
@@ -19,12 +23,6 @@ import {
   Level,
   ResourceJSON
 } from "../LearningResources"
-import { LearningResourceType } from "@mitodl/course-search-utils/dist/constants"
-
-export interface Bucket {
-  key: string
-  doc_count: number
-}
 
 export const LEARN_SUGGEST_FIELDS = [
   "title.trigram",
