@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.47.0
+--------------
+
+- search css changes (#531)
+- fix: give now button css (#535)
+- revert: PR 388 | instructor insights images scaling (#528)
+
 Version 1.46.2 (Released March 21, 2022)
 --------------
 
