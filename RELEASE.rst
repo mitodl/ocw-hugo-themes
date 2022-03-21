@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.46.2 (Released March 21, 2022)
+--------------
+
+- fix: cleaning font-sizes, replacing px with rem (#474)
+- update display of course collection to match latest designs
+- add topic to resource search (#516)
+- Added CoPresent icon from google material design (#512)
+
 Version 1.46.1 (Released March 17, 2022)
 --------------
 
