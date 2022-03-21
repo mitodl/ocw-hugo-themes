@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.46.2
+Version 1.46.2 (Released March 21, 2022)
 --------------
 
 - fix: cleaning font-sizes, replacing px with rem (#474)
