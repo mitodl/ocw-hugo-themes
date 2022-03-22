@@ -1,0 +1,18 @@
+{{- $imageHref := "" -}}
+
+{{- if .href -}}
+    {{- $imageHref = .href -}}
+{{- else if .href_uuid -}}
+    {{- range where .context.Site.Pages "Params.uid" .href_uuid -}}
+        {{- $imageHref = .Permalink -}}
+    {{- end -}}
+{{- end -}}
+
+{{- if $imageHref -}}
+    <a href="{{- $imageHref -}}" target="_blank">
+{{- end -}}
+{{- $metadata := .context.Params.image_metadata | default dict -}}
+<img src="{{ partial "resource_url" .context.Params.file }}" {{ if index $metadata "image-alt" -}}alt="{{ index $metadata "image-alt" }}"{{- end }} />
+{{- if $imageHref -}}
+    </a>
+{{- end -}}
