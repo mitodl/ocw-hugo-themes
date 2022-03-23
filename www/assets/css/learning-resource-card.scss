@@ -19,12 +19,17 @@
     .topic-link {
       border-radius: 4px;
       background-color: #f5f5f5;
-      padding: 3px;
+      padding: 0.25rem 0.5rem;
       margin-top: 3px;
     }
 
     .more {
-      padding: 3px;
+      padding: 0.4rem 0 0 0;
+    }
+
+    .topic-link:hover {
+      background: #eee;
+      text-decoration: none !important;
     }
   }
 
@@ -64,10 +69,6 @@
       .cover-image-resource,
       .cover-image-video,
       .cover-image {
-        @include breakpoint(phone) {
-          display: none;
-        }
-
         position: relative;
 
         img {
@@ -75,34 +76,85 @@
         }
       }
 
+      .cover-image {
+        @include breakpoint(phone) {
+          display: none;
+        }
+      }
+
       .cover-image-resource {
-        height: 37px;
+        width: fill;
+        position: absolute;
+        bottom: 0;
+
         img {
           height: 37px;
           padding-right: 10px;
           margin-top: 11px;
+          position: absolute;
+          bottom: 20px;
+          right: 35px;
+
+          @include breakpoint(phone) {
+            height: 24px;
+          }
+        }
+
+        a {
+          postition: absolute;
+          hight: 100%;
+          bottom: 0px;
+          float: right;
         }
       }
 
       .cover-image-video {
-        height: 74px;
-        margin-bottom: 11px;
+        width: 144px;
+        cursor: pointer;
+        position: relative;
+        width: 34%;
 
         img {
-          height: 74px;
-          padding-right: 10px;
-          margin-top: 11px;
+          object-fit: scale-down;
+          max-height: 161px;
+          max-width: 161px;
+          float: right;
+          position: absolute;
+          right: -15px;
+        }
+
+        a {
+          float: right;
         }
 
         .video-play-icon {
           position: absolute;
           top: 50%;
-          left: 50%;
+          right: 13px;
           transform: translate(-50%, -50%);
           opacity: 0.8;
           object-fit: scale-down;
-          height: 30px;
+          height: 50px;
           width: auto;
+          float: right;
+        }
+
+        @include breakpoint(phone) {
+          width: fill;
+          position: absolute;
+          bottom: 0;
+
+          img {
+            display: none;
+          }
+
+          img.video-play-icon {
+            display: block;
+            bottom: 0px;
+            top: auto;
+            height: 24px;
+            opacity: 1;
+          }
         }
       }
     }
@@ -126,6 +178,11 @@
         margin: 0;
         margin-top: 6px;
         margin-bottom: 10px;
+        font-weight: bold;
+
+        a:hover {
+          text-decoration: underline;
+        }
       }
 
       .subtitle {
@@ -221,6 +278,9 @@
         color: rgb(163, 31, 52);
         text-transform: uppercase;
         font-weight: bold;
+        @include breakpoint(phone) {
+          font-weight: normal;
+        }
       }
 
       img {
@@ -272,10 +332,6 @@
 
 .learning-resource-card-resource.list-view {
   .lr-info {
-    min-width: 55%;
-    width: 55%;
-    min-height: 90px;
-
     .lr-row.resource-header {
       .resource-type,
       .resource-type a {

@@ -20,8 +20,8 @@ export default function SearchBox(props: Props) {
         type="search"
         onChange={onChange}
         value={value ?? ""}
-        placeholder="search OpenCourseWare"
-        aria-label="search OpenCourseWare"
+        placeholder="Search OpenCourseWare"
+        aria-label="Search OpenCourseWare"
       />
       <button type="submit" className="py-2 px-3">
         Search
