@@ -92,3 +92,14 @@
     }
   }
 }
+
+#collection-header {
+  width: 100%;
+  height: 300px;
+
+  img {
+    object-fit: cover;
+    width: inherit;
+    height: inherit;
+  }
+}

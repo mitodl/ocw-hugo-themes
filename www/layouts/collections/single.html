@@ -4,6 +4,7 @@
   {{ block "header" . }}
   {{ partialCached "header" . }}
   {{ end }}
+  {{ partial "collection_cover_image" $collection }}
   <div class="container standard-width mx-auto mt-5">
     <h1>
       {{ $collection.Title }}
