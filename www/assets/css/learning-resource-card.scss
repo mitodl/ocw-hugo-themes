@@ -56,7 +56,7 @@
   }
 
   &.list-view {
-    .lr-info {
+    .lr-info.has-min-height {
       min-height: 130px;
     }
 
@@ -139,6 +139,10 @@
           float: right;
         }
 
+        .mobile-video-icon {
+          display: none;
+        }
+
         @include breakpoint(phone) {
           width: fill;
           position: absolute;
@@ -148,12 +152,14 @@
             display: none;
           }
 
-          img.video-play-icon {
+          .mobile-video-icon {
             display: block;
-            bottom: 0px;
-            top: auto;
             height: 24px;
-            opacity: 1;
+            padding-right: 10px;
+            margin-top: 11px;
+            position: absolute;
+            bottom: 20px;
+            right: 35px;
           }
         }
       }
