@@ -1,38 +1,41 @@
-// @ts-nocheck
 import React from "react"
 import { shallow } from "enzyme"
 
 import FacetDisplay from "./FacetDisplay"
+import { FacetManifest } from "../LearningResources"
+import { Facets } from "@mitodl/course-search-utils"
 
 describe("FacetDisplay component", () => {
-  let activeFacets, facetOptions, onUpdateFacets, clearAllFilters
-
-  const render = (props = {}) =>
-    shallow(
-      <FacetDisplay
-        facetMap={facetMap}
-        facetOptions={facetOptions}
-        activeFacets={activeFacets}
-        onUpdateFacets={onUpdateFacets}
-        clearAllFilters={clearAllFilters}
-        {...props}
-      />
-    )
-
-  const facetMap = [
-    ["topics", "Topics"],
-    ["types", "Types"],
-    ["departments", "Departments"]
+  const facetMap: FacetManifest = [
+    ["topics", "Topics", false],
+    ["type", "Types", false],
+    ["department_name", "Departments", false]
   ]
 
-  beforeEach(() => {
-    activeFacets = {}
-    facetOptions = jest.fn()
-    onUpdateFacets = jest.fn()
-    clearAllFilters = jest.fn()
-  })
+  function setup() {
+    const activeFacets = {}
+    const facetOptions = jest.fn()
+    const onUpdateFacets = jest.fn()
+    const clearAllFilters = jest.fn()
+    const toggleFacet = jest.fn()
+
+    const render = (props = {}) =>
+      shallow(
+        <FacetDisplay
+          facetMap={facetMap}
+          facetOptions={facetOptions}
+          activeFacets={activeFacets}
+          onUpdateFacets={onUpdateFacets}
+          clearAllFilters={clearAllFilters}
+          toggleFacet={toggleFacet}
+          {...props}
+        />
+      )
+    return { render, clearAllFilters }
+  }
 
   test("renders a FacetDisplay with expected FilterableFacets", async () => {
+    const { render } = setup()
     const wrapper = render()
     const facets = wrapper.children()
     expect(facets).toHaveLength(4)
@@ -43,17 +46,15 @@ describe("FacetDisplay component", () => {
   })
 
   test("shows filters which are active", () => {
-    activeFacets = {
-      topics:      ["Pasta", "Bread", "Starch"],
-      types:       [],
-      departments: ["World Grains and Cereals"]
+    const activeFacets: Facets = {
+      topics:          ["Pasta", "Bread", "Starch"],
+      type:            [],
+      department_name: ["World Grains and Cereals"]
     }
 
+    const { render, clearAllFilters } = setup()
     const wrapper = render({
-      facetMap,
-      facetOptions,
-      activeFacets,
-      onUpdateFacets
+      activeFacets
     })
     expect(
       wrapper

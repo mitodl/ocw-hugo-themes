@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from "react"
 import upperCase from "lodash.uppercase"
 import { shallow } from "enzyme"
@@ -6,18 +5,19 @@ import { shallow } from "enzyme"
 import SearchFilter from "./SearchFilter"
 
 describe("SearchFilter", () => {
-  let onClickStub
+  function setup() {
+    const onClickStub = jest.fn()
 
-  const renderSearchFilter = props =>
-    shallow(<SearchFilter clearFacet={onClickStub} {...props} />)
+    const render = (props = {}) =>
+      shallow(<SearchFilter clearFacet={onClickStub} value="" {...props} />)
 
-  beforeEach(() => {
-    onClickStub = jest.fn()
-  })
+    return { render, onClickStub }
+  }
 
   it("should render a search filter correctly", () => {
     const value = "Upcoming"
-    const wrapper = renderSearchFilter({
+    const { render } = setup()
+    const wrapper = render({
       value,
       labelFunction: upperCase
     })
@@ -26,7 +26,8 @@ describe("SearchFilter", () => {
   })
 
   it("should trigger clearFacet function on click", async () => {
-    const wrapper = renderSearchFilter({ value: "ocw" })
+    const { render, onClickStub } = setup()
+    const wrapper = render({ value: "ocw" })
     wrapper.find(".remove-filter").simulate("click")
     expect(onClickStub).toHaveBeenCalledTimes(1)
   })
