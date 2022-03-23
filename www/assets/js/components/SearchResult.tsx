@@ -16,15 +16,28 @@ interface SubtitleProps {
   children: React.ReactNode
   htmlClass: string
   postLabel?: string
+  moreUrl?: string | null
 }
 
-const Subtitle = ({ label, children, htmlClass, postLabel }: SubtitleProps) => (
+const Subtitle = ({
+  label,
+  children,
+  htmlClass,
+  postLabel,
+  moreUrl
+}: SubtitleProps) => (
   <div className="lr-row subtitle">
     <div className={`lr-subtitle ${htmlClass}`}>
       {label ? <div className="gray">{label}</div> : ""}
       <div className="content">
         {children}
-        {postLabel ? <div className="more">{postLabel}</div> : ""}
+        {postLabel && moreUrl ? (
+          <a className="more" href={moreUrl}>
+            {postLabel}
+          </a>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   </div>
@@ -34,10 +47,12 @@ const makeIdTitle = (id: string) => `${id}-title`
 
 const Topics = ({
   object,
-  maxTags
+  maxTags,
+  moreUrl
 }: {
   object: LearningResource
   maxTags: number
+  moreUrl?: string | null
 }) => {
   if (!emptyOrNil(object.topics)) {
     return (
@@ -49,6 +64,7 @@ const Topics = ({
               ? `+ ${object.topics.length - maxTags} more`
               : ""
           }
+          moreUrl={moreUrl}
         >
           {object.topics.slice(0, maxTags).map((topic, idx) => (
             <a
@@ -117,7 +133,6 @@ export function LearningResourceDisplay(props: SRProps) {
             </div>
           </div>
           <div className="lr-row">
-            <CoverImage object={object} />
             <div className="title-subtitle">
               <div className="course-title">
                 {object.url ? (
@@ -133,12 +148,15 @@ export function LearningResourceDisplay(props: SRProps) {
               <div className="subtitles">
                 <Dotdotdot clamp={3}>{object.description}</Dotdotdot>
               </div>
+              <Topics
+                object={object}
+                maxTags={maxTags}
+                moreUrl={`/courses/${object.run_slug}`}
+              />
             </div>
           </div>
         </div>
-        <div className="resource-topics-div">
-          <Topics object={object} maxTags={maxTags} />
-        </div>
+        <CoverImage object={object} />
       </Card>
     )
   } else {
@@ -170,6 +188,7 @@ export function LearningResourceDisplay(props: SRProps) {
                     ? `+ ${object.instructors.length - maxTags} more`
                     : ""
                 }
+                moreUrl={object.url}
               >
                 {object.instructors.slice(0, maxTags).map((instructor, i) => (
                   <a
@@ -184,7 +203,7 @@ export function LearningResourceDisplay(props: SRProps) {
               </Subtitle>
             </div>
           ) : null}
-          <Topics object={object} maxTags={maxTags} />
+          <Topics object={object} maxTags={maxTags} moreUrl={object.url} />
         </div>
         <CoverImage object={object} />
       </Card>

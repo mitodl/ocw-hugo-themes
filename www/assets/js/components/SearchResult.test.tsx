@@ -66,7 +66,7 @@ describe("SearchResult component", () => {
         .first()
         .prop("src")
     ).toBe(getCoverImageUrl(object))
-    expect(wrapper.find(".resource-topics-div").text()).toContain(
+    expect(wrapper.find(".topics-list").text()).toContain(
       object.topics[0]["name"]
     )
     expect(wrapper.find("CoverImage").exists()).toBeTruthy()

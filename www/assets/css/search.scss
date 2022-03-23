@@ -26,10 +26,23 @@
   }
 
   .search-box-description {
-    font-size: $font-xl;
+    font-size: $font-md;
     font-weight: lighter;
     letter-spacing: 0.8px;
     color: rgb(163, 31, 52);
+    @include breakpoint(phone) {
+      font-size: $font-md;
+    }
+  }
+
+  .search-box-inner {
+    margin-bottom: 0;
+  }
+
+  .search-page .search-box-inner h1 {
+    @include breakpoint(phone) {
+      font-size: $font-lg;
+    }
   }
 
   .results-total {
@@ -57,6 +70,7 @@
       height: 50px;
       background-color: #f8f8f8;
       letter-spacing: 0.54px;
+      border-bottom: 1px solid #d2d2d2;
     }
 
     button {
@@ -120,7 +134,9 @@
   }
 
   .search-toggle {
-    margin-left: -15px;
+    margin: 0 0 0 -0.55rem;
+    padding-bottom: 0;
+    min-height: 58px;
     &,
     button {
       color: black;
@@ -130,6 +146,25 @@
       color: black;
     }
     padding-bottom: 5px;
+
+    .facet {
+      max-width: 1300px;
+      padding: 0.15rem 1rem 0 0;
+    }
+
+    .sort-nav-item {
+      @include breakpoint(phone) {
+        padding-left: 20px;
+        padding-top: 10px;
+        font-size: $font-sm;
+      }
+    }
+
+    .nav-link {
+      @include breakpoint(phone) {
+        font-size: $font-sm;
+      }
+    }
   }
 
   .search-filter-drawer-open {
@@ -177,6 +212,10 @@
     i.material-icons {
       font-size: 2.25rem;
     }
+
+    @include breakpoint(phone) {
+      padding-left: 20px;
+    }
   }
 
   .listitem {
@@ -188,7 +227,11 @@
 
   .search-results-area {
     background-color: #f8f8f8;
-    border-top: 1px solid #d2d2d2;
+    border-top: none;
+    section {
+      padding: 0 1rem;
+      max-width: 1300px;
+    }
   }
 
   .facet-display-wrapper {

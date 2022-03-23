@@ -41,7 +41,7 @@ export default function CoverImage({ object }: Props) {
             <img
               src="/images/video_play_overlay.png"
               className="video-play-icon"
-              alt="Play video icon"
+              alt={altText}
             />
           ) : null}
       </a>

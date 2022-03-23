@@ -210,7 +210,7 @@ export default function SearchPage() {
             clearAllFilters={clearAllFilters}
             toggleFacet={toggleFacet}
           />
-          <div className="search-results-area col-12 col-lg-8 pb-2 pt-2">
+          <div className="search-results-area col-12 col-lg-9 pb-2 pt-2">
             <div
               className={`search-toggle ${
                 isResourceSearch ? "nofacet" : "facet"
@@ -329,7 +329,6 @@ export default function SearchPage() {
               </section>
             </InfiniteScroll>
           </div>
-          <div className="search-results-area col-12 col-lg-1" />
         </div>
       </div>
     </div>
