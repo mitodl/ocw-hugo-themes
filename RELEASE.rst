@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.47.1
+Version 1.47.1 (Released March 24, 2022)
 --------------
 
 - remove ts-nocheck on two files
