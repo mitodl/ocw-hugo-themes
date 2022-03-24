@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.47.0
+Version 1.47.0 (Released March 24, 2022)
 --------------
 
 - more search css changes (#545)
