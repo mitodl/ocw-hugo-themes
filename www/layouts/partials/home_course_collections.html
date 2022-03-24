@@ -6,14 +6,12 @@
       collections. Below are some topics available for you to explore:
     </p>
     <div class="course-collection-section d-flex flex-row m-0 flex-wrap">
-      {{ range $url := .Params.homePageCourseListsUrls}}
-        {{ with $.Site.GetPage $url }}
-          <a href="{{ .Permalink }}">
-            <div class="collection-item">
-              <p>{{ .Title }}</p>
-            </div>
-          </a>
-        {{ end }}
+      {{ range where .Site.Pages "Type" "course-lists" }}
+        <a href="{{.Permalink}}">
+          <div class="collection-item">
+            <p>{{.Title}}</p>
+          </div>
+        </a>
       {{ end }}
     </div>
   </div>
