@@ -29,22 +29,35 @@ export default function CoverImage({ object }: Props) {
 
   return (
     <div className={className}>
-      <a href={object.url ?? ""}>
-        <img
-          src={getCoverImageUrl(object)}
-          height={CAROUSEL_IMG_HEIGHT}
-          alt={altText}
-        />
-        {[object.object_type, object.content_type].includes(
-          LearningResourceType.Video
-        ) ? (
+      {[object.object_type, object.content_type].includes(
+        LearningResourceType.Video
+      ) ? (
+          <a href={object.url ?? ""}>
+            <img
+              src={getCoverImageUrl(object)}
+              height={CAROUSEL_IMG_HEIGHT}
+              alt={altText}
+            />
             <img
               src="/images/video_play_overlay.png"
               className="video-play-icon"
+              alt=""
+            />
+            <img
+              src="/images/mobile_video_thumbnail.png"
+              className="mobile-video-icon"
               alt={altText}
             />
-          ) : null}
-      </a>
+          </a>
+        ) : (
+          <a href={object.url ?? ""}>
+            <img
+              src={getCoverImageUrl(object)}
+              height={CAROUSEL_IMG_HEIGHT}
+              alt={altText}
+            />
+          </a>
+        )}
     </div>
   )
 }

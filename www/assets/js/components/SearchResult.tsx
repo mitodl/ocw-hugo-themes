@@ -121,13 +121,20 @@ export function LearningResourceDisplay(props: SRProps) {
   if (isResource(object)) {
     return (
       <Card className="learning-resource-card list-view learning-resource-card-resource">
-        <div className="lr-info search-result">
+        <div
+          className={
+            [object.object_type, object.content_type].includes(
+              LearningResourceType.Video
+            )
+              ? "lr-info search-result has-min-height"
+              : "lr-info search-result"
+          }
+        >
           <div className="lr-row resource-header">
             <div className="resource-type">
               <a href={`/courses/${object.run_slug}`}>
                 <Dotdotdot clamp={3}>
-                  {object.coursenum ? `${object.coursenum} ` : ""}
-                  {object.run_title}
+                  {`${object.coursenum} | ${object.run_title}`}
                 </Dotdotdot>
               </a>
             </div>
@@ -162,7 +169,7 @@ export function LearningResourceDisplay(props: SRProps) {
   } else {
     return (
       <Card className="learning-resource-card list-view">
-        <div className="lr-info search-result">
+        <div className="lr-info search-result has-min-height">
           <div className="lr-row resource-header">
             <div className="resource-type">
               {`${object.coursenum}${object.level ? " | " : ""}${object.level}`}
