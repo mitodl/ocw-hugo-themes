@@ -5,17 +5,21 @@
 {{ $relatedResourses := .Params.related_resources_text | default "" }}
 {{ $optionalTabTitle := .Params.optional_tab_title | default "" }}
 {{ $optionalTabContent := .Params.optional_text | default ""}}
+{{ $startTime := .Params.start_time | default "" }}
+{{ $endTime := .Params.end_time | default "" }}
+
 {{ if (eq $downloadLink nil) }}
 {{ $downloadLink = .Params.video_files.archive_url }}
 {{ else }}
 {{ $downloadLink =  partial "resource_url" $downloadLink  }}
 {{ end }}
 
+
 <div class="video-page">
   <div class="description">
     {{ .Params.about_this_resource_text | safeHTML }}
   </div>
-  {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation)}}
+  {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime)}}
   <div class="video-buttons-container">
 	{{ if  $transcriptPdfLocation}}
 	  <div class="video-download-container">

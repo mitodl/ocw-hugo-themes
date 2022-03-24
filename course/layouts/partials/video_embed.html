@@ -1,6 +1,8 @@
 {{ $youtubeKey := .Params.video_metadata.youtube_id }}
 {{ $captionsLocation := .Params.video_files.video_captions_file }}
 {{ $uid := .Params.uid }}
+{{ $startTime := .Params.start_time | default "" }}
+{{ $endTime := .Params.end_time | default "" }}
 {{ $downloadLink := .Params.file }}
 {{ if (eq $downloadLink nil) }}
 {{ $downloadLink = .Params.video_files.archive_url }}
@@ -8,7 +10,7 @@
 {{ $downloadLink =  partial "resource_url" $downloadLink  }}
 {{ end }}
 
-{{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation) }}
+{{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime) }}
 {{- range where $.Site.Pages "Params.uid" $uid -}}
 	<div class="video-buttons-container">
     <div class='video-page-link'>
