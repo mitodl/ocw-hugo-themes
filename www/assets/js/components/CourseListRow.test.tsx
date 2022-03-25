@@ -30,5 +30,5 @@ test("should show the title, coursenum, level", () => {
   const { wrapper, course } = setup()
   expect(wrapper.find("h4").text()).toBe(course.title)
   expect(wrapper.find(".coursenum").text()).toBe(course.coursenum)
-  expect(wrapper.find(".level").text()).toBe(course.level)
+  expect(wrapper.find(".level").text()).toBe(course.level ? course.level : "")
 })

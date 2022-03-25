@@ -1,0 +1,11 @@
+{{- $collection := . -}}
+{{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocwnext.odl.mit.edu"  -}}
+{{ $collectionImageUuid := index $collection.Params "cover-image"}}
+{{ if  $collectionImageUuid.content }}
+  {{- $collectionImageMetadata := (dict "Params" (dict "file" "None" "metadata" (dict "image_alt" ""))) -}}
+  {{- $collectionImageMetadata = partial "resource_metadata.html" $collectionImageUuid.content }}
+  {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) $collectionImageMetadata.Params.file) "" -}}
+  <div id="collection-header">
+    <img src='{{ partial "resource_url" $url }}' alt='{{ $collectionImageMetadata.Params.metadata.image_alt }}' />
+  </div>
+{{ end }}
