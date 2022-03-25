@@ -1,4 +1,8 @@
 {{ $random := delimit (shuffle (split (md5 "seed") "" )) "" }}
+{{$youtubeParams:=""}}
+{{if ne .startTime ""}}
+{{$youtubeParams =  delimit (slice `, "youtube": { "start": ` .startTime `, "end":`  .endTime  `}`) "" }}
+{{end}}
 <div class="video-container">
   <video
     id="video-player-{{ .youtubeKey }}-{{ $random }}"
@@ -7,7 +11,8 @@
     data-setup='{
     "fluid": true,
     "techOrder": ["youtube"],
-    "sources": [{"type": "video/youtube", "src": "https://www.youtube.com/embed/{{ .youtubeKey }}"}]}'
+    "sources": [{"type": "video/youtube", "src": "https://www.youtube.com/embed/{{ .youtubeKey }}"}]
+    {{$youtubeParams}} }'
   >
       {{ if .captionsLocation }}
         <track kind="captions" src="{{ .captionsLocation }}" srclang="en" label="English" default>
