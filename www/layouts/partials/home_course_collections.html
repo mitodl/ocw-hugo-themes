@@ -6,7 +6,7 @@
       collections. Below are some topics available for you to explore:
     </p>
     <div class="course-collection-section d-flex flex-row m-0 flex-wrap">
-      {{ range where .Site.Pages "Type" "course-lists" }}
+      {{ range where .Site.Pages "Type" "course_collections" }}
         <a href="{{.Permalink}}">
           <div class="collection-item">
             <p>{{.Title}}</p>
