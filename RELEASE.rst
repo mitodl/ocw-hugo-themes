@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.47.2 (Released March 25, 2022)
+--------------
+
+- search styling v3 (#550)
+
 Version 1.47.1 (Released March 24, 2022)
 --------------
 
