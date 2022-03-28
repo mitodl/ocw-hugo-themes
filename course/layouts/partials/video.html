@@ -30,12 +30,12 @@
 	</div>
 
   {{ if $captionsLocation }}
-    {{ partial "video-expandable-tab.html" (dict "tabID" "transcript" "tabTitle" "Transcript" "tabContent" "") }}
+    {{ partial "video-expandable-tab.html" (dict "tabClass" "transcript" "tabTitle" "Transcript" "tabContent" "") }}
   {{end}}
   {{ if $relatedResourses }}
-  	{{ partial "video-expandable-tab.html" (dict "tabID" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
+  	{{ partial "video-expandable-tab.html" (dict "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
   {{end}}
   {{ if and $optionalTabTitle $optionalTabContent }}
-		{{ partial "video-expandable-tab.html" (dict "tabID" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
+		{{ partial "video-expandable-tab.html" (dict "tabClass" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
   {{end}}
 </div>
