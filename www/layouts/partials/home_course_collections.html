@@ -7,7 +7,7 @@
     </p>
     <div class="course-collection-section d-flex flex-row m-0 flex-wrap">
       {{ range where .Site.Pages "Type" "collections" }}
-        <a href="{{.Permalink}}">
+        <a href="{{ .Permalink }}">
           <div class="collection-item">
             <p>{{.Title}}</p>
           </div>
