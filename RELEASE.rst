@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.48.0
+--------------
+
+- Add cover image to collection page (#553)
+- add start and end to videos (#560)
+- fix: embeded video downlaod (#556)
+- upgrade course-search-utils, fix a bunch of nested imports
+
 Version 1.47.2 (Released March 25, 2022)
 --------------
 
