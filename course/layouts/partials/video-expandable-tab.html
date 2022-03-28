@@ -1,0 +1,20 @@
+<div class="pb-2">
+	<a class="video-tab-section-toggle text-decoration-none"
+      href="#{{- .tabID -}}"
+			data-toggle="collapse"
+			aria-controls="{{- .tabID -}}"
+			aria-expanded=""
+      >
+  	<div class="video-tab-header">
+			<span>
+				{{- .tabTitle -}}
+			</span>
+			<div class="float-right align-middle mr-3">
+				<i class="material-icons md-18"></i>
+			</div>
+		</div>
+	</a>
+	<div class="container collapse" id="{{- .tabID -}}">
+		{{- .tabContent | markdownify -}}
+	</div>
+</div>

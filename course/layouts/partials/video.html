@@ -17,74 +17,25 @@
   </div>
   {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation)}}
   <div class="video-buttons-container">
-	{{ if  $transcriptPdfLocation}}
+	{{ if $transcriptPdfLocation }}
 	  <div class="video-download-container">
 	    <a class="download-file video-download-button" href="{{ $transcriptPdfLocation }}"><span class="material-icons">file_download</span> Download Transcript</a>
 	  </div>
 	{{end}}
-	{{ if  $downloadLink }}
+	{{ if $downloadLink }}
 	  <div class="video-download-container">
 	    <a class="download-file video-download-button" href="{{ $downloadLink }}"><span class="material-icons">file_download</span> Download Video</a>
 	  </div>
 	{{end}}
 	</div>
 
-  {{ if $captionsLocation}}
-  <div class="transcript-box">
-  	<div class="tab-header">
-	   	<span>
-	       Transcript
-	    </span>
-	    <a class="transcript-section-toggle course-nav-section-toggle"
-	      href=".transcript"
-	      data-toggle="collapse"
-	      aria-controls="transcript"
-	      aria-expanded="">
-	      <i class="material-icons md-18"></i>
-	    </a>
-	</div>
-	<div class="transcript collapse"></div>
-  </div>
-  <div class="tab-footer"></div>
+  {{ if $captionsLocation }}
+    {{ partial "video-expandable-tab.html" (dict "tabID" "transcript" "tabTitle" "Transcript" "tabContent" "") }}
   {{end}}
   {{ if $relatedResourses }}
-  <div class="related-resource-box">
-  	<div class="tab-header">
-	   	<span>
-	       Related Resources
-	    </span>
-	    <a class="transcript-section-toggle course-nav-section-toggle"
-	      href=".related-resource"
-	      data-toggle="collapse"
-	      aria-controls="related-resource"
-	      aria-expanded="">
-	      <i class="material-icons md-18"></i>
-	    </a>
-	</div>
-	<div class="related-resource  tab-content collapse">
-		{{ .Page.RenderString $relatedResourses}}
-	</div>
-  </div>
-  <div class="tab-footer"></div>
+  	{{ partial "video-expandable-tab.html" (dict "tabID" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
   {{end}}
   {{ if and $optionalTabTitle $optionalTabContent }}
-  <div class="related-resource-box">
-  	<div class="tab-header">
-	   	<span>
-	       {{ $optionalTabTitle }}
-	    </span>
-	    <a class="transcript-section-toggle course-nav-section-toggle"
-	      href=".related-resource"
-	      data-toggle="collapse"
-	      aria-controls="related-resource"
-	      aria-expanded="">
-	      <i class="material-icons md-18"></i>
-	    </a>
-	</div>
-	<div class="related-resource  tab-content collapse">
-		{{ .Page.RenderString $optionalTabContent}}
-	</div>
-  </div>
-  <div class="tab-footer"></div>
+		{{ partial "video-expandable-tab.html" (dict "tabID" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
   {{end}}
 </div>
