@@ -1,7 +1,8 @@
 {{- with first 3 (uniq .) -}}
   {{- $numInstructors := len . -}}
   {{- range $index, $instructorObject := . -}}
-    {{- $instructorName := $instructorObject.instructor -}}
+    {{- $title := $instructorObject.title | default "" -}}
+    {{- $instructorName := $instructorObject.instructor | default $title -}}
     {{- $instructorSearchUrl := partial "get_search_url.html" (dict "key" "instructors" "value" $instructorName) -}}
     <a href="{{ $instructorSearchUrl }}">{{ $instructorName }}</a>
     {{- if ne (add $index 1) $numInstructors -}}
