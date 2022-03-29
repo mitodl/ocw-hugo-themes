@@ -1,76 +1,43 @@
 {{- $testimonials := where .Site.RegularPages "Type" "==" "testimonials" -}}
 {{- $testimonialSection := .Site.GetPage "section" "testimonials" -}}
+{{- $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none") "lg" (dict "size" 3 "class" "d-none d-lg-flex d-xl-none") "xl" (dict "size" 4 "class" "d-none d-xl-flex")) -}}
 <div class="home-testimonials standard-width container mx-auto my-3">
-  <h2 class="mb-3">
-    OpenCourseWare Testimonies
-  </h2>
-  <div class="d-flex flex-row justify-content-between xl-and-above-only" >
-    {{ range $testimonial := $testimonials }}
-      {{ partial "testimonial_card.html" $testimonial }}
-    {{ end }}
-  </div>
-  <div class="d-flex d-md-none">
-    {{- $carouselId := "testimonial-carousel-xs-sm" -}}
-    <div id="{{ $carouselId }}" class="carousel slide">
-      <div class="carousel-header d-flex flex-row justify-content-end font-weight-bold text-uppercase">
-        {{ partial "carousel_controls.html" $carouselId }}
-      </div>
-      <div class="carousel-inner d-flex mt-2 px-0">
-        {{- range $index, $testimonial := (first 4 $testimonials) -}}
-          <div class="carousel-item {{ if eq $index 0 }}active{{ end }}">
-            <div class="item-wrapper w-100 d-flex justify-content-center">
-              {{ partial "testimonial_card.html" $testimonial }}
-            </div>
-          </div>
-        {{ end }}
+  {{ range $breakpoint, $carouselInfo := $breakdowns }}
+    {{ $itemsInCarousel := index $carouselInfo "size" }}
+    {{ $breakpointVisibilityClass := index $carouselInfo "class" }}
+    {{ $isMobile := (eq $itemsInCarousel 1) }}
+    {{ $carouselId := (printf "testimonial-carousel-%v" $breakpoint) }}
+    <div class="{{ $breakpointVisibilityClass }}">
+      <div id="{{ $carouselId }}" class="carousel slide" data-interval="false" data-touch="true" data-ride="carousel">
+        <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold">
+          <h2>OpenCourseWare Stories</h2>
+          {{ partial "carousel_controls.html" $carouselId }}
+        </div>
+        <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
+          {{ range $index, $testimonial := $testimonials  }}
+            {{ with $testimonial }}
+              {{ $modulo := (mod $index $itemsInCarousel) }}
+              {{ $group := (div $index $itemsInCarousel) }}
+              {{ if eq $modulo 0 }}
+              <div class="carousel-item {{ if not $isMobile }}row{{end}} {{ if eq $group 0 }}active{{ end }}">
+              {{ end }}
+                <div class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 $itemsInCarousel) }}{{ end }} w-100 d-flex justify-content-center">
+                  <div class="item-wrapper w-100 d-flex justify-content-center">
+                    {{ partial "testimonial_card.html" $testimonial }}
+                  </div>
+                </div>
+              {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $testimonials) 1))) }}
+              </div>
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        </div>
       </div>
     </div>
-  </div>
-  <div class="d-none d-md-flex d-lg-none">
-    {{- $carouselId := "testimonial-carousel-md" -}}
-    <div id="{{ $carouselId }}" class="carousel slide">
-      <div class="carousel-header d-flex flex-row justify-content-end font-weight-bold text-uppercase">
-        {{ partial "carousel_controls.html" $carouselId }}
-      </div>
-      <div class="carousel-inner d-flex container mt-2 px-0">
-        {{- range $index, $testimonial := (first 4 $testimonials) -}}
-          {{ if (or ( eq $index 0) (eq $index 2)) }}
-          <div class="carousel-item row {{ if eq $index 0 }}active{{ end }}">
-          {{ end }}
-            <div class="item-wrapper col-6 w-100 d-flex justify-content-center">
-              {{ partial "testimonial_card.html" $testimonial }}
-            </div>
-          {{ if (or ( eq $index 1) (eq $index 3)) }}
-          </div>
-          {{ end }}
-        {{ end }}
-      </div>
-    </div>
-  </div>
-  <div class="d-none d-lg-flex d-xl-none">
-    {{- $carouselId := "testimonial-carousel-lg" -}}
-    <div id="{{ $carouselId }}" class="carousel slide">
-      <div class="carousel-header d-flex flex-row justify-content-end font-weight-bold text-uppercase">
-        {{ partial "carousel_controls.html" $carouselId }}
-      </div>
-      <div class="carousel-inner d-flex container mt-2 px-0">
-        {{- range $index, $testimonial := (first 4 $testimonials) -}}
-          {{ if (or ( eq $index 0) (eq $index 3)) }}
-          <div class="carousel-item row {{ if eq $index 0 }}active{{ end }}">
-          {{ end }}
-            <div class="item-wrapper col-4 w-100 d-flex justify-content-center">
-              {{ partial "testimonial_card.html" $testimonial }}
-            </div>
-          {{ if (or ( eq $index 2) (eq $index 3)) }}
-          </div>
-          {{ end }}
-        {{ end }}
-      </div>
-    </div>
-  </div>
+  {{ end }}
   <div class="d-flex py-4">
       <div class="ml-auto">
-          <a class="view-all-link" href="{{ $testimonialSection.RelPermalink }}">View All OCW Testimonials</a>
+          <a class="view-all-link" href="{{ $testimonialSection.RelPermalink }}">View All OCW Stories</a>
       </div>
   </div>
 </div>
