@@ -11,7 +11,9 @@
       <div id="{{ $carouselId }}" class="carousel slide" data-interval="false" data-touch="true" data-ride="carousel">
         <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold">
           <h2>OpenCourseWare Stories</h2>
+          {{ if gt (len $testimonials) 4 }}
           {{ partial "carousel_controls.html" $carouselId }}
+          {{ end }}
         </div>
         <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
           {{ range $index, $testimonial := $testimonials  }}
