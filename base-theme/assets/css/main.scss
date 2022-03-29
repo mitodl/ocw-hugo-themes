@@ -391,3 +391,8 @@ article.content {
 .aspect-ratio-16-9 {
   aspect-ratio: 16/9 !important;
 }
+
+// selector for appzi button
+div[data-appzi-dom] {
+  top: 30% !important;
+}
