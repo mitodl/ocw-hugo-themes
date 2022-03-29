@@ -2,7 +2,7 @@
 {{- $featuredCourses := slice -}}
 
 <!-- getting featured courses from course lists whose title is featured-courses -->
-{{- range where $.Site.Pages "Params.title" "featured-courses" -}}
+{{- range where $.Site.Pages "Params.title" "featured-courses-homepage" -}}
   {{ if eq .Params.content_type "course-lists" }}
     {{ $featuredCourses = .Params.courses }}
   {{end}}
