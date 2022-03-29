@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.48.0
+Version 1.48.0 (Released March 29, 2022)
 --------------
 
 - Add cover image to collection page (#553)
