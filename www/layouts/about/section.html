@@ -170,7 +170,7 @@
       </div>
       <div class="col-12 col-lg-6 px-0 py-lg-6">
         <div
-          class="background-color-highlight-red d-flex justify-content-center align-items-center h-100 px-3 py-5 p-lg-7"
+          class="background-color-highlight-red d-flex justify-content-center align-items-center h-100 px-sm-7 px-5  py-5"
         >
           <h2 id="ocw-20-text" class="font-helvetica-light font-weight-light text-white">
             In our first 20 years, we’ve unlocked access to knowledge, 
@@ -181,7 +181,7 @@
             <br />
             Our new platform, which you are now using, brings smartphone 
             users fully into OCW's global community…provides more powerful 
-            and insightful ways to discover the content you need… and will 
+            and insightful ways to discover the content you need…and will 
             keep OCW a vibrant and current reflection of MIT’s world-changing 
             teaching and learning.
           </h2>
@@ -327,7 +327,7 @@
               practicing teachers, covering topics such as course design, active 
               learning methods, and strategies to engage learners.
             </p>
-            <a class="red-btn" href="/search/?type=Instructor%20Insights&s=-runs.best_start_date"
+            <a class="red-btn" href="https://ocwnext.odl.mit.edu/search/?f=Instructor%20Insights&s=-runs.best_start_date"
               >Find courses with Instructor Insights</a
             >
           </li>
@@ -358,7 +358,7 @@
               Open Learning Library is always open for self-guided learning, and 
               does not include live support, discussion forums, or certificates of completion.
             </p>
-            <a class="red-btn" href="/collections/mit-open-learning-library/">Explore Open Learning Library courses </a>
+            <a class="red-btn" href="/course-lists/open-learning-library/">Explore Open Learning Library courses </a>
           </li>
         </ul>
       </div>
@@ -484,6 +484,9 @@
         {{ if eq (mod (sub $index 3) 4) 0 }}
       </div>
       {{ end }}
+      {{ end }}
+      {{ if (ne (mod (len (where .Site.RegularPages "Section" "staff")) 4) 0) }}
+        </div>
       {{ end }}
     </div>
     <div id="staff-mobile" class="medium-and-below-only row pb-5">
