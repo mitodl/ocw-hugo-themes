@@ -71,22 +71,19 @@
 </div>
 {{ partial "promo-carousel.html" . }}
 <div class="home-page-content" style="background-image: url(/images/homepage_bg.png);">
+
+  {{ with partial "get_featured_courses.html" . }}
+    {{- $featuredCourses := . -}}
+    {{ partial "featured_course_cards.html" (dict "featuredCourses" $featuredCourses) }}
+  {{ end }}
+
+  {{ partial "home_course_collections.html" . }}
+
   {{ $pages := .Site.Pages.ByPublishDate.Reverse }}
   {{ $coursePages := where $pages "Type" "==" "course" }}
   {{ $childPages := where $coursePages ".Params.layout" "==" "course_home" }}
-  {{ partial "home_new_course_cards.html" $childPages }}
-  <!-- 
-    Ideally, there should be 1 partial for course cards which can take and render both, new courses and featured courses 
-    but changing home_new_course_cards.html into something generic seemed to be a bit time taking hence I created a new
-    partial for featured courses.
-  -->
-  {{ with partial "get_featured_courses.html" . }}
-    {{- $featuredCourses := . -}}
-    {{ partial "home_featured_course_cards.html" (dict "featuredCourses" $featuredCourses) }}
-  {{ end }}
-
+  {{ partial "new_course_cards.html" $childPages }}
   
-  {{ partial "home_course_collections.html" . }}
   <div class="give-now-wrapper">
     <div class="give-now my-5 d-flex justify-content-center">
       <div class="d-flex flex-column justify-content-center">
