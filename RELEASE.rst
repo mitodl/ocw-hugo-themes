@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.48.1
+Version 1.48.1 (Released March 30, 2022)
 --------------
 
 - fixed extar tab in course collection (#576)
