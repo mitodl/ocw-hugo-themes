@@ -5,7 +5,7 @@
   {{ partialCached "header" . }}
   {{ end }}
   {{ partial "collection_cover_image" $collection }}
-  <div class="container collection-outer-container standard-width mx-auto mt-5">
+  <div class="container standard-width mx-auto mt-5">
     <h1>
       {{ $collection.Title }}
     </h1>
@@ -17,7 +17,7 @@
       {{ partial "course_list" $course_list }}
       <div>
       <div class="col-12 col-lg-8 pb-2">
-        <a class="float-right collection-see-all" href="{{ $course_list.RelPermalink }}">See all</a>
+        <a class="float-right" href="{{ $course_list.RelPermalink }}">See all</a>
         </div>
       </div>
     {{- end -}}

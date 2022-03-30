@@ -25,6 +25,7 @@ export default function CourseListRow(props: Props) {
           <h4 className="mb-0">{course.title}</h4>
           <div className="coursenum">{course.coursenum}</div>
         </div>
+        <div className="level">{course.level ?? ""}</div>
       </a>
     </Card>
   )
