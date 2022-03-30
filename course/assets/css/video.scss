@@ -139,10 +139,14 @@ a.video-download-button:visited {
   margin-bottom: 10px;
 }
 
-.video-tab-section-toggle > div > div > i:after {
-  content: "add";
+.video-tab-section-toggle {
+  i:after {
+    content: "add";
+  }
 }
 
-.video-tab-section-toggle[aria-expanded="true"] > div > div > i:after {
-  content: "remove" !important;
+.video-tab-section-toggle[aria-expanded="true"] {
+  i:after {
+    content: "remove" !important;
+  }
 }
