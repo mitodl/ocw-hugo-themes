@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.49.0
+--------------
+
+- fix for videos with start time but not end time (#581)
+- feat: featured courses (#566)
+
 Version 1.48.2 (Released March 30, 2022)
 --------------
 
