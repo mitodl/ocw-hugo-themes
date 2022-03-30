@@ -26,7 +26,7 @@ function courseNav() {
           // @ts-ignore
           navItemEl
             .querySelector(
-              ".course-nav-section-toggle, transcript-section-toggle"
+              ".course-nav-section-toggle, video-tab-section-toggle"
             )
             .setAttribute("aria-expanded", "true")
         }
