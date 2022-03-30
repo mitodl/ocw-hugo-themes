@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.48.2
+Version 1.48.2 (Released March 30, 2022)
 --------------
 
 - Styling for course collections (#575)
