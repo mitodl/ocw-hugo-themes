@@ -1,8 +1,13 @@
 {{ $random := delimit (shuffle (split (md5 "seed") "" )) "" }}
 {{$youtubeParams:=""}}
-{{if ne .startTime ""}}
+{{if and (ne .startTime "") (ne .endTime "")}}
 {{$youtubeParams =  delimit (slice `, "youtube": { "start": ` .startTime `, "end":`  .endTime  `}`) "" }}
+{{else if ne .startTime ""}}
+{{$youtubeParams =  delimit (slice `, "youtube": { "start": ` .startTime `}`) "" }}
+{{else if ne .endTime ""}}
+{{$youtubeParams =  delimit (slice `, "youtube": { "end": ` .endTime `}`) "" }}
 {{end}}
+
 <div class="video-container">
   <video
     id="video-player-{{ .youtubeKey }}-{{ $random }}"
