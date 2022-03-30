@@ -1,14 +1,8 @@
 {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocwnext.odl.mit.edu"  -}}
-{{- $featuredCourses := slice -}}
 
-<!-- getting featured courses from course lists whose title is featured-courses -->
-{{- range where $.Site.Pages "Params.title" "featured-courses-homepage" -}}
-  {{ if eq .Params.content_type "course-lists" }}
-    {{ $featuredCourses = .Params.courses }}
-  {{end}}
-{{- end -}}
+{{- $courses := .featuredCourses -}}
 
-{{- if $featuredCourses -}}
+{{- if $courses -}}
 
 <div class="course-cards standard-width container mx-auto mt-3">
     {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none") "lg" (dict "size" 3 "class" "d-none d-lg-flex d-xl-none") "xl" (dict "size" 4 "class" "d-none d-xl-flex")) }}
@@ -25,7 +19,7 @@
             {{ partial "carousel_controls.html" $carouselId }}
           </div>
           <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
-            {{ range $index, $courseItem := $featuredCourses  }}
+            {{ range $index, $courseItem := $courses }}
               {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/courses/" .id "/data.json") "" -}}
               {{- $courseData := getJSON $url -}}
               {{ with $courseData }}
@@ -70,7 +64,7 @@
                     </div>
                   </div>
                 </div>
-                {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $featuredCourses) 1))) }}
+                {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $courses) 1))) }}
                 </div>
                 {{ end }}
               {{ end }}

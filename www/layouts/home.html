@@ -80,7 +80,12 @@
     but changing home_new_course_cards.html into something generic seemed to be a bit time taking hence I created a new
     partial for featured courses.
   -->
-  {{ partial "home_featured_course_cards.html" . }}
+  {{ with partial "get_featured_courses.html" . }}
+    {{- $featuredCourses := . -}}
+    {{ partial "home_featured_course_cards.html" (dict "featuredCourses" $featuredCourses) }}
+  {{ end }}
+
+  
   {{ partial "home_course_collections.html" . }}
   <div class="give-now-wrapper">
     <div class="give-now my-5 d-flex justify-content-center">
