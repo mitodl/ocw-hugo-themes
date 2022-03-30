@@ -71,11 +71,19 @@
 </div>
 {{ partial "promo-carousel.html" . }}
 <div class="home-page-content" style="background-image: url(/images/homepage_bg.png);">
+
+  {{ with partial "get_featured_courses.html" . }}
+    {{- $featuredCourses := . -}}
+    {{ partial "featured_course_cards.html" (dict "featuredCourses" $featuredCourses) }}
+  {{ end }}
+
+  {{ partial "home_course_collections.html" . }}
+
   {{ $pages := .Site.Pages.ByPublishDate.Reverse }}
   {{ $coursePages := where $pages "Type" "==" "course" }}
   {{ $childPages := where $coursePages ".Params.layout" "==" "course_home" }}
-  {{ partial "home_course_cards.html" $childPages }}
-  {{ partial "home_course_collections.html" . }}
+  {{ partial "new_course_cards.html" $childPages }}
+  
   <div class="give-now-wrapper">
     <div class="give-now my-5 d-flex justify-content-center">
       <div class="d-flex flex-column justify-content-center">
