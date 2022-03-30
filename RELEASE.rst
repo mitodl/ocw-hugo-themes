@@ -1,6 +1,17 @@
 Release Notes
 =============
 
+Version 1.48.1 (Released March 30, 2022)
+--------------
+
+- fixed extar tab in course collection (#576)
+- fix: video tab section toggle  (#562)
+- Revert "ab/styling-for-course-collections-and-lists"
+- ab/styling-for-course-collections-and-lists
+- Fix testimonial carousel (#570)
+- fixed styling issues for appzi feedback button (#565)
+- Updated course collection dashboard to link to course lists (#555)
+
 Version 1.48.0 (Released March 29, 2022)
 --------------
 
