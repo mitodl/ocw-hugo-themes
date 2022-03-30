@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.49.0
+Version 1.49.0 (Released March 30, 2022)
 --------------
 
 - fix for videos with start time but not end time (#581)
