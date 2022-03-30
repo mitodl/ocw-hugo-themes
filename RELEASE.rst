@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.48.3
+--------------
+
+- feat: featured courses (#566)
+
 Version 1.48.2 (Released March 30, 2022)
 --------------
 
