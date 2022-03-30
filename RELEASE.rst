@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.48.2
+--------------
+
+- Styling for course collections (#575)
+- Added a bit more space to handle double/triple line titles (#578)
+
 Version 1.48.1 (Released March 30, 2022)
 --------------
 
