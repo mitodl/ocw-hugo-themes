@@ -25,18 +25,69 @@
   }
 }
 
+h1.course-list-title {
+  color: $highlight-red;
+  text-transform: none;
+  font-size: $font-xl;
+  text-transform: uppercase;
+}
+
+.collection-outer-container {
+  h1 {
+    text-transform: uppercase;
+    margin-top: 45px;
+    margin-bottom: 25px;
+    font-size: $heading-two-font-lg;
+    padding: 15px;
+  }
+
+  .collection-description {
+    padding: 15px;
+  }
+
+  .course-list-title {
+    text-transform: none;
+    margin-top: 50px;
+    margin-bottom: 10px;
+  }
+}
+
+.collection-see-all {
+  font-weight: bold;
+}
+
 // this if for content rendered w/ React
 .course-collection-row {
-  height: 90px;
+  min-height: 90px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.11);
+  background-color: #ffffff;
 
+  h4 {
+    font-size: $font-lg;
+  }
   .card-contents {
     height: 100%;
     padding: 8px !important;
 
+    h4 {
+      font-size: $font-md;
+    }
+
+    .course-title {
+      max-width: 60%;
+      @include breakpoint(phone) {
+        max-width: 70%;
+      }
+    }
+
     img {
-      height: 74px;
-      width: 100px;
+      height: 75.33px;
+      width: 125px;
       object-fit: cover;
+
+      @include breakpoint(phone) {
+        display: none;
+      }
     }
 
     .coursenum,
@@ -50,6 +101,11 @@
 
     .level {
       color: $highlight-red;
+      margin-left: 25px;
+      @include breakpoint(phone) {
+        margin-left: 10px;
+        margin-right: 5px;
+      }
     }
   }
 }
