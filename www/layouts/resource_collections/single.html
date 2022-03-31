@@ -13,6 +13,7 @@
     </div>
     <div id="resource-collection-container"></div>
   </div>
+  {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
   <script>
     {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocwnext.odl.mit.edu"  -}}
     {{- $contentMap := dict -}}
