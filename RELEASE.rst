@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.49.1
+--------------
+
+- fix: open learning button redirection (#588)
+
 Version 1.49.0 (Released March 30, 2022)
 --------------
 
