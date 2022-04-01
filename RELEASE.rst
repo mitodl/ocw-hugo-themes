@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.50.0
+--------------
+
+- fix: testimonials images should squish (#596)
+- removed custom override for appzi (#594)
+
 Version 1.49.1 (Released March 31, 2022)
 --------------
 
