@@ -15,6 +15,7 @@ $row-max-height: 200px;
     img {
       width: $row-max-height;
       height: $row-max-height;
+      object-fit: cover;
     }
 
     .detail {
