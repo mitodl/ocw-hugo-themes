@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.50.0
+Version 1.50.0 (Released April 04, 2022)
 --------------
 
 - fix: testimonials images should squish (#596)
