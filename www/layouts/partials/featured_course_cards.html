@@ -1,6 +1,7 @@
 {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocwnext.odl.mit.edu"  -}}
 
 {{- $courses := .featuredCourses -}}
+{{- $klass := .klass -}}
 
 {{- if $courses -}}
 
@@ -15,7 +16,7 @@
       <div class="{{ $breakpointVisibilityClass }}">
         <div id="{{ $carouselId }}" class="carousel slide" data-interval="false" data-touch="true" data-ride="carousel">
           <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold">
-            <h2>Featured Courses</h2>
+            <h2 class="{{ $klass }}">Featured Courses</h2>
             {{ partial "carousel_controls.html" $carouselId }}
           </div>
           <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
