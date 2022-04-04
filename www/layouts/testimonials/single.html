@@ -4,7 +4,7 @@
   {{ block "header" . }}
   {{ partialCached "header" . }}
   {{ end }}
-  <div class="testimonial-single container standard-width mx-auto mt-5">
+  <div class="testimonial-single container standard-width mx-auto mt-5 mb-5">
     <h1>OCW Stories</h1>
     <div class="testimonials">
       <div class="testimonial d-flex flex-wrap flex-sm-nowrap">
@@ -26,5 +26,6 @@
       {{ .Content }}
     </div>
   </div>
+  {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
 </div>
 {{ end }}

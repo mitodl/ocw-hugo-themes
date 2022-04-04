@@ -16,7 +16,7 @@
       {{- $course_list := index (where $.Site.Pages ".Params.uid" .) 0 -}}
       {{ partial "course_list" $course_list }}
       <div>
-      <div class="col-12 col-lg-8 pb-2">
+      <div class="col-12 col-lg-8 pb-2 mb-5">
         <a class="float-right collection-see-all" href="{{ $course_list.RelPermalink }}">See all</a>
         </div>
       </div>
@@ -38,4 +38,7 @@
     window.courseListsData = JSON.parse("{{ $course_lists_data | jsonify }}");
   </script>
 </div>
+  {{ block "footer" . }} 
+    {{ partialCached "footer" . }} 
+  {{end}}
 {{ end }}
