@@ -15,7 +15,7 @@
     {{ $collectionFeaturedList := index $collection.Params "featured-courses"}}
     {{ if (not (isset $collectionFeaturedList -1)) }}
       {{- $featured_list := index (where $.Site.Pages ".Params.uid" $collectionFeaturedList.content) 0 -}}
-      {{ partial "featured_course_cards"  (dict "featuredCourses" $featured_list.Params.courses "klass" "course-list-title col-12 col-lg-8 pb-2") }}
+      {{ partial "featured_course_cards"  (dict "featuredCourses" $featured_list.Params.courses "klass" "course-list-title col-lg-8 pb-2") }}
     {{ end }}
     {{- range $collection.Params.courselists.content -}}
       {{- $course_list := index (where $.Site.Pages ".Params.uid" .) 0 -}}
@@ -43,7 +43,7 @@
     window.courseListsData = JSON.parse("{{ $course_lists_data | jsonify }}");
   </script>
 </div>
-  {{ block "footer" . }} 
-    {{ partialCached "footer" . }} 
+  {{ block "footer" . }}
+    {{ partialCached "footer" . }}
   {{end}}
 {{ end }}
