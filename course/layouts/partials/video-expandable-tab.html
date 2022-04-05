@@ -1,6 +1,6 @@
 <div class="pb-2">
-	<a class="video-tab-section-toggle text-decoration-none"
-      href=".{{- .tabClass -}}"
+	<div class="video-tab-section-toggle pointer"
+			data-target=".{{- .tabClass -}}" 
 			data-toggle="collapse"
 			aria-controls="{{- .tabClass -}}"
 			aria-expanded=""
@@ -13,7 +13,7 @@
 				<i class="material-icons md-18"></i>
 			</div>
 		</div>
-	</a>
+	</div>
 	<div class="container collapse {{ .tabClass }}">
 		{{- .tabContent | markdownify -}}
 	</div>
