@@ -323,6 +323,11 @@ $searchbox-height: 50px;
 
 .sponsors {
   max-width: $max-content-width;
+
+  .sponsor {
+    width: 180px;
+    height: 45px;
+  }
 }
 
 .home-testimonials {
