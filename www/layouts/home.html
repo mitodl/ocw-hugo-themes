@@ -1,4 +1,13 @@
 {{ define "main" }}
+
+{{ $getStartedZendeskPage := "https://mitocw.zendesk.com/hc/en-us/categories/4414679122971-Get-Started-with-MIT-OpenCourseWare" }}
+{{ $getStartedLocalPage := "/pages/get-started" }}
+{{ $getStartedLink := $getStartedZendeskPage }}
+
+{{ with $.Site.GetPage $getStartedLocalPage }}
+  {{ $getStartedLink = $getStartedLocalPage }}
+{{ end }}
+
 <div id="home-header">
   {{ block "header" . }}
   {{ $renderSearchIcon := index .Params "renderSearchIcon" | default true }}
@@ -41,7 +50,7 @@
       <div class="new-or-educator w-100 px-2 px-md-5 mt-md-5 py-4 d-flex flex-column flex-md-row">
         <div class="option bordered d-md-flex flex-md-column pb-3 pb-md-0 pr-md-3">
           <span class="font-weight-bold">Are you new to OCW?</span>
-          <a href="https://mitocw.zendesk.com/hc/en-us/categories/4414679122971-Get-Started-with-MIT-OpenCourseWare" target="_blank">
+          <a href="{{- $getStartedLink -}}">
             Get Started
           </a>
         </div>
