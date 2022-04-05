@@ -2,12 +2,15 @@
   {{- $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) -}}
   <a href="{{ $levelSearchUrl }}">{{ . }}</a>
 {{- else -}}
-  {{- $numLevels := len . -}}
-  {{- range $index, $level := . -}}
-    {{- $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $level) -}}
-    <a href="{{ $levelSearchUrl }}">{{ $level }}</a>
-    {{- if ne (add $index 1) $numLevels -}}
-    ,&nbsp;
+{{/* safe guard from nil values  */}}
+  {{ with .}}
+    {{- $numLevels := len . -}}
+    {{- range $index, $level := . -}}
+      {{- $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $level) -}}
+      <a href="{{ $levelSearchUrl }}">{{ $level }}</a>
+      {{- if ne (add $index 1) $numLevels -}}
+      ,&nbsp;
+      {{- end -}}
     {{- end -}}
-  {{- end -}}
+  {{ end }}
 {{- end -}}
