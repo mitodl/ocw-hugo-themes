@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.51.1
+Version 1.51.1 (Released April 06, 2022)
 --------------
 
 - fix: browse course material button styling (#611)
