@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.51.0 (Released April 06, 2022)
+--------------
+
+- Fix mobile style for featured carousel (#602)
+- Show featured course list in each collection if it exists (#587)
+- added footer to missing pages and updated styles (#585)
+
 Version 1.50.0 (Released April 04, 2022)
 --------------
 
