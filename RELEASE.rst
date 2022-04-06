@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.51.0
+Version 1.51.0 (Released April 06, 2022)
 --------------
 
 - Fix mobile style for featured carousel (#602)
