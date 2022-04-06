@@ -75,7 +75,7 @@
       margin-top: 242px;
     }
 
-    #milestone-card-desktop-2021 {
+    #milestone-card-desktop-2021\+ {
       margin-top: 80px;
     }
 
@@ -238,9 +238,10 @@
       background-color: $white;
 
       img {
-        width: 432px;
-        height: 328px;
-        object-fit: none;
+        max-height: 328px;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
       }
     }
 
