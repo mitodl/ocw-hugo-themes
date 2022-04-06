@@ -1,0 +1,25 @@
+{{ define "main" }}
+<div
+  class="page-single"
+  style="height: 100vh; display:flex; flex-direction:column"
+>
+  {{ block "header" . }} {{ partialCached "header" . }}
+  <div class="page-title">
+    <div class="title-text m-auto h1 m-0">
+      Page Not Found
+    </div>
+  </div>
+  {{end}}
+  <div class="d-flex flex-column justify-content-between" style="height: 100vh">
+    <div class="container standard-width mx-lg-7 mt-5 px-sm-15 mx-2">
+      <h3>Sorry, the page you requested was not found.</h3>
+      <br />
+      <p>
+        You might want to try <a href="/search/">searching</a> for another page,
+        or you can <a href="/contact/">contact us</a> and let us know
+      </p>
+    </div>
+    {{ block "footer" . }} {{ partialCached "footer" . }} {{ end }}
+  </div>
+</div>
+{{ end }}
