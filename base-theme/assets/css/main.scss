@@ -369,6 +369,10 @@ article.content {
 
 .course-section-title-container {
   max-width: 795px;
+
+  @include media-breakpoint-up(lg) {
+    border-bottom: 1px solid $medium-gray;
+  }
 }
 
 .download-file {
