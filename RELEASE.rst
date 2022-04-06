@@ -1,6 +1,17 @@
 Release Notes
 =============
 
+Version 1.51.1
+--------------
+
+- fix: browse course material button styling (#611)
+- Updated about page text and images (#567)
+- anchor tag in toggle/collapse replaced with div (#609)
+- Giving Section text updated (#607)
+- sponsor logos updated (#595)
+- added check to fix issue (#610)
+- get started link conditionally updated (#600)
+
 Version 1.51.0 (Released April 06, 2022)
 --------------
 
