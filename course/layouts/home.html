@@ -53,7 +53,9 @@
                             {{ end }}
                           </div>
                         </div>
-                        {{ partial "mobile_nav_toggle.html" . }}
+                        <div class="medium-and-below-only pl-3 py-3">
+                          {{ partial "mobile_nav_toggle.html" . }}
+                        </div>
                         <!-- the number here is a estimate, a count of 5 lines of characters on a sample course at minimum browser width -->
                         {{ $shouldCollapseDescription := gt (len $courseData.course_description) 320 }}
                         <div class="col-lg-8 course-description">
