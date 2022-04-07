@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.51.2
+--------------
+
+- educator page updates (#616)
+
 Version 1.51.1 (Released April 06, 2022)
 --------------
 
