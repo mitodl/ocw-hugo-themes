@@ -23,52 +23,7 @@
             {{ range $index, $courseItem := $courses }}
               {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/courses/" .id "/data.json") "" -}}
               {{- $courseData := getJSON $url -}}
-              {{ with $courseData }}
-                {{ $courseId := $courseItem.id | default "" }}
-                {{ $courseTitle := $courseData.course_title | default "" }}
-                {{ $courseImageSrc := $courseData.image_src | default "" }}
-                {{ $coursePrimaryNumber := $courseData.primary_course_number | default "" }}
-                {{ $courseLevel := $courseData.level | default slice }}
-                {{ $courseInstructors := $courseData.instructors | default slice }}
-                {{ $courseTopics := $courseData.topics | default slice }}
-
-                {{ $modulo := (mod $index $itemsInCarousel) }}
-                {{ $group := (div $index $itemsInCarousel) }}
-                {{ if eq $modulo 0 }}
-                <div class="carousel-item {{ if not $isMobile }}row{{end}} {{ if eq $group 0 }}active{{ end }}">
-                {{ end }}
-                <div class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 $itemsInCarousel) }}{{ end }} w-100 d-flex justify-content-center">
-                  <div class="course-card card bg-white">
-                    <a href="/courses/{{ $courseId }}" aria-hidden="true" tabindex="-1">
-                      {{/* The following is a temporary hack that should be removed following the decommissioning of the EC2 OCW Next build servers */}}
-                      {{ $courseBaseUrl := getenv "COURSE_BASE_URL" | default "" }}
-                      {{ if in $courseBaseUrl "ocwnext" }}
-                        {{ $courseImageSrc = replace $courseImageSrc "/courses" "/coursemedia" }}
-                      {{ end }}
-                      <img src="{{ $courseImageSrc }}" alt=""/>
-                    </a>
-                    <div class="course-card-content pt-1 px-3 pb-3">
-                      <div class="course-level">
-                        {{ $coursePrimaryNumber }} | {{ partial "course_cards_level.html" $courseLevel }}
-                      </div>
-                      <div class="pt-1">
-                        <div class="h5">
-                          <a href="/courses/{{ $courseId }}">{{ $courseTitle }}</a>
-                        </div>
-                      </div>
-                      <div class="pt-1">
-                        <span class="card-label">Instructors(s):</span> {{ partial "course_cards_instructors.html" $courseInstructors }}
-                      </div>
-                      <div class="pt-2">
-                        <span class="card-label">Topic(s):</span> {{ partial "course_cards_topics.html" $courseTopics }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $courses) 1))) }}
-                </div>
-                {{ end }}
-              {{ end }}
+              {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "courseId" $courseItem.id "numCourses" (len $courses))}}
             {{ end }}
           </div>
         </div>
