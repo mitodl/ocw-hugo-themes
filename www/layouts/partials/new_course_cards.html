@@ -1,3 +1,4 @@
+{{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocwnext.odl.mit.edu"  -}}
 <div class="new-courses course-cards standard-width container mx-auto mt-3">
 {{ $studioBaseUrl := getenv "OCW_STUDIO_BASE_URL" }}
 {{ $courseStarterSlug := getenv "OCW_IMPORT_STARTER_SLUG" }}
@@ -22,47 +23,9 @@
         <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
           {{ $resultsSlice := first 10 $results }}
           {{ range $index, $courseItem := $resultsSlice  }}
-            {{ with $courseItem }}
-              {{ $courseId := $courseItem.name }}
-              {{ $courseData := $courseItem.metadata}}
-              {{ $modulo := (mod $index $itemsInCarousel) }}
-              {{ $group := (div $index $itemsInCarousel) }}
-              {{ if eq $modulo 0 }}
-              <div class="carousel-item {{ if not $isMobile }}row{{end}} {{ if eq $group 0 }}active{{ end }}">
-              {{ end }}
-                <div class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 $itemsInCarousel) }}{{ end }} w-100 d-flex justify-content-center">
-                  <div class="course-card card bg-white">
-                    <a href="/courses/{{ $courseId }}" aria-hidden="true" tabindex="-1">
-                      {{/* The following is a temporary hack that should be removed following the decommissioning of the EC2 OCW Next build servers */}}
-                      {{ $courseBaseUrl := getenv "COURSE_BASE_URL" | default "" }}
-                      {{ $courseImageUrl := $courseData.course_image_url }}
-                      {{ if in $courseBaseUrl "ocwnext" }}
-                        {{ $courseImageUrl = replace $courseData.course_image_url "/courses" "/coursemedia" }}
-                      {{ end }}
-                      <img src="{{ $courseImageUrl }}" alt=""/>
-                    </a>
-                    <div class="course-card-content pt-1 px-3 pb-3">
-                      <div class="course-level">
-                        {{ $courseData.primary_course_number }} | {{ partial "course_cards_level.html" $courseData.level }}
-                      </div>
-                      <div class="pt-1">
-                        <div class="h5">
-                          <a href="/courses/{{ $courseId }}">{{ $courseData.course_title }}</a>
-                        </div>
-                      </div>
-                      <div class="pt-1">
-                        <span class="card-label">Instructors(s):</span> {{ partial "course_cards_instructors.html" $courseData.instructors }}
-                      </div>
-                      <div class="pt-2">
-                        <span class="card-label">Topic(s):</span> {{ partial "course_cards_topics.html" $courseData.topics }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $resultsSlice) 1))) }}
-              </div>
-              {{ end }}
-            {{ end }}
+            {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/courses/" $courseItem.name "/data.json") "" -}}
+            {{- $courseData := getJSON $url -}}
+            {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "courseId" $courseItem.id "numCourses" (len $resultsSlice))}}
           {{ end }}
         </div>
       </div>
