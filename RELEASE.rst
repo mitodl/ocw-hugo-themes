@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.52.0
+--------------
+
+- use static api for new courses (#630)
+- fix: typo in Elizabeth DeRienzo's name (#622)
+
 Version 1.51.2 (Released April 07, 2022)
 --------------
 
