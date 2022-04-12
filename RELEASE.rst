@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.52.0
+Version 1.52.0 (Released April 12, 2022)
 --------------
 
 - new course carusel fix (#638)
