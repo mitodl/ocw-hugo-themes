@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.52.1
+--------------
+
+- Fixed newsletter and contact (#628)
+- Added standalone 404 page (#612)
+
 Version 1.52.0 (Released April 12, 2022)
 --------------
 
