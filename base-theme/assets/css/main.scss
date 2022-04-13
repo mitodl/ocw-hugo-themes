@@ -112,6 +112,15 @@ a + h3 {
   }
 }
 
+h4 {
+  font-size: $heading-four-font-lg;
+  color: $black;
+
+  @include media-breakpoint-down(xs) {
+    font-size: $heading-four-font-xs;
+  }
+}
+
 .standard-width {
   max-width: $max-home-width;
 }
