@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.52.1
+Version 1.52.1 (Released April 14, 2022)
 --------------
 
 - Fixed newsletter and contact (#628)
