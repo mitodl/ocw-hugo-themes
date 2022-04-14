@@ -25,7 +25,7 @@
               {{ end }}
                 <div class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 $itemsInCarousel) }}{{ end }} w-100 d-flex justify-content-center">
                   <div class="item-wrapper w-100 d-flex justify-content-center">
-                    {{ partial "testimonial_card.html" $testimonial }}
+                    {{ partial "stories_card.html" $testimonial }}
                   </div>
                 </div>
               {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $testimonials) 1))) }}
