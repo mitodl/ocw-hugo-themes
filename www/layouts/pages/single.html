@@ -1,12 +1,20 @@
 {{ define "main" }}
-<div class="page-single">
+<div class="h-100v">
   {{ block "header" . }}
   {{ partialCached "header" . }}
-  {{ partial "page_title" . }}
-  {{end}}
-  <div class="container standard-width mx-auto mt-5">    
-    {{ .Content }}
-  </div>
-  {{ block "footer" . }} {{ partialCached "footer" . }} {{ end }}
+  <div class="d-flex flex-column justify-content-between h-100">
+    <div>
+      <div class="row mt-6 px-6">
+        <div class="col-12">
+          <h1>{{.Title}}</h1>
+        </div>
+      </div>
+      {{end}}
+      <div class="container standard-width mt-5 px-6 mx-0">    
+        {{ .Content }}
+      </div>
+    </div>
+    {{ block "footer" . }} {{ partialCached "footer" . }} {{ end }}
+</div>
 </div>
 {{ end }}
