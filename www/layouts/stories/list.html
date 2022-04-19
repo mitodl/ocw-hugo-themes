@@ -12,7 +12,7 @@
       We'd love to hear from you! Please share your story about how OCW has made an impact in your life. Find out how.
     </p>
     <div class="testimonials">
-      {{ range $testimonial := $stories }}
+      {{ range $story := $stories }}
       <div class="testimonial d-flex flex-wrap flex-sm-nowrap">
         <div class="img-container">
           <img src="{{ partial "resource_url" (partial "resource_metadata" $story.Params.image.content).Params.file }}" alt="" />
