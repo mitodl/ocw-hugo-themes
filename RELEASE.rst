@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.52.2 (Released April 19, 2022)
+--------------
+
+- referring url added in contact form (#641)
+- updated sponsor image (#627)
+- updated theme name (#629)
+- fix: h4 fontsize overridden and made smaller than h3 (#635)
+
 Version 1.52.1 (Released April 14, 2022)
 --------------
 
