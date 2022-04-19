@@ -1,6 +1,6 @@
 {{ define "main" }}
 {{- $pages := .Site.RegularPages -}}
-{{- $testimonials := where $pages "Type" "==" "testimonials" -}}
+{{- $stories := where $pages "Type" "==" "stories" -}}
 <div>
   {{ block "header" . }}
   {{ partialCached "header" . }}
@@ -12,22 +12,22 @@
       We'd love to hear from you! Please share your story about how OCW has made an impact in your life. Find out how.
     </p>
     <div class="testimonials">
-      {{ range $testimonial := $testimonials }}
+      {{ range $testimonial := $stories }}
       <div class="testimonial d-flex flex-wrap flex-sm-nowrap">
         <div class="img-container">
-          <img src="{{ partial "resource_url" (partial "resource_metadata" $testimonial.Params.image.content).Params.file }}" alt="" />
+          <img src="{{ partial "resource_url" (partial "resource_metadata" $story.Params.image.content).Params.file }}" alt="" />
         </div>
         <div class="detail d-flex flex-column flex-nowrap justify-content-between p-0 ml-sm-5">
           <div class="text">
-            <h2>{{ $testimonial.Title }}</h2>
-            <p>{{ $testimonial.Params.occupation }}</p>
-            <p class="location">{{ $testimonial.Params.location }}</p>
+            <h2>{{ $story.Title }}</h2>
+            <p>{{ $story.Params.occupation }}</p>
+            <p class="location">{{ $story.Params.location }}</p>
             <p class="summary">
-              {{ $testimonial.Params.leadquote }}
+              {{ $story.Params.leadquote }}
             </p>
           </div>
           <div>
-            <a href="{{ $testimonial.RelPermalink }}">Read Full Story</a>
+            <a href="{{ $story.RelPermalink }}">Read Full Story</a>
           </div>
         </div>
       </div>
