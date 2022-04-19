@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.52.2
+Version 1.52.2 (Released April 19, 2022)
 --------------
 
 - referring url added in contact form (#641)
