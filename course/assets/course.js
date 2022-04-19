@@ -17,7 +17,7 @@ import {
   showSolution
 } from "./js/quiz_multiple_choice"
 
-$(document).ready(() => {
+$(function() {
   initPdfViewers()
   initDesktopCourseInfoToggle()
   initCourseInfoExpander(document)
