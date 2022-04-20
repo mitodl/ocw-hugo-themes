@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.52.3
+Version 1.52.3 (Released April 20, 2022)
 --------------
 
 - Fixed pages theme (#621)
