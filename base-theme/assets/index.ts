@@ -25,7 +25,7 @@ window.jQuery = $
 window.$ = $
 window.Popper = Popper
 
-$(document).ready(() => {
+$(function() {
   // hacky coming-soon popover
   document.querySelectorAll(".coming-soon").forEach(el => {
     tippy(el, {
