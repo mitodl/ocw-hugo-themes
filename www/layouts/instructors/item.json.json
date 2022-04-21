@@ -1,8 +1,8 @@
 {
-  "title": "{{ .Params.title }}",
-  "first_name": "{{ .Params.first_name }}",
-  "last_name": "{{ .Params.last_name }}",
-  "middle_initial": "{{ .Params.middle_initial }}",
-  "salutation": "{{ .Params.salutation }}",
+  "title": {{- .Params.title | jsonify -}},
+  "first_name": {{- .Params.first_name | jsonify -}},
+  "last_name": {{- .Params.last_name | jsonify -}},
+  "middle_initial": {{- .Params.middle_initial | jsonify -}},
+  "salutation": {{- .Params.salutation | jsonify -}},
   "uid": "{{ .Params.uid }}"
 }
