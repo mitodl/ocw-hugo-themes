@@ -41,8 +41,8 @@ export const RESOURCE_QUERY_NESTED_FIELDS = [
 
 export const RESOURCEFILE_QUERY_FIELDS = [
   "content",
-  "title",
-  "short_description",
+  "title.english^3",
+  "short_description.english^2",
   "department_name",
   "resource_type"
 ]
