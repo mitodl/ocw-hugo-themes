@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{- $testimonial := . -}}
+{{- $story := . -}}
 <div>
   {{ block "header" . }}
   {{ partialCached "header" . }}
@@ -9,14 +9,14 @@
     <div class="testimonials">
       <div class="testimonial d-flex flex-wrap flex-sm-nowrap">
         <div class="img-container">
-          <img src="{{ partial "resource_url" (partial "resource_metadata" $testimonial.Params.image.content).Params.file }}" alt="" />
+          <img src="{{ partial "resource_url" (partial "resource_metadata" $story.Params.image.content).Params.file }}" alt="" />
         </div>
         <div class="detail d-flex flex-column flex-nowrap justify-content-between p-0 ml-sm-5">
           <div class="text">
-            <h2>{{ $testimonial.Title }}</h2>
-            <p class="font-weight-bold">{{ $testimonial.Params.occupation }} | {{ $testimonial.Params.location }}</p>
+            <h2>{{ $story.Title }}</h2>
+            <p class="font-weight-bold">{{ $story.Params.occupation }} | {{ $story.Params.location }}</p>
             <p class="summary">
-              "{{ $testimonial.Params.leadquote }}"
+              "{{ $story.Params.leadquote }}"
             </p>
           </div>
         </div>

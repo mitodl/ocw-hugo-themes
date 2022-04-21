@@ -1,5 +1,5 @@
-{{- $testimonials := where .Site.RegularPages "Type" "==" "testimonials" -}}
-{{- $testimonialSection := .Site.GetPage "section" "testimonials" -}}
+{{- $stories := where .Site.RegularPages "Type" "==" "stories" -}}
+{{- $storiesSection := .Site.GetPage "section" "stories" -}}
 {{- $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none") "lg" (dict "size" 3 "class" "d-none d-lg-flex d-xl-none") "xl" (dict "size" 4 "class" "d-none d-xl-flex")) -}}
 <div class="home-testimonials standard-width container mx-auto my-3">
   {{ range $breakpoint, $carouselInfo := $breakdowns }}
@@ -11,12 +11,12 @@
       <div id="{{ $carouselId }}" class="carousel slide" data-interval="false" data-touch="true" data-ride="carousel">
         <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold">
           <h2>OpenCourseWare Stories</h2>
-          {{ if gt (len $testimonials) 4 }}
+          {{ if gt (len $stories) 4 }}
           {{ partial "carousel_controls.html" $carouselId }}
           {{ end }}
         </div>
         <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
-          {{ range $index, $testimonial := $testimonials  }}
+          {{ range $index, $testimonial := $stories  }}
             {{ with $testimonial }}
               {{ $modulo := (mod $index $itemsInCarousel) }}
               {{ $group := (div $index $itemsInCarousel) }}
@@ -28,7 +28,7 @@
                     {{ partial "stories_card.html" $testimonial }}
                   </div>
                 </div>
-              {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $testimonials) 1))) }}
+              {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $stories) 1))) }}
               </div>
               {{ end }}
             {{ end }}
@@ -39,7 +39,7 @@
   {{ end }}
   <div class="d-flex py-4">
       <div class="ml-auto">
-          <a class="view-all-link" href="{{ $testimonialSection.RelPermalink }}">View All OCW Stories</a>
+          <a class="view-all-link" href="{{ $storiesSection.RelPermalink }}">View All OCW Stories</a>
       </div>
   </div>
 </div>
