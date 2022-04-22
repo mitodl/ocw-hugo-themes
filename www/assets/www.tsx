@@ -28,7 +28,7 @@ window.jQuery = $
 window.$ = $
 window.Popper = Popper
 
-$(document).ready(() => {
+$(function() {
   const searchPageEl = document.querySelector("#search-page")
   if (searchPageEl) {
     ReactDOM.render(<SearchPage />, searchPageEl)
