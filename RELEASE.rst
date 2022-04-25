@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.52.4 (Released April 25, 2022)
+--------------
+
+- fix: jsonifying instructor fields in layout (#652)
+- updated directory for testimonials to stories (#653)
+
 Version 1.52.3 (Released April 20, 2022)
 --------------
 
