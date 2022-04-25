@@ -1,4 +1,5 @@
 import { buildSearchQuery, SearchQueryParams } from "./search"
+import { isApiSuccessful } from "./util"
 
 export const search = async (params: SearchQueryParams) => {
   const body = buildSearchQuery(params)
@@ -12,6 +13,13 @@ export const search = async (params: SearchQueryParams) => {
     })
   })
 
-  const results = await response.json()
-  return results
+  let apiSuccessful = false
+  let results = {}
+
+  if (isApiSuccessful(response.status)) {
+    apiSuccessful = true
+    results = await response.json()
+  }
+
+  return { results, apiSuccessful }
 }

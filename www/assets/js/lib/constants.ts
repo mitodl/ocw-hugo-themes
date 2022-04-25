@@ -54,6 +54,7 @@ export enum RESOURCE_TYPE {
 export const DISPLAY_DATE_FORMAT = "MMMM D, YYYY"
 
 export const SEARCH_URL = "/search/"
+export const CONTACT_URL = "/contact/"
 
 export const PHONE = "PHONE"
 export const TABLET = "TABLET"
@@ -65,3 +66,8 @@ export const PHONE_WIDTH = 599
 export const TABLET_WIDTH = 999
 
 export const COURSENUM_SORT_FIELD = "department_course_numbers.sort_coursenum"
+
+export const STATUS_CODES = {
+  HTTP_200_OK:               200,
+  HTTP_300_MULTIPLE_CHOICES: 300
+}
