@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.52.4
+Version 1.52.4 (Released April 25, 2022)
 --------------
 
 - fix: jsonifying instructor fields in layout (#652)
