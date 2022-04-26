@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.53.0
+--------------
+
+- fix: change in jquery ready handler (#655)
+- increase resource title priority (#656)
+
 Version 1.52.4 (Released April 25, 2022)
 --------------
 
