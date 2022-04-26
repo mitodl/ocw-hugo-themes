@@ -54,18 +54,19 @@ export default function SearchPage() {
       }
 
       setRequestInFlight(true)
-      const { results, apiSuccessful } = await search({
+      const newResults = await search({
         text,
         from,
         activeFacets,
         size: SEARCH_PAGE_SIZE,
         sort: sort
       })
-      if (!apiSuccessful) {
+
+      if (newResults["apiFailed"]) {
         setSearchApiFailed(true)
         return
       }
-      const newResults = results
+
       setRequestInFlight(false)
       const { suggest } = newResults
       if (!emptyOrNil(suggest) && !emptyOrNil(text)) {

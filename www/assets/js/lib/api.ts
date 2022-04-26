@@ -13,13 +13,12 @@ export const search = async (params: SearchQueryParams) => {
     })
   })
 
-  let apiSuccessful = false
-  let results = {}
-
+  let results: any = {}
   if (isApiSuccessful(response.status)) {
-    apiSuccessful = true
     results = await response.json()
+  } else {
+    results["apiFailed"] = true
   }
 
-  return { results, apiSuccessful }
+  return results
 }
