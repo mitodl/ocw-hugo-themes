@@ -61,13 +61,13 @@ export default function SearchPage() {
         size: SEARCH_PAGE_SIZE,
         sort: sort
       })
+      setRequestInFlight(false)
 
       if (newResults["apiFailed"]) {
         setSearchApiFailed(true)
         return
       }
 
-      setRequestInFlight(false)
       const { suggest } = newResults
       if (!emptyOrNil(suggest) && !emptyOrNil(text)) {
         setSuggestions(
