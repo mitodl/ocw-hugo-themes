@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.53.0
+Version 1.53.0 (Released April 27, 2022)
 --------------
 
 - fix: change in jquery ready handler (#655)
