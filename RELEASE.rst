@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.53.1
+--------------
+
+- feat: error handling in search API (#662)
+
 Version 1.53.0 (Released April 27, 2022)
 --------------
 
