@@ -15,7 +15,7 @@ import Loading, { Spinner } from "./Loading"
 
 import { search } from "../lib/api"
 import { searchResultToLearningResource } from "../lib/search"
-import { COURSENUM_SORT_FIELD } from "../lib/constants"
+import { COURSENUM_SORT_FIELD, CONTACT_URL } from "../lib/constants"
 import { emptyOrNil, isDoubleQuoted } from "../lib/util"
 import { FacetManifest, LearningResourceResult } from "../LearningResources"
 
@@ -43,6 +43,7 @@ export default function SearchPage() {
   const [suggestions, setSuggestions] = useState<string[]>([])
   const [total, setTotal] = useState(0)
   const [completedInitialLoad, setCompletedInitialLoad] = useState(false)
+  const [searchApiFailed, setSearchApiFailed] = useState(false)
   const [requestInFlight, setRequestInFlight] = useState(false)
 
   const runSearch = useCallback(
@@ -61,6 +62,11 @@ export default function SearchPage() {
         sort: sort
       })
       setRequestInFlight(false)
+
+      if (newResults["apiFailed"]) {
+        setSearchApiFailed(true)
+        return
+      }
 
       const { suggest } = newResults
       if (!emptyOrNil(suggest) && !emptyOrNil(text)) {
@@ -98,7 +104,8 @@ export default function SearchPage() {
       setTotal,
       setCompletedInitialLoad,
       setSuggestions,
-      setRequestInFlight
+      setRequestInFlight,
+      setSearchApiFailed
     ]
   )
 
@@ -306,7 +313,19 @@ export default function SearchPage() {
                 aria-busy={requestInFlight}
                 aria-label="OpenCourseWare Search Results"
               >
-                {completedInitialLoad ? (
+                {searchApiFailed ? (
+                  <div className="no-results-found">
+                    <span>
+                      Oops! Something went wrong. Please accept our apologies
+                      and feel free to{" "}
+                      <a href={CONTACT_URL}>
+                        <b>contact us</b>
+                      </a>{" "}
+                      with the details of what you were trying to do, and what
+                      happened.
+                    </span>
+                  </div>
+                ) : completedInitialLoad ? (
                   results.length === 0 ? (
                     <div className="no-results-found">
                       <span>No results found for your query</span>
