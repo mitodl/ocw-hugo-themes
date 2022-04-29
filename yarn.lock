@@ -704,10 +704,10 @@
     query-string "^6.13.1"
     ramda "^0.27.1"
 
-"@mitodl/course-search-utils@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@mitodl/course-search-utils/-/course-search-utils-1.5.0.tgz#ac24fae48b84e253fc5d831a387f92a4e04a0c61"
-  integrity sha512-gm1ogzPrVUEetgsclQGAfy04oLWsSd3Wn+0gl42rVCvfJ/JBQs843Y17/EMqOmJ8kM2PqT+OWgw1IBYD1GAVNg==
+"@mitodl/course-search-utils@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@mitodl/course-search-utils/-/course-search-utils-1.6.0.tgz#cfce59ef9e0d186632d916f630322a681f1d5c90"
+  integrity sha512-w4SS/JlVr7vkVsVaCyII9iUWmXMaaQwrAxztNmpAm9067OTUQyJIXVw7DTRQog1W2006JuHDp9ZvjVjxZjI69Q==
   dependencies:
     history "^5.0.0"
     query-string "^6.13.1"
