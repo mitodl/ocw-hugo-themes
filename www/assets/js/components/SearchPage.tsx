@@ -321,7 +321,8 @@ export default function SearchPage() {
                       <a href={CONTACT_URL}>
                         <b>contact us</b>
                       </a>{" "}
-                      any time.
+                      with the details of what you were trying to do, and what
+                      happened.
                     </span>
                   </div>
                 ) : completedInitialLoad ? (

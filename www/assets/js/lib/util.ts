@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/browser"
 import { either, isEmpty, isNil, match } from "ramda"
 import { STATUS_CODES } from "./constants"
 
@@ -23,4 +24,12 @@ export const isApiSuccessful = (status: number) => {
     status >= STATUS_CODES.HTTP_200_OK &&
     status < STATUS_CODES.HTTP_300_MULTIPLE_CHOICES
   )
+}
+
+export const sentryCaptureException = (excetpion: any) => {
+  Sentry.captureException(excetpion)
+}
+
+export const sentryCaptureMessage = (message: string) => {
+  Sentry.captureException(message)
 }
