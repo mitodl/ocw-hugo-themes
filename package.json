@@ -5,7 +5,7 @@
   "repository": "mitodl/ocw-hugo-themes",
   "main": "base-theme/assets/index.js",
   "scripts": {
-    "lint": "eslint **/assets --no-error-on-unmatched-pattern",
+    "lint": "eslint **/assets",
     "start": "echo \"Run 'npm run start:www' or 'npm run start:course'\"",
     "start:webpack": "webpack-dev-server --config base-theme/assets/webpack/webpack.dev.js --hot --host 0.0.0.0",
     "start:www": "concurrently \"npm:start:webpack\" \"npm:start:www:hugo\" --kill-others",
