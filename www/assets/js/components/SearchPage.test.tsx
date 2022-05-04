@@ -80,11 +80,11 @@ describe("SearchPage component", () => {
     { text: "amazing text!", activeFacets: {} },
     {
       text: "great search",
-      activeFacets: { topics: ["mathematics"] }
+      activeFacets: { topics: ["Mathematics"] }
     },
     {
       text: "",
-      activeFacets: { topics: ["science"] }
+      activeFacets: { topics: ["Science"] }
     }
   ].forEach(params => {
     test(`should search at startup with ${serializeSearchParams(
@@ -150,7 +150,7 @@ describe("SearchPage component", () => {
     const parameters = {
       text: "Math 101",
       activeFacets: {
-        topics: ["mathematics"],
+        topics: ["Mathematics"],
         course_feature_tags: ["Exams", "Problem Sets with Solutions"]
       }
     }
@@ -182,7 +182,7 @@ describe("SearchPage component", () => {
           size: SEARCH_PAGE_SIZE,
           activeFacets: {
             ...defaultResourceFacets,
-            ...{ topics: ["mathematics"] }
+            ...{ topics: ["Mathematics"] }
           },
           sort: null
         }

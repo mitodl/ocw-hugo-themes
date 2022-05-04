@@ -63,9 +63,6 @@ module.exports = {
           }
         ]
       },
-
-      { test: /\.json$/, loader: "json-loader" },
-
       {
         test:    /\.(t|j)sx?$/,
         exclude: /(node_modules)/,
