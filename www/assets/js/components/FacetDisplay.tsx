@@ -5,6 +5,7 @@ import Facet from "./Facet"
 import SearchFilter from "./SearchFilter"
 import { Aggregation, Facets } from "@mitodl/course-search-utils"
 import { FacetManifest } from "../LearningResources"
+import { FACET_OPTIONS } from "../lib/constants"
 
 interface Props {
   facetMap: FacetManifest
@@ -13,6 +14,20 @@ interface Props {
   onUpdateFacets: React.ChangeEventHandler<HTMLInputElement>
   clearAllFilters: () => void
   toggleFacet: (name: string, value: string, isEnabled: boolean) => void
+}
+
+const sanitizeActiveFacets = (activeFacets: Facets): void => {
+  if (activeFacets) {
+    Object.entries(activeFacets).forEach(([facet, values]) => {
+      if (Object.keys(FACET_OPTIONS).indexOf(facet) > -1) {
+        // @ts-ignore facet is a key of activeFacets
+        activeFacets[facet] = values.filter(
+          // @ts-ignore we checked that facet is also a key of FACET_OPTIONS
+          facetValue => FACET_OPTIONS[facet].indexOf(facetValue) > -1
+        )
+      }
+    })
+  }
 }
 
 const FacetDisplay = React.memo(
@@ -25,6 +40,8 @@ const FacetDisplay = React.memo(
       clearAllFilters,
       toggleFacet
     } = props
+
+    sanitizeActiveFacets(activeFacets)
 
     return (
       <React.Fragment>

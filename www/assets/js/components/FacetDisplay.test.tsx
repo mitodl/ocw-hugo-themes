@@ -45,11 +45,18 @@ describe("FacetDisplay component", () => {
     })
   })
 
-  test("shows filters which are active", () => {
+  test("shows filters which are active excluding invalid facet values", () => {
     const activeFacets: Facets = {
-      topics:          ["Pasta", "Bread", "Starch"],
+      topics: [
+        "Academic Writing",
+        "Accounting",
+        "Aerodynamics",
+        "Pasta",
+        "Bread",
+        "Starch"
+      ],
       type:            [],
-      department_name: ["World Grains and Cereals"]
+      department_name: ["Mathematics", "World Grains and Cereals"]
     }
 
     const { render, clearAllFilters } = setup()
@@ -61,7 +68,7 @@ describe("FacetDisplay component", () => {
         .find(".active-search-filters")
         .find("SearchFilter")
         .map(el => el.prop("value"))
-    ).toEqual(["Pasta", "Bread", "Starch", "World Grains and Cereals"])
+    ).toEqual(["Academic Writing", "Accounting", "Aerodynamics", "Mathematics"])
     wrapper.find(".clear-all-filters").simulate("click")
     expect(clearAllFilters).toHaveBeenCalled()
   })
