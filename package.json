@@ -34,7 +34,7 @@
   },
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
-    "@mitodl/course-search-utils": "^1.5.0",
+    "@mitodl/course-search-utils": "^1.6.0",
     "@mitodl/ocw-to-hugo": "1.36.0",
     "@sentry/browser": "^5.19.0",
     "@testing-library/react-hooks": "^7.0.2",
