@@ -11,7 +11,7 @@ base-theme/
 │   ├── js/
 │   ├── fonts/
 │   ├── webpack/ (webpack configuration for building css / js bundles)
-│   └── index.js
+│   └── index.ts
 ├── data/
 │   └── webpack.json (describes location of rendered webpack assets)
 ├── layouts/
@@ -37,12 +37,21 @@ course/
     ├── resources/
     ├── shortcodes/
     └── home.html
+fields/
+├── assets/
+│   ├── css/
+│   ├── js/
+│   └── fields.js
+└── layouts/
+    ├── _default/
+    ├── partials/
+    └── home.html
 www/
 ├── archetypes/ (various Hugo markdown templates for manually creating content with "hugo new")
 ├── assets/
 │   ├── css/
 │   ├── js/ (contains React based search app)
-│   └── www.js
+│   └── www.tsx
 ├── content/
 │   └── search/
 │       └── _index.md (placeholder to tell Hugo to render the search page)
@@ -88,6 +97,16 @@ of [`ocw-studio`](https://github.com/mitodl/ocw-studio) and it uses the
 `ocw-www` starter configuration in
 [`ocw-hugo-projects`](https://github.com/mitodl/ocw-hugo-projects/blob/main/ocw-www/ocw-studio.yaml).
 
+### fields
+![Philosphy Fields Page](https://user-images.githubusercontent.com/12089658/166737333-442e2334-6f89-43c9-963c-91e7e0a010aa.png)
+
+The fields theme is used to render collections of course lists,
+much like the collections linked from the OCW home page. In this theme,
+the field that you specify in your content is used as the home page. This
+content can be edited in an instance of [`ocw-studio`](https://github.com/mitodl/ocw-studio)
+and it uses the `mit-fields` starter configuration in
+[`ocw-hugo-projects`](https://github.com/mitodl/ocw-hugo-projects/blob/main/mit-fields/ocw-studio.yaml).
+
 ## Local development
 
 ### Dependencies
@@ -121,9 +140,10 @@ content is published to MIT's Github Enterprise instance under the
 [`ocw-content-rc`](https://github.mit.edu/ocw-content-rc) organization.  For
 the `www` theme, content can be found in the
 [`ocw-www`](https://github.mit.edu/ocw-content-rc/ocw-www) repo.  For the
-`course` theme, use any other repo in the
-[`ocw-content-rc`](https://github.mit.edu/ocw-content-rc) organization or
-create and publish your own.
+`course` theme, use any repo in the [`ocw-content-rc`](https://github.mit.edu/ocw-content-rc)
+organization created using the `ocw-course` starter or create and publish your own.
+Much the same for `fields`, you can either create your own site using the
+`mit-fields` starter or find an existing one and use that.
 
 ### Environment variables
 
@@ -143,6 +163,8 @@ An example environment file can be found at `.env.example`.  To further explain 
 | `OCW_TEST_COURSE` | `course` | `18.06-spring-2010` | The name of a folder in `COURSE_CONTENT_PATH` containing a Hugo site that will be rendered when running `npm run start:course` |
 | `OCW_IMPORT_STARTER_SLUG` | `www` | `ocw-course` | When generating "New Courses" cards on the home page, the `ocw-studio` API is queried using `OCW_STUDIO_BASE_URL`.  This value determines the `type` used in the query string against the API |
 | `COURSE_BASE_URL` | N/A | `http://localhost:3000/courses` | Used in `build_all_courses.sh`, this is the `--baseUrl` argument passed to each course build iterated by the script |
+| `FIELDS_HUGO_CONFIG_PATH` | `fields` | `/path/to/ocw-hugo-projects/mit-fields/config.yaml` | A path to the `mit-fields` Hugo configuration file |
+| `FIELDS_CONTENT_PATH` | `fields` | `/path/to/ocw-content-rc/philosophy` | A path to a Hugo site that will be rendered when running `npm run start:fields` |
 | `VERBOSE` | N/A | `0` | Used in `build_all_courses.sh`, if set to `1` this will print verbose output from the course builds to the console |
 | `DOWNLOAD` | N/A | `1` | Used in `npm run start:course`, if set to `0` this will not download course data from S3 and instead source `OCW_TEST_COURSE` from the specified `OCW_TO_HUGO_OUTPUT_DIR`. If not specified, it will default to 1 and try to download data from S3. |
 
@@ -186,6 +208,29 @@ To customize your `course` site:
    - `RESOURCE_BASE_URL=https://ocw-content-draft-qa.s3.amazonaws.com/` (if you need to test the loading of resources from S3 or some other CDN)
    - `STATIC_API_BASE_URL=https://ocw-draft-qa.global.ssl.fastly.net/` (for loading content from a static API like the instructors published by `ocw-www`)
  - Start the site with `npm run start:course`
+ - The site should be available at http://localhost:3000/
+
+### Running a fields site
+
+To run a course site locally for working on the `fields` theme:
+
+`npm run start:fields`
+
+To customize your `fields` site:
+
+ - Create a course site at https://ocw-studio-rc.odl.mit.edu/sites/ using the `mit-fields` starter
+ - Visit the "Subfields" section and define as many subfields as you want, adding a list of courses to each one
+ - Visit the "Field" section and fill out the info about the field site you are creating, selecting a featured Subfield and adding as many other subfields as you want
+ - When you are done editing, publish your site
+ - Find your site at https://github.mit.edu/ocw-content-rc/ and clone it locally (it's recommended to have a parent folder locally for all cloned courses, in this case `ocw-content-rc`)
+ - Clone `ocw-hugo-projects` to obtain the relevant configuration file: https://github.com/mitodl/ocw-hugo-projects
+ - Set the following environment variables in your `.env` file, replacing `/path/to` with your path to the repos indicated and `your-field-slug` with the folder your course was cloned into in a previous step:
+   - `FIELDS_HUGO_CONFIG_PATH=/path/to/ocw-hugo-projects/mit-fields/config.yaml`
+   - `FIELDS_CONTENT_PATH=/path/to/ocw-content-rc/your-field-slug`
+   - `STATIC_API_BASE_URL=https://ocw-draft-qa.global.ssl.fastly.net/` (for loading content from a static API for the courses linked in your Subfields)
+ - Optionally set these environment variables as well, depending on the functionality you need to work on:
+   - `RESOURCE_BASE_URL=https://ocw-content-draft-qa.s3.amazonaws.com/` (if you need to test the loading of resources from S3 or some other CDN)
+ - Start the site with `npm run start:fields`
  - The site should be available at http://localhost:3000/
 
 ### External API's
