@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.54.0
+Version 1.54.0 (Released May 04, 2022)
 --------------
 
 - sanitize facets (#668)
