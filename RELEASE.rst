@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.54.0
+--------------
+
+- sanitize facets (#668)
+- update course search utils (#667)
+
 Version 1.53.1 (Released May 03, 2022)
 --------------
 
