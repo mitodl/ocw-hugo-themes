@@ -38,7 +38,7 @@ module.exports = {
       "..",
       "fields",
       "assets",
-      "fields.tsx"
+      "fields.js"
     )
   },
 
