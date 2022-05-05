@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.54.1
+--------------
+
+- add fields theme (#670)
+
 Version 1.54.0 (Released May 04, 2022)
 --------------
 
