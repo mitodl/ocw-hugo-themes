@@ -30,7 +30,16 @@ module.exports = {
       "assets",
       "instructor-insights.js"
     ),
-    www: path.join(__dirname, "..", "..", "..", "www", "assets", "www.tsx")
+    www:    path.join(__dirname, "..", "..", "..", "www", "assets", "www.tsx"),
+    fields: path.join(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "fields",
+      "assets",
+      "fields.js"
+    )
   },
 
   output: {

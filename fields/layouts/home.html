@@ -1,0 +1,51 @@
+{{ define "main" }}
+{{ range where $.Site.Pages "Params.content_type" "field_home" }}
+{{ $field := . }}
+<div>
+  {{ block "header" . }}
+  {{ partialCached "header" . }}
+  {{ end }}
+  {{ partial "collection_cover_image" $field }}
+  <div class="container collection-outer-container standard-width mx-auto mt-5">
+    <h1>
+      {{ $field.Title }}
+    </h1>
+    <div class="mb-3 collection-description">
+      {{ $field.Description | .RenderString }}
+    </div>
+    {{ $fieldFeaturedList := index $field.Params "featured-courses"}}
+    {{ if (not (isset $fieldFeaturedList -1)) }}
+      {{- $featured_list := index (where $.Site.Pages ".Params.uid" $fieldFeaturedList.content) 0 -}}
+      {{ partial "featured_course_cards"  (dict "featuredCourses" $featured_list.Params.courses "klass" "course-list-title col-lg-8 pb-2") }}
+    {{ end }}
+    {{ range $field.Params.subfields.content }}
+      {{ $subfield := index (where $.Site.Pages ".Params.uid" .) 0 }}
+      {{ partial "course_list" $subfield }}
+      <div>
+      <div class="col-12 col-lg-8 pb-2 mb-5">
+        <a class="float-right collection-see-all" href="{{ $subfield.RelPermalink }}">See all</a>
+        </div>
+      </div>
+    {{ end }}
+  </div>
+  <script>
+    {{- $subfields_data := dict -}}
+    {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocw.mit.edu"  -}}
+    {{- range $field.Params.subfields.content -}}
+      {{- $subfield := index (where $.Site.Pages ".Params.uid" .) 0 -}}
+      {{- $subfield_data := dict -}}
+      {{- range (first 5 $subfield.Params.courses) -}}
+          {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/courses/" .id "/data.json") "" -}}
+          {{- $data := getJSON $url -}}
+          {{- $subfield_data = merge $subfield_data (dict .id $data) -}}
+      {{- end -}}
+      {{- $subfields_data = merge $subfields_data (dict $subfield.Params.uid $subfield_data) -}}
+    {{- end -}}
+    window.courseListsData = JSON.parse("{{ $subfields_data | jsonify }}");
+  </script>
+</div>
+{{ block "footer" . }}
+  {{ partialCached "footer" . }}
+{{end}}
+{{ end }}
+{{ end }}

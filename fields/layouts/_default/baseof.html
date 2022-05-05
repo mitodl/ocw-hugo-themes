@@ -1,0 +1,25 @@
+{{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
+<!doctype html>
+<html lang="{{ $.Site.Language.Lang }}">
+  {{ partial "head.html" . }}
+  <body>
+    {{ if $gtmId }}
+      <!-- Google Tag Manager (noscript) -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId }}"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
+    {{ end }}
+    <div>
+      {{ block "notification" . }}{{ partial "notification" . }}{{ end }}
+      {{ block "main" . }}{{ end }}
+    </div>
+    {{ $main := .Site.Data.webpack.main }}
+    {{ block "extrajs" . }}{{ end }}
+    <script src="{{ partial "webpack_url.html" $main.js }}"></script>
+    <!-- Appzi: Capture Insightful Feedback -->
+
+    <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>
+
+    <!-- End Appzi -->
+  </body>
+</html>
