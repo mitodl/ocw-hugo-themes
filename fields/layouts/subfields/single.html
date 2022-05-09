@@ -1,0 +1,23 @@
+{{ define "main" }}
+{{- $courselist := . -}}
+<div>
+  {{ block "header" . }}
+  {{ partialCached "header" . }}
+  {{ end }}
+  <div class="container standard-width mx-auto mt-5">
+    {{ partial "course_list" . }}
+  </div>
+  {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
+  <script>
+    {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocw.mit.edu"  -}}
+    {{- $courseListData := dict -}}
+    {{- range $courselist.Params.courses -}}
+        {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/courses/" .id "/data.json") "" -}}
+        {{- $data := getJSON $url -}}
+        {{- $courseListData = merge $courseListData (dict .id $data) -}}
+    {{- end -}}
+    {{- $courseListsData := dict $courselist.Params.uid $courseListData -}}
+    window.courseListsData = JSON.parse("{{ $courseListsData | jsonify }}");
+  </script>
+</div>
+{{ end }}
