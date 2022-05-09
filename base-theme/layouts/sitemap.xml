@@ -3,7 +3,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {{ range .Data.Pages }}
-    {{- if .RelPermalink -}}
+    {{- if and .RelPermalink (not .Params.headless) -}}
     {{- $path := strings.TrimPrefix "/" (partial "site_root_url.html" .RelPermalink) -}}
     {{- $url := printf "https://%v/%v" $sitemapDomain $path -}}
   <url>
