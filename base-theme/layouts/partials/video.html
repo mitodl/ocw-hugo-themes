@@ -20,7 +20,7 @@
     {{ .Content }}
   </div>
   {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime)}}
-  <div class="video-buttons-container">
+  <div class="video-buttons-container mt-5">
 	{{ if $transcriptPdfLocation }}
 	  <div class="video-download-container">
 	    <a class="download-file video-download-button" href="{{ $transcriptPdfLocation }}"><span class="material-icons">file_download</span> Download Transcript</a>

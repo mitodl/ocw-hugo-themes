@@ -1,3 +1,8 @@
+// color variables
+$control-item-color: $dark-gray;
+$control-item-bg-color: $light-gray;
+$slider-color: $pink;
+
 .vjs-ocw.video-js {
   .ytp-chrome-top-buttons {
     display: none;
@@ -12,8 +17,14 @@
 
   .vjs-control-bar {
     height: 4.4em;
-    background-color: #2b333f;
+    background-color: $control-item-bg-color;
+    color: $control-item-color;
     transition: visibility 2s, opacity 0.1s;
+    bottom: auto;
+  }
+
+  .vjs-menu-content{
+    background-color: $control-item-bg-color !important;
   }
 
   .vjs-volume-bar {
@@ -28,6 +39,11 @@
     min-width: 50px;
   }
 
+  .vjs-volume-level{
+    background-color: $control-item-color;
+  }
+
+
   .vjs-progress-control {
     position: absolute;
     bottom: 37px;
@@ -39,13 +55,13 @@
     .vjs-progress-holder {
       margin-left: 18px;
       margin-right: 18px;
-      color: $blue;
+      color: $slider-color;
       font-size: 1.5em;
     }
 
     .vjs-play-progress,
     .vjs-slider-bar {
-      background-color: $blue;
+      background-color: $slider-color;
     }
 
     .vjs-progress-holder,
