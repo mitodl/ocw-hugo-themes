@@ -20,7 +20,7 @@ jobs:
       - name: Set up node.js
         uses: actions/setup-node@v2-beta
         with:
-          node-version: 12.13.1
+          node-version: 16.15.0
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
