@@ -8,16 +8,15 @@
 {{$youtubeParams =  delimit (slice `, "youtube": { "end": ` .endTime `}`) "" }}
 {{end}}
 
-<div class="video-container">
+<div class="video-container mb-6">
   <video
     id="video-player-{{ .youtubeKey }}-{{ $random }}"
     class="video-js vjs-default-skin vjs-big-play-centered vjs-ocw"
-    controls
+    controls="true"
     data-setup='{
     "fluid": true,
     "techOrder": ["youtube"],
     "inactivityTimeout": 0,
-    "iconsColor": "#FFFFFF",
     "sources": [{"type": "video/youtube", "src": "https://www.youtube.com/embed/{{ .youtubeKey }}"}]
     {{$youtubeParams}} }'
   >
