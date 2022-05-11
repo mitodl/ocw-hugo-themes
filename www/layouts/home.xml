@@ -4,6 +4,9 @@
 {{- $queryString := querify "version" "live" -}}
 {{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://{{ $sitemapDomain }}/sitemap.xml</loc>
+  </sitemap>
 {{- if and $studioBaseUrl (ne $apiBearerToken "") -}}
   {{- $apiUrl := printf "%v/api/publish?%v" (strings.TrimSuffix "/" $studioBaseUrl) $queryString -}}
   {{- $apiHeaders := dict "headers" (dict "Authorization" (printf "Bearer %v" $apiBearerToken)) -}}
