@@ -6,7 +6,7 @@
     {{ $courseHomePage := .Site.GetPage "/" }}
     <a
       class="{{ $bannerClass }}"
-      href="{{ $courseHomePage.URL }}"
+      href="{{ $courseHomePage.RelPermalink }}"
     >{{ $courseData.course_title }}</a>
   </div>
 </div>
