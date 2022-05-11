@@ -1,26 +1,27 @@
 {{- $sitemapDomain := getenv "SITEMAP_DOMAIN" | default "ocw.mit.edu" -}}
-{{- $studioBaseUrl := getenv "OCW_STUDIO_BASE_URL" -}}
-{{- $apiBearerToken := getenv "API_BEARER_TOKEN" | default "" -}}
-{{- $queryString := querify "version" "live" -}}
 {{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>https://{{ $sitemapDomain }}/sitemap.xml</loc>
-  </sitemap>
-{{- if and $studioBaseUrl (ne $apiBearerToken "") -}}
-  {{- $apiUrl := printf "%v/api/publish?%v" (strings.TrimSuffix "/" $studioBaseUrl) $queryString -}}
-  {{- $apiHeaders := dict "headers" (dict "Authorization" (printf "Bearer %v" $apiBearerToken)) -}}
-  {{- $coursesJson := resources.GetRemote $apiUrl $apiHeaders -}}
-  {{- with transform.Unmarshal $coursesJson -}}
-    {{- $sites := .sites -}}
-    {{- if $sites -}}
-      {{ range $index, $courseItem := $sites }}
-        {{- $url :=  printf "https://%v/%v/sitemap.xml" $sitemapDomain (strings.TrimPrefix "/" (strings.TrimSuffix "/" $courseItem.base_url)) -}}
-  <sitemap>
-    <loc>{{ $url }}</loc>
-  </sitemap>
-      {{ end }}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  {{ range .Data.Pages }}
+    {{- if and .RelPermalink (not .Params.headless) (not (eq .RelPermalink "sitemap.xml")) -}}
+      {{- $path := strings.TrimPrefix "/" (partial "site_root_url.html" .RelPermalink) -}}
+      {{- $url := printf "https://%v/%v" $sitemapDomain $path -}}
+  <url>
+    <loc>{{ $url }}</loc>{{ if not .Lastmod.IsZero }}
+    <lastmod>{{ safeHTML ( .Lastmod.Format "2006-01-02T15:04:05-07:00" ) }}</lastmod>{{ end }}{{ with .Sitemap.ChangeFreq }}
+    <changefreq>{{ . }}</changefreq>{{ end }}{{ if ge .Sitemap.Priority 0.0 }}
+    <priority>{{ .Sitemap.Priority }}</priority>{{ end }}{{ if .IsTranslated }}{{ range .Translations }}
+    <xhtml:link
+                rel="alternate"
+                hreflang="{{ .Language.Lang }}"
+                href="{{ $url }}"
+                />{{ end }}
+    <xhtml:link
+                rel="alternate"
+                hreflang="{{ .Language.Lang }}"
+                href="{{ $url }}"
+                />{{ end }}
+  </url>
     {{- end -}}
-  {{- end -}}
-{{- end -}}
-</sitemapindex>
+  {{ end }}
+</urlset>
