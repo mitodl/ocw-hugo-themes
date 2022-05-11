@@ -20,7 +20,7 @@ jobs:
       - name: Set up node.js
         uses: actions/setup-node@v2-beta
         with:
-          node-version: 12.13.1
+          node-version: 16.15.0
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
@@ -44,10 +44,10 @@ jobs:
         run: yarn install --frozen-lockfile --ignore-engines --prefer-offline
 
       - name: Clone ocw-www for content
-        run: (cd ..; git clone git@github.mit.edu:ocw-content-rc/ocw-www_eb8b70174c714752a91dbe730af76769.git ocw-www)
+        run: (cd ..; git clone git@github.mit.edu:ocw-content-rc/ocw-www.git ocw-www)
 
       - name: Clone ocw-hugo-projects for config
-        run: (cd ..; git clone -b cg/getenv-security https://github.com/mitodl/ocw-hugo-projects)
+        run: (cd ..; git clone https://github.com/mitodl/ocw-hugo-projects)
 
       - name: Run webpack build
         run: npm run build:webpack -- --output-path=../ocw-www/public/static/
