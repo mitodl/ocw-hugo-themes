@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.55.0
+--------------
+
+- replace uses of Page.URL with Page.RelPermalink (#681)
+- fix sitemaps (#679)
+- removes give now text from www homepage (#675)
+- add single template for subfields (#677)
+- write fully qualified urls into course sitemap (#674)
+- add fields theme (#670)
+
 Version 1.54.0 (Released May 04, 2022)
 --------------
 
