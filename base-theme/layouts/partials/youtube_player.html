@@ -8,7 +8,7 @@
 {{$youtubeParams =  delimit (slice `, "youtube": { "end": ` .endTime `}`) "" }}
 {{end}}
 
-<div class="video-container mb-6">
+<div class="video-container embedded-video-container">
   <video
     id="video-player-{{ .youtubeKey }}-{{ $random }}"
     class="video-js vjs-default-skin vjs-big-play-centered vjs-ocw"

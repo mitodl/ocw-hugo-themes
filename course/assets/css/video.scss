@@ -55,12 +55,17 @@
   }
 }
 
-.video-page {
+.embedded-video-container {
+  // this padding will be applied when video is embedded
+  padding-bottom: 44px;
   background-color: $light-gray;
+}
 
+.video-page {
   .video-container {
     height: 0;
-    padding-bottom: 56%;
+    padding-bottom: 56% !important;
+    margin-bottom: 44px;
     position: relative;
     max-width: 100%;
   }
@@ -75,9 +80,10 @@
 }
 
 .video-buttons-container {
-  background-color: #f6f7f9;
+  background-color: $light-gray;
   overflow: hidden;
   margin-bottom: 35px;
+  border-top: 0.5px solid $medium-gray;
 }
 
 .video-download-container {
@@ -97,13 +103,20 @@ a.video-download-button:visited {
   color: white;
 }
 
-.video-page-link {
-  text-transform: uppercase;
-  padding-top: 35px;
-  padding-bottom: 25px;
-  padding-left: 10px;
-  font-weight: bold;
+.video-page-link-section {
+  padding: 5px 15px 5px;
   display: inline-flex;
+}
+
+.video-page-link {
+  text-decoration: none;
+  color: $black !important;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.video-page-link:hover {
+  text-decoration: none !important;
 }
 
 #main-content a.download-file.video-download-button:link {
@@ -121,12 +134,6 @@ a.video-download-button:visited {
     padding-right: 15px;
   }
   .video-download-container:first-child {
-    padding-bottom: 0px;
-  }
-
-  .video-page-link {
-    float: right;
-    padding-top: 15px;
     padding-bottom: 0px;
   }
 }
