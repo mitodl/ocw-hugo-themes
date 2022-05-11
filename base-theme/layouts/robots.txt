@@ -1,5 +1,5 @@
 {{- $sitemapDomain := getenv "SITEMAP_DOMAIN" | default "ocw.mit.edu" -}}
-Sitemap: https://{{ $sitemapDomain }}/sitemap_index.xml
+Sitemap: https://{{ $sitemapDomain }}/sitemap.xml
 
 User-agent: *
 
