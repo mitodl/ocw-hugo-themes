@@ -1,5 +1,14 @@
 {{- $url := . -}}
 {{/*
+   The resource URL stored in markdown is based on its S3 path in studio,
+   which will no longer always be identical to its S3 path in ocwnext.
+   Two course data attributes will be used to replace one with the other in the url.
+   If they are not set, the URL should remain as is.
+*/}}
+{{ $courseData := site.Data.course }}
+{{- $s3_path := $courseData.s3_path  | default $url  -}}
+{{- $url_path := $courseData.url_path | default $s3_path -}}
+{{/*
   Here we are disassembling the URL and returning it without the host and schema.
   This is done because it is expected that ocw-studio currently returns fully
   qualified S3 URLs, and when deployed these will need to be behind CDN.
@@ -9,6 +18,7 @@
 */}}
 {{- $prefix := getenv "RESOURCE_BASE_URL" | default "" -}}
 {{- $url := printf "%s%s" (strings.TrimSuffix "/" $prefix) (urls.Parse $url).Path -}}
+{{- $url := replace $url $s3_path $url_path 1 -}}
 {{- if hasPrefix $url "http" -}}
   {{- return $url -}}
 {{- else -}}
