@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.55.0
+Version 1.55.0 (Released May 12, 2022)
 --------------
 
 - replace uses of Page.URL with Page.RelPermalink (#681)
