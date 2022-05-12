@@ -21,6 +21,7 @@ $slider-color: $pink;
     color: $control-item-color;
     transition: visibility 2s, opacity 0.1s;
     bottom: auto;
+    display: flex;
   }
 
   .vjs-menu-content {
