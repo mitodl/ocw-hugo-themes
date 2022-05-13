@@ -14,11 +14,6 @@
 <div class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 .itemsInCarousel) }}{{ end }} w-100 d-flex justify-content-center">
   <div class="course-card card bg-white">
     <a href="/courses/{{ .courseId }}" aria-hidden="true" tabindex="-1">
-      {{/* The following is a temporary hack that should be removed following the decommissioning of the EC2 OCW Next build servers */}}
-      {{ $courseBaseUrl := getenv "COURSE_BASE_URL" | default "" }}
-      {{ if in $courseBaseUrl "ocwnext" }}
-        {{ $courseImageSrc = replace $courseImageSrc "/courses" "/coursemedia" }}
-      {{ end }}
       <img src="{{ $courseImageSrc }}" alt=""/>
     </a>
     <div class="course-card-content pt-1 px-3 pb-3">
