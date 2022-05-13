@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.55.1
+--------------
+
+- make sure base_url is not blank before writing a sitemap into the index (#687)
+- feat: error handling for localstorage (#664)
+
 Version 1.55.0 (Released May 12, 2022)
 --------------
 
