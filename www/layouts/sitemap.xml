@@ -15,10 +15,13 @@
     {{- $sites := .sites -}}
     {{- if $sites -}}
       {{ range $index, $courseItem := $sites }}
-        {{- $url :=  printf "https://%v/%v/sitemap.xml" $sitemapDomain (strings.TrimPrefix "/" (strings.TrimSuffix "/" $courseItem.base_url)) -}}
+        {{- $path := strings.TrimPrefix "/" (strings.TrimSuffix "/" $courseItem.base_url) -}}
+        {{- if not (eq $path "") -}}
+          {{- $url :=  printf "https://%v/%v/sitemap.xml" $sitemapDomain $path -}}
   <sitemap>
     <loc>{{ $url }}</loc>
   </sitemap>
+        {{- end -}}
       {{ end }}
     {{- end -}}
   {{- end -}}
