@@ -10,6 +10,7 @@ import "shifty"
 import "hammerjs"
 import "imagesloaded"
 import "screenfull"
+import "./js/utils"
 
 import { initSentry } from "./js/sentry"
 
