@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.55.1
+Version 1.55.1 (Released May 16, 2022)
 --------------
 
 - make sure base_url is not blank before writing a sitemap into the index (#687)
