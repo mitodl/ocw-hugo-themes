@@ -1,15 +1,61 @@
 {{ define "main" }}
+<style>
+  .page-single {
+    max-width: 1447px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 1200px) {
+    .title-text {
+      max-width: 1447;
+      font-size: 3rem;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .page-title{
+      padding: 1rem;
+    }
+  }
+
+  ol,
+  ul,
+  dl {
+    margin: 2rem 0;
+  }
+  
+  .h-100v {
+    height: 100vh;
+  }
+  
+  h2 {
+    margin-top: 5rem;
+  }
+
+  .page-title {
+    color: #ffff;
+    background-color: #126f9a;
+  }
+
+  .max-content-width {
+    padding: 0 3rem;
+    max-width: 1447px;
+  }
+    
+  .navbar-nav.max-content-width {
+    padding: 0 1rem 0 0;
+  }
+  
+</style>
 <div
   class="page-single"
   style="height: 100vh; display:flex; flex-direction:column"
 >
-  {{ block "header" . }} {{ partialCached "header" . }}
   <div class="page-title">
     <div class="title-text m-auto h1 m-0">
       Page Not Found
     </div>
   </div>
-  {{end}}
   <div class="d-flex flex-column justify-content-between" style="height: 100vh">
     <div class="container standard-width mx-lg-7 mt-5 px-sm-15 mx-2">
       <h3>Sorry, the page you requested was not found.</h3>
@@ -19,7 +65,6 @@
         or you can <a href="/contact/">contact us</a> and let us know
       </p>
     </div>
-    {{ block "footer" . }} {{ partialCached "footer" . }} {{ end }}
   </div>
 </div>
 {{ end }}
