@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.56.0
+Version 1.56.0 (Released May 16, 2022)
 --------------
 
 - move resource shortcode (and the shortcodes it calls) to the base theme (#692)
