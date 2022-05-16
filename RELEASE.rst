@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.57.0
+--------------
+
+- update node version (#685)
+
 Version 1.56.0 (Released May 16, 2022)
 --------------
 
