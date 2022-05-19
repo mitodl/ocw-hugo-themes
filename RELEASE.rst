@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.57.1
+--------------
+
+- remove the old coursemedia hack (#688)
+
 Version 1.57.0 (Released May 16, 2022)
 --------------
 
