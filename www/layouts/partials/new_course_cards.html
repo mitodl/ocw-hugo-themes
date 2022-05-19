@@ -23,7 +23,7 @@
         <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
           {{ $resultsSlice := first 10 $results }}
           {{ range $index, $courseItem := $resultsSlice  }}
-            {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/courses/" $courseItem.name "/data.json") "" -}}
+            {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $courseItem.url_path "/data.json") "" -}}
             {{- $courseData := getJSON $url -}}
             {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "courseId" $courseItem.name "numCourses" (len $resultsSlice))}}
           {{ end }}
