@@ -35,8 +35,9 @@
       {{- $subfield := index (where $.Site.Pages ".Params.uid" .) 0 -}}
       {{- $subfield_data := dict -}}
       {{- range (first 5 $subfield.Params.courses) -}}
-          {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/courses/" .id "/data.json") "" -}}
+          {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" .id "/data.json") "" -}}
           {{- $data := getJSON $url -}}
+          {{- $data = merge $data (dict "url_path" .id) -}}
           {{- $subfield_data = merge $subfield_data (dict .id $data) -}}
       {{- end -}}
       {{- $subfields_data = merge $subfields_data (dict $subfield.Params.uid $subfield_data) -}}

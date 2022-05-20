@@ -537,7 +537,7 @@ export const courseJSONToLearningResource = (
   run_title: null,
   run_slug: null,
   content_type: null,
-  url: `/courses/${name}/`,
+  url: courseData.url_path,
   short_url: null,
   course_id: courseData.site_uid || courseData.legacy_uid,
   coursenum: courseData.primary_course_number,

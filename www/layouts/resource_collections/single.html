@@ -22,20 +22,23 @@
     {{- $resourceURLMap := dict -}}
     {{- range $collection.Params.resources.content -}}
       {{- $itemUUID := index . 0 -}}
-      {{- $courseId := index . 1 -}}
-      {{- if not (isset $contentMap $courseId) -}}
-        {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/courses/" $courseId "/content_map.json") "" -}}
+      {{- $urlPath := index . 1 -}}
+      {{- if not (isset $contentMap $urlPath) -}}
+        {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $urlPath "/content_map.json") "" -}}
         {{- $mapData := getJSON $url -}}
-        {{- $contentMap = dict $courseId $mapData | merge $contentMap -}}
+        {{- $mapData = merge $mapData (dict "url_path" $urlPath) -}}
+        {{- $contentMap = dict $urlPath $mapData | merge $contentMap -}}
       {{- end -}}
-      {{- if not (isset $courseJSONMap $courseId) -}}
-        {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/courses/" $courseId "/data.json") "" -}}
+      {{- if not (isset $courseJSONMap $urlPath) -}}
+        {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $urlPath "/data.json") "" -}}
         {{- $data := getJSON $url -}}
-        {{- $courseJSONMap = merge $courseJSONMap (dict $courseId $data) -}}
+        {{- $data = merge $data (dict "url_path" $urlPath) -}}
+        {{- $courseJSONMap = merge $courseJSONMap (dict $urlPath $data) -}}
       {{- end -}}
-      {{- $courseJSONRelpath := index (index $contentMap $courseId) $itemUUID -}}
+      {{- $courseJSONRelpath := index (index $contentMap $urlPath) $itemUUID -}}
       {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) $courseJSONRelpath) "" -}}
       {{- $resourceJSON := getJSON $url -}}
+      {{- $resourceJSON = merge $resourceJSON (dict "url_path" $urlPath) -}}
       {{- $resourceJSONMap = dict $itemUUID $resourceJSON | merge $resourceJSONMap -}}
       {{- $resourceURLMap = dict $itemUUID $url | merge $resourceURLMap -}}
     {{- end -}}
