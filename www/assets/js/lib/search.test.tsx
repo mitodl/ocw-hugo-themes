@@ -573,7 +573,7 @@ describe("search library", () => {
 
   it("should let you convert a CourseJSON record to a LearningResource", () => {
     const lr = courseJSONToLearningResource(
-      "course-name-i-made-up",
+      "courses/course-name-i-made-up",
       makeCourseJSON()
     )
     expect(lr.url).toBe("/courses/course-name-i-made-up/")

@@ -81,7 +81,6 @@ export interface CourseJSON {
   level: Level
   image_src: string
   course_image_metadata: CourseImageMetadata
-  url_path: string
 }
 
 /**
