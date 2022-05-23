@@ -21,9 +21,10 @@
           </div>
           <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
             {{ range $index, $courseItem := $courses }}
-              {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $courseItem.id "/data.json") "" -}}
+              {{- $urlPath := partial "site_root_url.html" $courseItem.id -}}
+              {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) $urlPath "/data.json") "" -}}
               {{- $courseData := getJSON $url -}}
-              {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $courseItem.id "numCourses" (len $courses))}}
+              {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $urlPath "numCourses" (len $courses))}}
             {{ end }}
           </div>
         </div>

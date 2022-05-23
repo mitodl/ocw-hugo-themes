@@ -13,7 +13,7 @@
 {{ end }}
 <div class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 .itemsInCarousel) }}{{ end }} w-100 d-flex justify-content-center">
   <div class="course-card card bg-white">
-    <a href="{{ .urlPath }}" aria-hidden="true" tabindex="-1">
+    <a href="{{ partial "site_root_url.html" .urlPath }}" aria-hidden="true" tabindex="-1">
       <img src="{{ partial "resource_url.html" $courseImageSrc }}" alt=""/>
     </a>
     <div class="course-card-content pt-1 px-3 pb-3">
@@ -22,7 +22,7 @@
       </div>
       <div class="pt-1">
         <div class="h5">
-          <a href="{{ .urlPath }}">{{ $courseTitle }}</a>
+          <a href="{{ partial "site_root_url.html" .urlPath }}">{{ $courseTitle }}</a>
         </div>
       </div>
       <div class="pt-1">
