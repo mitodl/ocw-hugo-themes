@@ -11,6 +11,7 @@ import { initDesktopCourseInfoToggle } from "./js/course_info_toggle"
 import { initDivToggle } from "./js/div_toggle"
 import { initCourseInfoExpander } from "./js/course_expander"
 import { initVideoTranscriptTrack } from "./js/video_transcript_track"
+import { initSettingButton } from "./js/settings"
 import {
   clearSolution,
   checkAnswer,
@@ -22,6 +23,7 @@ $(function() {
   initDesktopCourseInfoToggle()
   initCourseInfoExpander(document)
   initVideoTranscriptTrack()
+  initSettingButton()
   initDivToggle()
   clearSolution()
   checkAnswer()
