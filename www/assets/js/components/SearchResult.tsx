@@ -120,7 +120,7 @@ export function LearningResourceDisplay(props: SRProps) {
   const maxTags = 3
   const runSlug = object.run_slug
   const url = runSlug
-    ? `${runSlug.includes("courses/") ? "/" : "/courses"}${runSlug}`
+    ? `${runSlug.includes("courses/") ? "/" : "/courses/"}${runSlug}`
     : ""
 
   if (isResource(object)) {
