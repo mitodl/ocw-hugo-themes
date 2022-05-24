@@ -118,6 +118,10 @@ function isResource(object: LearningResource): boolean {
 export function LearningResourceDisplay(props: SRProps) {
   const { object, id } = props
   const maxTags = 3
+  const runSlug = object.run_slug
+  const url = runSlug
+    ? `${runSlug.includes("courses/") ? "/" : "/courses/"}${runSlug}`
+    : ""
 
   if (isResource(object)) {
     return (
@@ -133,7 +137,7 @@ export function LearningResourceDisplay(props: SRProps) {
         >
           <div className="lr-row resource-header">
             <div className="resource-type">
-              <a href={`/courses/${object.run_slug}`}>
+              <a href={url}>
                 <Dotdotdot clamp={3}>
                   {`${object.coursenum} | ${object.run_title}`}
                 </Dotdotdot>
@@ -156,11 +160,7 @@ export function LearningResourceDisplay(props: SRProps) {
               <div className="subtitles">
                 <Dotdotdot clamp={3}>{object.description}</Dotdotdot>
               </div>
-              <Topics
-                object={object}
-                maxTags={maxTags}
-                moreUrl={`/courses/${object.run_slug}`}
-              />
+              <Topics object={object} maxTags={maxTags} moreUrl={url} />
             </div>
           </div>
         </div>
