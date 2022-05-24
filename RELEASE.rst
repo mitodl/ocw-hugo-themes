@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.58.0
+--------------
+
+- update theme to use url_path (#700)
+- remove the old coursemedia hack (#688)
+
 Version 1.57.0 (Released May 16, 2022)
 --------------
 
