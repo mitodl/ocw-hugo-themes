@@ -571,11 +571,14 @@ describe("search library", () => {
     })
   })
 
-  it("should let you convert a CourseJSON record to a LearningResource", () => {
-    const lr = courseJSONToLearningResource(
-      "courses/course-name-i-made-up",
-      makeCourseJSON()
-    )
-    expect(lr.url).toBe("/courses/course-name-i-made-up/")
+  //
+  ;["courses/", ""].forEach(prefix => {
+    it("should let you convert a CourseJSON record to a LearningResource", () => {
+      const lr = courseJSONToLearningResource(
+        `${prefix}course-name-i-made-up`,
+        makeCourseJSON()
+      )
+      expect(lr.url).toBe("/courses/course-name-i-made-up/")
+    })
   })
 })
