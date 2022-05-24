@@ -537,7 +537,8 @@ export const courseJSONToLearningResource = (
   run_title: null,
   run_slug: null,
   content_type: null,
-  url: `/${name}/`,
+  // a temporary hack to handle runs possibly including the "courses" prefix
+  url: name.includes("courses/") ? `/${name}/` : `/courses/${name}/`,
   short_url: null,
   course_id: courseData.site_uid || courseData.legacy_uid,
   coursenum: courseData.primary_course_number,
@@ -652,13 +653,15 @@ export const getCourseUrl = (result: CourseResult) => {
     return null
   }
   const publishedRuns = result.runs.filter(run => run.published)
-  return !emptyOrNil(publishedRuns)
-    ? `/courses/${
-        publishedRuns.sort((a, b) =>
-          a.best_start_date < b.best_start_date ? 1 : -1
-        )[0].slug
-      }/`
-    : null
+  if (!emptyOrNil(publishedRuns)) {
+    const publishedRun = publishedRuns.sort((a, b) =>
+      a.best_start_date < b.best_start_date ? 1 : -1
+    )[0].slug
+    // a temporary hack to handle runs possibly including the "courses" prefix
+    return publishedRun.includes("courses/")
+      ? `/${publishedRun}/`
+      : `/courses/${publishedRun}/`
+  } else return null
 }
 
 export const getSectionUrl = (result: LearningResourceResult) => {
@@ -691,7 +694,11 @@ export const getResourceUrl = (result: LearningResourceResult) => {
   ) {
     // parse the url to get section pieces, then construct a new section url
     const sectionUrl = getSectionUrl(result)
-    return `/courses/${result.run_slug}${sectionUrl}`
+    const runSlug = result.run_slug
+    // a temporary hack to handle runs possibly including the "courses" prefix
+    return `${
+      runSlug.includes("courses/") ? "/" : "/courses/"
+    }${runSlug}${sectionUrl}`
   } else {
     // Non-page results should have full URLs, convert to CDN if it's an S3 URL
     try {
