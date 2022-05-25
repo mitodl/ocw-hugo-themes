@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.58.0
+Version 1.58.0 (Released May 25, 2022)
 --------------
 
 - update theme to use url_path (#700)
