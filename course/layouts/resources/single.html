@@ -1,11 +1,11 @@
 {{ define "main" }}
-{{ partial "course_content.html" . }}
+{{ partial "resource_title.html" . }}
 <div class="resource-page container">
     {{- if ne .Params.resourcetype "Video" }}
-        {{- if .Params.description -}}
+        {{- if .Content -}}
             <div class="row">
                 <div class="label col-3">Description:</div>
-                <div class="col-9">{{ .Params.description }}</div>
+                <div class="col-9">{{ .Content }}</div>
             </div>
         {{- end -}}
         {{- if .Params.learning_resource_types -}}
