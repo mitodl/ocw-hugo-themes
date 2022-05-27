@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.58.1
+--------------
+
+- strip the base url when comparing path with disallowed urls (#710)
+- source resource descriptions from markdown body (#707)
+- removed header and added required css to style tag (#690)
+- create lists of disallowed URLs for the base and www sitemaps (#698)
+
 Version 1.58.0 (Released May 25, 2022)
 --------------
 
