@@ -44,7 +44,7 @@ function _initMenuButton() {
         menuItems.push(
           new SettingMenuItems(this.player_, {
             label:    item,
-            selected: item === _get_player_instance(this.player_).getPlaybackRate()
+            selected: item === this.player_.tech_.ytPlayer.getPlaybackRate()
           })
         )
       })
