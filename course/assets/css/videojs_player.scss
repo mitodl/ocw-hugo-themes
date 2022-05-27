@@ -89,7 +89,7 @@
     bottom: 0;
   }
 
-  .vjs-quality-selector {
+  .vjs-quality-selector { 
     position: absolute;
     right: 100px;
 
@@ -102,6 +102,11 @@
   .right{
     position: absolute;
     right: 1px;
+    
+    .vjs-menu-content{
+      right: 100px;
+      margin: 10px;
+    }
   }
 
 }
