@@ -17,7 +17,7 @@
 
 <div class="video-page">
   <div class="description">
-    {{ .Params.about_this_resource_text | safeHTML }}
+    {{ .Content }}
   </div>
   {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime)}}
   <div class="video-buttons-container">
