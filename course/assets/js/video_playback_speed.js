@@ -56,7 +56,6 @@ function _initMenuButton() {
   MenuButton.registerComponent("SettingMenuButton", SettingMenuButton)
 }
 
-
 export const initPlayBackSpeedButton = () => {
   _initMenuItems()
   _initMenuButton()

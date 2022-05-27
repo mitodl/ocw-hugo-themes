@@ -89,24 +89,23 @@
     bottom: 0;
   }
 
-  .vjs-quality-selector { 
+  .vjs-quality-selector {
     position: absolute;
     right: 100px;
 
     .vjs-icon-placeholder::before {
       font-family: "Material Icons";
-      content:"\e8b8"
+      content: "\e8b8";
     }
   }
 
-  .right{
+  .right {
     position: absolute;
     right: 1px;
-    
-    .vjs-menu-content{
+
+    .vjs-menu-content {
       right: 100px;
       margin: 10px;
     }
   }
-
 }
