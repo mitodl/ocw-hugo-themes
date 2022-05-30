@@ -7,7 +7,6 @@ function _initMenuItems() {
     constructor: function(player, options) {
       options.selectable = true
       MenuItems.call(this, player, options)
-      this.src = options.src
       player.on("onPlaybackRateChange", videojs.bind(this, this.update))
     },
     handleClick: function() {
@@ -28,7 +27,7 @@ function _initMenuButton() {
   const SettingMenuButton = videojs.extend(MenuButton, {
     constructor: function(player, options) {
       this.label = document.createElement("span")
-      this.sources = options.sources
+      this.playbackSpeeds = options.playbackSpeeds
       options.label = "playback speed"
 
       MenuButton.call(this, player, options)
@@ -40,7 +39,7 @@ function _initMenuButton() {
     createItems: function() {
       const menuItems = []
       const SettingMenuItems = videojs.getComponent("SettingMenuItems")
-      this.sources.map(item => {
+      this.playbackSpeeds.map(item => {
         menuItems.push(
           new SettingMenuItems(this.player_, {
             label:    item,
@@ -67,10 +66,10 @@ export const initPlayBackSpeedButton = () => {
     for (const videoPlayer of Array.from(videoPlayers)) {
       const player = videojs(videoPlayer.id)
       player.one("play", function() {
-        const qualities = player.tech_.ytPlayer.getAvailablePlaybackRates()
+        const playbackRates = player.tech_.ytPlayer.getAvailablePlaybackRates()
         const menuButton = new SettingMenuButton(player, {
-          sources: qualities,
-          title:   "Playback speed"
+          playbackSpeeds: playbackRates,
+          title:          "Playback speed"
         })
         player.controlBar.resolutionSwitcher = player.controlBar.el_.insertBefore(
           menuButton.el_,
