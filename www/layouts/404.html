@@ -1,5 +1,15 @@
-{{ define "main" }}
 <style>
+  body {
+    font-family: "Helvetica";
+    font-size: 16px;
+    margin: 0;
+    text-align: left;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #ffff;
+  }
+
   .page-single {
     max-width: 100%;
     margin: 0 auto;
@@ -7,6 +17,38 @@
 
   .title-text {
     width: 100%;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .message-container {
+    max-width: 1280px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 4rem;
+    margin-right: 4rem;
+    margin-top: 2rem;
+  }
+
+  .container {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    margin-right: 10px;
+  }
+
+  h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin-top: 0;
+  }
+
+  a {
+    color: black;
   }
 
   @media (min-width: 1200px) {
@@ -17,9 +59,31 @@
   }
 
   @media (min-width: 992px) {
-    .page-title{
+    .page-title {
+      padding: 3.5rem 5rem;
+    }
+
+    .title-text {
+      max-width: 1447px;
+      font-size: 3rem;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .title-text {
+      font-size: calc(1.375rem + 1.5vw)
+    }
+
+    .page-title {
       padding: 1rem;
     }
+
+    .message-container {
+      margin:0;
+      padding: 1rem;
+
+    }
+
   }
 
   ol,
@@ -27,11 +91,11 @@
   dl {
     margin: 2rem 0;
   }
-  
+
   .h-100v {
     height: 100vh;
   }
-  
+
   h2 {
     margin-top: 5rem;
   }
@@ -45,30 +109,39 @@
     padding: 0 3rem;
     max-width: 100%;
   }
-    
+
   .navbar-nav.max-content-width {
     padding: 0 1rem 0 0;
   }
-  
 </style>
-<div
-  class="page-single"
-  style="height: 100vh; display:flex; flex-direction:column"
->
-  <div class="page-title">
-    <div class="title-text m-auto h1 m-0">
-      Page Not Found
+<html lang="{{ $.Site.Language.Lang }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">  
+  </head>
+  <body>
+    <div
+      class="page-single"
+      style="height: 100vh; display:flex; flex-direction:column"
+    >
+      <div class="page-title">
+        <div class="title-text m-auto h1 m-0">
+          Page Not Found
+        </div>
+      </div>
+      <div
+        class="container"
+        style="height: 100vh"
+      >
+        <div class="message-container">
+          <h3>Sorry, the page you requested was not found.</h3>
+          <br />
+          <p>
+            You might want to try <a href="/search/">searching</a> for another
+            page, or you can <a href="/contact/">contact us</a> and let us know
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="d-flex flex-column justify-content-between" style="height: 100vh">
-    <div class="container standard-width mx-lg-7 mt-5 px-sm-15 mx-2">
-      <h3>Sorry, the page you requested was not found.</h3>
-      <br />
-      <p>
-        You might want to try <a href="/search/">searching</a> for another page,
-        or you can <a href="/contact/">contact us</a> and let us know
-      </p>
-    </div>
-  </div>
-</div>
-{{ end }}
+  </body>
+</html>
