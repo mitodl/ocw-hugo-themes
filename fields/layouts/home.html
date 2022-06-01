@@ -40,7 +40,7 @@
           {{- $data = merge $data (dict "url_path" .id) -}}
           {{- $subfield_data = $subfield_data | append (dict .id $data) -}}
       {{- end -}}
-      {{- $subfields_data = merge subfields_data (dict $subfield.Params.uid $subfield_data) -}}
+      {{- $subfields_data = merge $subfields_data (dict $subfield.Params.uid $subfield_data) -}}
     {{- end -}}
     window.courseListsData = JSON.parse("{{ $subfields_data | jsonify }}");
   </script>
