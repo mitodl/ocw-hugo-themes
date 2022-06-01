@@ -84,6 +84,14 @@ export interface CourseJSON {
 }
 
 /**
+ * A map from a course name to the `CourseJSON` record for that course. This value
+ * is needed for dealing with both course collections and resource collections.
+ */
+export interface CourseJSONMap {
+  [name: string]: CourseJSON
+}
+
+/**
  * Interface describing the shape of the ResourceJSON files generated
  * by the course theme for resource content items.
  *

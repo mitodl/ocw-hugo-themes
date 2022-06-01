@@ -6,10 +6,8 @@ import {
   makeFakeUUID,
   makeResourceJSON
 } from "../factories/search"
-import {
-  courseJSONToLearningResource,
-  resourceJSONToLearningResource
-} from "../lib/search"
+import { resourceJSONToLearningResource } from "../lib/search"
+import { getLearningResourcesFromCourseList } from "../lib/util"
 import {
   CollectionItem,
   OCWWindow,
@@ -23,9 +21,9 @@ let testUid = "test-uuid-1234-5678"
 
 function courseListsSetup() {
   window.courseListsData = {
-    [testUid]: Object.fromEntries(
-      [...Array(10)].map((_, index) => [`course-${index}`, makeCourseJSON()])
-    )
+    [testUid]: [...Array(10)].map((_, index) => ({
+      [`course-${index}`]: makeCourseJSON()
+    }))
   }
 }
 
@@ -33,9 +31,7 @@ test("course collection hook should return LearningResources", () => {
   courseListsSetup()
   const { result } = renderHook(() => useCourseListData(testUid))
   expect(result.current).toEqual(
-    Object.entries(window.courseListsData[testUid]).map(([name, courseJSON]) =>
-      courseJSONToLearningResource(name, courseJSON)
-    )
+    getLearningResourcesFromCourseList(window.courseListsData[testUid])
   )
 })
 

@@ -1,6 +1,8 @@
 import * as Sentry from "@sentry/browser"
 import { either, isEmpty, isNil, match } from "ramda"
 import { STATUS_CODES } from "./constants"
+import { LearningResource, CourseJSONMap } from "../LearningResources"
+import { courseJSONToLearningResource } from "./search"
 
 export const emptyOrNil = either(isEmpty, isNil)
 
@@ -32,4 +34,21 @@ export const sentryCaptureException = (excetpion: any) => {
 
 export const sentryCaptureMessage = (message: string) => {
   Sentry.captureException(message)
+}
+
+/**
+ * Converts course list array into learning resources array while maintaing order
+ */
+export const getLearningResourcesFromCourseList = (
+  courseList: CourseJSONMap[]
+): LearningResource[] => {
+  const numberOfCourses = courseList.length || 0
+  const learningResources: LearningResource[] = []
+  for (let i = 0; i < numberOfCourses; i++) {
+    const key = Object.keys(courseList[i])[0]
+    learningResources.push(
+      courseJSONToLearningResource(key, courseList[i][key])
+    )
+  }
+  return learningResources
 }
