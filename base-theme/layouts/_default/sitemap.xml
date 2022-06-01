@@ -6,7 +6,8 @@
   {{ range .Data.Pages }}
     {{- if and .RelPermalink (not .Params.headless) -}}
       {{- $path := strings.TrimPrefix "/" (partial "site_root_url.html" .RelPermalink) -}}
-      {{- $trimmedPath := strings.TrimPrefix "/" (replace $path site.BaseURL "") -}}
+      {{- $trimmedBaseUrl := strings.TrimPrefix "/" site.BaseURL -}}
+      {{- $trimmedPath := strings.TrimPrefix "/" (replace $path $trimmedBaseUrl "") -}}
       {{- if not (in $disallowedUrls $trimmedPath) -}}
         {{- $url := printf "https://%v/%v" $sitemapDomain $path -}}
   <url>
