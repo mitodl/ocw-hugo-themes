@@ -32,12 +32,12 @@
     {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocwnext.odl.mit.edu"  -}}
     {{- range $collection.Params.courselists.content -}}
       {{- $course_list := index (where $.Site.Pages ".Params.uid" .) 0 -}}
-      {{- $course_list_data := dict -}}
+      {{- $course_list_data := (slice) -}}
       {{- range (first 5 $course_list.Params.courses) -}}
           {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" .id "/data.json") "" -}}
           {{- $data := getJSON $url -}}
           {{- $data = merge $data (dict "url_path" .id) -}}
-          {{- $course_list_data = merge $course_list_data (dict .id $data) -}}
+          {{- $course_list_data = $course_list_data | append (dict .id $data) -}}
       {{- end -}}
       {{- $course_lists_data = merge $course_lists_data (dict $course_list.Params.uid $course_list_data) -}}
     {{- end -}}
