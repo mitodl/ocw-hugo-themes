@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.59.0
+Version 1.59.0 (Released June 02, 2022)
 --------------
 
 - also trim the baseurl before comparison (#719)
