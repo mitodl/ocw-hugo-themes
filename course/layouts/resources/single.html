@@ -1,33 +1,4 @@
 {{ define "main" }}
 {{ partial "resource_title.html" . }}
-<div class="resource-page container">
-    {{- if ne .Params.resourcetype "Video" }}
-        {{- if .Content -}}
-            <div class="row">
-                <div class="label col-3">Description:</div>
-                <div class="col-9">{{ .Content }}</div>
-            </div>
-        {{- end -}}
-        {{- if .Params.learning_resource_types -}}
-            <div class="row">
-                <div class="label col-3">Resource Type:</div>
-                <div class="col-9">{{ delimit (.Params.learning_resource_types | default slice) ", " }}</div>
-            </div>
-        {{- end -}}
-        {{- if .Params.file -}}
-        <div class="row">
-            <div class="col-12 d-flex flex-direction-row align-items-center">
-                <a class="download-file" href="{{ partial "resource_url" .Params.file }}"><span class="material-icons">file_download</span> Download File</a>
-            </div>
-        </div>
-        {{- end -}}
-    {{- else -}}
-        {{ partial "video.html" . }}
-    {{- end -}}
-    {{ if eq .Params.file_type "application/pdf" }}
-    {{ partial "pdf_viewer.html" . }}
-    {{ else if eq .Params.resourcetype "Image" }}
-    {{ partial "image_page.html" . }}
-    {{ end }}
-</div>
+{{ partial "resource_body.html" . }}
 {{ end }}

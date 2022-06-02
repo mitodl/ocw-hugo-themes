@@ -1,0 +1,11 @@
+{{ define "main" }}
+{{ block "header" . }}
+  {{ partialCached "header" . }}
+{{ end }}
+<div class="container mt-5">
+  <div class="rounded mb-2">
+    {{ partial "content_header.html" . }}
+  </div>
+  {{ partial "resource_body.html" . }}
+</div>
+{{ end }}

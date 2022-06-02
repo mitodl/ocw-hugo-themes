@@ -23,7 +23,7 @@
 {{- if .Params.file -}}
     <div class="row">
         <div class="col-12">
-            <img class="mw-100" src="{{ partial "resource_url" .Params.file }}" alt="{{ if .Params.image_metadata }}{{ index .Params.image_metadata "image-alt" }}{{ end }}" />
+            <img class="mw-100 mt-2" src="{{ partial "resource_url" .Params.file }}" alt="{{ if .Params.image_metadata }}{{ index .Params.image_metadata "image-alt" }}{{ end }}" />
         </div>
     </div>
 {{- end -}}
