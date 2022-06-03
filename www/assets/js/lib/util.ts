@@ -42,13 +42,9 @@ export const sentryCaptureMessage = (message: string) => {
 export const getLearningResourcesFromCourseList = (
   courseList: CourseJSONMap[]
 ): LearningResource[] => {
-  const numberOfCourses = courseList.length || 0
-  const learningResources: LearningResource[] = []
-  for (let i = 0; i < numberOfCourses; i++) {
-    const key = Object.keys(courseList[i])[0]
-    learningResources.push(
-      courseJSONToLearningResource(key, courseList[i][key])
-    )
-  }
+  const learningResources: LearningResource[] = courseList.map(course => {
+    const key = Object.keys(course)[0]
+    return courseJSONToLearningResource(key, course[key])
+  })
   return learningResources
 }
