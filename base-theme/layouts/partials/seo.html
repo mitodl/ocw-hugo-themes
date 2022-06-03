@@ -3,8 +3,8 @@
   {{- $defaultMetadataDescription := "MIT OpenCourseWare is a web-based publication of virtually all MIT course content. OCW is open and available to the world and is a permanent MIT activity" -}}
   {{- $defaultMetadataKeywords := "opencourseware,MIT OCW,courseware,MIT opencourseware,Free Courses,class notes,class syllabus,class materials,tutorials,online courses,MIT courses" -}}
   
-  {{- $metaDataDescription := .Params.metadataDescription | default $defaultMetadataDescription -}}
-  {{- $metaDataKeywords := .Params.metadataKeywords | default $defaultMetadataKeywords -}}
+  {{- $metaDataDescription := .Params.metadata_description | default .Params.description | default $defaultMetadataDescription -}}
+  {{- $metaDataKeywords := .Params.metadata_keywords | default $defaultMetadataKeywords -}}
 
   <meta name="description" content="{{- $metaDataDescription -}}">
   <meta name="keywords" content="{{- $metaDataKeywords -}}">
