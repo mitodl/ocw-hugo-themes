@@ -125,3 +125,46 @@ describe("SearchResult component", () => {
     })
   })
 })
+
+describe("SearchResult component with compact view", () => {
+  const render = (object: LearningResource) =>
+    mount(<SearchResult id="boop" index={0} object={object} layout="compact" />)
+
+  it("should render the things we expect for a course", () => {
+    const object = searchResultToLearningResource(
+      makeLearningResourceResult(LearningResourceType.Course)
+    )
+    const wrapper = render(object)
+    expect(wrapper.find(".course-title").text()).toBe(object.title)
+    const { href, className } = wrapper
+      .find(".course-title")
+      .find("a")
+      .props()
+    expect(href).toBe(object.url)
+    expect(wrapper.find(".course-num").text()).toBe(object.coursenum)
+    expect(wrapper.find(".resource-level").text()).toBe(object.level || "")
+  })
+
+  it("should render the things we expect for a resource", () => {
+    const object = searchResultToLearningResource(
+      makeLearningResourceResult(LearningResourceType.ResourceFile)
+    )
+    const wrapper = render(object)
+    expect(wrapper.find(".resource-title").text()).toBe(object.content_title)
+    expect(
+      wrapper
+        .find(".resource-title")
+        .find("a")
+        .prop("href")
+    ).toBe(object.url)
+    expect(
+      wrapper
+        .find("img")
+        .first()
+        .prop("src")
+    ).toBe(getCoverImageUrl(object))
+    expect(wrapper.find("CoverImage").exists()).toBeTruthy()
+    expect(wrapper.find(".resource-course-title").text()).toBe(object.run_title)
+    expect(wrapper.find(".course-num").text()).toBe(object.coursenum)
+  })
+})

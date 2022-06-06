@@ -7,7 +7,7 @@ import {
 
 import Card from "./Card"
 
-import { SEARCH_URL } from "../lib/constants"
+import { SEARCH_URL, SEARCH_COMPACT_UI } from "../lib/constants"
 import { emptyOrNil } from "../lib/util"
 import { LearningResource } from "../LearningResources"
 import CoverImage from "./CoverImage"
@@ -94,10 +94,11 @@ interface SRProps {
   object: LearningResource
   id: string
   index: number
+  layout?: string | null
 }
 
 export default function SearchResult(props: SRProps) {
-  const { object, id, index } = props
+  const { object, id, index, layout } = props
 
   return object.url ? (
     <article
@@ -106,7 +107,11 @@ export default function SearchResult(props: SRProps) {
       aria-posinset={index + 1}
       tabIndex={0}
     >
-      <LearningResourceDisplay {...props} />
+      {layout === SEARCH_COMPACT_UI ? (
+        <CompactLearningResourceDisplay {...props} />
+      ) : (
+        <LearningResourceDisplay {...props} />
+      )}
     </article>
   ) : null
 }
@@ -214,6 +219,59 @@ export function LearningResourceDisplay(props: SRProps) {
           <Topics object={object} maxTags={maxTags} moreUrl={object.url} />
         </div>
         <CoverImage object={object} />
+      </Card>
+    )
+  }
+}
+
+export function CompactLearningResourceDisplay(props: SRProps) {
+  const { object, id } = props
+  const runSlug = object.run_slug
+  const url = runSlug
+    ? `${runSlug.includes("courses/") ? "/" : "/courses/"}${runSlug}`
+    : ""
+
+  if (isResource(object)) {
+    return (
+      <Card className="learning-resource-card compact-view learning-resource-card-resource">
+        <div className="lr-info search-result">
+          <div className="col-2 course-num">
+            <a href={url}>{object.coursenum}</a>
+          </div>
+          <CoverImage object={object} />
+          <div className="resource-titles">
+            <div className="resource-title">
+              {object.url ? (
+                <a href={object.url} className="w-100">
+                  <span id={makeIdTitle(id)}>{object.content_title}</span>
+                </a>
+              ) : (
+                <span>{object.title}</span>
+              )}
+            </div>
+            <div className="resource-course-title">
+              <a href={url}>{object.run_title}</a>
+            </div>
+          </div>
+        </div>
+      </Card>
+    )
+  } else {
+    return (
+      <Card className="learning-resource-card compact-view">
+        <div className="lr-info search-result">
+          <div className="col-2 course-num">{object.coursenum}</div>
+          <div className="course-title">
+            {object.url ? (
+              <a href={object.url}>
+                <span id={makeIdTitle(id)}>{object.title}</span>
+              </a>
+            ) : (
+              <span>{object.title}</span>
+            )}
+          </div>
+          <div className="col-2 resource-level">{object.level}</div>
+        </div>
       </Card>
     )
   }

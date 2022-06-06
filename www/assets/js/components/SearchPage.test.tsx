@@ -9,12 +9,16 @@ import {
   serializeSearchParams
 } from "@mitodl/course-search-utils"
 
-import SearchPage, { SEARCH_PAGE_SIZE } from "./SearchPage"
+import SearchPage from "./SearchPage"
+
+import { LIST_UI_PAGE_SIZE, COMPACT_UI_PAGE_SIZE } from "../lib/constants"
 
 import { makeCourseResult } from "../factories/search"
 
 const mockGetResults = () =>
-  times(makeCourseResult, SEARCH_PAGE_SIZE).map(result => ({ _source: result }))
+  times(makeCourseResult, LIST_UI_PAGE_SIZE).map(result => ({
+    _source: result
+  }))
 
 // @ts-ignore
 let resolver
@@ -98,12 +102,13 @@ describe("SearchPage component", () => {
         {
           text: params.text,
           from: 0,
-          size: SEARCH_PAGE_SIZE,
+          size: LIST_UI_PAGE_SIZE,
           activeFacets: {
             ...defaultCourseFacets,
             ...params.activeFacets
           },
-          sort: null
+          sort: null,
+          ui: null
         }
       ])
     })
@@ -127,23 +132,25 @@ describe("SearchPage component", () => {
         {
           text: "",
           from: 0,
-          size: SEARCH_PAGE_SIZE,
+          size: LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null
+          sort: null,
+          ui: null
         }
       ],
       [
         {
           text: "New Search Text",
           from: 0,
-          size: SEARCH_PAGE_SIZE,
+          size: LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null
+          sort: null,
+          ui: null
         }
       ]
     ])
     wrapper.update()
-    expect(wrapper.find("SearchResult").length).toBe(SEARCH_PAGE_SIZE)
+    expect(wrapper.find("SearchResult").length).toBe(LIST_UI_PAGE_SIZE)
   })
 
   test("the user can switch to resource search", async () => {
@@ -170,26 +177,28 @@ describe("SearchPage component", () => {
         {
           text: parameters.text,
           from: 0,
-          size: SEARCH_PAGE_SIZE,
+          size: LIST_UI_PAGE_SIZE,
           activeFacets: { ...defaultCourseFacets, ...parameters.activeFacets },
-          sort: null
+          sort: null,
+          ui: null
         }
       ],
       [
         {
           text: parameters.text,
           from: 0,
-          size: SEARCH_PAGE_SIZE,
+          size: LIST_UI_PAGE_SIZE,
           activeFacets: {
             ...defaultResourceFacets,
             ...{ topics: ["Mathematics"] }
           },
-          sort: null
+          sort: null,
+          ui: null
         }
       ]
     ])
     wrapper.update()
-    expect(wrapper.find("SearchResult").length).toBe(SEARCH_PAGE_SIZE)
+    expect(wrapper.find("SearchResult").length).toBe(LIST_UI_PAGE_SIZE)
   })
 
   test("should show suggestions if present on the search result", async () => {
@@ -243,6 +252,21 @@ describe("SearchPage component", () => {
       field: differentSortParam,
       option: "asc"
     })
+  })
+
+  it("should allow the user to toggle the layout", async () => {
+    const wrapper = await render(serializeSearchParams({}))
+
+    act(() => {
+      // @ts-ignore
+      wrapper
+        .find(".layout-button-right")
+        .at(0)
+        .simulate("click")
+    })
+    // @ts-ignore
+
+    expect(search.mock.calls[1][0].ui).toEqual("compact")
   })
 
   it("should display the number of results", async () => {
@@ -312,31 +336,34 @@ describe("SearchPage component", () => {
         {
           text: "",
           from: 0,
-          size: SEARCH_PAGE_SIZE,
+          size: LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null
+          sort: null,
+          ui: null
         }
       ],
       [
         {
           text: "",
-          from: SEARCH_PAGE_SIZE,
-          size: SEARCH_PAGE_SIZE,
+          from: LIST_UI_PAGE_SIZE,
+          size: LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null
+          sort: null,
+          ui: null
         }
       ],
       [
         {
           text: "",
-          from: 2 * SEARCH_PAGE_SIZE,
-          size: SEARCH_PAGE_SIZE,
+          from: 2 * LIST_UI_PAGE_SIZE,
+          size: LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null
+          sort: null,
+          ui: null
         }
       ]
     ])
-    expect(wrapper.find("SearchResult").length).toBe(3 * SEARCH_PAGE_SIZE)
+    expect(wrapper.find("SearchResult").length).toBe(3 * LIST_UI_PAGE_SIZE)
   })
 
   test("InfiniteScroll should only trigger one search request at a time", async () => {
@@ -363,22 +390,24 @@ describe("SearchPage component", () => {
         {
           text: "",
           from: 0,
-          size: SEARCH_PAGE_SIZE,
+          size: LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null
+          sort: null,
+          ui: null
         }
       ],
       [
         {
           text: "",
-          from: SEARCH_PAGE_SIZE,
-          size: SEARCH_PAGE_SIZE,
+          from: LIST_UI_PAGE_SIZE,
+          size: LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null
+          sort: null,
+          ui: null
         }
       ]
     ])
-    expect(wrapper.find("SearchResult").length).toBe(2 * SEARCH_PAGE_SIZE)
+    expect(wrapper.find("SearchResult").length).toBe(2 * LIST_UI_PAGE_SIZE)
   })
 
   test("should show spinner during initial load", async () => {

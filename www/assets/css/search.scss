@@ -218,6 +218,28 @@
     }
   }
 
+  .controls-outer {
+    width: 100%;
+
+    .controls {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+    }
+
+    .layout-buttons-mobile {
+      display: inline-block;
+      float: right;
+      padding-right: 20px button {
+        height: 32px;
+        width: 32px;
+      }
+
+      img {
+        height: 18px;
+      }
+    }
+  }
+
   .listitem {
     .topic-link {
       float: left;
@@ -236,5 +258,36 @@
 
   .facet-display-wrapper {
     border-top: 1px solid #d2d2d2;
+  }
+}
+
+.layout-buttons {
+  padding-left: 35px;
+  padding-right: 16px;
+
+  button {
+    height: 41px;
+    width: 42px;
+    background-color: white;
+    border-color: #dedede;
+    border-style: solid;
+  }
+
+  .layout-button-left {
+    border-radius: 4px 0 0 4px;
+  }
+
+  .layout-button-right {
+    border-radius: 0 4px 4px 0;
+  }
+
+  img {
+    height: 26px;
+  }
+}
+
+.layout-buttons-desktop {
+  @include breakpoint(mobile) {
+    display: none;
   }
 }
