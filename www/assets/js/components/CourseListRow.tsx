@@ -19,7 +19,7 @@ export default function CourseListRow(props: Props) {
       >
         <img
           src={getCoverImageUrl(course)}
-          alt={`cover image for ${course.title}`}
+          alt=""
         />
         <div className="ml-3 course-title flex-grow-1">
           <h4 className="mb-0">{course.title}</h4>
