@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import {
-  CourseJSON,
+  CourseJSONMap,
   LearningResource,
   ResourceJSON
 } from "../LearningResources"
@@ -8,14 +8,7 @@ import {
   courseJSONToLearningResource,
   resourceJSONToLearningResource
 } from "../lib/search"
-
-/**
- * A map from a course name to the `CourseJSON` record for that course. This value
- * is needed for dealing with both course collections and resource collections.
- */
-interface CourseJSONMap {
-  [name: string]: CourseJSON
-}
+import { getLearningResourcesFromCourseList } from "../lib/util"
 
 export type CollectionItem = [string, string]
 
@@ -26,7 +19,7 @@ export interface OCWWindow extends Window {
    * Map is from collection UUID to CourseJSONMap (a map of the course JSON
    * objects for that collection).
    */
-  courseListsData: Record<string, CourseJSONMap>
+  courseListsData: Record<string, CourseJSONMap[]>
   /**
    * Data needed for resource collection rendering in React.
    *
@@ -80,17 +73,13 @@ export function useCourseListData(uid: string): LearningResource[] {
   const [data, setData] = useState<LearningResource[]>([])
 
   useEffect(() => {
-    const data = window.courseListsData?.[uid]
+    const courseList = window.courseListsData?.[uid]
 
-    if (data === undefined) {
+    if (courseList === undefined) {
       throw new Error("course collection data missing")
     }
 
-    setData(
-      Object.entries(data).map(([name, courseJSON]) =>
-        courseJSONToLearningResource(name, courseJSON)
-      )
-    )
+    setData(getLearningResourcesFromCourseList(courseList))
   }, [setData])
 
   return data

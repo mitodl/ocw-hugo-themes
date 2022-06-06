@@ -33,12 +33,12 @@
     {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocw.mit.edu"  -}}
     {{- range $field.Params.subfields.content -}}
       {{- $subfield := index (where $.Site.Pages ".Params.uid" .) 0 -}}
-      {{- $subfield_data := dict -}}
+      {{- $subfield_data := (slice) -}}
       {{- range (first 5 $subfield.Params.courses) -}}
           {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" .id "/data.json") "" -}}
           {{- $data := getJSON $url -}}
           {{- $data = merge $data (dict "url_path" .id) -}}
-          {{- $subfield_data = merge $subfield_data (dict .id $data) -}}
+          {{- $subfield_data = $subfield_data | append (dict .id $data) -}}
       {{- end -}}
       {{- $subfields_data = merge $subfields_data (dict $subfield.Params.uid $subfield_data) -}}
     {{- end -}}
