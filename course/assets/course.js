@@ -4,7 +4,6 @@ import "offcanvas-bootstrap/dist/js/bootstrap.offcanvas.js"
 import "nanogallery2/src/jquery.nanogallery2.core.js"
 
 import "./css/course.scss"
-import "videojs-youtube"
 
 import { initPdfViewers } from "../../base-theme/assets/js/pdf_viewer"
 import { initDesktopCourseInfoToggle } from "./js/course_info_toggle"
@@ -19,6 +18,7 @@ import {
 } from "./js/quiz_multiple_choice"
 
 $(function() {
+  require("videojs-youtube")
   initPdfViewers()
   initDesktopCourseInfoToggle()
   initCourseInfoExpander(document)
