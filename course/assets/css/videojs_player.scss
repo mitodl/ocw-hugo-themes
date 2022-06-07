@@ -115,6 +115,23 @@ $slider-color: $pink;
     }
   }
 
+  .vjs-download-button {
+    .vjs-icon-placeholder::before {
+      font-family: "Material Icons";
+      content: "\e258";
+    }
+    .vjs-icon-placeholder::after {
+      font-family: "Material Icons";
+      content: "\e5c5";
+      margin-left: 15px;
+    }
+  }
+
+  .vjs-menu-button-popup {
+    .vjs-menu {
+      width: 15em;
+    }
+  }
   .right {
     position: absolute;
     right: 1px;

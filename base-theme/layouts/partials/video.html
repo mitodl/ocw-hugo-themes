@@ -14,6 +14,11 @@
 {{ $downloadLink =  partial "resource_url" $downloadLink  }}
 {{ end }}
 
+<script>
+	window.videoDownloadLink = "{{ $downloadLink }}"
+	window.transcriptDownloadLink = "{{ $transcriptPdfLocation }}"
+</script>
+
 
 <div class="video-page">
   <div class="description">
