@@ -12,6 +12,7 @@ import { initDivToggle } from "./js/div_toggle"
 import { initCourseInfoExpander } from "./js/course_expander"
 import { initVideoTranscriptTrack } from "./js/video_transcript_track"
 import { initPlayBackSpeedButton } from "./js/video_playback_speed"
+import { initVideoFullscreenToggle } from "./js/video_fullscreen_toggle"
 import {
   clearSolution,
   checkAnswer,
@@ -28,4 +29,5 @@ $(function() {
   clearSolution()
   checkAnswer()
   showSolution()
+  initVideoFullscreenToggle()
 })
