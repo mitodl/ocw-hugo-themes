@@ -115,6 +115,7 @@ export interface SearchQueryParams {
   size?: number
   sort?: SortParam
   activeFacets?: Facets
+  ui?: string
 }
 
 export const buildSearchQuery = ({

@@ -354,6 +354,123 @@
   }
 }
 
+.search-page .card.compact-view {
+  margin: 0;
+  font-size: $font-sm;
+  border-radius: 0;
+  border-bottom: none;
+
+  div.card-contents {
+    padding: 10px;
+  }
+
+  .search-result div {
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    @include breakpoint(mobile) {
+      display: inline;
+      padding-left: 3px;
+      padding-right: 3px;
+    }
+  }
+
+  .course-num,
+  .resource-level {
+    color: $highlight-red;
+
+    a {
+      color: $highlight-red;
+    }
+  }
+
+  .course-num {
+    @include breakpoint(desktop) {
+      width: 15%;
+      float: left;
+    }
+  }
+
+  .search-result div.resource-level {
+    width: 20%;
+    float: right;
+    @include breakpoint(mobile) {
+      display: none;
+    }
+  }
+
+  .search-result div.resource-titles {
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 85%;
+    @include breakpoint(mobile) {
+      width: 65%;
+      float: right;
+    }
+
+    .resource-title {
+      width: 60%;
+      @include breakpoint(mobile) {
+        width: 100%;
+        display: block;
+      }
+    }
+
+    .resource-course-title {
+      width: 40%;
+      font-size: $font-xs;
+      float: right;
+      color: $medium-gray;
+      a {
+        color: $medium-gray;
+        float: right;
+      }
+      @include breakpoint(mobile) {
+        width: 100%;
+        display: block;
+        float: none;
+      }
+    }
+  }
+
+  .course-title {
+    @include breakpoint(desktop) {
+      width: 45%;
+    }
+  }
+
+  .search-result div.cover-image-resource,
+  .search-result div.cover-image-video {
+    padding-left: 3px;
+    padding-right: 3px;
+    img {
+      height: 24px;
+    }
+    @include breakpoint(desktop) {
+      float: left;
+    }
+  }
+
+  .cover-image-video {
+    img {
+      display: none;
+    }
+
+    .mobile-video-icon {
+      display: block;
+      height: 24px;
+    }
+  }
+}
+
+.search-page .card.compact-view.learning-resource-card-resource .search-result {
+  .course-num {
+    padding-right: 5px;
+    width: 10%;
+  }
+}
+
 .lr-portrait-loader {
   height: 354px;
 }

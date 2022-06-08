@@ -15,11 +15,16 @@ import Loading, { Spinner } from "./Loading"
 
 import { search } from "../lib/api"
 import { searchResultToLearningResource } from "../lib/search"
-import { COURSENUM_SORT_FIELD, CONTACT_URL } from "../lib/constants"
+import {
+  COURSENUM_SORT_FIELD,
+  CONTACT_URL,
+  SEARCH_COMPACT_UI,
+  SEARCH_LIST_UI,
+  LIST_UI_PAGE_SIZE,
+  COMPACT_UI_PAGE_SIZE
+} from "../lib/constants"
 import { emptyOrNil, isDoubleQuoted } from "../lib/util"
 import { FacetManifest, LearningResourceResult } from "../LearningResources"
-
-export const SEARCH_PAGE_SIZE = 10
 
 const COURSE_FACETS: FacetManifest = [
   ["level", "Level", false],
@@ -47,19 +52,21 @@ export default function SearchPage() {
   const [requestInFlight, setRequestInFlight] = useState(false)
 
   const runSearch = useCallback(
-    async (text, activeFacets, from, sort) => {
+    async (text, activeFacets, from, sort, ui) => {
       if (activeFacets && activeFacets.type.length > 1) {
         // Default is LR_TYPE_ALL, don't want that here. course or resourcefile only
         activeFacets["type"] = [LearningResourceType.Course]
       }
-
+      const pageSize =
+        ui === SEARCH_COMPACT_UI ? COMPACT_UI_PAGE_SIZE : LIST_UI_PAGE_SIZE
       setRequestInFlight(true)
       const newResults = await search({
         text,
         from,
         activeFacets,
-        size: SEARCH_PAGE_SIZE,
-        sort: sort
+        size: pageSize,
+        sort: sort,
+        ui: ui
       })
       setRequestInFlight(false)
 
@@ -129,7 +136,9 @@ export default function SearchPage() {
     toggleFacets,
     toggleFacet,
     clearAllFilters,
-    acceptSuggestion
+    acceptSuggestion,
+    updateUI,
+    ui
   } = useCourseSearch(
     runSearch,
     clearSearch,
@@ -137,10 +146,9 @@ export default function SearchPage() {
     // this is the 'loaded' value, which is what useCourseSearch uses
     // to determine whether to fire off a request or not.
     completedInitialLoad && !requestInFlight,
-    SEARCH_PAGE_SIZE
+    LIST_UI_PAGE_SIZE
   )
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const toggleResourceSearch = useCallback(
     nextResourceFilterState => async () => {
       if (isResourceFilterActive() === nextResourceFilterState) {
@@ -179,7 +187,8 @@ export default function SearchPage() {
     LearningResourceType.ResourceFile
   )
   const facetMap = isResourceSearch ? RESOURCE_FACETS : COURSE_FACETS
-
+  const pageSize =
+    ui === SEARCH_COMPACT_UI ? COMPACT_UI_PAGE_SIZE : LIST_UI_PAGE_SIZE
   return (
     <div className="search-page w-100">
       <div className="container">
@@ -216,6 +225,7 @@ export default function SearchPage() {
             }
             clearAllFilters={clearAllFilters}
             toggleFacet={toggleFacet}
+            updateUI={updateUI}
           />
           <div className="search-results-area col-12 col-lg-9 pb-2 pt-2">
             <div
@@ -298,10 +308,30 @@ export default function SearchPage() {
                     </select>
                   </li>
                 ) : null}
+                <div className="layout-buttons layout-buttons-desktop">
+                  <button
+                    onClick={() => updateUI(SEARCH_LIST_UI)}
+                    className="layout-button-left"
+                  >
+                    <img
+                      src="/images/icons/list_ui_icon.png"
+                      alt="search results with thumbnails"
+                    />
+                  </button>
+                  <button
+                    onClick={() => updateUI(SEARCH_COMPACT_UI)}
+                    className="layout-button-right"
+                  >
+                    <img
+                      src="/images/icons/compact_ui_icon.png"
+                      alt="compact search results"
+                    />
+                  </button>
+                </div>
               </ul>
             </div>
             <InfiniteScroll
-              hasMore={from + SEARCH_PAGE_SIZE < total}
+              hasMore={from + pageSize < total}
               loadMore={loadMore}
               initialLoad={false}
               loader={
@@ -337,6 +367,7 @@ export default function SearchPage() {
                         id={`search-result-${idx}`}
                         index={idx}
                         object={searchResultToLearningResource(hit._source)}
+                        layout={ui}
                       />
                     ))
                   )

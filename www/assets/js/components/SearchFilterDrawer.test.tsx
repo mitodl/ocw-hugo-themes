@@ -14,9 +14,10 @@ describe("SearchFilterDrawer component", () => {
     getViewportWidthMock.mockImplementation(() => 1000)
     const wrapper = render()
     expect(wrapper.find(FacetDisplay).exists()).toBeTruthy()
+    expect(wrapper.find(".layout-buttons-mobile").exists()).toBeFalsy()
   })
 
-  test("phone mode renders a filter control", async () => {
+  test("phone mode renders a filter control and layout buttons", async () => {
     getViewportWidthMock.mockImplementation(() => 500)
     const wrapper = render()
     const filterControl = wrapper.find(".filter-controls")
@@ -29,5 +30,6 @@ describe("SearchFilterDrawer component", () => {
     wrapper.find(".blue-btn").simulate("click", mockEvent)
     wrapper.update()
     expect(wrapper.find(".search-filter-drawer-open").exists()).toBeFalsy()
+    expect(wrapper.find(".layout-buttons-mobile").exists()).toBeTruthy()
   })
 })
