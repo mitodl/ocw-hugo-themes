@@ -19,7 +19,7 @@ export const initPdfViewers = () => {
         `<iframe class="w-100 h-100" frameborder="0" scrolling="yes" seamless="seamless" src="${viewerUrl}"></iframe>`
       )
     } catch (e) {
-      console.log("Exception occurred while fetching PDF: ", e)
+      console.error("Exception occurred while fetching PDF: ", e)
     }
   })
 }
