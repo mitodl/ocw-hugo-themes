@@ -1,6 +1,6 @@
 {{ $youtubeKey := .Params.video_metadata.youtube_id }}
-{{ $captionsLocation := .Params.video_files.video_captions_file }}
-{{ $transcriptPdfLocation := .Params.video_files.video_transcript_file }}
+{{ $captionsLocation := partial "resource_url.html" .Params.video_files.video_captions_file }}
+{{ $transcriptPdfLocation := partial "resource_url.html" .Params.video_files.video_transcript_file }}
 {{ $downloadLink := .Params.file }}
 {{ $relatedResourses := .Params.related_resources_text | default "" }}
 {{ $optionalTabTitle := .Params.optional_tab_title | default "" }}
