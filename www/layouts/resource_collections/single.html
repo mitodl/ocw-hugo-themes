@@ -25,22 +25,33 @@
       {{- $urlPath := index . 1 -}}
       {{- if not (isset $contentMap $urlPath) -}}
         {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $urlPath "/content_map.json") "" -}}
-        {{- $mapData := getJSON $url -}}
-        {{- $mapData = merge $mapData (dict "url_path" $urlPath) -}}
-        {{- $contentMap = dict $urlPath $mapData | merge $contentMap -}}
+          {{- with resources.GetRemote $url -}}
+            {{ if not .Err }}
+              {{- $mapData := . | unmarshal -}}
+              {{- $mapData = merge $mapData (dict "url_path" $urlPath) -}}
+              {{- $contentMap = dict $urlPath $mapData | merge $contentMap -}}
+            {{ end }}
+          {{ end }}
       {{- end -}}
       {{- if not (isset $courseJSONMap $urlPath) -}}
         {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $urlPath "/data.json") "" -}}
-        {{- $data := getJSON $url -}}
-        {{- $data = merge $data (dict "url_path" $urlPath) -}}
-        {{- $courseJSONMap = merge $courseJSONMap (dict $urlPath $data) -}}
+        {{- with resources.GetRemote $url -}}
+          {{ if not .Err }}
+            {{- $data := . | unmarshal -}}
+            {{- $data = merge $data (dict "url_path" $urlPath) -}}
+            {{- $courseJSONMap = merge $courseJSONMap (dict $urlPath $data) -}}
+          {{ end }}
+        {{ end }}
       {{- end -}}
       {{- $courseJSONRelpath := index (index $contentMap $urlPath) $itemUUID -}}
       {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) $courseJSONRelpath) "" -}}
-      {{- $resourceJSON := getJSON $url -}}
-      {{- $resourceJSON = merge $resourceJSON (dict "url_path" $urlPath) -}}
-      {{- $resourceJSONMap = dict $itemUUID $resourceJSON | merge $resourceJSONMap -}}
-      {{- $resourceURLMap = dict $itemUUID $url | merge $resourceURLMap -}}
+      {{- with resources.GetRemote $url -}}
+        {{ if not .Err }}
+          {{- $resourceJSON := . | unmarshal -}}
+          {{- $resourceJSONMap = dict $itemUUID $resourceJSON | merge $resourceJSONMap -}}
+          {{- $resourceURLMap = dict $itemUUID $url | merge $resourceURLMap -}}
+        {{ end }}
+      {{ end }}
     {{- end -}}
     {{- $resourceCollectionData := dict "courseJSONMap" $courseJSONMap "resourceJSONMap" $resourceJSONMap "resourceURLMap" $resourceURLMap "collection" $collection.Params.resources.content -}}
     window.resourceCollectionData = JSON.parse("{{- $resourceCollectionData | jsonify -}}");

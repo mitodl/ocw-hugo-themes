@@ -23,8 +23,12 @@
             {{ range $index, $courseItem := $courses }}
               {{- $urlPath := partial "site_root_url.html" $courseItem.id -}}
               {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) $urlPath "/data.json") "" -}}
-              {{- $courseData := getJSON $url -}}
-              {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $urlPath "numCourses" (len $courses))}}
+              {{ with resources.GetRemote $url }}
+                {{ if not .Err }}
+                  {{- $courseData := . | unmarshal -}}
+                  {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $urlPath "numCourses" (len $courses))}}
+                {{ end }}
+              {{ end }}
             {{ end }}
           </div>
         </div>

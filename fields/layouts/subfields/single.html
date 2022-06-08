@@ -11,12 +11,14 @@
   <script>
     {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocw.mit.edu"  -}}
     {{- $courseListData := (slice) -}}
-    {{- range $courselist.Params.courses -}}
-        {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" .id "/data.json") "" -}}
-        {{- $data := getJSON $url -}}
-        {{- $data = merge $data (dict "url_path" .id) -}}
-        {{- $courseListData = $courseListData | append (dict .id $data) -}}
-    {{- end -}}
+    {{ with $courselist.Params.courses }}
+      {{- range $courselist.Params.courses -}}
+          {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" .id "/data.json") "" -}}
+          {{- $data := resources.GetRemote $url | unmarshal -}}
+          {{- $data = merge $data (dict "url_path" .id) -}}
+          {{- $courseListData = $courseListData | append (dict .id $data) -}}
+      {{- end -}}
+    {{ end }}
     {{- $courseListsData := dict $courselist.Params.uid $courseListData -}}
     window.courseListsData = JSON.parse("{{ $courseListsData | jsonify }}");
   </script>
