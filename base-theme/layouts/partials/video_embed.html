@@ -12,15 +12,16 @@
 
 {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime) }}
 {{- range where $.Site.Pages "Params.uid" $uid -}}
-	<div class="video-buttons-container">
-    <div class='video-page-link'>
-      <a href="{{- .Permalink -}}">View Video Page</a>
-      <i class="material-icons video-page-link-icon">chevron_right</i>
+	
+<div class="video-buttons-container">
+    <div class='video-page-link-section' onclick="window.location='{{- .Permalink -}}';">
+      <div class="video-page-link">View video page</div>
+			<i class="material-icons video-page-link">chevron_right</i>
     </div>
    	{{ if  $downloadLink }}
-	  <div class="video-download-container">
-	    <a class="download-file video-download-button" href="{{ $downloadLink }}"><span class="material-icons">file_download</span> Download Video</a>
-	  </div>
-	{{end}}
+			<div class="video-download-container">
+				<a class="download-file video-download-button" href="{{ $downloadLink }}"><span class="material-icons">file_download</span> Download Video</a>
+			</div>
+		{{end}}
   </div>
 {{- end -}}

@@ -8,7 +8,7 @@
 {{$youtubeParams =  delimit (slice `, "youtube": { "end": ` .endTime `}`) "" }}
 {{end}}
 
-<div class="video-container">
+<div class="video-container embedded-video-container">
   <video
     id="video-player-{{ .youtubeKey }}-{{ $random }}"
     class="video-js vjs-default-skin vjs-big-play-centered vjs-ocw"
@@ -16,6 +16,7 @@
     data-setup='{
     "fluid": true,
     "techOrder": ["youtube"],
+    "inactivityTimeout": 0,
     "sources": [{"type": "video/youtube", "src": "https://www.youtube.com/embed/{{ .youtubeKey }}"}]
     {{$youtubeParams}} }'
   >
