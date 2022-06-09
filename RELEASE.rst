@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.61.0
+--------------
+
+- video player design update (#678)
+- compact search view (#730)
+
 Version 1.60.0 (Released June 09, 2022)
 --------------
 
