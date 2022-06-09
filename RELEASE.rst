@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.60.0 (Released June 09, 2022)
+--------------
+
+- Added setting button to control bar (#709)
+- fix: course list order maintained (#721)
+- resources layout moved to base theme from courses (#713)
+
 Version 1.59.0 (Released June 02, 2022)
 --------------
 
