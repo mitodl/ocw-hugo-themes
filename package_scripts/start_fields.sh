@@ -14,10 +14,10 @@ OCW_TEST_COURSE=${OCW_TEST_COURSE:-}
 
 # If the base URL variables aren't set, assign defaults
 if [[ -z "${STATIC_API_BASE_URL}" ]]; then
-  export STATIC_API_BASE_URL="https://ocw-live-qa.global.ssl.fastly.net/"
+  export STATIC_API_BASE_URL="https://live-qa.ocw.mit.edu/"
 fi
-if [[ -z "${STATIC_API_BASE_URL}" ]]; then
-  export RESOURCE_BASE_URL="https://ol-ocw-studio-app-qa.s3.amazonaws.com/"
+if [[ -z "${RESOURCE_BASE_URL}" ]]; then
+  export RESOURCE_BASE_URL="https://live-qa.ocw.mit.edu/"
 fi
 
 cd $FIELDS_CONTENT_PATH

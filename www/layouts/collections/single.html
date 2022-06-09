@@ -27,29 +27,30 @@
       </div>
     {{- end -}}
   </div>
-  
-  {{- $course_lists_data := dict -}}
-  {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocwnext.odl.mit.edu"  -}}
-  {{- range $collection.Params.courselists.content -}}
-    {{- $course_list := index (where $.Site.Pages ".Params.uid" .) 0 -}}
-    {{- $course_list_data := (slice) -}}
-    {{ with $course_list.Params.courses }}
-      {{- range (first 5 $course_list.Params.courses) -}}
-        {{- $id := .id -}}
-        {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $id "/data.json") "" -}}
-        {{ with resources.GetRemote $url }}
-          {{ with .Err }}
-            {{- $errorMessage := printf "Failed to fetch collections on %v via %v with error: %v" site.BaseURL $url .Err -}}
-            {{- partial "sentry_capture_message.html" $errorMessage -}}
+  <script>
+    {{- $course_lists_data := dict -}}
+    {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocw.mit.edu"  -}}
+    {{- range $collection.Params.courselists.content -}}
+      {{- $course_list := index (where $.Site.Pages ".Params.uid" .) 0 -}}
+      {{- $course_list_data := (slice) -}}
+      {{ with $course_list.Params.courses }}
+        {{- range (first 5 $course_list.Params.courses) -}}
+          {{- $id := .id -}}
+          {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $id "/data.json") "" -}}
+          {{ with resources.GetRemote $url }}
+            {{ with .Err }}
+              {{- $errorMessage := printf "Failed to fetch collections on %v via %v with error: %v" site.BaseURL $url .Err -}}
+              {{- partial "sentry_capture_message.html" $errorMessage -}}
+            {{ else }}
+              {{- $data := . | unmarshal -}}
+              {{- $data = merge $data (dict "url_path" $id) -}}
+              {{- $course_list_data = $course_list_data | append (dict $id $data) -}}
+            {{ end }}
           {{ else }}
-            {{- $data := . | unmarshal -}}
-            {{- $data = merge $data (dict "url_path" $id) -}}
-            {{- $course_list_data = $course_list_data | append (dict $id $data) -}}
+            {{ $errorMessage := printf "Failed to fetch collections through %v on %v" $url site.BaseURL }}
+            {{ partial "sentry_capture_message.html" $errorMessage }}
           {{ end }}
-        {{ else }}
-          {{ $errorMessage := printf "Failed to fetch collections through %v on %v" $url site.BaseURL }}
-          {{ partial "sentry_capture_message.html" $errorMessage }}
-        {{ end }}
+        {{- end -}}
       {{- end -}}
     {{ end }}
     {{- $course_lists_data = merge $course_lists_data (dict $course_list.Params.uid $course_list_data) -}}

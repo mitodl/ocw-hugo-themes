@@ -18,6 +18,12 @@ fi
 if [[ -z "${OCW_STUDIO_BASE_URL}" ]]; then
   export OCW_STUDIO_BASE_URL="http://ocw-studio-rc.odl.mit.edu/"
 fi
+if [[ -z "${STATIC_API_BASE_URL}" ]]; then
+  export STATIC_API_BASE_URL="https://live-qa.ocw.mit.edu/"
+fi
+if [[ -z "${RESOURCE_BASE_URL}" ]]; then
+  export RESOURCE_BASE_URL="https://live-qa.ocw.mit.edu/"
+fi
 if [[ -z "${WWW_HUGO_CONFIG_PATH}" ]]; then
   # Path to Hugo config not set, fetch default from Github
   clone_or_pull_repo git@github.com:mitodl/ocw-hugo-projects.git private/ocw-hugo-projects
