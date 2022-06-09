@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.60.0
+Version 1.60.0 (Released June 09, 2022)
 --------------
 
 - Added setting button to control bar (#709)
