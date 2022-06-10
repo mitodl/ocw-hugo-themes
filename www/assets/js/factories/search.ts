@@ -91,7 +91,13 @@ export const makeRun = (): CourseRun => {
     language: casual.random_element(["en-US", "fr", null]),
     semester: casual.random_element(["Fall", "Spring", null]),
     year: casual.year,
-    level: casual.random_element(["Graduate", "Undergraduate", null]),
+    level: casual.random_element([
+      ["Graduate"],
+      ["Undergraduate"],
+      ["Graduate", "Undergraduate"],
+      [],
+      null
+    ]),
     start_date: casual.date(DATE_FORMAT),
     end_date: casual.date(DATE_FORMAT),
     best_start_date: casual.date(DATE_FORMAT),
@@ -159,7 +165,13 @@ export const makeCourseJSON = (): CourseJSON => ({
     [casual.word, casual.word],
     [casual.word, casual.word]
   ],
-  level: casual.random_element(["Graduate", "Undergraduate", null]),
+  level: casual.random_element([
+    ["Graduate"],
+    ["Undergraduate"],
+    ["Graduate", "Undergraduate"],
+    [],
+    null
+  ]),
   instructors: [...Array(4)].map(() => {
     let first_name = casual.first_name
     let last_name = casual.last_name

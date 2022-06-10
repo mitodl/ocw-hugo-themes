@@ -78,7 +78,7 @@ export interface CourseJSON {
   extra_course_numbers: string
   term: string
   year: string
-  level: Level
+  level: Level[] | null
   image_src: string
   course_image_metadata: CourseImageMetadata
 }
@@ -116,7 +116,7 @@ interface CourseRunPrice {
   price: number
 }
 
-export type Level = "Graduate" | "Undergraduate" | null
+export type Level = "Graduate" | "Undergraduate" | "Non Credit"
 
 export interface CourseRun {
   run_id: string
@@ -127,7 +127,7 @@ export interface CourseRun {
   language: "es-US" | "fr" | null
   semester: "Fall" | "Spring" | null
   year: number
-  level: Level
+  level: Level[] | null
   start_date: string
   end_date: string
   best_start_date: string
@@ -256,7 +256,7 @@ export interface LearningResource {
   platform: string | null
   topics: Topic[]
   runs: CourseRun[]
-  level: "Graduate" | "Undergraduate" | null
+  level: Level[] | null
   instructors: string[]
   department: string | undefined
   audience: Audience | undefined

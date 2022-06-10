@@ -5,6 +5,9 @@
 {{/* safe guard from nil values  */}}
   {{ with .}}
     {{- $numLevels := len . -}}
+    {{- if gt $numLevels 0}}
+      <span> | </span>
+    {{- end -}}
     {{- range $index, $level := . -}}
       {{- $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $level) -}}
       <a href="{{ $levelSearchUrl }}">{{ $level }}</a>
