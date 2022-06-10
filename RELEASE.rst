@@ -1,6 +1,17 @@
 Release Notes
 =============
 
+Version 1.60.1
+--------------
+
+- hide layout buttons (#742)
+- updated 404 page (#716)
+- fixed formatting (#722)
+- use new search metadata fields (#726)
+- Fix video transcripts RESOURCE_BASE_URL (#735)
+- video player design update (#678)
+- compact search view (#730)
+
 Version 1.60.0 (Released June 09, 2022)
 --------------
 
