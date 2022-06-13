@@ -2,7 +2,10 @@
 {{ $studioBaseUrl := getenv "OCW_STUDIO_BASE_URL" }}
 {{ if $studioBaseUrl }}
   {{ with resources.GetRemote (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/news/") }}
-    {{ if not .Err }}
+    {{ with .Err }}
+      {{ $errorMessage := printf "OCW News on %v failed to fetch %v with error: %v" site.BaseURL $url .Err }}
+      {{ partial "sentry_capture_message.html" $errorMessage }}
+    {{ else }}
       {{ $items := (. | unmarshal).items }}
       {{ if $items }}
         {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none")) }}

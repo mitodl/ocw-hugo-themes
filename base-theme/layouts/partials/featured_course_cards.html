@@ -24,7 +24,10 @@
               {{- $urlPath := partial "site_root_url.html" $courseItem.id -}}
               {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) $urlPath "/data.json") "" -}}
               {{ with resources.GetRemote $url }}
-                {{ if not .Err }}
+                {{ with .Err }}
+                  {{ $errorMessage := printf "Featured courses carousel on %v failed to fetch %v with error: %v" site.BaseURL $url .Err }}
+                  {{ partial "sentry_capture_message.html" $errorMessage }}
+                {{ else }}
                   {{- $courseData := . | unmarshal -}}
                   {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $urlPath "numCourses" (len $courses))}}
                 {{ end }}
