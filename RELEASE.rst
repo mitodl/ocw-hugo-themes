@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.60.1
+Version 1.60.1 (Released June 13, 2022)
 --------------
 
 - hide layout buttons (#742)
