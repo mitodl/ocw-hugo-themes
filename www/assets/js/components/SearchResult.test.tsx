@@ -142,7 +142,9 @@ describe("SearchResult component with compact view", () => {
       .props()
     expect(href).toBe(object.url)
     expect(wrapper.find(".course-num").text()).toBe(object.coursenum)
-    expect(wrapper.find(".resource-level").text()).toBe(object.level || "")
+    expect(wrapper.find(".resource-level").text()).toBe(
+      object.level ? object.level.join(", ") : ""
+    )
   })
 
   it("should render the things we expect for a resource", () => {

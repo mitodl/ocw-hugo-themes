@@ -178,7 +178,9 @@ export function LearningResourceDisplay(props: SRProps) {
         <div className="lr-info search-result has-min-height">
           <div className="lr-row resource-header">
             <div className="resource-type">
-              {`${object.coursenum}${object.level ? " | " : ""}${object.level}`}
+              {`${object.coursenum}${
+                object.level ? " | ".concat("", object.level.join(", ")) : ""
+              }`}
             </div>
           </div>
           <div className="lr-row course-title">
@@ -270,7 +272,9 @@ export function CompactLearningResourceDisplay(props: SRProps) {
               <span>{object.title}</span>
             )}
           </div>
-          <div className="col-2 resource-level">{object.level}</div>
+          <div className="col-2 resource-level">
+            {object.level ? `${object.level.join(", ")}` : ""}
+          </div>
         </div>
       </Card>
     )
