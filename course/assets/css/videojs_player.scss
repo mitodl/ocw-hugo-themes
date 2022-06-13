@@ -76,6 +76,10 @@ $slider-color: $pink;
     font-size: 1.4em;
     padding-left: 0.3em;
     padding-right: 0.3em;
+
+    @include media-breakpoint-down(xs) {
+      display: none !important;
+    }
   }
 
   .vjs-duration,
@@ -132,13 +136,28 @@ $slider-color: $pink;
       width: 15em;
     }
   }
-  .right {
+  .playback-button-position {
     position: absolute;
-    right: 1px;
+    right: -1rem;
 
     .vjs-menu-content {
       right: 100px;
       margin: 10px;
+      box-shadow: 5px 5px 10px;
+    }
+  }
+
+  .download-button-position {
+    position: absolute;
+    right: 8rem;
+
+    .vjs-menu-content {
+      box-shadow: 5px 5px 10px;
+      margin: 10px;
+
+      li {
+        text-transform: capitalize;
+      }
     }
   }
 }

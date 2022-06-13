@@ -10,6 +10,10 @@
 {{ $downloadLink =  partial "resource_url" $downloadLink  }}
 {{ end }}
 
+<script>
+	window.videoDownloadLink = "{{ $downloadLink }}"
+</script>
+
 {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime) }}
 {{- range where $.Site.Pages "Params.uid" $uid -}}
 	

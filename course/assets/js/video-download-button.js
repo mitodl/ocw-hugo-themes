@@ -26,6 +26,7 @@ function _createDownloadbutton() {
       MenuButton.call(this, player, options)
       this.$("button").classList.add("vjs-download-button")
       this.el().setAttribute("aria-label", "download button")
+      this.el().classList.add("download-button-position")
       this.controlText("download button")
     },
     createItems: function() {
