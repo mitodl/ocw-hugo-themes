@@ -26,7 +26,7 @@
   }
 
   .search-box-description {
-    font-size: $font-md;
+    font-size: $font-lg;
     font-weight: lighter;
     letter-spacing: 0.8px;
     color: rgb(163, 31, 52);
@@ -36,7 +36,7 @@
   }
 
   .search-box-inner {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
   }
 
   .search-page .search-box-inner h1 {
@@ -89,7 +89,10 @@
 
   .search-page {
     .container {
-      max-width: $max-content-width;
+      max-width: 100%;
+      .search-box {
+        border-bottom: 1px solid #d2d2d2;
+      }
     }
 
     a {
@@ -256,8 +259,15 @@
     }
   }
 
+  .search-results-area.col-12.col-lg-8 {
+    /* update this the appropriate col class or equiv to 75% */
+    width: 75%;
+    max-width: 75%;
+    flex: 0 0 75%;
+  }
+
   .facet-display-wrapper {
-    border-top: 1px solid #d2d2d2;
+    border-top: none;
   }
 }
 

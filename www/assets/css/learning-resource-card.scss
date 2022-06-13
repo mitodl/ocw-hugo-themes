@@ -435,6 +435,10 @@
   }
 
   .course-title {
+    font-weight: 700;
+    a:hover {
+      text-decoration: underline;
+    }
     @include breakpoint(desktop) {
       width: 45%;
     }
