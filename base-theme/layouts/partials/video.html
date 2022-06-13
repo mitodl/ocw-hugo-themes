@@ -14,17 +14,11 @@
 {{ $downloadLink =  partial "resource_url" $downloadLink  }}
 {{ end }}
 
-<script>
-	window.videoDownloadLink = "{{ $downloadLink }}"
-	window.transcriptDownloadLink = "{{ $transcriptPdfLocation }}"
-</script>
-
-
 <div class="video-page">
   <div class="description">
     {{ .Content }}
   </div>
-  {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime)}}
+  {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation)}}
 	<!-- [start] transcript toggleable section -->
 	{{ if $captionsLocation }}
 		<div class="bg-dark-gray white-color">

@@ -9,7 +9,7 @@ function _createDownloadMenuItems() {
       MenuItems.call(this, player, options)
     },
     handleClick: function() {
-      this.options_.callable()
+      window.open(this.options_.link, "_black").focus()
     }
   })
   MenuItems.registerComponent("DownloadMenuItems", DownloadMenuItems)
@@ -32,11 +32,11 @@ function _createDownloadbutton() {
     createItems: function() {
       const menuItems = []
       const DownloadMenuItems = videojs.getComponent("DownloadMenuItems")
-      this.values.map(item => {
+      this.values.filter((item) => item[1]).map(item => {
         menuItems.push(
           new DownloadMenuItems(this.player_, {
             label:    item[0],
-            callable: item[1]
+            link: item[1]
           })
         )
       })
@@ -56,18 +56,16 @@ export function initDownloadButton() {
     const videoPlayers = document.querySelectorAll(".vjs-ocw")
     for (const videoPlayer of Array.from(videoPlayers)) {
       const player = videojs(videoPlayer.id)
+      const videoDownloadLink = videoPlayer.getAttribute("data-downloadlink") ?? false
+      const transcriptDownloadLink = videoPlayer.getAttribute("data-transcriptLink") ?? false
       const options = [
         [
           "Download video",
-          () => {
-            window.open(window.videoDownloadLink, "_black").focus()
-          }
+          videoDownloadLink
         ],
         [
           "Download transcript",
-          () => {
-            window.open(window.transcriptDownloadLink, "_black").focus()
-          }
+          transcriptDownloadLink
         ]
       ]
       player.ready(() => {

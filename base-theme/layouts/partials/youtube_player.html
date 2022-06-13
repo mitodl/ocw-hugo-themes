@@ -13,6 +13,8 @@
     id="video-player-{{ .youtubeKey }}-{{ $random }}"
     class="video-js vjs-default-skin vjs-big-play-centered vjs-ocw"
     controls
+    data-downloadlink = "{{ .downloadLink }}"
+    data-transcriptlink = "{{ .transcriptLink }}" 
     data-setup='{
     "fluid": true,
     "techOrder": ["youtube"],
