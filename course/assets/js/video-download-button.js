@@ -32,14 +32,16 @@ function _createDownloadbutton() {
     createItems: function() {
       const menuItems = []
       const DownloadMenuItems = videojs.getComponent("DownloadMenuItems")
-      this.values.filter((item) => item[1]).map(item => {
-        menuItems.push(
-          new DownloadMenuItems(this.player_, {
-            label:    item[0],
-            link: item[1]
-          })
-        )
-      })
+      this.values
+        .filter(item => item[1])
+        .map(item => {
+          menuItems.push(
+            new DownloadMenuItems(this.player_, {
+              label: item[0],
+              link:  item[1]
+            })
+          )
+        })
       return menuItems
     }
   })
@@ -56,17 +58,13 @@ export function initDownloadButton() {
     const videoPlayers = document.querySelectorAll(".vjs-ocw")
     for (const videoPlayer of Array.from(videoPlayers)) {
       const player = videojs(videoPlayer.id)
-      const videoDownloadLink = videoPlayer.getAttribute("data-downloadlink") ?? false
-      const transcriptDownloadLink = videoPlayer.getAttribute("data-transcriptLink") ?? false
+      const videoDownloadLink =
+        videoPlayer.getAttribute("data-downloadlink") ?? false
+      const transcriptDownloadLink =
+        videoPlayer.getAttribute("data-transcriptLink") ?? false
       const options = [
-        [
-          "Download video",
-          videoDownloadLink
-        ],
-        [
-          "Download transcript",
-          transcriptDownloadLink
-        ]
+        ["Download video", videoDownloadLink],
+        ["Download transcript", transcriptDownloadLink]
       ]
       player.ready(() => {
         const downloadButton = new DownloadMenuButton(player, {
