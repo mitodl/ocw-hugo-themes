@@ -36,10 +36,18 @@
       {{- $subfield_data := (slice) -}}
       {{ with $subfield.Params.courses }}
         {{- range (first 5 $subfield.Params.courses) -}}
-            {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" .id "/data.json") "" -}}
-            {{- $data := resources.GetRemote $url | unmarshal -}}
-            {{- $data = merge $data (dict "url_path" .id) -}}
-            {{- $subfield_data = $subfield_data | append (dict .id $data) -}}
+            {{- $id := .id -}}
+            {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $id "/data.json") "" -}}
+            {{ with resources.GetRemote $url }}
+              {{ with .Err }}
+                {{- $errorMessage := printf "Failed to fetch sub fields on %v via %v with error: %v" site.BaseURL $url .Err -}}
+                {{- partial "sentry_capture_message.html" $errorMessage -}}
+              {{ else }}
+                {{- $data := . | unmarshal -}}
+                {{- $data = merge $data (dict "url_path" $id) -}}
+                {{- $subfield_data = $subfield_data | append (dict $id $data) -}}
+              {{ end }}
+            {{ end }}
         {{- end -}}
       {{ end }}
       {{- $subfields_data = merge $subfields_data (dict $subfield.Params.uid $subfield_data) -}}

@@ -1,7 +1,8 @@
 {{ $instructors := slice }}
 {{ range . }}
   {{ $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" }}
-  {{ with resources.GetRemote (print (strings.TrimSuffix "/" $staticApiBaseUrl) "/instructors/" . "/index.json") }}
+  {{ $url := (print (strings.TrimSuffix "/" $staticApiBaseUrl) "/instructors/" . "/index.json") }}
+  {{ with resources.GetRemote $url }}
     {{ with .Err }}
       {{ $errorMessage := printf "Something went wrong while fetching instructors on %v via %v with error: %v" site.BaseURL $url .Err }}
       {{ partial "sentry_capture_message.html" $errorMessage }}

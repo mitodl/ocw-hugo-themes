@@ -1,7 +1,8 @@
 <div class="ocw-news standard-width container mx-auto">
 {{ $studioBaseUrl := getenv "OCW_STUDIO_BASE_URL" }}
 {{ if $studioBaseUrl }}
-  {{ with resources.GetRemote (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/news/") }}
+  {{- $url := (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/news/") -}}
+  {{ with resources.GetRemote $url }}
     {{ with .Err }}
       {{ $errorMessage := printf "OCW News on %v failed to fetch %v with error: %v" site.BaseURL $url .Err }}
       {{ partial "sentry_capture_message.html" $errorMessage }}
@@ -67,7 +68,7 @@
       {{ end }}
     {{ end }}
   {{ else }}
-  Error fetching news items
+    Error fetching news items
   {{ end }}
 {{ else }}
 OCW Studio URL not configured

@@ -35,10 +35,18 @@
       {{- $course_list_data := (slice) -}}
       {{ with $course_list.Params.courses }}
         {{- range (first 5 $course_list.Params.courses) -}}
-          {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" .id "/data.json") "" -}}
-          {{- $data := resources.GetRemote $url | unmarshal -}}
-          {{- $data = merge $data (dict "url_path" .id) -}}
-          {{- $course_list_data = $course_list_data | append (dict .id $data) -}}
+          {{- $id := .id -}}
+          {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $id "/data.json") "" -}}
+          {{ with resources.GetRemote $url }}
+            {{ with .Err }}
+              {{- $errorMessage := printf "Failed to fetch collections on %v via %v with error: %v" site.BaseURL $url .Err -}}
+              {{- partial "sentry_capture_message.html" $errorMessage -}}
+            {{ else }}
+              {{- $data := . | unmarshal -}}
+              {{- $data = merge $data (dict "url_path" $id) -}}
+              {{- $course_list_data = $course_list_data | append (dict $id $data) -}}
+            {{ end }}
+          {{ end }}
         {{- end -}}
       {{ end }}
       {{- $course_lists_data = merge $course_lists_data (dict $course_list.Params.uid $course_list_data) -}}
