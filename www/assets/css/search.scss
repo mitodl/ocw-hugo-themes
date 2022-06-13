@@ -30,9 +30,14 @@
     font-weight: lighter;
     letter-spacing: 0.8px;
     color: rgb(163, 31, 52);
+    text-align: center;
     @include breakpoint(phone) {
       font-size: $font-md;
     }
+  }
+
+  .search-box-description-wrapper {
+    text-align: center;
   }
 
   .search-box-inner {
@@ -91,7 +96,9 @@
     .container {
       max-width: 100%;
       .search-box {
-        border-bottom: 1px solid #d2d2d2;
+        @include breakpoint(desktop) {
+          border-bottom: 1px solid #d2d2d2;
+        }
       }
     }
 

@@ -196,7 +196,7 @@ export default function SearchPage() {
           <div className="col-lg-3" />
           <div className="col-lg-6 search-box-inner d-flex flex-column align-items-center mb-2 mb-sm-5 mb-md-4">
             <h1>Explore OpenCourseWare</h1>
-            <div>
+            <div className="search-box-description-wrapper">
               <span className="align-item-center search-box-description">
                 Search for courses, materials & teaching resources
               </span>
