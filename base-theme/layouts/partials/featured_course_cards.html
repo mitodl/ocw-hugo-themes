@@ -31,6 +31,9 @@
                   {{- $courseData := . | unmarshal -}}
                   {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $urlPath "numCourses" (len $courses))}}
                 {{ end }}
+              {{ else }}
+                {{ $errorMessage := printf "Failed to fetch featured courses through %v on %v" $url site.BaseURL }}
+                {{ partial "sentry_capture_message.html" $errorMessage }}
               {{ end }}
             {{ end }}
           </div>

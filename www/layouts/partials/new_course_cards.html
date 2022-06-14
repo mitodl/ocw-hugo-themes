@@ -4,7 +4,8 @@
 {{ $courseStarterSlug := getenv "OCW_IMPORT_STARTER_SLUG" }}
 {{ $typeQuery := querify "type" $courseStarterSlug }}
 {{ if and $studioBaseUrl $courseStarterSlug }}
-{{  with resources.GetRemote (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/websites/?" $typeQuery)  }}
+{{ $coursesURL := (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/websites/?" $typeQuery) }}
+{{ with resources.GetRemote $coursesURL }}
   {{ if not .Err }}
     {{ $results := (. | unmarshal).results }}
     {{ if $results }}
@@ -34,6 +35,9 @@
                       {{- $courseData := . | unmarshal -}}
                       {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $courseItem.url_path "numCourses" (len $resultsSlice))}}
                     {{ end }}
+                  {{ else }}
+                    {{ $errorMessage := printf "Failed to fetch new course card through %v on %v" $url site.BaseURL }}
+                    {{ partial "sentry_capture_message.html" $errorMessage }}
                   {{ end }}
                 {{- end -}}
               {{ end }}
@@ -45,9 +49,10 @@
     No new courses found
     {{ end }}
   {{ end }}
-{{  else  }}
-Error fetching new courses
-{{  end  }}
+{{ else }}
+  {{ $errorMessage := printf "Failed to fetch new courses through %v on %v" $coursesURL site.BaseURL }}
+  {{ partial "sentry_capture_message.html" $errorMessage }}
+{{ end }}
 {{ else }}
 OCW Studio URL not configured
 {{  end  }}

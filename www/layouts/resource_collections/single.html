@@ -34,6 +34,9 @@
               {{- $mapData = merge $mapData (dict "url_path" $urlPath) -}}
               {{- $contentMap = dict $urlPath $mapData | merge $contentMap -}}
             {{ end }}
+          {{ else }}
+            {{ $errorMessage := printf "Failed to fetch resource collections through %v on %v" $url site.BaseURL }}
+            {{ partial "sentry_capture_message.html" $errorMessage }}
           {{ end }}
       {{- end -}}
       {{- if not (isset $courseJSONMap $urlPath) -}}
@@ -47,6 +50,9 @@
             {{- $data = merge $data (dict "url_path" $urlPath) -}}
             {{- $courseJSONMap = merge $courseJSONMap (dict $urlPath $data) -}}
           {{ end }}
+        {{ else }}
+          {{ $errorMessage := printf "Failed to fetch resource collections through %v on %v" $url site.BaseURL }}
+          {{ partial "sentry_capture_message.html" $errorMessage }}
         {{ end }}
       {{- end -}}
       {{- $courseJSONRelpath := index (index $contentMap $urlPath) $itemUUID -}}
@@ -60,6 +66,9 @@
           {{- $resourceJSONMap = dict $itemUUID $resourceJSON | merge $resourceJSONMap -}}
           {{- $resourceURLMap = dict $itemUUID $url | merge $resourceURLMap -}}
         {{ end }}
+      {{ else }}
+        {{ $errorMessage := printf "Failed to fetch resource collections through %v on %v" $url site.BaseURL }}
+        {{ partial "sentry_capture_message.html" $errorMessage }}
       {{ end }}
     {{- end -}}
     {{- $resourceCollectionData := dict "courseJSONMap" $courseJSONMap "resourceJSONMap" $resourceJSONMap "resourceURLMap" $resourceURLMap "collection" $collection.Params.resources.content -}}

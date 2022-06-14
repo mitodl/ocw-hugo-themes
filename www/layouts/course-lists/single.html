@@ -24,6 +24,9 @@
               {{- $data = merge $data (dict "url_path" $id) -}}
               {{- $courseListData = $courseListData | append (dict $id $data) -}}
             {{ end }}
+          {{ else }}
+            {{ $errorMessage := printf "Failed to fetch course list through %v on %v" $url site.BaseURL }}
+            {{ partial "sentry_capture_message.html" $errorMessage }}
           {{ end }}
       {{- end -}}
     {{ end }}

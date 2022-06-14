@@ -68,7 +68,8 @@
       {{ end }}
     {{ end }}
   {{ else }}
-    Error fetching news items
+    {{ $errorMessage := printf "Failed to fetch news items through %v on %v" $url site.BaseURL }}
+    {{ partial "sentry_capture_message.html" $errorMessage }}
   {{ end }}
 {{ else }}
 OCW Studio URL not configured
