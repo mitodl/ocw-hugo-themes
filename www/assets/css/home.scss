@@ -315,15 +315,15 @@ $searchbox-height: 50px;
       font-size: $font-xs;
 
       .course-card-title {
-        @include line-clamp(1.5rem, 3, .25rem);
+        @include line-clamp(1.5rem, 3, 0.25rem);
       }
 
       .course-card-instructors {
-        @include line-clamp(1.125rem, 2, .25rem);
+        @include line-clamp(1.125rem, 2, 0.25rem);
       }
 
       .course-card-topics {
-        @include line-clamp(1.125rem, 2, .5rem);
+        @include line-clamp(1.125rem, 2, 0.5rem);
       }
 
       .card-label {
