@@ -1,0 +1,61 @@
+{{ define "main" }}
+{{- $numberOfResourcesLimit := 10 -}}
+{{ partial "course_content.html" . }}
+
+<div class="mb-5">
+  {{ range  .Pages.GroupByParam "resourcetype"  }}
+    <div>
+      <h4 class="my-4">{{ .Key }}</h4>  
+    </div>
+
+    {{- $thumbnailSrc := partial "get_resource_thumbnail_src" (dict "resourceType" .Key) -}}
+    {{ $numberOfResources := (len .Pages) }}
+    {{ $limitedResourcesShown := false }}
+    
+    {{ if gt $numberOfResources $numberOfResourcesLimit }}
+      {{ $numberOfResources = $numberOfResourcesLimit }}
+      {{ $limitedResourcesShown = true }}
+    {{ end }}
+
+    {{ range (first $numberOfResources .Pages) }}
+        <div class="container">
+          <div class="row">
+            <div>
+              <img
+                class="resource-thumbnail"
+                src="{{- $thumbnailSrc -}}"
+              />
+              <a href="{{ partial "resource_url" .Params.file }}" target="_blank">
+                <img
+                  class="resource-download"
+                  id="temp"
+                  src="/images/download.svg"
+                />
+              </a>
+            </div>
+            <div>
+              <div class="pt-2 pl-2">
+              <a class="text-decoration-none" href="/resources/myers_shtl_orign">
+                {{ .Params.title }}
+              </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <hr>
+    {{ end }}
+    {{ if eq $limitedResourcesShown true }}
+      <div>
+        <div class="float-right">
+          <a class="text-decoration-none font-weight-bold" href="#">
+            <span>See all</span>
+            <i class="material-icons see-all-resources-icon">arrow_forward</i>
+        </a>
+        </div>
+      </div>
+    {{ end }}
+    <br>
+  {{ end }}
+</div>
+
+{{ end }}
