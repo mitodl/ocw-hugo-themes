@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.61.0 (Released June 15, 2022)
+--------------
+
+- fix resource filter (#747)
+- Removes alt text (#727)
+
 Version 1.60.1 (Released June 13, 2022)
 --------------
 
