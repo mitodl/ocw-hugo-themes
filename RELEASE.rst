@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.61.0
+Version 1.61.0 (Released June 15, 2022)
 --------------
 
 - fix resource filter (#747)
