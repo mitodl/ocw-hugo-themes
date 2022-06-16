@@ -5,7 +5,7 @@
   <div class="max-content-width m-auto px-5 py-6">
     {{- $courseData := .Site.Data.course -}}
     {{- $courseHomePage := .Site.GetPage "/" -}}
-    {{- $url := $courseHomePage.URL -}}
+    {{- $url := $courseHomePage.RelPermalink -}}
     {{- if site.Params.offline -}}
       {{- $url = printf "%sindex.html" $pathToRoot -}}
     {{- end -}}
