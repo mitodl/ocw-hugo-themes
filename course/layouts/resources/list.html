@@ -2,25 +2,28 @@
 {{- $numberOfResourcesLimit := 10 -}}
 {{ partial "course_content.html" . }}
 
+{{ $taxonomy := "learning_resource_types" }}
+
 <div class="mb-5">
-  {{ range  .Pages.GroupByParam "resourcetype"  }}
-    <div>
-      <h4 class="my-4">{{ .Key }}</h4>  
-    </div>
+  {{ with ($.Site.GetPage (printf "/%s" $taxonomy)) }}
+    {{ range .Pages }}
+      <div>
+        <h4 class="my-4">{{ .Title }}</h4>  
+      </div>
 
-    {{- $thumbnailSrc := partial "get_resource_thumbnail_src" (dict "resourceType" .Key) -}}
-    {{ $numberOfResources := (len .Pages) }}
-    {{ $limitedResourcesShown := false }}
-    
-    {{ if gt $numberOfResources $numberOfResourcesLimit }}
-      {{ $numberOfResources = $numberOfResourcesLimit }}
-      {{ $limitedResourcesShown = true }}
-    {{ end }}
+      {{ $numberOfResources := (len .Pages) }}
+      {{ $limitedResourcesShown := false }}
 
-    {{ range (first $numberOfResources .Pages) }}
+      {{ if gt $numberOfResources $numberOfResourcesLimit }}
+        {{ $numberOfResources = $numberOfResourcesLimit }}
+        {{ $limitedResourcesShown = true }}
+      {{ end }}
+
+      {{ range (first $numberOfResources .Pages) }}
         <div class="container">
           <div class="row">
             <div>
+              {{- $thumbnailSrc := partial "get_resource_thumbnail_src" (dict "resourceType" .Params.resourcetype) -}}
               <img
                 class="resource-thumbnail"
                 src="{{- $thumbnailSrc -}}"
@@ -42,19 +45,20 @@
             </div>
           </div>
         </div>
-      <hr>
-    {{ end }}
-    {{ if eq $limitedResourcesShown true }}
-      <div>
-        <div class="float-right">
-          <a class="text-decoration-none font-weight-bold" href="#">
-            <span>See all</span>
-            <i class="material-icons see-all-resources-icon">arrow_forward</i>
-          </a>
+        <hr>
+      {{ end }}
+      {{ if eq $limitedResourcesShown true }}
+        <div>
+          <div class="float-right">
+            <a class="text-decoration-none font-weight-bold" href="{{ .Permalink }}">
+              <span>See all</span>
+              <i class="material-icons see-all-resources-icon">arrow_forward</i>
+            </a>
+          </div>
         </div>
-      </div>
+      {{ end }}
+      <br>
     {{ end }}
-    <br>
   {{ end }}
 </div>
 
