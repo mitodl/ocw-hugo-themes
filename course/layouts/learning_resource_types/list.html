@@ -1,0 +1,10 @@
+{{ define "main" }}
+{{ partial "course_content.html" . }}
+
+<div class="mb-5">
+  {{ range sort .Pages .Params "title" }}
+    {{- partial "resource_list_item" (dict "params" .Params "permalink" .Permalink) -}}
+    <hr>
+  {{ end }}
+</div>
+{{ end }}

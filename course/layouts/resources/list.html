@@ -1,7 +1,7 @@
 {{ define "main" }}
-{{- $numberOfResourcesLimit := 10 -}}
 {{ partial "course_content.html" . }}
 
+{{- $numberOfResourcesLimit := 10 -}}
 {{ $taxonomy := "learning_resource_types" }}
 
 <div class="mb-5">
@@ -20,40 +20,13 @@
       {{ end }}
 
       {{ range sort (first $numberOfResources .Pages) .Params "title" }}
-        <div class="container">
-          <div class="row">
-            <div>
-              {{- $thumbnailSrc := partial "get_resource_thumbnail_src" (dict "resourceType" .Params.resourcetype) -}}
-              <img
-                class="resource-thumbnail"
-                src="{{- $thumbnailSrc -}}"
-              />
-              {{- $downloadableLink := partial "get_resource_download_link" .Params -}}
-              <a href="{{- $downloadableLink -}}" target="_blank" download>
-                <img
-                  class="resource-download"
-                  src="/images/download.svg"
-                />
-              </a>
-            </div>
-            <div>
-              <div class="pt-2 pl-2">
-              <a class="text-decoration-none" href="{{ .Permalink }}">
-                {{ .Params.title }}
-              </a>
-              </div>
-            </div>
-          </div>
-        </div>
+        {{- partial "resource_list_item" (dict "params" .Params "permalink" .Permalink) -}}
         <hr>
       {{ end }}
       {{ if eq $limitedResourcesShown true }}
         <div>
           <div class="float-right">
-            <a class="text-decoration-none font-weight-bold" href="{{ .Permalink }}">
-              <span>See all</span>
-              <i class="material-icons see-all-resources-icon">arrow_forward</i>
-            </a>
+            {{- partial "see_all" (dict "permalink" .Permalink) -}}
           </div>
         </div>
       {{ end }}

@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div>
+      {{- $thumbnailSrc := partial "get_resource_thumbnail_src" (dict "resourceType" .params.resourcetype) -}}
+      <img
+        class="resource-thumbnail"
+        src="{{- $thumbnailSrc -}}"
+      />
+      {{- $downloadableLink := partial "get_resource_download_link" .params -}}
+      <a class="pr-2" href="{{- $downloadableLink -}}" target="_blank" download>
+        <img
+          class="resource-download"
+          src="/images/download.svg"
+        />
+      </a>
+    </div>
+    <div>
+      <div class="pt-2">
+      <a class="text-decoration-none" href="{{ .permalink }}">
+        {{ .params.title }}
+      </a>
+      </div>
+    </div>
+  </div>
+</div>
