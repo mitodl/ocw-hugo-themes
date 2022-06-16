@@ -1,8 +1,12 @@
 {{ define "seo" }}
   <!-- default value for the meta description -->
-  {{- $defaultMetadataDescription := "MIT OpenCourseWare is a web-based publication of virtually all MIT course content. OCW is open and available to the world and is a permanent MIT activity" -}}
-  
-  {{- $metaDataDescription := .Params.description | default $defaultMetadataDescription -}}
+  {{- $defaultMetadataDescription := "MIT OpenCourseWare is a web based publication of virtually all MIT course content. OCW is open and available to the world and is a permanent MIT activity" -}}
+  {{- $metaDataDescription := $defaultMetadataDescription -}}
+  {{- if .IsHome -}}
+  {{- $metaDataDescription = (.Site.Data.course.course_description | plainify) | default $defaultMetadataDescription -}}
+  {{- else -}}
+  {{- $metaDataDescription = (.Params.description | plainify) | default $defaultMetadataDescription -}}
+  {{- end -}}
 
   <meta name="description" content="{{- $metaDataDescription -}}">
   <meta name="keywords" content="opencourseware,MIT OCW,courseware,MIT opencourseware,Free Courses,class notes,class syllabus,class materials,tutorials,online courses,MIT courses">
