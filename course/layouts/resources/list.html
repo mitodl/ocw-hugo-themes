@@ -25,17 +25,17 @@
                 class="resource-thumbnail"
                 src="{{- $thumbnailSrc -}}"
               />
-              <a href="{{ partial "resource_url" .Params.file }}" target="_blank">
+              {{- $downloadableLink := partial "get_resource_download_link" .Params -}}
+              <a href="{{- $downloadableLink -}}" target="_blank" download>
                 <img
                   class="resource-download"
-                  id="temp"
                   src="/images/download.svg"
                 />
               </a>
             </div>
             <div>
               <div class="pt-2 pl-2">
-              <a class="text-decoration-none" href="/resources/myers_shtl_orign">
+              <a class="text-decoration-none" href="{{ .Permalink }}">
                 {{ .Params.title }}
               </a>
               </div>
@@ -50,7 +50,7 @@
           <a class="text-decoration-none font-weight-bold" href="#">
             <span>See all</span>
             <i class="material-icons see-all-resources-icon">arrow_forward</i>
-        </a>
+          </a>
         </div>
       </div>
     {{ end }}
