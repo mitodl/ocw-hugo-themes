@@ -19,7 +19,7 @@
         {{ $limitedResourcesShown = true }}
       {{ end }}
 
-      {{ range (first $numberOfResources .Pages) }}
+      {{ range sort (first $numberOfResources .Pages) .Params "title" }}
         <div class="container">
           <div class="row">
             <div>
