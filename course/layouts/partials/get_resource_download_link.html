@@ -1,0 +1,14 @@
+{{- $resourceParams := . -}}
+{{- $downloadLink := $resourceParams.file -}}
+
+{{ if eq $resourceParams.resourceType "Video" }}
+  {{ if (eq $downloadLink nil) }}
+    {{ $downloadLink = $resourceParams.video_files.archive_url }}
+  {{ else }}
+    {{ $downloadLink = partial "resource_url" $downloadLink  }}
+  {{ end }}
+{{ else }}
+  {{ $downloadLink = partial "resource_url" $downloadLink  }}
+{{ end }}
+
+{{ return $downloadLink }}
