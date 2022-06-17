@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.61.1
+--------------
+
+- If this is the home page, try getting the course level metadata description (#756)
+- added styles to fix title overlap (#743)
+- fix: videojs-youtube lib included in inside document.ready function (#728)
+- fix: catching exception while fetching PDF (#733)
+- make level array (#744)
+
 Version 1.61.0 (Released June 15, 2022)
 --------------
 
