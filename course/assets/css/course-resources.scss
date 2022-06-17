@@ -21,3 +21,15 @@ h4 {
   margin-top: 13px;
   background-color: $white;
 }
+
+.resource-download:hover {
+  background-color: $light-gray;
+}
+
+.resource-list-title {
+  text-decoration: none;
+}
+
+.resource-list-title:hover {
+  text-decoration: underline;
+}
