@@ -6,31 +6,37 @@
 
 <div class="mb-5">
   {{ with ($.Site.GetPage (printf "/%s" $taxonomy)) }}
-    {{ range .Pages }}
-      <div>
-        <h4 class="my-4">{{ .Title }}</h4>  
-      </div>
-
-      {{ $numberOfResources := (len .Pages) }}
-      {{ $limitedResourcesShown := false }}
-
-      {{ if gt $numberOfResources $numberOfResourcesLimit }}
-        {{ $numberOfResources = $numberOfResourcesLimit }}
-        {{ $limitedResourcesShown = true }}
-      {{ end }}
-
-      {{ range sort (first $numberOfResources .Pages) .Params "title" }}
-        {{- partial "resource_list_item" (dict "params" .Params "permalink" .Permalink) -}}
-        <hr>
-      {{ end }}
-      {{ if eq $limitedResourcesShown true }}
+    {{ with .Pages }}
+      {{ range . }}
         <div>
-          <div class="float-right">
-            {{- partial "see_all" (dict "permalink" .Permalink) -}}
-          </div>
+          <h4 class="my-4">{{ .Title }}</h4>  
         </div>
+
+        {{ $numberOfResources := (len .Pages) }}
+        {{ $limitedResourcesShown := false }}
+
+        {{ if gt $numberOfResources $numberOfResourcesLimit }}
+          {{ $numberOfResources = $numberOfResourcesLimit }}
+          {{ $limitedResourcesShown = true }}
+        {{ end }}
+
+        {{ range sort (first $numberOfResources .Pages) .Params "title" }}
+          {{- partial "resource_list_item" (dict "params" .Params "permalink" .Permalink) -}}
+          <hr>
+        {{ end }}
+        {{ if eq $limitedResourcesShown true }}
+          <div>
+            <div class="float-right">
+              {{- partial "see_all" (dict "permalink" .Permalink) -}}
+            </div>
+          </div>
+        {{ end }}
+        <br>
       {{ end }}
-      <br>
+    {{ else }}
+      <div>
+        <p>No Resources Found.</p>  
+      </div>
     {{ end }}
   {{ end }}
 </div>
