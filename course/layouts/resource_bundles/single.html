@@ -1,0 +1,14 @@
+{{ define "main" }}
+{{- $bundle := . -}}
+<div>
+  <div class="container standard-width mx-auto mt-5">
+    <h1>
+      {{ $bundle.Title }}
+    </h1>
+    <div class="pb-2">
+      {{ $bundle.Description | .RenderString }}
+    </div>
+    <div id="resource-bundle-container"></div>
+  </div>
+</div>
+{{ end }}
