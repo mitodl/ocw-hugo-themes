@@ -28,6 +28,10 @@
   margin-left: 95px;
 }
 
+.transcript-text:empty {
+  height: 20px;
+}
+
 .transcript-line:hover {
   background-color: $medium-gray;
 }
