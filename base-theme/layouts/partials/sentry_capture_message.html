@@ -1,0 +1,6 @@
+<script type="text/javascript">
+  window.addEventListener("load", (event) => {
+    console.error("{{ . }}")
+    window.Sentry.captureMessage("{{ . }}")
+  })
+</script>

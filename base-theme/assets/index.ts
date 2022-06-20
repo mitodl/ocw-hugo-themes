@@ -12,12 +12,14 @@ import "imagesloaded"
 import "screenfull"
 import "./js/utils"
 
+import * as Sentry from "@sentry/browser"
 import { initSentry } from "./js/sentry"
 
 export interface OCWWindow extends Window {
   $: JQueryStatic
   jQuery: JQueryStatic
   Popper: typeof Popper
+  Sentry: typeof Sentry
 }
 
 declare let window: OCWWindow
@@ -36,5 +38,5 @@ $(function() {
     })
   })
 
-  initSentry()
+  window.Sentry = initSentry()
 })
