@@ -1,14 +1,16 @@
 {{ define "main" }}
-{{- $bundle := . -}}
-<div>
-  <div class="container standard-width mx-auto mt-5">
-    <h1>
-      {{ $bundle.Title }}
-    </h1>
-    <div class="pb-2">
+
+  {{- $bundle := . -}}
+  {{- $uids := .Params.resources.content -}}
+
+  {{ partial "course_content.html" . }}
+  <div class="mb-5">
+    <div class="mb-3 collection-description">
       {{ $bundle.Description | .RenderString }}
     </div>
-    <div id="resource-bundle-container"></div>
+    {{ range where .Site.Pages "Params.uid" "in" $uids }}
+      {{- partial "resource_list_item" (dict "params" .Params "permalink" .Permalink) -}}
+      <hr>
+    {{ end }}
   </div>
-</div>
 {{ end }}
