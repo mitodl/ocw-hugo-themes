@@ -8,16 +8,29 @@
     {{ partial "course_list" . }}
   </div>
   {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
-  <script>
-    {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocw.mit.edu"  -}}
-    {{- $courseListData := (slice) -}}
+  {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocw.mit.edu"  -}}
+  {{- $courseListData := (slice) -}}
+  {{ with $courselist.Params.courses }}
     {{- range $courselist.Params.courses -}}
-        {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" .id "/data.json") "" -}}
-        {{- $data := getJSON $url -}}
-        {{- $data = merge $data (dict "url_path" .id) -}}
-        {{- $courseListData = $courseListData | append (dict .id $data) -}}
+      {{- $id := .id -}}
+      {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" .id "/data.json") "" -}}
+      {{ with resources.GetRemote $url }}
+        {{ with .Err }}
+          {{- $errorMessage := printf "Failed to fetch sub-field on %v via %v with error: %v" site.BaseURL $url .Err -}}
+          {{- partial "sentry_capture_message.html" $errorMessage -}}
+        {{ else }}
+          {{- $data := . | unmarshal -}}
+          {{- $data = merge $data (dict "url_path" $id) -}}
+          {{- $courseListData = $courseListData | append (dict $id $data) -}}
+        {{ end }}
+      {{ else }}
+        {{ $errorMessage := printf "Failed to fetch sub-field through %v on %v" $url site.BaseURL }}
+        {{ partial "sentry_capture_message.html" $errorMessage }}
+      {{ end }}
     {{- end -}}
-    {{- $courseListsData := dict $courselist.Params.uid $courseListData -}}
+  {{ end }}
+  {{- $courseListsData := dict $courselist.Params.uid $courseListData -}}
+  <script>
     window.courseListsData = JSON.parse("{{ $courseListsData | jsonify }}");
   </script>
 </div>

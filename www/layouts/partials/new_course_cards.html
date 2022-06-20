@@ -4,41 +4,55 @@
 {{ $courseStarterSlug := getenv "OCW_IMPORT_STARTER_SLUG" }}
 {{ $typeQuery := querify "type" $courseStarterSlug }}
 {{ if and $studioBaseUrl $courseStarterSlug }}
-{{  with getJSON (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/websites/?" $typeQuery)  }}
-  {{ $results := .results }}
-  {{ if $results }}
-  {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none") "lg" (dict "size" 3 "class" "d-none d-lg-flex d-xl-none") "xl" (dict "size" 4 "class" "d-none d-xl-flex")) }}
-  <!-- list adapted from https://getbootstrap.com/docs/4.0/utilities/display/#hiding-elements -->
-  {{ range $breakpoint, $carouselInfo := $breakdowns }}
-    {{ $itemsInCarousel := index $carouselInfo "size" }}
-    {{ $breakpointVisibilityClass := index $carouselInfo "class" }}
-    {{ $isMobile := (eq $itemsInCarousel 1) }}
-    {{ $carouselId := (printf "new-course-carousel-%v" $breakpoint) }}
-    <div class="{{ $breakpointVisibilityClass }}">
-      <div id="{{ $carouselId }}" class="carousel slide" data-interval="false" data-touch="true" data-ride="carousel">
-        <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold">
-          <h2>New Courses</h2>
-          {{ partial "carousel_controls.html" $carouselId }}
+{{ $coursesURL := (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/websites/?" $typeQuery) }}
+{{ with resources.GetRemote $coursesURL }}
+  {{ if not .Err }}
+    {{ $results := (. | unmarshal).results }}
+    {{ if $results }}
+      {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none") "lg" (dict "size" 3 "class" "d-none d-lg-flex d-xl-none") "xl" (dict "size" 4 "class" "d-none d-xl-flex")) }}
+      <!-- list adapted from https://getbootstrap.com/docs/4.0/utilities/display/#hiding-elements -->
+      {{ range $breakpoint, $carouselInfo := $breakdowns }}
+        {{ $itemsInCarousel := index $carouselInfo "size" }}
+        {{ $breakpointVisibilityClass := index $carouselInfo "class" }}
+        {{ $isMobile := (eq $itemsInCarousel 1) }}
+        {{ $carouselId := (printf "new-course-carousel-%v" $breakpoint) }}
+        <div class="{{ $breakpointVisibilityClass }}">
+          <div id="{{ $carouselId }}" class="carousel slide" data-interval="false" data-touch="true" data-ride="carousel">
+            <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold">
+              <h2>New Courses</h2>
+              {{ partial "carousel_controls.html" $carouselId }}
+            </div>
+            <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
+              {{ $resultsSlice := first 10 $results }}
+              {{ range $index, $courseItem := $resultsSlice  }}
+                {{- if $courseItem.url_path -}}
+                  {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $courseItem.url_path "/data.json") "" -}}
+                  {{ with resources.GetRemote $url }}
+                    {{ with .Err }}
+                      {{ $errorMessage := printf "New courses carousel on %v failed to fetch %v with error: %v" site.BaseURL $url .Err }}
+                      {{ partial "sentry_capture_message.html" $errorMessage }}
+                    {{ else }}
+                      {{- $courseData := . | unmarshal -}}
+                      {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $courseItem.url_path "numCourses" (len $resultsSlice))}}
+                    {{ end }}
+                  {{ else }}
+                    {{ $errorMessage := printf "Failed to fetch new course card through %v on %v" $url site.BaseURL }}
+                    {{ partial "sentry_capture_message.html" $errorMessage }}
+                  {{ end }}
+                {{- end -}}
+              {{ end }}
+            </div>
+          </div>
         </div>
-        <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
-          {{ $resultsSlice := first 10 $results }}
-          {{ range $index, $courseItem := $resultsSlice  }}
-            {{- if $courseItem.url_path -}}
-              {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $courseItem.url_path "/data.json") "" -}}
-              {{- $courseData := getJSON $url -}}
-              {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $courseItem.url_path "numCourses" (len $resultsSlice))}}
-            {{- end -}}
-          {{ end }}
-        </div>
-      </div>
-    </div>
+      {{ end }}
+    {{ else }}
+    No new courses found
+    {{ end }}
   {{ end }}
-  {{ else }}
-  No new courses found
-  {{ end }}
-{{  else  }}
-Error fetching new courses
-{{  end  }}
+{{ else }}
+  {{ $errorMessage := printf "Failed to fetch new courses through %v on %v" $coursesURL site.BaseURL }}
+  {{ partial "sentry_capture_message.html" $errorMessage }}
+{{ end }}
 {{ else }}
 OCW Studio URL not configured
 {{  end  }}
