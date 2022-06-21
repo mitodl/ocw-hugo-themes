@@ -1,4 +1,4 @@
-{{- $sitemapDomain := getenv "SITEMAP_DOMAIN" | default "ocw.mit.edu" -}}
+{{- $sitemapDomain := partial "sitemap_domain.html" -}}
 {{- $studioBaseUrl := partial "ocw_studio_base_url.html" -}}
 {{- $apiBearerToken := getenv "API_BEARER_TOKEN" | default "" -}}
 {{- $queryString := querify "version" "live" -}}
