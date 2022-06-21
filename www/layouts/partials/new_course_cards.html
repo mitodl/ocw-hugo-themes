@@ -1,6 +1,6 @@
 {{- $staticApiBaseUrl := partial "static_api_base_url.html" -}}
 <div class="new-courses course-cards standard-width container mx-auto mt-3">
-{{ $studioBaseUrl := getenv "OCW_STUDIO_BASE_URL" }}
+{{ $studioBaseUrl := partial "ocw_studio_base_url.html" }}
 {{ $courseStarterSlug := getenv "OCW_IMPORT_STARTER_SLUG" }}
 {{ $typeQuery := querify "type" $courseStarterSlug }}
 {{ if and $studioBaseUrl $courseStarterSlug }}
