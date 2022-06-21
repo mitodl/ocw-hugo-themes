@@ -156,6 +156,7 @@ An example environment file can be found at `.env.example`.  To further explain 
 | `OCW_STUDIO_BASE_URL` | `www` | `http://ocw-studio-rc.odl.mit.edu/` | A URL of an instance of [`ocw-studio`](https://github.com/mitodl/ocw-studio) to fetch home page content from |
 | `STATIC_API_BASE_URL` | `course` | `http://ocw.mit.edu/` | A URL of a deployed Hugo site with a static JSON API to query against |
 | `RESOURCE_BASE_URL` | `base-theme` | `https://live-qa.ocw.mit.edu/` | A base URL to prefix the rendered path to resources with |
+| `SITEMAP_DOMAIN` | `base-theme` | `ocw.mit.edu` | The domain used when writing fully qualified URLs into the sitemap |
 | `WWW_HUGO_CONFIG_PATH` | `www` | `/path/to/ocw-hugo-projects/ocw-www/config.yaml` | A path to the `ocw-www` Hugo configuration file |
 | `COURSE_HUGO_CONFIG_PATH` | `course` | `/path/to/ocw-hugo-projects/ocw-course/config.yaml` | A path to the `ocw-course` Hugo configuration file |
 | `WWW_CONTENT_PATH` | `www` | `/path/to/ocw-content-rc/ocw-www` | A path to a Hugo site that will be rendered when running `npm run start:www` |
