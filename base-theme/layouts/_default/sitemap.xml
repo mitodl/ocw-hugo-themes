@@ -1,4 +1,4 @@
-{{- $sitemapDomain := getenv "SITEMAP_DOMAIN" | default "ocw.mit.edu" -}}
+{{- $sitemapDomain := partial "sitemap_domain.html" -}}
 {{- $disallowedUrls := slice "categories/" "tags/" "pages/" "resources/" "video_galleries/" -}}
 {{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"

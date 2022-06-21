@@ -1,5 +1,5 @@
-{{- $sitemapDomain := getenv "SITEMAP_DOMAIN" | default "ocw.mit.edu" -}}
-{{- $studioBaseUrl := getenv "OCW_STUDIO_BASE_URL" -}}
+{{- $sitemapDomain := partial "sitemap_domain.html" -}}
+{{- $studioBaseUrl := partial "ocw_studio_base_url.html" -}}
 {{- $apiBearerToken := getenv "API_BEARER_TOKEN" | default "" -}}
 {{- $queryString := querify "version" "live" -}}
 {{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}

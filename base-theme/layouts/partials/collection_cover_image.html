@@ -1,5 +1,5 @@
 {{- $collection := . -}}
-{{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocwnext.odl.mit.edu"  -}}
+{{- $staticApiBaseUrl := partial "static_api_base_url.html" -}}
 {{ $collectionImageUuid := index $collection.Params "cover-image"}}
 {{ if  $collectionImageUuid.content }}
   {{- $collectionImageMetadata := (dict "Params" (dict "file" "None" "metadata" (dict "image_alt" ""))) -}}

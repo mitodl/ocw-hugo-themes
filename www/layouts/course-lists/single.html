@@ -8,7 +8,7 @@
     {{ partial "course_list" . }}
   </div>
   {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
-  {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocwnext.odl.mit.edu"  -}}
+  {{- $staticApiBaseUrl := partial "static_api_base_url.html" -}}
   {{- $courseListData := (slice) -}}
   {{ with $courselist.Params.courses }}
     {{- range $courselist.Params.courses -}}

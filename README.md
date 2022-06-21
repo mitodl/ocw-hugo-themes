@@ -154,8 +154,9 @@ An example environment file can be found at `.env.example`.  To further explain 
 | `GTM_ACCOUNT_ID` | `base-theme`, `www`, `course` | N/A | A string representing a Google account ID to initialize Google Tag Manager with |
 | `SEARCH_API_URL` | `www` | `http://discussions-rc.odl.mit.edu/api/v0/search/` | A URL to an `open-discussions` search API to fetch results from |
 | `OCW_STUDIO_BASE_URL` | `www` | `http://ocw-studio-rc.odl.mit.edu/` | A URL of an instance of [`ocw-studio`](https://github.com/mitodl/ocw-studio) to fetch home page content from |
-| `STATIC_API_BASE_URL` | `course` | `http://ocwnext.odl.mit.edu/` | A URL of a deployed Hugo site with a static JSON API to query against |
-| `RESOURCE_BASE_URL` | `base-theme` | `https://open-learning-course-data-rc.s3.amazonaws.com/` | A base URL to prefix the rendered path to resources with |
+| `STATIC_API_BASE_URL` | `course` | `http://ocw.mit.edu/` | A URL of a deployed Hugo site with a static JSON API to query against |
+| `RESOURCE_BASE_URL` | `base-theme` | `https://live-qa.ocw.mit.edu/` | A base URL to prefix the rendered path to resources with |
+| `SITEMAP_DOMAIN` | `base-theme` | `ocw.mit.edu` | The domain used when writing fully qualified URLs into the sitemap |
 | `WWW_HUGO_CONFIG_PATH` | `www` | `/path/to/ocw-hugo-projects/ocw-www/config.yaml` | A path to the `ocw-www` Hugo configuration file |
 | `COURSE_HUGO_CONFIG_PATH` | `course` | `/path/to/ocw-hugo-projects/ocw-course/config.yaml` | A path to the `ocw-course` Hugo configuration file |
 | `WWW_CONTENT_PATH` | `www` | `/path/to/ocw-content-rc/ocw-www` | A path to a Hugo site that will be rendered when running `npm run start:www` |
@@ -184,7 +185,7 @@ To customize your `www` site:
  - Optionally set these environment variables as well, depending on the functionality you need to work on:
    - `SEARCH_API_URL=https://discussions-rc.odl.mit.edu/api/v0/search/` (for testing search functionality)
    - `OCW_STUDIO_BASE_URL=http://ocw-studio-rc.odl.mit.edu/` (for testing `ocw-studio` API functionality, such as the "new courses" section rendered by `www/layouts/partials/home_course_cards.html`)
-   - `RESOURCE_BASE_URL=https://open-learning-course-data-rc.s3.amazonaws.com/` (if you need to test the loading of resources from S3 or some other CDN)
+   - `RESOURCE_BASE_URL=https://live-qa.ocw.mit.edu/` (if you need to test the loading of resources from S3 or some other CDN)
  - Start the site with `npm run start:www`
  - The site should be available at http://localhost:3000/
 
@@ -205,8 +206,8 @@ To customize your `course` site:
    - `COURSE_CONTENT_PATH=/path/to/ocw-content-rc/`
    - `OCW_TEST_COURSE=your-course-slug`
  - Optionally set these environment variables as well, depending on the functionality you need to work on:
-   - `RESOURCE_BASE_URL=https://ocw-content-draft-qa.s3.amazonaws.com/` (if you need to test the loading of resources from S3 or some other CDN)
-   - `STATIC_API_BASE_URL=https://ocw-draft-qa.global.ssl.fastly.net/` (for loading content from a static API like the instructors published by `ocw-www`)
+   - `RESOURCE_BASE_URL=https://live-qa.ocw.mit.edu/` (if you need to test the loading of resources from S3 or some other CDN)
+   - `STATIC_API_BASE_URL=https://live-qa.ocw.mit.edu/` (for loading content from a static API like the instructors published by `ocw-www`)
  - Start the site with `npm run start:course`
  - The site should be available at http://localhost:3000/
 
@@ -227,9 +228,9 @@ To customize your `fields` site:
  - Set the following environment variables in your `.env` file, replacing `/path/to` with your path to the repos indicated and `your-field-slug` with the folder your course was cloned into in a previous step:
    - `FIELDS_HUGO_CONFIG_PATH=/path/to/ocw-hugo-projects/mit-fields/config.yaml`
    - `FIELDS_CONTENT_PATH=/path/to/ocw-content-rc/your-field-slug`
-   - `STATIC_API_BASE_URL=https://ocw-draft-qa.global.ssl.fastly.net/` (for loading content from a static API for the courses linked in your Subfields)
+   - `STATIC_API_BASE_URL=https://live-qa.ocw.mit.edu/` (for loading content from a static API for the courses linked in your Subfields)
  - Optionally set these environment variables as well, depending on the functionality you need to work on:
-   - `RESOURCE_BASE_URL=https://ocw-content-draft-qa.s3.amazonaws.com/` (if you need to test the loading of resources from S3 or some other CDN)
+   - `RESOURCE_BASE_URL=https://live-qa.ocw.mit.edu/` (if you need to test the loading of resources from S3 or some other CDN)
  - Start the site with `npm run start:fields`
  - The site should be available at http://localhost:3000/
 

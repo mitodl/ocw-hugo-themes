@@ -1,4 +1,4 @@
-{{- $sitemapDomain := getenv "SITEMAP_DOMAIN" | default "ocw.mit.edu" -}}
+{{- $sitemapDomain := partial "sitemap_domain.html" -}}
 Sitemap: https://{{ $sitemapDomain }}/sitemap.xml
 
 User-agent: *

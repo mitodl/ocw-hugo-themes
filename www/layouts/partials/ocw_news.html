@@ -1,5 +1,5 @@
 <div class="ocw-news standard-width container mx-auto">
-{{ $studioBaseUrl := getenv "OCW_STUDIO_BASE_URL" }}
+{{ $studioBaseUrl := partial "ocw_studio_base_url.html" }}
 {{ if $studioBaseUrl }}
   {{- $url := (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/news/") -}}
   {{ with resources.GetRemote $url }}
