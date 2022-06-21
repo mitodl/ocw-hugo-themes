@@ -14,7 +14,6 @@
     <div id="resource-collection-container"></div>
   </div>
   {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
-  <script>
     {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocw.mit.edu"  -}}
     {{- $contentMap := dict -}}
     {{- $courseJSONMap := dict -}}
