@@ -29,7 +29,7 @@
   </div>
   
   {{- $course_lists_data := dict -}}
-  {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocw.mit.edu"  -}}
+  {{- $staticApiBaseUrl := partial "static_api_base_url.html" -}}
   {{- range $collection.Params.courselists.content -}}
     {{- $course_list := index (where $.Site.Pages ".Params.uid" .) 0 -}}
     {{- $course_list_data := (slice) -}}

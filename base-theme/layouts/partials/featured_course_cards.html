@@ -1,4 +1,4 @@
-{{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocw.mit.edu"  -}}
+{{- $staticApiBaseUrl := partial "static_api_base_url.html" -}}
 
 {{- $courses := .featuredCourses -}}
 {{- $klass := .klass -}}

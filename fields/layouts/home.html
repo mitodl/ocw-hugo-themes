@@ -29,7 +29,7 @@
     {{ end }}
   </div>
   {{- $subfields_data := dict -}}
-  {{- $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" | default "https://ocw.mit.edu"  -}}
+  {{- $staticApiBaseUrl := partial "static_api_base_url.html" -}}
   {{- range $field.Params.subfields.content -}}
     {{- $subfield := index (where $.Site.Pages ".Params.uid" .) 0 -}}
     {{- $subfield_data := (slice) -}}
