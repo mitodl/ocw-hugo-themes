@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.61.1
+Version 1.61.1 (Released June 22, 2022)
 --------------
 
 - If this is the home page, try getting the course level metadata description (#756)
