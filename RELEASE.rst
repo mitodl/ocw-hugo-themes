@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.62.0
+--------------
+
+- update default URLs to match new scheme (#741)
+- fix: overlapping timecode (#759)
+- course card line clamp (#754)
+- getJSON replaced with resources.GetRemote (#734)
+
 Version 1.61.1 (Released June 22, 2022)
 --------------
 
