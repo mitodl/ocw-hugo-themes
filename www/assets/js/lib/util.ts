@@ -28,12 +28,18 @@ export const isApiSuccessful = (status: number) => {
   )
 }
 
-export const sentryCaptureException = (excetpion: any) => {
-  Sentry.captureException(excetpion)
+export const sentryCaptureException = (
+  excetpion: any,
+  additionalData: any = {}
+) => {
+  Sentry.captureException(excetpion, additionalData)
 }
 
-export const sentryCaptureMessage = (message: string) => {
-  Sentry.captureException(message)
+export const sentryCaptureMessage = (
+  message: string,
+  additionalData: any = {}
+) => {
+  Sentry.captureException(message, additionalData)
 }
 
 /**
