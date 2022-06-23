@@ -11,12 +11,16 @@
 
       {{ if not .hideDownloadIcon }}
         {{- $downloadableLink := partial "get_resource_download_link.html" .params -}}
-        <a class="pr-2" href="{{- $downloadableLink -}}" target="_blank" download>
-          <img
-            class="resource-download"
-            src="/images/download.svg"
-          />
-        </a>
+          <span class="pr-2">
+            {{ if $downloadableLink }}
+              <a href="{{- $downloadableLink -}}" target="_blank" download>
+                <img
+                  class="resource-download"
+                  src="/images/download.svg"
+                />
+              </a>
+            {{ end }}
+          </span>
       {{ end }}
     </div>
     <div>
