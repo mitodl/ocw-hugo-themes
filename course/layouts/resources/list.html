@@ -21,13 +21,13 @@
         {{ end }}
 
         {{ range sort (first $numberOfResources .Pages) .Params "title" }}
-          {{- partial "resource_list_item" (dict "params" .Params "permalink" .Permalink) -}}
+          {{- partial "resource_list_item.html" (dict "params" .Params "permalink" .Permalink) -}}
           <hr>
         {{ end }}
         {{ if eq $limitedResourcesShown true }}
           <div>
             <div class="float-right">
-              {{- partial "see_all" (dict "permalink" .Permalink) -}}
+              {{- partial "see_all.html" (dict "permalink" .Permalink) -}}
             </div>
           </div>
         {{ end }}

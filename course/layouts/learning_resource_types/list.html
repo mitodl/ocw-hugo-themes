@@ -1,9 +1,17 @@
 {{ define "main" }}
-{{ partial "course_content.html" . }}
+{{ partial "taxonomy_header.html" . }}
+
+{{- $hideThumbnail := false -}}
+{{- $hideDownloadIcon := false -}}
+{{/*  Checking if we are on /learning_resource_types page, if yes, then do not show thumbnails and download icon */}}
+{{ if eq (lower .Type) (lower .Title) }}
+  {{- $hideThumbnail = true -}}
+  {{- $hideDownloadIcon = true -}}
+{{end}}
 
 <div class="mb-5">
   {{ range sort .Pages .Params "title" }}
-    {{- partial "resource_list_item" (dict "params" .Params "permalink" .Permalink) -}}
+    {{- partial "resource_list_item.html" (dict "params" .Params "permalink" .Permalink "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) -}}
     <hr>
   {{ end }}
 </div>
