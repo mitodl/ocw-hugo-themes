@@ -39,7 +39,7 @@ export const sentryCaptureMessage = (
   message: string,
   additionalData: any = {}
 ) => {
-  Sentry.captureException(message, additionalData)
+  Sentry.captureMessage(message, additionalData)
 }
 
 /**

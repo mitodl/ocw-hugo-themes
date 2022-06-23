@@ -1,9 +1,5 @@
 import { buildSearchQuery, SearchQueryParams } from "./search"
-import {
-  isApiSuccessful,
-  sentryCaptureException,
-  sentryCaptureMessage
-} from "./util"
+import { isApiSuccessful, sentryCaptureException } from "./util"
 
 export const search = async (params: SearchQueryParams) => {
   let results: any = {}
