@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.62.0
+Version 1.62.0 (Released June 23, 2022)
 --------------
 
 - update default URLs to match new scheme (#741)
