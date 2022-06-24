@@ -56,7 +56,7 @@ jobs:
         run: npm run build:webpack -- --output-path=../ocw-www/public/static/
 
       - name: Copy webpack build to course
-        run: cp -R ../ocw-www/public/static/ ../ocw-course/public/static/
+        run: npm run build:webpack -- --output-path=../ocw-course/public/static/
 
       - name: Run hugo build
         run: (cd ../ocw-www; hugo --config ../ocw-hugo-projects/ocw-www/config.yaml --themesDir ../ocw-hugo-themes)
