@@ -1,3 +1,5 @@
 ---
-title: Learning Resource Types
+title: Resources
+url: /resources/
+kind: taxonomy
 ---
