@@ -39,6 +39,7 @@
                   </span>
                   </button>
                   {{ end }}
+                  <div>{{ printf "%#v" .Kind }}</div>
                   {{ block "main" . }}{{ end }}
                 </div>
                 {{ if not $isCourseHomePage }}

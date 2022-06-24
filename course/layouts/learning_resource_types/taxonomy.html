@@ -1,8 +1,8 @@
+{{/* This is actually the "terms.html" template, more info here: https://discourse.gohugo.io/t/taxonomy-list-page-takes-a-wrong-template/20189 */}}
 {{ define "main" }}
 {{ partial "course_content.html" . }}
 
 <div class="mb-5">
-  {{ $resources := where .Pages "Params.content_type" "resource" }}
-  {{- partial "resource_list.html" (dict "resources" $resources) -}}
+  {{- partial "resource_list.html" (dict "resources" .Pages "hideThumbnail" false "hideDownloadIcon" false) -}}
 </div>
 {{ end }}
