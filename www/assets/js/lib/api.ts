@@ -1,9 +1,5 @@
 import { buildSearchQuery, SearchQueryParams } from "./search"
-import {
-  isApiSuccessful,
-  sentryCaptureException,
-  sentryCaptureMessage
-} from "./util"
+import { isApiSuccessful, sentryCaptureException } from "./util"
 
 export const search = async (params: SearchQueryParams) => {
   let results: any = {}
@@ -23,11 +19,16 @@ export const search = async (params: SearchQueryParams) => {
     if (isApiSuccessful(response.status)) {
       results = await response.json()
     } else {
-      sentryCaptureMessage(
-        `Something went wrong in the search API. Query Details: ${JSON.stringify(
-          params
-        )}`
-      )
+      const additionalData = {
+        tags: {
+          "search-url": window.location.href,
+          "api-status": response?.status,
+          "api-status-text": response?.statusText
+        },
+        level: "error",
+        extra: { "Search Query Params": JSON.stringify(params) }
+      }
+      sentryCaptureException(new Error("Search API failed"), additionalData)
       results["apiFailed"] = true
     }
   } catch (e) {
