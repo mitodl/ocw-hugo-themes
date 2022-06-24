@@ -14,12 +14,11 @@
 {{ $downloadLink =  partial "resource_url" $downloadLink  }}
 {{ end }}
 
-
 <div class="video-page">
   <div class="description">
     {{ .Content }}
   </div>
-  {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime)}}
+  {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation)}}
 	<!-- [start] transcript toggleable section -->
 	{{ if $captionsLocation }}
 		<div class="bg-dark-gray white-color">
@@ -43,19 +42,6 @@
 		</div>
 	{{end}}
 	<!-- [end] transcript toggleable section -->
-
-  <div class="video-buttons-container">
-	{{ if $transcriptPdfLocation }}
-	  <div class="video-download-container">
-	    <a class="download-file video-download-button" href="{{ $transcriptPdfLocation }}"><span class="material-icons">file_download</span> Download Transcript</a>
-	  </div>
-	{{end}}
-	{{ if $downloadLink }}
-	  <div class="video-download-container">
-	    <a class="download-file video-download-button" href="{{ $downloadLink }}"><span class="material-icons">file_download</span> Download Video</a>
-	  </div>
-	{{end}}
-	</div>
 
   {{ if $relatedResourses }}
   	{{ partial "video-expandable-tab.html" (dict "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}

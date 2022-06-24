@@ -10,7 +10,7 @@
 {{ $downloadLink =  partial "resource_url" $downloadLink  }}
 {{ end }}
 
-{{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime) }}
+{{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink) }}
 {{- range where $.Site.Pages "Params.uid" $uid -}}
 	
 <div class="video-buttons-container">
@@ -18,10 +18,5 @@
       <div class="video-page-link">View video page</div>
 			<i class="material-icons video-page-link">chevron_right</i>
     </div>
-   	{{ if  $downloadLink }}
-			<div class="video-download-container">
-				<a class="download-file video-download-button" href="{{ $downloadLink }}"><span class="material-icons">file_download</span> Download Video</a>
-			</div>
-		{{end}}
   </div>
 {{- end -}}

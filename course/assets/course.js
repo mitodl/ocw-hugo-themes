@@ -12,6 +12,7 @@ import { initCourseInfoExpander } from "./js/course_expander"
 import { initVideoTranscriptTrack } from "./js/video_transcript_track"
 import { initPlayBackSpeedButton } from "./js/video_playback_speed"
 import { initVideoFullscreenToggle } from "./js/video_fullscreen_toggle"
+import { initDownloadButton } from "./js/video-download-button"
 import {
   clearSolution,
   checkAnswer,
@@ -23,8 +24,9 @@ $(function() {
   initPdfViewers()
   initDesktopCourseInfoToggle()
   initCourseInfoExpander(document)
-  initVideoTranscriptTrack()
+  initDownloadButton()
   initPlayBackSpeedButton()
+  initVideoTranscriptTrack()
   initDivToggle()
   clearSolution()
   checkAnswer()

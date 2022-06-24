@@ -33,7 +33,7 @@ function _initMenuButton() {
       MenuButton.call(this, player, options)
       this.$("button").classList.add("vjs-quality-selector")
       this.el().setAttribute("aria-label", "playback speed")
-      this.el().classList.add("right")
+      this.el().classList.add("playback-button-position")
       this.controlText("playback speed")
     },
     createItems: function() {
@@ -43,7 +43,7 @@ function _initMenuButton() {
         menuItems.push(
           new SettingMenuItems(this.player_, {
             label:    item,
-            selected: item === this.player_.tech_.ytPlayer.getPlaybackRate()
+            selected: item === this.player_.playbackRate()
           })
         )
       })
@@ -65,15 +65,15 @@ export const initPlayBackSpeedButton = () => {
     const videoPlayers = document.querySelectorAll(".vjs-ocw")
     for (const videoPlayer of Array.from(videoPlayers)) {
       const player = videojs(videoPlayer.id)
-      player.one("play", function() {
-        const playbackRates = player.tech_.ytPlayer.getAvailablePlaybackRates()
+      player.ready(function() {
+        const playbackRates = [0.25, 0.5, 0.75, 1, 1.25, 1.5]
         const menuButton = new SettingMenuButton(player, {
           playbackSpeeds: playbackRates,
           title:          "Playback speed"
         })
         player.controlBar.resolutionSwitcher = player.controlBar.el_.insertBefore(
           menuButton.el_,
-          player.controlBar.getChild("fullscreenToggle").el_
+          player.controlBar.el().lastChild.nextSibling
         )
         player.controlBar.resolutionSwitcher.dispose = function() {
           this.parentNode.removeChild(this)
