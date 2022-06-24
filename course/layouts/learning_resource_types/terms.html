@@ -1,0 +1,7 @@
+{{ define "main" }}
+{{ partial "course_content.html" . }}
+
+<div class="mb-5">
+  {{- partial "resource_list.html" (dict "resources" .Pages "hideThumbnail" true "hideDownloadIcon" true) -}}
+</div>
+{{ end }}
