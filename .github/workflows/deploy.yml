@@ -46,11 +46,17 @@ jobs:
       - name: Clone ocw-www for content
         run: (cd ..; git clone git@github.mit.edu:ocw-content-rc/ocw-www.git ocw-www)
 
+      - name: Clone ocw-course for content
+        run: (cd ..; git clone git@github.mit.edu:ocw-content-rc/15.s21-january-iap-2014.git ocw-course)
+
       - name: Clone ocw-hugo-projects for config
         run: (cd ..; git clone https://github.com/mitodl/ocw-hugo-projects)
 
       - name: Run webpack build
         run: npm run build:webpack -- --output-path=../ocw-www/public/static/
+
+      - name: Copy webpack build to course
+        run: cp -R ../ocw-www/public/static/ ../ocw-course/public/static/
 
       - name: Run hugo build
         run: (cd ../ocw-www; hugo --config ../ocw-hugo-projects/ocw-www/config.yaml --themesDir ../ocw-hugo-themes)
@@ -59,6 +65,15 @@ jobs:
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
           OCW_IMPORT_STARTER_SLUG: ${{ secrets.OCW_IMPORT_STARTER_SLUG }}
           STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
+      
+      - name: Run hugo course build
+        run: (cd ../ocw-course; hugo --config ../ocw-hugo-projects/ocw-course/config.yaml --themesDir ../ocw-hugo-themes)
+        env:
+          OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
+          SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
+          OCW_IMPORT_STARTER_SLUG: ${{ secrets.OCW_IMPORT_STARTER_SLUG }}
+          STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
+          RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
 
       - name: Deploy PR Preview to Netlify
         uses: nwtgck/actions-netlify@v1.1
@@ -71,6 +86,21 @@ jobs:
           enable-commit-comment: false
           overwrites-pull-request-comment: true
           alias: ocw-hugo-themes-pr-${{ github.event.number }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      
+      - name: Deploy Course Preview to Netlify
+        uses: nwtgck/actions-netlify@v1.1
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          publish-dir: '../ocw-course/public'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: true
+          enable-commit-comment: false
+          overwrites-pull-request-comment: true
+          alias: ocw-hugo-themes-course-${{ github.event.number }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
