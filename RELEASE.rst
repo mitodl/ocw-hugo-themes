@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.62.1
+--------------
+
+- feat: lists of course resources grouped by learning resource types (#753)
+- specify the canonical url with a value of .Permalink (#767)
+- Added download button to control bar (#732)
+
 Version 1.62.0 (Released June 23, 2022)
 --------------
 
