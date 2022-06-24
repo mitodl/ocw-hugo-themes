@@ -3,9 +3,7 @@
 
 {{ if and (eq $downloadLink nil) (eq $resourceParams.resourceType "Video") }}
   {{ $downloadLink = $resourceParams.video_files.archive_url }}
-{{ end }}
-
-{{ if $downloadLink }}
+{{ else if $downloadLink }}
   {{ $downloadLink = partial "resource_url" $downloadLink  }}
 {{ end }}
 
