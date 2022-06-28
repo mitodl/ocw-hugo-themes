@@ -2,7 +2,7 @@
 {{ partial "course_content.html" . }}
 
 {{- $numberOfResourcesLimit := 10 -}}
-{{- $resourcesShown := false -}}
+{{- $showNoResourcesFoundMessage := true -}}
 {{ $taxonomy := "learning_resource_types" }}
 
 <div class="mb-5">
@@ -14,7 +14,7 @@
         {{ $numberOfResources := len $resources  }}
         {{ if gt $numberOfResources 0 }}
 
-          {{- $resourcesShown = true -}}
+          {{- $showNoResourcesFoundMessage = false -}}
           {{ $limitedResourcesShown := false }}
 
           {{ if gt $numberOfResources $numberOfResourcesLimit }}
@@ -39,10 +39,11 @@
         {{ end }}
       {{ end }}
     {{ else }}
+      {{- $showNoResourcesFoundMessage = false -}}
       {{- partial "no_resources_found.html" -}}
     {{ end }}
 
-    {{ if eq $resourcesShown false }}
+    {{ if eq $showNoResourcesFoundMessage true }}
       {{- partial "no_resources_found.html" -}}
     {{ end }}
 
