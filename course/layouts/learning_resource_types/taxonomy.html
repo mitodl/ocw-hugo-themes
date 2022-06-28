@@ -2,6 +2,7 @@
 {{ partial "course_content.html" . }}
 
 {{- $numberOfResourcesLimit := 10 -}}
+{{- $resourcesShown := false -}}
 {{ $taxonomy := "learning_resource_types" }}
 
 <div class="mb-5">
@@ -11,32 +12,40 @@
 
         {{ $resources := where .Pages "Params.content_type" "resource" }}
         {{ $numberOfResources := len $resources  }}
-        {{ $limitedResourcesShown := false }}
+        {{ if gt $numberOfResources 0 }}
 
-        {{ if gt $numberOfResources $numberOfResourcesLimit }}
-          {{ $numberOfResources = $numberOfResourcesLimit }}
-          {{ $limitedResourcesShown = true }}
-        {{ end }}
+          {{- $resourcesShown = true -}}
+          {{ $limitedResourcesShown := false }}
 
-        <div>
-          <h4 class="my-4">{{ .Title }}</h4>  
-        </div>
+          {{ if gt $numberOfResources $numberOfResourcesLimit }}
+            {{ $numberOfResources = $numberOfResourcesLimit }}
+            {{ $limitedResourcesShown = true }}
+          {{ end }}
 
-        {{- partial "resource_list.html" (dict "resources" $resources "limitResources" $numberOfResources) -}}
-          
-        {{ if eq $limitedResourcesShown true }}
           <div>
-            <div class="float-right">
-              {{- partial "see_all.html" (dict "permalink" .Permalink) -}}
-            </div>
+            <h4 class="my-4">{{ .Title }}</h4>  
           </div>
-        {{ end }}
-        <br>
 
+          {{- partial "resource_list.html" (dict "resources" $resources "limitResources" $numberOfResources) -}}
+            
+          {{ if eq $limitedResourcesShown true }}
+            <div>
+              <div class="float-right">
+                {{- partial "see_all.html" (dict "permalink" .Permalink) -}}
+              </div>
+            </div>
+          {{ end }}
+          <br>
+        {{ end }}
       {{ end }}
     {{ else }}
       {{- partial "no_resources_found.html" -}}
     {{ end }}
+
+    {{ if eq $resourcesShown false }}
+      {{- partial "no_resources_found.html" -}}
+    {{ end }}
+
   {{ end }}
 </div>
 {{ end }}
