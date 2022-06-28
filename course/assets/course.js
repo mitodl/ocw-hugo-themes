@@ -18,9 +18,9 @@ import {
   checkAnswer,
   showSolution
 } from "./js/quiz_multiple_choice"
+import "videojs-youtube"
 
 $(function() {
-  require("videojs-youtube")
   initPdfViewers()
   initDesktopCourseInfoToggle()
   initCourseInfoExpander(document)
