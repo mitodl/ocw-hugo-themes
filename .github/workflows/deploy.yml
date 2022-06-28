@@ -58,15 +58,16 @@ jobs:
       - name: Copy webpack build to course
         run: npm run build:webpack -- --output-path=../ocw-course/public/static/
 
-      - name: Run hugo build
+      - name: Run the www hugo build
         run: (cd ../ocw-www; hugo --config ../ocw-hugo-projects/ocw-www/config.yaml --themesDir ../ocw-hugo-themes)
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
           OCW_IMPORT_STARTER_SLUG: ${{ secrets.OCW_IMPORT_STARTER_SLUG }}
           STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
+          RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
       
-      - name: Run hugo course build
+      - name: Run the course hugo build
         run: (cd ../ocw-course; hugo --config ../ocw-hugo-projects/ocw-course/config.yaml --themesDir ../ocw-hugo-themes)
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
@@ -75,7 +76,7 @@ jobs:
           STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
 
-      - name: Deploy PR Preview to Netlify
+      - name: Deploy www Preview to Netlify
         uses: nwtgck/actions-netlify@v1.1
         if: ${{ github.event_name == 'pull_request' }}
         with:
@@ -84,8 +85,8 @@ jobs:
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: true
           enable-commit-comment: false
-          overwrites-pull-request-comment: true
-          alias: ocw-hugo-themes-pr-${{ github.event.number }}
+          overwrites-pull-request-comment: false
+          alias: ocw-hugo-themes-www-pr-${{ github.event.number }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
@@ -99,8 +100,8 @@ jobs:
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: true
           enable-commit-comment: false
-          overwrites-pull-request-comment: true
-          alias: ocw-hugo-themes-course-${{ github.event.number }}
+          overwrites-pull-request-comment: false
+          alias: ocw-hugo-themes-course-pr-${{ github.event.number }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
