@@ -8,10 +8,11 @@
   {{- $metaDataDescription = (.Params.description | plainify) | default $defaultMetadataDescription -}}
   {{- end -}}
   {{- $sitemapDomain := partial "sitemap_domain.html" -}}
+  {{- $path := partial "site_root_url.html" .RelPermalink -}}
 
   <meta name="description" content="{{- $metaDataDescription -}}">
   <meta name="keywords" content="opencourseware,MIT OCW,courseware,MIT opencourseware,Free Courses,class notes,class syllabus,class materials,tutorials,online courses,MIT courses">
-  <link rel="canonical" href="https://{{ $sitemapDomain }}/{{- strings.TrimPrefix "/" .Permalink -}}" />
+  <link rel="canonical" href="https://{{ strings.TrimSuffix "/" $sitemapDomain }}/{{- strings.TrimPrefix "/" $path -}}" />
 
   <script type="application/ld+json">
       {
