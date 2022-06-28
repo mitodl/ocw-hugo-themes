@@ -42,11 +42,10 @@
       {{- $showNoResourcesFoundMessage = false -}}
       {{- partial "no_resources_found.html" -}}
     {{ end }}
-
-    {{ if eq $showNoResourcesFoundMessage true }}
+  {{ end }}
+  
+  {{ if eq $showNoResourcesFoundMessage true }}
       {{- partial "no_resources_found.html" -}}
-    {{ end }}
-
   {{ end }}
 </div>
 {{ end }}
