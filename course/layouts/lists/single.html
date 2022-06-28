@@ -1,0 +1,14 @@
+{{ define "main" }}
+
+  {{- $bundle := . -}}
+  {{- $uids := .Params.resources.content -}}
+
+  {{ partial "course_content.html" . }}
+  <div class="mb-5">
+    <div class="mb-3 collection-description">
+      {{ $bundle.Description | .RenderString }}
+    </div>
+      {{ $resources :=  where .Site.Pages "Params.uid" "in" $uids }}
+      {{- partial "resource_list.html" (dict "resources" $resources) -}}
+  </div>
+{{ end }}
