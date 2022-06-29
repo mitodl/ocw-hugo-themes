@@ -14,6 +14,7 @@ $highlight-red: #a31f34;
 $orange: #ff8a1f;
 $blue: #126f9a;
 $link-blue: #32c5ff;
+$light-blue: #9BDFFF;
 $success-message-color: #569a5a;
 $tab-border-color: #32a8d1;
 $transparent: #ffffff00;
@@ -49,6 +50,7 @@ $footer-background-color: #f6f7f9;
 // Changing values of these variables is not recommended as it will have a quite widespread/large impact.
 $font-root: 16px;
 
+$font-xxl: 2rem; /* 32px == 2 x 16 */
 $font-xl: 1.5rem; /* 24px == 1.5 x 16 */
 $font-lg: 1.25rem; /* 20px */
 $font-md: 1.125rem; /* 18px */
