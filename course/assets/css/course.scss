@@ -21,8 +21,15 @@
   color: $white;
   background-color: $blue;
 
+  .course-number-term-detail{
+    font-size: $font-sm;
+    color: $light-blue;
+  }
+
   a {
     text-decoration: none;
+    font-size: $font-xxl;
+    font-weight: 400;
   }
 }
 
