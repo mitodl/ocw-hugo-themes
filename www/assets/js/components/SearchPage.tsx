@@ -21,7 +21,8 @@ import {
   SEARCH_COMPACT_UI,
   SEARCH_LIST_UI,
   LIST_UI_PAGE_SIZE,
-  COMPACT_UI_PAGE_SIZE
+  COMPACT_UI_PAGE_SIZE,
+  OCW_PLATFORM
 } from "../lib/constants"
 import { emptyOrNil, isDoubleQuoted } from "../lib/util"
 import { FacetManifest, LearningResourceResult } from "../LearningResources"
@@ -53,6 +54,7 @@ export default function SearchPage() {
 
   const runSearch = useCallback(
     async (text, activeFacets, from, sort, ui) => {
+      activeFacets["offered_by"] = [OCW_PLATFORM]
       if (activeFacets && activeFacets.type.length > 1) {
         // Default is LR_TYPE_ALL, don't want that here. course or resourcefile only
         activeFacets["type"] = [LearningResourceType.Course]
@@ -65,8 +67,7 @@ export default function SearchPage() {
         from,
         activeFacets,
         size: pageSize,
-        sort: sort,
-        ui: ui
+        sort: sort
       })
       setRequestInFlight(false)
 

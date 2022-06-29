@@ -704,11 +704,12 @@
     query-string "^6.13.1"
     ramda "^0.27.1"
 
-"@mitodl/course-search-utils@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@mitodl/course-search-utils/-/course-search-utils-1.7.0.tgz#4a81bd465474b917592b39c6598c1719dd436a07"
-  integrity sha512-aOgsjBoL7Jiix0biGw/siCIbsDzdEirQ/EBNR3nMit0yEz4TyK0EUw7z4yj8baSAb9Hylh7TyqbG0XDLKyccUA==
+"@mitodl/course-search-utils@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@mitodl/course-search-utils/-/course-search-utils-1.8.0.tgz#c3d40298e13a4f7df70867724ed8cbd2ed60573e"
+  integrity sha512-CiNlDaey/T+LsQGAtyiciHNZLSBXFBS1O38Lql7cBFHqJOBgXT9OhSUd79ii77JzkIQqkI2EHEtsBjgvllelxQ==
   dependencies:
+    bodybuilder "^2.5.0"
     history "^5.0.0"
     query-string "^6.13.1"
     ramda "^0.27.1"
@@ -2306,6 +2307,18 @@ bodybuilder@^2.2.21:
   integrity sha512-vN4ebuqBaqjmyRQzygEkGR2KRM5IiRoKChBkola4RBZ5pNzy5l4tRDUVQxMP/UhzhFbjCB7TqCy3hcGoNnb4zw==
   dependencies:
     lodash "^4.17.11"
+
+bodybuilder@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/bodybuilder/-/bodybuilder-2.5.0.tgz#9a283f4e533f6ead42174ebd1f29bb72cfd6f7dc"
+  integrity sha512-n9Cpi/qKH7FfFe3WHRC/jYBQt/vtkPmCuDdIM53lARoWHVDGEc5d55erKZE/dxzv0dY+ioKcd+C8EY+AytBlSw==
+  dependencies:
+    lodash.clonedeep "4.5.0"
+    lodash.isobject "3.0.2"
+    lodash.isplainobject "4.0.6"
+    lodash.merge "4.6.2"
+    lodash.set "4.3.2"
+    lodash.unset "4.5.2"
 
 bonjour@^3.5.0:
   version "3.5.0"
@@ -8009,7 +8022,7 @@ lodash.capitalize@^4.1.0:
   resolved "https://registry.yarnpkg.com/lodash.capitalize/-/lodash.capitalize-4.2.1.tgz#f826c9b4e2a8511d84e3aca29db05e1a4f3b72a9"
   integrity sha1-+CbJtOKoUR2E46yinbBeGk87cqk=
 
-lodash.clonedeep@^4.5.0:
+lodash.clonedeep@4.5.0, lodash.clonedeep@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
   integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
@@ -8059,7 +8072,12 @@ lodash.isequal@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
   integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
 
-lodash.isplainobject@^4.0.6:
+lodash.isobject@3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/lodash.isobject/-/lodash.isobject-3.0.2.tgz#3c8fb8d5b5bf4bf90ae06e14f2a530a4ed935e1d"
+  integrity sha512-3/Qptq2vr7WeJbB4KHUSKlq8Pl7ASXi3UG6CMbBm8WRtXi8+GHm7mKaU3urfpSEzWe2wCIChs6/sdocUsTKJiA==
+
+lodash.isplainobject@4.0.6, lodash.isplainobject@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
   integrity sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs=
@@ -8074,10 +8092,15 @@ lodash.memoize@4.x, lodash.memoize@^4.1.2:
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
 
-lodash.merge@^4.6.0:
+lodash.merge@4.6.2, lodash.merge@^4.6.0:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
+
+lodash.set@4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/lodash.set/-/lodash.set-4.3.2.tgz#d8757b1da807dde24816b0d6a84bea1a76230b23"
+  integrity sha512-4hNPN5jlm/N/HLMCO43v8BXKq9Z7QdAGc/VGrRD61w8gN9g/6jF9A4L1pbUgBLCffi0w9VsXfTOij5x8iTyFvg==
 
 lodash.sortby@^4.7.0:
   version "4.7.0"
@@ -8108,6 +8131,11 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
+
+lodash.unset@4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/lodash.unset/-/lodash.unset-4.5.2.tgz#370d1d3e85b72a7e1b0cdf2d272121306f23e4ed"
+  integrity sha512-bwKX88k2JhCV9D1vtE8+naDKlLiGrSmf8zi/Y9ivFHwbmRfA8RxS/aVJ+sIht2XOwqoNr4xUPUkGZpc1sHFEKg==
 
 lodash.uppercase@^4.3.0:
   version "4.3.0"
