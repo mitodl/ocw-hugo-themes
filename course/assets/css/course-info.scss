@@ -1,56 +1,7 @@
 .course-info {
-  overflow: hidden;
-  $collapsedHeight: 200px;
-  $opaqueLayerHeight: 30px;
 
-  // This media query is not defined gloabally as it
-  // is targeted/specific to a particular use case only
-  // Hiding horizontal scroll on screens where content already fits in
-  @media (min-width: 1270px) {
-    overflow-x: hidden !important;
-  }
-
-  &.collapsed {
-    table {
-      display: block;
-      position: relative;
-      height: $collapsedHeight;
-      margin-bottom: 0 !important;
-    }
-
-    .opaque-layer {
-      position: absolute;
-      bottom: 0;
-      height: $opaqueLayerHeight;
-      width: 100%;
-      background: linear-gradient(to bottom, transparent, white);
-      z-index: 1;
-    }
-  }
-
-  table {
-    tr {
-      td:nth-child(1) {
-        color: $dark-gray;
-      }
-    }
-  }
-
-  .course-info-expander {
-    .material-icons {
-      margin-left: 48px;
-    }
-  }
-
-  #course-info.collapse:not(.show) {
-    display: block;
-    /* height = lineheight * no of lines to display */
-    height: 12.5em;
-    overflow: hidden;
-  }
-
-  #course-info.collapsing {
-    height: 12.5em;
+  .course-info-content {
+    margin-top: 5px;
   }
 }
 
@@ -179,4 +130,5 @@
   #course-description.collapsing {
     height: 4.5em;
   }
+
 }

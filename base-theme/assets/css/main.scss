@@ -238,6 +238,10 @@ table {
   background-color: $dark-gray;
 }
 
+.bg-light-gray {
+  background-color: $light-gray;
+}
+
 .bg-white-desktop {
   @include media-breakpoint-up(lg) {
     background-color: $white !important;

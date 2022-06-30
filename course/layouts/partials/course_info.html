@@ -1,11 +1,53 @@
 {{ $courseData := .context.Site.Data.course }}
 {{ $inPanel := .inPanel }}
-<div class="table-responsive course-info">
-  <div class="course-info-expander">
-    <h4 class="course-info-title font-weight-bold">Course Info</h4>
+<div class="course-info">
+  <div class="course-detail-title">
+    Course Info
   </div>
-  <div id="course-info" class="position-relative {{ if not $inPanel }}collapse{{ end }}" aria-expanded="false">
-    <table id="course-info-table" class="table table-borderless mb-0" >
+  <div id="course-info" class="position-relative">
+
+    <div class="row">
+      <div class="col-12 col-sm-6">
+        {{ with $courseData.instructors.content }}
+          <div class="">
+            {{ $instructors := partial "get_instructors.html" . }}
+            <div class="text-muted">
+              {{ if eq (len $instructors) 1 }}Instructor{{ else }}Instructors{{ end }}
+            </div>
+            <div class="course-info-content">
+              {{ partial "partial_collapse_list.html" (dict "list" $instructors "id" "instructors" "key" "title" "klass" "course-info-instructor" "showCollapse" $inPanel) }}
+            </div>
+          </div>
+        {{ end }}
+
+        {{ with $courseData.department_numbers }}
+          <div class="mt-4">
+            {{ $departments := partial "get_departments.html" . }}
+            <div class="text-muted">
+              Departments
+            </div>
+            <div class="course-info-content">
+              {{ partial "partial_collapse_list.html" (dict "list" $departments "id" "departments" "key" "title" "klass" "course-info-department" "useLinks" true) }}
+            </div>
+          </div>
+        {{ end }}
+
+      </div>
+      {{ if not $inPanel }}
+      <div class="col-12 col-sm-6">
+        <div class="mt-4 mt-sm-0">
+          <div class="text-muted">
+            Topics
+          </div>
+          <div class="course-info-content">
+            {{ partial "topics_oneline.html" . }}
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+
+    {{/*  <table id="course-info-table" class="table table-borderless mb-0" >
       {{ with $courseData.instructors.content }}
       <tr>
         {{ $instructors := partial "get_instructors.html" . }}
@@ -19,23 +61,6 @@
         <td class="pl-0">Course Number:</td>
         <td>{{ partial "partial_collapse_list.html" (dict "list" ((slice $courseData.primary_course_number) | append (split $courseData.extra_course_numbers ",")) "id" "course_numbers" "useLinks" false) }}</td>
       </tr>
-      {{ with $courseData.department_numbers }}
-      <tr>
-        <td class="pl-0">Departments:</td>
-        <td>
-          {{ $departments := partial "get_departments.html" . }}
-          {{ partial "partial_collapse_list.html" (dict "list" $departments "id" "departments" "key" "title" "klass" "course-info-department" "useLinks" true) }}
-        </td>
-      </tr>
-      {{ end }}
-      {{ if not $inPanel }}
-      <tr>
-        <td class="pl-0">Topics:</td>
-        <td>
-          {{ partial "topics_oneline.html" . }}
-        </td>
-      </tr>
-      {{ end }}
       <tr>
         <td class="pl-0 text-nowrap">As Taught In:</td>
         <td>
@@ -60,15 +85,6 @@
           {{ end }}
         </td>
       </tr>
-    </table>
+    </table>  */}}
   </div>
-</div>
-<div class="border-top-gray {{ if not $inPanel }}mt-2{{ end }}">
-  {{ if not $inPanel }}
-  <div class="collapse-btn-section float-right mb-3">
-    <a role="button" class="collapsed" data-toggle="collapse" href="#course-info" aria-expanded="false" aria-controls="course-info">
-      <span class="material-icons"></span>
-    </a>
-  </div>
-  {{ end }}
 </div>
