@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-body">
+    <div class="course-detail-section">
+      {{ partial "course_description.html" (dict "context" .) }}
+    </div>
+
+    <div class="course-detail-section">
+      {{ partial "course_info.html" (dict "context" . "inPanel" false) }}
+    </div>
+
+    <div class="course-detail-section">
+      {{ partial "learning_resource_types.html" (dict "context" . "inPanel" false) }}
+    </div>
+
+    <div class="course-detail-section">
+      {{ partial "course_other_version.html" (dict "context" . "inPanel" false) }}
+    </div>
+  </div>
+</div>
