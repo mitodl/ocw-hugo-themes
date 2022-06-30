@@ -1,7 +1,11 @@
+nav{
+  display: block !important;
+}
+
 .course-nav {
   a {
     text-decoration: none;
-    font-size: $font-sm;
+    font-size: $font-normal;
 
     &.active {
       font-weight: 600;
@@ -38,20 +42,9 @@
   }
 }
 
-.course-nav-list-item {
-  @include media-breakpoint-up(lg) {
-    padding-right: 2rem;
-  }
-
-  &:first-child {
-    .course-nav-parent {
-      padding-top: 0 !important;
-    }
-  }
-}
 
 .course-nav-list-item-child {
-  font-size: $font-xs;
+  font-size: $font-sm;
 }
 
 .course-nav-section-toggle {
@@ -59,11 +52,11 @@
 }
 
 .course-nav-section-toggle > i:after {
-  content: "add";
+  content: "keyboard_arrow_down";
 }
 
 .course-nav-section-toggle[aria-expanded="true"] > i:after {
-  content: "remove" !important;
+  content: "keyboard_arrow_up" !important;
 }
 
 .course-nav-child-nav {
