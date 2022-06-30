@@ -1,5 +1,6 @@
-{{ $hideThumbnail := .hideThumbnail | default false }}
-{{ $hideDownloadIcon := .hideDownloadIcon | default false }}
+{{- $hideThumbnail := .hideThumbnail | default false -}}
+{{- $hideDownloadIcon := .hideDownloadIcon | default false -}}
+{{- $defaultSort := .sort | default true -}}
 
 {{ $resources := .resources }}
 {{ $numberOfResources := len $resources }}
@@ -7,9 +8,16 @@
 {{ $limitResources := .limitResources | default $numberOfResources }}
 
 {{ if gt $numberOfResources 0 }}
-  {{ range sort (first $limitResources $resources) .Params "title" }}
-    {{ partial "resource_list_item.html" (dict "params" .Params "permalink" .Permalink "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) }}
-    <hr>
+  {{ if $defaultSort }}
+    {{ range sort (first $limitResources $resources) .Params "title" }}
+      {{- partial "resource_list_item.html" (dict "params" .Params "permalink" .Permalink "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) -}}
+      <hr>
+    {{end}}
+  {{ else }}
+    {{ range (first $limitResources $resources)}}
+      {{- partial "resource_list_item.html" (dict "params" .Params "permalink" .Permalink "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) -}}
+      <hr>
+    {{ end }}
   {{ end }}
 {{ else }}
   {{ partial "no_resources_found.html" }}
