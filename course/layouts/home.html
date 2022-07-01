@@ -17,23 +17,28 @@
     {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
     {{ block "subheader" . }}{{ partialCached "course_banner.html" . }}{{ end }}
 
-  <div class="row course-cards p-4">
-    <div class="col-2 card-grid large-and-above-only">  
-      {{ partialCached "desktop_nav.html" . }}
+  <div class="course-home-content">
+    <div class="row">
+      <div class="col-12 course-home-grid">
+        <div class="medium-and-below-only">
+          {{ partial "mobile_nav_toggle.html" . }}
+        </div>
+      </div>
     </div>
-    <div class="col-lg-7 col-sm-8 card-grid">
-      {{ partialCached "course_detail.html" . }}
-    </div>
-    <div class="col-lg-3 col-sm-4 mb-2 card-grid">
-      {{ partialCached "course_image_section.html" . }}
+    <div class="row course-cards">
+      <div class="col-2 course-home-grid large-and-above-only">  
+        {{ partialCached "desktop_nav.html" . }}
+      </div>
+      <div class="col-lg-7 col-sm-8 course-home-grid">
+        {{ partialCached "course_detail.html" . }}
+      </div>
+      <div class="col-lg-3 col-sm-4 mb-2 mb-sm-0 course-home-grid">
+        {{ partialCached "course_image_section.html" . }}
+      </div>
     </div>
   </div>
-  {{/*  col-lg-3 col-md-4 card-grid d-flex flex-row-reverse  */}}
-  {{/*  <div class="medium-and-below-only pl-3 py-3">
-    {{ partial "mobile_nav_toggle.html" . }}
-  </div>  */}}
   
-    {{ block "footer" . }}{{ partial "footer" . }}{{end}}
+  {{ block "footer" . }}{{ partial "footer" . }}{{end}}
   </div>
   <script>
     window.MathJax = {

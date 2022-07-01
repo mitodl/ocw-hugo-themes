@@ -1,0 +1,16 @@
+.learning-resource-type-item {
+  border: 1px solid #bcbcbc;
+  border-radius: 15px;
+  box-sizing: border-box;
+  font-size: $font-sm;
+  padding: 3px 8px 3px 8px;
+  cursor: pointer;
+
+  .material-icons {
+    font-size: 20px;
+  }
+}
+
+.learning-resource-type-item:hover {
+  border: 1px solid $dark-gray;
+}
