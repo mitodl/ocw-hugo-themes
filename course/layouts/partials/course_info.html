@@ -46,45 +46,5 @@
       </div>
       {{ end }}
     </div>
-
-    {{/*  <table id="course-info-table" class="table table-borderless mb-0" >
-      {{ with $courseData.instructors.content }}
-      <tr>
-        {{ $instructors := partial "get_instructors.html" . }}
-        <td class="pl-0">{{ if eq (len $instructors) 1 }}Instructor{{ else }}Instructors{{ end }}:</td>
-        <td>
-          {{ partial "partial_collapse_list.html" (dict "list" $instructors "id" "instructors" "key" "title" "klass" "course-info-instructor" "showCollapse" $inPanel) }}
-        </td>
-      </tr>
-      {{ end }}
-      <tr>
-        <td class="pl-0">Course Number:</td>
-        <td>{{ partial "partial_collapse_list.html" (dict "list" ((slice $courseData.primary_course_number) | append (split $courseData.extra_course_numbers ",")) "id" "course_numbers" "useLinks" false) }}</td>
-      </tr>
-      <tr>
-        <td class="pl-0 text-nowrap">As Taught In:</td>
-        <td>
-          {{ $courseData.term }} {{ if isset $courseData "year" }}{{ $courseData.year }}{{ end }}
-        </td>
-      </tr>
-      <tr>
-        <td class="pl-0">Level:</td>
-        <td>
-          {{ if eq (printf "%T" $courseData.level) "string" }}
-            {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
-            <a href="{{ $levelSearchUrl }}" class="course-info-level">
-              {{ $courseData.level }}
-            </a>
-          {{ else }}
-            {{ range $courseData.level }}
-              {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) }}
-              <a href="{{ $levelSearchUrl }}" class="course-info-level">
-                {{ . }}
-              </a><br />
-            {{ end }}
-          {{ end }}
-        </td>
-      </tr>
-    </table>  */}}
   </div>
 </div>

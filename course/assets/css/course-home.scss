@@ -1,4 +1,18 @@
 .course-home-page {
+  .course-home-content {
+    padding: 1.5rem;
+  }
+
+  .course-home-grid {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
+
+  .course-cards {
+    @include media-breakpoint-down(xs) {
+      flex-flow: column-reverse;
+    }
+  }
 
   .card {
     border-radius: 0px;
@@ -7,19 +21,6 @@
   .container-fluid {
     max-width: $max-content-width;
   }
-
-  .course-image {
-    border: 1px solid $medium-gray;
-    width: 100%;
-  }
-
-  .course-image-caption{
-    font-size: $font-sm;
-    margin-top: 10px;
-    line-height: 1.2;
-  }
-
-  h4.course-info-title,
 
   .course-home-section {
     padding: 20px 40px 0px 40px;
@@ -47,43 +48,4 @@
       }
     }
   }
-
-  .collapse-btn-section {
-    a.collapsed span:after {
-      content: "keyboard_arrow_down";
-    }
-
-    a:not(.collapsed) span:after {
-      content: "keyboard_arrow_up";
-    }
-  }
-
-  .learning-resource-type-item {
-    border: 1px solid #BCBCBC;
-    border-radius: 15px;
-    box-sizing: border-box;
-    font-size: $font-sm;
-    padding: 3px 8px 3px 8px;
-    cursor: pointer;
-
-    .material-icons{
-      font-size: 20px;
-    }
-  }
-
-  .learning-resource-type-item:hover{
-    border: 1px solid $dark-gray;
-  }
-
-  .course-cards {
-
-    @include media-breakpoint-down(xs) {
-      flex-flow: column-reverse;
-    }
-  }
-
-}
-
-.bs{
-  border: 0.5px solid black;
 }
