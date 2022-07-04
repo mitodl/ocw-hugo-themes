@@ -22,6 +22,10 @@
 @import "learning-resource-types";
 @import "course-image-section";
 
+html {
+  font-size: $course-font-root !important;
+}
+
 #course-banner {
   color: $white;
   background-color: $blue;
