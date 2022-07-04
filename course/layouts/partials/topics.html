@@ -1,9 +1,12 @@
 {{ $courseData := .context.Site.Data.course }}
 {{ $scratch := newScratch }}
 {{ $scratch.Set "index" 0 }}
-<div class="border-bottom-gray my-2">
-  <h4 class="course-info-title font-weight-bold">Topics</h4>
-  <ul class="list-unstyled pb-2 m-0">
+{{ $inPanel := .inPanel }}
+<div class="mt-4">
+  <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
+    Topics
+  </div>
+  <ul class="list-unstyled pb-2 m-0 {{ if $inPanel }}panel-course-info-text{{ end }}">
     {{- $topics := (slice (slice "Social Science" "Political Science" "American Politics") (slice "Social Science" "Public Administration" "Public Policy")) -}}
 
     {{ with $courseData.topics }}

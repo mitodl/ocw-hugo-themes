@@ -1,20 +1,20 @@
 {{ $courseData := .context.Site.Data.course }}
 {{ $inPanel := .inPanel }}
 <div class="course-info">
-  <div class="course-detail-title">
+  <div class="course-detail-title {{ if $inPanel }}bg-light-gray py-2 pl-2{{ end }}">
     Course Info
   </div>
-  <div id="course-info" class="position-relative">
+  <div id="course-info" class="position-relative {{ if $inPanel }}px-3{{ end }}">
 
     <div class="row">
-      <div class="col-12 col-sm-6">
+      <div class="col-12 {{ if not $inPanel }}col-sm-6{{ end }}">
         {{ with $courseData.instructors.content }}
           <div class="">
             {{ $instructors := partial "get_instructors.html" . }}
-            <div class="text-muted">
+            <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
               {{ if eq (len $instructors) 1 }}Instructor{{ else }}Instructors{{ end }}
             </div>
-            <div class="course-info-content">
+            <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
               {{ partial "partial_collapse_list.html" (dict "list" $instructors "id" "instructors" "key" "title" "klass" "course-info-instructor" "showCollapse" $inPanel) }}
             </div>
           </div>
@@ -23,16 +23,48 @@
         {{ with $courseData.department_numbers }}
           <div class="mt-4">
             {{ $departments := partial "get_departments.html" . }}
-            <div class="text-muted">
+            <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
               Departments
             </div>
-            <div class="course-info-content">
+            <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
               {{ partial "partial_collapse_list.html" (dict "list" $departments "id" "departments" "key" "title" "klass" "course-info-department" "useLinks" true) }}
             </div>
           </div>
         {{ end }}
 
+        {{ if $inPanel }}
+          <div class="mt-4">
+            <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
+              As Taught In
+            </div>
+            <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
+              {{ $courseData.term }} {{ if isset $courseData "year" }}{{ $courseData.year }}{{ end }}
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
+              Level
+            </div>
+            <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
+              {{ if eq (printf "%T" $courseData.level) "string" }}
+                {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
+                <a href="{{ $levelSearchUrl }}" class="course-info-level">
+                  {{ $courseData.level }}
+                </a>
+              {{ else }}
+                {{ range $courseData.level }}
+                  {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) }}
+                  <a href="{{ $levelSearchUrl }}" class="course-info-level">
+                    {{ . }}
+                  </a><br />
+                {{ end }}
+              {{ end }}
+            </div>
+          </div>
+        {{ end }}
       </div>
+      
       {{ if not $inPanel }}
       <div class="col-12 col-sm-6">
         <div class="mt-4 mt-sm-0">
