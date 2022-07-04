@@ -5,9 +5,9 @@
     id="course-title"
   >
     {{ with .Params.parent_title }}
-    <h3 class="parent-title">{{ . }}</h3>
+    <div class="course-content-parent-title">{{ . }}</div>
     {{ end }}
-    <h1 class="text-uppercase font-weight-bold pb-1 mb-3">{{ .Title }}</h1>
+    <div class="course-content-title text-uppercase font-weight-bold pb-1 mb-1">{{ .Title }}</div>
   </div>
   <div class="d-flex">
     {{ if $shouldCollapseTitle }}
