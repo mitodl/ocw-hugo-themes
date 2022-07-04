@@ -22,7 +22,6 @@ a.coming-soon {
 /* CUSTOM STYLES */
 body {
   font-family: "Helvetica";
-  font-size: $font-root;
 }
 
 .underline {
@@ -189,15 +188,6 @@ h4 {
 
 .m-0-auto {
   margin: 0 auto;
-}
-
-.course-image {
-  @include media-breakpoint-down(md) {
-    height: 100px;
-    width: 150px;
-  }
-
-  object-fit: cover;
 }
 
 /* BOOTSTRAP EXTENSIONS / OVERRIDES */
