@@ -2,14 +2,14 @@
 {{ $inPanel := .inPanel }}
 
 {{ if gt (len ($courseData.learning_resource_types | default slice)) 0 }}
-<div>
-  <div class="course-detail-title">
+<div class="">
+  <div class="course-detail-title {{ if $inPanel }}panel-course-info-title mt-4{{ end }}">
     Learning Resource Types
   </div>
   <div>
     <div class="row">
       {{ range $courseData.learning_resource_types }}
-        <div class="m-2">
+        <div class="{{ if $inPanel }}panel-course-info-text{{ end }} m-2">
           {{ partial "learning_resource_type.html" . }}
         </div>
       {{ end }}

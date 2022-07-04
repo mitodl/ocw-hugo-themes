@@ -1,5 +1,22 @@
+$panel-course-info-text-color: #464646;
+
 .course-info {
   .course-info-content {
     margin-top: 5px;
   }
+}
+
+.panel-course-info-title {
+  font-size: $font-sm;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: $panel-course-info-text-color !important;
+}
+
+.panel-course-info-text {
+  font-size: $font-sm;
+  color: $panel-course-info-text-color !important;
+  a {
+    color: $panel-course-info-text-color !important;
+  } 
 }

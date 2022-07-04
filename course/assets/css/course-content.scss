@@ -8,6 +8,14 @@
   height: 5.7em;
 }
 
+.course-content-title {
+  font-size: $font-xxl;
+}
+
+.course-content-parent-title {
+  font-size: $font-lg;
+}
+
 th,
 td {
   > p:empty {
