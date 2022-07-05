@@ -1,38 +1,41 @@
-<div class="learning-resource-type-item">
+{{- $context := .context -}}
+{{ $inPanel := .inPanel }}
+
+<div class="{{ if not $inPanel }}learning-resource-type-item{{ end }}">
   <div class="d-flex">
     <i class="material-icons pr-1">
-      {{- if eq . "Course Introduction" -}}
+      {{- if eq $context "Course Introduction" -}}
       groups
-      {{- else if in . "Audio" -}}
+      {{- else if in $context "Audio" -}}
       equalizer
-      {{- else if in . "Video" -}}
+      {{- else if in $context "Video" -}}
       theaters
-      {{- else if or (in . "Problem Sets") (in . "Assignment") -}}
-        {{- if or (in . "with Examples") (in . "with Solutions") -}}
+      {{- else if or (in $context "Problem Sets") (in $context "Assignment") -}}
+        {{- if or (in $context "with Examples") (in $context "with Solutions") -}}
         assignment_turned_in
         {{- else -}}
         assignment
         {{- end -}}
-      {{- else if in . "Exams" -}}
+      {{- else if in $context "Exams" -}}
       grading
-      {{- else if eq . "Image Gallery" -}}
+      {{- else if eq $context "Image Gallery" -}}
       collections
-      {{- else if eq . "Lecture Notes" -}}
+      {{- else if eq $context "Lecture Notes" -}}
       notes
-      {{- else if eq . "Online Textbook" -}}
+      {{- else if eq $context "Online Textbook" -}}
       menu_book
-      {{- else if in . "Projects" -}}
+      {{- else if in $context "Projects" -}}
       group_work
-      {{- else if in . "Simulations" -}}
+      {{- else if in $context "Simulations" -}}
       laptop_windows
-      {{- else if in . "Instructor Insights" -}}
+      {{- else if in $context "Instructor Insights" -}}
       <span class="material-icons-round">
         co_present
       </span> 
       {{- end -}}
     </i>
     <span>
-      {{- . -}}
+      {{- $context -}}
     </span>
   </div>
 </div>
