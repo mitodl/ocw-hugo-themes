@@ -139,7 +139,7 @@ jobs:
         with:
           branch: ${{ github.ref }}
           outputDirectory: ${{ github.workspace }}/tmp/artifacts
-          urls: 'https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/,https://ocw-hugo-themes-pr-${{ github.event.number }}--ocw-next.netlify.app/search/'
+          urls: 'https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/,https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/search/'
           sha: ${{ github.sha }}
 
       - name: Set comment body
