@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.63.0
+Version 1.63.0 (Released July 05, 2022)
 --------------
 
 - prefix the canonical url with the sitemap domain (#773)
