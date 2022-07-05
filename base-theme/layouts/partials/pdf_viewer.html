@@ -8,8 +8,6 @@
     </a>
   </div>
   <div class="pdf-wrapper w-100">
-    <object data="{{ partial "resource_url" .Params.file }}" type="application/pdf" class="w-100">
-      <embed src="{{ partial "resource_url" .Params.file }}" type="application/pdf" class="w-100" />
-    </object>
+    <iframe class="w-100" src="{{ partial "resource_url" .Params.file }}"></iframe>
   </div>
 </div>
