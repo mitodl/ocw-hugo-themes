@@ -1,11 +1,19 @@
 {{ $courseData := .context.Site.Data.course }}
 {{ $inPanel := .inPanel }}
 <div class="course-info">
-  <div class="course-detail-title {{ if $inPanel }}bg-light-gray py-2 pl-2{{ end }}">
-    Course Info
+  <div class="course-detail-title {{ if $inPanel }}bg-light-gray{{ end }}">
+    <div class="d-flex">
+      <div class="{{ if $inPanel }}py-2 pl-3{{ end }}">
+      Course Info
+      </div>
+      {{ if $inPanel }}
+      <div class="close-course-info large-and-above-only" onclick="desktopCourseInfoToggle()">
+          <img class="toggle navbar-toggle offcanvas-toggle" src="/images/close_small.svg" alt="">
+      </div>
+      {{ end }}
+    </div>
   </div>
-  <div id="course-info" class="position-relative {{ if $inPanel }}px-3{{ end }}">
-
+  <div id="course-info" class="position-relative {{ if $inPanel }}px-3 mt-4{{ end }}">
     <div class="row">
       <div class="col-12 {{ if not $inPanel }}col-sm-6{{ end }}">
         {{ with $courseData.instructors.content }}
@@ -80,3 +88,17 @@
     </div>
   </div>
 </div>
+
+<script>
+// todo: move this function to js file.
+// currently having some issues while using this function from js file
+function desktopCourseInfoToggle(){
+  const desktopCourseInfo = document.getElementById("desktop-course-info")
+  const showCourseInfoBtn = document.getElementById("show-course-info")
+  const mainCourseSection = document.getElementById("main-course-section")
+  desktopCourseInfo.classList.toggle("d-none")
+  showCourseInfoBtn.classList.toggle("d-none")
+  mainCourseSection.classList.toggle("col-lg-9")
+  mainCourseSection.classList.toggle("col-md-12")
+}
+</script>

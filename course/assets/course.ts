@@ -5,7 +5,6 @@ import "nanogallery2/src/jquery.nanogallery2.core.js"
 
 import "./css/course.scss"
 
-import { initDesktopCourseInfoToggle } from "./js/course_info_toggle"
 import { initDivToggle } from "./js/div_toggle"
 import { initCourseInfoExpander } from "./js/course_expander"
 import { initVideoTranscriptTrack } from "./js/video_transcript_track"
@@ -17,11 +16,9 @@ import {
   checkAnswer,
   showSolution
 } from "./js/quiz_multiple_choice"
-
 import "videojs-youtube"
 
 $(function() {
-  initDesktopCourseInfoToggle()
   initCourseInfoExpander(document)
   initDownloadButton()
   initPlayBackSpeedButton()

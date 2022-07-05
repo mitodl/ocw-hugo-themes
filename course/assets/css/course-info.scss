@@ -18,5 +18,16 @@ $panel-course-info-text-color: #464646;
   color: $panel-course-info-text-color !important;
   a {
     color: $panel-course-info-text-color !important;
-  } 
+  }
+}
+
+.close-course-info {
+  margin-left: auto;
+  padding: 5px 10px 5px 10px;
+  background-color: #e4e4e4;
+  cursor: pointer;
+}
+
+.close-course-info:hover {
+  background-color: #c0c0c0;
 }
