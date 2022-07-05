@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.63.0 (Released July 05, 2022)
+--------------
+
+- prefix the canonical url with the sitemap domain (#773)
+- Added theme for resource list (#775)
+- search API error handling improved (#761)
+- feat: lists of course resources grouped by learning resource types (#753)
+- specify the canonical url with a value of .Permalink (#767)
+- Added download button to control bar (#732)
+
 Version 1.62.0 (Released June 23, 2022)
 --------------
 
