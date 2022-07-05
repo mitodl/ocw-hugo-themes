@@ -7,5 +7,7 @@
       </div>
     </a>
   </div>
-  <iframe class="pdf-wrapper w-100" src="{{ partial "resource_url" .Params.file }}" />
+  <div class="pdf-wrapper w-100">
+    <iframe class="w-100" src="{{ partial "resource_url" .Params.file }}"></iframe>
+  </div>
 </div>

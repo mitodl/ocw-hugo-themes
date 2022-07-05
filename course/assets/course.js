@@ -21,7 +21,8 @@ import {
 import "videojs-youtube"
 
 $(function() {
-  initPdfViewers()
+  require("videojs-youtube")
+  // initPdfViewers()
   initDesktopCourseInfoToggle()
   initCourseInfoExpander(document)
   initDownloadButton()

@@ -5,12 +5,12 @@
   }
 
   .pdf-wrapper {
-    height: 0;
     padding-bottom: 130%;
     position: relative;
 
     iframe {
       position: absolute;
+      height: 100vh;
       top: 0;
       bottom: 0;
       left: 0;
