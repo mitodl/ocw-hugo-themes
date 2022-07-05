@@ -17,6 +17,8 @@ import {
   checkAnswer,
   showSolution
 } from "./js/quiz_multiple_choice"
+import { hidePdfViewersSafari } from "../../base-theme/assets/js/pdf"
+
 import "videojs-youtube"
 
 $(function() {
@@ -31,4 +33,5 @@ $(function() {
   checkAnswer()
   showSolution()
   initVideoFullscreenToggle()
+  hidePdfViewersSafari()
 })

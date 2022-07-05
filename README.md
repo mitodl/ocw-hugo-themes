@@ -26,7 +26,7 @@ course/
 ├── assets/
 │   ├── css/
 │   ├── js/
-│   └── course.js
+│   └── course.ts
 ├── data/
 │   ├── departments.json (map of department numbers)
 │   └── search_query_keys.json (map of search query strings)

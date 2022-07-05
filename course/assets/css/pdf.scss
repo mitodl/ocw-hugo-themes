@@ -9,8 +9,11 @@
     position: relative;
 
     object,
-    embed,
-    iframe {
+    embed {
+      @supports (-webkit-touch-callout: none) {
+        display: none;
+      }
+
       position: absolute;
       height: 100vh;
       top: 0;

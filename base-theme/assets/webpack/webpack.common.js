@@ -19,7 +19,7 @@ module.exports = {
       "..",
       "course",
       "assets",
-      "course.js"
+      "course.ts"
     ),
     instructor_insights: path.join(
       __dirname,
