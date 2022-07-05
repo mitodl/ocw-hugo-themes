@@ -1,15 +1,15 @@
 #course-title.collapse:not(.show) {
   display: block;
-  height: 5.7em;
+  height: 5.5em;
   overflow: hidden;
 }
 
 #course-title.collapsing {
-  height: 5.7em;
+  height: 5.5em;
 }
 
 .course-content-title {
-  font-size: $font-xxl;
+  font-size: $font-xl;
 }
 
 .course-content-parent-title {

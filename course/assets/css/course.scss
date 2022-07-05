@@ -112,3 +112,58 @@ pre {
   text-transform: uppercase;
   margin-bottom: 10px;
 }
+
+// not using font variables here as we need different font sizes on course pages
+// these font sizes are yet to be confirmed
+h1 {
+  font-size: 1.43rem !important; // 20px
+  color: $black;
+
+  @include media-breakpoint-down(xs) {
+    font-size: 1.23rem !important; // 18px
+  }
+}
+
+h2 {
+  font-size: 1.14rem !important; // 16px
+  color: $black;
+
+  @include media-breakpoint-down(xs) {
+    font-size: 1.14rem !important; // 16px
+  }
+
+  &.branded {
+    font-family: Helvetica, sans-serif;
+    font-weight: 300;
+
+    span {
+      color: $orange;
+      font-weight: 600;
+    }
+  }
+}
+
+h3 {
+  font-size: 1rem !important; // 14px
+  color: $black;
+}
+
+a + h3 {
+  margin-top: 1rem;
+}
+
+@include media-breakpoint-down(xs) {
+  h3 {
+    font-size: 1rem !important; // 14px
+  }
+}
+
+h4 {
+  font-size: 1rem !important; // 14px
+  color: $black;
+
+  @include media-breakpoint-down(xs) {
+    font-size: 0.86rem !important; // 12px
+  }
+}
+
