@@ -42,7 +42,6 @@ yarn-debug.log*
 yarn-error.log*
 .yarn-integrity
 base-theme/data/webpack.json
-!www/static/pdfjs/build
 ocw-to-hugo.*.log
 
 # Unit test / coverage reports
