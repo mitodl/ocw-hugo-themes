@@ -83,16 +83,14 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/,
         use:  [
-          "style-loader",
-          {
-            loader:  MiniCssExtractPlugin.loader,
-            options: {
-              publicPath:    "./",
-              filename:      "css/[name].css",
-              chunkFilename: "css/[id].css",
-              hmr:           process.env.NODE_ENV !== "production"
-            }
-          },
+          process.env.NODE_ENV === "production" ?
+            "style-loader" :
+            {
+              loader:  MiniCssExtractPlugin.loader,
+              options: {
+                publicPath: "./"
+              }
+            },
           "css-loader",
           "postcss-loader",
           "sass-loader"
@@ -101,25 +99,36 @@ module.exports = {
 
       {
         test: require.resolve("shifty"),
-        use:  [{ loader: "expose-loader", options: "NGTweenable" }]
+        use:  [
+          { loader: "expose-loader", options: { exposes: ["NGTweenable"] } }
+        ]
       },
 
       {
         test: require.resolve("hammerjs"),
-        use:  [{ loader: "expose-loader", options: "NGHammer" }]
+        use:  [
+          {
+            loader:  "expose-loader",
+            options: { exposes: ["NGHammer"] }
+          }
+        ]
       },
 
       {
         test: require.resolve("imagesloaded"),
         use:  [
-          { loader: "expose-loader", options: "ngimagesLoaded" },
-          { loader: "expose-loader", options: "ngImagesLoaded" }
+          {
+            loader:  "expose-loader",
+            options: { exposes: ["ngimagesLoaded", "ngImagesLoaded"] }
+          }
         ]
       },
 
       {
         test: require.resolve("screenfull"),
-        use:  [{ loader: "expose-loader", options: "ngscreenfull" }]
+        use:  [
+          { loader: "expose-loader", options: { exposes: ["ngscreenfull"] } }
+        ]
       }
     ]
   },

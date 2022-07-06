@@ -27,7 +27,9 @@ module.exports = merge(common, {
       }),
 
       new MiniCssExtractPlugin({
-        publicPath:    "./",
+        // publicPath option has been removed I believe as
+        //it is not listed in docs
+        //https://webpack.js.org/plugins/mini-css-extract-plugin/#plugin-options
         filename:      "css/[name].[hash:5].css",
         chunkFilename: "css/[id].[hash:5].css"
       }),
