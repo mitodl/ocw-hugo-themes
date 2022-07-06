@@ -1,8 +1,8 @@
 {{ define "main" }}
 {{ partial "course_content.html" . }}
 
-{{- $numberOfResourcesLimit := 10 -}}
-{{- $showNoResourcesFoundMessage := true -}}
+{{ $numberOfResourcesLimit := 10 }}
+{{ $showNoResourcesFoundMessage := true }}
 {{ $taxonomy := "learning_resource_types" }}
 
 <div class="mb-5">
@@ -14,7 +14,7 @@
         {{ $numberOfResources := len $resources  }}
         {{ if gt $numberOfResources 0 }}
 
-          {{- $showNoResourcesFoundMessage = false -}}
+          {{ $showNoResourcesFoundMessage = false }}
           {{ $limitedResourcesShown := false }}
 
           {{ if gt $numberOfResources $numberOfResourcesLimit }}
@@ -26,12 +26,12 @@
             <h4 class="my-4">{{ .Title }}</h4>  
           </div>
 
-          {{- partial "resource_list.html" (dict "resources" $resources "limitResources" $numberOfResources) -}}
+          {{ partial "resource_list.html" (dict "resources" $resources "limitResources" $numberOfResources) }}
             
           {{ if eq $limitedResourcesShown true }}
             <div>
               <div class="float-right">
-                {{- partial "see_all.html" (dict "permalink" .Permalink) -}}
+                {{ partial "see_all.html" (dict "permalink" .Permalink) }}
               </div>
             </div>
           {{ end }}
@@ -39,13 +39,13 @@
         {{ end }}
       {{ end }}
     {{ else }}
-      {{- $showNoResourcesFoundMessage = false -}}
-      {{- partial "no_resources_found.html" -}}
+      {{ $showNoResourcesFoundMessage = false }}
+      {{ partial "no_resources_found.html" }}
     {{ end }}
   {{ end }}
   
   {{ if eq $showNoResourcesFoundMessage true }}
-      {{- partial "no_resources_found.html" -}}
+      {{ partial "no_resources_found.html" }}
   {{ end }}
 </div>
 {{ end }}
