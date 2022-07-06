@@ -10,10 +10,17 @@
 
 .course-content-title {
   font-size: $font-xl;
+
+  @include media-breakpoint-down(xs) {
+    font-size: $font-lg !important;
+  }
 }
 
 .course-content-parent-title {
   font-size: $font-lg;
+  @include media-breakpoint-down(xs) {
+    font-size: $font-md !important;
+  }
 }
 
 th,

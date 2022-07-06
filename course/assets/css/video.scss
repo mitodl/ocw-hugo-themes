@@ -49,14 +49,6 @@
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-
-          @media (max-width: 350px) {
-            font-size: small;
-          }
-
-          @media (max-width: 250px) {
-            font-size: x-small;
-          }
         }
       }
     }
