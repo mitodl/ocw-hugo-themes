@@ -1,9 +1,9 @@
 {{- if or site.IsServer (not (eq site.BaseURL "")) -}}
   {{- if or site.IsServer (in site.BaseURL ":3000") -}}
     {{- if hasPrefix . "/" -}}
-      {{- print "http://localhost:3001" . -}}
+      {{- print "http://192.168.1.99:3001" . -}}
     {{- else -}}
-      {{- print "http://localhost:3001/" . -}}
+      {{- print "http://192.168.1.99:3001/" . -}}
     {{- end -}}
   {{- else -}}
     {{- partial "site_root_url.html" . -}}

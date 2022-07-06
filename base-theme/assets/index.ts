@@ -14,12 +14,14 @@ import "./js/utils"
 
 import * as Sentry from "@sentry/browser"
 import { initSentry } from "./js/sentry"
+import { embedPdf } from "./js/pdf"
 
 export interface OCWWindow extends Window {
   $: JQueryStatic
   jQuery: JQueryStatic
   Popper: typeof Popper
   Sentry: typeof Sentry
+  embedPdf: any
 }
 
 declare let window: OCWWindow
@@ -39,4 +41,5 @@ $(function() {
   })
 
   window.Sentry = initSentry()
+  window.embedPdf = embedPdf
 })
