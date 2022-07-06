@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row">
-    <div>
+    <div class="d-inline-flex">
       {{ if not .hideThumbnail }}
-        {{- $thumbnailSrc := partial "get_resource_thumbnail_src.html" (dict "resourceType" .params.resourcetype) -}}
+        {{ $thumbnailSrc := partial "get_resource_thumbnail_src.html" (dict "resourceType" .params.resourcetype) }}
         <img
           class="resource-thumbnail"
           src="{{- $thumbnailSrc -}}"
@@ -10,7 +10,7 @@
       {{ end }}
 
       {{ if not .hideDownloadIcon }}
-        {{- $downloadableLink := partial "get_resource_download_link.html" .params -}}
+        {{ $downloadableLink := partial "get_resource_download_link.html" .params }}
           <span class="pr-2">
             {{ if $downloadableLink }}
               <a href="{{- $downloadableLink -}}" target="_blank" download>
@@ -22,8 +22,6 @@
             {{ end }}
           </span>
       {{ end }}
-    </div>
-    <div>
       <div class="pt-2">
       <a class="resource-list-title" href="{{ .permalink }}">
         {{ .params.title }}
