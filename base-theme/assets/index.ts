@@ -29,6 +29,7 @@ declare let window: OCWWindow
 window.jQuery = $
 window.$ = $
 window.Popper = Popper
+window.embedPdf = embedPdf
 
 $(function() {
   // hacky coming-soon popover
@@ -41,5 +42,4 @@ $(function() {
   })
 
   window.Sentry = initSentry()
-  window.embedPdf = embedPdf
 })
