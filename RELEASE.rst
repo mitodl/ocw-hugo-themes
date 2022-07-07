@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.64.0 (Released July 07, 2022)
+--------------
+
+- fix: import order of videojs-youtube sorted (#776)
+- added deploy configurations for testing (#768)
+
 Version 1.63.0 (Released July 05, 2022)
 --------------
 
