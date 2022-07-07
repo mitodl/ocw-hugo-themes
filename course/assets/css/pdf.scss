@@ -9,3 +9,7 @@
     width: 100%;
   }
 }
+
+#pdf-wrapper:empty {
+  display: none;
+}
