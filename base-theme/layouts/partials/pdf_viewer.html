@@ -15,7 +15,7 @@
         height: "100vh",
         fallbackLink: ""
       }
-      window.embedPdf("{{ partial "resource_url" .Params.file }}", "#pdf-wrapper", options)
+      window.PDFObject.embed("{{ partial "resource_url" .Params.file }}", "#pdf-wrapper", options)
     })
   </script>
 </div>
