@@ -21,7 +21,6 @@ import {
 import "videojs-youtube"
 
 $(function() {
-  require("videojs-youtube")
   initDesktopCourseInfoToggle()
   initCourseInfoExpander(document)
   initDownloadButton()
