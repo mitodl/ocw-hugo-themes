@@ -11,15 +11,16 @@ import "hammerjs"
 import "imagesloaded"
 import "screenfull"
 import "./js/utils"
-
 import * as Sentry from "@sentry/browser"
 import { initSentry } from "./js/sentry"
+import PDFObject from "pdfobject"
 
 export interface OCWWindow extends Window {
   $: JQueryStatic
   jQuery: JQueryStatic
   Popper: typeof Popper
   Sentry: typeof Sentry
+  PDFObject: typeof PDFObject
 }
 
 declare let window: OCWWindow
@@ -27,6 +28,7 @@ declare let window: OCWWindow
 window.jQuery = $
 window.$ = $
 window.Popper = Popper
+window.PDFObject = PDFObject
 
 $(function() {
   // hacky coming-soon popover

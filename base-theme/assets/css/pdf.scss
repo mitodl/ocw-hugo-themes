@@ -1,0 +1,15 @@
+.pdf-viewer {
+  .download-link {
+    display: block;
+    height: 50px;
+  }
+
+  #pdf-wrapper {
+    height: 100vh;
+    width: 100%;
+  }
+}
+
+#pdf-wrapper:empty {
+  display: none;
+}

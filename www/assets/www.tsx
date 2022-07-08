@@ -4,8 +4,6 @@ import "../../node_modules/nanogallery2/src/css/nanogallery2.css"
 import "./css/www.scss"
 import "./css/search.scss"
 
-import { initPdfViewers } from "../../base-theme/assets/js/pdf_viewer"
-
 import Popper from "popper.js"
 import ReactDOM from "react-dom"
 import React from "react"
@@ -61,5 +59,4 @@ $(function() {
   initNotifications()
   setupEmailSignupForm()
   initSubNav()
-  initPdfViewers()
 })

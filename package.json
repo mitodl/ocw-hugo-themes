@@ -107,6 +107,7 @@
     "npm-run-all": "^4.1.5",
     "offcanvas-bootstrap": "^2.5.2",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "pdfobject": "^2.2.8",
     "plugin-error": "^1.0.1",
     "popper.js": "^1.16.1",
     "postcss-import": "^12.0.1",
