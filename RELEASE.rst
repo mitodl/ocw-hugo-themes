@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.64.1
+Version 1.64.1 (Released July 11, 2022)
 --------------
 
 - course resources revisions (#777)
