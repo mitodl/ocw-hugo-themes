@@ -1,6 +1,7 @@
 import { search } from "./api"
 
-jest.mock("./search", () => ({
+jest.mock("@mitodl/course-search-utils", () => ({
+  ...jest.requireActual("@mitodl/course-search-utils"),
   __esModule:       true,
   buildSearchQuery: jest.fn(params => ({ searchFor: params }))
 }))

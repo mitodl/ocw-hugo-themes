@@ -48,12 +48,14 @@ jest.mock("lodash.debounce", () => jest.fn(fn => fn))
 
 const defaultCourseFacets = {
   ...INITIAL_FACET_STATE,
-  type: [LearningResourceType.Course]
+  type: [LearningResourceType.Course],
+  offered_by: ["OCW"]
 }
 
 const defaultResourceFacets = {
   ...INITIAL_FACET_STATE,
-  type: [LearningResourceType.ResourceFile]
+  type: [LearningResourceType.ResourceFile],
+  offered_by: ["OCW"]
 }
 
 describe("SearchPage component", () => {
@@ -107,8 +109,7 @@ describe("SearchPage component", () => {
             ...defaultCourseFacets,
             ...params.activeFacets
           },
-          sort: null,
-          ui: null
+          sort: null
         }
       ])
     })
@@ -134,8 +135,7 @@ describe("SearchPage component", () => {
           from: 0,
           size: LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null,
-          ui: null
+          sort: null
         }
       ],
       [
@@ -144,8 +144,7 @@ describe("SearchPage component", () => {
           from: 0,
           size: LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null,
-          ui: null
+          sort: null
         }
       ]
     ])
@@ -179,8 +178,7 @@ describe("SearchPage component", () => {
           from: 0,
           size: LIST_UI_PAGE_SIZE,
           activeFacets: { ...defaultCourseFacets, ...parameters.activeFacets },
-          sort: null,
-          ui: null
+          sort: null
         }
       ],
       [
@@ -192,8 +190,7 @@ describe("SearchPage component", () => {
             ...defaultResourceFacets,
             ...{ topics: ["Mathematics"] }
           },
-          sort: null,
-          ui: null
+          sort: null
         }
       ]
     ])
@@ -265,8 +262,9 @@ describe("SearchPage component", () => {
         .simulate("click")
     })
     // @ts-ignore
-
-    expect(search.mock.calls[1][0].ui).toEqual("compact")
+    expect(search.mock.calls[0][0].size).toEqual(LIST_UI_PAGE_SIZE)
+    // @ts-ignore
+    expect(search.mock.calls[1][0].size).toEqual(COMPACT_UI_PAGE_SIZE)
   })
 
   it("should display the number of results", async () => {
@@ -338,8 +336,7 @@ describe("SearchPage component", () => {
           from: 0,
           size: LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null,
-          ui: null
+          sort: null
         }
       ],
       [
@@ -348,8 +345,7 @@ describe("SearchPage component", () => {
           from: LIST_UI_PAGE_SIZE,
           size: LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null,
-          ui: null
+          sort: null
         }
       ],
       [
@@ -358,8 +354,7 @@ describe("SearchPage component", () => {
           from: 2 * LIST_UI_PAGE_SIZE,
           size: LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null,
-          ui: null
+          sort: null
         }
       ]
     ])
@@ -392,8 +387,7 @@ describe("SearchPage component", () => {
           from: 0,
           size: LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null,
-          ui: null
+          sort: null
         }
       ],
       [
@@ -402,8 +396,7 @@ describe("SearchPage component", () => {
           from: LIST_UI_PAGE_SIZE,
           size: LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null,
-          ui: null
+          sort: null
         }
       ]
     ])

@@ -1,5 +1,8 @@
-import { buildSearchQuery, SearchQueryParams } from "./search"
 import { isApiSuccessful, sentryCaptureException } from "./util"
+import {
+  buildSearchQuery,
+  SearchQueryParams
+} from "@mitodl/course-search-utils"
 
 export const search = async (params: SearchQueryParams) => {
   let results: any = {}
