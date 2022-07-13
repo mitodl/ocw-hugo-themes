@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.65.0
+Version 1.65.0 (Released July 13, 2022)
 --------------
 
 - use course-search-utils query generation (#781)
