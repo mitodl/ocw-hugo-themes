@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.65.0 (Released July 13, 2022)
+--------------
+
+- use course-search-utils query generation (#781)
+- replace pdf.js with pdfobject (#780)
+
 Version 1.64.1 (Released July 11, 2022)
 --------------
 
