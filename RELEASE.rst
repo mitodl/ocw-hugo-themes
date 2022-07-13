@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.65.1
+--------------
+
+- added code to maintain order of list (#783)
+- fixed issue with lighthouse (#785)
+
 Version 1.65.0 (Released July 13, 2022)
 --------------
 
