@@ -2,7 +2,9 @@
   background-color: $light-gray;
 
   .course-home-content {
-    padding: 1.5rem;
+    max-width: $max-content-width;
+    margin: 0 auto;
+    padding: 1.5rem 2.5rem 4rem 2.5rem !important;
   }
 
   .course-home-grid {
