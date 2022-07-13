@@ -30,6 +30,11 @@ html {
   color: $white;
   background-color: $blue;
 
+  .course-banner-content {
+    max-width: $max-content-width;
+    padding: 1.5rem 3rem !important;
+  }
+
   .course-number-term-detail {
     font-size: $font-sm;
     color: $light-blue;
@@ -173,5 +178,24 @@ h5 {
 
   @include media-breakpoint-down(xs) {
     font-size: 0.86rem !important; // 12px
+  }
+}
+
+@media (min-width: 1620px) and (max-width: 1800px) {
+  #desktop-header .contents,
+  #course-banner .course-banner-content,
+  #footer-container .row {
+    max-width: inherit !important;
+  }
+
+  .course-home-page .course-home-content {
+    max-width: inherit !important;
+  }
+
+  #footer-container {
+    padding: 2rem 2rem !important;
+  }
+  #footer-container .row {
+    padding: 0 !important;
   }
 }
