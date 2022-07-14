@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.65.1
+Version 1.65.1 (Released July 14, 2022)
 --------------
 
 - added code to maintain order of list (#783)
