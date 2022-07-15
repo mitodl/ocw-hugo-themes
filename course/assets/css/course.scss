@@ -16,34 +16,13 @@
 @import "video-transcript";
 @import "course-content";
 @import "course-resources";
-@import "course-description";
-@import "partial-collapse-list";
-@import "topic";
-@import "learning-resource-types";
-@import "course-image-section";
-
-html {
-  font-size: $course-font-root !important;
-}
 
 #course-banner {
   color: $white;
   background-color: $blue;
 
-  .course-banner-content {
-    max-width: $max-content-width;
-    padding: 1.5rem 3rem !important;
-  }
-
-  .course-number-term-detail {
-    font-size: $font-sm;
-    color: $light-blue;
-  }
-
   a {
     text-decoration: none;
-    font-size: $font-xxxl;
-    font-weight: 400;
   }
 }
 
@@ -96,106 +75,4 @@ div[class^="reveal"],
 pre {
   padding: 10px;
   border: 1px solid $medium-gray;
-}
-
-.collapse-btn-section {
-  a.collapsed span:after {
-    content: "keyboard_arrow_down";
-  }
-
-  a:not(.collapsed) span:after {
-    content: "keyboard_arrow_up";
-  }
-}
-
-.course-detail-section {
-  margin-bottom: 40px;
-}
-
-.course-detail-title {
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-
-// not using font variables here as we need different font sizes on course pages
-// these font sizes are yet to be confirmed
-h1 {
-  font-size: 1.43rem !important; // 20px
-  color: $black;
-
-  @include media-breakpoint-down(xs) {
-    font-size: 1.23rem !important; // 18px
-  }
-}
-
-h2 {
-  font-size: 1.14rem !important; // 16px
-  color: $black;
-
-  @include media-breakpoint-down(xs) {
-    font-size: 1.14rem !important; // 16px
-  }
-
-  &.branded {
-    font-family: Helvetica, sans-serif;
-    font-weight: 300;
-
-    span {
-      color: $orange;
-      font-weight: 600;
-    }
-  }
-}
-
-h3 {
-  font-size: 1rem !important; // 14px
-  color: $black;
-}
-
-a + h3 {
-  margin-top: 1rem;
-}
-
-@include media-breakpoint-down(xs) {
-  h3 {
-    font-size: 1rem !important; // 14px
-  }
-}
-
-h4 {
-  font-size: 1rem !important; // 14px
-  color: $black;
-
-  @include media-breakpoint-down(xs) {
-    font-size: 0.86rem !important; // 12px
-  }
-}
-
-h5 {
-  font-size: 1rem !important; // 14px
-  color: $black;
-
-  @include media-breakpoint-down(xs) {
-    font-size: 0.86rem !important; // 12px
-  }
-}
-
-@media (min-width: 1620px) and (max-width: 1800px) {
-  #desktop-header .contents,
-  #course-banner .course-banner-content,
-  #footer-container .row {
-    max-width: inherit !important;
-  }
-
-  .course-home-page .course-home-content {
-    max-width: inherit !important;
-  }
-
-  #footer-container {
-    padding: 2rem 2rem !important;
-  }
-  #footer-container .row {
-    padding: 0 !important;
-  }
 }

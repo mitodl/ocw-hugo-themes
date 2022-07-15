@@ -1,5 +1,8 @@
 {{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
 {{- $courseData := .Site.Data.course -}}
+{{- $imageData := partial "course-image-url.html" . -}}
+{{- $courseImageUrl := index $imageData 0 -}}
+{{- $courseImageMetadata := index $imageData 1 -}}
 <!doctype html>
 <html lang="{{ $.Site.Language.Lang }}">
 {{ partial "head.html" . }}
@@ -10,35 +13,83 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
   {{ end }}
-  
   <div class="overflow-auto">
     {{ partialCached "mobile_course_nav.html" . }}
     {{ partialCached "mobile_course_info.html" . }}
     {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
     {{ block "subheader" . }}{{ partialCached "course_banner.html" . }}{{ end }}
-
-  <div class="course-home-content">
-    <div class="row">
-      <div class="col-12 course-home-grid">
-        <div class="medium-and-below-only">
-          {{ partial "mobile_nav_toggle.html" . }}
+    <div class="container-fluid">
+      <div class="row outer-wrapper">
+        {{ partialCached "desktop_nav.html" . }}
+        <div class="left-col-bg"></div>
+        <div id="main-content-wrapper" class="col-lg-9 p-0 bg-white">
+          <main>
+            <div class="container-fluid p-0">
+              <div class="row m-0">
+                <div id="main-content" class="col-12 col-lg-12 col-xl-12 px-3 pl-md-5 pr-md-8 mt-3 mt-lg-5">
+                  <div class="homepage-content d-flex">
+                    <div class="container-fluid pt-0 pb-4">
+                      <div class="row px-3 pb-2 justify-content-between">
+                        {{- $imageCaption := $courseImageMetadata.Params.image_metadata.caption -}}
+                        {{ $shouldCollapseImageDescription := gt (len $imageCaption) 130 }}
+                        <div class="col-lg-4 d-none d-lg-block pl-0">
+                          <div class="d-flex flex-column image-with-caption">
+                            <img class="course-image" src="{{ $courseImageUrl }}"
+                              alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}"
+                            />
+                            <div id="course-image-description" class="{{ if $shouldCollapseImageDescription }}collapse{{ else }} mb-3 {{ end }}" aria-expanded="false">
+                              <div class="caption pt-3 px-3">
+                                <span>
+                                  {{ $imageCaption | .RenderString }}
+                                </span>
+                              </div>
+                            </div>
+                            {{ if $shouldCollapseImageDescription }}
+                            <div class="collapse-btn-section ml-auto pt-1 px-3">
+                              <a role="button" class="collapsed" data-toggle="collapse" href="#course-image-description" aria-expanded="false" aria-controls="course-image-description">
+                                <span class="material-icons"></span>
+                              </a>
+                            </div>
+                            {{ end }}
+                          </div>
+                        </div>
+                        <div class="medium-and-below-only pl-3 py-3">
+                          {{ partial "mobile_nav_toggle.html" . }}
+                        </div>
+                        <!-- the number here is a estimate, a count of 5 lines of characters on a sample course at minimum browser width -->
+                        {{ $shouldCollapseDescription := gt (len $courseData.course_description) 320 }}
+                        <div class="col-lg-8 course-description">
+                          <h4 class="font-weight-bold course-description-title">Course Description</h4>
+                          <div id="course-description" class="description {{ if $shouldCollapseDescription }}collapse{{ end }}" aria-expanded="false">
+                            {{- $courseData.course_description | markdownify -}}
+                          </div>
+                          <div class="border-top-gray mt-2 {{ if not $shouldCollapseDescription }}mb-3{{ end }}">
+                            {{ if $shouldCollapseDescription }}
+                              <div class="collapse-btn-section float-right">
+                                <a role="button" class="collapsed" data-toggle="collapse" href="#course-description" aria-expanded="false" aria-controls="course-description">
+                                  <span class="material-icons"></span>
+                                </a>
+                              </div>
+                            {{ end }}
+                          </div>
+                          {{ partial "course_info.html" (dict "context" . "inPanel" false) }}
+                        </div>
+                      </div>
+                      <div class="row px-lg-3 pb-lg-2 p-0">
+                        <div class="col-12 p-0">
+                          {{ partial "learning_resource_types.html" (dict "context" . "inPanel" false) }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
         </div>
       </div>
     </div>
-    <div class="row course-cards">
-      <div class="col-2 course-home-grid large-and-above-only">  
-        {{ partialCached "desktop_nav.html" . }}
-      </div>
-      <div class="col-lg-7 col-sm-8 course-home-grid">
-        {{ partialCached "course_detail.html" . }}
-      </div>
-      <div class="col-lg-3 col-sm-4 mb-2 mb-sm-0 course-home-grid">
-        {{ partialCached "course_image_section.html" . }}
-      </div>
-    </div>
-  </div>
-  
-  {{ block "footer" . }}{{ partial "footer" . }}{{end}}
+    {{ block "footer" . }}{{ partial "footer" . }}{{end}}
   </div>
   <script>
     window.MathJax = {
