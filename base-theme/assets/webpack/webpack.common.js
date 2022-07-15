@@ -26,9 +26,9 @@ module.exports = {
       "..",
       "..",
       "..",
-      "course_v2",
+      "course-v2",
       "assets",
-      "course_v2.ts"
+      "course-v2.ts"
     ),
     instructor_insights: path.join(
       __dirname,
