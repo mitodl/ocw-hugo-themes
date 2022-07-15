@@ -6,9 +6,9 @@
     {{ $courseHomePage := .Site.GetPage "/" }}
     <span class="course-number-term-detail">{{ $courseData.primary_course_number }} | {{ $courseData.term }} {{ $courseData.year }} | {{ delimit $courseData.level ", " }}</span>
     <br>
-    <a
-      class="{{ $bannerClass }}"
-      href="{{ $courseHomePage.RelPermalink }}"
-    >{{ $courseData.course_title }}</a>
+    <h1 class="{{ $bannerClass }}">
+      <a  class="text-white"
+          href="{{ $courseHomePage.RelPermalink }}"
+        >{{ $courseData.course_title }}</a></h1>
   </div>
 </div>
