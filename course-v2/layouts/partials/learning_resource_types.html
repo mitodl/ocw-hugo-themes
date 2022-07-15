@@ -1,0 +1,19 @@
+{{ $courseData := .context.Site.Data.course }}
+{{ $inPanel := .inPanel }}
+
+{{ if gt (len ($courseData.learning_resource_types | default slice)) 0 }}
+<div class="">
+  <div class="course-detail-title {{ if $inPanel }}panel-course-info-title mt-3{{ end }}">
+    Learning Resource Types
+  </div>
+  <div>
+    <div class="row {{ if $inPanel }}d-inline m-0{{ end }}">
+      {{ range $courseData.learning_resource_types }}
+        <div class="{{ if $inPanel }}panel-course-info-text my-2{{ else }} m-2 {{ end }}">
+          {{ partial "learning_resource_type.html" (dict "context" . "inPanel" $inPanel) }}
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{end}}

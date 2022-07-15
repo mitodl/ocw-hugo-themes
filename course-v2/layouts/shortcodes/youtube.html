@@ -1,0 +1,4 @@
+{{ $youtubeId := index .Params 0 }}
+{{ $captionsLocation := index .Params 1}}
+{{ $transcriptPdfLocation := index .Params 2}}
+{{ partial "youtube_player.html" (dict "youtubeKey" $youtubeId "captionsLocation" $captionsLocation "transcriptPdfLocation" $transcriptPdfLocation) }}

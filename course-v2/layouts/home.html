@@ -1,0 +1,78 @@
+{{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
+{{- $courseData := .Site.Data.course -}}
+<!doctype html>
+<html lang="{{ $.Site.Language.Lang }}">
+{{ partial "head.html" . }}
+<body class="course-home-page">
+  {{ if $gtmId }}
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId }}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  {{ end }}
+  
+  <div class="overflow-auto">
+    {{ partialCached "mobile_course_nav.html" . }}
+    {{ partialCached "mobile_course_info.html" . }}
+    {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
+    {{ block "subheader" . }}{{ partialCached "course_banner.html" . }}{{ end }}
+
+  <div class="course-home-content">
+    <div class="row">
+      <div class="col-12 course-home-grid">
+        <div class="medium-and-below-only">
+          {{ partial "mobile_nav_toggle.html" . }}
+        </div>
+      </div>
+    </div>
+    <div class="row course-cards">
+      <div class="col-2 course-home-grid large-and-above-only">  
+        {{ partialCached "desktop_nav.html" . }}
+      </div>
+      <div class="col-lg-7 col-sm-8 course-home-grid">
+        {{ partialCached "course_detail.html" . }}
+      </div>
+      <div class="col-lg-3 col-sm-4 mb-2 mb-sm-0 course-home-grid">
+        {{ partialCached "course_image_section.html" . }}
+      </div>
+    </div>
+  </div>
+  
+  {{ block "footer" . }}{{ partial "footer" . }}{{end}}
+  </div>
+  <script>
+    window.MathJax = {
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      displayAlign: "left",
+      displayIndent: "2em",
+      menuSettings: {
+        zoom: "Double-Click",
+        mpContext: true,
+        mpMouse: true
+      },
+      errorSettings: {
+        message: ["[Math Error]"]
+      }
+    }
+
+  </script>
+  {{ partialCached "navigation_js.html" . }}
+  {{ partialCached "responsive_tables_js.html" . }}
+  {{- $theme := .Site.Data.webpack.main -}}
+  {{- $courseTheme := .Site.Data.webpack.course -}}
+
+  <script src="{{ partial "webpack_url.html" $theme.js }}"></script>
+  <script src="{{ partial "webpack_url.html" $courseTheme.js }}"></script>
+  <script src="{{ partial "webpack_url.html" "/mathjax/tex-svg.js" }}" defer></script>
+  <!-- Appzi: Capture Insightful Feedback -->
+
+  <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>
+
+  <!-- End Appzi -->
+</body>
+
+</html>

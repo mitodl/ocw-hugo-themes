@@ -1,0 +1,16 @@
+<!-- Old Partial -->
+{{ $courseData := .Site.Data.course }}
+{{ $otherVersions := $courseData.other_versions }}
+{{ if gt (len $otherVersions) 0}}
+<div class="course-home-section w-100">
+  <div class="container px-0 mx-0">
+    <h4 class="course-info-title font-weight-bold">OTHER {{ index $courseData.primary_course_number  }} OFFERINGS ON OPENCOURSEWARE</h4>
+    <p>OCW has multiple versions of this course as taught in different terms by different faculty, with distinct materials and pedagogy.</p>
+    <ul class="other-version-list list-unstyled">
+    {{ range $otherVersions }}
+    <li>{{ . | markdownify }}</li>
+    {{ end }}
+    </ul>
+  </div>
+</div>
+{{ end }}

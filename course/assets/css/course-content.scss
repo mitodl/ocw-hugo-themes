@@ -1,26 +1,11 @@
 #course-title.collapse:not(.show) {
   display: block;
-  height: 5.5em;
+  height: 5.7em;
   overflow: hidden;
 }
 
 #course-title.collapsing {
-  height: 5.5em;
-}
-
-.course-content-title {
-  font-size: $font-xl;
-
-  @include media-breakpoint-down(xs) {
-    font-size: $font-lg !important;
-  }
-}
-
-.course-content-parent-title {
-  font-size: $font-lg;
-  @include media-breakpoint-down(xs) {
-    font-size: $font-md !important;
-  }
+  height: 5.7em;
 }
 
 th,

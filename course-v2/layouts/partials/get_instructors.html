@@ -1,0 +1,19 @@
+{{ $instructors := slice }}
+{{ range . }}
+  {{ $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" }}
+  {{ $url := (print (strings.TrimSuffix "/" $staticApiBaseUrl) "/instructors/" . "/index.json") }}
+  {{ with resources.GetRemote $url }}
+    {{ with .Err }}
+      {{ $errorMessage := printf "Something went wrong while fetching instructors on %v via %v with error: %v" site.BaseURL $url .Err }}
+      {{ partial "sentry_capture_message.html" $errorMessage }}
+    {{ else }}
+      {{ $data := (. | unmarshal).data }}
+      {{ $instructor := merge $data (dict "url" (print "/search?" (querify "q" $data.title))) }}
+      {{ $instructors = $instructors | append $instructor }}
+    {{ end }}
+  {{ else }}
+    {{ $errorMessage := printf "Failed to fetch course instructors through %v on %v" $url site.BaseURL }}
+    {{ partial "sentry_capture_message.html" $errorMessage }}
+  {{ end }}
+{{ end }}
+{{ return $instructors }}

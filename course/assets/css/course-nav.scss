@@ -1,10 +1,7 @@
-nav {
-  display: block !important;
-}
-
 .course-nav {
   a {
     text-decoration: none;
+    font-size: $font-sm;
 
     &.active {
       font-weight: 600;
@@ -29,7 +26,7 @@ nav {
   }
 }
 
-.show-course-info {
+.course-info-toggle {
   position: absolute;
   right: 0;
   z-index: 10;
@@ -41,8 +38,20 @@ nav {
   }
 }
 
+.course-nav-list-item {
+  @include media-breakpoint-up(lg) {
+    padding-right: 2rem;
+  }
+
+  &:first-child {
+    .course-nav-parent {
+      padding-top: 0 !important;
+    }
+  }
+}
+
 .course-nav-list-item-child {
-  font-size: $font-sm;
+  font-size: $font-xs;
 }
 
 .course-nav-section-toggle {
@@ -50,11 +59,11 @@ nav {
 }
 
 .course-nav-section-toggle > i:after {
-  content: "keyboard_arrow_down";
+  content: "add";
 }
 
 .course-nav-section-toggle[aria-expanded="true"] > i:after {
-  content: "keyboard_arrow_up" !important;
+  content: "remove" !important;
 }
 
 .course-nav-child-nav {
