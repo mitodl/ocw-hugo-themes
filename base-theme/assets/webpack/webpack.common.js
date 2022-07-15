@@ -21,6 +21,15 @@ module.exports = {
       "assets",
       "course.ts"
     ),
+    course_v2: path.join(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "course_v2",
+      "assets",
+      "course_v2.ts"
+    ),
     instructor_insights: path.join(
       __dirname,
       "..",

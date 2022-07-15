@@ -3,7 +3,7 @@ import "../../node_modules/nanogallery2/src/css/nanogallery2.css"
 import "offcanvas-bootstrap/dist/js/bootstrap.offcanvas.js"
 import "nanogallery2/src/jquery.nanogallery2.core.js"
 
-import "./css/course.scss"
+import "./css/course_v2.scss"
 
 import { initDivToggle } from "./js/div_toggle"
 import { initCourseInfoExpander } from "./js/course_expander"
