@@ -2,18 +2,16 @@
 {{ $inPanel := .inPanel }}
 
 {{ if gt (len ($courseData.learning_resource_types | default slice)) 0 }}
-<div class="">
-  <div class="course-detail-title {{ if $inPanel }}panel-course-info-title mt-3{{ end }}">
-    Learning Resource Types
-  </div>
-  <div>
-    <div class="row {{ if $inPanel }}d-inline m-0{{ end }}">
-      {{ range $courseData.learning_resource_types }}
-        <div class="{{ if $inPanel }}panel-course-info-text my-2{{ else }} m-2 {{ end }}">
-          {{ partial "learning_resource_type.html" (dict "context" . "inPanel" $inPanel) }}
-        </div>
-      {{ end }}
+  <div class="course-home-section w-100 {{ if $inPanel }}in-panel{{ else }}bg-light{{ end }}">
+    <div class="container px-0 mx-0">
+      <h4 class="course-info-title font-weight-bold">Learning Resource Types</h4>
+      <div class="row">
+        {{ range $courseData.learning_resource_types }}
+          <div class="{{ if $inPanel }}col-12{{ else }}col-6 col-xl-3{{ end }}">
+            {{ partial "learning_resource_type.html" . }}
+          </div>
+        {{ end }}
+      </div>
     </div>
   </div>
-</div>
 {{end}}
