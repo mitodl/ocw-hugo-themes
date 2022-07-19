@@ -1,5 +1,7 @@
 <div class="border-left">
-  <div id="desktop-course-drawer">
+  {{/*  adding d-none class here as this section (with id="desktop-course-drawer") is being controlled (shown/hidden) 
+  via desktop_course_drawer.ts hence hidden at the start to avoid a glitch  */}}
+  <div class="d-none" id="desktop-course-drawer">
     {{ partial "course_info.html" (dict "context" . "inPanel" true "isDesktopCourseDrawer" true) }}
     <div class="px-3">
       {{ partial "topics.html" (dict "context" . "inPanel" true) }}
