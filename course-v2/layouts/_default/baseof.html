@@ -46,7 +46,7 @@
                   </div>
                 </div>
                 {{/*  adding d-none class here as this section (with id="desktop-course-drawer") is being controlled (shown/hidden) 
-                via desktop_course_drawer.ts hence hidden at the start to avoid glitch  */}}
+                via script written below hence hidden at the start to avoid a quick glitch  */}}
                 <div class="p-0 large-and-above-only d-none" id="desktop-course-drawer">
                   {{ if not $isCourseHomePage }}
                     {{ partialCached "desktop_course_info.html" . }}
