@@ -1,0 +1,14 @@
+{{- $resourceType := .resourceType -}}
+{{- $resourceThumbnailSrc := "/images/file_thumbnail.png" -}}
+
+{{ if eq $resourceType "Document" }}
+  {{- $resourceThumbnailSrc = "/images/pdf_thumbnail.png" -}}
+{{ else if eq $resourceType "Image" }}
+  {{- $resourceThumbnailSrc = "/images/file_thumbnail.png" -}}
+{{ else if eq $resourceType "Video" }}
+{{- $resourceThumbnailSrc = "/images/mobile_video_thumbnail.png" -}}
+{{ else if eq $resourceType "Other" }}
+  {{- $resourceThumbnailSrc = "/images/file_thumbnail.png" -}}
+{{ end }}
+
+{{ return $resourceThumbnailSrc }}

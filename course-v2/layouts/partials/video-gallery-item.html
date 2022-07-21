@@ -1,0 +1,16 @@
+<div class="mb-2 border-gray rounded video-gallery-card">
+  <a class="video-link" href="{{- .RelPermalink -}}">
+    <div class="inner-container">
+      <div class="left-col">
+        {{- if isset .Params.video_files "video_thumbnail_file" -}}
+        <img class="thumbnail" src ="{{ .Params.video_files.video_thumbnail_file }}" alt="" />
+        {{- else -}}
+        <img class="youtube-logo-overlay" src="/images/youtube.svg" alt="YouTube" />
+        {{- end -}}
+      </div>
+      <div class="right-col py-5">
+        <h5 class="video-title">{{ .Params.title }}</h5>
+      </div>
+    </div>
+  </a>
+</div>

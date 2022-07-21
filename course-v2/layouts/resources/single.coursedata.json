@@ -1,0 +1,19 @@
+{
+  "title": {{- .Title | jsonify -}},
+  "description": {{ .Params.description | jsonify }},
+  "file": {{ .Params.file | jsonify }},
+  "learning_resource_types": {{ .Params.learning_resource_types| jsonify }},
+  "resource_type": {{ .Params.resourcetype | jsonify}},
+  "file_type": {{ .Params.file_type | jsonify}}
+  {{- if eq .Params.resourcetype "Image" -}}
+  ,
+  "image_metadata": {{ .Params.image_metadata | jsonify}}
+  {{- else if eq .Params.resourcetype "Video" -}}
+  ,
+  "youtube_key":  {{ .Params.video_metadata.youtube_id | jsonify}},
+  "captions_file": {{ .Params.video_files.video_captions_file | jsonify }},
+  "transcript_file": {{ .Params.video_files.video_transcript_file | jsonify }},
+  "thumbnail_file": {{ .Params.video_files.video_thumbnail_file | jsonify }},
+  "archive_url": {{ .Params.video_files.archive_url | jsonify }}
+  {{- end -}}
+}

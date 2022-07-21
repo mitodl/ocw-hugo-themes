@@ -1,7 +1,7 @@
 {{ $shouldCollapseTitle := gt (len .Title) 75 }}
 <header>
   <div
-    class="course-section-title-container {{ if $shouldCollapseTitle }}collapse{{ end }}"
+    class="course-section-title-container border-bottom {{ if $shouldCollapseTitle }}collapse{{ end }}"
     id="course-title"
   >
     {{ with .Params.parent_title }}

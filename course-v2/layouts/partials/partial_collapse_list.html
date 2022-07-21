@@ -1,0 +1,58 @@
+{{ $params := . }}
+{{ $className := .klass | default "coming-soon" }}
+{{ $useLinks := .useLinks | default true }}
+{{ $showCollapse := .showCollapse | default true }}
+{{ if and (gt (len .list) 4) $showCollapse }}
+<div class="position-relative pr-3">
+  <a class="partial-collapse-toggle-link" href="#partial-collapse-container_{{ .id }}" data-toggle="collapse"
+    aria-controls="partial-collapse-container_{{ .id }}" aria-expanded="false">
+    <div class="partial-collapse-icon-container">
+      <span class="partial-collapse-icon">
+        <i class="material-icons md-18"></i>
+      </span>
+    </div>
+  </a>
+  <div class="partial-collapse collapse" id="partial-collapse-container_{{ .id }}">
+    <ul class="list-unstyled m-0">
+      {{ range $item := .list }}
+      {{ $text := "" }}
+      {{ if isset $params "key" }}
+        {{ $text = index $item $params.key }}
+      {{ else }}
+        {{ $text = $item }}
+      {{ end }}
+      <li>
+        {{ if $useLinks }}
+        <a href="{{ index $item "url" }}" class="partial-collapse-link {{ $className }}">
+          {{ $text }}
+        </a>
+        {{ else }}
+        {{ $text }}
+        {{ end }}
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+  <div class="partial-collapse-overlay"></div>
+</div>
+{{ else }}
+<ul class="list-unstyled m-0">
+  {{ range $item := .list }}
+  {{ $text := "" }}
+  {{ if isset $params "key" }}
+    {{ $text = index $item $params.key }}
+  {{ else }}
+    {{ $text = $item }}
+  {{ end }}
+  <li>
+    {{ if $useLinks }}
+    <a href="{{ index $item "url" }}" class="{{ $className }}">
+      {{ $text }}
+    </a>
+    {{ else }}
+    {{ $text }}
+    {{ end }}
+  </li>
+  {{ end }}
+</ul>
+{{ end }}

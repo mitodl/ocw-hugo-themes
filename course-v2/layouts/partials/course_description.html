@@ -1,0 +1,20 @@
+{{ $courseData := .context.Site.Data.course }}
+{{ $shouldCollapseDescription := gt (len $courseData.course_description) 320 }}
+
+<div class="course-description">
+  <div class="course-detail-title">
+    Course Description
+  </div>
+  <div id="course-description" class="description {{ if $shouldCollapseDescription }}collapse{{ end }}" aria-expanded="false">
+    {{- $courseData.course_description | markdownify -}}
+  </div>
+  <div class="border-top-gray mt-2 {{ if not $shouldCollapseDescription }}mb-3{{ end }}">
+    {{ if $shouldCollapseDescription }}
+      <div class="collapse-btn-section float-right">
+        <a role="button" class="collapsed" data-toggle="collapse" href="#course-description" aria-expanded="false" aria-controls="course-description">
+          <span class="material-icons"></span>
+        </a>
+      </div>
+    {{ end }}
+  </div>
+</div>
