@@ -47,7 +47,7 @@ html {
   }
 }
 
-#main-content article.content {
+#course-main-content article.content {
   a:link {
     color: $course-content-link-unclicked;
   }
@@ -188,7 +188,7 @@ h5 {
     max-width: inherit !important;
   }
 
-  .course-home-page .course-home-content {
+  .course-home-page #course-main-content {
     max-width: inherit !important;
   }
 
