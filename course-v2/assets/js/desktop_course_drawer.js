@@ -40,11 +40,13 @@ const showOrHideDesktopCourseDrawer = state => {
   const showCourseDrawerBtn = document.getElementById(SHOW_COURSE_DRAWER_BTN_ID)
   const mainCourseSection = document.getElementById(MAIN_COURSE_SECTION_ID)
   if (state === COURSE_DRAWER_OPENED) {
+    desktopCourseDrawer.classList.add("col-3")
     desktopCourseDrawer.classList.remove("d-none")
     showCourseDrawerBtn.classList.add("d-none")
     mainCourseSection.classList.add("col-lg-9")
     mainCourseSection.classList.remove("col-md-12")
   } else {
+    desktopCourseDrawer.classList.remove("col-3")
     desktopCourseDrawer.classList.add("d-none")
     showCourseDrawerBtn.classList.remove("d-none")
     mainCourseSection.classList.remove("col-lg-9")

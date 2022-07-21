@@ -40,12 +40,14 @@
           <div class="">
             <div class="card">
               <div class="d-flex">
-                <div class="col-12 col-lg-9 col-md-12 p-0" id="main-course-section">
+                <div class="col-12 col-md-12 p-0" id="main-course-section">
                   <div class="card-body">
                     {{ block "main" . }}{{ end }}
                   </div>
                 </div>
-                <div class="col-3 p-0 large-and-above-only">
+                {{/*  adding d-none class here as this section (with id="desktop-course-drawer") is being controlled (shown/hidden) 
+                via desktop_course_drawer.ts hence hidden at the start to avoid glitch  */}}
+                <div class="p-0 large-and-above-only d-none" id="desktop-course-drawer">
                   {{ if not $isCourseHomePage }}
                     {{ partialCached "desktop_course_info.html" . }}
                   {{ end }}
