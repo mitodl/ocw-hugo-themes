@@ -68,6 +68,81 @@
 
     {{ block "footer" . }}{{ partial "footer" . }}{{end}}
   </div>
+
+  <script>
+    // Script for maintaining and toggling course drawer state
+    // note: This script is placed here instead of being in the bundle so it runs as soon as the HTML is rendered 
+    // this way, a glitch/layout thrashing in the course drawer is avoided.
+    // code for toggling the course drawer has also been placed here to avoid code duplication.
+
+    try{
+      // constants
+      const COURSE_DRAWER_LOCAL_STORAGE_KEY = "desktopCourseDrawerState"
+      const COURSE_DRAWER_OPENED = "opened"
+      const COURSE_DRAWER_CLOSED = "closed"
+      // IDs of elements
+      const DESKTOP_COURSE_DRAWER_ID = "desktop-course-drawer"
+      const SHOW_COURSE_DRAWER_BTN_ID = "show-desktop-course-drawer"
+      const HIDE_COURSE_DRAWER_BTN_ID = "hide-desktop-course-drawer"
+      const MAIN_COURSE_SECTION_ID = "main-course-section"
+
+      /*
+      * Checks if user has already selected any option/state for drawer then it sets that else keep it open by default
+      */
+      function maintainDesktopCourseDrawerState() {
+        const isCourseDrawerOpen = localStorage.getItem(COURSE_DRAWER_LOCAL_STORAGE_KEY)
+        if (isCourseDrawerOpen === null) {
+          // No preference found so setting to "opened" as default and opening the drawer
+          localStorage.setItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
+          showOrHideDesktopCourseDrawer(COURSE_DRAWER_OPENED)
+        } else {
+          showOrHideDesktopCourseDrawer(isCourseDrawerOpen)
+        }
+      }
+
+      /*
+      * Adds and defines "click" event listeners for show-drawer and hide-drawer buttons, making this function act as a drawer toggler.
+      */
+      function toggleDesktopCourseDrawer() {
+        const showCourseDrawerBtn = document.getElementById(SHOW_COURSE_DRAWER_BTN_ID)
+        const hideCourseDrawerBtn = document.getElementById(HIDE_COURSE_DRAWER_BTN_ID)
+        showCourseDrawerBtn.addEventListener("click", () => {
+          localStorage.setItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
+          showOrHideDesktopCourseDrawer(COURSE_DRAWER_OPENED)
+        })
+        hideCourseDrawerBtn.addEventListener("click", () => {
+          localStorage.setItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_CLOSED)
+          showOrHideDesktopCourseDrawer(COURSE_DRAWER_CLOSED)
+        })
+      }
+
+      function showOrHideDesktopCourseDrawer(state) {
+        const desktopCourseDrawer = document.getElementById(DESKTOP_COURSE_DRAWER_ID)
+        const showCourseDrawerBtn = document.getElementById(SHOW_COURSE_DRAWER_BTN_ID)
+        const mainCourseSection = document.getElementById(MAIN_COURSE_SECTION_ID)
+        if (state === COURSE_DRAWER_OPENED) {
+          desktopCourseDrawer.classList.add("col-3")
+          desktopCourseDrawer.classList.remove("d-none")
+          showCourseDrawerBtn.classList.add("d-none")
+          mainCourseSection.classList.add("col-lg-9")
+          mainCourseSection.classList.remove("col-md-12")
+        } else {
+          desktopCourseDrawer.classList.remove("col-3")
+          desktopCourseDrawer.classList.add("d-none")
+          showCourseDrawerBtn.classList.remove("d-none")
+          mainCourseSection.classList.remove("col-lg-9")
+          mainCourseSection.classList.add("col-md-12")
+        }
+      }
+
+      maintainDesktopCourseDrawerState()
+      toggleDesktopCourseDrawer()
+    }
+    catch(e){
+      console.log("Something went wrong in maintaining/toggling course drawer state", e)
+    }
+  </script>
+
   <script>
     window.MathJax = {
       TeX: {
@@ -86,7 +161,6 @@
         message: ["[Math Error]"]
       }
     }
-
   </script>
   {{ partialCached "navigation_js.html" . }}
   {{ partialCached "responsive_tables_js.html" . }}

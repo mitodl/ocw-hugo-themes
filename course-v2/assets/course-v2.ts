@@ -7,7 +7,6 @@ import "./css/course-v2.scss"
 
 import { initDivToggle } from "./js/div_toggle"
 import { initCourseInfoExpander } from "./js/course_expander"
-import { initDesktopCourseDrawer } from "./js/desktop_course_drawer"
 import { initVideoTranscriptTrack } from "./js/video_transcript_track"
 import { initPlayBackSpeedButton } from "./js/video_playback_speed"
 import { initVideoFullscreenToggle } from "./js/video_fullscreen_toggle"
@@ -20,7 +19,6 @@ import {
 import "videojs-youtube"
 
 $(function() {
-  initDesktopCourseDrawer()
   initCourseInfoExpander(document)
   initDownloadButton()
   initPlayBackSpeedButton()
