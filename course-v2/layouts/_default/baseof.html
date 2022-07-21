@@ -90,10 +90,10 @@
       * Checks if user has already selected any option/state for drawer then it sets that else keep it open by default
       */
       function maintainDesktopCourseDrawerState() {
-        const isCourseDrawerOpen = localStorage.getItem(COURSE_DRAWER_LOCAL_STORAGE_KEY)
+        const isCourseDrawerOpen = getLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY)
         if (isCourseDrawerOpen === null) {
           // No preference found so setting to "opened" as default and opening the drawer
-          localStorage.setItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
+          setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
           showOrHideDesktopCourseDrawer(COURSE_DRAWER_OPENED)
         } else {
           showOrHideDesktopCourseDrawer(isCourseDrawerOpen)
@@ -107,14 +107,16 @@
         const showCourseDrawerBtn = document.getElementById(SHOW_COURSE_DRAWER_BTN_ID)
         const hideCourseDrawerBtn = document.getElementById(HIDE_COURSE_DRAWER_BTN_ID)
         showCourseDrawerBtn.addEventListener("click", () => {
-          localStorage.setItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
+          setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
           showOrHideDesktopCourseDrawer(COURSE_DRAWER_OPENED)
         })
         hideCourseDrawerBtn.addEventListener("click", () => {
-          localStorage.setItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_CLOSED)
+          setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_CLOSED)
           showOrHideDesktopCourseDrawer(COURSE_DRAWER_CLOSED)
         })
       }
+
+      // helper functions
 
       function showOrHideDesktopCourseDrawer(state) {
         const desktopCourseDrawer = document.getElementById(DESKTOP_COURSE_DRAWER_ID)
@@ -135,11 +137,38 @@
         }
       }
 
+      function setOrGetLocalStorageItem(action,key,value) {
+        try {
+          // checking browser support for localStorage
+          if (typeof Storage !== "undefined") {
+            if (action === "set") {
+              localStorage.setItem(key, value)
+              return true
+            } else {
+              return localStorage.getItem(key)
+            }
+          }
+          console.error("This browser has no web storage support.")
+          return null
+        } catch (e) {
+          console.error("An exception occurred while storing/fetching data in/from localstorage: ", e)
+          return null
+        }
+      }
+
+      function setLocalStorageItem(key, value) {
+        return setOrGetLocalStorageItem("set", key, value)
+      }
+      
+      function getLocalStorageItem(key){
+        return setOrGetLocalStorageItem("get", key)
+      }
+
       maintainDesktopCourseDrawerState()
       toggleDesktopCourseDrawer()
     }
     catch(e){
-      console.log("Something went wrong in maintaining/toggling course drawer state", e)
+      console.error("Something went wrong in maintaining/toggling course drawer state", e)
     }
   </script>
 
