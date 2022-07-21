@@ -74,17 +74,19 @@
     // note: This script is placed here instead of being in the bundle so it runs as soon as the HTML is rendered 
     // this way, a glitch/layout thrashing in the course drawer is avoided.
     // code for toggling the course drawer has also been placed here to avoid code duplication.
+    
+    // constants
+    'use strict';
+    const COURSE_DRAWER_LOCAL_STORAGE_KEY = "desktopCourseDrawerState"
+    const COURSE_DRAWER_OPENED = "opened"
+    const COURSE_DRAWER_CLOSED = "closed"
+    // IDs of elements
+    const DESKTOP_COURSE_DRAWER_ID = "desktop-course-drawer"
+    const SHOW_COURSE_DRAWER_BTN_ID = "show-desktop-course-drawer"
+    const HIDE_COURSE_DRAWER_BTN_ID = "hide-desktop-course-drawer"
+    const MAIN_COURSE_SECTION_ID = "main-course-section"
 
     try{
-      // constants
-      const COURSE_DRAWER_LOCAL_STORAGE_KEY = "desktopCourseDrawerState"
-      const COURSE_DRAWER_OPENED = "opened"
-      const COURSE_DRAWER_CLOSED = "closed"
-      // IDs of elements
-      const DESKTOP_COURSE_DRAWER_ID = "desktop-course-drawer"
-      const SHOW_COURSE_DRAWER_BTN_ID = "show-desktop-course-drawer"
-      const HIDE_COURSE_DRAWER_BTN_ID = "hide-desktop-course-drawer"
-      const MAIN_COURSE_SECTION_ID = "main-course-section"
 
       /*
       * Checks if user has already selected any option/state for drawer then it sets that else keep it open by default
