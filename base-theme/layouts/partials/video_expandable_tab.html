@@ -1,20 +1,21 @@
-<div class="bg-dark-gray white-color mb-2">
-	<div class="video-tab-toggle-section pointer"
-			data-target=".{{- .tabClass -}}" 
-			data-toggle="collapse"
-			aria-controls="{{- .tabClass -}}"
-			aria-expanded=""
-			>
-		<div class="video-tab-header">
-			<span>
-				{{- .tabTitle -}}
-			</span>
-			<div class="float-right">
-				<i class="material-icons md-18"></i>
-			</div>
-		</div>
-	</div>
-	<div class="container collapse video-tab-content-section {{ .tabClass }}">
-		{{- .tabContent | markdownify -}}
-	</div>
+<div class="pb-2">
+  <div
+    class="video-tab-section-toggle pointer"
+    data-target=".{{- .tabClass -}}"
+    data-toggle="collapse"
+    aria-controls="{{- .tabClass -}}"
+    aria-expanded=""
+  >
+    <div class="video-tab-header">
+      <span>
+        {{- .tabTitle -}}
+      </span>
+      <div class="float-right">
+        <i class="material-icons md-18"></i>
+      </div>
+    </div>
+  </div>
+  <div class="container collapse {{ .tabClass }}">
+    {{- .tabContent | markdownify -}}
+  </div>
 </div>
