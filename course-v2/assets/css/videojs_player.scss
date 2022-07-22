@@ -53,10 +53,9 @@ $slider-color: $pink;
     height: 10px;
 
     .vjs-progress-holder {
-      margin-left: 18px;
-      margin-right: 18px;
       color: $slider-color;
       font-size: 1.5em;
+      margin: 0 !important;
     }
 
     .vjs-play-progress,
@@ -69,6 +68,10 @@ $slider-color: $pink;
     .vjs-load-progress,
     .vjs-load-progress div {
       border-radius: 6px;
+    }
+
+    .vjs-play-progress:before {
+      right: -0.9em !important;
     }
   }
 
