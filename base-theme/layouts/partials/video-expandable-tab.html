@@ -1,11 +1,11 @@
-<div class="pb-2">
-	<div class="video-tab-section-toggle pointer"
+<div class="bg-dark-gray white-color mb-2">
+	<div class="video-tab-toggle-section pointer"
 			data-target=".{{- .tabClass -}}" 
 			data-toggle="collapse"
 			aria-controls="{{- .tabClass -}}"
 			aria-expanded=""
-      >
-  	<div class="video-tab-header">
+			>
+		<div class="video-tab-header">
 			<span>
 				{{- .tabTitle -}}
 			</span>
@@ -14,7 +14,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="container collapse {{ .tabClass }}">
+	<div class="container collapse video-tab-content-section {{ .tabClass }}">
 		{{- .tabContent | markdownify -}}
 	</div>
 </div>

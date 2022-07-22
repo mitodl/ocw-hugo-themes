@@ -138,23 +138,23 @@ a.video-download-button:visited {
 }
 
 .video-tab-header {
-  background-color: #f6f7f9;
-  font-size: $font-lg;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-bottom: 5px;
-  padding-top: 10px;
-  margin-bottom: 10px;
+  padding: 5px 15px 5px;
 }
 
-.video-tab-section-toggle {
-  i:after {
-    content: "add";
+.video-tab-content-section {
+  a {
+    color: $white !important;
   }
 }
 
-.video-tab-section-toggle[aria-expanded="true"] {
+.video-tab-toggle-section {
   i:after {
-    content: "remove" !important;
+    content: "keyboard_arrow_down";
+  }
+}
+
+.video-tab-toggle-section[aria-expanded="true"] {
+  i:after {
+    content: "keyboard_arrow_up" !important;
   }
 }
