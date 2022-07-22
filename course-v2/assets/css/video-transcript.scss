@@ -40,20 +40,3 @@
   font-weight: bold;
   color: $orange;
 }
-
-.transcript-tab-header {
-  padding: 5px 15px 5px;
-  margin-bottom: 5px;
-}
-
-.transcript-tab-section-toggle {
-  i:after {
-    content: "keyboard_arrow_down";
-  }
-}
-
-.transcript-tab-section-toggle[aria-expanded="true"] {
-  i:after {
-    content: "keyboard_arrow_up" !important;
-  }
-}
