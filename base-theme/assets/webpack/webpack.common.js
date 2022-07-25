@@ -142,17 +142,15 @@ module.exports = {
       prettyPrint: true
     }),
 
-    new CopyWebpackPlugin(
-      {
-        patterns: [{ from: "./base-theme/assets/fonts/", to: "fonts/[name][ext]" }]
-      }
-    ),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: "./base-theme/assets/fonts/", to: "fonts/[name][ext]" }
+      ]
+    }),
 
-    new CopyWebpackPlugin(
-      {
-        patterns: [{ from: "./node_modules/mathjax/es5/", to: "mathjax/" }]
-      }
-    ),
+    new CopyWebpackPlugin({
+      patterns: [{ from: "./node_modules/mathjax/es5/", to: "mathjax/" }]
+    }),
 
     new webpack.ProvidePlugin({
       $:               "jquery",
