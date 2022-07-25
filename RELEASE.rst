@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.66.0
+Version 1.66.0 (Released July 25, 2022)
 --------------
 
 - fix mathjax url on course home pages (#797)
