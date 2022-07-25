@@ -55,7 +55,7 @@ module.exports = {
           {
             loader:  "file-loader",
             options: {
-              name: "images/[hash].[ext]"
+              name: "images/[fullhash].[ext]"
             }
           }
         ]
@@ -67,7 +67,7 @@ module.exports = {
           {
             loader:  "file-loader",
             options: {
-              name: "fonts/[hash].[ext]"
+              name: "fonts/[fullhash].[ext]"
             }
           }
         ]
@@ -142,20 +142,17 @@ module.exports = {
       prettyPrint: true
     }),
 
-    new CopyWebpackPlugin([
+    new CopyWebpackPlugin(
       {
-        from:    "./base-theme/assets/fonts/",
-        to:      "fonts/",
-        flatten: true
+        patterns: [{ from: "./base-theme/assets/fonts/", to: "fonts/[name][ext]" }]
       }
-    ]),
+    ),
 
-    new CopyWebpackPlugin([
+    new CopyWebpackPlugin(
       {
-        from: "./node_modules/mathjax/es5/",
-        to:   "mathjax/"
+        patterns: [{ from: "./node_modules/mathjax/es5/", to: "mathjax/" }]
       }
-    ]),
+    ),
 
     new webpack.ProvidePlugin({
       $:               "jquery",
