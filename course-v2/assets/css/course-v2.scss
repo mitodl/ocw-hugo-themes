@@ -26,6 +26,7 @@ html {
   font-size: $course-font-root !important;
 }
 
+// TODO: This conditional rendering of logos should be removed when we completely move to the new course theme.
 #ocw-logo-white {
   display: none;
 }
@@ -208,7 +209,7 @@ h5 {
   }
 }
 
-// overriding some css of header and footer in this new theme
+// TODO: overriding some css of header and footer in this new theme
 // when we roll out this theme completely then we can move this css to thier respective files in base-theme
 
 #desktop-header {
