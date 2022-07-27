@@ -14,7 +14,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="container collapse video-tab-content-section {{ .tabClass }}">
-		{{- .tabContent | markdownify -}}
+	<div class="container collapse {{ .tabClass }}">
+		<div class="video-tab-content-section">
+			{{- .tabContent | markdownify -}}
+		</div>
 	</div>
 </div>
