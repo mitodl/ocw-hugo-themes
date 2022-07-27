@@ -55,7 +55,7 @@ module.exports = {
           {
             loader:  "file-loader",
             options: {
-              name: "images/[hash].[ext]"
+              name: "images/[fullhash].[ext]"
             }
           }
         ]
@@ -67,7 +67,7 @@ module.exports = {
           {
             loader:  "file-loader",
             options: {
-              name: "fonts/[hash].[ext]"
+              name: "fonts/[fullhash].[ext]"
             }
           }
         ]
@@ -83,14 +83,10 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/,
         use:  [
-          "style-loader",
           {
             loader:  MiniCssExtractPlugin.loader,
             options: {
-              publicPath:    "./",
-              filename:      "css/[name].css",
-              chunkFilename: "css/[id].css",
-              hmr:           process.env.NODE_ENV !== "production"
+              publicPath: "./"
             }
           },
           "css-loader",
@@ -101,25 +97,36 @@ module.exports = {
 
       {
         test: require.resolve("shifty"),
-        use:  [{ loader: "expose-loader", options: "NGTweenable" }]
+        use:  [
+          { loader: "expose-loader", options: { exposes: ["NGTweenable"] } }
+        ]
       },
 
       {
         test: require.resolve("hammerjs"),
-        use:  [{ loader: "expose-loader", options: "NGHammer" }]
+        use:  [
+          {
+            loader:  "expose-loader",
+            options: { exposes: ["NGHammer"] }
+          }
+        ]
       },
 
       {
         test: require.resolve("imagesloaded"),
         use:  [
-          { loader: "expose-loader", options: "ngimagesLoaded" },
-          { loader: "expose-loader", options: "ngImagesLoaded" }
+          {
+            loader:  "expose-loader",
+            options: { exposes: ["ngimagesLoaded", "ngImagesLoaded"] }
+          }
         ]
       },
 
       {
         test: require.resolve("screenfull"),
-        use:  [{ loader: "expose-loader", options: "ngscreenfull" }]
+        use:  [
+          { loader: "expose-loader", options: { exposes: ["ngscreenfull"] } }
+        ]
       }
     ]
   },
@@ -135,20 +142,15 @@ module.exports = {
       prettyPrint: true
     }),
 
-    new CopyWebpackPlugin([
-      {
-        from:    "./base-theme/assets/fonts/",
-        to:      "fonts/",
-        flatten: true
-      }
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: "./base-theme/assets/fonts/", to: "fonts/[name][ext]" }
+      ]
+    }),
 
-    new CopyWebpackPlugin([
-      {
-        from: "./node_modules/mathjax/es5/",
-        to:   "mathjax/"
-      }
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [{ from: "./node_modules/mathjax/es5/", to: "mathjax/" }]
+    }),
 
     new webpack.ProvidePlugin({
       $:               "jquery",
