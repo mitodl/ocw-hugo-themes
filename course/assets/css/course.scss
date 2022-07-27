@@ -17,6 +17,14 @@
 @import "course-content";
 @import "course-resources";
 
+#ocw-logo-white-v2 {
+  display: none;
+}
+
+#ocw-logo-white {
+  display: block !important;
+}
+
 #course-banner {
   color: $white;
   background-color: $blue;

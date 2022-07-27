@@ -26,6 +26,14 @@ html {
   font-size: $course-font-root !important;
 }
 
+#ocw-logo-white {
+  display: none;
+}
+
+#ocw-logo-white-v2 {
+  display: block !important;
+}
+
 #course-banner {
   color: $white;
   background-color: $blue;
