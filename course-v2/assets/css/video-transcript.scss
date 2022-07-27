@@ -18,10 +18,12 @@
 
 .transcript-timestamp {
   display: inline-block;
+  position: absolute;
 }
 
 .transcript-text {
-  margin-left: 20px;
+  display: block;
+  margin-left: 50px;
 }
 
 .transcript-text:empty {
