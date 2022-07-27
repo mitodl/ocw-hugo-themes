@@ -44,9 +44,9 @@
 	<!-- [end] transcript toggleable section -->
 
   {{ if $relatedResourses }}
-  	{{ partial "video-expandable-tab.html" (dict "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
+  	{{ partial "video_expandable_tab.html" (dict "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
   {{end}}
   {{ if and $optionalTabTitle $optionalTabContent }}
-		{{ partial "video-expandable-tab.html" (dict "tabClass" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
+		{{ partial "video_expandable_tab.html" (dict "tabClass" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
   {{end}}
 </div>

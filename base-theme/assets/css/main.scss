@@ -22,7 +22,6 @@ a.coming-soon {
 /* CUSTOM STYLES */
 body {
   font-family: "Helvetica";
-  font-size: $font-root;
 }
 
 .underline {
@@ -191,15 +190,6 @@ h4 {
   margin: 0 auto;
 }
 
-.course-image {
-  @include media-breakpoint-down(md) {
-    height: 100px;
-    width: 150px;
-  }
-
-  object-fit: cover;
-}
-
 /* BOOTSTRAP EXTENSIONS / OVERRIDES */
 
 nav {
@@ -236,6 +226,10 @@ table {
 
 .bg-dark-gray {
   background-color: $dark-gray;
+}
+
+.bg-light-gray {
+  background-color: $light-gray;
 }
 
 .bg-white-desktop {
@@ -322,7 +316,6 @@ article.content {
 
   h2 {
     color: $highlight-red;
-    text-transform: uppercase;
   }
 
   // sometimes the tables can be wide, and on mobile that can ruin the overall page width
@@ -360,7 +353,7 @@ article.content {
 .course-section-title-container {
   max-width: 795px;
 
-  @include media-breakpoint-up(lg) {
+  #course-title {
     border-bottom: 1px solid $medium-gray;
   }
 }

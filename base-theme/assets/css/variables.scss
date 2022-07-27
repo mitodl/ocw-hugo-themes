@@ -1,6 +1,7 @@
 $desktop-nav-max-width: 470px;
 $max-content-width: 1447px;
 $desktop-header-height: 116px;
+$desktop-header-height-v2: 80px;
 $desktop-header-max-width: 1664px;
 $extra-small-screen-width: 400px;
 $enable-responsive-font-sizes: true;
@@ -14,6 +15,7 @@ $highlight-red: #a31f34;
 $orange: #ff8a1f;
 $blue: #126f9a;
 $link-blue: #32c5ff;
+$light-blue: #9bdfff;
 $success-message-color: #569a5a;
 $tab-border-color: #32a8d1;
 $transparent: #ffffff00;
@@ -48,7 +50,11 @@ $footer-background-color: #f6f7f9;
 // font sizes rem value = element font size / 16px (root font size)
 // Changing values of these variables is not recommended as it will have a quite widespread/large impact.
 $font-root: 16px;
+$course-font-root: 14px;
 
+// following sizes are mentioned if root font is 16px, else if root font is 14px then they will be different.
+$font-xxxl: 2rem; /* 32px == 2 x 16 */
+$font-xxl: 1.75rem; /* 28px == 2 x 16 */
 $font-xl: 1.5rem; /* 24px == 1.5 x 16 */
 $font-lg: 1.25rem; /* 20px */
 $font-md: 1.125rem; /* 18px */

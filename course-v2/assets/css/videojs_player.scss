@@ -1,0 +1,166 @@
+// color variables
+$control-item-color: $dark-gray;
+$control-item-bg-color: $light-gray;
+$slider-color: $pink;
+
+.vjs-ocw.video-js {
+  .ytp-chrome-top-buttons {
+    display: none;
+  }
+  .vjs-big-play-button {
+    font-size: 4em;
+  }
+
+  button {
+    font-size: 1.5em;
+  }
+
+  .vjs-control-bar {
+    height: 4.4em;
+    background-color: $control-item-bg-color;
+    color: $control-item-color;
+    transition: visibility 2s, opacity 0.1s;
+    bottom: auto;
+    display: flex;
+  }
+
+  .vjs-menu-content {
+    background-color: $control-item-bg-color !important;
+  }
+
+  .vjs-volume-bar {
+    margin: 2.1em 0.45em;
+  }
+
+  .vjs-control {
+    width: 3.5em;
+  }
+
+  .vjs-volume-panel {
+    min-width: 50px;
+  }
+
+  .vjs-volume-level {
+    background-color: $control-item-color;
+  }
+
+  .vjs-progress-control {
+    position: absolute;
+    bottom: 37px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 10px;
+
+    .vjs-progress-holder {
+      color: $slider-color;
+      font-size: 1.5em;
+      margin: 0 !important;
+    }
+
+    .vjs-play-progress,
+    .vjs-slider-bar {
+      background-color: $slider-color;
+    }
+
+    .vjs-progress-holder,
+    .vjs-play-progress,
+    .vjs-load-progress,
+    .vjs-load-progress div {
+      border-radius: 6px;
+    }
+
+    .vjs-play-progress:before {
+      right: -0.9em !important;
+    }
+  }
+
+  .vjs-time-control {
+    font-size: 1.4em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+
+    @include media-breakpoint-down(xs) {
+      display: none !important;
+    }
+  }
+
+  .vjs-duration,
+  .vjs-time-divider,
+  .vjs-current-time {
+    display: block;
+  }
+
+  .vjs-time-divider {
+    min-width: 1em;
+  }
+
+  .vjs-remaining-time,
+  .vjs-picture-in-picture-control {
+    display: none;
+  }
+
+  .vjs-fullscreen-control {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+  .vjs-subs-caps-button {
+    position: absolute;
+    right: 25px;
+    bottom: 0;
+  }
+
+  .vjs-quality-selector {
+    position: absolute;
+    right: 100px;
+
+    .vjs-icon-placeholder::before {
+      font-family: "Material Icons";
+      content: "\e8b8";
+    }
+  }
+
+  .vjs-download-button {
+    .vjs-icon-placeholder::before {
+      font-family: "Material Icons";
+      content: "\e258";
+    }
+    .vjs-icon-placeholder::after {
+      font-family: "Material Icons";
+      content: "\e5c5";
+      margin-left: 15px;
+    }
+  }
+
+  .vjs-menu-button-popup {
+    .vjs-menu {
+      width: 15em;
+    }
+  }
+  .playback-button-position {
+    position: absolute;
+    right: -1rem;
+
+    .vjs-menu-content {
+      right: 100px;
+      margin: 10px;
+      box-shadow: 5px 5px 10px;
+    }
+  }
+
+  .download-button-position {
+    position: absolute;
+    right: 9rem;
+
+    .vjs-menu-content {
+      box-shadow: 5px 5px 10px;
+      margin: 10px;
+
+      li {
+        text-transform: capitalize;
+      }
+    }
+  }
+}
