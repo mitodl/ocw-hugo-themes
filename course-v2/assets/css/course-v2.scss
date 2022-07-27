@@ -200,7 +200,16 @@ h5 {
   }
 }
 
-// overriding some css for footer in new theme
+// overriding some css of header and footer in this new theme
+// when we roll out this theme completely then we can move this css to thier respective files in base-theme
+
+#desktop-header {
+  height: $desktop-header-height-v2 !important;
+  .contents {
+    padding: 0 2rem !important;
+  }
+}
+
 #footer-container {
   padding: 2rem 2rem !important;
 
