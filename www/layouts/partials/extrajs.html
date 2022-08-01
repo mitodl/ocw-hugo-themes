@@ -1,4 +1,4 @@
 {{- define "extrajs" -}}
 {{- $www := .Site.Data.webpack.www -}}
-<script src="{{ partial "webpack_url.html" $www.js }}"></script>
+{{ partial "include_js.html" $www.js }}
 {{- end -}}

@@ -78,8 +78,8 @@
   {{- $courseTheme := .Site.Data.webpack.course -}}
   {{- $mathjax := .Site.Data.webpack.mathjax -}}
 
-  {{ partial "include_js.html" $theme }}
-  {{ partial "include_js.html" $courseTheme }}
+  {{ partial "include_js.html" $theme.js }}
+  {{ partial "include_js.html" $courseTheme.js }}
   <script src="{{ partial "webpack_url.html" "/static/mathjax/tex-svg.js" }}" defer></script>
   <!-- Appzi: Capture Insightful Feedback -->
 
