@@ -1,6 +1,6 @@
 {{- define "extrajs" -}}
 {{- $www := .Site.Data.webpack.www -}}
 {{- $fields := .Site.Data.webpack.fields -}}
-<script src="{{ partial "webpack_url.html" $www.js }}"></script>
-<script src="{{ partial "webpack_url.html" $fields.js }}"></script>
+{{ partial "include_js.html" $www.js }}
+{{ partial "include_js.html" $fields.js }}
 {{- end -}}

@@ -4,7 +4,7 @@
 {{- $instructorInsights := .Site.Data.webpack.instructor_insights -}}
 {{- $courseTheme := .Site.Data.webpack.course -}}
 {{- if eq $layout "instructor_insights" -}}
-<link href="{{ partial "webpack_url.html" $instructorInsights.css }}" rel="stylesheet">
+{{ partial "include_css.html" $instructorInsights.css }}
 {{- end -}}
-<link href="{{ partial "webpack_url.html" $courseTheme.css }}" rel="stylesheet">
+{{ partial "include_css.html" $courseTheme.css }}
 {{- end -}}

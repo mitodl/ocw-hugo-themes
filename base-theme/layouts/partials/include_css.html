@@ -1,0 +1,9 @@
+{{ $type := (printf "%T" .) }}
+{{ if eq $type "[]interface {}" }}
+{{ with index . 0 }}
+<link href="{{ partial "webpack_url.html" . }}" rel="stylesheet">
+{{ end }}
+{{ end }}
+{{ if eq $type "string" }}
+<link href="{{ partial "webpack_url.html" . }}" rel="stylesheet">
+{{ end }}
