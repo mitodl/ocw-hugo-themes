@@ -1,6 +1,6 @@
 {{ $type := (printf "%T" .) }}
 {{ if eq $type "[]interface {}" }}
-{{ range . }}
+{{ with index . 0 }}
 <script src="{{ partial "webpack_url.html" . }}"></script>
 {{ end }}
 {{ end }}
