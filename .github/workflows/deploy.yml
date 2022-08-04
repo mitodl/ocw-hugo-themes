@@ -50,7 +50,7 @@ jobs:
         run: (cd ..; git clone git@github.mit.edu:ocw-content-rc/15.s21-january-iap-2014.git ocw-course)
 
       - name: Clone ocw-hugo-projects for config
-        run: (cd ..; git clone https://github.com/mitodl/ocw-hugo-projects)
+        run: (cd ..; git clone https://github.com/mitodl/ocw-hugo-projects/tree/cg/course-v2-testing)
 
       - name: Run webpack build
         run: npm run build:webpack -- --output-path=../ocw-www/public/static/
