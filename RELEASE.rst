@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.67.1
+--------------
+
+- fix hot reload in dev (#807)
+- feat: compact design (#784)
+
 Version 1.67.0 (Released August 04, 2022)
 --------------
 
