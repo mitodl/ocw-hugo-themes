@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.67.0
+Version 1.67.0 (Released August 04, 2022)
 --------------
 
 - upgraded webpack (#787)
