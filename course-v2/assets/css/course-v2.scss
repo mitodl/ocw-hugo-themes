@@ -138,20 +138,20 @@ pre {
 // not using font variables here as we need different font sizes on course pages
 // these font sizes are yet to be confirmed
 h1 {
-  font-size: 2.28rem !important; // 32px
+  font-size: 2.286rem !important; // 32px
   color: $black;
 
   @include media-breakpoint-down(xs) {
-    font-size: 1.7rem !important; // 24px
+    font-size: 1.715rem !important; // 24px
   }
 }
 
 h2 {
-  font-size: 1.7rem !important; // 24px
+  font-size: 1.715rem !important; // 24px
   color: $black;
 
   @include media-breakpoint-down(xs) {
-    font-size: 1.4rem !important; // 16px
+    font-size: 1.429rem !important; // 16px
   }
 
   &.branded {
@@ -185,16 +185,16 @@ h4 {
   color: $black;
 
   @include media-breakpoint-down(xs) {
-    font-size: 0.86rem !important; // 12px
+    font-size: 1rem !important; // 12px
   }
 }
 
 h5 {
-  font-size: 1rem !important; // 14px
+  font-size: 0.858rem !important; // 14px
   color: $black;
 
   @include media-breakpoint-down(xs) {
-    font-size: 0.86rem !important; // 12px
+    font-size: 0.858rem !important; // 12px
   }
 }
 
