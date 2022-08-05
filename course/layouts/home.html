@@ -57,8 +57,11 @@
                           {{ partial "mobile_nav_toggle.html" . }}
                         </div>
                         <!-- the number here is a estimate, a count of 5 lines of characters on a sample course at minimum browser width -->
-                        {{ $shouldCollapseDescription := gt (len $courseData.course_description) 320 }}
-                        <div class="col-lg-8 course-description">
+                        {{ $shouldCollapseDescription := false}}
+                        {{ with $courseData.course_description }}
+                          {{ $shouldCollapseDescription := gt (len .) 320 }}
+                        {{ end }}
+                          <div class="col-lg-8 course-description">
                           <h4 class="font-weight-bold course-description-title">Course Description</h4>
                           <div id="course-description" class="description {{ if $shouldCollapseDescription }}collapse{{ end }}" aria-expanded="false">
                             {{- $courseData.course_description | markdownify -}}
