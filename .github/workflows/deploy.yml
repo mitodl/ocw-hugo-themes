@@ -97,7 +97,7 @@ jobs:
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: true
           enable-commit-comment: false
-          overwrites-pull-request-comment: false
+          overwrites-pull-request-comment: true
           alias: ocw-hugo-themes-www-pr-${{ github.event.number }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -112,7 +112,7 @@ jobs:
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: true
           enable-commit-comment: false
-          overwrites-pull-request-comment: false
+          overwrites-pull-request-comment: true
           alias: ocw-hugo-themes-course-pr-${{ github.event.number }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -127,7 +127,7 @@ jobs:
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: true
           enable-commit-comment: false
-          overwrites-pull-request-comment: false
+          overwrites-pull-request-comment: true
           alias: ocw-hugo-themes-course-v2-pr-${{ github.event.number }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
