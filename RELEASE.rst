@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.67.1
+Version 1.67.1 (Released August 10, 2022)
 --------------
 
 - fix hot reload in dev (#807)
