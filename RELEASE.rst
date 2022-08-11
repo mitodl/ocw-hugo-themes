@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.68.0
+--------------
+
+- build and deploy course v2 on netlify (#809)
+
 Version 1.67.1 (Released August 10, 2022)
 --------------
 
