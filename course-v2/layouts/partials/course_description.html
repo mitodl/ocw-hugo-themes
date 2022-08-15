@@ -1,7 +1,7 @@
 {{ $courseData := .context.Site.Data.course }}
 {{ $shouldCollapseDescription := false }}
 {{ with $courseData.course_description }}
-  {{ $shouldCollapseDescription := gt (len .) 320 }}
+  {{ $shouldCollapseDescription = gt (len .) 320 }}
 {{ end }}
 
 <div class="course-description">
