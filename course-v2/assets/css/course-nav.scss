@@ -41,12 +41,12 @@ nav {
   }
 }
 
-.course-nav-list-item-child {
-  font-size: $font-sm;
-}
-
 .course-nav-section-toggle {
   margin-left: 20px;
+}
+
+.course-nav-text-wrapper {
+  width: 100%;
 }
 
 .course-nav-section-toggle > i:after {
