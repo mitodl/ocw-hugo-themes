@@ -1,5 +1,13 @@
 @import "../../../base-theme/assets/css/variables.scss";
 #course-content-section {
+  h2 {
+    margin-bottom: 1.25rem !important;
+  }
+
+  h3 {
+    font-size: $font-normal !important;
+  }
+
   p {
     margin-bottom: 1.25rem;
   }
