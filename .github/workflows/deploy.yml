@@ -95,7 +95,7 @@ jobs:
           publish-dir: '../ocw-www/public'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
-          enable-pull-request-comment: true
+          enable-pull-request-comment: false
           enable-commit-comment: false
           overwrites-pull-request-comment: false
           alias: ocw-hugo-themes-www-pr-${{ github.event.number }}
@@ -110,7 +110,7 @@ jobs:
           publish-dir: '../ocw-course/public-v1'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
-          enable-pull-request-comment: true
+          enable-pull-request-comment: false
           enable-commit-comment: false
           overwrites-pull-request-comment: false
           alias: ocw-hugo-themes-course-pr-${{ github.event.number }}
@@ -119,6 +119,7 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
       - name: Deploy v2 Course Preview to Netlify
+        id: netlify-deployed-course-v2
         uses: nwtgck/actions-netlify@v1.2.3
         if: ${{ github.event_name == 'pull_request' }}
         with:
@@ -151,6 +152,8 @@ jobs:
         id: set-comment-body
         run: |
           body="Testing comment body"
+          body="https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/"
+          body=${{ steps.netlify-deployed-course-v2.outputs.alias }}
           echo ::set-output name=body::$body
       
       - name: Find Comment
