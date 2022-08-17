@@ -5,7 +5,7 @@
 {{ $subtopics = .subtopics }}
 {{ end }}
 {{ $scratch := newScratch }}
-<div class="position-relative pt-1 pb-1{{ if gt (len $subtopics) 0 }} pl-4{{ end }}">
+<div class="position-relative pt-1 pb-1{{ if gt (len $subtopics) 0 }} pl-4 {{ else }} pl-2 {{ end }}">
   {{ if gt (len $subtopics) 0 }}
   <a class="topic-toggle"
     href="#subtopic-container_{{ $index }}"
