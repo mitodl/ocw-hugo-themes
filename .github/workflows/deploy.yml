@@ -151,9 +151,7 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          body="Testing comment body"
-          body="https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/"
-          body=${{ steps.netlify-deployed-course-v2.outputs.alias }}
+          body="Testing comment body: https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/, ${{ steps.netlify-deployed-course-v2.outputs.alias }}"
           echo ::set-output name=body::$body
       
       - name: Find Comment
