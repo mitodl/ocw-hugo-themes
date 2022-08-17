@@ -126,7 +126,7 @@ jobs:
           publish-dir: '../ocw-course/public-v2'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
-          enable-pull-request-comment: true
+          enable-pull-request-comment: false
           enable-commit-comment: false
           overwrites-pull-request-comment: false
           alias: ocw-hugo-themes-course-v2-pr-${{ github.event.number }}
@@ -134,24 +134,10 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
-      - name: Deploy CI build to Netlify
-        uses: nwtgck/actions-netlify@v1.2.3
-        if: ${{ github.event_name == 'push' }}
-        with:
-          publish-dir: '../ocw-www/public'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Deploy from GitHub Actions"
-          enable-pull-request-comment: false
-          enable-commit-comment: false
-          production-deploy: true
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
       - name: Set comment body
         id: set-comment-body
         run: |
-          body=$(echo 'Testing comment body: https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/')
+          body=$(echo 'Netlify Deployments:<br>www: https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/ <br>Course: https://ocw-hugo-themes-course-pr-${{ github.event.number }}--ocw-next.netlify.app/ <br> Course v2: https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/')
           echo ::set-output name=body::$body
       
       - name: Find Comment
@@ -160,7 +146,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
-          body-includes: "Testing comment body"
+          body-includes: "Netlify Deployments"
 
       - name: Create comment
         if: ${{ steps.fc.outputs.comment-id == 0 }}
@@ -176,6 +162,21 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
           body: ${{ steps.set-comment-body.outputs.body }}
+
+      
+      - name: Deploy CI build to Netlify
+        uses: nwtgck/actions-netlify@v1.2.3
+        if: ${{ github.event_name == 'push' }}
+        with:
+          publish-dir: '../ocw-www/public'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: false
+          production-deploy: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
   
   lighthouse:
