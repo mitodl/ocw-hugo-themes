@@ -59,7 +59,7 @@
                         <!-- the number here is a estimate, a count of 5 lines of characters on a sample course at minimum browser width -->
                         {{ $shouldCollapseDescription := false}}
                         {{ with $courseData.course_description }}
-                          {{ $shouldCollapseDescription := gt (len .) 320 }}
+                          {{ $shouldCollapseDescription = gt (len .) 320 }}
                         {{ end }}
                           <div class="col-lg-8 course-description">
                           <h4 class="font-weight-bold course-description-title">Course Description</h4>
