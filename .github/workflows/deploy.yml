@@ -150,15 +150,6 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          body=$(echo '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
-          body="${body//'%'/'%25'}"
-          body="${body//$'\n'/'%0A'}"
-          body="${body//$'\r'/'%0D'}"
-          echo ::set-output name=body::$body
-
-      - name: Set comment body
-        id: set-comment-body
-        run: |
           body="Testing comment body"
           echo ::set-output name=body::$body
       
