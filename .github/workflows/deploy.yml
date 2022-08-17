@@ -147,7 +147,7 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
-            - name: Set comment body
+      - name: Set comment body
         id: set-comment-body
         run: |
           body=$(echo '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
