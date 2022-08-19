@@ -2,7 +2,8 @@
 {{ $scratch := newScratch }}
 {{ $scratch.Set "index" 0 }}
 {{ $inPanel := .inPanel }}
-<div class="mt-4">
+{{ $renderMarginTop := .renderMarginTop | default true}}
+<div class=" {{ if $renderMarginTop }}mt-4{{ end }}">
   <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
     Topics
   </div>
