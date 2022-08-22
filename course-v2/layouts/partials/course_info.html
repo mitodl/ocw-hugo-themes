@@ -4,11 +4,11 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
 <div class="course-info">
   <div class="course-detail-title {{ if $inPanel }}bg-light-gray{{ end }}">
     <div class="d-flex">
-      <h4 class="font-black {{ if $inPanel }}py-2 pl-3 m-0{{ end }}">
+      <div class="font-black {{ if $inPanel }}py-2 pl-3 m-0{{ end }}">
         Course Info
-      </h4>
+      </div>
       {{ if $inPanel }}
-      <h4
+      <div
         class="font-black close-course-info large-and-above-only"
         id="{{ if $isDesktopCourseDrawer }}hide-desktop-course-drawer{{ end }}"
       >
@@ -17,7 +17,7 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
           src="/images/close_small.svg"
           alt=""
         />
-    </h4>
+      </div>
       {{ end }}
     </div>
   </div>
