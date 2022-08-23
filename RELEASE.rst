@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.68.0 (Released August 23, 2022)
+--------------
+
+- Netlify deployment: www, course, course-v2 comment (#824)
+- added safeguard for course description (#816)
+- updated about page MIT staff (#819)
+- build and deploy course v2 on netlify (#809)
+
 Version 1.67.1 (Released August 10, 2022)
 --------------
 
