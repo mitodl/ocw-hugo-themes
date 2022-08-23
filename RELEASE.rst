@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.68.1
+--------------
+
+- added topics partial to course-v2-home to render topics in a hierarchy  (#818)
+
 Version 1.68.0 (Released August 23, 2022)
 --------------
 
