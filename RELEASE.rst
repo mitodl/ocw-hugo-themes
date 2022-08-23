@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.68.0
+Version 1.68.0 (Released August 23, 2022)
 --------------
 
 - Netlify deployment: www, course, course-v2 comment (#824)
