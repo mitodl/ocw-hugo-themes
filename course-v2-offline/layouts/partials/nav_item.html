@@ -1,0 +1,42 @@
+{{ $id := .menuItem.Identifier }}
+{{ $hasParent := isset . "parentId" }}
+{{ $hasChildren := .menuItem.HasChildren }}
+{{ $url := .menuItem.URL }}
+{{ if site.Params.offline }}
+  {{ $noHttpPrefix := not (strings.HasPrefix $url "http") }}
+  {{ $noHtmlSuffix := not (strings.HasSuffix $url ".html") }}
+  {{ if and $noHttpPrefix $noHtmlSuffix }}
+    {{ $url = printf "%s/index.html" $url }}
+  {{ end }}
+{{ end }}
+
+<li class="course-nav-list-item {{ if $hasParent }} course-nav-list-item-child{{ end }}">
+  <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
+    <span class="course-nav-text-wrapper">
+      <a class="text-dark nav-link"
+        href="{{ $url }}">
+        {{ .menuItem.Name }}
+      </a>
+    </span>
+    {{ if .menuItem.HasChildren }}
+    <a class="course-nav-section-toggle"
+      href="#nav-container_{{ .menuItem.Identifier }}"
+      data-toggle="collapse"
+      aria-controls="nav-container_{{ .menuItem.Identifier }}"
+      aria-expanded="">
+      <i class="material-icons md-18"></i>
+    </a>
+    {{ end }}
+  </div>
+  {{ if or (not $hasParent) $hasChildren }}
+  <span class="medium-and-below-only"><hr/></span>
+  {{ end }}
+  <div class="collapse"
+    id="nav-container_{{ .menuItem.Identifier }}">
+    <ul class="course-nav-child-nav m-auto">
+      {{ range .menuItem.Children }}
+        {{ partial "nav_item.html" (dict "menuItem" . "parentId" $id ) }}
+      {{ end }}
+    </ul>
+  </div>
+</li>
