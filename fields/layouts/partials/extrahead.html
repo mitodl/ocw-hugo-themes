@@ -2,8 +2,8 @@
 {{ define "extrahead" }}
 {{ $wwwTheme := .Site.Data.webpack.www }}
 {{ $fieldsTheme := .Site.Data.webpack.fields }}
-{{ partial "include_css.html" $wwwTheme.css }}
-{{ partial "include_css.html" $fieldsTheme.css }}
+{{ partial "include_css.html" (dict "context" . "url" $wwwTheme.css) }}
+{{ partial "include_css.html" (dict "context" . "url" $fieldsTheme.css) }}
 <link
 href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css"
 rel="stylesheet"
