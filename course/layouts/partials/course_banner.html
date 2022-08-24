@@ -1,17 +1,12 @@
 {{- $bannerClass := "text-uppercase display-4 font-weight-bold m-0 text-white" -}}
 {{- $currentPage := . -}}
-{{- $pathToRoot := partial "path_to_root.html" . -}}
 <div id="course-banner" class="p-0">
   <div class="max-content-width m-auto px-5 py-6">
     {{- $courseData := .Site.Data.course -}}
     {{- $courseHomePage := .Site.GetPage "/" -}}
-    {{- $url := $courseHomePage.RelPermalink -}}
-    {{- if site.Params.offline -}}
-      {{- $url = printf "%sindex.html" $pathToRoot -}}
-    {{- end -}}
     <a
       class="{{ $bannerClass }}"
-      href="{{ $url }}"
+      href="{{ $courseHomePage.RelPermalink }}"
     >{{ $courseData.course_title }}</a>
   </div>
 </div>

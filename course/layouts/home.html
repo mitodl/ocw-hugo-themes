@@ -17,13 +17,7 @@
     {{ partialCached "mobile_course_nav.html" . }}
     {{ partialCached "mobile_course_info.html" . }}
     {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
-    {{ block "subheader" . }}
-    {{- if site.Params.offline -}}
-    {{ partial "course_banner.html" . }}
-    {{- else -}}
-    {{ partialCached "course_banner.html" . }}
-    {{- end -}}
-    {{ end }}
+    {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
     <div class="container-fluid">
       <div class="row outer-wrapper">
         {{ partialCached "desktop_nav.html" . }}
