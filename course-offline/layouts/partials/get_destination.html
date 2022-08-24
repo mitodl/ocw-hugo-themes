@@ -1,6 +1,4 @@
 {{ $destination := .Destination }}
 {{ $isInternalLink := not (strings.HasPrefix $destination "http") }}
-{{ if and site.Params.offline $isInternalLink }}
 {{ $destination = printf "%s/index.html" (strings.TrimSuffix "/" $destination) }}
-{{ end }}
 {{ return $destination }}
