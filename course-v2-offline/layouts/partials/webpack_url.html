@@ -1,1 +1,2 @@
-{{ return partial "path_to_root.html" .context }}
+{{ $pathToRoot := "path_to_root.html" .context }}
+{{return (printf "%s/%s" (strings.TrimSuffix "/" $pathToRoot) (strings.TrimPrefix "/" .url)) -}}
