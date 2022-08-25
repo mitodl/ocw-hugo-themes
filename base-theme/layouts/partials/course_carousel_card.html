@@ -14,7 +14,7 @@
 <div class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 .itemsInCarousel) }}{{ end }} w-100 d-flex justify-content-center">
   <div class="course-card card bg-white">
     <a href="{{ partial "site_root_url.html" .urlPath }}" aria-hidden="true" tabindex="-1">
-      <img src="{{ partial "resource_url.html" $courseImageSrc }}" alt=""/>
+      <img src="{{ partial "resource_url.html" (dict "context" . "url" $courseImageSrc) }}" alt=""/>
     </a>
     <div class="course-card-content pt-1 px-3 pb-3">
       <div class="course-level">

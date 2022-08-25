@@ -1,4 +1,4 @@
-{{- $url := . -}}
+{{- $url := .url -}}
 {{/*
   Here we are disassembling the URL and returning it without the host and schema.
   This is done because it is expected that ocw-studio currently returns fully
@@ -14,4 +14,3 @@
 {{- else -}}
   {{- partial "site_root_url.html" $url -}}
 {{- end -}}
-

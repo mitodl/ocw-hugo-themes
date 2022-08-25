@@ -4,5 +4,5 @@
 {{- if $courseImageUid -}}
 {{- $courseImageMetadata = partial "resource_metadata.html" $courseImageUid }}
 {{- end -}}
-{{- $courseImageUrl := partial "resource_url.html" $courseImageMetadata.Params.file -}}
+{{- $courseImageUrl := partial "resource_url.html" (dict "context" . "url" $courseImageMetadata.Params.file) -}}
 {{ return (slice $courseImageUrl $courseImageMetadata )}}
