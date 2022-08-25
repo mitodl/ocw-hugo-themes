@@ -9,7 +9,7 @@
     <div class="testimonials">
       <div class="testimonial d-flex flex-wrap flex-sm-nowrap">
         <div class="img-container">
-          <img src="{{ partial "resource_url" (partial "resource_metadata" $story.Params.image.content).Params.file }}" alt="" />
+          <img src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $story.Params.image.content).Params.file) }}" alt="" />
         </div>
         <div class="detail d-flex flex-column flex-nowrap justify-content-between p-0 ml-sm-5">
           <div class="text">

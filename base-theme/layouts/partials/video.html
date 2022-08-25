@@ -11,7 +11,7 @@
 {{ if (eq $downloadLink nil) }}
 {{ $downloadLink = .Params.video_files.archive_url }}
 {{ else }}
-{{ $downloadLink =  partial "resource_url" $downloadLink  }}
+{{ $downloadLink =  partial "resource_url.html" (dict "context" . "url" $downloadLink) }}
 {{ end }}
 
 <div class="video-page">
