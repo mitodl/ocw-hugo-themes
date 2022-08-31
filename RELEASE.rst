@@ -1,6 +1,17 @@
 Release Notes
 =============
 
+Version 1.69.0
+--------------
+
+- offline course site theme (#832)
+- sidebar and image section height and width styling (#814)
+- adding check to other actions aswell (#834)
+- Addeded command to continue on failure (#833)
+- fixed nav items (#826)
+- updated headers (#794)
+- added topics partial to course-v2-home to render topics in a hierarchy  (#818)
+
 Version 1.68.0 (Released August 23, 2022)
 --------------
 
