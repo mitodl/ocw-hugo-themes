@@ -1,7 +1,7 @@
 {{ define "title" }}{{ partial "title.html" . }}{{ end }}
 {{ define "extrahead" }}
 {{ $wwwTheme := .Site.Data.webpack.www }}
-{{ partial "include_css.html" $wwwTheme.css }}
+{{ partial "include_css.html" (dict "context" . "url" $wwwTheme.css) }}
 <link
 href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css"
 rel="stylesheet"

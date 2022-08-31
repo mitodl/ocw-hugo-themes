@@ -14,7 +14,7 @@
     {{- else if eq .Params.resourcetype "Video" -}}
       {{ partial "video_embed.html" . }}
     {{- else -}}
-      <a href="{{ partial "resource_url" .Params.file }}">{{ .Params.title }}</a>
+      <a href="{{ partial "resource_url.html" (dict "context" . "url" .Params.file) }}">{{ .Params.title }}</a>
     {{- end -}}
   {{- end -}}
 {{- end -}}

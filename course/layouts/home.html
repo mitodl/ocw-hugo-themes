@@ -17,7 +17,7 @@
     {{ partialCached "mobile_course_nav.html" . }}
     {{ partialCached "mobile_course_info.html" . }}
     {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
-    {{ block "subheader" . }}{{ partialCached "course_banner.html" . }}{{ end }}
+    {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
     <div class="container-fluid">
       <div class="row outer-wrapper">
         {{ partialCached "desktop_nav.html" . }}
@@ -119,9 +119,9 @@
   {{- $theme := .Site.Data.webpack.main -}}
   {{- $courseTheme := .Site.Data.webpack.course -}}
 
-  {{ partial "include_js.html" $theme.js }}
-  {{ partial "include_js.html" $courseTheme.js }}
-  <script src="{{ partial "webpack_url.html" "/static/mathjax/tex-svg.js" }}" defer></script>
+  {{ partial "include_js.html" (dict "context" . "url" $theme.js) }}
+  {{ partial "include_js.html" (dict "context" . "url" $courseTheme.js) }}
+  <script src="{{ partial "webpack_url.html" (dict "context" . "url" "/static/mathjax/tex-svg.js") }}" defer></script>
   <!-- Appzi: Capture Insightful Feedback -->
 
   <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>

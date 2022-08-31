@@ -1,9 +1,11 @@
-{{ $type := (printf "%T" .) }}
+{{ $context := .context }}
+{{ $url := .url }}
+{{ $type := (printf "%T" $url) }}
 {{ if eq $type "[]interface {}" }}
-{{ with index . 0 }}
-<link href="{{ partial "webpack_url.html" . }}" rel="stylesheet">
+{{ with index $url 0 }}
+<link href="{{ partial "webpack_url.html" (dict "context" $context "url" .) }}" rel="stylesheet">
 {{ end }}
 {{ end }}
 {{ if eq $type "string" }}
-<link href="{{ partial "webpack_url.html" . }}" rel="stylesheet">
+<link href="{{ partial "webpack_url.html" (dict "context" $context "url" $url) }}" rel="stylesheet">
 {{ end }}

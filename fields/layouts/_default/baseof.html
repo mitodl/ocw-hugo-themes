@@ -15,7 +15,7 @@
     </div>
     {{ $main := .Site.Data.webpack.main }}
     {{ block "extrajs" . }}{{ end }}
-    {{ partial "include_js.html" $main.js }}
+    {{ partial "include_js.html" (dict "context" . "url" $main.js) }}
     <!-- Appzi: Capture Insightful Feedback -->
 
     <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>

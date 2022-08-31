@@ -1,0 +1,4 @@
+{{ $destination := .Destination }}
+{{ $isInternalLink := not (strings.HasPrefix $destination "http") }}
+{{ $destination = printf "%s/index.html" (strings.TrimSuffix "/" $destination) }}
+{{ return $destination }}

@@ -1,0 +1,2 @@
+{{ $destination := partial "get_destination.html" . }}
+<a href="{{ $destination | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}{{ if strings.HasPrefix $destination "http" }} target="_blank" rel="noopener"{{ end }}>{{ .Text | safeHTML }}</a>

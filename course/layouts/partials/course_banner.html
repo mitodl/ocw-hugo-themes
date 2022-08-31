@@ -1,12 +1,11 @@
-{{ $bannerClass := "text-uppercase display-4 font-weight-bold m-0 text-white" }}
-{{ $currentPage := . }}
+{{- $bannerClass := "text-uppercase display-4 font-weight-bold m-0 text-white" -}}
+{{- $currentPage := . -}}
 <div id="course-banner" class="p-0">
   <div class="max-content-width m-auto px-5 py-6">
-    {{ $courseData := .Site.Data.course }}
-    {{ $courseHomePage := .Site.GetPage "/" }}
+    {{- $courseData := .Site.Data.course -}}
     <a
       class="{{ $bannerClass }}"
-      href="{{ $courseHomePage.RelPermalink }}"
+      href="{{ partial "course_home_page_url.html" . }}"
     >{{ $courseData.course_title }}</a>
   </div>
 </div>
