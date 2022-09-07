@@ -10,8 +10,7 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
       {{ if $inPanel }}
       <div
         class="font-black close-course-info large-and-above-only"
-        id="{{ if $isDesktopCourseDrawer }}hide-desktop-course-drawer{{ end }}"
-      >
+        id="{{ if $isDesktopCourseDrawer }}hide-desktop-course-drawer{{ end }}">
         <img
           class="toggle navbar-toggle offcanvas-toggle"
           src="/images/close_small.svg"
@@ -23,22 +22,17 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
   </div>
   <div
     id="course-info"
-    class="position-relative {{ if $inPanel }}px-3 mt-4{{ end }}"
-  >
+    class="position-relative {{ if $inPanel }}px-3 mt-4{{ end }}">
     <div class="row">
       <div class="col-12 {{ if not $inPanel }}col-sm-6{{ end }}">
         {{ with $courseData.instructors.content }}
         <div class="">
           {{ $instructors := partial "get_instructors.html" . }}
-          <div
-            class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}"
-          >
+          <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
             {{ if eq (len $instructors) 1 }}Instructor{{ else }}Instructors{{
             end }}
           </div>
-          <div
-            class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}"
-          >
+          <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
             {{ partial "partial_collapse_list.html" (dict "list" $instructors
             "id" "instructors" "key" "title" "klass" "course-info-instructor"
             "showCollapse" $inPanel) }}
@@ -47,55 +41,43 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
         {{ end }} {{ with $courseData.department_numbers }}
         <div class="mt-4">
           {{ $departments := partial "get_departments.html" . }}
-          <div
-            class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}"
-          >
+          <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
             Departments
           </div>
-          <div
-            class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}"
-          >
+          <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
             {{ partial "partial_collapse_list.html" (dict "list" $departments
             "id" "departments" "key" "title" "klass" "course-info-department"
             "useLinks" true) }}
           </div>
         </div>
-        {{ end }} {{ if $inPanel }}
+        {{ end }} 
+        {{ if $inPanel }}
         <div class="mt-4">
-          <div
-            class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}"
-          >
+          <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
             As Taught In
           </div>
-          <div
-            class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}"
-          >
-            {{ $courseData.term }} {{ if isset $courseData "year" }}{{
-            $courseData.year }}{{ end }}
+          <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
+            {{ $courseData.term }}
+            {{ if isset $courseData "year" }}
+              {{ $courseData.year }}
+            {{ end }}
           </div>
         </div>
 
         <div class="mt-4">
-          <div
-            class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}"
-          >
+          <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
             Level
           </div>
-          <div
-            class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}"
-          >
+          <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
             {{ if eq (printf "%T" $courseData.level) "string" }} {{
-            $levelSearchUrl := partial "get_search_url.html" (dict "key" "level"
-            "value" $courseData.level) }}
-            <a href="{{ $levelSearchUrl }}" class="course-info-level">
-              {{ $courseData.level }}
-            </a>
-            {{ else }} {{ range $courseData.level }} {{ $levelSearchUrl :=
-            partial "get_search_url.html" (dict "key" "level" "value" .) }}
-            <a href="{{ $levelSearchUrl }}" class="course-info-level">
-              {{ . }} </a
-            ><br />
-            {{ end }} {{ end }}
+            $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
+            {{ partial "link.html" (dict "href" $levelSearchUrl "text" $courseData.level) }}
+            {{ else }}
+              {{ range $courseData.level }}
+                {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) }}
+                {{ partial "link.html" (dict "href" $levelSearchUrl "text" .) }}<br />
+              {{ end }}
+            {{ end }}
           </div>
         </div>
         {{ end }}

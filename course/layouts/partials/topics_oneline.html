@@ -3,7 +3,8 @@
 {{ range $topicGroup := $courseData.topics }}
   <li>
     {{ range $index, $item := $topicGroup }}
-      <a href="{{ partial "get_search_url.html" (dict "key" "topic" "value" (title $item)) }}" class="text-black course-info-topic">{{ $item }}</a>
+      {{ $topicUrl := partial "get_search_url.html" (dict "key" "topic" "value" (title $item)) }}
+      {{ partial "link.html" (dict "href" $topicUrl "class" "text-black course-info-topic" "text" $item) }}
       {{ if ne $index (sub (len $topicGroup) 1) }}>{{ end }}
     {{ end }}
   </li>

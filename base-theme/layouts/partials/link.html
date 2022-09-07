@@ -1,0 +1,9 @@
+{{ $name := .name | default "" }}
+{{ $href := .href | default "" }}
+{{ $class := .class | default "" }}
+{{ $text := .text | default "" }}
+{{ if or $href $name }}
+<a{{ if $name }} name="{{ $name }}"{{ end }}{{ if $class}} class="{{ $class }}" {{ end }}{{ if $href }} href="{{ $href }}"{{ end }}>{{ $text }}</a>
+{{ else }}
+<span>{{ $text }}</span>
+{{ end }}
