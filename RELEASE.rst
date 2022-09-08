@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.69.0
+Version 1.69.0 (Released September 08, 2022)
 --------------
 
 - offline course site theme (#832)
