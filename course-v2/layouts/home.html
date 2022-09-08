@@ -15,7 +15,7 @@
     {{ partialCached "mobile_course_nav.html" . }}
     {{ partialCached "mobile_course_info.html" . }}
     {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
-    {{ block "subheader" . }}{{ partialCached "course_banner.html" . }}{{ end }}
+    {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
 
   <div id="course-main-content">
     <div class="row">

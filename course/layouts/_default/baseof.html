@@ -22,7 +22,7 @@
       </div>
     </div>
     {{ end }}
-    {{ block "subheader" . }}{{ partialCached "course_banner.html" . }}{{ end }}
+    {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
     <div class="container-fluid">
       <div class="row outer-wrapper">
         {{ partialCached "desktop_nav.html" . }}
