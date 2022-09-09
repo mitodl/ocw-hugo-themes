@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.70.0
+--------------
+
+- don't use partialCached on course_banner.html to ensure relative links in the offline theme are correct on every page (#841)
+- create a new partial for rendering links that renders a span instead if a link or name isn't specified, then use that partial everywhere search links are rendered, then override get_search_url.html to return nothing (#839)
+- fixed responsive in tables (#837)
+
 Version 1.69.0 (Released September 08, 2022)
 --------------
 
