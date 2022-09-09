@@ -1,7 +1,7 @@
 // @ts-nocheck
 function initResponsiveTables() {
   const tables = document
-    .getElementById("course-main-content")
+    .getElementById("course-content-section")
     .getElementsByTagName("table")
   for (const table of tables) {
     const headings = table.getElementsByTagName("th")
@@ -21,7 +21,7 @@ function initResponsiveTables() {
     }
     // force mobile style if table width exceeds main content area
     const tableWidth = table.clientWidth
-    const mainContentWidth = document.getElementById("course-main-content")
+    const mainContentWidth = document.getElementById("course-content-section")
       .clientWidth
     if (tableWidth > mainContentWidth) {
       table.classList.add("mobile-table")
