@@ -23,9 +23,7 @@
       {{ end }}
       <li>
         {{ if $useLinks }}
-        <a href="{{ index $item "url" }}" class="partial-collapse-link {{ $className }}">
-          {{ $text }}
-        </a>
+        {{ partial "link.html" (dict "href" (index $item "url") "class" (printf "partial-collapse-link %s" $className) "text" $text) }}
         {{ else }}
         {{ $text }}
         {{ end }}
@@ -46,9 +44,7 @@
   {{ end }}
   <li>
     {{ if $useLinks }}
-    <a href="{{ index $item "url" }}" class="{{ $className }}">
-      {{ $text }}
-    </a>
+    {{ partial "link.html" (dict "href" (index $item "url") "class" $className "text" $text) }}
     {{ else }}
     {{ $text }}
     {{ end }}
