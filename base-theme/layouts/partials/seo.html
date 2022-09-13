@@ -1,6 +1,4 @@
 {{ define "seo" }}
-  {{ $imageData := partial "course-image-url.html" . }}
-  {{ $courseImageUrl := index $imageData 0 }}
 
   {{- $sitemapDomain := partial "sitemap_domain.html" -}}
   {{- $path := partial "site_root_url.html" .RelPermalink -}}
@@ -14,15 +12,18 @@
   {{- $metaDataDescription = (.Params.description | plainify) | default $defaultMetadataDescription -}}
   {{- end -}}
 
+  {{ $title := partial "title.html" . }}
+
   <meta name="description" content="{{- $metaDataDescription -}}">
   <meta name="keywords" content="opencourseware,MIT OCW,courseware,MIT opencourseware,Free Courses,class notes,class syllabus,class materials,tutorials,online courses,MIT courses">
   {{/*  Facebook Open Graph  */}}
   <meta property="og:site_name" content="MIT OpenCourseWare">
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://{{ strings.TrimSuffix "/" $sitemapDomain }}/{{- strings.TrimPrefix "/" $path -}}" />
-  <meta property="og:title" content="{{- .Site.Data.course.course_title -}}" />
+  <meta property="og:title" content="{{- $title -}}" />
   <meta property="og:description" content="{{- $metaDataDescription -}}" />
-  <meta property="og:image" content="{{- $courseImageUrl -}}" />
+
+  {{ partial "extra_metadata.html" (dict "context" . ) }}
   
   <link rel="canonical" href="https://{{ strings.TrimSuffix "/" $sitemapDomain }}/{{- strings.TrimPrefix "/" $path -}}" />
 

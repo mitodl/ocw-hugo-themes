@@ -1,5 +1,5 @@
 {{ $courseData := .Site.Data.course }}
-<title>{{- $titleArray := (slice) -}}
+{{- $titleArray := (slice) -}}
 {{- if .Params.Title -}}
   {{- $titleArray = $titleArray | append .Params.Title -}}
 {{- end -}}
@@ -15,4 +15,3 @@
   {{- $titleArray = $titleArray | append "Free Online Course Materials" -}}
 {{- end -}}
 {{- delimit $titleArray " | " -}}
-</title>
