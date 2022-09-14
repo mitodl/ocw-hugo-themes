@@ -13,11 +13,10 @@ export const initDesktopCourseInfoToggle = () => {
       desktopCourseInfo.classList.toggle("d-none")
       mainContent.classList.toggle("col-xl-8")
       mainContent.classList.toggle("col-lg-8")
-      console.log(desktopCourseInfoToggle.innerText)
       if (desktopCourseInfoToggle.innerText === HIDE_COURSE_INFO_TEXT) {
-        desktopCourseInfoToggle.firstChild.innerText = SHOW_COURSE_INFO_TEXT
+        desktopCourseInfoToggle.getElementsByTagName("span")[0].innerHTML = SHOW_COURSE_INFO_TEXT
       } else {
-        desktopCourseInfoToggle.firstChild.innerText = HIDE_COURSE_INFO_TEXT
+        desktopCourseInfoToggle.getElementsByTagName("span")[0].innerHTML = HIDE_COURSE_INFO_TEXT
       }
     })
   }
