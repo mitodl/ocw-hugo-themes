@@ -14,9 +14,13 @@ export const initDesktopCourseInfoToggle = () => {
       mainContent.classList.toggle("col-xl-8")
       mainContent.classList.toggle("col-lg-8")
       if (desktopCourseInfoToggle.innerText === HIDE_COURSE_INFO_TEXT) {
-        desktopCourseInfoToggle.getElementsByTagName("span")[0].innerHTML = SHOW_COURSE_INFO_TEXT
+        desktopCourseInfoToggle.getElementsByTagName(
+          "span"
+        )[0].innerHTML = SHOW_COURSE_INFO_TEXT
       } else {
-        desktopCourseInfoToggle.getElementsByTagName("span")[0].innerHTML = HIDE_COURSE_INFO_TEXT
+        desktopCourseInfoToggle.getElementsByTagName(
+          "span"
+        )[0].innerHTML = HIDE_COURSE_INFO_TEXT
       }
       calculateTableResponsiveness()
     })
