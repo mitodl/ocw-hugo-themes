@@ -12,6 +12,7 @@ import { initVideoTranscriptTrack } from "./js/video_transcript_track"
 import { initPlayBackSpeedButton } from "./js/video_playback_speed"
 import { initVideoFullscreenToggle } from "./js/video_fullscreen_toggle"
 import { initDownloadButton } from "./js/video-download-button"
+import { closeToggleButton } from "./js/close_toggle_button"
 import {
   clearSolution,
   checkAnswer,
@@ -31,4 +32,5 @@ $(function() {
   checkAnswer()
   showSolution()
   initVideoFullscreenToggle()
+  closeToggleButton()
 })

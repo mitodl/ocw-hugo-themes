@@ -18,6 +18,19 @@ export const initDesktopCourseInfoToggle = () => {
       } else {
         desktopCourseInfoToggle.getElementsByTagName("span")[0].innerHTML = HIDE_COURSE_INFO_TEXT
       }
+      calculateTableResponsiveness()
     })
+  }
+}
+
+function calculateTableResponsiveness() {
+  const table = document
+    .getElementById("main-content")
+    .getElementsByTagName("table")[0]
+  const mainContentWidth = document.getElementById("main-content").clientWidth
+  if (table.clientWidth > mainContentWidth) {
+    table.classList.add("mobile-table")
+  } else {
+    table.classList.remove("mobile-table")
   }
 }
