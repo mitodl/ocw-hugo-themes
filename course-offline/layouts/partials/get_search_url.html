@@ -1,1 +1,2 @@
-{{ return "" }}
+{{ $baseUrl := partial "static_api_base_url.html" }}
+{{ return print (strings.TrimSuffix "/" $baseUrl) "/search?" (querify (index site.Data.search_query_keys .key) .value) }}

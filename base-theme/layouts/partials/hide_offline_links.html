@@ -1,0 +1,11 @@
+<script>
+function hideLinksOffline(){
+  if (!window.navigator.onLine) {
+    const links = document.querySelectorAll(".strip-link-offline")
+    Array.prototype.forEach.call(links, function(link) {
+      link.outerHTML = link.innerHTML
+    })
+  }
+}
+hideLinksOffline()
+</script>

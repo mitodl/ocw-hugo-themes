@@ -2,6 +2,10 @@
 {{ $href := .href | default "" }}
 {{ $class := .class | default "" }}
 {{ $text := .text | default "" }}
+{{ $hideOffline := .hideOffline | default false }}
+{{ if $hideOffline }}
+  {{ $class = print $class " strip-link-offline" }}
+{{ end }}
 {{ if or $href $name }}
 <a{{ if $name }} name="{{ $name }}"{{ end }}{{ if $class}} class="{{ $class }}" {{ end }}{{ if $href }} href="{{ $href }}"{{ end }}>{{ $text }}</a>
 {{ else }}
