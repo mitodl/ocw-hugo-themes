@@ -275,4 +275,4 @@ export interface LearningResource {
 
 export type FacetKey = keyof Facets
 
-export type FacetManifest = [FacetKey, string, boolean][]
+export type FacetManifest = [FacetKey, string, boolean, boolean][]

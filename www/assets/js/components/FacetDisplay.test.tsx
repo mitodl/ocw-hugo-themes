@@ -7,9 +7,9 @@ import { Facets } from "@mitodl/course-search-utils"
 
 describe("FacetDisplay component", () => {
   const facetMap: FacetManifest = [
-    ["topics", "Topics", false],
-    ["type", "Types", false],
-    ["department_name", "Departments", false]
+    ["topics", "Topics", false, false],
+    ["type", "Types", false, false],
+    ["department_name", "Departments", false, true]
   ]
 
   function setup() {
@@ -42,6 +42,7 @@ describe("FacetDisplay component", () => {
     facets.slice(1, 4).map((facet, key) => {
       expect(facet.prop("name")).toBe(facetMap[key][0])
       expect(facet.prop("title")).toBe(facetMap[key][1])
+      expect(facet.prop("expandedOnLoad")).toBe(facetMap[key][3])
     })
   })
 

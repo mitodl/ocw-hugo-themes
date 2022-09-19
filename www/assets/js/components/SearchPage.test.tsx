@@ -415,7 +415,7 @@ describe("SearchPage component", () => {
     const wrapper = await render()
     await resolveSearch()
     wrapper.update()
-    const [topic, features, department] = Array.from(
+    const [department, topic, features] = Array.from(
       // @ts-ignore
       wrapper.find("FilterableSearchFacet")
     )

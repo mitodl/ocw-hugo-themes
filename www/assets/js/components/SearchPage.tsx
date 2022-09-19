@@ -28,15 +28,15 @@ import { emptyOrNil, isDoubleQuoted } from "../lib/util"
 import { FacetManifest, LearningResourceResult } from "../LearningResources"
 
 const COURSE_FACETS: FacetManifest = [
-  ["level", "Level", false],
-  ["topics", "Topics", true],
-  ["course_feature_tags", "Features", true],
-  ["department_name", "Departments", true]
+  ["department_name", "Departments", true, true],
+  ["level", "Level", false, false],
+  ["topics", "Topics", true, false],
+  ["course_feature_tags", "Features", true, false]
 ]
 
 const RESOURCE_FACETS: FacetManifest = [
-  ["resource_type", "Resource Types", true],
-  ["topics", "Topics", true]
+  ["resource_type", "Resource Types", true, false],
+  ["topics", "Topics", true, false]
 ]
 
 interface Result {

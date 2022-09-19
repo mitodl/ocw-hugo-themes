@@ -18,11 +18,19 @@ interface Props {
   results: Aggregation | null
   currentlySelected: string[]
   onUpdate: React.ChangeEventHandler<HTMLInputElement>
+  expandedOnLoad: boolean
 }
 
 function FilterableSearchFacet(props: Props) {
-  const { name, title, results, currentlySelected, onUpdate } = props
-  const [showFacetList, setShowFacetList] = useState(true)
+  const {
+    name,
+    title,
+    results,
+    currentlySelected,
+    onUpdate,
+    expandedOnLoad
+  } = props
+  const [showFacetList, setShowFacetList] = useState(expandedOnLoad)
 
   // null is signal for no input yet or cleared input
   const [filteredList, setFilteredList] = useState<Bucket[] | null>(null)
