@@ -1,6 +1,6 @@
 {{ if eq (printf "%T" .) "string" }}
   {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) }}
-  {{ partial "link.html" (dict "href" $levelSearchUrl "text" . "hideOffline" true) }}
+  {{ partial "link.html" (dict "href" $levelSearchUrl "text" . "stripLinkOffline" true) }}
 {{ else }}
 {{/* safe guard from nil values  */}}
   {{ with .}}
@@ -10,7 +10,7 @@
     {{ end }}
     {{ range $index, $level := . }}
       {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $level) }}
-      {{ partial "link.html" (dict "href" $levelSearchUrl "text" $level "hideOffline" true) }}
+      {{ partial "link.html" (dict "href" $levelSearchUrl "text" $level "stripLinkOffline" true) }}
       {{ if ne (add $index 1) $numLevels }}
       ,&nbsp;
       {{ end }}

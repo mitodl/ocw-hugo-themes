@@ -31,7 +31,6 @@
       </div>
       <div class="course-info-section course-home-grid">
         {{ partialCached "course_detail.html" . }}
-        {{ partialCached "hide_offline_links.html" . }}
       </div>
       <div class="course-image-section mb-3 mb-md-0 course-home-grid">
         {{ partialCached "course_image_section.html" . }}
@@ -40,6 +39,7 @@
   </div>
   
   {{ block "footer" . }}{{ partial "footer" . }}{{end}}
+  {{ partialCached "hide_offline_links.html" . }}
   </div>
   <script>
     window.MathJax = {

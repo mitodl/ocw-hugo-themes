@@ -23,7 +23,7 @@
       {{ end }}
       <li>
         {{ if $useLinks }}
-        {{ partial "link.html" (dict "href" (index $item "url") "class" (printf "partial-collapse-link %s" $className) "text" $text "hideOffline" true) }}
+        {{ partial "link.html" (dict "href" (index $item "url") "class" (printf "partial-collapse-link %s" $className) "text" $text "stripLinkOffline" true) }}
         {{ else }}
         {{ $text }}
         {{ end }}
@@ -44,7 +44,7 @@
   {{ end }}
   <li>
     {{ if $useLinks }}
-    {{ partial "link.html" (dict "href" (index $item "url") "class" $className "text" $text "hideOffline" true) }}
+    {{ partial "link.html" (dict "href" (index $item "url") "class" $className "text" $text "stripLinkOffline" true) }}
     {{ else }}
     {{ $text }}
     {{ end }}

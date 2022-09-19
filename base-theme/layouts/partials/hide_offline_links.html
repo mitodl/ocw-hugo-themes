@@ -1,9 +1,13 @@
 <script>
 function hideLinksOffline(){
   if (!window.navigator.onLine) {
-    const links = document.querySelectorAll(".strip-link-offline")
-    Array.prototype.forEach.call(links, function(link) {
+    const stripLinks = document.querySelectorAll(".strip-link-offline")
+    const hideLinks = document.querySelectorAll(".hide-link-offline")
+    Array.prototype.forEach.call(stripLinks, function(link) {
       link.outerHTML = link.innerHTML
+    })
+    Array.prototype.forEach.call(hideLinks, function(link) {
+      link.classList.add("d-none")
     })
   }
 }

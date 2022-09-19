@@ -4,7 +4,7 @@
   <li>
     {{ range $index, $item := $topicGroup }}
       {{ $topicUrl := partial "get_search_url.html" (dict "key" "topic" "value" (title $item)) }}
-      {{ partial "link.html" (dict "href" $topicUrl "class" "text-black course-info-topic" "text" $item "hideOffline" true) }}
+      {{ partial "link.html" (dict "href" $topicUrl "class" "text-black course-info-topic" "text" $item "stripLinkOffline" true) }}
       {{ if ne $index (sub (len $topicGroup) 1) }}>{{ end }}
     {{ end }}
   </li>
