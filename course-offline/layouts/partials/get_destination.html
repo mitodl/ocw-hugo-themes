@@ -1,4 +1,11 @@
 {{ $destination := .Destination }}
 {{ $isInternalLink := not (strings.HasPrefix $destination "http") }}
-{{ $destination = printf "%s/index.html" (strings.TrimSuffix "/" $destination) }}
+{{ $isExternalCourseLink := strings.HasPrefix $destination "/courses" }}
+{{ if $isInternalLink }}
+  {{ if $isExternalCourseLink }}
+    {{ $destination = partial "site_root_url.html" $destination }}
+  {{ else }}
+    {{ $destination = printf "%s/index.html" (strings.TrimSuffix "/" $destination) }}
+  {{ end }}
+{{ end }}
 {{ return $destination }}

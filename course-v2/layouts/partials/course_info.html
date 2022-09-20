@@ -71,11 +71,11 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
           <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
             {{ if eq (printf "%T" $courseData.level) "string" }} {{
             $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
-            {{ partial "link.html" (dict "href" $levelSearchUrl "text" $courseData.level) }}
+            {{ partial "link.html" (dict "href" $levelSearchUrl "text" $courseData.level "stripLinkOffline" true) }}
             {{ else }}
               {{ range $courseData.level }}
                 {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) }}
-                {{ partial "link.html" (dict "href" $levelSearchUrl "text" .) }}<br />
+                {{ partial "link.html" (dict "href" $levelSearchUrl "text" . "stripLinkOffline" true) }}<br />
               {{ end }}
             {{ end }}
           </div>

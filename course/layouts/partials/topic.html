@@ -18,7 +18,7 @@
   <span class="topic-text-wrapper">
     {{ $topicTitle := title .topic }}
     {{ $topicUrl := partial "get_search_url.html" (dict "key" "topic" "value" $topicTitle) }}
-    {{ partial "link.html" (dict "href" $topicUrl "class" "text-black course-info-topic" "text" $topicTitle) }}
+    {{ partial "link.html" (dict "href" $topicUrl "class" "text-black course-info-topic" "text" $topicTitle "stripLinkOffline" true) }}
   </span>
 </div>
 {{ if gt (len $subtopics) 0 }}
@@ -39,7 +39,7 @@
     <span class="topic-text-wrapper">
       {{ $subTopicTitle := title $subtopic }}
       {{ $subTopicUrl := partial "get_search_url.html" (dict "key" "topic" "value" $subTopicTitle) }}
-      {{ partial "link.html" (dict "href" $subTopicUrl "class" "text-black course-info-topic" "text" $subTopicTitle) }}
+      {{ partial "link.html" (dict "href" $subTopicUrl "class" "text-black course-info-topic" "text" $subTopicTitle "stripLinkOffline" true) }}
     </span>
   </div>
   {{ range $speciality, $ignore := $specialities }}
@@ -47,7 +47,7 @@
     <span class="topic-text-wrapper">
       {{ $specialityTitle := title $speciality }}
       {{ $specialityUrl := partial "get_search_url.html" (dict "key" "topic" "value" $specialityTitle) }}
-      {{ partial "link.html" (dict "href" $specialityUrl "class" "text-black course-info-topic" "text" $specialityTitle) }}
+      {{ partial "link.html" (dict "href" $specialityUrl "class" "text-black course-info-topic" "text" $specialityTitle "stripLinkOffline" true) }}
     </span>
   </div>
   {{ end }}

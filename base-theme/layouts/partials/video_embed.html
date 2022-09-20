@@ -1,5 +1,5 @@
 {{ $youtubeKey := .Params.video_metadata.youtube_id }}
-{{ $captionsLocation := .Params.video_files.video_captions_file }}
+{{ $captionsLocation := partial "video_captions_file_url.html" (dict "context" . "url" .Params.video_files.video_captions_file) }}
 {{ $uid := .Params.uid }}
 {{ $startTime := .Params.start_time | default "" }}
 {{ $endTime := .Params.end_time | default "" }}

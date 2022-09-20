@@ -1,5 +1,5 @@
 {{ $youtubeKey := .Params.video_metadata.youtube_id }}
-{{ $captionsLocation := partial "resource_url.html" (dict "context" . "url" .Params.video_files.video_captions_file) }}
+{{ $captionsLocation := partial "video_captions_file_url.html" (dict "context" . "url" .Params.video_files.video_captions_file) }}
 {{ $transcriptPdfLocation := partial "resource_url.html" (dict "context" . "url" .Params.video_files.video_transcript_file) }}
 {{ $downloadLink := .Params.file }}
 {{ $relatedResourses := .Params.related_resources_text | default "" }}
@@ -15,6 +15,9 @@
 {{ end }}
 
 <div class="video-page">
+	<div class="show-offline d-none alert alert-warning" role="alert">
+		Viewing videos requires an internet connection
+	</div>
   <div class="description">
     {{ .Content }}
   </div>

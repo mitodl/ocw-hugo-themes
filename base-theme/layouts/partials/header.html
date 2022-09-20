@@ -1,4 +1,7 @@
 <!-- navbar for mobile screens -->
+{{ $siteRootUrl := partial "site_root_url.html" "/" }}
+{{ $aboutUrl := partial "site_root_url.html" "/about" }}
+{{ $contactUrl := partial "site_root_url.html" "/contact" }}
 <div id="mobile-header" class="position-relative bg-black medium-and-below-only">
   <nav class="navbar navbar-expand-lg navbar-dark bg-black d-flex">
     <button
@@ -15,7 +18,7 @@
     <div class="mx-auto">
       <!-- TODO: Currently rendering different logos for different course themes via CSS
       This should be undone and ocw_logo_white_v2 should be used when we completely move to new course theme -->
-      <a href="/">
+      <a href="{{ $siteRootUrl }}">
         <img
           id="ocw-logo-white" 
           width="250"
@@ -35,22 +38,16 @@
       <ul class="navbar-nav mr-auto pl-2 pt-2">
         <li class="nav-item">{{ block "extraheader" . }}{{ end }}</li>
         <li class="nav-item">
-          <a
-            class="nav-link"
-            href="https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home"
-            >Give Now</a
-          >
+          {{ partial "link.html" (dict "href" "https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home" "class" "nav-link" "text" "Give Now") }}
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/about">About OCW</a>
+          {{ partial "link.html" (dict "href" $aboutUrl "class" "nav-link" "text" "Contact Us") }}
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://mitocw.zendesk.com/hc/en-us" target="_blank">Help & Faqs</a>
+          {{ partial "link.html" (dict "href" "https://mitocw.zendesk.com/hc/en-us" "class" "nav-link" "text" "Help & Faqs" "target" "_blank") }}
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/contact">
-            Contact Us
-          </a>
+          {{ partial "link.html" (dict "href" $contactUrl "class" "nav-link" "text" "Contact Us") }}
         </li>
       </ul>
     </div>
@@ -62,7 +59,7 @@
   <div class="contents">
     <div class="left">
       <div class="ocw-logo mr-6">
-        <a href="/">
+        <a href="{{ $siteRootUrl }}">
           <!-- TODO: Currently rendering different logos for different course themes via CSS
           This should be undone and ocw_logo_white_v2 should be used when we completely move to new course theme -->
           <img id="ocw-logo-white" src="/images/ocw_logo_white.png" alt="MIT OpenCourseWare" />
@@ -71,28 +68,11 @@
       </div>
     </div>
     <div class="right">
-        {{ block "extraheader" . }}{{ end }}
-      <a
-        class="d-flex give-button-header py-2 px-3"
-        href="https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home"
-      >
-        <span class="font-weight-bold w-100">Give now</span>
-      </a>
-      <a href="/about">
-        <div class="text-white font-weight-bold w-100 px-3 pl-5 py-2">
-          About OCW
-        </div>
-      </a>
-      <a href="https://mitocw.zendesk.com/hc/en-us" target="_blank">
-        <div class="text-white font-weight-bold w-100 px-3 py-2">
-          help & faqs
-        </div>
-      </a>
-      <a href="/contact">
-        <div class="text-white font-weight-bold w-100 px-3 py-2">
-          contact us
-        </div>
-      </a>
+      {{ block "extraheader" . }}{{ end }}
+      {{ partial "link.html" (dict "href" "https://mitocw.zendesk.com/hc/en-us" "class" "give-button-header font-weight-bold py-2 px-3" "text" "give now") }}
+      {{ partial "link.html" (dict "href" $aboutUrl "class" "text-white text-decoration-none font-weight-bold pl-5 pr-3 py-2" "text" "about ocw") }}
+      {{ partial "link.html" (dict "href" "https://mitocw.zendesk.com/hc/en-us" "class" "text-white text-decoration-none font-weight-bold px-3 py-2" "text" "help & faqs" "target" "_blank") }}
+      {{ partial "link.html" (dict "href" $contactUrl "class" "text-white text-decoration-none font-weight-bold px-3 py-2" "text" "contact us") }}
     </div>
   </div>
 </div>

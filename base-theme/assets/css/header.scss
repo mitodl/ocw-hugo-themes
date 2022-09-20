@@ -74,6 +74,7 @@
         text-transform: uppercase;
 
         &.give-button-header {
+          display: flex;
           background-color: $orange;
           text-decoration: none;
           border-radius: 5px;

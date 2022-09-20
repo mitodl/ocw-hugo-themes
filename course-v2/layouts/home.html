@@ -39,6 +39,7 @@
   </div>
   
   {{ block "footer" . }}{{ partial "footer" . }}{{end}}
+  {{ partialCached "hide_offline_links.html" . }}
   </div>
   <script>
     window.MathJax = {
