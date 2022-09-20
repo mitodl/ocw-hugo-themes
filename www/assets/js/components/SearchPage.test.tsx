@@ -14,18 +14,19 @@ import SearchPage from "./SearchPage"
 import { LIST_UI_PAGE_SIZE, COMPACT_UI_PAGE_SIZE } from "../lib/constants"
 
 import { makeCourseResult } from "../factories/search"
+import { createMemoryHistory, InitialEntry } from "history"
 
 const mockGetResults = () =>
   times(makeCourseResult, LIST_UI_PAGE_SIZE).map(result => ({
     _source: result
   }))
 
-// @ts-ignore
+// @ts-expect-error
 let resolver
 
 const resolveSearch = (extraData = {}) =>
   act(async () => {
-    // @ts-ignore
+    // @ts-expect-error
     resolver(extraData)
   })
 
@@ -43,6 +44,7 @@ jest.mock("../lib/api", () => ({
     })
   })
 }))
+const spySearch = jest.mocked(search)
 
 jest.mock("lodash.debounce", () => jest.fn(fn => fn))
 
@@ -59,28 +61,14 @@ const defaultResourceFacets = {
 }
 
 describe("SearchPage component", () => {
-  const render = async (searchParam = ""): Promise<ReactWrapper> => {
-    window.location.search = searchParam
-    let wrapper
-    // @ts-ignore
-    await act(async () => {
-      wrapper = mount(<SearchPage />)
-    })
-    // @ts-ignore
-    return wrapper
-  }
-
-  beforeEach(() => {
-    // @ts-ignore
-    delete window.location
-
-    // @ts-ignore
-    window.location = {
-      search: ""
+  const render = (searchParam = "") => {
+      const initialEntry: InitialEntry = { search: searchParam }
+      const history = createMemoryHistory({ initialEntries: [initialEntry] })
+      const wrapper = mount(<SearchPage history={history} />)
+      return { wrapper, history }
     }
-  })
 
-  //
+    //
   ;[
     { text: "", activeFacets: {} },
     { text: "amazing text!", activeFacets: {} },
@@ -97,10 +85,9 @@ describe("SearchPage component", () => {
       params
     )}`, async () => {
       const searchString = serializeSearchParams(params)
-      await render(searchString)
+      render(searchString)
 
-      // @ts-ignore
-      expect(search.mock.calls[0]).toEqual([
+      expect(spySearch.mock.calls[0]).toEqual([
         {
           text: params.text,
           from: 0,
@@ -116,19 +103,19 @@ describe("SearchPage component", () => {
   })
 
   test("the user can update the search text and submit", async () => {
-    const wrapper = await render()
+    const { wrapper } = render()
     wrapper
       .find("input")
       .at(0)
       .simulate("change", { target: { value: "New Search Text" } })
     await act(async () => {
-      // @ts-ignore
+      // @ts-expect-error
       wrapper.find("SearchBox").prop("onSubmit")({ preventDefault: jest.fn() })
-      // @ts-ignore
+      // @ts-expect-error
       resolver()
     })
-    // @ts-ignore
-    expect(search.mock.calls).toEqual([
+
+    expect(spySearch.mock.calls).toEqual([
       [
         {
           text: "",
@@ -161,17 +148,17 @@ describe("SearchPage component", () => {
       }
     }
     const searchString = serializeSearchParams(parameters)
-    const wrapper = await render(searchString)
+    const { wrapper } = render(searchString)
     await act(async () => {
       wrapper
         .find(".search-nav")
         .at(1)
         .simulate("click")
-      // @ts-ignore
+      // @ts-expect-error
       resolver()
     })
-    // @ts-ignore
-    expect(search.mock.calls).toEqual([
+
+    expect(spySearch.mock.calls).toEqual([
       [
         {
           text: parameters.text,
@@ -203,7 +190,7 @@ describe("SearchPage component", () => {
       text: "Mothemotocs"
     }
     const searchString = serializeSearchParams(parameters)
-    const wrapper = await render(searchString)
+    const { wrapper } = render(searchString)
     await resolveSearch({
       suggest: ["mathematics"]
     })
@@ -222,7 +209,7 @@ describe("SearchPage component", () => {
       text: ' "Mathematics: Basic Principles!" '
     }
     const searchString = serializeSearchParams(parameters)
-    const wrapper = await render(searchString)
+    const { wrapper } = render(searchString)
     await resolveSearch({
       suggest: ["mathematics basic principles"]
     })
@@ -237,38 +224,35 @@ describe("SearchPage component", () => {
       sort: { field: sortParam, option: "asc" }
     }
     const searchString = serializeSearchParams(parameters)
-    const wrapper = await render(searchString)
+    const { wrapper } = render(searchString)
     const select = wrapper.find(".sort-nav-item select")
     expect(select.prop("value")).toBe(sortParam)
     act(() => {
-      // @ts-ignore
-      select.prop("onChange")!({ target: { value: differentSortParam } })
+      // @ts-expect-error
+      select.prop("onChange")({ target: { value: differentSortParam } })
     })
-    // @ts-ignore
-    expect(search.mock.calls[1][0].sort).toEqual({
+    expect(spySearch.mock.calls[1][0].sort).toEqual({
       field: differentSortParam,
       option: "asc"
     })
   })
 
   it("should allow the user to toggle the layout", async () => {
-    const wrapper = await render(serializeSearchParams({}))
+    const { wrapper } = render(serializeSearchParams({}))
 
     act(() => {
-      // @ts-ignore
       wrapper
         .find(".layout-button-right")
         .at(0)
         .simulate("click")
     })
-    // @ts-ignore
-    expect(search.mock.calls[0][0].size).toEqual(LIST_UI_PAGE_SIZE)
-    // @ts-ignore
-    expect(search.mock.calls[1][0].size).toEqual(COMPACT_UI_PAGE_SIZE)
+
+    expect(spySearch.mock.calls[0][0].size).toEqual(LIST_UI_PAGE_SIZE)
+    expect(spySearch.mock.calls[1][0].size).toEqual(COMPACT_UI_PAGE_SIZE)
   })
 
   it("should display the number of results", async () => {
-    const wrapper = await render()
+    const { wrapper } = render()
     await resolveSearch()
     const results = wrapper.find(".results-total")
     expect(results.text()).toBe("10 results")
@@ -289,15 +273,15 @@ describe("SearchPage component", () => {
           type: [type]
         }
       }
-      // @ts-ignore
+      // @ts-expect-error
       const searchString = serializeSearchParams(parameters)
-      const wrapper = await render(searchString)
+      const { wrapper } = render(searchString)
       expect(wrapper.find(".sort-nav-item").exists()).toBe(sortExists)
     })
   })
 
   it("should show spinner when searching", async () => {
-    const wrapper = await render()
+    const { wrapper } = render()
     await resolveSearch()
     wrapper
       .find("input")
@@ -313,23 +297,22 @@ describe("SearchPage component", () => {
   })
 
   test("should support InfiniteScroll-ing", async () => {
-    const wrapper = await render()
+    const { wrapper } = render()
     await resolveSearch()
     wrapper.update()
     await act(async () => {
-      // @ts-ignore
+      // @ts-expect-error
       wrapper.find("InfiniteScroll").prop("loadMore")()
     })
     await resolveSearch()
     wrapper.update()
     await act(async () => {
-      // @ts-ignore
+      // @ts-expect-error
       wrapper.find("InfiniteScroll").prop("loadMore")()
     })
     await resolveSearch()
     wrapper.update()
-    // @ts-ignore
-    expect(search.mock.calls).toEqual([
+    expect(spySearch.mock.calls).toEqual([
       [
         {
           text: "",
@@ -362,11 +345,11 @@ describe("SearchPage component", () => {
   })
 
   test("InfiniteScroll should only trigger one search request at a time", async () => {
-    const wrapper = await render()
+    const { wrapper } = render()
     await resolveSearch()
     wrapper.update()
     await act(async () => {
-      // @ts-ignore
+      // @ts-expect-error
       wrapper.find("InfiniteScroll").prop("loadMore")()
     })
     wrapper.update()
@@ -374,13 +357,13 @@ describe("SearchPage component", () => {
     // so loaded prop passed to useCourseSearch will be false (and therefore this second
     // call to the `loadMore` function should be a no-op).
     await act(async () => {
-      // @ts-ignore
+      // @ts-expect-error
       wrapper.find("InfiniteScroll").prop("loadMore")()
     })
     await resolveSearch()
     wrapper.update()
-    // @ts-ignore
-    expect(search.mock.calls).toEqual([
+
+    expect(spySearch.mock.calls).toEqual([
       [
         {
           text: "",
@@ -404,7 +387,7 @@ describe("SearchPage component", () => {
   })
 
   test("should show spinner during initial load", async () => {
-    const wrapper = await render()
+    const { wrapper } = render()
     expect(wrapper.find("Loading").exists()).toBeTruthy()
     await resolveSearch()
     wrapper.update()
@@ -412,13 +395,13 @@ describe("SearchPage component", () => {
   })
 
   test("should render a FilterableFacet for topic, course features, department", async () => {
-    const wrapper = await render()
+    const { wrapper } = render()
     await resolveSearch()
     wrapper.update()
     const [department, topic, features] = Array.from(
-      // @ts-ignore
+      // @ts-expect-error
       wrapper.find("FilterableSearchFacet")
-    )
+    ) as any[]
     expect(topic.props.name).toEqual("topics")
     expect(topic.props.title).toEqual("Topics")
     expect(topic.props.currentlySelected).toEqual([])
