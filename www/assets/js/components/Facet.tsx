@@ -14,12 +14,20 @@ interface Props {
   results: Aggregation | null
   currentlySelected: string[]
   onUpdate: React.ChangeEventHandler<HTMLInputElement>
+  expandedOnLoad: boolean
 }
 
 function SearchFacet(props: Props) {
-  const { name, title, results, currentlySelected, onUpdate } = props
+  const {
+    name,
+    title,
+    results,
+    currentlySelected,
+    onUpdate,
+    expandedOnLoad
+  } = props
 
-  const [showFacetList, setShowFacetList] = useState(true)
+  const [showFacetList, setShowFacetList] = useState(expandedOnLoad)
   const [showAllFacets, setShowAllFacets] = useState(false)
 
   const titleLineIcon = showFacetList ? "arrow_drop_down" : "arrow_right"

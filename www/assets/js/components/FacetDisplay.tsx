@@ -71,26 +71,29 @@ const FacetDisplay = React.memo(
             ))
           )}
         </div>
-        {facetMap.map(([name, title, useFilterableFacet], key) =>
-          useFilterableFacet ? (
-            <FilterableFacet
-              key={key}
-              results={facetOptions(name)}
-              name={name}
-              title={title}
-              currentlySelected={activeFacets[name] || []}
-              onUpdate={onUpdateFacets}
-            />
-          ) : (
-            <Facet
-              key={key}
-              title={title}
-              name={name}
-              results={facetOptions(name)}
-              onUpdate={onUpdateFacets}
-              currentlySelected={activeFacets[name] || []}
-            />
-          )
+        {facetMap.map(
+          ([name, title, useFilterableFacet, expandedOnLoad], key) =>
+            useFilterableFacet ? (
+              <FilterableFacet
+                key={key}
+                results={facetOptions(name)}
+                name={name}
+                title={title}
+                currentlySelected={activeFacets[name] || []}
+                onUpdate={onUpdateFacets}
+                expandedOnLoad={expandedOnLoad}
+              />
+            ) : (
+              <Facet
+                key={key}
+                title={title}
+                name={name}
+                results={facetOptions(name)}
+                onUpdate={onUpdateFacets}
+                currentlySelected={activeFacets[name] || []}
+                expandedOnLoad={expandedOnLoad}
+              />
+            )
         )}
       </React.Fragment>
     )
