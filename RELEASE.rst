@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.70.0
+Version 1.70.0 (Released September 20, 2022)
 --------------
 
 - don't use partialCached on course_banner.html to ensure relative links in the offline theme are correct on every page (#841)
