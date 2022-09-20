@@ -4,6 +4,13 @@ const CopyWebpackPlugin = require("copy-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const AssetsPlugin = require("assets-webpack-plugin")
 const Dotenv = require("dotenv-webpack")
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
+
+/**
+ * Resolve a path relative to package root.
+ */
+const fromRoot = pathFromRoot =>
+  path.resolve(__dirname, "../../../", pathFromRoot)
 
 module.exports = {
   resolve: {
@@ -11,48 +18,16 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js"]
   },
   entry: {
-    main:   path.join(__dirname, "..", "index.ts"),
-    course: path.join(
-      __dirname,
-      "..",
-      "..",
-      "..",
-      "course",
-      "assets",
-      "course.ts"
-    ),
-    course_v2: path.join(
-      __dirname,
-      "..",
-      "..",
-      "..",
-      "course-v2",
-      "assets",
-      "course-v2.ts"
-    ),
-    instructor_insights: path.join(
-      __dirname,
-      "..",
-      "..",
-      "..",
-      "course",
-      "assets",
-      "instructor-insights.js"
-    ),
-    www:    path.join(__dirname, "..", "..", "..", "www", "assets", "www.tsx"),
-    fields: path.join(
-      __dirname,
-      "..",
-      "..",
-      "..",
-      "fields",
-      "assets",
-      "fields.js"
-    )
+    main:                fromRoot("./base-theme/assets/index.ts"),
+    course:              fromRoot("./course/assets/course.ts"),
+    course_v2:           fromRoot("./course-v2/assets/course-v2.ts"),
+    instructor_insights: fromRoot("./course/assets/instructor-insights.js"),
+    www:                 fromRoot("./www/assets/www.tsx"),
+    fields:              fromRoot("./fields/assets/fields.js")
   },
 
   output: {
-    path:     path.join(__dirname, "../../dist/static"),
+    path:     fromRoot("./base-theme/dist/static"),
     filename: "js/[name].js"
   },
 
@@ -167,5 +142,13 @@ module.exports = {
       "window.jQuery": "jquery",
       Popper:          "popper.js/dist/umd/popper"
     })
-  ]
+  ].concat(
+    process.env.WEBPACK_ANALYZE === "true" ?
+      new BundleAnalyzerPlugin({
+        // Webpack sets process.env.WEBPACK_DEV_SERVER when the dev server is running
+        analyzerMode: process.env.WEBPACK_DEV_SERVER ? "server" : "static",
+        openAnalyzer: true
+      }) :
+      []
+  )
 }
