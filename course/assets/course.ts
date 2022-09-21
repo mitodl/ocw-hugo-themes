@@ -5,14 +5,13 @@ import "nanogallery2/src/jquery.nanogallery2.core.js"
 
 import "./css/course.scss"
 
-import { initDesktopCourseInfoToggle } from "./js/course_info_toggle"
+import { initDesktopCourseInfoToggle, closeToggleButton } from "./js/course_info_toggle"
 import { initDivToggle } from "./js/div_toggle"
 import { initCourseInfoExpander } from "./js/course_expander"
 import { initVideoTranscriptTrack } from "./js/video_transcript_track"
 import { initPlayBackSpeedButton } from "./js/video_playback_speed"
 import { initVideoFullscreenToggle } from "./js/video_fullscreen_toggle"
 import { initDownloadButton } from "./js/video-download-button"
-import { closeToggleButton } from "./js/close_toggle_button"
 import {
   clearSolution,
   checkAnswer,
