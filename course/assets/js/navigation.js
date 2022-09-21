@@ -22,6 +22,7 @@ function courseNav() {
           window.location.pathname.replace(/\/$/, "")
         ) {
           navLinkEl.classList.add("active")
+          // @ts-ignore
           const uuid = navLinkEl.dataset.uuid
           const navItemEl = navLinkEl.closest(".course-nav-list-item")
           const collapseEl = navItemEl?.querySelector(".collapse")
