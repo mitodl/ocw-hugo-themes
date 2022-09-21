@@ -5,7 +5,10 @@ import "nanogallery2/src/jquery.nanogallery2.core.js"
 
 import "./css/course.scss"
 
-import { initDesktopCourseInfoToggle, closeToggleButton } from "./js/course_info_toggle"
+import {
+  initDesktopCourseInfoToggle,
+  closeToggleButton
+} from "./js/course_info_toggle"
 import { initDivToggle } from "./js/div_toggle"
 import { initCourseInfoExpander } from "./js/course_expander"
 import { initVideoTranscriptTrack } from "./js/video_transcript_track"
