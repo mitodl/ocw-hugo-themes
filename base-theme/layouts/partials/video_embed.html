@@ -1,22 +1,24 @@
-{{ $youtubeKey := .Params.video_metadata.youtube_id }}
-{{ $captionsLocation := partial "video_captions_file_url.html" (dict "context" . "url" .Params.video_files.video_captions_file) }}
-{{ $uid := .Params.uid }}
-{{ $startTime := .Params.start_time | default "" }}
-{{ $endTime := .Params.end_time | default "" }}
-{{ $downloadLink := .Params.file }}
+{{ $context := .context }}
+{{ $resource := .resource }}
+{{ $youtubeKey := $resource.Params.video_metadata.youtube_id }}
+{{ $captionsLocation := partial "video_captions_file_url.html" (dict "context" . "url" $resource.Params.video_files.video_captions_file) }}
+{{ $uid := $resource.Params.uid }}
+{{ $startTime := $resource.Params.start_time | default "" }}
+{{ $endTime := $resource.Params.end_time | default "" }}
+{{ $downloadLink := $resource.Params.file }}
 {{ if (eq $downloadLink nil) }}
-{{ $downloadLink = .Params.video_files.archive_url }}
+{{ $downloadLink = $resource.Params.video_files.archive_url }}
 {{ else }}
-{{ $downloadLink =  partial "resource_url.html" (dict "context" . "url" $downloadLink) }}
+{{ $downloadLink =  partial "resource_url.html" (dict "context" $context "url" $downloadLink) }}
 {{ end }}
 
 {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink) }}
-{{- range where $.Site.Pages "Params.uid" $uid -}}
-	
+{{ range where site.Pages "Params.uid" $uid }}
+{{ $resourceUrl := partial "page_url.html" (dict "context" $context "url" .Permalink) }}
 <div class="video-buttons-container">
-    <div class='video-page-link-section' onclick="window.location='{{- .Permalink -}}';">
+    <div class='video-page-link-section' onclick="window.location='{{ $resourceUrl }}';">
       <div class="video-page-link">View video page</div>
 			<i class="material-icons video-page-link">chevron_right</i>
     </div>
   </div>
-{{- end -}}
+{{ end }}
