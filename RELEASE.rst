@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.71.0 (Released September 22, 2022)
+--------------
+
+- online / offline detection in offline course sites (#850)
+- collapse facets and move department to top (#851)
+
 Version 1.70.0 (Released September 20, 2022)
 --------------
 
