@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.71.1
+--------------
+
+- metadata tags added for sharing on Facebook (#823)
+- fix: new line removed (#858)
+- expand parent nav item when selected (#857)
+
 Version 1.71.0 (Released September 22, 2022)
 --------------
 
