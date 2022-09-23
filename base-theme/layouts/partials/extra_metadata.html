@@ -1,0 +1,5 @@
+{{ $context := .context }}
+{{ $imageData := partial "course-image-url.html" $context }}
+{{ $courseImageUrl := index $imageData 0 }}
+
+<meta property="og:image" content="{{- $courseImageUrl -}}" />

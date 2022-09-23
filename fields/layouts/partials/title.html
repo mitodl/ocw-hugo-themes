@@ -1,4 +1,3 @@
-<title>
 {{- $titleArray := (slice) -}}
 {{- if .Params.Title -}}
   {{- $titleArray = $titleArray | append .Params.Title -}}
@@ -8,4 +7,3 @@
   {{- $titleArray = $titleArray | append "Free Online Course Materials" -}}
 {{- end -}}
 {{- delimit $titleArray " | " -}}
-</title>
