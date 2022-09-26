@@ -26,13 +26,13 @@
       </div>
     </div>
     <div class="row course-cards">
-      <div class="desktop-nav-section course-home-grid large-and-above-only">  
+      <div class="col-2 course-home-grid large-and-above-only">  
         {{ partialCached "desktop_nav.html" . }}
       </div>
-      <div class="course-info-section course-home-grid">
+      <div class="col-12 col-md-8 col-lg-7 course-home-grid">
         {{ partialCached "course_detail.html" . }}
       </div>
-      <div class="course-image-section mb-3 mb-md-0 course-home-grid">
+      <div class="col-12 col-md-4 col-lg-3 mb-3 mb-md-0 course-home-grid">
         {{ partialCached "course_image_section.html" . }}
       </div>
     </div>
