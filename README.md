@@ -235,6 +235,10 @@ To customize your `fields` site:
  - Start the site with `npm run start:fields`
  - The site should be available at http://localhost:3000/
 
+### Miscellaneous commands
+
+- `WEBPACK_ANALYZE=true yarn run build:webpack`: This builds the project for production and should open a an analysis of the bundle in your web browser. 
+
 ### External API's
 
 The `www` theme accesses external API's made available by
