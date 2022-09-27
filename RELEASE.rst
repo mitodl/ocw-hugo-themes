@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.72.0
+Version 1.72.0 (Released September 27, 2022)
 --------------
 
 - add webpack bundle analyzer (#855)
