@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.72.0
+--------------
+
+- add webpack bundle analyzer (#855)
+- rework video_embed to properly generate links to video pages offline (#859)
+- metadata tags added for sharing on Facebook (#823)
+- fix: new line removed (#858)
+- expand parent nav item when selected (#857)
+
 Version 1.71.0 (Released September 22, 2022)
 --------------
 
