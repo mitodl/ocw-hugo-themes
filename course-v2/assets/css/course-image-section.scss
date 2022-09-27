@@ -1,8 +1,5 @@
 .course-image {
-  @include media-breakpoint-down(md) {
-    height: 200px;
-  }
-
+  object-fit: contain;
   border: 1px solid $medium-gray;
   width: 100%;
 }
