@@ -1,6 +1,8 @@
 <!-- navbar for mobile screens -->
 {{ $siteRootUrl := partial "site_root_url.html" "/" }}
+{{ $giveNowUrl := "https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home" }}
 {{ $aboutUrl := partial "site_root_url.html" "/about" }}
+{{ $zenDeskUrl := "https://mitocw.zendesk.com/hc/en-us" }}
 {{ $contactUrl := partial "site_root_url.html" "/contact" }}
 <div id="mobile-header" class="position-relative bg-black medium-and-below-only">
   <nav class="navbar navbar-expand-lg navbar-dark bg-black d-flex">
@@ -38,13 +40,13 @@
       <ul class="navbar-nav mr-auto pl-2 pt-2">
         <li class="nav-item">{{ block "extraheader" . }}{{ end }}</li>
         <li class="nav-item">
-          {{ partial "link.html" (dict "href" "https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home" "class" "nav-link" "text" "Give Now") }}
+          {{ partial "link.html" (dict "href" $giveNowUrl "class" "nav-link" "text" "Give Now") }}
         </li>
         <li class="nav-item">
           {{ partial "link.html" (dict "href" $aboutUrl "class" "nav-link" "text" "Contact Us") }}
         </li>
         <li class="nav-item">
-          {{ partial "link.html" (dict "href" "https://mitocw.zendesk.com/hc/en-us" "class" "nav-link" "text" "Help & Faqs" "target" "_blank") }}
+          {{ partial "link.html" (dict "href" $zenDeskUrl "class" "nav-link" "text" "Help & Faqs" "target" "_blank") }}
         </li>
         <li class="nav-item">
           {{ partial "link.html" (dict "href" $contactUrl "class" "nav-link" "text" "Contact Us") }}
@@ -69,9 +71,9 @@
     </div>
     <div class="right">
       {{ block "extraheader" . }}{{ end }}
-      {{ partial "link.html" (dict "href" "https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home" "class" "give-button-header font-weight-bold py-2 px-3" "text" "give now") }}
+      {{ partial "link.html" (dict "href" $giveNowUrl "class" "give-button-header font-weight-bold py-2 px-3" "text" "give now") }}
       {{ partial "link.html" (dict "href" $aboutUrl "class" "text-white text-decoration-none font-weight-bold pl-5 pr-3 py-2" "text" "about ocw") }}
-      {{ partial "link.html" (dict "href" "https://mitocw.zendesk.com/hc/en-us" "class" "text-white text-decoration-none font-weight-bold px-3 py-2" "text" "help & faqs" "target" "_blank") }}
+      {{ partial "link.html" (dict "href" $zenDeskUrl "class" "text-white text-decoration-none font-weight-bold px-3 py-2" "text" "help & faqs" "target" "_blank") }}
       {{ partial "link.html" (dict "href" $contactUrl "class" "text-white text-decoration-none font-weight-bold px-3 py-2" "text" "contact us") }}
     </div>
   </div>
