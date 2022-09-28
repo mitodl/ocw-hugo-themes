@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.72.1
+--------------
+
+- bootstrap col restored (#866)
+
 Version 1.72.0 (Released September 27, 2022)
 --------------
 
