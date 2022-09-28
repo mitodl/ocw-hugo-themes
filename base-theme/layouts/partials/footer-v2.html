@@ -1,3 +1,7 @@
+{{/*  
+This file has been created in base-theme in-case 
+we want to use this new footer in other themes (www, course-offline etc)
+*/}}
 <div class="footer">
     <div class="footer-main-content mx-auto">
     	<div class="col-12">
@@ -44,27 +48,27 @@
 				</div>
         	</div>
     	</div>
-		<div class="col-12 mt-5">
-			<div class="d-flex align-items-center">
-				<div class="d-flex">
-					<div class="mr-2">
-						© 2001–{{ now.Format "2006" }} Massachusetts Institute of Technology
-					</div>
-					<div class="footer-links">
-						<a href="https://accessibility.mit.edu" target="_blank">Accessibility</a>
-						<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons License</a>
-						<a class="hide-offline" href='{{ partial "site_root_url.html" "/pages/privacy-and-terms-of-use/" }}'>Terms and Conditions</a>
-					</div>
-				</div>
-				<div class="d-flex ml-auto">
-					<div>
-						Proud member of: 
-						<a href="https://www.oeglobal.org/" target="_blank">
-							<img src="/images/oeg_logo.png" alt="Open Education Global"/>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
+      <div class="col-12 mt-5">
+        <div class="d-flex align-items-center">
+          <div class="d-flex">
+            <div class="mr-2">
+              © 2001–{{ now.Format "2006" }} Massachusetts Institute of Technology
+            </div>
+            <div class="footer-links">
+              <a href="https://accessibility.mit.edu" target="_blank">Accessibility</a>
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons License</a>
+              <a class="hide-offline" href='{{ partial "site_root_url.html" "/pages/privacy-and-terms-of-use/" }}'>Terms and Conditions</a>
+            </div>
+          </div>
+          <div class="d-flex ml-auto">
+            <div>
+              Proud member of: 
+              <a href="https://www.oeglobal.org/" target="_blank">
+                <img src="/images/oeg_logo.png" alt="Open Education Global"/>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 	</div>
 </div>
