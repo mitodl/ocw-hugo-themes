@@ -1,0 +1,22 @@
+.footer{
+	background-color: $white;
+	font-size: $font-sm !important;
+	color: #595959 !important;
+  
+  	.footer-main-content{
+		max-width: $max-content-width;
+		padding: 1.5rem 1rem 2.5rem 1rem !important;
+		
+		.footer-social-icon {
+			height: 22px;
+			width: 22px;
+			margin-left: 5px;
+    		margin-right: 5px;
+		}
+
+		.footer-links > * {
+			margin-left: 5px;
+    		margin-right: 5px;
+		}
+  	}
+}
