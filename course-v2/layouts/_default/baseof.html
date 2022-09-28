@@ -33,14 +33,14 @@
         </div>
       </div>
       <div class="row course-cards">
-        <div class="desktop-nav-section course-home-grid large-and-above-only">  
+        <div class="col-2 course-home-grid large-and-above-only">  
           {{ partialCached "desktop_nav.html" . }}
         </div>
-        <div class="course-content-section course-home-grid">
+        <div class="col-sm-12 col-lg-10 course-home-grid">
           <div class="">
             <div class="card">
               <div class="d-flex">
-                <div class="col-12 col-md-12 p-0" id="main-course-section">
+                <div class="col-12 p-0" id="main-course-section">
                   <div class="card-body">
                     {{ block "main" . }}{{ end }}
                   </div>

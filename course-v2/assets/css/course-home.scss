@@ -60,40 +60,4 @@
       }
     }
   }
-
-  .desktop-nav-section {
-    width: 18% !important;
-  }
-
-  .course-info-section {
-    width: 50% !important;
-
-    @include media-breakpoint-down(md) {
-      width: 65% !important;
-    }
-
-    @include media-breakpoint-down(sm) {
-      width: 100% !important;
-    }
-  }
-
-  .course-image-section {
-    width: 32% !important;
-
-    @include media-breakpoint-down(md) {
-      width: 35% !important;
-    }
-
-    @include media-breakpoint-down(sm) {
-      display: none;
-    }
-  }
-
-  .course-content-section {
-    width: 82% !important;
-
-    @include media-breakpoint-down(md) {
-      width: 100% !important;
-    }
-  }
 }
