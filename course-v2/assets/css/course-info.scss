@@ -34,10 +34,13 @@ $panel-course-info-text-color: #464646;
 
 .show-course-info-left-arrow {
   position: absolute;
-  right: 0;
-  padding: 8px;
-  margin-top: -17px;
   background-color: #e4e4e4;
+  margin-top: -17px;
+  padding-top: 5px;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  text-align: center;
   cursor: pointer;
 }
 
