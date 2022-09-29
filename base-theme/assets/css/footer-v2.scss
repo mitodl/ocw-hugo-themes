@@ -14,10 +14,15 @@
     padding: 1.5rem 1rem 2.5rem 1rem !important;
 
     .footer-social-icon {
-      height: 22px;
-      width: 22px;
+      height: 21px;
+      width: 21px;
       margin-left: 5px;
       margin-right: 5px;
+      opacity: 0.6;
+    }
+
+    .footer-social-icon:hover {
+      opacity: 1;
     }
 
     .oeg-logo {
