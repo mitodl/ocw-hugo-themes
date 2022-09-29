@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.72.1
+--------------
+
+- fix give now link (#871)
+- Fix table renders for course-v1 when table width is greater then main-content width (#844)
+- bootstrap col restored (#866)
+
 Version 1.72.0 (Released September 27, 2022)
 --------------
 
