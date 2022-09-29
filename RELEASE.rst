@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.72.1
+Version 1.72.1 (Released September 29, 2022)
 --------------
 
 - fix give now link (#871)
