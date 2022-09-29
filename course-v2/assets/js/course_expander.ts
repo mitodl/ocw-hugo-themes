@@ -40,4 +40,22 @@ const initCourseInfoExpander = document => {
   }
 }
 
-export { initCourseInfoExpander }
+const initCourseDescriptionExpander = container => {
+  const courseDescription = $(container)
+  const collapsedDescription = courseDescription.find("#collapsed-description")
+  const expandedDescription = courseDescription.find("#expanded-description")
+  if (collapsedDescription && expandedDescription) {
+    const expandLink = collapsedDescription.find("a")
+    const collapseLink = expandedDescription.find("a")
+    expandLink.on("click", () => {
+      collapsedDescription.addClass("d-none")
+      expandedDescription.removeClass("d-none")
+    })
+    collapseLink.on("click", () => {
+      collapsedDescription.removeClass("d-none")
+      expandedDescription.addClass("d-none")
+    })
+  }
+}
+
+export { initCourseInfoExpander, initCourseDescriptionExpander }
