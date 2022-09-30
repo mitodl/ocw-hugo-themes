@@ -1,4 +1,5 @@
 {{- /*  Please don't end this file with a new line since it causes an unnecessary space after the link */ -}}
 {{ $destination := partial "get_destination.html" . }}
+{{- /* This comment removes leading newlines. */ -}}
 <a href="{{ $destination | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}{{ if strings.HasPrefix $destination "http" }} target="_blank" rel="noopener"{{ end }}>{{ .Text | safeHTML }}</a>
-{{- /* This comment removes trailing newlines. Adding this just to be on a safer side. */ -}}
+{{- /* This comment removes trailing newlines. */ -}}
