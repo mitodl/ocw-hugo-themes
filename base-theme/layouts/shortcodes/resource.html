@@ -11,7 +11,7 @@
 {{- range $.Site.Pages -}}
   {{- if eq (replace .Params.uid "-" "") (replace $uuid "-" "") -}}
     {{- if eq .Params.resourcetype "Image" -}}
-      {{ partial "image_resource.html" (dict "context" $page "href" $href "href_uuid" $href_uuid) }}
+      {{ partial "image_resource.html" (dict "context" . "href" $href "href_uuid" $href_uuid) }}
     {{- else if eq .Params.resourcetype "Video" -}}
       {{ partial "video_embed.html" (dict "context" $page "resource" .) }}
     {{- else -}}
