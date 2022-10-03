@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.73.0
+Version 1.73.0 (Released October 03, 2022)
 --------------
 
 - revert image context change (#883)
