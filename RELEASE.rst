@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.73.1
+Version 1.73.1 (Released October 04, 2022)
 --------------
 
 - update course-search-utils (#842)
