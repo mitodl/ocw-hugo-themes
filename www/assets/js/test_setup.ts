@@ -13,27 +13,6 @@ class Location {
   }
 }
 
-Object.defineProperty(window, "location", {
-  // this is a hack just to be able to assert in tests that window.location
-  // has been set to a value
-  set: value => {
-    if (!value.startsWith("http")) {
-      value = `http://fake${value}`
-    }
-    window._URL = value
-  },
-
-  get: () => {
-    if (window._location) {
-      return window._location
-    } else {
-      const location = new Location()
-      window._location = location
-      return location
-    }
-  }
-})
-
 process.env = {
   ...process.env,
   SEARCH_API_URL:    "http://search-the-planet.example.com/search",

@@ -7,6 +7,7 @@ import {
   LearningResourceType
 } from "@mitodl/course-search-utils"
 import { without } from "ramda"
+import { History as RouterHistory } from "history"
 
 import SearchResult from "./SearchResult"
 import SearchBox from "./SearchBox"
@@ -43,7 +44,12 @@ interface Result {
   _source: LearningResourceResult
 }
 
-export default function SearchPage() {
+type SearchPageProps = {
+  history: RouterHistory
+}
+
+export default function SearchPage(props: SearchPageProps) {
+  const { history } = props
   const [results, setSearchResults] = useState<Result[]>([])
   const [aggregations, setAggregations] = useState<Aggregations>(new Map())
   const [suggestions, setSuggestions] = useState<string[]>([])
@@ -100,9 +106,9 @@ export default function SearchPage() {
       setAggregations(new Map(Object.entries(newResults.aggregations ?? {})))
 
       setSearchResults(results =>
-        from === 0
-          ? newResults.hits.hits
-          : [...results, ...newResults.hits.hits]
+        from === 0 ?
+          newResults.hits.hits :
+          [...results, ...newResults.hits.hits]
       )
       setTotal(newResults.hits.total)
       setCompletedInitialLoad(true)
@@ -147,7 +153,8 @@ export default function SearchPage() {
     // this is the 'loaded' value, which is what useCourseSearch uses
     // to determine whether to fire off a request or not.
     completedInitialLoad && !requestInFlight,
-    LIST_UI_PAGE_SIZE
+    LIST_UI_PAGE_SIZE,
+    history
   )
 
   const toggleResourceSearch = useCallback(
@@ -219,11 +226,7 @@ export default function SearchPage() {
             facetMap={facetMap}
             facetOptions={facetOptions}
             activeFacets={activeFacets}
-            onUpdateFacets={
-              (onUpdateFacets as any) as React.ChangeEventHandler<
-                HTMLInputElement
-              >
-            }
+            onUpdateFacets={onUpdateFacets}
             clearAllFilters={clearAllFilters}
             toggleFacet={toggleFacet}
             updateUI={updateUI}

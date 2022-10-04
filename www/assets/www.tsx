@@ -7,6 +7,7 @@ import "./css/search.scss"
 import Popper from "popper.js"
 import ReactDOM from "react-dom"
 import React from "react"
+import { createBrowserHistory } from "history"
 
 import SearchPage from "./js/components/SearchPage"
 import CourseList from "./js/components/CourseList"
@@ -28,10 +29,12 @@ window.jQuery = $
 window.$ = $
 window.Popper = Popper
 
+const history = createBrowserHistory()
+
 $(function() {
   const searchPageEl = document.querySelector("#search-page")
   if (searchPageEl) {
-    ReactDOM.render(<SearchPage />, searchPageEl)
+    ReactDOM.render(<SearchPage history={history} />, searchPageEl)
   }
 
   const courseCollectionEls = document.querySelectorAll(
