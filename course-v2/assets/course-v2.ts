@@ -22,7 +22,7 @@ import {
 import "videojs-youtube"
 
 $(function() {
-  initCourseDescriptionExpander("#course-description")
+  initCourseDescriptionExpander(document)
   initCourseInfoExpander(document)
   initDownloadButton()
   initPlayBackSpeedButton()
