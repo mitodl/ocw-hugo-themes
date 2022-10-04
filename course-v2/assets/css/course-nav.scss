@@ -19,14 +19,11 @@ nav {
   }
 }
 
-.mobile-course-nav-toggle {
-  *:not(i) {
-    font-size: $font-normal;
-  }
-
-  i {
-    font-size: $font-lg;
-  }
+.mobile-course-nav-toggle-btn {
+  border: 1px solid #136F9A;
+  color: #115F83;
+  border-radius: 15px;
+  padding: 3px 15px 3px 10px;
 }
 
 .show-course-info {
