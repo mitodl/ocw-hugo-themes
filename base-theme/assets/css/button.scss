@@ -46,6 +46,7 @@ a.red-btn {
   white-space: nowrap;
 }
 
-button.btn-link.text-black {
-  color: black;
+button.btn-link {
+  color: inherit;
+  vertical-align: baseline;
 }
