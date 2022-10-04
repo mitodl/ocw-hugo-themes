@@ -1,5 +1,5 @@
 // @ts-nocheck
-function initResponsiveTables() {
+function initResponsiveTables2() {
   const tables = document
     .getElementById("course-content-section")
     .getElementsByTagName("table")
@@ -28,4 +28,4 @@ function initResponsiveTables() {
     }
   }
 }
-initResponsiveTables()
+initResponsiveTables2()
