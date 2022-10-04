@@ -45,8 +45,8 @@ const initCourseDescriptionExpander = container => {
   const collapsedDescription = courseDescription.find("#collapsed-description")
   const expandedDescription = courseDescription.find("#expanded-description")
   if (collapsedDescription && expandedDescription) {
-    const expandLink = collapsedDescription.find("a")
-    const collapseLink = expandedDescription.find("a")
+    const expandLink = collapsedDescription.find("#expand-description")
+    const collapseLink = expandedDescription.find("#collapse-description")
     expandLink.on("click", () => {
       collapsedDescription.addClass("d-none")
       expandedDescription.removeClass("d-none")

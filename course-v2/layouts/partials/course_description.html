@@ -3,21 +3,18 @@
 {{ with $courseData.course_description }}
   {{ $shouldCollapseDescription = gt (len .) 320 }}
 {{ end }}
-{{ $truncatedDescription := $courseData.course_description }}
-{{ $expandedDescription := print $courseData.course_description " [Show less](#collapse_description)" }}
-{{ if $shouldCollapseDescription }}
-  {{ $truncatedDescription = truncate 320 "...[Show more](#expand_description)" $courseData.course_description }}
-{{ end }}
 <div id="course-description">
   <div class="course-detail-title">
     Course Description
   </div>
   {{ if $shouldCollapseDescription }}
   <div id="collapsed-description" class="description">
-    {{- .context.RenderString $truncatedDescription -}}
+    {{- .context.RenderString (truncate 320 $courseData.course_description) -}}
+    {{- partial "link_button.html" (dict "text" "Show more" "id" "expand-description")  -}}
   </div>
   <div id="expanded-description" class="description d-none">
-    {{- .context.RenderString $expandedDescription -}}
+    {{- .context.RenderString $courseData.course_description -}}
+    {{- partial "link_button.html" (dict "text" "Show less" "id" "collapse-description")  -}}
   </div>
   {{ else }}
   <div id="full-description" class="description">
