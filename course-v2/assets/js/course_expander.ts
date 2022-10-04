@@ -43,11 +43,19 @@ const initCourseInfoExpander = document => {
 const initCourseDescriptionExpander = document => {
   const courseDescription = document.getElementById("course-description")
   if (courseDescription) {
-    const collapsedDescription = courseDescription.querySelector("#collapsed-description")
-    const expandedDescription = courseDescription?.querySelector("#expanded-description")
+    const collapsedDescription = courseDescription.querySelector(
+      "#collapsed-description"
+    )
+    const expandedDescription = courseDescription?.querySelector(
+      "#expanded-description"
+    )
     if (collapsedDescription && expandedDescription) {
-      const expandLink = collapsedDescription.querySelector("#expand-description")
-      const collapseLink = expandedDescription.querySelector("#collapse-description")
+      const expandLink = collapsedDescription.querySelector(
+        "#expand-description"
+      )
+      const collapseLink = expandedDescription.querySelector(
+        "#collapse-description"
+      )
       expandLink.addEventListener("click", () => {
         collapsedDescription.classList.add("d-none")
         expandedDescription.classList.remove("d-none")
