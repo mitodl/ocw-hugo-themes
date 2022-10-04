@@ -1,0 +1,10 @@
+{{ $isCourseHomePage := .isCourseHomePage | default "" }}
+
+{{ if not $isCourseHomePage }}
+  <div class="d-flex justify-content-end">
+    <a href="javascript:void(0)" class="mobile-course-info-toggle-btn toggle navbar-toggle offcanvas-toggle"
+      data-toggle="offcanvas" data-target="#course-info-drawer">
+      More Info
+    </a>
+  </div>
+{{ end }}

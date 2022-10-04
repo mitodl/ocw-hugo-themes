@@ -14,21 +14,20 @@
     {{ partialCached "mobile_course_info.html" . }}
     {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
     {{ $isCourseHomePage := (eq .Params.layout "course_home") }}
-    {{ if not $isCourseHomePage }}
-    <div class="show-course-info medium-and-below-only bg-light shadow-sm border border-right-0 rounded-left">
-      <div class="btn px-2 m-0 toggle navbar-toggle offcanvas-toggle text-uppercase font-weight-bold"
-        data-toggle="offcanvas" data-target="#course-info-drawer">
-        Course Info
-      </div>
-    </div>
-    {{ end }}
     {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
 
     <div id="course-main-content">
       <div class="row">
         <div class="col-12 course-home-grid">
           <div class="medium-and-below-only">
-            {{ partial "mobile_nav_toggle.html" . }}
+            <div class="d-flex align-items-center mb-3">
+              <div class="col-6 px-0">
+                {{ partial "mobile_nav_toggle.html" . }}
+              </div>
+              <div class="col-6 px-0">
+                {{ partial "course_info_toggle.html" (dict "isCourseHomePage" $isCourseHomePage) }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
