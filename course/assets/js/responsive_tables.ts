@@ -3,9 +3,7 @@ function initResponsiveTables() {
 
   const observer = new ResizeObserver(() => calculateOverlap())
   const mainContent = document.getElementById("main-content")
-  if (!mainContent) {
-    throw new Error("Expected element to exist.")
-  }
+  if (!mainContent) return
   observer.observe(mainContent)
   tables.forEach(table => {
     const headings = table.getElementsByTagName("th")
@@ -29,9 +27,6 @@ function calculateOverlap() {
     if (table.classList.contains("mobile-table")) return
     const courseInfo = document.getElementById("desktop-course-info")
     if (!courseInfo) return
-    if (!courseInfo) {
-      throw new Error("Expected element to exist.")
-    }
     const rect1 = table.getBoundingClientRect()
     const rect2 = courseInfo.getBoundingClientRect()
     const overlap = !(

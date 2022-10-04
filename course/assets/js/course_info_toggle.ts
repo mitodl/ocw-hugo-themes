@@ -11,7 +11,7 @@ export const initDesktopCourseInfoToggle = () => {
         "desktop-course-info-toggle"
       )
       if (!(desktopCourseInfoToggle && desktopCourseInfo && mainContent)) {
-        throw new Error("Expected elemented to exist")
+        return
       }
       desktopCourseInfo.classList.toggle("d-none")
       mainContent.classList.toggle("col-xl-8")
@@ -52,7 +52,7 @@ export function closeToggleButton() {
   const main = document.getElementById("main-content")
   const toggleElement = document.getElementById("desktop-course-info-toggle")
   if (!(main && toggleElement)) {
-    throw new Error("Expected element to exist.")
+    return
   }
   const mainContentWidth = main.clientWidth
 
