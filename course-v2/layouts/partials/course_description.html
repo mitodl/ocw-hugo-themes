@@ -3,21 +3,22 @@
 {{ with $courseData.course_description }}
   {{ $shouldCollapseDescription = gt (len .) 320 }}
 {{ end }}
-
-<div class="course-description">
+<div id="course-description">
   <div class="course-detail-title">
     Course Description
   </div>
-  <div id="course-description" class="description {{ if $shouldCollapseDescription }}collapse{{ end }}" aria-expanded="false">
-    {{- $courseData.course_description | markdownify -}}
+  {{ if $shouldCollapseDescription }}
+  <div id="collapsed-description" class="description">
+    {{- .context.RenderString (truncate 320 $courseData.course_description) -}}
+    {{- partial "link_button.html" (dict "text" "Show more" "id" "expand-description")  -}}
   </div>
-  <div class="border-top-gray mt-2 {{ if not $shouldCollapseDescription }}mb-3{{ end }}">
-    {{ if $shouldCollapseDescription }}
-      <div class="collapse-btn-section float-right">
-        <a role="button" class="collapsed" data-toggle="collapse" href="#course-description" aria-expanded="false" aria-controls="course-description">
-          <span class="material-icons"></span>
-        </a>
-      </div>
-    {{ end }}
+  <div id="expanded-description" class="description d-none">
+    {{- .context.RenderString $courseData.course_description -}}
+    {{- partial "link_button.html" (dict "text" "Show less" "id" "collapse-description")  -}}
   </div>
+  {{ else }}
+  <div id="full-description" class="description">
+    {{- .context.RenderString $courseData.course_description -}}
+  </div>
+  {{ end }}
 </div>

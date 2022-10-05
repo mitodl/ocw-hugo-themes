@@ -6,7 +6,10 @@ import "nanogallery2/src/jquery.nanogallery2.core.js"
 import "./css/course-v2.scss"
 
 import { initDivToggle } from "./js/div_toggle"
-import { initCourseInfoExpander } from "./js/course_expander"
+import {
+  initCourseInfoExpander,
+  initCourseDescriptionExpander
+} from "./js/course_expander"
 import { initVideoTranscriptTrack } from "./js/video_transcript_track"
 import { initPlayBackSpeedButton } from "./js/video_playback_speed"
 import { initVideoFullscreenToggle } from "./js/video_fullscreen_toggle"
@@ -19,6 +22,7 @@ import {
 import "videojs-youtube"
 
 $(function() {
+  initCourseDescriptionExpander(document)
   initCourseInfoExpander(document)
   initDownloadButton()
   initPlayBackSpeedButton()

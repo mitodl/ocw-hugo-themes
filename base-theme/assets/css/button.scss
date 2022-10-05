@@ -45,3 +45,9 @@ a.red-btn {
   cursor: pointer;
   white-space: nowrap;
 }
+
+button.btn-link.link-button {
+  color: inherit;
+  text-decoration: underline;
+  vertical-align: baseline;
+}
