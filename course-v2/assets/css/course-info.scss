@@ -42,6 +42,10 @@ $panel-course-info-text-color: #464646;
   height: 32px;
   text-align: center;
   cursor: pointer;
+
+  .left-arrow {
+    margin-bottom: 2px;
+  }
 }
 
 .show-course-info-left-arrow:hover {
