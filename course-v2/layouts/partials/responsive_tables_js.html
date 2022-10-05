@@ -1,4 +1,4 @@
-{{ $navjs := resources.Get "js/responsive_tables.js" }}
+{{ $navjs := resources.Get "js/responsive_tables.ts" | js.Build }}
 {{ $minified := $navjs | resources.Minify }}
 <script>
 {{ $minified.Content | safeJS }}

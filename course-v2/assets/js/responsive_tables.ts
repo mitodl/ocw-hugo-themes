@@ -1,31 +1,28 @@
-// @ts-nocheck
 function initResponsiveTables2() {
-  const tables = document
-    .getElementById("course-content-section")
-    .getElementsByTagName("table")
-  for (const table of tables) {
-    const headings = table.getElementsByTagName("th")
-    const tbody = table.getElementsByTagName("tbody")[0]
-    const rows = tbody.getElementsByTagName("tr")
+  const tables = document.querySelectorAll('#course-content-section table')
+  tables.forEach(table => {
+    const headings = table.querySelectorAll<HTMLElement>("thead th")
+    const rows = table.querySelectorAll("tbody tr")
     // set data-title attribute on table cells
-    for (const row of rows) {
-      const cells = row.getElementsByTagName("td")
-      for (let i = 0; i < cells.length; i++) {
+    rows.forEach(row => {
+      const cells = row.querySelectorAll("td")
+      cells.forEach((cell, i) => {
         if (headings.length >= i + 1) {
           cells[i].setAttribute(
             "data-title",
             headings[i].innerText.trim().concat(": ")
           )
         }
-      }
-    }
+      })
+    })
     // force mobile style if table width exceeds main content area
     const tableWidth = table.clientWidth
     const mainContentWidth = document.getElementById("course-content-section")
-      .clientWidth
+      ?.clientWidth ?? 0
     if (tableWidth > mainContentWidth) {
       table.classList.add("mobile-table")
     }
-  }
+  })
 }
+
 initResponsiveTables2()
