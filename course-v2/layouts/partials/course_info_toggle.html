@@ -1,10 +1,10 @@
 {{ $isCourseHomePage := .isCourseHomePage | default "" }}
 
 {{ if not $isCourseHomePage }}
-  <button class="btn btn-link float-right">
-    <a href="javascript:void(0)" class="mobile-course-info-toggle-btn toggle navbar-toggle offcanvas-toggle"
-      data-toggle="offcanvas" data-target="#course-info-drawer">
-      More Info
-    </a>
+  <button 
+    class="btn btn-link float-right mobile-course-info-toggle-btn toggle navbar-toggle offcanvas-toggle" 
+    data-toggle="offcanvas" 
+    data-target="#course-info-drawer">
+    More Info
   </button>
 {{ end }}
