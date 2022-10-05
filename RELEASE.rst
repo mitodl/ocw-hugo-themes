@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.73.2
+Version 1.73.2 (Released October 05, 2022)
 --------------
 
 - Fix table code erroring on non-table pages (#887)
