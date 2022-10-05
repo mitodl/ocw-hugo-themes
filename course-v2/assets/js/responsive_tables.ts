@@ -1,4 +1,5 @@
-const getTables = () => document.querySelectorAll<HTMLElement>("#course-content-section table")
+const getTables = () =>
+  document.querySelectorAll<HTMLElement>("#course-content-section table")
 const getCourseContent = () => document.getElementById("course-content-section")
 
 function initResponsiveTables2() {
@@ -33,7 +34,7 @@ function calculateOverlap2() {
     const mainRect = mainContent.getBoundingClientRect()
     const tableMinWidth = +(table.dataset.minWidth ?? 0)
     if (mainRect.width > tableMinWidth) {
-      table.classList.remove('mobile-table')
+      table.classList.remove("mobile-table")
     }
     const tableRect = table.getBoundingClientRect()
     if (tableRect.right > mainRect.right) {
