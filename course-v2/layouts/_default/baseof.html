@@ -42,9 +42,9 @@
                 <div class="col-12 p-0" id="main-course-section">
                   <div class="card-body">
                     {{ if not $isCourseHomePage }}
-                      <div id="show-desktop-course-drawer" class="show-course-info-left-arrow large-and-above-only">
+                      <button type="button" id="show-desktop-course-drawer" class="show-course-info-left-arrow large-and-above-only">
                         <img src="/images/left_arrow.svg" alt=""/>
-                      </div>
+                      </button>
                     {{ end }} 
                     {{ block "main" . }}{{ end }}
                   </div>
