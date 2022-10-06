@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.73.3 (Released October 06, 2022)
+--------------
+
+- fix: leading new lines removed from link (#878)
+
 Version 1.73.2 (Released October 05, 2022)
 --------------
 
