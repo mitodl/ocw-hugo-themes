@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.73.4
+--------------
+
+- Responsive tables for course-v2 (#894)
+- feat: compact footer (#868)
+- style: menu button & more info link mobile design (#885)
+- fix: removed css for specific screen sizes (#889)
+- show more / show less for course description (#876)
+
 Version 1.73.3 (Released October 06, 2022)
 --------------
 
