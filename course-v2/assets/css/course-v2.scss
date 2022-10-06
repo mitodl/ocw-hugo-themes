@@ -193,25 +193,6 @@ h5 {
   }
 }
 
-@media (min-width: 1620px) and (max-width: 1800px) {
-  #desktop-header .contents,
-  #course-banner .course-banner-content,
-  #footer-container .row {
-    max-width: inherit !important;
-  }
-
-  .course-home-page #course-main-content {
-    max-width: inherit !important;
-  }
-
-  #footer-container {
-    padding: 2rem 2rem !important;
-  }
-  #footer-container .row {
-    padding: 0 !important;
-  }
-}
-
 // TODO: overriding some css of header and footer in this new theme
 // when we roll out this theme completely then we can move this css to thier respective files in base-theme
 
