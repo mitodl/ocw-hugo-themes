@@ -4,6 +4,7 @@ function initResponsiveTables() {
   const observer = new ResizeObserver(() => calculateOverlap())
   const mainContent = document.getElementById("main-content")
   if (!mainContent) return
+  if (!window.ResizeObserver) return
   observer.observe(mainContent)
   tables.forEach(table => {
     const headings = table.getElementsByTagName("th")
