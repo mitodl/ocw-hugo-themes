@@ -385,3 +385,13 @@ article.content {
 .pointer {
   cursor: pointer;
 }
+
+/* This CSS override can be removed once we upgrade to bootstrap 5 */
+/* revert the bootstrap 4 rule */
+button:focus:not(.focus-visible) {
+  outline: revert;
+}
+/* re-add it so that it only applies to btn buttons */
+button.btn:focus:not(.focus-visible) {
+  outline: 0;
+}

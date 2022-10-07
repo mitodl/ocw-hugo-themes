@@ -23,31 +23,22 @@ $panel-course-info-text-color: #464646;
 
 .close-course-info {
   margin-left: auto;
-  padding: 5px 10px 5px 10px;
-  background-color: #e4e4e4;
-  cursor: pointer;
+  background-color: $course-info-btn-color !important;
+  border-radius: 0px !important;
 }
 
 .close-course-info:hover {
-  background-color: #c0c0c0;
+  background-color: $course-info-btn-hover-color !important;
 }
 
-.show-course-info-left-arrow {
+.show-course-info {
   position: absolute;
-  background-color: #e4e4e4;
-  border: none;
-  margin-top: -18px;
+  top: 0;
   right: 0;
-  width: 32px;
-  height: 32px;
-  text-align: center;
-  cursor: pointer;
-
-  .left-arrow {
-    margin-bottom: 2px;
-  }
+  background-color: $course-info-btn-color !important;
+  border-radius: 0px !important;
 }
 
-.show-course-info-left-arrow:hover {
-  background-color: #c0c0c0;
+.show-course-info:hover {
+  background-color: $course-info-btn-hover-color !important;
 }
