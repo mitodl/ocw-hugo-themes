@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.73.4
+Version 1.73.4 (Released October 07, 2022)
 --------------
 
 - Responsive tables for course-v2 (#894)
