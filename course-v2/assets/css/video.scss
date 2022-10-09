@@ -55,6 +55,10 @@
   }
 }
 
+.video-embed {
+  max-width: $video-section-max-width;
+}
+
 .embedded-video-container {
   // this padding will be applied when video is embedded
   padding-bottom: 44px;
@@ -62,6 +66,8 @@
 }
 
 .video-page {
+  max-width: $video-section-max-width;
+
   .video-container {
     height: 0;
     padding-bottom: 56% !important;
