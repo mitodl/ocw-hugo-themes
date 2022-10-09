@@ -31,18 +31,6 @@ nav {
   color: $mobile-menu-btn-color;
 }
 
-.show-course-info {
-  position: absolute;
-  right: 0;
-  z-index: 10;
-  width: 38px;
-
-  .toggle {
-    writing-mode: vertical-lr;
-    transform: rotate(180deg);
-  }
-}
-
 .course-nav-text-wrapper {
   width: 100%;
 }

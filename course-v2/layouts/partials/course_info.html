@@ -8,15 +8,19 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
         Course Info
       </div>
       {{ if $inPanel }}
-      <div
-        class="font-black close-course-info large-and-above-only"
-        id="{{ if $isDesktopCourseDrawer }}hide-desktop-course-drawer{{ end }}">
+      <button
+        type="button"
+        class="btn close-course-info large-and-above-only"
+        id="{{ if $isDesktopCourseDrawer }}hide-desktop-course-drawer{{ end }}"
+        aria-label="Close Course Info"
+        >
         <img
           class="toggle navbar-toggle offcanvas-toggle"
           src="/images/close_small.svg"
           alt=""
+          width="12px"
         />
-      </div>
+      </button>
       {{ end }}
     </div>
   </div>

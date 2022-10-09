@@ -41,6 +41,16 @@
               <div class="d-flex">
                 <div class="col-12 p-0" id="main-course-section">
                   <div class="card-body">
+                    {{ if not $isCourseHomePage }}
+                      <button 
+                        type="button" 
+                        class="btn show-course-info large-and-above-only"
+                        id="show-desktop-course-drawer"
+                        aria-label="Show Course Info"
+                        >
+                        <img src="/images/left_arrow.svg" alt=""/>
+                      </button>
+                    {{ end }} 
                     {{ block "main" . }}{{ end }}
                   </div>
                 </div>
@@ -55,13 +65,6 @@
             </div>
           </div>
         </div>
-        {{ if not $isCourseHomePage }}
-        <button id="show-desktop-course-drawer" class="show-course-info large-and-above-only bg-light shadow-sm border border-right-0 rounded-left p-0 d-none">
-          <span class="btn px-2 m-0 toggle navbar-toggle offcanvas-toggle font-weight-bold">
-            Show Course Info
-        </span>
-        </button>
-        {{ end }} 
       </div>
     </div>
 
