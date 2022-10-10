@@ -39,3 +39,11 @@ const setOrGetLocalStorageItemHelper = (
     return false
   }
 }
+
+/**
+ * @return {boolean} returns true is app is running on local server, else false.
+ */
+export const isLocalServerRunning = () =>
+  location.hostname === "localhost" ||
+  location.hostname === "127.0.0.1" ||
+  location.hostname === ""
