@@ -20,7 +20,7 @@
       </div>
       {{- end -}}
   {{- else -}}
-      {{ partial "video_v2.html" . }}
+      {{ partial "video.html" . }}
   {{- end -}}
   {{ if eq .Params.file_type "application/pdf" }}
   {{ partial "pdf_viewer.html" . }}

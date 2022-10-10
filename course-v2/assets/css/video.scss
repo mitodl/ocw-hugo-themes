@@ -136,26 +136,3 @@ a.video-download-button:visited {
     padding-bottom: 0px;
   }
 }
-
-.video-tab-header {
-  padding: 5px 15px 5px;
-}
-
-.video-tab-content-section {
-  padding: 0 0 10px 20px !important;
-  a {
-    color: $white !important;
-  }
-}
-
-.video-tab-toggle-section {
-  i:after {
-    content: "keyboard_arrow_down";
-  }
-}
-
-.video-tab-toggle-section[aria-expanded="true"] {
-  i:after {
-    content: "keyboard_arrow_up" !important;
-  }
-}
