@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.74.0
+--------------
+
+- style: max width for video player section (#898)
+- style: "show course info" button replaced with an icon (#872)
+
 Version 1.73.4 (Released October 07, 2022)
 --------------
 
