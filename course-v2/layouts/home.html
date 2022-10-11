@@ -41,26 +41,6 @@
   {{ block "footer" . }}{{ partial "footer-v2" . }}{{end}}
   {{ partialCached "hide_offline_links.html" . }}
   </div>
-  <script>
-    window.MathJax = {
-      TeX: {
-        equationNumbers: {
-          autoNumber: "AMS"
-        }
-      },
-      displayAlign: "left",
-      displayIndent: "2em",
-      menuSettings: {
-        zoom: "Double-Click",
-        mpContext: true,
-        mpMouse: true
-      },
-      errorSettings: {
-        message: ["[Math Error]"]
-      }
-    }
-
-  </script>
   {{ partialCached "navigation_js.html" . }}
   {{ partialCached "responsive_tables_js.html" . }}
   {{- $theme := .Site.Data.webpack.main -}}
@@ -68,9 +48,9 @@
 
   {{ partial "include_js.html" (dict "context" . "url" $theme.js) }}
   {{ partial "include_js.html" (dict "context" . "url" $courseTheme.js) }}
-  <script src="{{ partial "webpack_url.html" (dict "context" . "url" "/static/mathjax/tex-svg.js") }}" defer></script>
   <!-- Appzi: Capture Insightful Feedback -->
 
+  {{ partial "mathjax_if_necessary.html" (dict "context" .) }}
   <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>
 
   <!-- End Appzi -->
