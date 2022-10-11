@@ -1,10 +1,5 @@
-{{- $mathjax := .context.Site.Data.webpack.mathjax -}}
-<script>
-  console.log("Should I load MathJax?"  )
-</script>
 {{ with findRE `\\\(.*?\\\)|\\[.*?\\]` .context.Page.Content 1 }}
 <script>
-  console.log("Yes you should!"  )
   window.MathJax = {
       TeX: {
         equationNumbers: {
