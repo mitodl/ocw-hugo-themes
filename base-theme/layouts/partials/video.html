@@ -15,41 +15,23 @@
 {{ end }}
 
 <div class="video-page">
-	<div class="show-offline d-none alert alert-warning" role="alert">
+  	<div class="show-offline d-none alert alert-warning" role="alert">
 		Viewing videos requires an internet connection
 	</div>
-  <div class="description">
-    {{ .Content }}
-  </div>
-  {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation)}}
-	<!-- [start] transcript toggleable section -->
-	{{ if $captionsLocation }}
-		<div class="bg-dark-gray white-color">
-			<div class="transcript-tab-section-toggle pointer"
-					data-target=".transcript" 
-					data-toggle="collapse"
-					aria-controls="transcript"
-					aria-expanded=""
-					>
-				<div class="transcript-tab-header">
-					<span>
-						Transcript
-					</span>
-					<div class="float-right">
-						<i class="material-icons md-18"></i>
-					</div>
-				</div>
-			</div>
-			<div class="container collapse transcript">
-			</div>
-		</div>
-	{{end}}
-	<!-- [end] transcript toggleable section -->
+  	<div class="description">
+    	{{ .Content }}
+  	</div>
+  	{{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation)}}
 
-  {{ if $relatedResourses }}
-  	{{ partial "video_expandable_tab.html" (dict "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
-  {{end}}
-  {{ if and $optionalTabTitle $optionalTabContent }}
+	{{ if $captionsLocation }}
+		{{ partial "video_expandable_tab.html" (dict "tabClass" "transcript" "tabTitle" "Transcript") }}
+	{{end}}
+
+  	{{ if $relatedResourses }}
+  		{{ partial "video_expandable_tab.html" (dict "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
+  	{{ end }}
+	
+  	{{ if and $optionalTabTitle $optionalTabContent }}
 		{{ partial "video_expandable_tab.html" (dict "tabClass" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
-  {{end}}
+  	{{end}}
 </div>
