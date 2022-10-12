@@ -144,8 +144,8 @@ module.exports = {
       Popper:          "popper.js/dist/umd/popper"
     }),
     new webpack.DefinePlugin({
-      RELEASE_VERSION: JSON.stringify(packageJson.version),
-    }),
+      RELEASE_VERSION: JSON.stringify(packageJson.version)
+    })
   ].concat(
     process.env.WEBPACK_ANALYZE === "true" ?
       new BundleAnalyzerPlugin({
@@ -154,5 +154,5 @@ module.exports = {
         openAnalyzer: true
       }) :
       []
-  ),
+  )
 }
