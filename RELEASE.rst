@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.74.0
+Version 1.74.0 (Released October 12, 2022)
 --------------
 
 - style: max width for video player section (#898)
