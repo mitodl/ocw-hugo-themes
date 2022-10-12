@@ -10,5 +10,8 @@
       "browser": true,
       "jquery": true,
       "jest": true
+  },
+  "globals": {
+    "RELEASE_VERSION": true
   }
 }

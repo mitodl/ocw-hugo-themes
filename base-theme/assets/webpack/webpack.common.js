@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const AssetsPlugin = require("assets-webpack-plugin")
 const Dotenv = require("dotenv-webpack")
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
+const packageJson = require("../../../package.json")
 
 /**
  * Resolve a path relative to package root.
@@ -141,7 +142,10 @@ module.exports = {
       jQuery:          "jquery",
       "window.jQuery": "jquery",
       Popper:          "popper.js/dist/umd/popper"
-    })
+    }),
+    new webpack.DefinePlugin({
+      RELEASE_VERSION: JSON.stringify(packageJson.version),
+    }),
   ].concat(
     process.env.WEBPACK_ANALYZE === "true" ?
       new BundleAnalyzerPlugin({
@@ -150,5 +154,5 @@ module.exports = {
         openAnalyzer: true
       }) :
       []
-  )
+  ),
 }
