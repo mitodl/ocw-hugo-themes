@@ -19,7 +19,7 @@ export interface OCWWindow extends Window {
   $: JQueryStatic
   jQuery: JQueryStatic
   Popper: typeof Popper
-  Sentry: typeof Sentry | null
+  Sentry: typeof Sentry
   PDFObject: typeof PDFObject
 }
 
