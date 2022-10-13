@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.74.1 (Released October 13, 2022)
+--------------
+
+- only load mathjax if necessary (#906)
+- fix: inconsistent video player styling (#902)
+
 Version 1.74.0 (Released October 12, 2022)
 --------------
 
