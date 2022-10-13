@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.74.1
+Version 1.74.1 (Released October 13, 2022)
 --------------
 
 - only load mathjax if necessary (#906)
