@@ -231,7 +231,7 @@ export default function SearchPage(props: SearchPageProps) {
             toggleFacet={toggleFacet}
             updateUI={updateUI}
           />
-          <div className="search-results-area col-12 col-lg-9 pb-2 pt-2">
+          <div className="infinite-scroll-parent search-results-area col-12 col-lg-9 pb-2 pt-2">
             <div
               className={`search-toggle ${
                 isResourceSearch ? "nofacet" : "facet"
@@ -338,6 +338,7 @@ export default function SearchPage(props: SearchPageProps) {
               hasMore={from + pageSize < total}
               loadMore={loadMore}
               initialLoad={false}
+              useWindow={false}
               loader={
                 completedInitialLoad ? <Spinner key="spinner" /> : undefined
               }
