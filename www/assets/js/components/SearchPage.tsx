@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useRef, useEffect } from "react"
 import InfiniteScroll from "react-infinite-scroller"
 import {
   Aggregations,
@@ -156,6 +156,37 @@ export default function SearchPage(props: SearchPageProps) {
     LIST_UI_PAGE_SIZE,
     history
   )
+
+  const scrollChildRef = useRef<HTMLDivElement>(null)
+  /**
+   * InfiniteScroll has a bug where:
+   *  - if initial data does not fill the scroll area, or
+   *  - scroll area is resized so that it is no longer filled by scroll data
+   * then no new request is made.
+   *
+   * This is a work-around to address that.
+   *
+   * This returns a ref to be attached to the child of InfiniteScroll that fixes
+   * the issue.
+   *
+   * See https://github.com/danbovey/react-infinite-scroller/issues/294
+   */
+  const checkIfNeedMore = useCallback(() => {
+    const scrollChild = scrollChildRef.current
+    const offsetParent = scrollChild?.offsetParent
+    if (!scrollChild || !(offsetParent instanceof HTMLElement)) return
+    if (!completedInitialLoad || requestInFlight) return
+    if (scrollChild.offsetHeight < offsetParent.offsetHeight) {
+      loadMore()
+    }
+  }, [completedInitialLoad, requestInFlight, loadMore])
+  useEffect(() => {
+    checkIfNeedMore()
+  }, [checkIfNeedMore])
+  useEffect(() => {
+    window.addEventListener("resize", checkIfNeedMore)
+    return () => window.removeEventListener("resize", checkIfNeedMore)
+  }, [checkIfNeedMore])
 
   const toggleResourceSearch = useCallback(
     nextResourceFilterState => async () => {
@@ -344,6 +375,7 @@ export default function SearchPage(props: SearchPageProps) {
               }
             >
               <section
+                ref={scrollChildRef}
                 role="feed"
                 aria-busy={requestInFlight}
                 aria-label="OpenCourseWare Search Results"

@@ -253,13 +253,13 @@
     This way we get infinite scroll on the search results, but can still scroll
     the page down to see the footer.
 
-    The 200vh value is somewhat arbitrary. The idea is to have the infinite
+    The 150vh value is somewhat arbitrary. The idea is to have the infinite
     scroll container dominate the viewport at first, then after a bit of
     scrolling show the footer.
       - too small a value for max-height looks strange on screens short enough
         that the facet height rivals the screen height.
     */
-    max-height: 200vh;
+    max-height: 150vh;
     min-height: 100vh;
     overflow: auto;
   }
