@@ -1,5 +1,3 @@
-declare var isHugoDevServer: boolean
-
 export const setLocalStorageItem = (key: string, value: any) => {
   return setOrGetLocalStorageItemHelper("set", key, value)
 }
@@ -49,4 +47,4 @@ export const isLocalServerRunning = (): boolean =>
   location.hostname === "localhost" ||
   location.hostname === "127.0.0.1" ||
   location.hostname === "" ||
-  isHugoDevServer
+  IS_HUGO_DEV_SERVER
