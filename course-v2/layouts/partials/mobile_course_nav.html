@@ -1,6 +1,25 @@
 <div
   id="mobile-course-nav"
-  class="navbar-offcanvas medium-and-below-only drawer">
-  <div class="mb-4 mt-4">Browse Course Material</div>
+  class="navbar-offcanvas offcanvas-toggle offcanvas-toggle-close medium-and-below-only drawer">
+  <div class="mb-4 mt-4">
+    <div class="d-flex align-items-center">
+      <div>Browse Course Material</div>
+      <div class="ml-auto"> 
+        <button
+          class="btn"
+          type="button"
+          aria-label="Close Course Menu"
+          onclick="$('#mobile-course-nav-toggle').click();"
+          >
+          <img
+            class=""
+            src="/images/close_small.svg"
+            alt=""
+            width="12px"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
   {{ partial "nav.html" . }}
 </div>
