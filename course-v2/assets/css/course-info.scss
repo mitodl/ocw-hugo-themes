@@ -42,3 +42,8 @@ $panel-course-info-text-color: #464646;
 .show-course-info:hover {
   background-color: $course-info-btn-hover-color !important;
 }
+
+.close-mobile-course-info {
+  position: absolute;
+  right: 0;
+}
