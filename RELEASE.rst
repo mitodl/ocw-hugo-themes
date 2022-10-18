@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.75.0
+Version 1.75.0 (Released October 18, 2022)
 --------------
 
 - fix: max-width for drawers (#911)
