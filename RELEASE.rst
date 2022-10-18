@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.75.1
+--------------
+
+- feat: minimal footer on search page (#916)
+- style: faculty committee udpated (#917)
+- fix: typo in mobile navbar (#918)
+
 Version 1.75.0 (Released October 18, 2022)
 --------------
 
