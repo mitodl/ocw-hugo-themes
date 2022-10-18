@@ -2,7 +2,7 @@ import React from "react"
 
 export default function Footer() {
   return (
-    <div className="search-footer px-2">
+    <footer className="search-footer px-2">
       <img src="/images/mit-ol.png" width="140px" />
       <div className="mt-4">
         <a
@@ -32,6 +32,6 @@ export default function Footer() {
       <div className="text-muted mt-4">
         © 2001–{new Date().getFullYear()} Massachusetts Institute of Technology
       </div>
-    </div>
+    </footer>
   )
 }
