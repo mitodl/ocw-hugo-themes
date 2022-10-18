@@ -6,6 +6,7 @@ import { useDeviceCategory } from "../hooks/util"
 import { Aggregation, Facets } from "@mitodl/course-search-utils"
 import { FacetManifest } from "../LearningResources"
 import { SEARCH_COMPACT_UI, SEARCH_LIST_UI } from "../lib/constants"
+import Footer from "./Footer"
 
 interface Props {
   facetMap: FacetManifest
@@ -42,6 +43,9 @@ export default function SearchFilterDrawer(props: Props) {
     return (
       <div className="col-12 col-lg-3 mt-3 mt-lg-0 facet-display-wrapper pt-3">
         <FacetDisplay {...props} />
+        <div className="col-12">
+          <Footer />
+        </div>
       </div>
     )
   }
@@ -60,6 +64,9 @@ export default function SearchFilterDrawer(props: Props) {
       </div>
       <div className="contents">
         <FacetDisplay {...props} />
+      </div>
+      <div className="col-12 px-5 mt-3 pb-5">
+        <Footer />
       </div>
     </div>
   ) : (

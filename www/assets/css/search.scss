@@ -292,3 +292,14 @@
     display: none;
   }
 }
+
+.search-footer {
+  font-size: $font-xs;
+  margin-top: 50px;
+  div a {
+    text-decoration: underline !important;
+  }
+  div a:hover {
+    color: $dark-gray !important;
+  }
+}
