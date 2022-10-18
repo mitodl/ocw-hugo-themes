@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.75.0 (Released October 18, 2022)
+--------------
+
+- fix: max-width for drawers (#911)
+- Log release version in sentry errors (#907)
+
 Version 1.74.1 (Released October 13, 2022)
 --------------
 
