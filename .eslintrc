@@ -11,6 +11,7 @@
     "jest": true
   },
   "globals": {
-    "RELEASE_VERSION": true
+    "RELEASE_VERSION": true,
+    "SENTRY_DSN": "readonly"
   }
 }

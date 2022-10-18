@@ -144,7 +144,8 @@ module.exports = {
       Popper:          "popper.js/dist/umd/popper"
     }),
     new webpack.DefinePlugin({
-      RELEASE_VERSION: JSON.stringify(packageJson.version)
+      RELEASE_VERSION: JSON.stringify(packageJson.version),
+      SENTRY_DSN:      process.env.SENTRY_DSN
     })
   ].concat(
     process.env.WEBPACK_ANALYZE === "true" ?
