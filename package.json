@@ -5,7 +5,7 @@
   "repository": "mitodl/ocw-hugo-themes",
   "main": "base-theme/assets/index.js",
   "scripts": {
-    "lint": "eslint **/assets",
+    "lint": "eslint {base-theme,course,course-v2,fields,util,www}",
     "start": "echo \"Run 'npm run start:www' or 'npm run start:course'\"",
     "start:webpack": "webpack serve --config base-theme/assets/webpack/webpack.dev.js --hot --host 0.0.0.0 --stats-children",
     "start:www": "concurrently \"npm:start:webpack\" \"npm:start:www:hugo\" --kill-others",
@@ -72,7 +72,7 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "es6-promise": "^4.2.8",
-    "eslint": "^6.8.0",
+    "eslint": "^7.32.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-mitodl": "^0.0.8",
     "eslint-plugin-babel": "^5.3.0",
