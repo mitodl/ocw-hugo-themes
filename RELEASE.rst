@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.75.1
+Version 1.75.1 (Released October 19, 2022)
 --------------
 
 - feat: minimal footer on search page (#916)
