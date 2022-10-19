@@ -41,7 +41,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --ignore-engines --prefer-offline
+        run: yarn install --immutable
 
       - name: Clone ocw-www for content
         run: (cd ..; git clone git@github.mit.edu:ocw-content-rc/ocw-www.git ocw-www)
