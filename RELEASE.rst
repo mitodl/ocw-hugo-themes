@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.75.2
+--------------
+
+- update to yarn 3.2.2 (#921)
+- feat: close course menu & info drawers with x button (#914)
+- update hugo-bin-extended to 0.104.3 (#909)
+
 Version 1.75.1 (Released October 19, 2022)
 --------------
 
