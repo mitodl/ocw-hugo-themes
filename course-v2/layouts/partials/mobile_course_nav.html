@@ -1,25 +1,20 @@
 <div
   id="mobile-course-nav"
   class="navbar-offcanvas offcanvas-toggle offcanvas-toggle-close medium-and-below-only drawer">
-  <div class="mb-4 mt-4">
-    <div class="d-flex align-items-center">
-      <div>Browse Course Material</div>
-      <div class="ml-auto"> 
-        <button
-          class="btn"
-          type="button"
-          aria-label="Close Course Menu"
-          onclick="$('#mobile-course-nav-toggle').click();"
-          >
-          <img
-            class=""
-            src="/images/close_small.svg"
-            alt=""
-            width="12px"
-          />
-        </button>
-      </div>
-    </div>
-  </div>
+  <h3 class="my-4 d-flex align-items-center justify-content-between">
+    Browse Course Material
+    <button
+      class="btn"
+      type="button"
+      aria-label="Close Course Menu"
+      onclick="$('#mobile-course-nav-toggle').click();"
+      >
+      <img
+        src="/images/close_small.svg"
+        alt=""
+        width="12px"
+      />
+    </button>
+  </h3>
   {{ partial "nav.html" . }}
 </div>
