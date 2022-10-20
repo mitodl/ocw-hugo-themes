@@ -38,9 +38,6 @@ wheels/
 MANIFEST
 public/
 node_modules
-yarn-debug.log*
-yarn-error.log*
-.yarn-integrity
 base-theme/data/webpack.json
 ocw-to-hugo.*.log
 
@@ -66,3 +63,12 @@ venv/
 stats.json
 
 tsconfig.tsbuildinfo
+
+# Yarn stuff https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

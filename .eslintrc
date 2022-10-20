@@ -13,5 +13,8 @@
   },
   "globals": {
     "RELEASE_VERSION": true
-  }
+  },
+  "ignorePatterns": [
+    "**/dist"
+  ]
 }
