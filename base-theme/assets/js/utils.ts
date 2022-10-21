@@ -1,8 +1,8 @@
-export const setLocalStorageItem = (key: string, value: any) => {
+export const setLocalStorageItem = (key: string, value: string) => {
   return setOrGetLocalStorageItemHelper("set", key, value)
 }
 
-export const getLocalStorageItem = (key: string): any => {
+export const getLocalStorageItem = (key: string) => {
   return setOrGetLocalStorageItemHelper("get", key)
 }
 
@@ -14,16 +14,18 @@ export const getLocalStorageItem = (key: string): any => {
  * @param {any} value actual data/value to store, if any
  * @return {any} data fetched from localstorage
  */
-const setOrGetLocalStorageItemHelper = (
+function setOrGetLocalStorageItemHelper(action: "set", key: string, value: string): boolean
+function setOrGetLocalStorageItemHelper(action: "get", key: string): boolean | string | null
+function setOrGetLocalStorageItemHelper(
   action: string,
   key: string,
-  value: any = null
-): any => {
+  value?: string
+): string | null | boolean {
   try {
     // checking browser support for localStorage
     if (typeof Storage !== "undefined") {
       if (action === "set") {
-        localStorage.setItem(key, value)
+        localStorage.setItem(key, String(value))
         return true
       } else {
         return localStorage.getItem(key)
@@ -33,7 +35,7 @@ const setOrGetLocalStorageItemHelper = (
     return false
   } catch (e) {
     console.log(
-      "An exception occurred while storing/fetching data in/from localstorage: ",
+      "An exception occurred while storing/fetching data in/from localStorage: ",
       e
     )
     return false
