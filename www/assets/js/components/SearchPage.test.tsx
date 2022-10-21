@@ -8,6 +8,7 @@ import {
   LearningResourceType,
   serializeSearchParams
 } from "@mitodl/course-search-utils"
+import InfiniteScroll from "react-infinite-scroller"
 
 import SearchPage from "./SearchPage"
 
@@ -22,12 +23,13 @@ const mockGetResults = () =>
     _source: result
   }))
 
-// @ts-expect-error TODO
-let resolver
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let resolver = (_extraData?: any) => {
+  /** pass */
+}
 
 const resolveSearch = (extraData = {}) =>
   act(async () => {
-    // @ts-expect-error TODO
     resolver(extraData)
   })
 
@@ -110,9 +112,8 @@ describe("SearchPage component", () => {
       .at(0)
       .simulate("change", { target: { value: "New Search Text" } })
     await act(async () => {
-      // @ts-expect-error TODO
+      // @ts-expect-error Not mocking whole event
       wrapper.find("SearchBox").prop("onSubmit")({ preventDefault: jest.fn() })
-      // @ts-expect-error TODO
       resolver()
     })
 
@@ -155,7 +156,6 @@ describe("SearchPage component", () => {
         .find(".search-nav")
         .at(1)
         .simulate("click")
-      // @ts-expect-error TODO
       resolver()
     })
 
@@ -229,7 +229,7 @@ describe("SearchPage component", () => {
     const select = wrapper.find(".sort-nav-item select")
     expect(select.prop("value")).toBe(sortParam)
     act(() => {
-      // @ts-expect-error TODO
+      // @ts-expect-error Not mocking whole event
       select.prop("onChange")({ target: { value: differentSortParam } })
     })
     expect(spySearch.mock.calls[1][0].sort).toEqual({
@@ -262,10 +262,10 @@ describe("SearchPage component", () => {
   })
 
   //
-  ;[
+  ;([
     [LearningResourceType.Course, true],
     [LearningResourceType.ResourceFile, false]
-  ].forEach(([type, sortExists]) => {
+  ] as const).forEach(([type, sortExists]) => {
     it(`${
       sortExists ? "should" : "shouldn't"
     } show the sort option if the user is on the ${type} page`, async () => {
@@ -274,7 +274,6 @@ describe("SearchPage component", () => {
           type: [type]
         }
       }
-      // @ts-expect-error TODO
       const searchString = serializeSearchParams(parameters)
       const { wrapper } = render(searchString)
       expect(wrapper.find(".sort-nav-item").exists()).toBe(sortExists)
@@ -302,14 +301,12 @@ describe("SearchPage component", () => {
     await resolveSearch()
     wrapper.update()
     await act(async () => {
-      // @ts-expect-error TODO
-      wrapper.find("InfiniteScroll").prop("loadMore")()
+      wrapper.find(InfiniteScroll).prop("loadMore")(1)
     })
     await resolveSearch()
     wrapper.update()
     await act(async () => {
-      // @ts-expect-error TODO
-      wrapper.find("InfiniteScroll").prop("loadMore")()
+      wrapper.find(InfiniteScroll).prop("loadMore")(1)
     })
     await resolveSearch()
     wrapper.update()
@@ -350,16 +347,14 @@ describe("SearchPage component", () => {
     await resolveSearch()
     wrapper.update()
     await act(async () => {
-      // @ts-expect-error TODO
-      wrapper.find("InfiniteScroll").prop("loadMore")()
+      wrapper.find(InfiniteScroll).prop("loadMore")(1)
     })
     wrapper.update()
     // first request is still in-flight now because we haven't called resolveSearch yet
     // so loaded prop passed to useCourseSearch will be false (and therefore this second
     // call to the `loadMore` function should be a no-op).
     await act(async () => {
-      // @ts-expect-error TODO
-      wrapper.find("InfiniteScroll").prop("loadMore")()
+      wrapper.find(InfiniteScroll).prop("loadMore")(1)
     })
     await resolveSearch()
     wrapper.update()

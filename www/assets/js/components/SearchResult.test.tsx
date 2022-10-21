@@ -79,7 +79,6 @@ describe("SearchResult component", () => {
     objectType => {
       it("should not render a course/resource with no url", () => {
         const object = searchResultToLearningResource(
-          // @ts-expect-error TODO
           makeLearningResourceResult(objectType)
         )
         object.url = null
@@ -91,13 +90,13 @@ describe("SearchResult component", () => {
 
   //
   ;[[], null].forEach(listValue => {
-    it(`should not render div for instructors, topics if they equal ${String(
+    it(`should not render div for instructors, topics if they are ${JSON.stringify(
       listValue
     )}`, () => {
       const result = makeLearningResourceResult(LearningResourceType.Course)
-      // @ts-expect-error TODO
+      // @ts-expect-error Consider widening type of Course
       result.runs[0].instructors = listValue
-      // @ts-expect-error TODO
+      // @ts-expect-error Consider widening type of Course
       result.topics = listValue
       const object = searchResultToLearningResource(result)
       const wrapper = render(object)
@@ -117,8 +116,7 @@ describe("SearchResult component", () => {
         `${SEARCH_URL}?${serializeSearchParams({
           text:         undefined,
           activeFacets: {
-            // @ts-expect-error TODO
-            topics: object.topics[i].name
+            topics: [object.topics[i].name]
           }
         })}`
       )

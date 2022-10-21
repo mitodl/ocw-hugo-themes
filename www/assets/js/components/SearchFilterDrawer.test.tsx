@@ -15,7 +15,7 @@ jest.mock("../lib/util", () => {
 const getViewportWidthMock = jest.mocked(utils.getViewportWidth)
 
 describe("SearchFilterDrawer component", () => {
-  // @ts-expect-error TODO
+  // @ts-expect-error Most props not needed here
   const render = (props = {}) => shallow(<SearchFilterDrawer {...props} />)
 
   test("desktop mode renders a FacetDisplay", async () => {

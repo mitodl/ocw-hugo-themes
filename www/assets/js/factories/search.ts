@@ -67,6 +67,9 @@ export function makeLearningResourceResult(
 ): ResourceFileResult
 export function makeLearningResourceResult(
   objectType: LearningResourceType
+): LearningResourceResult
+export function makeLearningResourceResult(
+  objectType: LearningResourceType
 ): LearningResourceResult {
   switch (objectType) {
   case LearningResourceType.Course:

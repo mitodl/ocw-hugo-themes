@@ -1,7 +1,6 @@
 // @ts-expect-error TODO
 function expandNav(navItemEl, collapseEl) {
   collapseEl.classList.add("show")
-  // @ts-expect-error TODO
   navItemEl
     .querySelector(".course-nav-section-toggle, video-tab-toggle-section")
     .setAttribute("aria-expanded", "true")

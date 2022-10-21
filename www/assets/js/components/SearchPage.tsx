@@ -174,7 +174,7 @@ export default function SearchPage(props: SearchPageProps) {
       ]
       // Remove any facets not relevant to the new search type
       const newFacets: Map<string, string> = new Map(
-        // @ts-expect-error TODO
+        // @ts-expect-error We should clean this up. It works because Map constructor is ignoring everything except 0th, 1st item in the entries array.
         nextResourceFilterState ? RESOURCE_FACETS : COURSE_FACETS
       )
 

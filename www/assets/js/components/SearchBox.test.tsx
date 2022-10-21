@@ -1,11 +1,10 @@
 import React from "react"
 import { shallow } from "enzyme"
 
-import SearchBox from "./SearchBox"
+import SearchBox, { SearchBoxProps } from "./SearchBox"
 
 describe("SearchBox component", () => {
-  // @ts-expect-error TODO
-  const render = (props = {}) => shallow(<SearchBox {...props} />)
+  const render = (props: SearchBoxProps) => shallow(<SearchBox {...props} />)
 
   test("should pass value, onChange to <input>, onSubmit to <form>", () => {
     const onChange = jest.fn()
