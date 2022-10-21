@@ -8,7 +8,6 @@ declare module "@sentry/browser" {
 }
 
 declare global {
-
   declare let RELEASE_VERSION: string
   namespace NodeJS {
     interface ProcessEnv {
