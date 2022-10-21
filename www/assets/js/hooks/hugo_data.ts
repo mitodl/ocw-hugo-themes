@@ -94,7 +94,7 @@ export function useCourseListData(uid: string): LearningResource[] {
  * **Note**: this hook will throw an error if the data expects is not present.
  */
 export function useResourceCollectionData(): LearningResource[] {
-  let [data, setData] = useState<LearningResource[]>([])
+  const [data, setData] = useState<LearningResource[]>([])
 
   useEffect(() => {
     const data = window.resourceCollectionData
@@ -117,7 +117,7 @@ export function useResourceCollectionData(): LearningResource[] {
       throw new Error("resource collection data missing")
     }
 
-    let learningResources = collection.map(([itemUUID, courseName]) =>
+    const learningResources = collection.map(([itemUUID, courseName]) =>
       resourceJSONToLearningResource(
         resourceJSONMap[itemUUID],
         itemUUID,

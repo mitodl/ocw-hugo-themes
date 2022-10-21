@@ -45,7 +45,7 @@ $(function() {
   // instances of the component per-page.
   courseCollectionEls.forEach(el => {
     if (el) {
-      let collectionUid = el.getAttribute("data-collectionid")
+      const collectionUid = el.getAttribute("data-collectionid")
       if (collectionUid) {
         ReactDOM.render(<CourseList uid={collectionUid} />, el)
       }

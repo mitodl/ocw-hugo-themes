@@ -43,9 +43,9 @@ function SearchFacet(props: Props) {
       </div>
       {showFacetList ? (
         <React.Fragment>
-          {results && results.buckets
-            ? results.buckets.map((facet, i) =>
-                showAllFacets ||
+          {results && results.buckets ?
+            results.buckets.map((facet, i) =>
+              showAllFacets ||
                 i < MAX_DISPLAY_COUNT ||
                 results.buckets.length < FACET_COLLAPSE_THRESHOLD ? (
                   <SearchFacetItem
@@ -56,8 +56,8 @@ function SearchFacet(props: Props) {
                     name={name}
                   />
                 ) : null
-              )
-            : null}
+            ) :
+            null}
           {results && results.buckets.length >= FACET_COLLAPSE_THRESHOLD ? (
             <div
               className={"facet-more-less"}

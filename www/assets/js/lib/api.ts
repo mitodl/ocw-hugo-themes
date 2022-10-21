@@ -11,11 +11,11 @@ export const search = async (params: SearchQueryParams) => {
     const body = buildSearchQuery(params)
 
     const response = await fetch(process.env.SEARCH_API_URL!, {
-      method: "POST",
-      body: JSON.stringify(body),
+      method:  "POST",
+      body:    JSON.stringify(body),
       headers: new Headers({
         "Content-Type": "application/json",
-        Accept: "application/json"
+        Accept:         "application/json"
       })
     })
 
@@ -24,8 +24,8 @@ export const search = async (params: SearchQueryParams) => {
     } else {
       const additionalData = {
         tags: {
-          "search-url": window.location.href,
-          "api-status": response?.status,
+          "search-url":      window.location.href,
+          "api-status":      response?.status,
           "api-status-text": response?.statusText
         },
         level: "error",

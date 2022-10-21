@@ -32,7 +32,7 @@ const resolveSearch = (extraData = {}) =>
 
 jest.mock("../lib/api", () => ({
   __esModule: true,
-  search: jest.fn(async () => {
+  search:     jest.fn(async () => {
     return new Promise(resolve => {
       resolver = (extraData = {}) => {
         const results = mockGetResults()
@@ -50,34 +50,34 @@ jest.mock("lodash.debounce", () => jest.fn(fn => fn))
 
 const defaultCourseFacets = {
   ...INITIAL_FACET_STATE,
-  type: [LearningResourceType.Course],
+  type:       [LearningResourceType.Course],
   offered_by: ["OCW"]
 }
 
 const defaultResourceFacets = {
   ...INITIAL_FACET_STATE,
-  type: [LearningResourceType.ResourceFile],
+  type:       [LearningResourceType.ResourceFile],
   offered_by: ["OCW"]
 }
 
 describe("SearchPage component", () => {
   const render = (searchParam = "") => {
-      const initialEntry: InitialEntry = { search: searchParam }
-      const history = createMemoryHistory({ initialEntries: [initialEntry] })
-      const wrapper = mount(<SearchPage history={history} />)
-      return { wrapper, history }
-    }
+    const initialEntry: InitialEntry = { search: searchParam }
+    const history = createMemoryHistory({ initialEntries: [initialEntry] })
+    const wrapper = mount(<SearchPage history={history} />)
+    return { wrapper, history }
+  }
 
-    //
+  //
   ;[
     { text: "", activeFacets: {} },
     { text: "amazing text!", activeFacets: {} },
     {
-      text: "great search",
+      text:         "great search",
       activeFacets: { topics: ["Mathematics"] }
     },
     {
-      text: "",
+      text:         "",
       activeFacets: { topics: ["Science"] }
     }
   ].forEach(params => {
@@ -89,9 +89,9 @@ describe("SearchPage component", () => {
 
       expect(spySearch.mock.calls[0]).toEqual([
         {
-          text: params.text,
-          from: 0,
-          size: LIST_UI_PAGE_SIZE,
+          text:         params.text,
+          from:         0,
+          size:         LIST_UI_PAGE_SIZE,
           activeFacets: {
             ...defaultCourseFacets,
             ...params.activeFacets
@@ -118,20 +118,20 @@ describe("SearchPage component", () => {
     expect(spySearch.mock.calls).toEqual([
       [
         {
-          text: "",
-          from: 0,
-          size: LIST_UI_PAGE_SIZE,
+          text:         "",
+          from:         0,
+          size:         LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null
+          sort:         null
         }
       ],
       [
         {
-          text: "New Search Text",
-          from: 0,
-          size: LIST_UI_PAGE_SIZE,
+          text:         "New Search Text",
+          from:         0,
+          size:         LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null
+          sort:         null
         }
       ]
     ])
@@ -141,9 +141,9 @@ describe("SearchPage component", () => {
 
   test("the user can switch to resource search", async () => {
     const parameters = {
-      text: "Math 101",
+      text:         "Math 101",
       activeFacets: {
-        topics: ["Mathematics"],
+        topics:              ["Mathematics"],
         course_feature_tags: ["Exams", "Problem Sets with Solutions"]
       }
     }
@@ -161,18 +161,18 @@ describe("SearchPage component", () => {
     expect(spySearch.mock.calls).toEqual([
       [
         {
-          text: parameters.text,
-          from: 0,
-          size: LIST_UI_PAGE_SIZE,
+          text:         parameters.text,
+          from:         0,
+          size:         LIST_UI_PAGE_SIZE,
           activeFacets: { ...defaultCourseFacets, ...parameters.activeFacets },
-          sort: null
+          sort:         null
         }
       ],
       [
         {
-          text: parameters.text,
-          from: 0,
-          size: LIST_UI_PAGE_SIZE,
+          text:         parameters.text,
+          from:         0,
+          size:         LIST_UI_PAGE_SIZE,
           activeFacets: {
             ...defaultResourceFacets,
             ...{ topics: ["Mathematics"] }
@@ -232,7 +232,7 @@ describe("SearchPage component", () => {
       select.prop("onChange")({ target: { value: differentSortParam } })
     })
     expect(spySearch.mock.calls[1][0].sort).toEqual({
-      field: differentSortParam,
+      field:  differentSortParam,
       option: "asc"
     })
   })
@@ -315,29 +315,29 @@ describe("SearchPage component", () => {
     expect(spySearch.mock.calls).toEqual([
       [
         {
-          text: "",
-          from: 0,
-          size: LIST_UI_PAGE_SIZE,
+          text:         "",
+          from:         0,
+          size:         LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null
+          sort:         null
         }
       ],
       [
         {
-          text: "",
-          from: LIST_UI_PAGE_SIZE,
-          size: LIST_UI_PAGE_SIZE,
+          text:         "",
+          from:         LIST_UI_PAGE_SIZE,
+          size:         LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null
+          sort:         null
         }
       ],
       [
         {
-          text: "",
-          from: 2 * LIST_UI_PAGE_SIZE,
-          size: LIST_UI_PAGE_SIZE,
+          text:         "",
+          from:         2 * LIST_UI_PAGE_SIZE,
+          size:         LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null
+          sort:         null
         }
       ]
     ])
@@ -366,20 +366,20 @@ describe("SearchPage component", () => {
     expect(spySearch.mock.calls).toEqual([
       [
         {
-          text: "",
-          from: 0,
-          size: LIST_UI_PAGE_SIZE,
+          text:         "",
+          from:         0,
+          size:         LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null
+          sort:         null
         }
       ],
       [
         {
-          text: "",
-          from: LIST_UI_PAGE_SIZE,
-          size: LIST_UI_PAGE_SIZE,
+          text:         "",
+          from:         LIST_UI_PAGE_SIZE,
+          size:         LIST_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort: null
+          sort:         null
         }
       ]
     ])

@@ -17,7 +17,7 @@ import {
 
 declare let window: OCWWindow
 
-let testUid = "test-uuid-1234-5678"
+const testUid = "test-uuid-1234-5678"
 
 function courseListsSetup() {
   window.courseListsData = {
@@ -43,7 +43,7 @@ test("course collection hook should throw if the property isn't set", () => {
 })
 
 function resourceCollectionSetup() {
-  let collection = [...Array(10)].map(() => [
+  const collection = [...Array(10)].map(() => [
     makeFakeUUID(),
     makeFakeCourseName()
   ]) as CollectionItem[]

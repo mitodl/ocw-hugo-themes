@@ -1,1 +1,1 @@
-declare var RELEASE_VERSION: string
+declare let RELEASE_VERSION: string

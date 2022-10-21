@@ -10,7 +10,7 @@ const { useResourceCollectionData } = hugoHooks as jest.Mocked<typeof hugoHooks>
 jest.mock("../hooks/hugo_data")
 
 function setup() {
-  let data = [...Array(10)]
+  const data = [...Array(10)]
     .map(makeResourceFileResult)
     .map(searchResultToLearningResource)
 

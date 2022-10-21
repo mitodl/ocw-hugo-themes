@@ -41,7 +41,7 @@ function FilterableSearchFacet(props: Props) {
   useEffect(() => {
     if (results && results.buckets) {
       const searcher = new Fuse(results.buckets, {
-        keys: ["key"],
+        keys:      ["key"],
         threshold: 0.4
       })
       setSearcher(searcher)

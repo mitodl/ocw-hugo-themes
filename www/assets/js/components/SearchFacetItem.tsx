@@ -32,9 +32,9 @@ export default function SearchFacetItem(props: Props) {
         <label
           htmlFor={facetId}
           className={
-            featuredFacetNames.includes(name)
-              ? "facet-key facet-key-large"
-              : "facet-key"
+            featuredFacetNames.includes(name) ?
+              "facet-key facet-key-large" :
+              "facet-key"
           }
         >
           <Dotdotdot clamp={1}>{facet.key}</Dotdotdot>
