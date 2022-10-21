@@ -14,8 +14,15 @@ export const getLocalStorageItem = (key: string) => {
  * @param {any} value actual data/value to store, if any
  * @return {any} data fetched from localstorage
  */
-function setOrGetLocalStorageItemHelper(action: "set", key: string, value: string): boolean
-function setOrGetLocalStorageItemHelper(action: "get", key: string): boolean | string | null
+function setOrGetLocalStorageItemHelper(
+  action: "set",
+  key: string,
+  value: string
+): boolean
+function setOrGetLocalStorageItemHelper(
+  action: "get",
+  key: string
+): boolean | string | null
 function setOrGetLocalStorageItemHelper(
   action: string,
   key: string,

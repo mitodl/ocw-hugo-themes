@@ -1,6 +1,4 @@
-import {
-  LearningResourceType,
-} from "@mitodl/course-search-utils"
+import { LearningResourceType } from "@mitodl/course-search-utils"
 import sinon from "sinon"
 
 import {

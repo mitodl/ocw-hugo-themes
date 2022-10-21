@@ -8,9 +8,7 @@ import {
   CONTENT_TYPE_VIDEO,
   ContentType
 } from "./constants"
-import {
-  LearningResourceType,
-} from "@mitodl/course-search-utils"
+import { LearningResourceType } from "@mitodl/course-search-utils"
 import {
   CourseResult,
   CourseRun,

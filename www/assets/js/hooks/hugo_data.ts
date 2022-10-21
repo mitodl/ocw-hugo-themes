@@ -4,9 +4,7 @@ import {
   LearningResource,
   ResourceJSON
 } from "../LearningResources"
-import {
-  resourceJSONToLearningResource
-} from "../lib/search"
+import { resourceJSONToLearningResource } from "../lib/search"
 import { getLearningResourcesFromCourseList } from "../lib/util"
 
 export type CollectionItem = [string, string]

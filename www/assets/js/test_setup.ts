@@ -1,10 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import { enableFetchMocks } from 'jest-fetch-mock'
+import { enableFetchMocks } from "jest-fetch-mock"
 enableFetchMocks()
 import Enzyme from "enzyme"
 import Adapter from "enzyme-adapter-react-16"
-
 
 Enzyme.configure({ adapter: new Adapter() })
 
