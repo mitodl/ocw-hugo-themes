@@ -79,7 +79,7 @@ describe("SearchResult component", () => {
     objectType => {
       it("should not render a course/resource with no url", () => {
         const object = searchResultToLearningResource(
-          // @ts-ignore
+          // @ts-expect-error TODO
           makeLearningResourceResult(objectType)
         )
         object.url = null
@@ -95,9 +95,9 @@ describe("SearchResult component", () => {
       listValue
     )}`, () => {
       const result = makeLearningResourceResult(LearningResourceType.Course)
-      // @ts-ignore
+      // @ts-expect-error TODO
       result.runs[0].instructors = listValue
-      // @ts-ignore
+      // @ts-expect-error TODO
       result.topics = listValue
       const object = searchResultToLearningResource(result)
       const wrapper = render(object)
@@ -117,7 +117,7 @@ describe("SearchResult component", () => {
         `${SEARCH_URL}?${serializeSearchParams({
           text:         undefined,
           activeFacets: {
-            // @ts-ignore
+            // @ts-expect-error TODO
             topics: object.topics[i].name
           }
         })}`

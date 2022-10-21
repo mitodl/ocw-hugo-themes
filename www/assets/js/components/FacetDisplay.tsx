@@ -20,9 +20,9 @@ const sanitizeActiveFacets = (activeFacets: Facets): void => {
   if (activeFacets) {
     Object.entries(activeFacets).forEach(([facet, values]) => {
       if (Object.keys(FACET_OPTIONS).indexOf(facet) > -1) {
-        // @ts-ignore facet is a key of activeFacets
+        // @ts-expect-error TODO facet is a key of activeFacets
         activeFacets[facet] = values.filter(
-          // @ts-ignore we checked that facet is also a key of FACET_OPTIONS
+          // @ts-expect-error TODO we checked that facet is also a key of FACET_OPTIONS
           facetValue => FACET_OPTIONS[facet].indexOf(facetValue) > -1
         )
       }

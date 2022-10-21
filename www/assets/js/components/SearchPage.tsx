@@ -170,7 +170,7 @@ export default function SearchPage(props: SearchPageProps) {
       ]
       // Remove any facets not relevant to the new search type
       const newFacets: Map<string, string> = new Map(
-        // @ts-ignore
+        // @ts-expect-error TODO
         nextResourceFilterState ? RESOURCE_FACETS : COURSE_FACETS
       )
 

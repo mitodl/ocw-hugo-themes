@@ -50,7 +50,7 @@ describe("search library", () => {
           const expectedSrc = hasImageSrc ?
             result.image_src :
             `/images/${result.content_type}_thumbnail.png`
-          // @ts-ignore
+          // @ts-expect-error TODO
           expect(getCoverImageUrl(result)).toBe(expectedSrc)
         })
       }
@@ -110,7 +110,7 @@ describe("search library", () => {
     it(`should return correct url for content type ${contentType} if the cdn is ${
       cdnPrefix ? "" : "not "
     }set`, () => {
-      // @ts-ignore
+      // @ts-expect-error TODO
       process.env["CDN_PREFIX"] = cdnPrefix
       const result = {
         ...makeLearningResourceResult(LearningResourceType.ResourceFile),
@@ -118,7 +118,7 @@ describe("search library", () => {
         run_slug:     "run-slug",
         content_type: contentType
       }
-      // @ts-ignore
+      // @ts-expect-error TODO
       expect(getResourceUrl(result)).toBe(expectedUrl)
     })
   })
@@ -128,21 +128,21 @@ describe("search library", () => {
     objectType => {
       it(`should return correct url for object type ${objectType}`, () => {
         const isCourse = objectType === LearningResourceType.Course
-        // @ts-ignore
+        // @ts-expect-error TODO
         const result = makeLearningResourceResult(objectType)
         if (!isCourse) {
-          // @ts-ignore
+          // @ts-expect-error TODO
           result.content_type = CONTENT_TYPE_PAGE
         } else {
-          // @ts-ignore
+          // @ts-expect-error TODO
           result.runs[0].best_start_date = "2001-11-11"
-          // @ts-ignore
+          // @ts-expect-error TODO
           result.runs[1].published = false
-          // @ts-ignore
+          // @ts-expect-error TODO
           result.runs[2].best_start_date = "2002-01-01"
         }
-        const expected = isCourse ? // @ts-ignore
-          `/courses/${result.runs[2].slug}/` : // @ts-ignore
+        const expected = isCourse ? // @ts-expect-error TODO
+          `/courses/${result.runs[2].slug}/` : // @ts-expect-error TODO
           `/courses/${result.run_slug}${getSectionUrl(result)}`
         expect(getResultUrl(result)).toBe(expected)
       })
@@ -153,10 +153,10 @@ describe("search library", () => {
     const result = makeLearningResourceResult(LearningResourceType.Course)
     result.runs = []
     expect(getResultUrl(result)).toBe(null)
-    // @ts-ignore
+    // @ts-expect-error TODO
     result.runs = null
     expect(getResultUrl(result)).toBe(null)
-    // @ts-ignore
+    // @ts-expect-error TODO
     delete result.runs
     expect(getResultUrl(result)).toBe(null)
   })

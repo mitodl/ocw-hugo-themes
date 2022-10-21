@@ -21,12 +21,12 @@ const mockGetResults = () =>
     _source: result
   }))
 
-// @ts-expect-error
+// @ts-expect-error TODO
 let resolver
 
 const resolveSearch = (extraData = {}) =>
   act(async () => {
-    // @ts-expect-error
+    // @ts-expect-error TODO
     resolver(extraData)
   })
 
@@ -109,9 +109,9 @@ describe("SearchPage component", () => {
       .at(0)
       .simulate("change", { target: { value: "New Search Text" } })
     await act(async () => {
-      // @ts-expect-error
+      // @ts-expect-error TODO
       wrapper.find("SearchBox").prop("onSubmit")({ preventDefault: jest.fn() })
-      // @ts-expect-error
+      // @ts-expect-error TODO
       resolver()
     })
 
@@ -154,7 +154,7 @@ describe("SearchPage component", () => {
         .find(".search-nav")
         .at(1)
         .simulate("click")
-      // @ts-expect-error
+      // @ts-expect-error TODO
       resolver()
     })
 
@@ -228,7 +228,7 @@ describe("SearchPage component", () => {
     const select = wrapper.find(".sort-nav-item select")
     expect(select.prop("value")).toBe(sortParam)
     act(() => {
-      // @ts-expect-error
+      // @ts-expect-error TODO
       select.prop("onChange")({ target: { value: differentSortParam } })
     })
     expect(spySearch.mock.calls[1][0].sort).toEqual({
@@ -273,7 +273,7 @@ describe("SearchPage component", () => {
           type: [type]
         }
       }
-      // @ts-expect-error
+      // @ts-expect-error TODO
       const searchString = serializeSearchParams(parameters)
       const { wrapper } = render(searchString)
       expect(wrapper.find(".sort-nav-item").exists()).toBe(sortExists)
@@ -301,13 +301,13 @@ describe("SearchPage component", () => {
     await resolveSearch()
     wrapper.update()
     await act(async () => {
-      // @ts-expect-error
+      // @ts-expect-error TODO
       wrapper.find("InfiniteScroll").prop("loadMore")()
     })
     await resolveSearch()
     wrapper.update()
     await act(async () => {
-      // @ts-expect-error
+      // @ts-expect-error TODO
       wrapper.find("InfiniteScroll").prop("loadMore")()
     })
     await resolveSearch()
@@ -349,7 +349,7 @@ describe("SearchPage component", () => {
     await resolveSearch()
     wrapper.update()
     await act(async () => {
-      // @ts-expect-error
+      // @ts-expect-error TODO
       wrapper.find("InfiniteScroll").prop("loadMore")()
     })
     wrapper.update()
@@ -357,7 +357,7 @@ describe("SearchPage component", () => {
     // so loaded prop passed to useCourseSearch will be false (and therefore this second
     // call to the `loadMore` function should be a no-op).
     await act(async () => {
-      // @ts-expect-error
+      // @ts-expect-error TODO
       wrapper.find("InfiniteScroll").prop("loadMore")()
     })
     await resolveSearch()
@@ -399,7 +399,7 @@ describe("SearchPage component", () => {
     await resolveSearch()
     wrapper.update()
     const [department, topic, features] = Array.from(
-      // @ts-expect-error
+      // @ts-expect-error TODO
       wrapper.find("FilterableSearchFacet")
     ) as any[]
     expect(topic.props.name).toEqual("topics")

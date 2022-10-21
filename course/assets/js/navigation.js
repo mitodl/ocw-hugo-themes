@@ -1,7 +1,7 @@
-// @ts-ignore
+// @ts-expect-error TODO
 function expandNav(navItemEl, collapseEl) {
   collapseEl.classList.add("show")
-  // @ts-ignore
+  // @ts-expect-error TODO
   navItemEl
     .querySelector(".course-nav-section-toggle, video-tab-toggle-section")
     .setAttribute("aria-expanded", "true")
@@ -17,12 +17,12 @@ function courseNav() {
           navLinkEl.getAttribute("href") :
           ""
         if (
-          // @ts-ignore
+          // @ts-expect-error TODO
           navLink.replace(/\/$/, "") ===
           window.location.pathname.replace(/\/$/, "")
         ) {
           navLinkEl.classList.add("active")
-          // @ts-ignore
+          // @ts-expect-error TODO
           const uuid = navLinkEl.dataset.uuid
           const navItemEl = navLinkEl.closest(".course-nav-list-item")
           const collapseEl = navItemEl?.querySelector(".collapse")

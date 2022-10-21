@@ -8,15 +8,15 @@ jest.mock("@mitodl/course-search-utils", () => ({
 
 describe("API module", () => {
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error TODO
     fetch.resetMocks()
   })
 
   it("should run a search", () => {
-    // @ts-ignore
+    // @ts-expect-error TODO
     fetch.mockResponse(JSON.stringify({}))
     search({ text: "my text!" })
-    // @ts-ignore
+    // @ts-expect-error TODO
     expect(fetch.mock.calls[0]).toEqual([
       process.env.SEARCH_API_URL,
       {

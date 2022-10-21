@@ -36,7 +36,7 @@ test("course collection hook should return LearningResources", () => {
 })
 
 test("course collection hook should throw if the property isn't set", () => {
-  // @ts-ignore
+  // @ts-expect-error TODO
   window.courseCollectionsData = undefined
   const { result } = renderHook(useCourseListData)
   expect(result.error).toEqual(Error("course collection data missing"))
@@ -78,7 +78,7 @@ test("resource collection hook should return LearningResources", () => {
 })
 
 test("resource collection hook should throw when window.resourceCollectionData is missing", () => {
-  // @ts-ignore
+  // @ts-expect-error TODO
   window.resourceCollectionData = undefined
   const { result } = renderHook(useResourceCollectionData)
   expect(result.error).toEqual(Error("resource collection data missing"))
@@ -88,7 +88,7 @@ test.each(["courseJSONMap", "resourceJSONMap", "resourceURLMap", "collection"])(
   "resource collection hook should throw when %p is undefined",
   (propName: string) => {
     resourceCollectionSetup()
-    // @ts-ignore
+    // @ts-expect-error TODO
     window.resourceCollectionData[propName] = undefined
     const { result } = renderHook(useResourceCollectionData)
     expect(result.error).toEqual(Error("resource collection data missing"))
