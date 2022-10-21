@@ -77,7 +77,7 @@ export function useCourseListData(uid: string): LearningResource[] {
     }
 
     setData(getLearningResourcesFromCourseList(courseList))
-  }, [setData])
+  }, [setData, uid])
 
   return data
 }
