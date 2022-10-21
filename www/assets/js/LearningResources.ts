@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable camelcase */
 import { LearningResourceType, Facets } from "@mitodl/course-search-utils"
 import {
