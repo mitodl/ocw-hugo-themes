@@ -1,5 +1,3 @@
-declare let RELEASE_VERSION: string
-
 declare module "@sentry/browser" {
   // The sentry type definitions for additionalData appear to be incorrect.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -10,6 +8,8 @@ declare module "@sentry/browser" {
 }
 
 declare global {
+
+  declare let RELEASE_VERSION: string
   namespace NodeJS {
     interface ProcessEnv {
       SEARCH_API_URL: string
