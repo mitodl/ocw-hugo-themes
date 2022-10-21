@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { LearningResourceType, Facets } from "@mitodl/course-search-utils"
 import {
   OCW_PLATFORM,

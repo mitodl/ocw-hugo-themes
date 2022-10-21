@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import bodybuilder, { Bodybuilder } from "bodybuilder"
 
 import { emptyOrNil } from "./util"

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { LearningResourceType } from "@mitodl/course-search-utils"
 import casual from "casual-browserify"
 import { times } from "ramda"
