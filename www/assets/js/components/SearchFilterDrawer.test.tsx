@@ -3,12 +3,20 @@ import { shallow } from "enzyme"
 
 import SearchFilterDrawer from "./SearchFilterDrawer"
 import FacetDisplay from "./FacetDisplay"
+import * as utils from "../lib/util"
+
+jest.mock("../lib/util", () => {
+  const actual = jest.requireActual("../lib/util")
+  return {
+    ...actual,
+    getViewportWidth: jest.fn()
+  }
+})
+const getViewportWidthMock = jest.mocked(utils.getViewportWidth)
 
 describe("SearchFilterDrawer component", () => {
   // @ts-expect-error TODO
   const render = (props = {}) => shallow(<SearchFilterDrawer {...props} />)
-  const utils = require("../lib/util")
-  const getViewportWidthMock = jest.spyOn(utils, "getViewportWidth")
 
   test("desktop mode renders a FacetDisplay", async () => {
     getViewportWidthMock.mockImplementation(() => 1000)

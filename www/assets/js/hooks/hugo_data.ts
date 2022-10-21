@@ -5,7 +5,6 @@ import {
   ResourceJSON
 } from "../LearningResources"
 import {
-  courseJSONToLearningResource,
   resourceJSONToLearningResource
 } from "../lib/search"
 import { getLearningResourcesFromCourseList } from "../lib/util"

@@ -1,5 +1,5 @@
 import React from "react"
-import { mount, ReactWrapper } from "enzyme"
+import { mount } from "enzyme"
 import { act } from "react-dom/test-utils"
 import { search } from "../lib/api"
 import { times } from "ramda"
@@ -290,7 +290,7 @@ describe("SearchPage component", () => {
     await act(async () => {
       wrapper.find("SearchBox").prop("onSubmit")!(({
         preventDefault: jest.fn()
-      } as any) as React.FormEvent<{}>)
+      } as unknown) as React.FormEvent)
     })
     wrapper.update()
     expect(wrapper.find("Loading").exists()).toBeTruthy()

@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import bodybuilder, { Bodybuilder } from "bodybuilder"
 
 import { emptyOrNil } from "./util"
 import {
@@ -10,10 +9,7 @@ import {
   ContentType
 } from "./constants"
 import {
-  Facets,
-  SortParam,
   LearningResourceType,
-  buildSearchQuery
 } from "@mitodl/course-search-utils"
 import {
   CourseResult,
@@ -21,7 +17,6 @@ import {
   CourseJSON,
   LearningResource,
   LearningResourceResult,
-  Level,
   ResourceJSON
 } from "../LearningResources"
 

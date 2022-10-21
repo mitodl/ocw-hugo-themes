@@ -136,7 +136,7 @@ describe("SearchResult component with compact view", () => {
     )
     const wrapper = render(object)
     expect(wrapper.find(".course-title").text()).toBe(object.title)
-    const { href, className } = wrapper
+    const { href } = wrapper
       .find(".course-title")
       .find("a")
       .props()
