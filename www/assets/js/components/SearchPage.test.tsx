@@ -15,6 +15,7 @@ import { LIST_UI_PAGE_SIZE, COMPACT_UI_PAGE_SIZE } from "../lib/constants"
 
 import { makeCourseResult } from "../factories/search"
 import { createMemoryHistory, InitialEntry } from "history"
+import FilterableSearchFacets from "./FilterableFacet"
 
 const mockGetResults = () =>
   times(makeCourseResult, LIST_UI_PAGE_SIZE).map(result => ({
@@ -398,18 +399,20 @@ describe("SearchPage component", () => {
     const { wrapper } = render()
     await resolveSearch()
     wrapper.update()
-    const [department, topic, features] = Array.from(
-      // @ts-expect-error TODO
-      wrapper.find("FilterableSearchFacet")
-    ) as any[]
-    expect(topic.props.name).toEqual("topics")
-    expect(topic.props.title).toEqual("Topics")
-    expect(topic.props.currentlySelected).toEqual([])
-    expect(features.props.name).toEqual("course_feature_tags")
-    expect(features.props.title).toEqual("Features")
-    expect(features.props.currentlySelected).toEqual([])
-    expect(department.props.name).toEqual("department_name")
-    expect(department.props.title).toEqual("Departments")
-    expect(department.props.currentlySelected).toEqual([])
+
+    const facets = wrapper.find(FilterableSearchFacets)
+    const department = facets.at(0)
+    const topic = facets.at(1)
+    const features = facets.at(2)
+
+    expect(topic.props().name).toEqual("topics")
+    expect(topic.props().title).toEqual("Topics")
+    expect(topic.props().currentlySelected).toEqual([])
+    expect(features.props().name).toEqual("course_feature_tags")
+    expect(features.props().title).toEqual("Features")
+    expect(features.props().currentlySelected).toEqual([])
+    expect(department.props().name).toEqual("department_name")
+    expect(department.props().title).toEqual("Departments")
+    expect(department.props().currentlySelected).toEqual([])
   })
 })
