@@ -1,4 +1,5 @@
-import { isApiSuccessful, sentryCaptureException } from "./util"
+import { isApiSuccessful } from "./util"
+import { captureException } from "@sentry/browser"
 import {
   buildSearchQuery,
   SearchQueryParams
@@ -31,11 +32,11 @@ export const search = async (params: SearchQueryParams) => {
         level: "error",
         extra: { "Search Query Params": JSON.stringify(params) }
       }
-      sentryCaptureException(new Error("Search API failed"), additionalData)
+      captureException(new Error("Search API failed"), additionalData)
       results["apiFailed"] = true
     }
   } catch (e) {
-    sentryCaptureException(e)
+    captureException(e)
     results["apiFailed"] = true
   }
 
