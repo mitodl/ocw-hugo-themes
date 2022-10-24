@@ -1,11 +1,12 @@
-const { merge } = require("webpack-merge")
-const path = require("path")
-const { CleanWebpackPlugin } = require("clean-webpack-plugin")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+import * as path from "path"
+import { merge } from "webpack-merge"
+import type { Configuration } from "webpack"
+import { CleanWebpackPlugin } from "clean-webpack-plugin"
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
+import common from "./webpack.common"
+import "webpack-dev-server" // this import tells webpack's typings about the devServer type
 
-const common = require("./webpack.common")
-
-module.exports = merge(common, {
+const devOverrides: Configuration = {
   mode: "development",
 
   output: {
@@ -19,7 +20,6 @@ module.exports = merge(common, {
   devServer: {
     port:    process.env.PORT || 3001,
     hot:     true,
-    quiet:   false,
     open:    false,
     headers: {
       "Access-Control-Allow-Origin":  "*",
@@ -46,4 +46,6 @@ module.exports = merge(common, {
       chunkFilename: "css/[id].css"
     })
   ]
-})
+}
+
+export default merge(common, devOverrides)

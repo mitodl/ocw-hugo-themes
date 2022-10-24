@@ -1,12 +1,12 @@
-const { merge } = require("webpack-merge")
-const path = require("path")
-const TerserPlugin = require("terser-webpack-plugin")
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+import * as path from "path"
+import { merge } from "webpack-merge"
+import type { Configuration } from "webpack"
+import TerserPlugin from "terser-webpack-plugin"
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
+import common from "./webpack.common"
 
-const common = require("./webpack.common.js")
-
-module.exports = merge(common, {
+const prodOverrides: Configuration =  {
   mode: "production",
 
   output: {
@@ -20,6 +20,7 @@ module.exports = merge(common, {
       new TerserPlugin({
         parallel:      true,
         terserOptions: {
+          // @ts-expect-error let's change this separately
           ecma: 6
         }
       }),
@@ -34,4 +35,6 @@ module.exports = merge(common, {
       new CssMinimizerPlugin({})
     ]
   }
-})
+}
+
+export default merge(common, prodOverrides)

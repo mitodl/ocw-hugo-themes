@@ -67,5 +67,8 @@
   ],
   "exclude": [
     "./base-theme/assets/webpack"
-  ]
+  ],
+  "ts-node": {
+    "files": true
+  }
 }

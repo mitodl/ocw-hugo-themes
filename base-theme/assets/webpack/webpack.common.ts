@@ -1,19 +1,19 @@
-const webpack = require("webpack")
-const path = require("path")
-const CopyWebpackPlugin = require("copy-webpack-plugin")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const AssetsPlugin = require("assets-webpack-plugin")
-const Dotenv = require("dotenv-webpack")
-const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
-const packageJson = require("../../../package.json")
+import * as path from "path"
+import * as webpack from "webpack"
+import CopyWebpackPlugin from "copy-webpack-plugin"
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
+import AssetsPlugin from "assets-webpack-plugin"
+import Dotenv from "dotenv-webpack"
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
+import packageJson from "../../../package.json"
 
 /**
  * Resolve a path relative to package root.
  */
-const fromRoot = pathFromRoot =>
+const fromRoot = (pathFromRoot: string) =>
   path.resolve(__dirname, "../../../", pathFromRoot)
 
-module.exports = {
+const config: webpack.Configuration = {
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.
     extensions: [".ts", ".tsx", ".js"]
@@ -120,7 +120,6 @@ module.exports = {
     new Dotenv({
       systemvars: true
     }),
-
     new AssetsPlugin({
       filename:    "webpack.json",
       path:        path.join(process.cwd(), "base-theme", "data"),
@@ -156,3 +155,5 @@ module.exports = {
       []
   )
 }
+
+export default config
