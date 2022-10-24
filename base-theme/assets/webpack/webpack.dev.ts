@@ -1,6 +1,6 @@
 import * as path from "path"
 import { merge } from "webpack-merge"
-import type { Configuration } from "webpack"
+import { Configuration } from "webpack"
 import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import common from "./webpack.common"

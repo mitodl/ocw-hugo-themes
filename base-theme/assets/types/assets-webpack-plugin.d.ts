@@ -1,1 +1,1 @@
-declare module 'assets-webpack-plugin';
+declare module "assets-webpack-plugin"
