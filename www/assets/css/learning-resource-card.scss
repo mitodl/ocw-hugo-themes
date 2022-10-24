@@ -83,7 +83,7 @@
       }
 
       .cover-image-resource {
-        width: fill;
+        width: stretch;
         position: absolute;
         bottom: 0;
 
@@ -144,7 +144,7 @@
         }
 
         @include breakpoint(phone) {
-          width: fill;
+          width: stretch;
           position: absolute;
           bottom: 0;
 
