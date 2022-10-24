@@ -20,8 +20,7 @@ const prodOverrides: Configuration =  {
       new TerserPlugin({
         parallel:      true,
         terserOptions: {
-          // @ts-expect-error let's change this separately
-          ecma: 6
+          ecma: 5,
         }
       }),
 
