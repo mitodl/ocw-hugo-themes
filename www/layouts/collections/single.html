@@ -47,7 +47,7 @@
             {{- $course_list_data = $course_list_data | append (dict $id $data) -}}
           {{ end }}
         {{ else }}
-          {{ $errorMessage := printf "Failed to fetch course data from https://ocw.mit.edu/courses/14-04-intermediate-microeconomic-theory-fall-2006/data.json. Skipping course on page %v" site.BaseURL }}
+        {{ $errorMessage := printf "Failed to fetch course data from %v. Skipping course on page %v" $url site.BaseURL }}
           {{ partial "sentry_capture_message.html" $errorMessage }}
         {{ end }}
       {{- end -}}
