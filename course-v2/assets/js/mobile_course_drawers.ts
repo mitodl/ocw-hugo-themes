@@ -9,7 +9,6 @@ export const initCourseDrawersClosingViaSwiping = () => {
  * @param {string} elementId element on which touch eventlistenter is added.
  * @param {string} buttonId This button will be clicked on swiping
  * @param {string} swipeDirection L= Swipe left, R= Swipe Right
- * @return {any} data fetched from localstorage
  */
 const elementSwiping = (
   elementId: string,
