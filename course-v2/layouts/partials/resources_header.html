@@ -1,7 +1,8 @@
 {{ $courseData := site.Data.course }}
 {{ $zenDeskUrl := "https://mitocw.zendesk.com/hc/en-us" }}
+{{ $trimmedBaseUrl := strings.TrimSuffix "/" site.BaseURL }}
 {{ $shortId := printf "%v-%v-%v" $courseData.primary_course_number (lower $courseData.term) $courseData.year }}
-{{ $downloadCourseUrl := printf "/%v.zip" $shortId }}
+{{ $downloadCourseUrl := printf "%v/%v.zip" $trimmedBaseUrl $shortId }}
 <div class="mb-2">
   <h2>Download</h2>
   <div class="hide-offline download-course-container background-color-light-grey p-3">
