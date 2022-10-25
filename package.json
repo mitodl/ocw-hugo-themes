@@ -74,7 +74,7 @@
     "es6-promise": "^4.2.8",
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.14.0",
-    "eslint-config-mitodl": "git+https://github.com/mitodl/eslint-config.git#ts",
+    "eslint-config-mitodl": "^1.0.0",
     "eslint-plugin-jest": "^27.1.3",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
