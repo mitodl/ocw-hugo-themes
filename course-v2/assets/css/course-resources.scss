@@ -2,6 +2,22 @@ h4 {
   color: $highlight-red !important;
 }
 
+.download-course-container {
+  .download-course-button {
+    display: inline-flex;
+    height: fit-content;
+    padding: 10px 22px;
+    border-radius: 4px;
+    background-color: $blue;
+    color: white;
+    text-decoration: none;
+  }
+  
+  .download-course:hover {
+    text-decoration: none;
+  }
+}
+
 .resource-thumbnail {
   height: 38px;
   width: 32px;
