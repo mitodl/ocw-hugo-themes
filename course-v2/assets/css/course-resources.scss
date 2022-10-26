@@ -20,7 +20,6 @@ h4 {
   }
 }
 
-.resource-list {
   .resource-list-toggle {
     .collapsed {
       border-bottom: 1px solid $border-gray;
@@ -53,37 +52,36 @@ h4 {
     }
   }
 
-  .resource-list-item {
-    .resource-thumbnail {
-      height: 38px;
-      width: 32px;
-    }
+.resource-list-item {
+  .resource-thumbnail {
+    height: 38px;
+    width: 32px;
+  }
 
-    .see-all-resources-icon {
-      display: inline-flex;
-      vertical-align: top;
-      margin-left: 5px;
-    }
+  .see-all-resources-icon {
+    display: inline-flex;
+    vertical-align: top;
+    margin-left: 5px;
+  }
 
-    .resource-download {
-      padding: 3px;
-      border: solid 0.5px $medium-gray;
-      border-radius: 20px;
-      margin-left: -12px;
-      margin-top: 13px;
-      background-color: $white;
-    }
+  .resource-download {
+    padding: 3px;
+    border: solid 0.5px $medium-gray;
+    border-radius: 20px;
+    margin-left: -12px;
+    margin-top: 13px;
+    background-color: $white;
+  }
 
-    .resource-download:hover {
-      background-color: $light-gray;
-    }
+  .resource-download:hover {
+    background-color: $light-gray;
+  }
 
-    .resource-list-title {
-      text-decoration: none;
-    }
+  .resource-list-title {
+    text-decoration: none;
+  }
 
-    .resource-list-title:hover {
-      text-decoration: underline;
-    }
+  .resource-list-title:hover {
+    text-decoration: underline;
   }
 }
