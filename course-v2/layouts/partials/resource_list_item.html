@@ -1,4 +1,4 @@
-<div class="container">
+<div class="resource-list-item container">
   <div class="row">
     <div class="d-inline-flex">
       {{ if not .hideThumbnail }}
@@ -15,7 +15,7 @@
             {{ if $downloadableLink }}
               <a href="{{- $downloadableLink -}}" target="_blank" download>
                 <img
-                  class="resource-download"
+                  class="hide-offline resource-download"
                   src="/images/download.svg"
                 />
               </a>
