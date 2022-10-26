@@ -1,50 +1,17 @@
 {{ define "main" }}
 {{ partial "resources_header.html" . }}
 {{ $numberOfResourcesLimit := 10 }}
-{{ $showNoResourcesFoundMessage := true }}
 {{ $taxonomy := "learning_resource_types" }}
+{{ $showNoResourcesFoundMessage := partial "show_no_resources_found.html" (dict "context" . "taxonomy" $taxonomy) }}
 
 <div class="mb-5">
   {{ with ($.Site.GetPage (printf "/%s" $taxonomy)) }}
     {{ with .Pages }}
-      {{ range . }}
-        <div class="resource-list">
-        {{ $resources := where .Pages "Params.content_type" "resource" }}
-        {{ $numberOfResources := len $resources  }}
-        {{ if gt $numberOfResources 0 }}
-
-          {{ $showNoResourcesFoundMessage = false }}
-          {{ $limitedResourcesShown := false }}
-
-          {{ if gt $numberOfResources $numberOfResourcesLimit }}
-            {{ $numberOfResources = $numberOfResourcesLimit }}
-            {{ $limitedResourcesShown = true }}
-          {{ end }}
-          {{ $resourceSlug := urlize (lower .Title) }}
-          <div class="resource-list-toggle">
-            <a href="#resource-list-container-{{ $resourceSlug }}"
-            class="collapsed py-3"
-            data-toggle="collapse"
-            aria-controls="resource-list-container-{{ $resourceSlug }}"
-            aria-expanded="">
-              <i class="material-icons"></i>
-              <h4 class="my-4">{{ .Title }}</h4>  
-            </a>
-          </div>
-
-          <div id="resource-list-container-{{ $resourceSlug }}" class="collapse py-3">
-          {{ partial "resource_list.html" (dict "resources" $resources "limitResources" $numberOfResources) }}
-
-          {{ if eq $limitedResourcesShown true }}
-            <div>
-              <div class="float-right">
-                {{ partial "see_all.html" (dict "permalink" .Permalink) }}
-              </div>
-            </div>
-          {{ end }}
-          </div>
-        {{ end }}
-        </div>
+      {{ range where . "Title" "Lecture Videos" }}
+        {{ partial "resource_list_collapsible.html" (dict "context" . "expand" true) }}
+      {{ end }}
+      {{ range where . "Title" "!=" "Lecture Videos" }}
+        {{ partial "resource_list_collapsible.html" (dict "context" . "expand" false) }}
       {{ end }}
     {{ else }}
       {{ $showNoResourcesFoundMessage = false }}
