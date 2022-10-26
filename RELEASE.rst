@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.75.2
+Version 1.75.2 (Released October 26, 2022)
 --------------
 
 - update to yarn 3.2.2 (#921)
