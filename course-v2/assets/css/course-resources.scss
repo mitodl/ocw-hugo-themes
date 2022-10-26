@@ -20,37 +20,37 @@ h4 {
   }
 }
 
-  .resource-list-toggle {
-    .collapsed {
-      border-bottom: 1px solid $border-gray;
-    }
-
-    a {
-      display: block;
-    }
-
-    a,
-    a:hover {
-      text-decoration: none;
-    }
-
-    a.collapsed i:before {
-      content: "keyboard_arrow_down";
-    }
-
-    a:not(.collapsed) i:before {
-      content: "keyboard_arrow_right";
-    }
-
-    i {
-      font-size: 2rem;
-      vertical-align: middle;
-    }
-
-    h4 {
-      display: inline;
-    }
+.resource-list-toggle {
+  .collapsed {
+    border-bottom: 1px solid $border-gray;
   }
+
+  a {
+    display: block;
+  }
+
+  a,
+  a:hover {
+    text-decoration: none;
+  }
+
+  a.collapsed i:before {
+    content: "keyboard_arrow_down";
+  }
+
+  a:not(.collapsed) i:before {
+    content: "keyboard_arrow_right";
+  }
+
+  i {
+    font-size: 2rem;
+    vertical-align: middle;
+  }
+
+  h4 {
+    display: inline;
+  }
+}
 
 .resource-list-item {
   .resource-thumbnail {
