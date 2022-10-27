@@ -7,11 +7,15 @@
 <div class="mb-5">
   {{ with ($.Site.GetPage (printf "/%s" $taxonomy)) }}
     {{ with .Pages }}
-      {{ range where . "Title" "Lecture Videos" }}
-        {{ partial "resource_list_collapsible.html" (dict "context" . "expand" true) }}
+      {{ range . }}
+        {{ if in .Title "Video" }}
+          {{ partial "resource_list_collapsible.html" (dict "context" . "expand" true) }}
+        {{ end }}
       {{ end }}
-      {{ range where . "Title" "!=" "Lecture Videos" }}
-        {{ partial "resource_list_collapsible.html" (dict "context" . "expand" false) }}
+      {{ range . }}
+        {{ if not (in .Title "Video") }}
+          {{ partial "resource_list_collapsible.html" (dict "context" . "expand" false) }}
+        {{ end }}
       {{ end }}
     {{ else }}
       {{ $showNoResourcesFoundMessage = false }}
