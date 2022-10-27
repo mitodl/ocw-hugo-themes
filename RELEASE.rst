@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.76.0 (Released October 27, 2022)
+--------------
+
+- fix instructors search link on course home page (#925)
+
 Version 1.75.2 (Released October 26, 2022)
 --------------
 
