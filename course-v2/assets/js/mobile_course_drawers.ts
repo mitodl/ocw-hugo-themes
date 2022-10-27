@@ -1,6 +1,19 @@
+enum SWIPE_DIRECTION {
+  Left = "L",
+  Right = "R"
+}
+
 export const initCourseDrawersClosingViaSwiping = () => {
-  elementSwiping("mobile-course-nav", "mobile-course-nav-toggle", "L")
-  elementSwiping("course-info-drawer", "mobile-course-info-toggle", "R")
+  elementSwiping(
+    "mobile-course-nav",
+    "mobile-course-nav-toggle",
+    SWIPE_DIRECTION.Left
+  )
+  elementSwiping(
+    "course-info-drawer",
+    "mobile-course-info-toggle",
+    SWIPE_DIRECTION.Right
+  )
 }
 
 /**
@@ -13,7 +26,7 @@ export const initCourseDrawersClosingViaSwiping = () => {
 const elementSwiping = (
   elementId: string,
   buttonId: string,
-  swipeDirection: string
+  swipeDirection: SWIPE_DIRECTION
 ) => {
   const element = document.getElementById(elementId)
   let touchstartX = 0
@@ -25,11 +38,11 @@ const elementSwiping = (
 
   element?.addEventListener("touchend", e => {
     touchendX = e.changedTouches[0].screenX
-    if (swipeDirection === "R") {
-      // checking if its a right swipe
-      if (touchendX > touchstartX) document.getElementById(buttonId)?.click()
-    } else {
-      if (touchendX < touchstartX) document.getElementById(buttonId)?.click()
+    if (
+      (swipeDirection === SWIPE_DIRECTION.Right && touchendX > touchstartX) ||
+      (swipeDirection === SWIPE_DIRECTION.Left && touchendX < touchstartX)
+    ) {
+      document.getElementById(buttonId)?.click()
     }
   })
 }
