@@ -381,7 +381,7 @@ $searchbox-height: 50px;
     width: 100%;
     background-size: cover !important;
     display: flex;
-    align-items: end;
+    align-items: flex-end;
 
     a {
       font-size: $font-lg;
