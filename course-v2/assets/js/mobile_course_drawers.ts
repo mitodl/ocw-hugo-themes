@@ -1,18 +1,18 @@
-enum SWIPE_DIRECTION {
+enum SwipeDirection {
   Left = "L",
   Right = "R"
 }
 
 export const initCourseDrawersClosingViaSwiping = () => {
-  elementSwiping(
+  enableSwiping(
     "mobile-course-nav",
     "mobile-course-nav-toggle",
-    SWIPE_DIRECTION.Left
+    SwipeDirection.Left
   )
-  elementSwiping(
+  enableSwiping(
     "course-info-drawer",
     "mobile-course-info-toggle",
-    SWIPE_DIRECTION.Right
+    SwipeDirection.Right
   )
 }
 
@@ -23,26 +23,33 @@ export const initCourseDrawersClosingViaSwiping = () => {
  * @param {string} buttonId This button will be clicked on swiping
  * @param {string} swipeDirection L= Swipe left, R= Swipe Right
  */
-const elementSwiping = (
+const enableSwiping = (
   elementId: string,
   buttonId: string,
-  swipeDirection: SWIPE_DIRECTION
+  swipeDirection: SwipeDirection
 ) => {
   const element = document.getElementById(elementId)
+  if (!element) throw Error(`Element having ID: ${elementId} does not exist`)
+
   let touchstartX = 0
   let touchendX = 0
 
-  element?.addEventListener("touchstart", e => {
+  element.addEventListener("touchstart", e => {
     touchstartX = e.changedTouches[0].screenX
   })
 
-  element?.addEventListener("touchend", e => {
+  element.addEventListener("touchend", e => {
     touchendX = e.changedTouches[0].screenX
     if (
-      (swipeDirection === SWIPE_DIRECTION.Right && touchendX > touchstartX) ||
-      (swipeDirection === SWIPE_DIRECTION.Left && touchendX < touchstartX)
+      (swipeDirection === SwipeDirection.Right && touchendX > touchstartX) ||
+      (swipeDirection === SwipeDirection.Left && touchendX < touchstartX)
     ) {
-      document.getElementById(buttonId)?.click()
+      const buttonElement = document.getElementById(buttonId)
+      if (!buttonElement) {
+        throw Error(`Button element having ID: ${buttonId} does not exist`)
+      }
+
+      buttonElement.click()
     }
   })
 }
