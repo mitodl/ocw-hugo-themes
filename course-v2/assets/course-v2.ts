@@ -14,6 +14,7 @@ import { initVideoTranscriptTrack } from "./js/video_transcript_track"
 import { initPlayBackSpeedButton } from "./js/video_playback_speed"
 import { initVideoFullscreenToggle } from "./js/video_fullscreen_toggle"
 import { initDownloadButton } from "./js/video-download-button"
+import { initCourseDrawersClosingViaSwiping } from "./js/mobile_course_drawers"
 import {
   clearSolution,
   checkAnswer,
@@ -32,4 +33,5 @@ $(function() {
   checkAnswer()
   showSolution()
   initVideoFullscreenToggle()
+  initCourseDrawersClosingViaSwiping()
 })
