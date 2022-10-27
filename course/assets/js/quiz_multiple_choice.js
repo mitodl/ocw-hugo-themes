@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 export const clearSolution = () => {
   const radioElements = document.getElementsByClassName("multiple-choice-radio")

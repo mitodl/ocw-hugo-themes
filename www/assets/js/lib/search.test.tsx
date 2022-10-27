@@ -1,8 +1,4 @@
-import {
-  INITIAL_FACET_STATE,
-  LearningResourceType,
-  Facets
-} from "@mitodl/course-search-utils"
+import { LearningResourceType } from "@mitodl/course-search-utils"
 import sinon from "sinon"
 
 import {
@@ -24,15 +20,6 @@ import { makeLearningResourceResult, makeCourseJSON } from "../factories/search"
 describe("search library", () => {
   const sandbox = sinon.createSandbox()
 
-  let activeFacets: Facets
-
-  beforeEach(() => {
-    activeFacets = {
-      ...INITIAL_FACET_STATE,
-      type: [LearningResourceType.Course]
-    }
-  })
-
   afterEach(() => {
     sandbox.restore()
   })
@@ -50,7 +37,7 @@ describe("search library", () => {
           const expectedSrc = hasImageSrc ?
             result.image_src :
             `/images/${result.content_type}_thumbnail.png`
-          // @ts-ignore
+          // @ts-expect-error We should loosen the function type or mock the result more
           expect(getCoverImageUrl(result)).toBe(expectedSrc)
         })
       }
@@ -67,7 +54,7 @@ describe("search library", () => {
   })
 
   //
-  ;[
+  ;([
     [
       CONTENT_TYPE_PAGE,
       "/courses/18-23/mech_engineering/",
@@ -106,11 +93,11 @@ describe("search library", () => {
     ],
     [CONTENT_TYPE_VIDEO, "/relative/url", false, "/relative/url"],
     [CONTENT_TYPE_VIDEO, "/relative/url", "/coursemedia", "/relative/url"]
-  ].forEach(([contentType, url, cdnPrefix, expectedUrl]) => {
+  ] as const).forEach(([contentType, url, cdnPrefix, expectedUrl]) => {
     it(`should return correct url for content type ${contentType} if the cdn is ${
       cdnPrefix ? "" : "not "
     }set`, () => {
-      // @ts-ignore
+      // @ts-expect-error See note in test-setup
       process.env["CDN_PREFIX"] = cdnPrefix
       const result = {
         ...makeLearningResourceResult(LearningResourceType.ResourceFile),
@@ -118,45 +105,41 @@ describe("search library", () => {
         run_slug:     "run-slug",
         content_type: contentType
       }
-      // @ts-ignore
+
       expect(getResourceUrl(result)).toBe(expectedUrl)
     })
   })
 
   //
-  ;[LearningResourceType.Course, LearningResourceType.ResourceFile].forEach(
-    objectType => {
-      it(`should return correct url for object type ${objectType}`, () => {
-        const isCourse = objectType === LearningResourceType.Course
-        // @ts-ignore
-        const result = makeLearningResourceResult(objectType)
-        if (!isCourse) {
-          // @ts-ignore
-          result.content_type = CONTENT_TYPE_PAGE
-        } else {
-          // @ts-ignore
-          result.runs[0].best_start_date = "2001-11-11"
-          // @ts-ignore
-          result.runs[1].published = false
-          // @ts-ignore
-          result.runs[2].best_start_date = "2002-01-01"
-        }
-        const expected = isCourse ? // @ts-ignore
-          `/courses/${result.runs[2].slug}/` : // @ts-ignore
-          `/courses/${result.run_slug}${getSectionUrl(result)}`
-        expect(getResultUrl(result)).toBe(expected)
-      })
-    }
-  )
+  ;([
+    LearningResourceType.Course,
+    LearningResourceType.ResourceFile
+  ] as const).forEach(objectType => {
+    it(`should return correct url for object type ${objectType}`, () => {
+      const result = makeLearningResourceResult(objectType)
+      const isCourse = result.object_type === LearningResourceType.Course
+      if (!isCourse) {
+        result.content_type = CONTENT_TYPE_PAGE
+      } else {
+        result.runs[0].best_start_date = "2001-11-11"
+        result.runs[1].published = false
+        result.runs[2].best_start_date = "2002-01-01"
+      }
+      const expected = isCourse ?
+        `/courses/${result.runs[2].slug}/` :
+        `/courses/${result.run_slug}${getSectionUrl(result)}`
+      expect(getResultUrl(result)).toBe(expected)
+    })
+  })
 
   it(`should return a null url for a course without runs`, () => {
     const result = makeLearningResourceResult(LearningResourceType.Course)
     result.runs = []
     expect(getResultUrl(result)).toBe(null)
-    // @ts-ignore
+    // @ts-expect-error TODO: Consider updating the types to include this possibility.
     result.runs = null
     expect(getResultUrl(result)).toBe(null)
-    // @ts-ignore
+    // @ts-expect-error TODO: Consider updating the types to include this possibility.
     delete result.runs
     expect(getResultUrl(result)).toBe(null)
   })

@@ -1,4 +1,4 @@
-import bodybuilder, { Bodybuilder } from "bodybuilder"
+/* eslint-disable camelcase */
 
 import { emptyOrNil } from "./util"
 import {
@@ -8,70 +8,64 @@ import {
   CONTENT_TYPE_VIDEO,
   ContentType
 } from "./constants"
-import {
-  Facets,
-  SortParam,
-  LearningResourceType,
-  buildSearchQuery
-} from "@mitodl/course-search-utils"
+import { LearningResourceType } from "@mitodl/course-search-utils"
 import {
   CourseResult,
   CourseRun,
   CourseJSON,
   LearningResource,
   LearningResourceResult,
-  Level,
   ResourceJSON
 } from "../LearningResources"
 
 const formatCourseJSONTopics = (courseJSON: CourseJSON) =>
-  courseJSON.topics
-    ? Array.from(new Set(courseJSON.topics.flat())).map(topic => ({
-        name: topic
-      }))
-    : []
+  courseJSON.topics ?
+    Array.from(new Set(courseJSON.topics.flat())).map(topic => ({
+      name: topic
+    })) :
+    []
 
 export const courseJSONToLearningResource = (
   name: string,
   courseData: CourseJSON
 ): LearningResource => ({
-  id: courseData.site_uid || courseData.legacy_uid,
-  title: courseData.course_title,
-  image_src: courseData.image_src,
-  object_type: LearningResourceType.Course,
-  platform: OCW_PLATFORM,
-  topics: formatCourseJSONTopics(courseData),
-  runs: [],
-  level: courseData.level,
-  instructors: courseData.instructors.map(instructor => instructor.title),
-  department: courseData.department_numbers.join(" "),
-  audience: undefined,
-  certification: undefined,
-  content_title: undefined,
-  run_title: null,
-  run_slug: null,
-  content_type: null,
+  id:                  courseData.site_uid || courseData.legacy_uid,
+  title:               courseData.course_title,
+  image_src:           courseData.image_src,
+  object_type:         LearningResourceType.Course,
+  platform:            OCW_PLATFORM,
+  topics:              formatCourseJSONTopics(courseData),
+  runs:                [],
+  level:               courseData.level,
+  instructors:         courseData.instructors.map(instructor => instructor.title),
+  department:          courseData.department_numbers.join(" "),
+  audience:            undefined,
+  certification:       undefined,
+  content_title:       undefined,
+  run_title:           null,
+  run_slug:            null,
+  content_type:        null,
   // a temporary hack to handle runs possibly including the "courses" prefix
-  url: name.includes("courses/") ? `/${name}/` : `/courses/${name}/`,
-  short_url: null,
-  course_id: courseData.site_uid || courseData.legacy_uid,
-  coursenum: courseData.primary_course_number,
-  description: courseData.course_description,
+  url:                 name.includes("courses/") ? `/${name}/` : `/courses/${name}/`,
+  short_url:           null,
+  course_id:           courseData.site_uid || courseData.legacy_uid,
+  coursenum:           courseData.primary_course_number,
+  description:         courseData.course_description,
   course_feature_tags: []
 })
 
 const fileTypeToContentType = (mimeType: string): ContentType => {
   switch (mimeType) {
-    case "application/pdf":
-      return CONTENT_TYPE_PDF
-    case "video/x-msvideo":
-    case "video/quicktime":
-    case "video/mpeg":
-    case "video/mp4":
-    case "video/x-ms-wmv":
-      return CONTENT_TYPE_VIDEO
-    default:
-      return CONTENT_TYPE_PAGE
+  case "application/pdf":
+    return CONTENT_TYPE_PDF
+  case "video/x-msvideo":
+  case "video/quicktime":
+  case "video/mpeg":
+  case "video/mp4":
+  case "video/x-ms-wmv":
+    return CONTENT_TYPE_VIDEO
+  default:
+    return CONTENT_TYPE_PAGE
   }
 }
 
@@ -81,30 +75,30 @@ export const resourceJSONToLearningResource = (
   url: string,
   courseJSON: CourseJSON
 ): LearningResource => {
-  let trimmedURL = url.replace(/data.json$/, "")
+  const trimmedURL = url.replace(/data.json$/, "")
 
   return {
-    id: uuid,
-    title: resourceJSON.title,
-    image_src: "",
-    object_type: LearningResourceType.ResourceFile,
-    platform: OCW_PLATFORM,
-    topics: formatCourseJSONTopics(courseJSON),
-    runs: [],
-    level: null,
-    instructors: [],
-    department: undefined,
-    audience: undefined,
-    certification: undefined,
-    content_title: resourceJSON.title,
-    run_title: null,
-    run_slug: null,
-    content_type: fileTypeToContentType(resourceJSON.file_type),
-    url: trimmedURL,
-    short_url: null,
-    course_id: null,
-    coursenum: null,
-    description: resourceJSON.description,
+    id:                  uuid,
+    title:               resourceJSON.title,
+    image_src:           "",
+    object_type:         LearningResourceType.ResourceFile,
+    platform:            OCW_PLATFORM,
+    topics:              formatCourseJSONTopics(courseJSON),
+    runs:                [],
+    level:               null,
+    instructors:         [],
+    department:          undefined,
+    audience:            undefined,
+    certification:       undefined,
+    content_title:       resourceJSON.title,
+    run_title:           null,
+    run_slug:            null,
+    content_type:        fileTypeToContentType(resourceJSON.file_type),
+    url:                 trimmedURL,
+    short_url:           null,
+    course_id:           null,
+    coursenum:           null,
+    description:         resourceJSON.description,
     course_feature_tags: []
   }
 }
@@ -112,30 +106,30 @@ export const resourceJSONToLearningResource = (
 export const searchResultToLearningResource = (
   result: LearningResourceResult
 ): LearningResource => ({
-  id: result.id,
-  title: result.title,
-  image_src: result.image_src,
-  object_type: result.object_type,
-  platform: "platform" in result ? result.platform : null,
-  topics: result.topics ? result.topics.map(topic => ({ name: topic })) : [],
-  runs: "runs" in result ? (result.runs as CourseRun[]) : [],
-  level: !emptyOrNil(result.runs) ? result.runs![0]?.level : null,
-  instructors: !emptyOrNil(result.runs) ? result.runs![0]?.instructors : [],
-  department: result.department,
-  audience: result.audience,
-  certification: result.certification,
-  content_title: result.content_title,
-  run_title: result.run_title || null,
-  run_slug: result.run_slug || null,
-  content_type: result.content_type || null,
-  url: getResultUrl(result) || null,
-  short_url: result.short_url || null,
-  course_id: result.course_id || null,
-  coursenum: result.coursenum || null,
-  description: result.short_description || null,
-  course_feature_tags: result.course_feature_tags
-    ? result.course_feature_tags
-    : []
+  id:                  result.id,
+  title:               result.title,
+  image_src:           result.image_src,
+  object_type:         result.object_type,
+  platform:            "platform" in result ? result.platform : null,
+  topics:              result.topics ? result.topics.map(topic => ({ name: topic })) : [],
+  runs:                "runs" in result ? (result.runs as CourseRun[]) : [],
+  level:               !emptyOrNil(result.runs) ? result.runs![0]?.level : null,
+  instructors:         !emptyOrNil(result.runs) ? result.runs![0]?.instructors : [],
+  department:          result.department,
+  audience:            result.audience,
+  certification:       result.certification,
+  content_title:       result.content_title,
+  run_title:           result.run_title || null,
+  run_slug:            result.run_slug || null,
+  content_type:        result.content_type || null,
+  url:                 getResultUrl(result) || null,
+  short_url:           result.short_url || null,
+  course_id:           result.course_id || null,
+  coursenum:           result.coursenum || null,
+  description:         result.short_description || null,
+  course_feature_tags: result.course_feature_tags ?
+    result.course_feature_tags :
+    []
 })
 
 const IMAGE_URL_PREFIX = process.env["RESOURCE_BASE_URL"] || ""
@@ -148,7 +142,7 @@ const IMAGE_URL_PREFIX = process.env["RESOURCE_BASE_URL"] || ""
  */
 export const getCoverImageUrl = (result: LearningResource) => {
   if (!emptyOrNil(result.image_src)) {
-    let { image_src } = result
+    const { image_src } = result
     if (!image_src.startsWith("/")) {
       return image_src
     } else {
@@ -172,9 +166,9 @@ export const getCourseUrl = (result: CourseResult) => {
       a.best_start_date < b.best_start_date ? 1 : -1
     )[0].slug
     // a temporary hack to handle runs possibly including the "courses" prefix
-    return publishedRun.includes("courses/")
-      ? `/${publishedRun}/`
-      : `/courses/${publishedRun}/`
+    return publishedRun.includes("courses/") ?
+      `/${publishedRun}/` :
+      `/courses/${publishedRun}/`
   } else return null
 }
 
@@ -227,6 +221,6 @@ export const getResourceUrl = (result: LearningResourceResult) => {
   }
 }
 export const getResultUrl = (result: LearningResourceResult) =>
-  result.object_type === LearningResourceType.Course
-    ? getCourseUrl(result)
-    : getResourceUrl(result)
+  result.object_type === LearningResourceType.Course ?
+    getCourseUrl(result) :
+    getResourceUrl(result)

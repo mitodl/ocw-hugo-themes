@@ -6,7 +6,7 @@ export const initVideoTranscriptTrack = () => {
 
     for (const videoPlayer of Array.from(videoPlayers)) {
       videojs(videoPlayer.id).ready(function() {
-        // @ts-ignore
+        // @ts-expect-error TODO
         window.videojs = videojs
         require("videojs-transcript-ac")
 
@@ -15,11 +15,11 @@ export const initVideoTranscriptTrack = () => {
           showTrackSelector: false
         }
 
-        // @ts-ignore
+        // @ts-expect-error TODO
         const transcript = this.transcript(options)
 
         if (videoPlayer.closest(".video-page")) {
-          // @ts-ignore
+          // @ts-expect-error TODO
           const transcriptContainer = videoPlayer
             .closest(".video-page")
             .querySelector(".transcript")

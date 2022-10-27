@@ -79,7 +79,6 @@ describe("SearchResult component", () => {
     objectType => {
       it("should not render a course/resource with no url", () => {
         const object = searchResultToLearningResource(
-          // @ts-ignore
           makeLearningResourceResult(objectType)
         )
         object.url = null
@@ -91,13 +90,13 @@ describe("SearchResult component", () => {
 
   //
   ;[[], null].forEach(listValue => {
-    it(`should not render div for instructors, topics if they equal ${String(
+    it(`should not render div for instructors, topics if they are ${JSON.stringify(
       listValue
     )}`, () => {
       const result = makeLearningResourceResult(LearningResourceType.Course)
-      // @ts-ignore
+      // @ts-expect-error Consider widening type of Course
       result.runs[0].instructors = listValue
-      // @ts-ignore
+      // @ts-expect-error Consider widening type of Course
       result.topics = listValue
       const object = searchResultToLearningResource(result)
       const wrapper = render(object)
@@ -117,8 +116,7 @@ describe("SearchResult component", () => {
         `${SEARCH_URL}?${serializeSearchParams({
           text:         undefined,
           activeFacets: {
-            // @ts-ignore
-            topics: object.topics[i].name
+            topics: [object.topics[i].name]
           }
         })}`
       )
@@ -136,7 +134,7 @@ describe("SearchResult component with compact view", () => {
     )
     const wrapper = render(object)
     expect(wrapper.find(".course-title").text()).toBe(object.title)
-    const { href, className } = wrapper
+    const { href } = wrapper
       .find(".course-title")
       .find("a")
       .props()

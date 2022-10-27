@@ -34,8 +34,8 @@ $(function() {
   // hacky coming-soon popover
   document.querySelectorAll(".coming-soon").forEach(el => {
     tippy(el, {
-      content: "Coming soon!",
-      trigger: "click",
+      content:   "Coming soon!",
+      trigger:   "click",
       placement: "top"
     })
   })

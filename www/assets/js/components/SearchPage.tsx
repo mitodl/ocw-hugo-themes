@@ -159,7 +159,11 @@ export default function SearchPage(props: SearchPageProps) {
 
   const toggleResourceSearch = useCallback(
     nextResourceFilterState => async () => {
-      if (isResourceFilterActive() === nextResourceFilterState) {
+      const isResourceFilterActive = (activeFacets.type ?? []).includes(
+        LearningResourceType.ResourceFile
+      )
+
+      if (isResourceFilterActive === nextResourceFilterState) {
         // Immediately return in case the user clicks and already active facet.
         // Github issue https://github.com/mitodl/ocw-hugo-themes/issues/105
         return
@@ -170,7 +174,7 @@ export default function SearchPage(props: SearchPageProps) {
       ]
       // Remove any facets not relevant to the new search type
       const newFacets: Map<string, string> = new Map(
-        // @ts-ignore
+        // @ts-expect-error We should clean this up. It works because Map constructor is ignoring everything except 0th, 1st item in the entries array.
         nextResourceFilterState ? RESOURCE_FACETS : COURSE_FACETS
       )
 
@@ -185,11 +189,6 @@ export default function SearchPage(props: SearchPageProps) {
     },
     [toggleFacets, activeFacets]
   )
-
-  const isResourceFilterActive = (): boolean => {
-    const activeType = activeFacets.type ?? []
-    return activeType && activeType.includes(LearningResourceType.ResourceFile)
-  }
 
   const isResourceSearch = (activeFacets.type ?? []).includes(
     LearningResourceType.ResourceFile

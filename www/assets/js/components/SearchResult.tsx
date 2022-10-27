@@ -61,9 +61,9 @@ const Topics = ({
         <Subtitle
           htmlClass="listitem topics-list"
           postLabel={
-            maxTags < object.topics.length
-              ? `+ ${object.topics.length - maxTags} more`
-              : ""
+            maxTags < object.topics.length ?
+              `+ ${object.topics.length - maxTags} more` :
+              ""
           }
           moreUrl={moreUrl}
         >
@@ -72,7 +72,7 @@ const Topics = ({
               className="topic-link"
               key={idx}
               href={`${SEARCH_URL}?${serializeSearchParams({
-                text: undefined,
+                text:         undefined,
                 activeFacets: {
                   topics: [topic.name]
                 }
@@ -124,9 +124,9 @@ export function LearningResourceDisplay(props: SRProps) {
   const { object, id } = props
   const maxTags = 3
   const runSlug = object.run_slug
-  const url = runSlug
-    ? `${runSlug.includes("courses/") ? "/" : "/courses/"}${runSlug}`
-    : ""
+  const url = runSlug ?
+    `${runSlug.includes("courses/") ? "/" : "/courses/"}${runSlug}` :
+    ""
 
   if (isResource(object)) {
     return (
@@ -135,9 +135,9 @@ export function LearningResourceDisplay(props: SRProps) {
           className={
             [object.object_type, object.content_type].includes(
               LearningResourceType.Video
-            )
-              ? "lr-info search-result has-min-height"
-              : "lr-info search-result"
+            ) ?
+              "lr-info search-result has-min-height" :
+              "lr-info search-result"
           }
         >
           <div className="lr-row resource-header">
@@ -199,9 +199,9 @@ export function LearningResourceDisplay(props: SRProps) {
               <Subtitle
                 htmlClass="listitem"
                 postLabel={
-                  maxTags < object.instructors.length
-                    ? `+ ${object.instructors.length - maxTags} more`
-                    : ""
+                  maxTags < object.instructors.length ?
+                    `+ ${object.instructors.length - maxTags} more` :
+                    ""
                 }
                 moreUrl={object.url}
               >
@@ -229,9 +229,9 @@ export function LearningResourceDisplay(props: SRProps) {
 export function CompactLearningResourceDisplay(props: SRProps) {
   const { object, id } = props
   const runSlug = object.run_slug
-  const url = runSlug
-    ? `${runSlug.includes("courses/") ? "/" : "/courses/"}${runSlug}`
-    : ""
+  const url = runSlug ?
+    `${runSlug.includes("courses/") ? "/" : "/courses/"}${runSlug}` :
+    ""
 
   if (isResource(object)) {
     return (
