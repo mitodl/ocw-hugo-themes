@@ -1,3 +1,4 @@
+{{ $context := .context }}
 {{ with findRE `\\\(.*?\\\)|\\[.*?\\]` .context.Page.Content 1 }}
 <script>
   window.MathJax = {
@@ -18,5 +19,5 @@
       }
     }
 </script>
-<script src="{{ partial "webpack_url.html" (dict "context" . "url" "/static/mathjax/tex-svg.js") }}" defer></script>
+<script src="{{ partial "webpack_url.html" (dict "context" $context "url" "/static/mathjax/tex-svg.js") }}" defer></script>
 {{ end }}
