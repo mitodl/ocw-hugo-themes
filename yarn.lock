@@ -1216,6 +1216,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@playwright/test@npm:^1.27.1":
+  version: 1.27.1
+  resolution: "@playwright/test@npm:1.27.1"
+  dependencies:
+    "@types/node": "*"
+    playwright-core: 1.27.1
+  bin:
+    playwright: cli.js
+  checksum: 92f219a78c21da03c6599d92c313c914e73cc374306366130fb3bd4701555179394ec5a3000d9375ce59f5a03c00f20d1ddaae50c85583ce475e17795a622699
+  languageName: node
+  linkType: hard
+
 "@polka/url@npm:^1.0.0-next.20":
   version: 1.0.0-next.21
   resolution: "@polka/url@npm:1.0.0-next.21"
@@ -3474,7 +3486,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-eslint@npm:^10.0.2, babel-eslint@npm:^10.1.0":
+"babel-eslint@npm:^10.1.0":
   version: 10.1.0
   resolution: "babel-eslint@npm:10.1.0"
   dependencies:
@@ -6147,6 +6159,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"envalid@npm:^7.3.1":
+  version: 7.3.1
+  resolution: "envalid@npm:7.3.1"
+  dependencies:
+    tslib: 2.3.1
+  checksum: dea10ada13e007f684318474a7dd1b528bbe4ed8ca702918e276d26505bd3807f1e93c4045b7acadd1a4639f207ae4c5375ca0afdff973efab9ea7ead655240f
+  languageName: node
+  linkType: hard
+
 "envinfo@npm:^7.7.3":
   version: 7.8.1
   resolution: "envinfo@npm:7.8.1"
@@ -6953,6 +6974,13 @@ __metadata:
   version: 3.3.0
   resolution: "events@npm:3.3.0"
   checksum: f6f487ad2198aa41d878fa31452f1a3c00958f46e9019286ff4787c84aac329332ab45c9cdc8c445928fc6d7ded294b9e005a7fce9426488518017831b272780
+  languageName: node
+  linkType: hard
+
+"exec-sh@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "exec-sh@npm:0.4.0"
+  checksum: 57e0bb253b5ece8e284dca1608a19c0fd7986342daa3c2a54400dda941eb8190d2153c912fec5f08e406d0d2a2f254fdd6d410db807aebbcbd8671544d86ebe6
   languageName: node
   linkType: hard
 
@@ -12652,6 +12680,7 @@ __metadata:
   dependencies:
     "@mitodl/course-search-utils": ^2.0.1
     "@mitodl/ocw-to-hugo": 1.36.0
+    "@playwright/test": ^1.27.1
     "@sentry/browser": ^5.19.0
     "@testing-library/react-hooks": ^7.0.2
     "@types/dotenv-webpack": ^7.0.3
@@ -12673,7 +12702,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.40.1
     archiver: ^5.0.0
     assets-webpack-plugin: ^7.1.1
-    babel-eslint: ^10.0.2
     babel-loader: ^8.2.5
     bodybuilder: ^2.2.21
     bootstrap: ^4.3.1
@@ -12688,6 +12716,7 @@ __metadata:
     css-minimizer-webpack-plugin: ^4.0.0
     dotenv-cli: ^6.0.0
     dotenv-webpack: ^8.0.0
+    envalid: ^7.3.1
     enzyme: ^3.11.0
     enzyme-adapter-react-16: ^1.15.2
     es6-promise: ^4.2.8
@@ -12697,6 +12726,7 @@ __metadata:
     eslint-plugin-jest: ^27.1.3
     eslint-plugin-react: ^7.31.10
     eslint-plugin-react-hooks: ^4.6.0
+    exec-sh: ^0.4.0
     exports-loader: ^0.7.0
     expose-loader: ^4.0.0
     fancy-log: ^1.3.2
@@ -13415,6 +13445,15 @@ __metadata:
   dependencies:
     find-up: ^4.0.0
   checksum: 9863e3f35132bf99ae1636d31ff1e1e3501251d480336edb1c211133c8d58906bed80f154a1d723652df1fda91e01c7442c2eeaf9dc83157c7ae89087e43c8d6
+  languageName: node
+  linkType: hard
+
+"playwright-core@npm:1.27.1":
+  version: 1.27.1
+  resolution: "playwright-core@npm:1.27.1"
+  bin:
+    playwright: cli.js
+  checksum: fd65d3eb29978e0e7a755158625e8922a66ca9d599b7c24ddf920822b261d81c51a5964ef8e0e5ed9b2b12dc64541c5949b6a898d965e107f43261964e8c29a0
   languageName: node
   linkType: hard
 
@@ -17630,6 +17669,13 @@ __metadata:
   version: 6.15.5
   resolution: "ts-toolbelt@npm:6.15.5"
   checksum: 24ad00cfd9ce735c76c873a9b1347eac475b94e39ebbdf100c9019dce88dd5f4babed52884cf82bb456a38c28edd0099ab6f704b84b2e5e034852b618472c1f3
+  languageName: node
+  linkType: hard
+
+"tslib@npm:2.3.1":
+  version: 2.3.1
+  resolution: "tslib@npm:2.3.1"
+  checksum: de17a98d4614481f7fcb5cd53ffc1aaf8654313be0291e1bfaee4b4bb31a20494b7d218ff2e15017883e8ea9626599b3b0e0229c18383ba9dce89da2adf15cb9
   languageName: node
   linkType: hard
 

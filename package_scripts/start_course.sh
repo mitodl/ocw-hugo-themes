@@ -7,7 +7,7 @@ source package_scripts/common.sh
 THEMES_PATH=$(pwd)
 COURSE_HUGO_CONFIG_PATH=${COURSE_HUGO_CONFIG_PATH:-}
 COURSE_CONTENT_PATH=${COURSE_CONTENT_PATH:-}
-OCW_TEST_COURSE=${OCW_TEST_COURSE:-"18.06-spring-2010-2"}
+OCW_TEST_COURSE=${OCW_TEST_COURSE:-"18.06-spring-2010"}
 # re-export with some fallbacks
 export STATIC_API_BASE_URL=${STATIC_API_BASE_URL:-"https://live-qa.ocw.mit.edu/"}
 export RESOURCE_BASE_URL=${RESOURCE_BASE_URL:-"https://live-qa.ocw.mit.edu/"}

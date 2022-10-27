@@ -3,7 +3,8 @@
 set -euo pipefail
 
 source package_scripts/common.sh
-load_env
+
+export STATIC_API_BASE_URL=https://ocw.mit.edu/
 
 # We should have 2 arguments; the path to the content and the config
 if [[ $# -lt 2 ]]; then
@@ -18,10 +19,9 @@ else
   # Ensure static dir exists
   mkdir -p $STATIC_PATH
   # Build webpack assets
-  npm run build:webpack --  --output-path=$STATIC_PATH
-  cd $CONTENT_PATH
+  # npm run build:webpack --  --output-path=$STATIC_PATH
   # Run Hugo build
-  hugo --config $CONFIG_PATH --themesDir $THEMES_PATH -d dist -v
+  hugo --contentDir $CONTENT_PATH --config $CONFIG_PATH --themesDir $THEMES_PATH -d dist -v --baseURL "http://localhost:3000"
   GIT_HASH=`git rev-parse HEAD`
   printf $GIT_HASH >> $STATIC_PATH/hash.txt
 fi
