@@ -47,7 +47,7 @@ jobs:
         run: mkdir -p ../ocw-course/public-v1/static/ && cp -r ../ocw-www/public/static/ ../ocw-course/public-v1/static/
       
       - name: Copy webpack build to course v2
-        run: mkdir -p ../ocw-course/public-v1/static/ && cp -r ../ocw-www/public/static/ ../ocw-course/public-v2/static/
+        run: mkdir -p ../ocw-course/public-v2/static/ && cp -r ../ocw-www/public/static/ ../ocw-course/public-v2/static/
 
       - name: Run the www hugo build
         run: (cd ../ocw-www; hugo --config ../ocw-hugo-projects/ocw-www/config.yaml --themesDir ../ocw-hugo-themes)
@@ -174,15 +174,14 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
     steps:
-      - uses: actions/checkout@master
-      - run: mkdir -p ${{ github.workspace }}/tmp/artifacts
-
       - uses: actions/checkout@v3
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 16.15.0
           cache: "yarn"
+      
+      - run: mkdir -p ${{ github.workspace }}/tmp/artifacts
 
       - name: Run Lighthouse
         uses: foo-software/lighthouse-check-action@master
@@ -190,7 +189,7 @@ jobs:
         with:
           branch: ${{ github.ref }}
           outputDirectory: ${{ github.workspace }}/tmp/artifacts
-          urls: 'https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/,https://ocw-hugo-themes-course-pr-${{ github.event.number }}--ocw-next.netlify.app/search/,https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/'
+          urls: 'https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/,https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/search/,https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/'
           sha: ${{ github.sha }}
 
       - name: Set comment body

@@ -19,9 +19,10 @@ else
   # Ensure static dir exists
   mkdir -p $STATIC_PATH
   # Build webpack assets
-  # npm run build:webpack --  --output-path=$STATIC_PATH
+  npm run build:webpack --  --output-path=$STATIC_PATH
+  cd $CONTENT_PATH
   # Run Hugo build
-  hugo --contentDir $CONTENT_PATH --config $CONFIG_PATH --themesDir $THEMES_PATH -d dist -v --baseURL "http://localhost:3000"
+  hugo --config $CONFIG_PATH --themesDir $THEMES_PATH -d dist -v
   GIT_HASH=`git rev-parse HEAD`
   printf $GIT_HASH >> $STATIC_PATH/hash.txt
 fi
