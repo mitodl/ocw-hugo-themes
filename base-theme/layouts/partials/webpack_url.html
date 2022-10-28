@@ -1,4 +1,4 @@
-{{- $port := os.Getenv "WEBPACK_PORT" -}}
+{{- $port := 3001 -}}
 {{- if or site.IsServer (not (eq site.BaseURL "")) -}}
   {{- if or site.IsServer (in site.BaseURL ":3000") -}}
     {{- if hasPrefix .url "/" -}}
