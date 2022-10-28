@@ -20,7 +20,7 @@
     "build:githash": "mkdir -p base-theme/dist/static && git rev-parse HEAD > base-theme/dist/static/hash.txt",
     "build:hugo": "hugo -d ../dist -v",
     "build:hugo:debug": "hugo -d ../dist -v --templateMetrics --debug",
-    "build:webpack": "dotenv cross-env NODE_ENV=production webpack --config base-theme/assets/webpack/webpack.prod.ts",
+    "build:webpack": "cross-env NODE_ENV=production webpack --config base-theme/assets/webpack/webpack.prod.ts",
     "webpack:stats": "NODE_ENV=production webpack --config base-theme/assets/webpack/webpack.prod.ts --profile --json > stats.json",
     "webpack:analyze": "webpack-bundle-analyzer stats.json dist",
     "fmt": "LOG_LEVEL= prettier-eslint --write --no-semi $PWD/'**/assets/**/*.js' $PWD/'**/assets/**/*.ts' $PWD/'**/assets/**/*.tsx' $PWD/'**/assets/**/*.scss'",
