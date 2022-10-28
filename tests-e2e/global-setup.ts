@@ -1,15 +1,15 @@
 import type { ExecOptions } from "node:child_process"
+import http from "node:http"
 
 import dotenv from "dotenv"
 import execShCb from "exec-sh"
 import * as envalid from "envalid"
-import { fromRoot } from "./util"
+import { fromRoot, TEST_SITES } from "./util"
+import handler from "serve-handler"
 
 dotenv.config()
 const env = envalid.cleanEnv(process.env, {
-  WEBPACK_PORT:            envalid.port(),
-  COURSE_HUGO_CONFIG_PATH: envalid.str(),
-  WWW_HUGO_CONFIG_PATH:    envalid.str()
+  WEBPACK_PORT: envalid.port(),
 })
 
 const execSh = execShCb.promise
@@ -37,10 +37,15 @@ const buildSite = (name: string, configPath: string) => {
 }
 
 const setupTests = async () => {
-  await Promise.all([
-    buildSite("omnibus-course", env.COURSE_HUGO_CONFIG_PATH),
-    buildSite("ocw-www-ci", env.WWW_HUGO_CONFIG_PATH)
-  ])
+  const sites = Object.values(TEST_SITES)
+  await Promise.all(sites.map(site => buildSite(site.name, site.configPath)))
+  sites.forEach(site => {
+    http.createServer((request, response) => {
+      return handler(request, response, {
+        public: fromRoot(`./test-sites/${site.name}/dist`)
+      })
+    }).listen(site.port)
+  })
 }
 
 export default setupTests
