@@ -16,10 +16,17 @@ jobs:
           if_key_exists: replace
 
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: 16.15.0
           cache: "yarn"
+      
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
 
       - name: Install dependencies
         run: yarn install --immutable
@@ -171,7 +178,8 @@ jobs:
       - run: mkdir -p ${{ github.workspace }}/tmp/artifacts
 
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: 16.15.0
           cache: "yarn"
