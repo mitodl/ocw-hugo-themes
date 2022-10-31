@@ -1,0 +1,47 @@
+{
+  "term": "Fall",
+  "year": "2022",
+  "level": [
+    "Graduate"
+  ],
+  "topics": [
+    [
+      "Engineering",
+      "Computer Science",
+      "Software Design and Engineering"
+    ],
+    [
+      "Science",
+      "Physics",
+      "Quantum Mechanics"
+    ]
+  ],
+  "legacy_uid": "",
+  "instructors": {
+    "content": [
+      "a0af4753-e784-4e5e-b23b-1a5911b15283",
+      "144c1f31-44a3-23a9-7819-21a612f6574f"
+    ],
+    "website": "ocw-www"
+  },
+  "course_image": {
+    "content": "4ff6cec7-9ef3-40e2-869a-313350053b32",
+    "website": "ocw-ci-test-course"
+  },
+  "course_title": "OCW CI Test Course",
+  "course_description": "This is a test course for use in CI pipelines.",
+  "department_numbers": [
+    "8"
+  ],
+  "extra_course_numbers": "456",
+  "primary_course_number": "123",
+  "course_image_thumbnail": {
+    "content": "4ff6cec7-9ef3-40e2-869a-313350053b32",
+    "website": "ocw-ci-test-course"
+  },
+  "learning_resource_types": [
+    "Activity Assignments",
+    "Exams with Solutions"
+  ],
+  "site_uid": "06fbf309-8b5d-4219-b99e-de75fac8d476"
+}
