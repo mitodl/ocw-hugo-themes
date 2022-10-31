@@ -3,7 +3,6 @@
 set -euo pipefail
 
 source package_scripts/common.sh
-load_env
 
 # If the VERBOSE variable isn't set, default it to 0
 if [[ -z "${VERBOSE+x}" ]]; then
