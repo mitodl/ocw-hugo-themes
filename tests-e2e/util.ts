@@ -19,20 +19,20 @@ const fromRoot = (...pathFromRoot: string[]) => {
 }
 
 
-type TestSiteName = "omnibus-course" | "ocw-www-ci"
+type TestSiteAlias = "course" | "www"
 type TestSite = {
-  name: TestSiteName,
+  name: string,
   port: number
   configPath: string
 }
-const TEST_SITES: Record<TestSiteName, TestSite> = {
-  "omnibus-course": {
-    name:       "omnibus-course",
+const TEST_SITES: Record<TestSiteAlias, TestSite> = {
+  course: {
+    name:       "ocw-ci-test-course",
     port:       3010,
     configPath: env.COURSE_HUGO_CONFIG_PATH
   },
-  "ocw-www-ci": {
-    name:       "ocw-www-ci",
+  www: {
+    name:       "ocw-ci-test-www",
     port:       3011,
     configPath: env.WWW_HUGO_CONFIG_PATH
   }
@@ -40,7 +40,7 @@ const TEST_SITES: Record<TestSiteName, TestSite> = {
 /**
  * Return the path to an e2e test site.
  */
-const distFile = (siteName: TestSiteName, ...paths: string[]) => {
+const distFile = (siteName: TestSiteAlias, ...paths: string[]) => {
   const testSite = TEST_SITES[siteName]
   const baseURL = `http://localhost:${testSite.port}`
   return path.join(baseURL, ...paths)
