@@ -25,3 +25,33 @@ jobs:
 
       - name: typechecking
         run: yarn typecheck
+
+  test-e2e:
+    env:
+      OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
+      SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
+      STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
+      RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
+      COURSE_HUGO_CONFIG_PATH: "../ocw-hugo-projects/ocw-course/config.yaml"
+      WWW_HUGO_CONFIG_PATH: "../ocw-hugo-projects/ocw-www/config.yaml"
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: Clone ocw-hugo-projects for config
+      run: (cd ..; git clone https://github.com/mitodl/ocw-hugo-projects)
+    - name: Install dependencies
+      run: yarn
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Run Playwright tests
+      run: yarn test:e2e
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30
