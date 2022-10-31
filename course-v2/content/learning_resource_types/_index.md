@@ -1,5 +1,5 @@
 ---
 title: Resources
-url: /resources/
+url: /download/
 kind: taxonomy
 ---
