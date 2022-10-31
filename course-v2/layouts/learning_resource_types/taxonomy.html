@@ -1,41 +1,20 @@
 {{ define "main" }}
-{{ partial "course_content.html" . }}
-
+{{ partial "resources_header.html" . }}
 {{ $numberOfResourcesLimit := 10 }}
-{{ $showNoResourcesFoundMessage := true }}
 {{ $taxonomy := "learning_resource_types" }}
+{{ $showNoResourcesFoundMessage := partial "show_no_resources_found.html" (dict "context" . "taxonomy" $taxonomy) }}
 
 <div class="mb-5">
   {{ with ($.Site.GetPage (printf "/%s" $taxonomy)) }}
     {{ with .Pages }}
       {{ range . }}
-
-        {{ $resources := where .Pages "Params.content_type" "resource" }}
-        {{ $numberOfResources := len $resources  }}
-        {{ if gt $numberOfResources 0 }}
-
-          {{ $showNoResourcesFoundMessage = false }}
-          {{ $limitedResourcesShown := false }}
-
-          {{ if gt $numberOfResources $numberOfResourcesLimit }}
-            {{ $numberOfResources = $numberOfResourcesLimit }}
-            {{ $limitedResourcesShown = true }}
-          {{ end }}
-
-          <div>
-            <h4 class="my-4">{{ .Title }}</h4>  
-          </div>
-
-          {{ partial "resource_list.html" (dict "resources" $resources "limitResources" $numberOfResources) }}
-            
-          {{ if eq $limitedResourcesShown true }}
-            <div>
-              <div class="float-right">
-                {{ partial "see_all.html" (dict "permalink" .Permalink) }}
-              </div>
-            </div>
-          {{ end }}
-          <br>
+        {{ if in .Title "Video" }}
+          {{ partial "resource_list_collapsible.html" (dict "context" . "expand" true) }}
+        {{ end }}
+      {{ end }}
+      {{ range . }}
+        {{ if not (in .Title "Video") }}
+          {{ partial "resource_list_collapsible.html" (dict "context" . "expand" false) }}
         {{ end }}
       {{ end }}
     {{ else }}
