@@ -2,6 +2,11 @@ h4 {
   color: $highlight-red !important;
 }
 
+.download-mobile-margin {
+  @media only screen and (max-width: 768px) {
+  margin: 5px; }
+}
+
 .download-course-container {
   border-radius: 3px;
 
