@@ -1,9 +1,13 @@
-import type { PlaywrightTestConfig } from '@playwright/test'
+import { PlaywrightTestConfig } from '@playwright/test'
 import { devices } from '@playwright/test'
 import dotenv from 'dotenv'
 import * as path from "path"
+import * as envalid from "envalid"
 
 dotenv.config()
+const env = envalid.cleanEnv(process.env, {
+  WEBPACK_PORT: envalid.port()
+})
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -34,7 +38,7 @@ const config: PlaywrightTestConfig = {
   ],
   webServer: {
     command:             "yarn start:webpack",
-    url:                 "http://localhost:3001/static/css/main.css",
+    url:                 `http://localhost:${env.WEBPACK_PORT}/static/css/main.css`,
     reuseExistingServer: !process.env.CI,
   },
   globalSetup: path.resolve(__dirname, './tests-e2e/global-setup.ts'),
