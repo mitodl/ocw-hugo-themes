@@ -1,5 +1,5 @@
 {{ $courseData := site.Data.course }}
-{{ $zenDeskUrl := "https://mitocw.zendesk.com/hc/en-us" }}
+{{ $zenDeskUrl := "https://mitocw.zendesk.com/hc/en-us/articles/4414681093659-I-have-downloaded-an-MIT-OpenCourseWare-course-but-I-can-t-access-the-materials-How-do-I-get-started-" }}
 {{ $trimmedBaseUrl := strings.TrimSuffix "/" site.BaseURL }}
 {{ $shortId := printf "%v-%v-%v" $courseData.primary_course_number (lower $courseData.term) $courseData.year }}
 {{ $downloadCourseUrl := printf "%v/%v.zip" $trimmedBaseUrl $shortId }}
@@ -13,8 +13,8 @@
         </a>
       </div>
       <div class="col-9 pl-0 pr-3">
-        This package contains the same content as the online version of the course, 
-        <em>except for the audio/video materials</em>. These can be downloaded below. For help 
+        This package contains the same content as the online version of the course,
+        <em>except for the audio/video materials</em>. These can be downloaded below. For help
         downloading and using course materials, read our {{ partial "link.html" (dict "href" $zenDeskUrl "text" "FAQs" "target" "_blank") }}.
       </div>
     </div>
