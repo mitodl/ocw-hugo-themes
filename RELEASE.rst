@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.76.1
+Version 1.76.1 (Released November 02, 2022)
 --------------
 
 - pass .context to webpack_url in mathjax_if_necessary (#933)
