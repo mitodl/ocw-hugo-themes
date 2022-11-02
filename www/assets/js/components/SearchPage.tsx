@@ -65,8 +65,7 @@ export default function SearchPage(props: SearchPageProps) {
         // Default is LR_TYPE_ALL, don't want that here. course or resourcefile only
         activeFacets["type"] = [LearningResourceType.Course]
       }
-      const pageSize =
-        ui === SEARCH_COMPACT_UI ? COMPACT_UI_PAGE_SIZE : LIST_UI_PAGE_SIZE
+      const pageSize = getPageSizeFromUIParam(ui)
       setRequestInFlight(true)
       const newResults = await search({
         text,
@@ -123,6 +122,14 @@ export default function SearchPage(props: SearchPageProps) {
     ]
   )
 
+  const getPageSizeFromUIParam = (ui: string| null) =>{
+    if (ui === SEARCH_COMPACT_UI) {
+     return COMPACT_UI_PAGE_SIZE 
+    } else {
+      return LIST_UI_PAGE_SIZE
+    }
+  }
+
   const clearSearch = useCallback(() => {
     setSearchResults([])
     setCompletedInitialLoad(false)
@@ -153,8 +160,9 @@ export default function SearchPage(props: SearchPageProps) {
     // this is the 'loaded' value, which is what useCourseSearch uses
     // to determine whether to fire off a request or not.
     completedInitialLoad && !requestInFlight,
-    LIST_UI_PAGE_SIZE,
-    history
+    null,
+    history,
+    getPageSizeFromUIParam
   )
 
   const toggleResourceSearch = useCallback(
@@ -194,8 +202,7 @@ export default function SearchPage(props: SearchPageProps) {
     LearningResourceType.ResourceFile
   )
   const facetMap = isResourceSearch ? RESOURCE_FACETS : COURSE_FACETS
-  const pageSize =
-    ui === SEARCH_COMPACT_UI ? COMPACT_UI_PAGE_SIZE : LIST_UI_PAGE_SIZE
+  const pageSize = getPageSizeFromUIParam(ui)
   return (
     <div className="search-page w-100">
       <div className="container">
