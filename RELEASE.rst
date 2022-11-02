@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.76.2
+--------------
+
+- replace png logo with svg (#947)
+- Updating link to download help page (#946)
+- Resizing download button layout for mobile (#944)
+- rename /resources to /download and prevent rendering and index page at /resources (#942)
+- Updating caniuse-lite version (#940)
+- course download button desktop (#931)
+
 Version 1.76.1 (Released November 02, 2022)
 --------------
 
