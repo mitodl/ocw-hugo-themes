@@ -124,7 +124,7 @@ export default function SearchPage(props: SearchPageProps) {
 
   const getPageSizeFromUIParam = (ui: string| null) =>{
     if (ui === SEARCH_COMPACT_UI) {
-     return COMPACT_UI_PAGE_SIZE 
+      return COMPACT_UI_PAGE_SIZE
     } else {
       return LIST_UI_PAGE_SIZE
     }
