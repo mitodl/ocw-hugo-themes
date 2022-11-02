@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.76.2
+Version 1.76.2 (Released November 02, 2022)
 --------------
 
 - replace png logo with svg (#947)
