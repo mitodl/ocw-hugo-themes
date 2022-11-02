@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.76.1 (Released November 02, 2022)
+--------------
+
+- pass .context to webpack_url in mathjax_if_necessary (#933)
+- feat: close mobile course drawers via swiping (#928)
+- Update webpack devserver; convert webpack conifgs to ts (#927)
+- Start linting typescript code (#926)
+
 Version 1.76.0 (Released October 27, 2022)
 --------------
 
