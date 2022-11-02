@@ -5,7 +5,7 @@ import { DESKTOP } from "../lib/constants"
 import { useDeviceCategory } from "../hooks/util"
 import { Aggregation, Facets } from "@mitodl/course-search-utils"
 import { FacetManifest } from "../LearningResources"
-import { SEARCH_COMPACT_UI, SEARCH_LIST_UI } from "../lib/constants"
+import { SEARCH_COMPACT_UI } from "../lib/constants"
 import Footer from "./Footer"
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
   onUpdateFacets: React.ChangeEventHandler<HTMLInputElement>
   clearAllFilters: () => void
   toggleFacet: (name: string, value: string, isEnabled: boolean) => void
-  updateUI: (newUI: string) => void
+  updateUI: (newUI: string | null) => void
 }
 
 export default function SearchFilterDrawer(props: Props) {
@@ -78,10 +78,7 @@ export default function SearchFilterDrawer(props: Props) {
         </div>
       </div>
       <div className="layout-buttons layout-buttons-mobile">
-        <button
-          onClick={() => updateUI(SEARCH_LIST_UI)}
-          className="layout-button-left"
-        >
+        <button onClick={() => updateUI(null)} className="layout-button-left">
           <img
             src="/images/icons/list_ui_icon.png"
             alt="search results with thumbnails"

@@ -33,9 +33,8 @@ export const DATE_FORMAT = "YYYY-MM-DD[T]HH:mm:ss[Z]"
 const ocwPlatform = "ocw"
 
 export const SEARCH_COMPACT_UI = "compact"
-export const SEARCH_LIST_UI = "list"
 
-export const LIST_UI_PAGE_SIZE = 10
+export const DEFAULT_UI_PAGE_SIZE = 10
 export const COMPACT_UI_PAGE_SIZE = 50
 
 export const platforms = {
