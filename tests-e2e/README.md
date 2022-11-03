@@ -14,6 +14,8 @@ To run the tests:
 
 Running `yarn test:e2e` by itself will also work. However, if you start a webpack server in a separate process first, Playwright will use that server instead rather than starting a new one, resulting in much less overhead if you need to re-run tests.
 
+_**Note:** We've had trouble running Playwright on M1 macs using Node 18, though Node 16 works fine._
+
 ### Is there a `--watch` mode for re-running tests?
 
 No. For VS Code users, a similar experience can be achieved with [Playwright for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright). Individual tests can be run from your editor with the click of a button.

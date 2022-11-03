@@ -111,9 +111,9 @@ and it uses the `mit-fields` starter configuration in
 
 ### Dependencies
 
-- [NodeJS](https://nodejs.org/en/download/)
-- [Yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable)
-- [Hugo](https://gohugo.io/getting-started/installing/)
+- [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- [NodeJS](https://nodejs.org/en/download/); version managed by nvm
+- [Yarn](https://yarnpkg.com/getting-started/install)
 
 If you're running the site for the first time, or if dependencies have changed,
 install dependencies with:
