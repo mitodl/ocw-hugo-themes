@@ -68,7 +68,7 @@ jobs:
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
 
       - name: Run the course v2 hugo build
-        run: (cd ../ocw-hugo-projects; git checkout cg/course-v2-testing; cd ../ocw-course; hugo --config ../ocw-hugo-projects/ocw-course/config.yaml --destination public-v2 --themesDir ../ocw-hugo-themes)
+        run: (cd ../ocw-course; hugo --config ../ocw-hugo-projects/ocw-course/config.yaml --destination public-v2 --themesDir ../ocw-hugo-themes)
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
