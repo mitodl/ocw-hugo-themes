@@ -3,6 +3,8 @@
 {{ $trimmedBaseUrl := strings.TrimSuffix "/" site.BaseURL }}
 {{ $shortId := printf "%v-%v-%v" $courseData.primary_course_number (lower $courseData.term) $courseData.year }}
 {{ $downloadCourseUrl := printf "%v/%v.zip" $trimmedBaseUrl $shortId }}
+{{ $headResponse := resources.GetRemote $downloadCourseUrl }}
+{{ if $headResponse }}
 <div class="mb-2">
   <h2>Download</h2>
   <div class="hide-offline download-course-container background-color-light-grey p-3">
@@ -20,3 +22,4 @@
     </div>
   </div>
 </div>
+{{ end }}
