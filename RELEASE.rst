@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.76.3
+--------------
+
+- build webpack once, not thrice (#954)
+- fix: sentry DSN configured via env (#903)
+
 Version 1.76.2 (Released November 02, 2022)
 --------------
 
