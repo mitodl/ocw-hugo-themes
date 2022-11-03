@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react"
 
 import FacetDisplay from "./FacetDisplay"
-import { DESKTOP } from "../lib/constants"
+import { DESKTOP, UILayout } from "../lib/constants"
 import { useDeviceCategory } from "../hooks/util"
 import { Aggregation, Facets } from "@mitodl/course-search-utils"
 import { FacetManifest } from "../LearningResources"
@@ -15,13 +15,13 @@ interface Props {
   onUpdateFacets: React.ChangeEventHandler<HTMLInputElement>
   clearAllFilters: () => void
   toggleFacet: (name: string, value: string, isEnabled: boolean) => void
-  updateUI: (newUI: string) => void
+  onChangeUi: (ui: UILayout) => void
 }
 
 export default function SearchFilterDrawer(props: Props) {
   const deviceCategory = useDeviceCategory()
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const { updateUI } = props
+  const { onChangeUi } = props
 
   const openDrawer = useCallback(
     event => {
@@ -38,6 +38,9 @@ export default function SearchFilterDrawer(props: Props) {
     },
     [setDrawerOpen]
   )
+
+  const onClickCompact = useCallback(() => onChangeUi(SEARCH_COMPACT_UI), [onChangeUi])
+  const onClickList = useCallback(() => onChangeUi(SEARCH_LIST_UI), [onChangeUi])
 
   if (deviceCategory === DESKTOP) {
     return (
@@ -79,7 +82,7 @@ export default function SearchFilterDrawer(props: Props) {
       </div>
       <div className="layout-buttons layout-buttons-mobile">
         <button
-          onClick={() => updateUI(SEARCH_LIST_UI)}
+          onClick={onClickList}
           className="layout-button-left"
         >
           <img
@@ -88,7 +91,7 @@ export default function SearchFilterDrawer(props: Props) {
           />
         </button>
         <button
-          onClick={() => updateUI(SEARCH_COMPACT_UI)}
+          onClick={onClickCompact}
           className="layout-button-right"
         >
           <img

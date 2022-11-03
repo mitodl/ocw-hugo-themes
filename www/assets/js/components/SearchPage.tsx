@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useReducer } from "react"
 import InfiniteScroll from "react-infinite-scroller"
 import {
   Aggregations,
@@ -23,7 +23,9 @@ import {
   SEARCH_LIST_UI,
   LIST_UI_PAGE_SIZE,
   COMPACT_UI_PAGE_SIZE,
-  OCW_PLATFORM
+  OCW_PLATFORM,
+  UILayout,
+  UIState
 } from "../lib/constants"
 import { emptyOrNil, isDoubleQuoted } from "../lib/util"
 import { FacetManifest, LearningResourceResult } from "../LearningResources"
@@ -48,6 +50,29 @@ type SearchPageProps = {
   history: RouterHistory
 }
 
+
+const uiInitialState = {
+  pageSize: LIST_UI_PAGE_SIZE,
+  layout:   SEARCH_LIST_UI
+}
+
+const uiReducer = (_state: UIState, action: { type: UILayout }) => {
+  switch (action.type) {
+  case "compact":
+    return {
+      pageSize: COMPACT_UI_PAGE_SIZE,
+      layout:   SEARCH_COMPACT_UI
+    }
+  case "list":
+    return {
+      pageSize: LIST_UI_PAGE_SIZE,
+      layout:   SEARCH_LIST_UI
+    }
+  default:
+    throw new Error("Unknown action")
+  }
+}
+
 export default function SearchPage(props: SearchPageProps) {
   const { history } = props
   const [results, setSearchResults] = useState<Result[]>([])
@@ -57,6 +82,8 @@ export default function SearchPage(props: SearchPageProps) {
   const [completedInitialLoad, setCompletedInitialLoad] = useState(false)
   const [searchApiFailed, setSearchApiFailed] = useState(false)
   const [requestInFlight, setRequestInFlight] = useState(false)
+
+  const [ui, dispatchUI] = useReducer(uiReducer, uiInitialState)
 
   const runSearch = useCallback(
     async (text, activeFacets, from, sort, ui) => {
@@ -151,8 +178,6 @@ export default function SearchPage(props: SearchPageProps) {
     toggleFacet,
     clearAllFilters,
     acceptSuggestion,
-    updateUI,
-    ui
   } = useCourseSearch(
     runSearch,
     clearSearch,
@@ -160,9 +185,8 @@ export default function SearchPage(props: SearchPageProps) {
     // this is the 'loaded' value, which is what useCourseSearch uses
     // to determine whether to fire off a request or not.
     completedInitialLoad && !requestInFlight,
-    null,
-    history,
-    getPageSizeFromUIParam
+    ui.pageSize,
+    history
   )
 
   const toggleResourceSearch = useCallback(
@@ -202,7 +226,6 @@ export default function SearchPage(props: SearchPageProps) {
     LearningResourceType.ResourceFile
   )
   const facetMap = isResourceSearch ? RESOURCE_FACETS : COURSE_FACETS
-  const pageSize = getPageSizeFromUIParam(ui)
   return (
     <div className="search-page w-100">
       <div className="container">
@@ -235,7 +258,7 @@ export default function SearchPage(props: SearchPageProps) {
             onUpdateFacets={onUpdateFacets}
             clearAllFilters={clearAllFilters}
             toggleFacet={toggleFacet}
-            updateUI={updateUI}
+            onChangeUi={e => dispatchUI({ type: e })}
           />
           <div className="search-results-area col-12 col-lg-9 pb-2 pt-2">
             <div
@@ -320,7 +343,7 @@ export default function SearchPage(props: SearchPageProps) {
                 ) : null}
                 <div className="layout-buttons layout-buttons-desktop">
                   <button
-                    onClick={() => updateUI(SEARCH_LIST_UI)}
+                    onClick={() => dispatchUI({ type: "list" })}
                     className="layout-button-left"
                   >
                     <img
@@ -329,7 +352,7 @@ export default function SearchPage(props: SearchPageProps) {
                     />
                   </button>
                   <button
-                    onClick={() => updateUI(SEARCH_COMPACT_UI)}
+                    onClick={() => dispatchUI({ type: "compact" })}
                     className="layout-button-right"
                   >
                     <img
@@ -341,7 +364,7 @@ export default function SearchPage(props: SearchPageProps) {
               </ul>
             </div>
             <InfiniteScroll
-              hasMore={from + pageSize < total}
+              hasMore={from + ui.pageSize < total}
               loadMore={loadMore}
               initialLoad={false}
               loader={
@@ -377,7 +400,7 @@ export default function SearchPage(props: SearchPageProps) {
                         id={`search-result-${idx}`}
                         index={idx}
                         object={searchResultToLearningResource(hit._source)}
-                        layout={ui}
+                        layout={ui.layout}
                       />
                     ))
                   )

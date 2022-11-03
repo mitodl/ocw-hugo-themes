@@ -38,6 +38,13 @@ export const SEARCH_LIST_UI = "list"
 export const LIST_UI_PAGE_SIZE = 10
 export const COMPACT_UI_PAGE_SIZE = 50
 
+export type UIState = {
+  pageSize: number;
+  layout: string;
+}
+export type UILayout = typeof SEARCH_COMPACT_UI | typeof SEARCH_LIST_UI
+
+
 export const platforms = {
   OCW: ocwPlatform
 }
