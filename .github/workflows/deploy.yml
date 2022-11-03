@@ -15,30 +15,18 @@ jobs:
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
           if_key_exists: replace
 
-      - uses: actions/checkout@v2
-
-      - name: Set up node.js
-        uses: actions/setup-node@v2-beta
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: 16.15.0
-
+          cache: "yarn"
+      
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: 'latest'
           extended: true
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v1
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
 
       - name: Install dependencies
         run: yarn install --immutable
@@ -56,10 +44,10 @@ jobs:
         run: npm run build:webpack -- --output-path=../ocw-www/public/static/
 
       - name: Copy webpack build to course
-        run: npm run build:webpack -- --output-path=../ocw-course/public-v1/static/
+        run: mkdir -p ../ocw-course/public-v1/ && cp -r ../ocw-www/public/static/ ../ocw-course/public-v1/
       
       - name: Copy webpack build to course v2
-        run: npm run build:webpack -- --output-path=../ocw-course/public-v2/static/
+        run: mkdir -p ../ocw-course/public-v2/ && cp -r ../ocw-www/public/static/ ../ocw-course/public-v2/
 
       - name: Run the www hugo build
         run: (cd ../ocw-www; hugo --config ../ocw-hugo-projects/ocw-www/config.yaml --themesDir ../ocw-hugo-themes)
@@ -186,13 +174,14 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
     steps:
-      - uses: actions/checkout@master
-      - run: mkdir -p ${{ github.workspace }}/tmp/artifacts
-
-      - name: Set up node.js
-        uses: actions/setup-node@v2-beta
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: 16.15.0
+          cache: "yarn"
+      
+      - run: mkdir -p ${{ github.workspace }}/tmp/artifacts
 
       - name: Run Lighthouse
         uses: foo-software/lighthouse-check-action@master
