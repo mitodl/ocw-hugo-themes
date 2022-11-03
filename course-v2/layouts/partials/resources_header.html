@@ -1,5 +1,5 @@
-{{- $courseData := site.Data.course --}}
-{{- $zenDeskUrl := "https://mitocw.zendesk.com/hc/en-us/articles/4414681093659-I-have-downloaded-an-MIT-OpenCourseWare-course-but-I-can-t-access-the-materials-How-do-I-get-started-" --}}
+{{- $courseData := site.Data.course -}}
+{{- $zenDeskUrl := "https://mitocw.zendesk.com/hc/en-us/articles/4414681093659-I-have-downloaded-an-MIT-OpenCourseWare-course-but-I-can-t-access-the-materials-How-do-I-get-started-" -}}
 {{- $trimmedBaseUrl := strings.TrimSuffix "/" site.BaseURL -}}
 {{- $shortId := printf "%v-%v-%v" $courseData.primary_course_number (lower $courseData.term) $courseData.year -}}
 {{- $downloadCourseUrl := printf "%v/%v.zip" $trimmedBaseUrl $shortId -}}
