@@ -6,7 +6,7 @@ import * as envalid from "envalid"
 
 dotenv.config()
 const env = envalid.cleanEnv(process.env, {
-  WEBPACK_PORT: envalid.port()
+  WEBPACK_PORT: envalid.port({ default: 3001 })
 })
 
 /**

@@ -9,10 +9,9 @@ import handler from "serve-handler"
 import Table from "cli-table3"
 import * as color from "ansi-colors"
 
-
 dotenv.config()
 const env = envalid.cleanEnv(process.env, {
-  WEBPACK_PORT: envalid.port()
+  WEBPACK_PORT: envalid.port({ default: 3001 })
 })
 
 const execSh = execShCb.promise
@@ -69,12 +68,14 @@ const setupTests = async () => {
     table.push([site.name, `http://localhost:${site.port}`])
   })
 
-  console.log([
-    "\n",
-    color.bold("Now serving the following sites:\n"),
-    table.toString(),
-    "\n"
-  ].join(""))
+  console.log(
+    [
+      "\n",
+      color.bold("Now serving the following sites:\n"),
+      table.toString(),
+      "\n"
+    ].join("")
+  )
 }
 
 export default setupTests

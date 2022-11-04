@@ -8,7 +8,7 @@ import "webpack-dev-server" // this import tells webpack's typings about the dev
 import * as envalid from "envalid"
 
 const env = envalid.cleanEnv(process.env, {
-  WEBPACK_PORT: envalid.port()
+  WEBPACK_PORT: envalid.port({ default: 3001 })
 })
 
 const devOverrides: Configuration = {
