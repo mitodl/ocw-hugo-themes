@@ -424,8 +424,11 @@
       color: $medium-gray;
       a {
         color: $medium-gray;
-        float: right;
+        @include breakpoint(desktop) {
+          float: right;
+        }
       }
+
       @include breakpoint(mobile) {
         width: 100%;
         display: block;

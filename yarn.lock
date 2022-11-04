@@ -1128,9 +1128,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mitodl/course-search-utils@npm:^2.0.1":
-  version: 2.0.2
-  resolution: "@mitodl/course-search-utils@npm:2.0.2"
+"@mitodl/course-search-utils@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "@mitodl/course-search-utils@npm:2.0.4"
   dependencies:
     bodybuilder: ^2.5.0
     history: ^4.9 || ^5.0.0
@@ -1138,7 +1138,7 @@ __metadata:
     ramda: ^0.27.1
   peerDependencies:
     react: ^16.13.1
-  checksum: 79735b608cce70bc7b8307b0239177c120b1ad952380605f3cdd4f466fcacfd2d824697f96de6efecc6aaddd0c0ae6d0dca3542ea39da71a73e9f5e25874e084
+  checksum: f3350f6d577d87a796035a00a1c91acbc148496cec0f387578ddc83d25c898b50d0861fc5c608c1eea61b889b1f1578c646251024d15ae6e295bcd2ffe4c5a48
   languageName: node
   linkType: hard
 
@@ -12608,7 +12608,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ocw-hugo-themes@workspace:."
   dependencies:
-    "@mitodl/course-search-utils": ^2.0.1
+    "@mitodl/course-search-utils": ^2.0.4
     "@mitodl/ocw-to-hugo": 1.36.0
     "@sentry/browser": ^5.19.0
     "@testing-library/react-hooks": ^7.0.2
