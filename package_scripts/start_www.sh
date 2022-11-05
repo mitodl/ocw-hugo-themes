@@ -3,27 +3,15 @@
 set -euo pipefail
 
 source package_scripts/common.sh
-load_env --require-dot-env
 
 THEMES_PATH=$(pwd)
-SEARCH_API_URL=${SEARCH_API_URL:-}
-OCW_STUDIO_BASE_URL=${OCW_STUDIO_BASE_URL:-}
-WWW_HUGO_CONFIG_PATH=${WWW_HUGO_CONFIG_PATH:-}
-WWW_CONTENT_PATH=${WWW_CONTENT_PATH:-}
+# re-export with some fallbacks
+export SEARCH_API_URL=${SEARCH_API_URL:-"https://discussions-rc.odl.mit.edu/api/v0/search/"}
+export OCW_STUDIO_BASE_URL=${OCW_STUDIO_BASE_URL:-"http://ocw-studio-rc.odl.mit.edu/"}
+export WWW_HUGO_CONFIG_PATH=${WWW_HUGO_CONFIG_PATH:-"https://live-qa.ocw.mit.edu/"}
+export WWW_CONTENT_PATH=${WWW_CONTENT_PATH:-"https://live-qa.ocw.mit.edu/"}
 
-# If the base URL variables aren't set, assign defaults
-if [[ -z "${SEARCH_API_URL}" ]]; then
-  export SEARCH_API_URL="https://discussions-rc.odl.mit.edu/api/v0/search/"
-fi
-if [[ -z "${OCW_STUDIO_BASE_URL}" ]]; then
-  export OCW_STUDIO_BASE_URL="http://ocw-studio-rc.odl.mit.edu/"
-fi
-if [[ -z "${STATIC_API_BASE_URL}" ]]; then
-  export STATIC_API_BASE_URL="https://live-qa.ocw.mit.edu/"
-fi
-if [[ -z "${RESOURCE_BASE_URL}" ]]; then
-  export RESOURCE_BASE_URL="https://live-qa.ocw.mit.edu/"
-fi
+
 if [[ -z "${WWW_HUGO_CONFIG_PATH}" ]]; then
   # Path to Hugo config not set, fetch default from Github
   clone_or_pull_repo git@github.com:mitodl/ocw-hugo-projects.git private/ocw-hugo-projects

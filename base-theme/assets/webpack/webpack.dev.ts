@@ -5,6 +5,11 @@ import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import common from "./webpack.common"
 import "webpack-dev-server" // this import tells webpack's typings about the devServer type
+import * as envalid from "envalid"
+
+const env = envalid.cleanEnv(process.env, {
+  WEBPACK_PORT: envalid.port({ default: 3001 })
+})
 
 const devOverrides: Configuration = {
   mode: "development",
@@ -18,7 +23,7 @@ const devOverrides: Configuration = {
   devtool: "eval-source-map",
 
   devServer: {
-    port:    process.env.PORT || 3001,
+    port:    env.WEBPACK_PORT,
     hot:     true,
     open:    false,
     headers: {

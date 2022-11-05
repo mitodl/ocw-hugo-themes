@@ -3,7 +3,6 @@
 set -euo pipefail
 
 source package_scripts/common.sh
-load_env
 
 # We should have 2 arguments; the path to the content and the config
 if [[ $# -lt 2 ]]; then

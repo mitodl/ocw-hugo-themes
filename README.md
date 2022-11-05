@@ -111,9 +111,9 @@ and it uses the `mit-fields` starter configuration in
 
 ### Dependencies
 
-- [NodeJS](https://nodejs.org/en/download/)
-- [Yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable)
-- [Hugo](https://gohugo.io/getting-started/installing/)
+- [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- [NodeJS](https://nodejs.org/en/download/); version managed by nvm
+- [Yarn](https://yarnpkg.com/getting-started/install)
 
 If you're running the site for the first time, or if dependencies have changed,
 install dependencies with:
@@ -168,6 +168,7 @@ An example environment file can be found at `.env.example`.  To further explain 
 | `FIELDS_CONTENT_PATH` | `fields` | `/path/to/ocw-content-rc/philosophy` | A path to a Hugo site that will be rendered when running `npm run start:fields` |
 | `VERBOSE` | N/A | `0` | Used in `build_all_courses.sh`, if set to `1` this will print verbose output from the course builds to the console |
 | `DOWNLOAD` | N/A | `1` | Used in `npm run start:course`, if set to `0` this will not download course data from S3 and instead source `OCW_TEST_COURSE` from the specified `OCW_TO_HUGO_OUTPUT_DIR`. If not specified, it will default to 1 and try to download data from S3. |
+| `WEBPACK_PORT` | N/A | `3001` | Port used by Webpack Dev Server |
 | `WEBPACK_ANALYZE` | N/A | `true` | Used in webpack build. If set to `true`, a dependency analysis of the bundle will be included in the build output. |
 
 ### Running ocw-www
@@ -234,6 +235,9 @@ To customize your `fields` site:
    - `RESOURCE_BASE_URL=https://live-qa.ocw.mit.edu/` (if you need to test the loading of resources from S3 or some other CDN)
  - Start the site with `npm run start:fields`
  - The site should be available at http://localhost:3000/
+
+### Writing Tests
+Most tests in OCW Hugo Themes should be written as e2e tests with Playwright. See [End to End Testing](./tests-e2e/README.md) for more.
 
 ### Miscellaneous commands
 

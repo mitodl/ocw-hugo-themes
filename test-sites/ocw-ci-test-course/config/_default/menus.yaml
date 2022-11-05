@@ -1,0 +1,23 @@
+leftnav:
+- identifier: d9eb8c7e-b9ac-42db-83d1-5e36b8189f5d
+  name: Section 1 Menu Title
+  url: /pages/section-1
+  weight: 10
+- identifier: 018d07b5-0f37-493f-8025-53a3ee837168
+  name: Section 2 Menu Title
+  url: /pages/assignments
+  weight: 20
+- identifier: 7e1d1926-96b4-4f0c-b4b6-2f34ab7562f6
+  name: Shortcode Demos
+  url: /pages/shortcode-demos
+  weight: 30
+- identifier: d1f35266-366e-45f1-bfc2-bcd46eb6c4a4
+  name: Subsection 1a Menu Title
+  parent: d9eb8c7e-b9ac-42db-83d1-5e36b8189f5d
+  url: /pages/subsection-1a
+  weight: 10
+- identifier: 874d2ec0-06db-40da-b376-4f6579590d20
+  name: Subsection 1b Menu Title
+  parent: d9eb8c7e-b9ac-42db-83d1-5e36b8189f5d
+  url: /pages/subsection-1b
+  weight: 20
