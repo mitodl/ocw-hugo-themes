@@ -16,7 +16,6 @@
     "start:fields:hugo": "dotenv -- ./package_scripts/start_fields.sh",
     "prebuild": "rimraf dist",
     "build": "dotenv -- ./package_scripts/build.sh",
-    "build:all": "dotenv -- ./package_scripts/build_all_courses.sh",
     "build:githash": "mkdir -p base-theme/dist/static && git rev-parse HEAD > base-theme/dist/static/hash.txt",
     "build:hugo": "hugo -d ../dist -v",
     "build:hugo:debug": "hugo -d ../dist -v --templateMetrics --debug",
