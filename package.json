@@ -30,7 +30,8 @@
     "test:watch": "jest --watch",
     "test:verbose": "jest --verbose",
     "test:e2e": "playwright test",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "with-env": "ts-node ./package_scripts/with-env.ts"
   },
   "license": "BSD-3-CLAUSE",
   "resolutions": {
@@ -41,6 +42,8 @@
     "@mitodl/course-search-utils": "^2.0.4",
     "@mitodl/ocw-to-hugo": "1.36.0",
     "@sentry/browser": "^5.19.0",
+    "@swc/core": "^1.3.14",
+    "@swc/helpers": "^0.4.12",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/dotenv-webpack": "^7.0.3",
     "@types/enzyme": "^3.10.11",
@@ -69,6 +72,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "cli-progress": "^3.8.2",
     "cli-table3": "^0.6.3",
+    "commander": "^9.4.1",
     "concurrently": "^6.3.0",
     "copy-webpack-plugin": "^11.0.0",
     "core-js": "^3.20.2",
