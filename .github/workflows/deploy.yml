@@ -54,7 +54,7 @@ jobs:
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
-          OCW_IMPORT_STARTER_SLUG: ${{ secrets.OCW_IMPORT_STARTER_SLUG }}
+          OCW_COURSE_STARTER_SLUG: ${{ secrets.OCW_COURSE_STARTER_SLUG }}
           STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
       
@@ -63,7 +63,7 @@ jobs:
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
-          OCW_IMPORT_STARTER_SLUG: ${{ secrets.OCW_IMPORT_STARTER_SLUG }}
+          OCW_COURSE_STARTER_SLUG: ${{ secrets.OCW_COURSE_STARTER_SLUG }}
           STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
 
@@ -72,7 +72,7 @@ jobs:
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
-          OCW_IMPORT_STARTER_SLUG: ${{ secrets.OCW_IMPORT_STARTER_SLUG }}
+          OCW_COURSE_STARTER_SLUG: ${{ secrets.OCW_COURSE_STARTER_SLUG }}
           STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
 
