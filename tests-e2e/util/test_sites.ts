@@ -1,12 +1,5 @@
 import * as path from "node:path"
-import * as dotenv from "dotenv"
-import * as envalid from "envalid"
-
-dotenv.config()
-const env = envalid.cleanEnv(process.env, {
-  COURSE_HUGO_CONFIG_PATH: envalid.str(),
-  WWW_HUGO_CONFIG_PATH:    envalid.str()
-})
+import { env } from "../../env"
 
 type TestSiteAlias = "course" | "www"
 type TestSite = {

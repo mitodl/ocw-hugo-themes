@@ -4,12 +4,8 @@ import { Configuration } from "webpack"
 import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import common from "./webpack.common"
+import { env } from "../../../env"
 import "webpack-dev-server" // this import tells webpack's typings about the devServer type
-import * as envalid from "envalid"
-
-const env = envalid.cleanEnv(process.env, {
-  WEBPACK_PORT: envalid.port({ default: 3001 })
-})
 
 const devOverrides: Configuration = {
   mode: "development",
@@ -24,6 +20,7 @@ const devOverrides: Configuration = {
 
   devServer: {
     port:    env.WEBPACK_PORT,
+    host:    env.WEBPACK_HOST,
     hot:     true,
     open:    false,
     headers: {

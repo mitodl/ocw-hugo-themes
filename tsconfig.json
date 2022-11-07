@@ -69,6 +69,7 @@
     "./base-theme/assets/webpack"
   ],
   "ts-node": {
-    "files": true
+    "files": true,
+    "swc": true
   }
 }

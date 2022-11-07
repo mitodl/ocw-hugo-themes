@@ -1402,6 +1402,126 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/core-darwin-arm64@npm:1.3.14":
+  version: 1.3.14
+  resolution: "@swc/core-darwin-arm64@npm:1.3.14"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@swc/core-darwin-x64@npm:1.3.14":
+  version: 1.3.14
+  resolution: "@swc/core-darwin-x64@npm:1.3.14"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-arm-gnueabihf@npm:1.3.14":
+  version: 1.3.14
+  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.3.14"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-arm64-gnu@npm:1.3.14":
+  version: 1.3.14
+  resolution: "@swc/core-linux-arm64-gnu@npm:1.3.14"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-arm64-musl@npm:1.3.14":
+  version: 1.3.14
+  resolution: "@swc/core-linux-arm64-musl@npm:1.3.14"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-x64-gnu@npm:1.3.14":
+  version: 1.3.14
+  resolution: "@swc/core-linux-x64-gnu@npm:1.3.14"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-x64-musl@npm:1.3.14":
+  version: 1.3.14
+  resolution: "@swc/core-linux-x64-musl@npm:1.3.14"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@swc/core-win32-arm64-msvc@npm:1.3.14":
+  version: 1.3.14
+  resolution: "@swc/core-win32-arm64-msvc@npm:1.3.14"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@swc/core-win32-ia32-msvc@npm:1.3.14":
+  version: 1.3.14
+  resolution: "@swc/core-win32-ia32-msvc@npm:1.3.14"
+  conditions: os=win32 & cpu=ia32
+  languageName: node
+  linkType: hard
+
+"@swc/core-win32-x64-msvc@npm:1.3.14":
+  version: 1.3.14
+  resolution: "@swc/core-win32-x64-msvc@npm:1.3.14"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@swc/core@npm:^1.3.14":
+  version: 1.3.14
+  resolution: "@swc/core@npm:1.3.14"
+  dependencies:
+    "@swc/core-darwin-arm64": 1.3.14
+    "@swc/core-darwin-x64": 1.3.14
+    "@swc/core-linux-arm-gnueabihf": 1.3.14
+    "@swc/core-linux-arm64-gnu": 1.3.14
+    "@swc/core-linux-arm64-musl": 1.3.14
+    "@swc/core-linux-x64-gnu": 1.3.14
+    "@swc/core-linux-x64-musl": 1.3.14
+    "@swc/core-win32-arm64-msvc": 1.3.14
+    "@swc/core-win32-ia32-msvc": 1.3.14
+    "@swc/core-win32-x64-msvc": 1.3.14
+  dependenciesMeta:
+    "@swc/core-darwin-arm64":
+      optional: true
+    "@swc/core-darwin-x64":
+      optional: true
+    "@swc/core-linux-arm-gnueabihf":
+      optional: true
+    "@swc/core-linux-arm64-gnu":
+      optional: true
+    "@swc/core-linux-arm64-musl":
+      optional: true
+    "@swc/core-linux-x64-gnu":
+      optional: true
+    "@swc/core-linux-x64-musl":
+      optional: true
+    "@swc/core-win32-arm64-msvc":
+      optional: true
+    "@swc/core-win32-ia32-msvc":
+      optional: true
+    "@swc/core-win32-x64-msvc":
+      optional: true
+  bin:
+    swcx: run_swcx.js
+  checksum: 79e9857ee3d5af22d9a6e644d7608594fa8ccd9102dbc088addc0f6ee9e1e8e3fc8835545730707395aa47197ab119fa323aedf4184cf51892379b307aedddc0
+  languageName: node
+  linkType: hard
+
+"@swc/helpers@npm:^0.4.12":
+  version: 0.4.12
+  resolution: "@swc/helpers@npm:0.4.12"
+  dependencies:
+    tslib: ^2.4.0
+  checksum: 3f9112f37d87815b6d4270137fc78d22bb98c75138e9b0eac7cac203ec2cf2bffbf13b20a713067c292affd5e9e70a724eb245b8daf0963e7fe528b901771c28
+  languageName: node
+  linkType: hard
+
 "@testing-library/react-hooks@npm:^7.0.2":
   version: 7.0.2
   resolution: "@testing-library/react-hooks@npm:7.0.2"
@@ -4774,6 +4894,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^9.4.1":
+  version: 9.4.1
+  resolution: "commander@npm:9.4.1"
+  checksum: bfb18e325a5bdf772763c2213d5c7d9e77144d944124e988bcd8e5e65fb6d45d5d4e86b09155d0f2556c9a59c31e428720e57968bcd050b2306e910a0bf3cf13
+  languageName: node
+  linkType: hard
+
 "common-tags@npm:^1.4.0, common-tags@npm:^1.8.0":
   version: 1.8.0
   resolution: "common-tags@npm:1.8.0"
@@ -5916,33 +6043,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv-cli@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "dotenv-cli@npm:6.0.0"
-  dependencies:
-    cross-spawn: ^7.0.3
-    dotenv: ^16.0.0
-    dotenv-expand: ^8.0.1
-    minimist: ^1.2.5
-  bin:
-    dotenv: cli.js
-  checksum: 3db5a363eedd24d428001a956d9b8c72094983bfe0e0e722cda7803b614daf85dde9c9beb5d9fa28a139a5c594533ecd8f9d8430a90c244175e81c9a40abc5b1
-  languageName: node
-  linkType: hard
-
 "dotenv-defaults@npm:^2.0.2":
   version: 2.0.2
   resolution: "dotenv-defaults@npm:2.0.2"
   dependencies:
     dotenv: ^8.2.0
   checksum: c005960bd048e2189c4799e729c41f362e415e6e0b54313d3f31e853a84b049bf770b25cb21c112c2805bb13a8376edc9de451fb514abf8546392d327c27f6e5
-  languageName: node
-  linkType: hard
-
-"dotenv-expand@npm:^8.0.1":
-  version: 8.0.3
-  resolution: "dotenv-expand@npm:8.0.3"
-  checksum: 128ce90ac825b543de3ece0154a51b056ab0dc36bb26d97a68cd0b8707327ecd3c182fb6ac63b26a0fcdfa85064419906a1065cb634f1f9dc08ad311375f1fc0
   languageName: node
   linkType: hard
 
@@ -5954,13 +6060,6 @@ __metadata:
   peerDependencies:
     webpack: ^4 || ^5
   checksum: 1ca629608b818ba927b54044a0ff02f089733c1acc8e9fa10e037cc5157867f63a825850965a91377814879509544ae8e0742e67bd3ed9ea51bd2b8eed755201
-  languageName: node
-  linkType: hard
-
-"dotenv@npm:^16.0.0":
-  version: 16.0.3
-  resolution: "dotenv@npm:16.0.3"
-  checksum: afcf03f373d7a6d62c7e9afea6328e62851d627a4e73f2e12d0a8deae1cd375892004f3021883f8aec85932cd2834b091f568ced92b4774625b321db83b827f8
   languageName: node
   linkType: hard
 
@@ -12720,6 +12819,8 @@ __metadata:
     "@mitodl/ocw-to-hugo": 1.36.0
     "@playwright/test": ^1.27.1
     "@sentry/browser": ^5.19.0
+    "@swc/core": ^1.3.14
+    "@swc/helpers": ^0.4.12
     "@testing-library/react-hooks": ^7.0.2
     "@types/dotenv-webpack": ^7.0.3
     "@types/enzyme": ^3.10.11
@@ -12748,13 +12849,13 @@ __metadata:
     clean-webpack-plugin: ^3.0.0
     cli-progress: ^3.8.2
     cli-table3: ^0.6.3
+    commander: ^9.4.1
     concurrently: ^6.3.0
     copy-webpack-plugin: ^11.0.0
     core-js: ^3.20.2
     cross-env: ^5.2.0
     css-loader: ^3.0.0
     css-minimizer-webpack-plugin: ^4.0.0
-    dotenv-cli: ^6.0.0
     dotenv-webpack: ^8.0.0
     envalid: ^7.3.1
     enzyme: ^3.11.0
@@ -17768,6 +17869,13 @@ __metadata:
   version: 2.2.0
   resolution: "tslib@npm:2.2.0"
   checksum: a48c9639f7496fa701ea8ffe0561070fcb44c104a59632f7f845c0af00825c99b6373575ec59b2b5cdbfd7505875086dbe5dc83312304d8979f22ce571218ca3
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.4.0":
+  version: 2.4.1
+  resolution: "tslib@npm:2.4.1"
+  checksum: 19480d6e0313292bd6505d4efe096a6b31c70e21cf08b5febf4da62e95c265c8f571f7b36fcc3d1a17e068032f59c269fab3459d6cd3ed6949eafecf64315fca
   languageName: node
   linkType: hard
 
