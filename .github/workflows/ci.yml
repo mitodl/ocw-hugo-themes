@@ -34,7 +34,6 @@ jobs:
       RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
       COURSE_HUGO_CONFIG_PATH: "$GITHUB_WORKSPACE/ocw-hugo-projects/ocw-course-v2/config.yaml"
       WWW_HUGO_CONFIG_PATH: "$GITHUB_WORKSPACE/ocw-hugo-projects/ocw-www/config.yaml"
-      WEBPACK_PORT: 3001
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -45,7 +44,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         repository: "mitodl/ocw-hugo-projects"
-        ref: "main"
+        ref: "cc/webpack_host"
         path: "ocw-hugo-projects"
     - name: Install dependencies
       run: yarn

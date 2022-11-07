@@ -38,7 +38,11 @@ jobs:
         run: (cd ..; git clone git@github.mit.edu:ocw-content-rc/15.s21-january-iap-2014.git ocw-course)
 
       - name: Clone ocw-hugo-projects for config
-        run: (cd ..; git clone https://github.com/mitodl/ocw-hugo-projects)
+        uses: actions/checkout@v3
+        with:
+          repository: "mitodl/ocw-hugo-projects"
+          ref: "cc/webpack_host"
+          path: "ocw-hugo-projects"
 
       - name: Run webpack build
         run: npm run build:webpack -- --output-path=../ocw-www/public/static/
@@ -50,16 +54,16 @@ jobs:
         run: mkdir -p ../ocw-course/public-v2/ && cp -r ../ocw-www/public/static/ ../ocw-course/public-v2/
 
       - name: Run the www hugo build
-        run: (cd ../ocw-www; hugo --config ../ocw-hugo-projects/ocw-www/config.yaml --themesDir ../ocw-hugo-themes)
+        run: (cd ../ocw-www; hugo --config $GITHUB_WORKSPACE/ocw-hugo-projects/ocw-www/config.yaml --themesDir ../ocw-hugo-themes)
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
           OCW_COURSE_STARTER_SLUG: ${{ secrets.OCW_COURSE_STARTER_SLUG }}
           STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
-      
+  
       - name: Run the course hugo build
-        run: (cd ../ocw-course; hugo --config ../ocw-hugo-projects/ocw-course/config.yaml --destination public-v1 --themesDir ../ocw-hugo-themes)
+        run: (cd ../ocw-course; hugo --config $GITHUB_WORKSPACE/ocw-hugo-projects/ocw-course/config.yaml  --destination public-v1 --themesDir ../ocw-hugo-themes)
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
@@ -68,7 +72,7 @@ jobs:
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
 
       - name: Run the course v2 hugo build
-        run: (cd ../ocw-course; hugo --config ../ocw-hugo-projects/ocw-course/config.yaml --destination public-v2 --themesDir ../ocw-hugo-themes)
+        run: (cd ../ocw-course; hugo --config $GITHUB_WORKSPACE/ocw-hugo-projects/ocw-course-v2/config.yaml  --destination public-v2 --themesDir ../ocw-hugo-themes)
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
