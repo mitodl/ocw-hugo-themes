@@ -162,7 +162,7 @@ An example environment file can be found at `.env.example`.  To further explain 
 | `WWW_CONTENT_PATH` | `www` | `/path/to/ocw-content-rc/ocw-www` | A path to a Hugo site that will be rendered when running `npm run start:www` |
 | `COURSE_CONTENT_PATH` | `course` | `/path/to/ocw-content-rc/` | A path to a base folder containing `ocw-course` type Hugo sites |
 | `OCW_TEST_COURSE` | `course` | `18.06-spring-2010` | The name of a folder in `COURSE_CONTENT_PATH` containing a Hugo site that will be rendered when running `npm run start:course` |
-| `OCW_IMPORT_STARTER_SLUG` | `www` | `ocw-course` | When generating "New Courses" cards on the home page, the `ocw-studio` API is queried using `OCW_STUDIO_BASE_URL`.  This value determines the `type` used in the query string against the API |
+| `OCW_COURSE_STARTER_SLUG` | `www` | `ocw-course` | When generating "New Courses" cards on the home page, the `ocw-studio` API is queried using `OCW_STUDIO_BASE_URL`.  This value determines the `type` used in the query string against the API |
 | `COURSE_BASE_URL` | N/A | `http://localhost:3000/courses` | Used in `build_all_courses.sh`, this is the `--baseUrl` argument passed to each course build iterated by the script |
 | `FIELDS_HUGO_CONFIG_PATH` | `fields` | `/path/to/ocw-hugo-projects/mit-fields/config.yaml` | A path to the `mit-fields` Hugo configuration file |
 | `FIELDS_CONTENT_PATH` | `fields` | `/path/to/ocw-content-rc/philosophy` | A path to a Hugo site that will be rendered when running `npm run start:fields` |
