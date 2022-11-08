@@ -1,10 +1,5 @@
 .course-image-section-container {
-  height: 100%;
-  position: relative;
-
   .course-image-container {
-    height: 100%;
-    padding-bottom: 75px;
     overflow: hidden;
 
     .course-image {
@@ -18,12 +13,5 @@
       margin-top: 10px;
       line-height: 1.2;
     }
-  }
-
-  .download-course-link-button-container {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
   }
 }
