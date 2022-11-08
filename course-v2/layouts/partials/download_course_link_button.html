@@ -1,0 +1,10 @@
+{{- $trimmedBaseUrl := strings.TrimSuffix "/" site.BaseURL -}}
+{{- $downloadPageUrl := print $trimmedBaseUrl "/download" -}}
+{{- $downloadPageUrl = partial "page_url.html" (dict "context" .context "url" $downloadPageUrl) -}}
+<div class="mt-4">
+  <a class="download-course-link-button btn btn-outline-primary btn-link link-button text-decoration-none px-4 py-2"
+    role="button"
+    href="{{- $downloadPageUrl -}}">
+    <div class="text-center w-100">Download Course</div>
+  </a>
+</div>

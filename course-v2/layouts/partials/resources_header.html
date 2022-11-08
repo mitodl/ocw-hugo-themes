@@ -17,7 +17,7 @@
   
   The file is empty because we only made a HEAD request.
 -->
-{{- if in $headResponse "unexpected EOF" -}}
+{{- if not (in $headResponse "unexpected EOF") -}}
 <div class="mb-2">
   <h2>Download</h2>
   <div class="hide-offline download-course-container background-color-light-grey p-3">

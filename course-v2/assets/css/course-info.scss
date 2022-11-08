@@ -47,3 +47,12 @@ $panel-course-info-text-color: #464646;
   position: absolute;
   right: 0;
 }
+
+.download-course-link-button {
+  border-color: $blue !important;
+  color: $blue !important;
+}
+
+.download-course-link-button:hover {
+  color: $white !important;
+}
