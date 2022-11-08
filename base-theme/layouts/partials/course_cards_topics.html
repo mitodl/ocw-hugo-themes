@@ -9,8 +9,5 @@
 {{- range $index, $rawTopic := $topics -}}
   {{- $topic := title $rawTopic -}}
   {{- $topicSearchUrl := partial "get_search_url.html" (dict "key" "topic" "value" $topic) -}}
-  {{ partial "link.html" (dict "href" $topicSearchUrl "text" $topic "stripLinkOffline" true) }}
-  {{- if ne (add $index 1) $numTopics -}}
-  ,&nbsp;
-  {{- end -}}
+  {{ partial "link.html" (dict "href" $topicSearchUrl "text" $topic "stripLinkOffline" true "class" "link-items") }}
 {{- end -}}

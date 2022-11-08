@@ -326,6 +326,13 @@ $searchbox-height: 50px;
         @include line-clamp(1.125rem, 2, 0.5rem);
       }
 
+      .link-items::after {
+        content: ",";
+      }
+      .link-items:last-child::after {
+        content: "";
+      }
+
       .card-label {
         color: $dark-gray;
       }
