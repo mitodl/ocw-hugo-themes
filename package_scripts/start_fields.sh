@@ -2,21 +2,10 @@
 
 set -euo pipefail
 
-source package_scripts/common.sh
-
 THEMES_PATH=$(pwd)
-export STATIC_API_BASE_URL=${STATIC_API_BASE_URL:-"https://live-qa.ocw.mit.edu/"}
-export RESOURCE_BASE_URL=${RESOURCE_BASE_URL:-"https://live-qa.ocw.mit.edu/"}
-FIELDS_HUGO_CONFIG_PATH=${FIELDS_HUGO_CONFIG_PATH:-}
-FIELDS_CONTENT_PATH=${FIELDS_CONTENT_PATH:-}
-OCW_TEST_COURSE=${OCW_TEST_COURSE:-}
-
-cd $FIELDS_CONTENT_PATH
-
-echo $FIELDS_HUGO_CONFIG_PATH
-echo $FIELDS_CONTENT_PATH
 
 # Run hugo server
+cd $FIELDS_CONTENT_PATH
 hugo server \
   -p 3000 \
   --bind 0.0.0.0 \

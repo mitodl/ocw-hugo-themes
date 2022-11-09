@@ -2,8 +2,6 @@
 
 set -euo pipefail
 
-source package_scripts/common.sh
-
 if [[ -z "${OCW_TO_HUGO_PATH}" ]]; then
   OCW_TO_HUGO_PATH="node_modules/@mitodl/ocw-to-hugo"
 fi

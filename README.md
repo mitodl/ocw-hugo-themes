@@ -147,7 +147,11 @@ Much the same for `fields`, you can either create your own site using the
 
 ### Environment variables
 
-An example environment file can be found at `.env.example`.  To further explain the various environment variables and what they do:
+During local development, environment variables are read from `.env`. However, this project has no required environment variables *for development*.
+
+To seed a `.env` file with your development values (e.g., for running production-esque commands during development), run `yarn with-env --print-env '' > .env`.
+
+To further explain the various environment variables and what they do:
 
 | Variable | Relevant Themes | Example | Description |
 | --- | --- | --- | --- |
@@ -163,13 +167,11 @@ An example environment file can be found at `.env.example`.  To further explain 
 | `COURSE_CONTENT_PATH` | `course` | `/path/to/ocw-content-rc/` | A path to a base folder containing `ocw-course` type Hugo sites |
 | `OCW_TEST_COURSE` | `course` | `18.06-spring-2010` | The name of a folder in `COURSE_CONTENT_PATH` containing a Hugo site that will be rendered when running `npm run start:course` |
 | `OCW_COURSE_STARTER_SLUG` | `www` | `ocw-course` | When generating "New Courses" cards on the home page, the `ocw-studio` API is queried using `OCW_STUDIO_BASE_URL`.  This value determines the `type` used in the query string against the API |
-| `COURSE_BASE_URL` | N/A | `http://localhost:3000/courses` | Used in `build_all_courses.sh`, this is the `--baseUrl` argument passed to each course build iterated by the script |
 | `FIELDS_HUGO_CONFIG_PATH` | `fields` | `/path/to/ocw-hugo-projects/mit-fields/config.yaml` | A path to the `mit-fields` Hugo configuration file |
 | `FIELDS_CONTENT_PATH` | `fields` | `/path/to/ocw-content-rc/philosophy` | A path to a Hugo site that will be rendered when running `npm run start:fields` |
-| `VERBOSE` | N/A | `0` | Used in `build_all_courses.sh`, if set to `1` this will print verbose output from the course builds to the console |
-| `DOWNLOAD` | N/A | `1` | Used in `npm run start:course`, if set to `0` this will not download course data from S3 and instead source `OCW_TEST_COURSE` from the specified `OCW_TO_HUGO_OUTPUT_DIR`. If not specified, it will default to 1 and try to download data from S3. |
-| `WEBPACK_PORT` | N/A | `3001` | Port used by Webpack Dev Server |
 | `WEBPACK_ANALYZE` | N/A | `true` | Used in webpack build. If set to `true`, a dependency analysis of the bundle will be included in the build output. |
+| `WEBPACK_HOST` | N/A | `localhost` | Host used by Hugo when querying the Webpack Dev Server. Can be set to your local IP to enable testing OCW on other devices (e.g., phones) within your network. |
+| `WEBPACK_PORT` | N/A | `3001` | Port used by Webpack Dev Server |
 
 ### Running ocw-www
 

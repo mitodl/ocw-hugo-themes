@@ -1,18 +1,12 @@
 import { ExecOptions } from "node:child_process"
 import * as http from "node:http"
 import * as path from "node:path"
-import dotenv from "dotenv"
 import execShCb from "exec-sh"
-import * as envalid from "envalid"
 import { TEST_SITES } from "./util"
 import handler from "serve-handler"
 import Table from "cli-table3"
 import * as color from "ansi-colors"
-
-dotenv.config()
-const env = envalid.cleanEnv(process.env, {
-  WEBPACK_PORT: envalid.port({ default: 3001 })
-})
+import { env } from "../env"
 
 const execSh = execShCb.promise
 
