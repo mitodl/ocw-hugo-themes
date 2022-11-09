@@ -20,7 +20,12 @@ const devOverrides: Configuration = {
 
   devServer: {
     port:    env.WEBPACK_PORT,
-    host:    env.WEBPACK_HOST,
+    /**
+     * This is intentially not set to the WEBPACK_HOST environment variable.
+     * WEBPACK_HOST tells Hugo how to query webpack. Binding the dev server to
+     * 0.0.0 allows testing OCW on other devices within your local network.
+     */
+    host:    "0.0.0.0",
     hot:     true,
     open:    false,
     headers: {

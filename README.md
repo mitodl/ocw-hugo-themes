@@ -170,7 +170,7 @@ To further explain the various environment variables and what they do:
 | `FIELDS_HUGO_CONFIG_PATH` | `fields` | `/path/to/ocw-hugo-projects/mit-fields/config.yaml` | A path to the `mit-fields` Hugo configuration file |
 | `FIELDS_CONTENT_PATH` | `fields` | `/path/to/ocw-content-rc/philosophy` | A path to a Hugo site that will be rendered when running `npm run start:fields` |
 | `WEBPACK_ANALYZE` | N/A | `true` | Used in webpack build. If set to `true`, a dependency analysis of the bundle will be included in the build output. |
-| `WEBPACK_HOST` | N/A | `0.0.0.0` | Host used by Webpack Dev Server |
+| `WEBPACK_HOST` | N/A | `localhost` | Host used by Hugo when querying the Webpack Dev Server. Can be set to your local IP to enable testing OCW on other devices (e.g., phones) within your network. |
 | `WEBPACK_PORT` | N/A | `3001` | Port used by Webpack Dev Server |
 
 ### Running ocw-www

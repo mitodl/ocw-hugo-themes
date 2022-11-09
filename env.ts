@@ -18,8 +18,9 @@ const envSchema = {
     default: false
   }),
   WEBPACK_HOST: envalid.str({
-    default: "0.0.0.0",
-    desc:    "The host used by webpack dev server."
+    default: "localhost",
+    desc:
+      "Host used by Hugo when querying the Webpack Dev Server. Can be set to your local IP to enable testing OCW on other devices (e.g., phones) within your network."
   }),
   WEBPACK_PORT: envalid.port({
     default: 3001,
@@ -62,12 +63,12 @@ const envSchema = {
   }),
 
   /**
-   * The default value assumes `ocw-content-prod` is a sibling directory of
+   * The default value assumes `ocw-content-rc` is a sibling directory of
    * `ocw-hugo-themes`.
    */
   COURSE_CONTENT_PATH: envalid.str({
     desc:       "A path to a base folder containing ocw-course type Hugo sites",
-    devDefault: path.resolve(__dirname, "../ocw-content-prod/")
+    devDefault: path.resolve(__dirname, "../ocw-content-rc/")
   }),
   /**
    * The default values for the following path variables all assume that
@@ -93,6 +94,10 @@ const envSchema = {
       __dirname,
       "../ocw-hugo-projects/ocw-www/config.yaml"
     )
+  }),
+  WWW_CONTENT_PATH: envalid.str({
+    desc:       "Path to the ocw-www Hugo configuration file",
+    devDefault: path.resolve(__dirname, "../mitocwcontent/ocw-www/config.yaml")
   })
 }
 
@@ -122,9 +127,7 @@ assertIsRunningInNode()
  */
 const reporter = <T>(opts: ReporterOptions<T>) => {
   if (Object.keys(opts.errors).length > 0) {
-    console.log(
-      color.yellowBright.bold("Environment variable validation error.")
-    )
+    console.log(color.yellow("Environment variable validation error."))
 
     console.group()
     console.log(`NODE_ENV is: ${process.env.NODE_ENV}`)
