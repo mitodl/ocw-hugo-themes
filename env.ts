@@ -50,8 +50,8 @@ const envSchema = {
     devDefault: "https://live-qa.ocw.mit.edu/"
   }),
   SEARCH_API_URL: envalid.url({
-    desc:    "The URL of the search API.",
-    default: "http://discussions-rc.odl.mit.edu/api/v0/search/"
+    desc:       "The URL of the search API.",
+    devDefault: "https://discussions-rc.odl.mit.edu/api/v0/search/"
   }),
   SITEMAP_DOMAIN: envalid.str({
     desc:       "The domain used when writing fully qualified URLs into the sitemap",
@@ -96,8 +96,8 @@ const envSchema = {
     )
   }),
   WWW_CONTENT_PATH: envalid.str({
-    desc:       "Path to the ocw-www Hugo configuration file",
-    devDefault: path.resolve(__dirname, "../mitocwcontent/ocw-www/config.yaml")
+    desc:       "Path to the ocw-www Hugo content directory.",
+    devDefault: path.resolve(__dirname, "../ocw-content-rc/ocw-www")
   })
 }
 

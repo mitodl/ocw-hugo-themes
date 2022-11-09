@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint $PROJECT_CWD/'**/*.{js,jsx,ts,tsx}'",
     "start": "ts-node ./package_scripts/start.ts",
-    "start:webpack": "NODE_ENV=development webpack serve --config ./base-theme/assets/webpack/webpack.dev.ts --hot --stats-children",
+    "start:webpack": "yarn with-env --dev -- webpack serve --config ./base-theme/assets/webpack/webpack.dev.ts --hot --stats-children",
     "start:www": "concurrently -c \"blue,red\" --names \"webpack,hugo\" \"npm:start:webpack\" \"npm:start:www:hugo\"    --kill-others",
     "start:course": "concurrently -c \"blue,red\" --names \"webpack,hugo\" \"npm:start:webpack\" \"npm:start:course:hugo\" --kill-others",
     "start:fields": "concurrently -c \"blue,red\" --names \"webpack,hugo\" \"npm:start:webpack\" \"npm:start:fields:hugo\" --kill-others",
