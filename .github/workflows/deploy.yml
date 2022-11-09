@@ -72,7 +72,7 @@ jobs:
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
 
       - name: Run the course v2 hugo build
-        run: (cd ../ocw-course; hugo --config $GITHUB_WORKSPACE/ocw-hugo-projects/ocw-course-v2/config.yaml  --destination public-v2 --themesDir ../ocw-hugo-themes)
+        run: (cd ../ocw-course; hugo --config $GITHUB_WORKSPACE/ocw-hugo-projects/ocw-course-v2/config.yaml  --destination public-v2 --baseUrl https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/ --themesDir ../ocw-hugo-themes)
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
