@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.76.3
+Version 1.76.3 (Released November 09, 2022)
 --------------
 
 - build webpack once, not thrice (#954)
