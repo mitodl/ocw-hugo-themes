@@ -30,10 +30,11 @@ const envSchema = {
    * Dev-only defaults
    */
   GIT_CONTENT_SOURCE: envalid.str({
-    desc:       "Git organization/user URL from which to pull Hugo site content repositories.",
+    desc:
+      "Git organization/user URL from which to pull Hugo site content repositories.",
     devDefault: "git@github.mit.edu:ocw-content-rc"
   }),
-  GTM_ACCOUNT_ID:          envalid.str({
+  GTM_ACCOUNT_ID: envalid.str({
     desc:
       "A string representing a Google account ID to initialize Google Tag Manager with",
     devDefault: ""

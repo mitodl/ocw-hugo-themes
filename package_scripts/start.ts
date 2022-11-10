@@ -79,10 +79,10 @@ const ensureGitContent = async ({
     const message = [
       explainMissingContent,
       `    ${color.cyan(dirpath)}`,
-      'but no content was found.\n',
-      'Would you like to clone the content from:',
+      "but no content was found.\n",
+      "Would you like to clone the content from:",
       `    ${color.cyan(repoUrl)}?`
-    ].join('\n')
+    ].join("\n")
 
     const { clone } = await inquirer.prompt([
       {
@@ -102,9 +102,7 @@ const ensureGitContent = async ({
   return
 }
 
-const ensureHugoConfig = async (
-  envVarName: string
-) => {
+const ensureHugoConfig = async (envVarName: string) => {
   const filepath = env[envVarName]
   if (await u.exists(filepath)) return
   const segments = filepath.split(path.sep)
@@ -119,7 +117,7 @@ const ensureHugoConfig = async (
     ...segments.slice(0, projectsIndex + 1)
   )
 
-  const explainMissingContent =  [
+  const explainMissingContent = [
     `CLI option ${color.yellow("--config")}`,
     "(possibly defaulting to environment variable(s); use --help for details)",
     "indicates that ocw-hugo-projects should exist at"
@@ -132,7 +130,8 @@ const ensureHugoConfig = async (
   })
 }
 
-const gitRepoUrl = (userLike: string, repoName: string) => `${userLike}/${repoName}.git`
+const gitRepoUrl = (userLike: string, repoName: string) =>
+  `${userLike}/${repoName}.git`
 
 /**
  * A shortcut for constructing commander options that construct their descriptions
@@ -146,7 +145,10 @@ const gitRepoUrl = (userLike: string, repoName: string) => `${userLike}/${repoNa
  *  .requiredOption(...makeEnvOpt("--opt-name", "ENV_VARIABLE_NAME"))
  * ```
  */
-const makeEnvOpt = (optName: string, envVarName: keyof typeof env): [string, string, string | boolean] => {
+const makeEnvOpt = (
+  optName: string,
+  envVarName: keyof typeof env
+): [string, string, string | boolean] => {
   return [
     optName,
     `${envSchema[envVarName].desc}\nDefaults to value of ${envVarName} environment variable.`,
@@ -156,7 +158,7 @@ const makeEnvOpt = (optName: string, envVarName: keyof typeof env): [string, str
      * is nice for auto-complete.
      */
     // @ts-expect-error See above note.
-    env[envVarName],
+    env[envVarName]
   ]
 }
 
@@ -209,7 +211,9 @@ start
   )
   .requiredOption(...makeEnvOpt("--content-dir <value>", "COURSE_CONTENT_PATH"))
   .requiredOption(...makeEnvOpt("--config <value>", "COURSE_HUGO_CONFIG_PATH"))
-  .requiredOption(...makeEnvOpt("--git-content-source <value>", "GIT_CONTENT_SOURCE"))
+  .requiredOption(
+    ...makeEnvOpt("--git-content-source <value>", "GIT_CONTENT_SOURCE")
+  )
   .action(async (shortId: string, opts: StartOptions) => {
     const contentDir = `${opts.contentDir}/${shortId}`
     /**
@@ -226,7 +230,9 @@ start
   .description("Start webpack + hugo dev servers for ocw-www (homepage).")
   .requiredOption(...makeEnvOpt("--content-dir <value>", "WWW_CONTENT_PATH"))
   .requiredOption(...makeEnvOpt("--config <value>", "WWW_HUGO_CONFIG_PATH"))
-  .requiredOption(...makeEnvOpt("--git-content-source <value>", "GIT_CONTENT_SOURCE"))
+  .requiredOption(
+    ...makeEnvOpt("--git-content-source <value>", "GIT_CONTENT_SOURCE")
+  )
   .action(async (opts: StartOptions) => {
     startSiteAction(opts, ["--content-dir"])
   })
@@ -236,7 +242,9 @@ start
   .description("Start webpack + hugo dev servers for mit-fields.")
   .requiredOption(...makeEnvOpt("--content-dir <value>", "FIELDS_CONTENT_PATH"))
   .requiredOption(...makeEnvOpt("--config <value>", "FIELDS_HUGO_CONFIG_PATH"))
-  .requiredOption(...makeEnvOpt("--git-content-source <value>", "GIT_CONTENT_SOURCE"))
+  .requiredOption(
+    ...makeEnvOpt("--git-content-source <value>", "GIT_CONTENT_SOURCE")
+  )
   .action(async (opts: StartOptions) => {
     startSiteAction(opts, ["--content-dir"])
   })
