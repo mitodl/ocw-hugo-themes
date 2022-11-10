@@ -29,7 +29,11 @@ const envSchema = {
   /**
    * Dev-only defaults
    */
-  GTM_ACCOUNT_ID: envalid.str({
+  GIT_CONTENT_SOURCE: envalid.str({
+    desc:       "Git organization/user URL from which to pull Hugo site content repositories.",
+    devDefault: "git@github.mit.edu:ocw-content-rc"
+  }),
+  GTM_ACCOUNT_ID:          envalid.str({
     desc:
       "A string representing a Google account ID to initialize Google Tag Manager with",
     devDefault: ""
@@ -63,12 +67,20 @@ const envSchema = {
   }),
 
   /**
-   * The default value assumes `ocw-content-rc` is a sibling directory of
+   * The default values assumes `ocw-content-rc` is a sibling directory of
    * `ocw-hugo-themes`.
    */
   COURSE_CONTENT_PATH: envalid.str({
     desc:       "A path to a base folder containing ocw-course type Hugo sites",
     devDefault: path.resolve(__dirname, "../ocw-content-rc/")
+  }),
+  FIELDS_CONTENT_PATH: envalid.str({
+    desc:       "Path to site content for mit-fields.",
+    devDefault: path.resolve(__dirname, "../ocw-content-rc/cpg-fields-test")
+  }),
+  WWW_CONTENT_PATH: envalid.str({
+    desc:       "Path to the ocw-www Hugo content directory.",
+    devDefault: path.resolve(__dirname, "../ocw-content-rc/ocw-www")
   }),
   /**
    * The default values for the following path variables all assume that
@@ -94,10 +106,6 @@ const envSchema = {
       __dirname,
       "../ocw-hugo-projects/ocw-www/config.yaml"
     )
-  }),
-  WWW_CONTENT_PATH: envalid.str({
-    desc:       "Path to the ocw-www Hugo content directory.",
-    devDefault: path.resolve(__dirname, "../ocw-content-rc/ocw-www")
   })
 }
 
@@ -168,4 +176,4 @@ dotenv.config()
  */
 const env = envalid.cleanEnv(process.env, envSchema, { reporter })
 
-export { env, stringifyEnv }
+export { env, envSchema, stringifyEnv }
