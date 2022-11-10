@@ -201,7 +201,7 @@ const startSiteAction = async (opts: StartOptions, cliOptNames: string[]) => {
 
 start
   .command("course")
-  .description("Start webpack+hugo dev servers using course theme.")
+  .description("Start webpack + hugo dev servers for an ocw course.")
   .argument(
     "[shortid]",
     "shortid of the course to run. Defaults to value of OCW_TEST_COURSE environment variable.",
@@ -223,7 +223,7 @@ start
 
 start
   .command("www")
-  .description("Start webpack+hugo dev servers using www theme.")
+  .description("Start webpack + hugo dev servers for ocw-www (homepage).")
   .requiredOption(...makeEnvOpt("--content-dir <value>", "WWW_CONTENT_PATH"))
   .requiredOption(...makeEnvOpt("--config <value>", "WWW_HUGO_CONFIG_PATH"))
   .requiredOption(...makeEnvOpt("--git-content-source <value>", "GIT_CONTENT_SOURCE"))
@@ -233,7 +233,7 @@ start
 
 start
   .command("fields")
-  .description("Start webpack+hugo dev servers using fields theme.")
+  .description("Start webpack + hugo dev servers for mit-fields.")
   .requiredOption(...makeEnvOpt("--content-dir <value>", "FIELDS_CONTENT_PATH"))
   .requiredOption(...makeEnvOpt("--config <value>", "FIELDS_HUGO_CONFIG_PATH"))
   .requiredOption(...makeEnvOpt("--git-content-source <value>", "GIT_CONTENT_SOURCE"))
