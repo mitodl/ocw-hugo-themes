@@ -124,24 +124,39 @@ You will also need git access to clone repos from
 https://github.mit.edu/ocw-content-rc, so make sure your command line `git`
 interface is configured to do so.
 
-The frontend JS code is built using webpack and Typescript. You can run the
-Typescript compiler separately by doing
+### Running Sites (courses and ocw-www)
+
+After installing dependences and ensuring git access to content repositories, you need only run `yarn start www` or `yarn start course`. The site should then be available at https://localhost:3000.
+
+The `yarn start course` and `yarn start www` commands will clone additional content if needed: Hugo configuration files from [ocw-hugo-projects](https://github.com/mitodl/ocw-hugo-projects) and site content from [ocw-content-rc](https://github.mit.edu/ocw-content-rc)). The default (and recommended!) behavior is that these resources are stored in sibling directories of `ocw-hugo-themes`:
 
 ```
-yarn typecheck
+your/favorite/dir/
+├─ ocw-hugo-themes/         hugo themes
+├─ ocw-hugo-projects/       hugo configuration files
+├─ ocw-content-rc/
+   ├─ ocw-www/              ocw homepage repo
+   ├─ 8.01sc-fall-2016/     course site repo
+   ├─ 9.40-spring-2018/     course site repo
+   ├─ ...and so on
 ```
 
-### Obtaining content
+For `yarn start www`, see note about [CORS](#cors).
 
-Content for the themes in this repo can be generated using an instance of
-[`ocw-studio`](https://github.com/mitodl/ocw-studio), a CMS used to author OCW
-sites.  The RC instance is located at https://ocw-studio-rc.odl.mit.edu.  Its
-content is published to MIT's Github Enterprise instance under the
-[`ocw-content-rc`](https://github.mit.edu/ocw-content-rc) organization.  For
-the `www` theme, content can be found in the
-[`ocw-www`](https://github.mit.edu/ocw-content-rc/ocw-www) repo.  For the
-`course` theme, use any repo in the [`ocw-content-rc`](https://github.mit.edu/ocw-content-rc)
-organization created using the `ocw-course` starter or create and publish your own.
+The `start` CLI commands provide some configuration options and, in general, the default values of these options are set to environment variables. For example:
+- to change where site content should be stored, alter `COURSE_CONTENT_PATH` and `WWW_CONTENT_PATH` environment variables. (Can be overriden with `--content-dir` cli option.)
+- to change the github org from which site content is fetched alter `GIT_CONTENT_SOURCE` environment variable (can be override with --git-content-source). *By default content is pulled from rc.
+
+Run `yarn start course --help` , `yarn start www --help`, and see [Environment Variables](#environment-variables) for more details.
+
+**Customizing site content:** To customize site content, either edit the site markdown locally, or edit the site at https://ocw-studio-rc.odl.mit.edu/sites/. After editing content in Studio, run `yarn start course <course-short-id>` (or `yarn start www` if you're working on ocw-www). *If you already had the site locally, you will need to `cd` to the content directory and manually fetch the updated content with `git pull`!).
+
+**MIT Fields:** In addition to ocw-www and the course sites, an experimental project "MIT Fields" is also available. Run `yarn start fields` to run an example fields site. 
+
+### Obtaining and Creating Content
+
+Content for the themes in this repo can be generated using an instance of [`ocw-studio`](https://github.com/mitodl/ocw-studio), a CMS used to author OCW sites. The RC instance is located at https://ocw-studio-rc.odl.mit.edu. Its content is published to MIT's Github Enterprise instance under the [`ocw-content-rc`](https://github.mit.edu/ocw-content-rc) organization. For the `www` theme, content can be found in the [`ocw-www`](https://github.mit.edu/ocw-content-rc/ocw-www) repo. For the `course` theme, use any repo in the [`ocw-content-rc`](https://github.mit.edu/ocw-content-rc) organization created using the `ocw-course` starter or create and publish your own.
+
 Much the same for `fields`, you can either create your own site using the
 `mit-fields` starter or find an existing one and use that.
 
@@ -149,7 +164,7 @@ Much the same for `fields`, you can either create your own site using the
 
 During local development, environment variables are read from `.env`. However, this project has no required environment variables *for development*.
 
-To seed a `.env` file with your development values (e.g., for running production-esque commands during development), run `yarn with-env --print-env '' > .env`.
+To seed a `.env` file with your development values (e.g., for running production-esque commands during development), run `yarn with-env --dev --print-env '' > .env`.
 
 To further explain the various environment variables and what they do:
 
@@ -163,87 +178,22 @@ To further explain the various environment variables and what they do:
 | `SITEMAP_DOMAIN` | `base-theme` | `ocw.mit.edu` | The domain used when writing fully qualified URLs into the sitemap |
 | `WWW_HUGO_CONFIG_PATH` | `www` | `/path/to/ocw-hugo-projects/ocw-www/config.yaml` | A path to the `ocw-www` Hugo configuration file |
 | `COURSE_HUGO_CONFIG_PATH` | `course` | `/path/to/ocw-hugo-projects/ocw-course/config.yaml` | A path to the `ocw-course` Hugo configuration file |
-| `WWW_CONTENT_PATH` | `www` | `/path/to/ocw-content-rc/ocw-www` | A path to a Hugo site that will be rendered when running `npm run start:www` |
+| `WWW_CONTENT_PATH` | `www` | `/path/to/ocw-content-rc/ocw-www` | A path to a Hugo site that will be rendered when running `yarn start www` |
 | `COURSE_CONTENT_PATH` | `course` | `/path/to/ocw-content-rc/` | A path to a base folder containing `ocw-course` type Hugo sites |
-| `OCW_TEST_COURSE` | `course` | `18.06-spring-2010` | The name of a folder in `COURSE_CONTENT_PATH` containing a Hugo site that will be rendered when running `npm run start:course` |
+| `OCW_TEST_COURSE` | `course` | `18.06-spring-2010` | The name of a folder in `COURSE_CONTENT_PATH` containing a Hugo site that will be rendered when running `yarn start course` |
 | `OCW_COURSE_STARTER_SLUG` | `www` | `ocw-course` | When generating "New Courses" cards on the home page, the `ocw-studio` API is queried using `OCW_STUDIO_BASE_URL`.  This value determines the `type` used in the query string against the API |
 | `FIELDS_HUGO_CONFIG_PATH` | `fields` | `/path/to/ocw-hugo-projects/mit-fields/config.yaml` | A path to the `mit-fields` Hugo configuration file |
-| `FIELDS_CONTENT_PATH` | `fields` | `/path/to/ocw-content-rc/philosophy` | A path to a Hugo site that will be rendered when running `npm run start:fields` |
+| `FIELDS_CONTENT_PATH` | `fields` | `/path/to/ocw-content-rc/philosophy` | A path to a Hugo site that will be rendered when running `yarn start fields` |
 | `WEBPACK_ANALYZE` | N/A | `true` | Used in webpack build. If set to `true`, a dependency analysis of the bundle will be included in the build output. |
 | `WEBPACK_HOST` | N/A | `localhost` | Host used by Hugo when querying the Webpack Dev Server. Can be set to your local IP to enable testing OCW on other devices (e.g., phones) within your network. |
 | `WEBPACK_PORT` | N/A | `3001` | Port used by Webpack Dev Server |
-
-### Running ocw-www
-
-To run `ocw-www` locally for working on the `www` theme:
-
-`npm run start:www`
-
-To customize your `www` site:
-
- - Clone the `ocw-www` content repo: https://github.mit.edu/ocw-content-rc/ocw-www
- - Clone `ocw-hugo-projects` to obtain the relevant configuration file: https://github.com/mitodl/ocw-hugo-projects
- - Set the following environment variables in your `.env` file, replacing `/path/to` with your path to the repos indicated:
-   - `WWW_HUGO_CONFIG_PATH=/path/to/ocw-hugo-projects/ocw-www/config.yaml`
-   - `WWW_CONTENT_PATH=/path/to/ocw-content-rc/ocw-www/`
- - Optionally set these environment variables as well, depending on the functionality you need to work on:
-   - `SEARCH_API_URL=https://discussions-rc.odl.mit.edu/api/v0/search/` (for testing search functionality)
-   - `OCW_STUDIO_BASE_URL=http://ocw-studio-rc.odl.mit.edu/` (for testing `ocw-studio` API functionality, such as the "new courses" section rendered by `www/layouts/partials/home_course_cards.html`)
-   - `RESOURCE_BASE_URL=https://live-qa.ocw.mit.edu/` (if you need to test the loading of resources from S3 or some other CDN)
- - Start the site with `npm run start:www`
- - The site should be available at http://localhost:3000/
-
-### Running a course site
-
-To run a course site locally for working on the `course` theme:
-
-`npm run start:course`
-
-To customize your `course` site:
-
- - Create a course site at https://ocw-studio-rc.odl.mit.edu/sites/ using the `ocw-course` starter
- - Add content and resources to your site relevant to what you're working on and publish your site to staging. Ensure course metadata has been created.
- - Find your site at https://github.mit.edu/ocw-content-rc/ and clone it locally (it's recommended to have a parent folder locally for all cloned courses, in this case `ocw-content-rc`)
- - Clone `ocw-hugo-projects` to obtain the relevant configuration file: https://github.com/mitodl/ocw-hugo-projects
- - Set the following environment variables in your `.env` file, replacing `/path/to` with your path to the repos indicated and `your-course-slug` with the folder your course was cloned into in a previous step:
-   - `COURSE_HUGO_CONFIG_PATH=/path/to/ocw-hugo-projects/ocw-course/config.yaml`
-   - `COURSE_CONTENT_PATH=/path/to/ocw-content-rc/`
-   - `OCW_TEST_COURSE=your-course-slug`
- - Optionally set these environment variables as well, depending on the functionality you need to work on:
-   - `RESOURCE_BASE_URL=https://live-qa.ocw.mit.edu/` (if you need to test the loading of resources from S3 or some other CDN)
-   - `STATIC_API_BASE_URL=https://live-qa.ocw.mit.edu/` (for loading content from a static API like the instructors published by `ocw-www`)
- - Start the site with `npm run start:course`
- - The site should be available at http://localhost:3000/
-
-### Running a fields site
-
-To run a course site locally for working on the `fields` theme:
-
-`npm run start:fields`
-
-To customize your `fields` site:
-
- - Create a course site at https://ocw-studio-rc.odl.mit.edu/sites/ using the `mit-fields` starter
- - Visit the "Subfields" section and define as many subfields as you want, adding a list of courses to each one
- - Visit the "Field" section and fill out the info about the field site you are creating, selecting a featured Subfield and adding as many other subfields as you want
- - When you are done editing, publish your site
- - Find your site at https://github.mit.edu/ocw-content-rc/ and clone it locally (it's recommended to have a parent folder locally for all cloned courses, in this case `ocw-content-rc`)
- - Clone `ocw-hugo-projects` to obtain the relevant configuration file: https://github.com/mitodl/ocw-hugo-projects
- - Set the following environment variables in your `.env` file, replacing `/path/to` with your path to the repos indicated and `your-field-slug` with the folder your course was cloned into in a previous step:
-   - `FIELDS_HUGO_CONFIG_PATH=/path/to/ocw-hugo-projects/mit-fields/config.yaml`
-   - `FIELDS_CONTENT_PATH=/path/to/ocw-content-rc/your-field-slug`
-   - `STATIC_API_BASE_URL=https://live-qa.ocw.mit.edu/` (for loading content from a static API for the courses linked in your Subfields)
- - Optionally set these environment variables as well, depending on the functionality you need to work on:
-   - `RESOURCE_BASE_URL=https://live-qa.ocw.mit.edu/` (if you need to test the loading of resources from S3 or some other CDN)
- - Start the site with `npm run start:fields`
- - The site should be available at http://localhost:3000/
 
 ### Writing Tests
 Most tests in OCW Hugo Themes should be written as e2e tests with Playwright. See [End to End Testing](./tests-e2e/README.md) for more.
 
 ### Miscellaneous commands
 
-- `WEBPACK_ANALYZE=true yarn run build:webpack`: This builds the project for production and should open a an analysis of the bundle in your web browser. 
+- `WEBPACK_ANALYZE=true yarn run build:webpack`: This builds the project for production and should open a an analysis of the bundle in your web browser.
 
 ### External API's
 
