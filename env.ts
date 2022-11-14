@@ -73,7 +73,7 @@ const envSchema = {
    */
   COURSE_CONTENT_PATH: envalid.str({
     desc:       "A path to a base folder containing ocw-course type Hugo sites",
-    devDefault: path.resolve(__dirname, "../ocw-content-rc/"),
+    devDefault: path.resolve(__dirname, "../ocw-content-rc/")
   }),
   FIELDS_CONTENT_PATH: envalid.str({
     desc:       "Path to site content for mit-fields.",
