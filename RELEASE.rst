@@ -1,6 +1,17 @@
 Release Notes
 =============
 
+Version 1.76.4
+--------------
+
+- Revert "only show download button if zip exists (#960)" (#976)
+- Clean up env variables + make them all optional (#964)
+- fix: typo in footer (#967)
+- replace OCW_IMPORT_STARTER_SLUG with OCW_COURSE_STARTER_SLUG as the filtering mechanism for new course cards on the OCW home page (#965)
+- set up e2e tests with playwright (#941)
+- only show download button if zip exists (#960)
+- set compact ui live (#953)
+
 Version 1.76.3 (Released November 09, 2022)
 --------------
 
