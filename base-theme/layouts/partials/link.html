@@ -1,18 +1,18 @@
-{{ $name := .name | default "" }}
-{{ $href := .href | default "" }}
-{{ $class := .class | default "" }}
-{{ $text := .text | default "" }}
-{{ $target := .target | default "" }}
-{{ $stripLinkOffline := .stripLinkOffline | default false }}
-{{ $hideLinkOffline := .hideLinkOffline | default false }}
-{{ if $stripLinkOffline }}
-  {{ $class = print $class " strip-link-offline" }}
-{{ end }}
-{{ if $hideLinkOffline }}
-  {{ $class = print $class " hide-offline" }}
-{{ end }}
-{{ if or $href $name }}
-<a{{ if $name }} name="{{ $name }}"{{ end }}{{ if $class}} class="{{ $class }}" {{ end }}{{ if $target}} target="{{ $target }}" {{ end }}{{ if $href }} href="{{ $href }}"{{ end }}>{{- $text -}}</a>
-{{ else }}
+{{- $name := .name | default "" -}}
+{{- $href := .href | default "" -}}
+{{- $class := .class | default "" -}}
+{{- $text := .text | default "" -}}
+{{- $target := .target | default "" -}}
+{{- $stripLinkOffline := .stripLinkOffline | default false -}}
+{{- $hideLinkOffline := .hideLinkOffline | default false -}}
+{{- if $stripLinkOffline -}}
+  {{- $class = print $class " strip-link-offline" -}}
+{{- end -}}
+{{- if $hideLinkOffline -}}
+  {{- $class = print $class " hide-offline" -}}
+{{- end -}}
+{{- if or $href $name -}}
+<a{{- if $name -}} name="{{- $name -}}"{{- end -}}{{- if $class}} class="{{- $class -}}" {{- end -}}{{- if $target}} target="{{- $target -}}" {{- end -}}{{- if $href -}} href="{{- $href -}}"{{- end -}}>{{- $text -}}</a>
+{{- else -}}
 <span>{{- $text -}}</span>
-{{ end }}
+{{- end -}}
