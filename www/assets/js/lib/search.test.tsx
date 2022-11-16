@@ -54,46 +54,48 @@ describe("search library", () => {
   })
 
   //
-  ;([
+  ;(
     [
-      CONTENT_TYPE_PAGE,
-      "/courses/18-23/mech_engineering/",
-      null,
-      "/courses/run-slug/"
-    ],
-    [
-      CONTENT_TYPE_PAGE,
-      "/courses/18-23/mech_engineering/",
-      "https://cdn.example.com",
-      "/courses/run-slug/"
-    ],
-    [
-      CONTENT_TYPE_PDF,
-      "https://s3.amazonaws.com/18-23/test.pdf",
-      null,
-      "https://s3.amazonaws.com/18-23/test.pdf"
-    ],
-    [
-      CONTENT_TYPE_PDF,
-      "https://s3.amazonaws.com/18-23/test.pdf",
-      "https://cdn.example.com",
-      "https://cdn.example.com/18-23/test.pdf"
-    ],
-    [
-      CONTENT_TYPE_VIDEO,
-      "https://youtube.com/?s=2335",
-      "",
-      "https://youtube.com/?s=2335"
-    ],
-    [
-      CONTENT_TYPE_VIDEO,
-      "https://youtube.com/?s=2335",
-      "/coursemedia",
-      "https://youtube.com/?s=2335"
-    ],
-    [CONTENT_TYPE_VIDEO, "/relative/url", false, "/relative/url"],
-    [CONTENT_TYPE_VIDEO, "/relative/url", "/coursemedia", "/relative/url"]
-  ] as const).forEach(([contentType, url, cdnPrefix, expectedUrl]) => {
+      [
+        CONTENT_TYPE_PAGE,
+        "/courses/18-23/mech_engineering/",
+        null,
+        "/courses/run-slug/"
+      ],
+      [
+        CONTENT_TYPE_PAGE,
+        "/courses/18-23/mech_engineering/",
+        "https://cdn.example.com",
+        "/courses/run-slug/"
+      ],
+      [
+        CONTENT_TYPE_PDF,
+        "https://s3.amazonaws.com/18-23/test.pdf",
+        null,
+        "https://s3.amazonaws.com/18-23/test.pdf"
+      ],
+      [
+        CONTENT_TYPE_PDF,
+        "https://s3.amazonaws.com/18-23/test.pdf",
+        "https://cdn.example.com",
+        "https://cdn.example.com/18-23/test.pdf"
+      ],
+      [
+        CONTENT_TYPE_VIDEO,
+        "https://youtube.com/?s=2335",
+        "",
+        "https://youtube.com/?s=2335"
+      ],
+      [
+        CONTENT_TYPE_VIDEO,
+        "https://youtube.com/?s=2335",
+        "/coursemedia",
+        "https://youtube.com/?s=2335"
+      ],
+      [CONTENT_TYPE_VIDEO, "/relative/url", false, "/relative/url"],
+      [CONTENT_TYPE_VIDEO, "/relative/url", "/coursemedia", "/relative/url"]
+    ] as const
+  ).forEach(([contentType, url, cdnPrefix, expectedUrl]) => {
     it(`should return correct url for content type ${contentType} if the cdn is ${
       cdnPrefix ? "" : "not "
     }set`, () => {
@@ -111,10 +113,9 @@ describe("search library", () => {
   })
 
   //
-  ;([
-    LearningResourceType.Course,
-    LearningResourceType.ResourceFile
-  ] as const).forEach(objectType => {
+  ;(
+    [LearningResourceType.Course, LearningResourceType.ResourceFile] as const
+  ).forEach(objectType => {
     it(`should return correct url for object type ${objectType}`, () => {
       const result = makeLearningResourceResult(objectType)
       const isCourse = result.object_type === LearningResourceType.Course

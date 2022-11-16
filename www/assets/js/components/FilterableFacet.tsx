@@ -22,14 +22,8 @@ interface Props {
 }
 
 function FilterableSearchFacet(props: Props) {
-  const {
-    name,
-    title,
-    results,
-    currentlySelected,
-    onUpdate,
-    expandedOnLoad
-  } = props
+  const { name, title, results, currentlySelected, onUpdate, expandedOnLoad } =
+    props
   const [showFacetList, setShowFacetList] = useState(expandedOnLoad)
 
   // null is signal for no input yet or cleared input

@@ -3,10 +3,7 @@ import React, { MouseEventHandler } from "react"
 const getClassName = (className: string | undefined): string => {
   const classes = ["card", className || ""]
 
-  return classes
-    .join(" ")
-    .trim()
-    .replace(/\s+/g, " ")
+  return classes.join(" ").trim().replace(/\s+/g, " ")
 }
 
 interface Props {

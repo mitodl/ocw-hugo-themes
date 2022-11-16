@@ -152,10 +152,7 @@ describe("SearchPage component", () => {
     const searchString = serializeSearchParams(parameters)
     const { wrapper } = render(searchString)
     await act(async () => {
-      wrapper
-        .find(".search-nav")
-        .at(1)
-        .simulate("click")
+      wrapper.find(".search-nav").at(1).simulate("click")
       resolver()
     })
 
@@ -242,10 +239,7 @@ describe("SearchPage component", () => {
     const { wrapper } = render(serializeSearchParams({}))
 
     act(() => {
-      wrapper
-        .find(".layout-button-right")
-        .at(0)
-        .simulate("click")
+      wrapper.find(".layout-button-right").at(0).simulate("click")
     })
 
     expect(spySearch.mock.calls[0][0].size).toEqual(DEFAULT_UI_PAGE_SIZE)
@@ -262,10 +256,12 @@ describe("SearchPage component", () => {
   })
 
   //
-  ;([
-    [LearningResourceType.Course, true],
-    [LearningResourceType.ResourceFile, false]
-  ] as const).forEach(([type, sortExists]) => {
+  ;(
+    [
+      [LearningResourceType.Course, true],
+      [LearningResourceType.ResourceFile, false]
+    ] as const
+  ).forEach(([type, sortExists]) => {
     it(`${
       sortExists ? "should" : "shouldn't"
     } show the sort option if the user is on the ${type} page`, async () => {
@@ -288,9 +284,9 @@ describe("SearchPage component", () => {
       .at(0)
       .simulate("change", { target: { value: "New Search Text" } })
     await act(async () => {
-      wrapper.find("SearchBox").prop("onSubmit")!(({
+      wrapper.find("SearchBox").prop("onSubmit")!({
         preventDefault: jest.fn()
-      } as unknown) as React.FormEvent)
+      } as unknown as React.FormEvent)
     })
     wrapper.update()
     expect(wrapper.find("Loading").exists()).toBeTruthy()

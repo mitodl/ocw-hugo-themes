@@ -13,14 +13,12 @@ const envSchema = {
    * Defaults!
    */
   WEBPACK_ANALYZE: envalid.bool({
-    desc:
-      "Used in webpack build. If `true`, a dependency analysis of the bundle will be included in the build output.",
+    desc:    "Used in webpack build. If `true`, a dependency analysis of the bundle will be included in the build output.",
     default: false
   }),
   WEBPACK_HOST: envalid.str({
     default: "localhost",
-    desc:
-      "Host used by Hugo when querying the Webpack Dev Server. Can be set to your local IP to enable testing OCW on other devices (e.g., phones) within your network."
+    desc:    "Host used by Hugo when querying the Webpack Dev Server. Can be set to your local IP to enable testing OCW on other devices (e.g., phones) within your network."
   }),
   WEBPACK_PORT: envalid.port({
     default: 3001,
@@ -30,13 +28,11 @@ const envSchema = {
    * Dev-only defaults
    */
   GIT_CONTENT_SOURCE: envalid.str({
-    desc:
-      "Git organization/user URL from which to pull Hugo site content repositories.",
+    desc:       "Git organization/user URL from which to pull Hugo site content repositories.",
     devDefault: "git@github.mit.edu:ocw-content-rc"
   }),
   GTM_ACCOUNT_ID: envalid.str({
-    desc:
-      "A string representing a Google account ID to initialize Google Tag Manager with",
+    desc:       "A string representing a Google account ID to initialize Google Tag Manager with",
     devDefault: ""
   }),
   OCW_COURSE_STARTER_SLUG: envalid.str({
