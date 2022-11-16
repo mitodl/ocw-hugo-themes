@@ -2,7 +2,6 @@
 {{ partial "resources_header.html" . }}
 {{ $numberOfResourcesLimit := 10 }}
 {{ $taxonomy := "learning_resource_types" }}
-{{ $showNoResourcesFoundMessage := partial "show_no_resources_found.html" (dict "context" . "taxonomy" $taxonomy) }}
 
 <div class="mb-5">
   {{ with ($.Site.GetPage (printf "/%s" $taxonomy)) }}
@@ -17,14 +16,7 @@
           {{ partial "resource_list_collapsible.html" (dict "context" . "expand" false) }}
         {{ end }}
       {{ end }}
-    {{ else }}
-      {{ $showNoResourcesFoundMessage = false }}
-      {{ partial "no_resources_found.html" }}
     {{ end }}
-  {{ end }}
-  
-  {{ if eq $showNoResourcesFoundMessage true }}
-      {{ partial "no_resources_found.html" }}
   {{ end }}
 </div>
 {{ end }}

@@ -1,10 +1,13 @@
 {{- $courseData := site.Data.course -}}
+{{- $taxonomy := "learning_resource_types" -}}
 {{- $zenDeskUrl := "https://mitocw.zendesk.com/hc/en-us/articles/4414681093659-I-have-downloaded-an-MIT-OpenCourseWare-course-but-I-can-t-access-the-materials-How-do-I-get-started-" -}}
+{{- $domain := strings.TrimSuffix "/" (getenv "STATIC_API_BASE_URL") -}}
 {{- $trimmedBaseUrl := strings.TrimPrefix "/" (strings.TrimSuffix "/" site.BaseURL) -}}
 {{- $shortId := site.Data.course.site_short_id -}}
-{{- $domain := strings.TrimSuffix "/" (getenv "STATIC_API_BASE_URL") -}}
-{{- $downloadCourseUrl := printf "%v/%v/%v.zip" $domain $trimmedBaseUrl $shortId -}}
+<!-- {{- $downloadCourseUrl := printf "%v/%v/%v-2.zip" $domain $trimmedBaseUrl $shortId -}} -->
+{{- $downloadCourseUrl := "https://live-qa.ocw.mit.edu/courses/21l-011-the-film-experience-fall-2013/21l.011-fall-2013.zip" -}}
 {{- $headResponse := resources.GetRemote $downloadCourseUrl (dict "method" "head") -}}
+{{- $showNoResourcesFoundMessage := partial "show_no_resources_found.html" (dict "context" . "taxonomy" $taxonomy) -}}
 <!-- 
   It may seem unintuitive to look explicitly for "unexpected EOF" here. Unfortunately while 
   Hugo supports setting "method" "head" to perform a HEAD request, it doesn't support checking 
@@ -17,7 +20,7 @@
   
   The file is empty because we only made a HEAD request.
 -->
-{{- if not (in $headResponse "unexpected EOF") -}}
+{{- if in $headResponse "unexpected EOF" -}}
 <div class="mb-2">
   <h2>Download</h2>
   <div class="hide-offline download-course-container background-color-light-grey p-3">
@@ -35,4 +38,6 @@
     </div>
   </div>
 </div>
+{{- else if $showNoResourcesFoundMessage -}}
+  {{ partial "no_resources_found.html" }}
 {{- end -}}

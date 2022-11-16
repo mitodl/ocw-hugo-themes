@@ -1,8 +1,6 @@
 {{- $trimmedBaseUrl := strings.TrimSuffix "/" site.BaseURL -}}
 {{- $downloadPageUrl := print $trimmedBaseUrl "/download" -}}
 {{- $downloadPageUrl = partial "page_url.html" (dict "context" .context "url" $downloadPageUrl) -}}
-{{- $noResourcesFound := partial "show_no_resources_found.html" (dict "context" .context "taxonomy" "learning_resource_types") -}}
-{{- if not $noResourcesFound -}}
 <hr>
 <div class="pb-3">
   <a class="download-course-link-button btn btn-outline-primary btn-link link-button text-decoration-none px-4 py-2"
@@ -11,4 +9,3 @@
     <div class="text-center w-100">Download Course</div>
   </a>
 </div>
-{{- end -}}
