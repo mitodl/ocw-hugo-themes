@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.77.0
+Version 1.77.0 (Released November 16, 2022)
 --------------
 
 - hide download button if zip doesn't exist v2 (#979)
