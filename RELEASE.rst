@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.76.4
+Version 1.76.4 (Released November 16, 2022)
 --------------
 
 - Revert "only show download button if zip exists (#960)" (#976)
