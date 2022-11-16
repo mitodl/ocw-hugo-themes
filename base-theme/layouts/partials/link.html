@@ -12,7 +12,7 @@
   {{- $class = print $class " hide-offline" -}}
 {{- end -}}
 {{- if or $href $name -}}
-<a{{- if $name -}} name="{{- $name -}}"{{- end -}}{{- if $class}} class="{{- $class -}}" {{- end -}}{{- if $target}} target="{{- $target -}}" {{- end -}}{{- if $href -}} href="{{- $href -}}"{{- end -}}>{{- $text -}}</a>
+<a{{ if $name }} name="{{- $name -}}"{{ end }}{{ if $class}} class="{{ $class }}" {{ end }}{{ if $target}} target="{{ $target }}" {{ end }}{{ if $href }} href="{{ $href }}"{{ end }}>{{ $text }}</a>
 {{- else -}}
-<span>{{- $text -}}</span>
+<span>{{ $text }}</span>
 {{- end -}}
