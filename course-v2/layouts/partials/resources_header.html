@@ -5,7 +5,7 @@
 {{- $trimmedBaseUrl := strings.TrimPrefix "/" (strings.TrimSuffix "/" site.BaseURL) -}}
 {{- $shortId := site.Data.course.site_short_id -}}
 <!-- {{- $downloadCourseUrl := printf "%v/%v/%v-2.zip" $domain $trimmedBaseUrl $shortId -}} -->
-{{- $downloadCourseUrl := "https://live-qa.ocw.mit.edu/courses/21l-011-the-film-experience-fall-2013/21l.011-fall-2013.zip" -}}
+{{- $downloadCourseUrl := "https://live-qa.ocw.mit.edu/courses/15-s21-nuts-and-bolts-of-business-plans-january-iap-2014/15.s21-january-iap-2014.zip" -}}
 {{- $headResponse := resources.GetRemote $downloadCourseUrl (dict "method" "head") -}}
 {{- $showNoResourcesFoundMessage := partial "show_no_resources_found.html" (dict "context" . "taxonomy" $taxonomy) -}}
 <!-- 
