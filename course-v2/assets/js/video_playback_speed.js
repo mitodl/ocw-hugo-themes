@@ -71,10 +71,11 @@ export const initPlayBackSpeedButton = () => {
           playbackSpeeds: playbackRates,
           title:          "Playback speed"
         })
-        player.controlBar.resolutionSwitcher = player.controlBar.el_.insertBefore(
-          menuButton.el_,
-          player.controlBar.el().lastChild.nextSibling
-        )
+        player.controlBar.resolutionSwitcher =
+          player.controlBar.el_.insertBefore(
+            menuButton.el_,
+            player.controlBar.el().lastChild.nextSibling
+          )
         player.controlBar.resolutionSwitcher.dispose = function() {
           this.parentNode.removeChild(this)
         }

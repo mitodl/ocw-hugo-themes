@@ -22,25 +22,15 @@ describe("SearchResult component", () => {
     )
     const wrapper = render(object)
     expect(wrapper.find(".course-title").text()).toBe(object.title)
-    const { href, className } = wrapper
-      .find(".course-title")
-      .find("a")
-      .props()
+    const { href, className } = wrapper.find(".course-title").find("a").props()
     expect(href).toBe(object.url)
     expect(className).toBe("w-100")
-    expect(
-      wrapper
-        .find(".subtitles")
-        .first()
-        .text()
-    ).toContain(object.instructors[0])
-    expect(
-      wrapper
-        .find(".cover-image")
-        .find("img")
-        .first()
-        .prop("src")
-    ).toBe(getCoverImageUrl(object))
+    expect(wrapper.find(".subtitles").first().text()).toContain(
+      object.instructors[0]
+    )
+    expect(wrapper.find(".cover-image").find("img").first().prop("src")).toBe(
+      getCoverImageUrl(object)
+    )
     expect(wrapper.find("CoverImage").exists()).toBeTruthy()
   })
 
@@ -50,24 +40,13 @@ describe("SearchResult component", () => {
     )
     const wrapper = render(object)
     expect(wrapper.find(".course-title").text()).toBe(object.content_title)
-    expect(
-      wrapper
-        .find(".course-title")
-        .find("a")
-        .prop("href")
-    ).toBe(object.url)
-    expect(
-      wrapper
-        .find(".subtitles")
-        .first()
-        .text()
-    ).toBe(object.description)
-    expect(
-      wrapper
-        .find("img")
-        .first()
-        .prop("src")
-    ).toBe(getCoverImageUrl(object))
+    expect(wrapper.find(".course-title").find("a").prop("href")).toBe(
+      object.url
+    )
+    expect(wrapper.find(".subtitles").first().text()).toBe(object.description)
+    expect(wrapper.find("img").first().prop("src")).toBe(
+      getCoverImageUrl(object)
+    )
     expect(wrapper.find(".topics-list").text()).toContain(
       object.topics[0]["name"]
     )
@@ -134,10 +113,7 @@ describe("SearchResult component with compact view", () => {
     )
     const wrapper = render(object)
     expect(wrapper.find(".course-title").text()).toBe(object.title)
-    const { href } = wrapper
-      .find(".course-title")
-      .find("a")
-      .props()
+    const { href } = wrapper.find(".course-title").find("a").props()
     expect(href).toBe(object.url)
     expect(wrapper.find(".course-num").text()).toBe(object.coursenum)
     expect(wrapper.find(".resource-level").text()).toBe(
@@ -151,18 +127,12 @@ describe("SearchResult component with compact view", () => {
     )
     const wrapper = render(object)
     expect(wrapper.find(".resource-title").text()).toBe(object.content_title)
-    expect(
-      wrapper
-        .find(".resource-title")
-        .find("a")
-        .prop("href")
-    ).toBe(object.url)
-    expect(
-      wrapper
-        .find("img")
-        .first()
-        .prop("src")
-    ).toBe(getCoverImageUrl(object))
+    expect(wrapper.find(".resource-title").find("a").prop("href")).toBe(
+      object.url
+    )
+    expect(wrapper.find("img").first().prop("src")).toBe(
+      getCoverImageUrl(object)
+    )
     expect(wrapper.find("CoverImage").exists()).toBeTruthy()
     expect(wrapper.find(".resource-course-title").text()).toBe(object.run_title)
     expect(wrapper.find(".course-num").text()).toBe(object.coursenum)
