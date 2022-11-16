@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.77.0
+--------------
+
+- hide download button if zip doesn't exist v2 (#979)
+- improve start course, start www, start fields (#975)
+
 Version 1.76.4 (Released November 16, 2022)
 --------------
 
