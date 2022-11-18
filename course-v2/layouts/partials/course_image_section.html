@@ -4,13 +4,20 @@
 
 <div class="card">
   <div class="card-body">
-    <div class="d-flex flex-column">
-      <img class="course-image" src="{{ $courseImageUrl }}"
-        alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}"
-      />
-    </div>
-    <div class="course-image-caption">
-      <span>{{ $courseImageMetadata.Params.image_metadata.caption | .RenderString }}</span>
+    <div class="course-image-section-container">
+      <div class="course-image-container">
+        <div class="d-flex flex-column">
+          <img class="course-image" src="{{ $courseImageUrl }}"
+            alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}"
+          />
+        </div>
+        <div class="course-image-caption">
+          <span>{{ $courseImageMetadata.Params.image_metadata.caption | .RenderString }}</span>
+        </div>
+      </div>
+      <div>
+        {{ partialCached "download_course_link_button.html" (dict "context" . "inPanel" true) }}
+      </div>
     </div>
   </div>
 </div>

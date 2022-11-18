@@ -20,4 +20,5 @@
   {{ partial "course_info.html" (dict "context" . "inPanel" true) }}
   {{ partial "topics.html" (dict "context" . "inPanel" true) }}
   {{ partial "learning_resource_types.html" (dict "context" . "inPanel" true) }}
+  {{ partialCached "download_course_link_button.html" (dict "context" . "inPanel" true) }}
 </div>

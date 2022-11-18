@@ -4,6 +4,7 @@
     <div class="px-3">
       {{ partial "topics.html" (dict "context" . "inPanel" true) }}
       {{ partial "learning_resource_types.html" (dict "context" . "inPanel" true) }}
+      {{ partialCached "download_course_link_button.html" (dict "context" . "inPanel" true) }}
     </div>
   </div>
 </div>

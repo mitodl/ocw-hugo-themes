@@ -1,23 +1,8 @@
-{{- $courseData := site.Data.course -}}
 {{- $zenDeskUrl := "https://mitocw.zendesk.com/hc/en-us/articles/4414681093659-I-have-downloaded-an-MIT-OpenCourseWare-course-but-I-can-t-access-the-materials-How-do-I-get-started-" -}}
-{{- $trimmedBaseUrl := strings.TrimPrefix "/" (strings.TrimSuffix "/" site.BaseURL) -}}
-{{- $shortId := site.Data.course.site_short_id -}}
-{{- $domain := strings.TrimSuffix "/" (getenv "STATIC_API_BASE_URL") -}}
-{{- $downloadCourseUrl := printf "%v/%v/%v.zip" $domain $trimmedBaseUrl $shortId -}}
-{{- $headResponse := resources.GetRemote $downloadCourseUrl (dict "method" "head") -}}
-<!-- 
-  It may seem unintuitive to look explicitly for "unexpected EOF" here. Unfortunately while 
-  Hugo supports setting "method" "head" to perform a HEAD request, it doesn't support checking 
-  the response headers. If we just perform a normal GET here the entire ZIP file will be 
-  downloaded during the build which could vastly balloon the build time or make the build fail.
-
-  A 404 on the OCW site returns an empty body with a 404 status code, which Hugo properly 
-  interprets as nil. In this case the "unexpected EOF" means "I found a file and got a 200 
-  in the response, but the file was empty."
-  
-  The file is empty because we only made a HEAD request.
--->
-{{- if in $headResponse "unexpected EOF" -}}
+{{- $downloadCourseUrl := partial "get_course_download_url.html" . -}}
+{{- $zipExists := partial "file_exists_at_url.html" (dict "context" . "url" $downloadCourseUrl ) -}}
+{{- $noResourcesFound := partial "show_no_resources_found.html" (dict "context" . "taxonomy" "learning_resource_types") -}}
+{{- if $zipExists -}}
 <div class="mb-2">
   <h2>Download</h2>
   <div class="hide-offline download-course-container background-color-light-grey p-3">
@@ -35,4 +20,6 @@
     </div>
   </div>
 </div>
+{{- else if $noResourcesFound -}}
+  {{ partial "no_resources_found.html" }}
 {{- end -}}
