@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.77.1
+Version 1.77.1 (Released November 21, 2022)
 --------------
 
 - Update Prettier for better TS support. (#981)
