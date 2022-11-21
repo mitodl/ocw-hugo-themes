@@ -47,11 +47,11 @@
         <td>
           {{ if eq (printf "%T" $courseData.level) "string" }}
             {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
-            {{ partial "link.html" (dict "href" $levelSearchUrl "text" $courseData.level "stripLinkOffline" true) }}
+            {{- partial "link.html" (dict "href" $levelSearchUrl "text" $courseData.level "stripLinkOffline" true) -}}
           {{ else }}
             {{ range $courseData.level }}
-              {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) }}
-              {{ partial "link.html" (dict "href" $levelSearchUrl "text" . "stripLinkOffline" true) }}<br />
+              {{- $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) -}}
+              {{- partial "link.html" (dict "href" $levelSearchUrl "text" . "stripLinkOffline" true) -}}<br />
             {{ end }}
           {{ end }}
         </td>
