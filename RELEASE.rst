@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.78.0
+Version 1.78.0 (Released November 21, 2022)
 --------------
 
 - fix: expand/collapse arrow removed and full title shown (#961)
