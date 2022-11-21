@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.78.0
+--------------
+
+- fix: expand/collapse arrow removed and full title shown (#961)
+- Replaced hugo {{ }} tag with {{- -}} (#969)
+- add course download page link button (#966)
+
 Version 1.77.1 (Released November 21, 2022)
 --------------
 
