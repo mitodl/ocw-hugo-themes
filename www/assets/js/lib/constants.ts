@@ -468,7 +468,7 @@ export const FACET_OPTIONS: Facets = {
   department_name: Object.values(departments).map(
     department => department.title
   ),
-  level:               ["Undergraduate", "Graduate", "Non Credit"],
+  level:               ["Undergraduate", "Graduate", "Non Credit", "High School"],
   course_feature_tags: RESOURCE_TYPES,
   resource_type:       RESOURCE_TYPES
 }
