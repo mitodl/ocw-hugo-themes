@@ -2,6 +2,7 @@
 {{- $downloadCourseUrl := partial "get_course_download_url.html" . -}}
 {{- $zipExists := partial "file_exists_at_url.html" (dict "context" . "url" $downloadCourseUrl ) -}}
 {{- $noResourcesFound := partial "show_no_resources_found.html" (dict "context" . "taxonomy" "learning_resource_types") -}}
+{{- $containsVideos := partial "contains_videos.html" (dict "context" . "taxonomy" "learning_resource_types") -}}
 {{- if $zipExists -}}
 <div class="mb-2">
   <h2>Download</h2>
@@ -13,9 +14,9 @@
         </a>
       </div>
       <div class="col-12 col-md-9">
-        This package contains the same content as the online version of the course,
-        <em>except for the audio/video materials</em>. These can be downloaded below. For help
-        downloading and using course materials, read our {{ partial "link.html" (dict "href" $zenDeskUrl "text" "FAQs" "target" "_blank") }}.
+        This package contains the same content as the online version of the course
+        {{- if $containsVideos }}, <em>except for the audio/video materials</em>. These can be downloaded below{{ end }}. 
+        For help downloading and using course materials, read our {{ partial "link.html" (dict "href" $zenDeskUrl "text" "FAQs" "target" "_blank") }}.
       </div>
     </div>
   </div>
