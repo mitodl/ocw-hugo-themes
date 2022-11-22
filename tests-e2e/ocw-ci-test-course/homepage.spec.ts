@@ -13,18 +13,14 @@ test.describe("Course info", () => {
       label:    "Instructors",
       expected: {
         texts: [
-          "Prof. Deepto Chakrabarty",
-          "Dr. Peter Dourmashkin",
-          "Dr. Michelle Tomasik",
-          "Prof. Anna Frebel",
-          "Prof. Vladan Vuletic"
+          "Prof. Tester One",
+          "Dr. Tester Two",
+          "Another Tester Three",
         ],
         searchParams: [
-          "?q=Prof.+Deepto+Chakrabarty",
-          "?q=Dr.+Peter+Dourmashkin",
-          "?q=Dr.+Michelle+Tomasik",
-          "?q=Prof.+Anna+Frebel",
-          "?q=Prof.+Vladan+Vuletic"
+          "?q=Prof.+Tester+One",
+          "?q=Dr.+Tester+Two",
+          "?q=Another+Tester+Three"
         ]
       }
     },

@@ -22,9 +22,6 @@ test("Resource links include link to correct page", async ({ page }) => {
   const resourceLink = page.getByRole("link", {
     name: "Resource link to First Test Page"
   })
-  const url = new URL(
-    (await resourceLink.getAttribute("href")) ??
-      "invalid url, should never get here"
-  )
-  expect(url.pathname).toBe("/pages/first-test-page-title/")
+  const href = await resourceLink.getAttribute("href")
+  expect(href).toBe("/courses/ocw-ci-test-course/pages/first-test-page-title/")
 })
