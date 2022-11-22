@@ -73,4 +73,12 @@ const closest = (xpath: string) => {
   return `xpath=./ancestor-or-self::${xpath}[position() = 1]`
 }
 
-export { getFirstAfter, closest }
+const xPath = {
+  predicates: {
+    hasClass:  (className: string) => {
+      return `contains(concat(' ', normalize-space(@class), ' '), ' ${className} ')`
+    }
+  }
+}
+
+export { getFirstAfter, closest, xPath }
