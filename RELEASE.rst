@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.78.1
+Version 1.78.1 (Released November 22, 2022)
 --------------
 
 - Adding High School to allowed list for filtering search results (#995)
