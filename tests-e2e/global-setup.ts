@@ -4,7 +4,7 @@ import handler from "serve-handler"
 import Table from "cli-table3"
 import * as color from "ansi-colors"
 
-import { TEST_SITES, LOCAL_OCW_PORT, siteUrl, TestSiteAlias  } from "./util"
+import { TEST_SITES, LOCAL_OCW_PORT, siteUrl, TestSiteAlias } from "./util"
 import SimpleServer, { RedirectionRule } from "./util/SimpleServer"
 import { env } from "../env"
 import { hugo } from "../package_scripts/util"
@@ -20,7 +20,7 @@ const fromRoot = (...pathFromRoot: string[]) => {
   return path.join(__dirname, "../", ...pathFromRoot)
 }
 const fromTmp = (...pathFromTmp: string[]) => {
-  return  path.join(fromRoot("./test-sites/tmp"), ...pathFromTmp)
+  return path.join(fromRoot("./test-sites/tmp"), ...pathFromTmp)
 }
 
 const buildSite = (name: string, destInTmp: string, configPath: string) => {
@@ -31,7 +31,7 @@ const buildSite = (name: string, destInTmp: string, configPath: string) => {
       cacheDir:    fromTmp("hugo_cache"),
       config:      configPath,
       baseURL:     destInTmp,
-      verbose:     true,
+      verbose:     true
     },
     {
       cwd: fromRoot(`./test-sites/${name}`),
@@ -50,7 +50,7 @@ const buildSite = (name: string, destInTmp: string, configPath: string) => {
 const OCW_WWW_REDIRECT: RedirectionRule = {
   type:      "rewrite",
   match:     /^\/(?!(courses\/))/,
-  transform: url => `/ocw-ci-test-www${url}`,
+  transform: url => `/ocw-ci-test-www${url}`
 }
 
 const steps = {
@@ -60,13 +60,16 @@ const steps = {
    *  - redirects requests like /not/a/course/page to /ocw-ci-test-www/not/a/course/page
    */
   setupStaticApiFixtures: (): void => {
-    const server = new SimpleServer((request, response) => {
-      return handler(request, response, {
-        public: fromRoot(`./test-sites/__fixtures__`),
-      })
-    }, {
-      rules: [OCW_WWW_REDIRECT]
-    })
+    const server = new SimpleServer(
+      (request, response) => {
+        return handler(request, response, {
+          public: fromRoot(`./test-sites/__fixtures__`)
+        })
+      },
+      {
+        rules: [OCW_WWW_REDIRECT]
+      }
+    )
     server.listen(STATIC_API_PORT)
   },
   /**
@@ -75,31 +78,37 @@ const steps = {
    * The output will go in `test-sites/tmp/dist`.
    */
   buildAllSites: async (): Promise<void> => {
-    await Promise.all(Object.entries(TEST_SITES).map(([alias, site]) => {
-      const destInTmp = alias === "www" ? `/${site.name}` : `/courses/${site.name}`
-      return buildSite(site.name, destInTmp, site.configPath)
-    }))
+    await Promise.all(
+      Object.entries(TEST_SITES).map(([alias, site]) => {
+        const destInTmp =
+          alias === "www" ? `/${site.name}` : `/courses/${site.name}`
+        return buildSite(site.name, destInTmp, site.configPath)
+      })
+    )
   },
   /**
    * Set up a server that:
    *  - serves the contents of `test-sites/tmp/dist`
    *  - redirects requests like /not/a/course/page to /ocw-ci-test-www/not/a/course/page
    */
-  serveSites:  (): void => {
-    const server = new SimpleServer((request, response) => {
-      return handler(request, response, {
-        public: fromTmp("dist"),
-      })
-    }, {
-      rules: [
-        {
-          type:      "redirect",
-          match:     /^\/static\//,
-          transform: url => `http://localhost:${env.WEBPACK_PORT}${url}`,
-        },
-        OCW_WWW_REDIRECT
-      ]
-    })
+  serveSites: (): void => {
+    const server = new SimpleServer(
+      (request, response) => {
+        return handler(request, response, {
+          public: fromTmp("dist")
+        })
+      },
+      {
+        rules: [
+          {
+            type:      "redirect",
+            match:     /^\/static\//,
+            transform: url => `http://localhost:${env.WEBPACK_PORT}${url}`
+          },
+          OCW_WWW_REDIRECT
+        ]
+      }
+    )
     server.listen(LOCAL_OCW_PORT)
   },
   /**

@@ -75,7 +75,7 @@ const closest = (xpath: string) => {
 
 const xPath = {
   predicates: {
-    hasClass:  (className: string) => {
+    hasClass: (className: string) => {
       return `contains(concat(' ', normalize-space(@class), ' '), ' ${className} ')`
     }
   }

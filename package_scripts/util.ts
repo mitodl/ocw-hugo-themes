@@ -34,9 +34,11 @@ const exists = async (filepath: string): Promise<boolean> => {
  * // => '--dog=woof --cat=meow --loud'
  * ```
  */
-const getOptions = <T extends Record<string, string | number | boolean | undefined>>(
-  opts: T
-): string => {
+const getOptions = <
+  T extends Record<string, string | number | boolean | undefined>
+>(
+    opts: T
+  ): string => {
   return Object.entries(opts)
     .map(([key, value]) => {
       if (typeof value === "boolean") {
@@ -55,7 +57,7 @@ type HugoOptions = {
   themesDir: string
   config: string
   destination: string
-  verbose?: boolean,
+  verbose?: boolean
   environment?: "development" | "production"
   cacheDir?: string
 }

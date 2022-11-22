@@ -1,23 +1,25 @@
 import * as http from "http"
 
-type RedirectionRule = {
-  type: "rewrite"
-  match: RegExp,
-  /**
-   * Transform the url WITHOUT the origin.
-   */
-  transform: (url: string) => string
-} | {
-  type: "redirect"
-  match: RegExp,
-  /**
-   * Transform the url; must include origin.
-   */
-  transform: (url: string) => string
-}
+type RedirectionRule =
+  | {
+      type: "rewrite"
+      match: RegExp
+      /**
+       * Transform the url WITHOUT the origin.
+       */
+      transform: (url: string) => string
+    }
+  | {
+      type: "redirect"
+      match: RegExp
+      /**
+       * Transform the url; must include origin.
+       */
+      transform: (url: string) => string
+    }
 
 type Config = {
-  rules: RedirectionRule[],
+  rules: RedirectionRule[]
   verbose: boolean
 }
 
@@ -60,7 +62,12 @@ class SimpleServer {
     if (rule) {
       const transformed = rule.transform(request.url ?? "")
 
-      if (rule.type === "redirect" && rules.filter(r => r.type === "redirect").some(rule => rule.match.test(transformed))) {
+      if (
+        rule.type === "redirect" &&
+        rules
+          .filter(r => r.type === "redirect")
+          .some(rule => rule.match.test(transformed))
+      ) {
         // We don't need this, so let's prevent potential confusion
         throw new Error(`${request.url} would be redirected multiple times.`)
       }

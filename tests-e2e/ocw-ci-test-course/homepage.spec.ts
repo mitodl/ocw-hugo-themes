@@ -12,11 +12,7 @@ test.describe("Course info", () => {
     {
       label:    "Instructors",
       expected: {
-        texts: [
-          "Prof. Tester One",
-          "Dr. Tester Two",
-          "Another Tester Three",
-        ],
+        texts:        ["Prof. Tester One", "Dr. Tester Two", "Another Tester Three"],
         searchParams: [
           "?q=Prof.+Tester+One",
           "?q=Dr.+Tester+Two",

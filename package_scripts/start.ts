@@ -27,7 +27,9 @@ const hugoServer = (
     renderToDisk: true,
     ...opts
   }
-  return `hugo server ${u.getOptions(allOpts)} --cacheDir="/Users/cchudzicki/dev/ocw-hugo-themes/woof"`
+  return `hugo server ${u.getOptions(
+    allOpts
+  )} --cacheDir="/Users/cchudzicki/dev/ocw-hugo-themes/woof"`
 }
 
 /**

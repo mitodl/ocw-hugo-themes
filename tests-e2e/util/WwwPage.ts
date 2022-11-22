@@ -39,9 +39,7 @@ class WwwPage {
 
     courseInfo.count().then(count => {
       if (count !== expectedCount) {
-        throw new Error(
-          `Expected ${expectedCount} Course Cards, got ${count}`
-        )
+        throw new Error(`Expected ${expectedCount} Course Cards, got ${count}`)
       }
     })
 
