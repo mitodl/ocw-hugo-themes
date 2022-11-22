@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.78.1
+--------------
+
+- Adding High School to allowed list for filtering search results (#995)
+- Updating Stories page (#997)
+- Updating About OCW page (#996)
+- Updating text on Educator page (#992)
+
 Version 1.78.0 (Released November 21, 2022)
 --------------
 
