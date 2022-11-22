@@ -134,6 +134,7 @@
     "react-hot-loader": "^4.12.17",
     "react-infinite-scroller": "^1.2.4",
     "react-test-renderer": "^16.13.1",
+    "recursive-readdir": "^2.2.3",
     "rimraf": "^3.0.2",
     "sass": "^1.32.13",
     "sass-lint": "^1.13.1",

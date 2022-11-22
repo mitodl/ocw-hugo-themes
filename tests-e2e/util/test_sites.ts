@@ -1,32 +1,32 @@
-import * as path from "node:path"
 import { env } from "../../env"
+
+const LOCAL_OCW_PORT = 3010
 
 type TestSiteAlias = "course" | "www"
 type TestSite = {
   name: string
-  port: number
   configPath: string
 }
 const TEST_SITES: Record<TestSiteAlias, TestSite> = {
   course: {
     name:       "ocw-ci-test-course",
-    port:       3010,
     configPath: env.COURSE_HUGO_CONFIG_PATH
   },
   www: {
     name:       "ocw-ci-test-www",
-    port:       3011,
     configPath: env.WWW_HUGO_CONFIG_PATH
   }
 }
 
 /**
- * Return the path to an e2e test site.
+ * Return the path to an e2e test site path.
  */
-const siteUrl = (siteName: TestSiteAlias, ...paths: string[]) => {
-  const testSite = TEST_SITES[siteName]
-  const baseURL = `http://localhost:${testSite.port}`
-  return path.join(baseURL, ...paths)
+const siteUrl = (siteAlias: TestSiteAlias, ...paths: string[]) => {
+  const site = TEST_SITES[siteAlias]
+
+  const relDest = siteAlias === "www" ? "" : `courses/${site.name}`
+  const pathname = [relDest, ...paths].join("/")
+  return `http://localhost:${LOCAL_OCW_PORT}/${pathname}`
 }
 
-export { TEST_SITES, siteUrl, TestSiteAlias }
+export { TEST_SITES, LOCAL_OCW_PORT, siteUrl, TestSiteAlias }
