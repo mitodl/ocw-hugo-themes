@@ -67,7 +67,6 @@ type HugoOptions = {
  */
 const hugo = (hugoOptions: HugoOptions, execOptions: ExecOptions) => {
   const flags = getOptions(hugoOptions)
-  console.log(flags)
   return execSh(`yarn hugo ${flags} --verbose`, execOptions)
 }
 
