@@ -1,0 +1,30 @@
+{
+  "course_title":"OCW CI Test Course",
+  "course_description":"This is a test course for use in CI pipelines. This course can be found:\n\n- On Github at  [https://github.mit.edu/ocw-content-rc/ocw-ci-test-course](https://github.mit.edu/ocw-content-rc/ocw-ci-test-course)\n- On OCW Studio at [https://ocw-studio-rc.odl.mit.edu/sites/ocw-ci-test-course](https://ocw-studio-rc.odl.mit.edu/sites/ocw-ci-test-course)\n\nThe content of this course is additionally checked into the `ocw-hugo-themes` repository.\n\n Recommended usage by OL Engineers:\n\n- Clone the github repository to your local.\n- When developing on `ocw-hugo-themes`, make edits in Studio as needed for the tests you want to write. Pull to local, and copy the files to `ocw-hugo-themes/test-sites/ocw-ci-test-course`.",
+  "site_uid":"06fbf309-8b5d-4219-b99e-de75fac8d476",
+  "legacy_uid":"","instructors": [{
+    "first_name":"Tester",
+    "last_name":"One",
+    "middle_initial":"",
+    "salutation":"Prof.",
+    "title":"Prof. Tester One"},{
+    "first_name":"Tester",
+    "last_name":"Two",
+    "middle_initial":"",
+    "salutation":"",
+    "title":"Dr. Tester Two"},{
+    "first_name":"Another",
+    "last_name":"Three",
+    "middle_initial":"T",
+    "salutation":"",
+    "title":"Another Tester Three"}],"department_numbers":["8","6","18"],
+  "learning_resource_types":["Activity Assignments","Exams with Solutions"],
+  "topics":[["Engineering","Computer Science","Software Design and Engineering"],["Science","Physics","Quantum Mechanics"]],
+  "primary_course_number":"123",
+  "extra_course_numbers":"456",
+  "term":"Fall",
+  "year":"2022",
+  "level":["Graduate","Undergraduate"],
+  "image_src":"https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg",
+  "course_image_metadata":{"body":"","content_type":"resource","draft":false,"file":"/courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg","file_type":"image/jpeg","image_metadata":{"caption":"","credit":"","image-alt":""},"iscjklanguage":false,"learning_resource_types":[],"license":"https://creativecommons.org/licenses/by-nc-sa/4.0/","resourcetype":"Image","title":"example_jpg.jpg","uid":"4ff6cec7-9ef3-40e2-869a-313350053b32","video_files":{"video_captions_file":"","video_thumbnail_file":"","video_transcript_file":""},"video_metadata":{"video_speakers":"","video_tags":"","youtube_description":"","youtube_id":""}}}
+
