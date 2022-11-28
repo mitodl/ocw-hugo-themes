@@ -22,7 +22,7 @@ then publishing will be deadlocked: the www build will fail for lack of course X
 
 Thus, it is likely that a **snapshot**[^1] of the OCW Markdown at a single point in time cannot be built in isolation by Hugo.
 
-[^1]: OCW Studio forces you to build the sites incrementally: Course A cannot be published until a WWW version has been published which includes the relevant instructors, and a course cannot be featured on WWW until it has been published.
+[^1]: OCW Studio forces you to build the sites incrementally: Course A cannot be published until a www version has been published which includes the relevant instructors, and a course cannot be featured on www until it has been published.
 
 ## Building a snapshot for e2e testing: `test-sites/__fixtures`
 

@@ -19,13 +19,23 @@ const TEST_SITES: Record<TestSiteAlias, TestSite> = {
 }
 
 /**
- * Return the path to an e2e test site path.
+ * Returns the URL for a site page.
+ * @param siteAlias Alias of the site
+ * @param relPath Path to the page relative to site root. Can be given as a string or an array of strings.
+ * @returns URL for the page.
+ *
+ * @example
+ * ```ts
+ * siteUrl("www", "about") // "http://localhost:3010/about"
+ * siteUrl("course", "pages/some/page") // "http://localhost:3010/courses/ocw-ci-test-course/pages/some/page"
+ * siteUrl("course", ["pages", "some", "page"]) // "http://localhost:3010/courses/ocw-ci-test-course/pages/some/page"
+ * ```
  */
-const siteUrl = (siteAlias: TestSiteAlias, ...paths: string[]) => {
+const siteUrl = (siteAlias: TestSiteAlias, ...relPath: string[]) => {
   const site = TEST_SITES[siteAlias]
 
   const relDest = siteAlias === "www" ? "" : `courses/${site.name}`
-  const pathname = [relDest, ...paths].join("/")
+  const pathname = [relDest, ...relPath].join("/")
   return `http://localhost:${LOCAL_OCW_PORT}/${pathname}`
 }
 
