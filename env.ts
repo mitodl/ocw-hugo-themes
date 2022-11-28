@@ -160,6 +160,11 @@ const stringifyEnv = (
 dotenv.config()
 
 /**
+ * Validate `envObj` against expected environment variable schema.
+ */
+const cleanEnv = (envObj: Record<string, string | undefined>) => envalid.cleanEnv(envObj, envSchema, { reporter })
+
+/**
  * Validated environment variables, read from:
  *  1. `process.env`,
  *  2. falling back to `.env` if it exists,
@@ -171,6 +176,6 @@ dotenv.config()
  * This should only be used in NodeJS processes, not in the browser. See
  * {@link assertIsRunningInNode | more}.
  */
-const env = envalid.cleanEnv(process.env, envSchema, { reporter })
+const env = cleanEnv(process.env)
 
-export { env, envSchema, stringifyEnv }
+export { env, cleanEnv, envSchema, stringifyEnv }

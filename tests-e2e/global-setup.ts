@@ -6,12 +6,24 @@ import * as color from "ansi-colors"
 
 import { TEST_SITES, LOCAL_OCW_PORT, siteUrl, TestSiteAlias } from "./util"
 import SimpleServer, { RedirectionRule } from "./util/SimpleServer"
-import { env } from "../env"
+import { env, cleanEnv, stringifyEnv } from "../env"
 import { hugo } from "../package_scripts/util"
 
 const execSh = execShCb.promise
 
 const STATIC_API_PORT = 4321
+
+const testEnv = cleanEnv({
+  ...process.env,
+  OCW_STUDIO_BASE_URL: "http://ocw-studio-rc.odl.mit.edu",
+  SEARCH_API_URL:      "https://open.mit.edu/api/v0/search/",
+  RESOURCE_BASE_URL:   "https://live-qa.ocw.mit.edu/",
+  /**
+   * When building test sites, use local server at STATIC_API_PORT for static
+   * API requests. See test-sites/__fixtures__/README.md for more.
+   */
+  STATIC_API_BASE_URL: `http://localhost:${STATIC_API_PORT}`
+})
 
 /**
  * Resolve a path relative to package root.
@@ -37,7 +49,7 @@ const buildSite = (name: string, destInTmp: string, configPath: string) => {
       cwd: fromRoot(`./test-sites/${name}`),
       env: {
         ...process.env,
-        STATIC_API_BASE_URL: `http://localhost:${STATIC_API_PORT}`
+        ...stringifyEnv(testEnv),
       }
     }
   )
