@@ -162,7 +162,8 @@ dotenv.config()
 /**
  * Validate `envObj` against expected environment variable schema.
  */
-const cleanEnv = (envObj: Record<string, string | undefined>) => envalid.cleanEnv(envObj, envSchema, { reporter })
+const cleanEnv = (envObj: Record<string, string | undefined>) =>
+  envalid.cleanEnv(envObj, envSchema, { reporter })
 
 /**
  * Validated environment variables, read from:

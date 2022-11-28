@@ -49,7 +49,7 @@ const buildSite = (name: string, destInTmp: string, configPath: string) => {
       cwd: fromRoot(`./test-sites/${name}`),
       env: {
         ...process.env,
-        ...stringifyEnv(testEnv),
+        ...stringifyEnv(testEnv)
       }
     }
   )
