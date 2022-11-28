@@ -47,6 +47,19 @@ class CoursePage {
 
     return courseInfo
   }
+
+  /**
+   * Search within article content, i.e., the area in which Markdown gets rendered.
+   *
+   * The resulting locator can be chained. For example,
+   * ```ts
+   * course.withinContent().locator("table")`
+   * ```
+   * would locate tables within the content.
+   */
+  withinContent(): Locator {
+    return this.page.locator("#course-content-section")
+  }
 }
 
 export default CoursePage
