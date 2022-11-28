@@ -41,6 +41,7 @@ node_modules
 base-theme/data/webpack.json
 ocw-to-hugo.*.log
 .hugo_build.lock
+test-sites/tmp
 
 # Unit test / coverage reports
 htmlcov/

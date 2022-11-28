@@ -1,32 +1,42 @@
-import * as path from "node:path"
 import { env } from "../../env"
+
+const LOCAL_OCW_PORT = 3010
 
 type TestSiteAlias = "course" | "www"
 type TestSite = {
   name: string
-  port: number
   configPath: string
 }
 const TEST_SITES: Record<TestSiteAlias, TestSite> = {
   course: {
     name:       "ocw-ci-test-course",
-    port:       3010,
     configPath: env.COURSE_HUGO_CONFIG_PATH
   },
   www: {
     name:       "ocw-ci-test-www",
-    port:       3011,
     configPath: env.WWW_HUGO_CONFIG_PATH
   }
 }
 
 /**
- * Return the path to an e2e test site.
+ * Returns the URL for a site page.
+ * @param siteAlias Alias of the site
+ * @param relPath Path to the page relative to site root. Can be given as a string or an array of strings.
+ * @returns URL for the page.
+ *
+ * @example
+ * ```ts
+ * siteUrl("www", "about") // "http://localhost:3010/about"
+ * siteUrl("course", "pages/some/page") // "http://localhost:3010/courses/ocw-ci-test-course/pages/some/page"
+ * siteUrl("course", ["pages", "some", "page"]) // "http://localhost:3010/courses/ocw-ci-test-course/pages/some/page"
+ * ```
  */
-const siteUrl = (siteName: TestSiteAlias, ...paths: string[]) => {
-  const testSite = TEST_SITES[siteName]
-  const baseURL = `http://localhost:${testSite.port}`
-  return path.join(baseURL, ...paths)
+const siteUrl = (siteAlias: TestSiteAlias, ...relPath: string[]) => {
+  const site = TEST_SITES[siteAlias]
+
+  const relDest = siteAlias === "www" ? "" : `courses/${site.name}`
+  const pathname = [relDest, ...relPath].join("/")
+  return `http://localhost:${LOCAL_OCW_PORT}/${pathname}`
 }
 
-export { TEST_SITES, siteUrl, TestSiteAlias }
+export { TEST_SITES, LOCAL_OCW_PORT, siteUrl, TestSiteAlias }

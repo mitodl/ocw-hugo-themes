@@ -1,4 +1,8 @@
+import { ExecOptions } from "node:child_process"
 import * as fs from "node:fs"
+import execShCb from "exec-sh"
+
+const execSh = execShCb.promise
 
 const dirHasContent = async (dirpath: string): Promise<boolean> => {
   try {
@@ -30,13 +34,17 @@ const exists = async (filepath: string): Promise<boolean> => {
  * // => '--dog=woof --cat=meow --loud'
  * ```
  */
-const getOptions = <T extends Record<string, string | number | boolean>>(
-  opts: T
-): string => {
+const getOptions = <
+  T extends Record<string, string | number | boolean | undefined>
+>(
+    opts: T
+  ): string => {
   return Object.entries(opts)
     .map(([key, value]) => {
-      if (typeof value === "boolean" && value) {
-        return `--${key}`
+      if (typeof value === "boolean") {
+        return value ? `--${key}` : ""
+      } else if (value === undefined) {
+        return ""
       } else {
         return `--${key}=${value}`
       }
@@ -44,4 +52,23 @@ const getOptions = <T extends Record<string, string | number | boolean>>(
     .join(" ")
 }
 
-export { dirHasContent, getOptions, exists }
+type HugoOptions = {
+  baseURL?: string
+  themesDir: string
+  config: string
+  destination: string
+  verbose?: boolean
+  environment?: "development" | "production"
+  cacheDir?: string
+}
+/**
+ * Run Hugo in a child process with the given options. See [hugo](https://gohugo.io/commands/hugo/)
+ * for more.
+ */
+const hugo = (hugoOptions: HugoOptions, execOptions: ExecOptions) => {
+  const flags = getOptions(hugoOptions)
+  return execSh(`yarn hugo ${flags} --verbose`, execOptions)
+}
+
+export type { HugoOptions }
+export { dirHasContent, getOptions, exists, hugo }

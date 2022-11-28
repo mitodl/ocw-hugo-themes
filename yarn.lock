@@ -13168,6 +13168,7 @@ __metadata:
     react-hot-loader: ^4.12.17
     react-infinite-scroller: ^1.2.4
     react-test-renderer: ^16.13.1
+    recursive-readdir: ^2.2.3
     rimraf: ^3.0.2
     sass: ^1.32.13
     sass-lint: ^1.13.1
@@ -15547,6 +15548,15 @@ __metadata:
   dependencies:
     resolve: ^1.9.0
   checksum: 2a04aab4e28c05fcd6ee6768446bc8b859d8f108e71fc7f5bcbc5ef25e53330ce2c11d10f82a24591a2df4c49c4f61feabe1fd11f844c66feedd4cd7bb61146a
+  languageName: node
+  linkType: hard
+
+"recursive-readdir@npm:^2.2.3":
+  version: 2.2.3
+  resolution: "recursive-readdir@npm:2.2.3"
+  dependencies:
+    minimatch: ^3.0.5
+  checksum: 88ec96e276237290607edc0872b4f9842837b95cfde0cdbb1e00ba9623dfdf3514d44cdd14496ab60a0c2dd180a6ef8a3f1c34599e6cf2273afac9b72a6fb2b5
   languageName: node
   linkType: hard
 
