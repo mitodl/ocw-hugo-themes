@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.78.3
+--------------
+
+- Subscripts and Superscripts (#1004)
+- Better isolate e2e sites from RC + add featured courses (#1001)
+
 Version 1.78.2 (Released December 01, 2022)
 --------------
 
