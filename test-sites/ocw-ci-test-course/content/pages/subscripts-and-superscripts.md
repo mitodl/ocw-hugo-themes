@@ -6,7 +6,7 @@ title: Subscripts and Superscripts
 uid: 7b3ae5c4-3b27-4806-b0c5-f012f16fa245
 ---
 
-**NOTE:** Not all of these are use-cases that we want to encourage. The goal here is to document what currently works and to alert ourselves if one of these stops breaking. For example, styling bold inside a subscript is absolutely not something we would encourage.
+**NOTE:** Not all of these are use-cases that we want to encourage. The goal here is to document what currently works and to alert ourselves if one of these stops working. For example, styling bold inside a subscript is absolutely not something we would encourage.
 
 Example, Normal: Lorem ipsum dolor sit<sub>abc 123</sub> amet consectetur. Lorem ipsum dolor sit<sup>abc 123</sup> amet consectetur.
 
