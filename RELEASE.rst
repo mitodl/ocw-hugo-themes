@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.78.2 (Released December 01, 2022)
+--------------
+
+- Display time on single line, don't clash with vol (#984)
+- hide text about video / audio materials if they aren't detected (#1000)
+
 Version 1.78.1 (Released November 22, 2022)
 --------------
 
