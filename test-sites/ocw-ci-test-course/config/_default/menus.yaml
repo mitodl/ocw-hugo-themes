@@ -11,6 +11,10 @@ leftnav:
   name: Shortcode Demos
   url: /pages/shortcode-demos
   weight: 30
+- identifier: 7b3ae5c4-3b27-4806-b0c5-f012f16fa245
+  name: Subscripts and Superscripts
+  url: /pages/subscripts-and-superscripts
+  weight: 40
 - identifier: d1f35266-366e-45f1-bfc2-bcd46eb6c4a4
   name: Subsection 1a Menu Title
   parent: d9eb8c7e-b9ac-42db-83d1-5e36b8189f5d
