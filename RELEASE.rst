@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.78.2
+Version 1.78.2 (Released December 01, 2022)
 --------------
 
 - Display time on single line, don't clash with vol (#984)
