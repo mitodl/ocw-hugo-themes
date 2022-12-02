@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.78.3
+Version 1.78.3 (Released December 02, 2022)
 --------------
 
 - Subscripts and Superscripts (#1004)
