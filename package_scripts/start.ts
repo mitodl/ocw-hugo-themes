@@ -29,7 +29,7 @@ const hugoServer = (
   }
   return `hugo server ${u.getOptions(
     allOpts
-  )} --cacheDir="/Users/cchudzicki/dev/ocw-hugo-themes/woof"`
+  )}`
 }
 
 /**
