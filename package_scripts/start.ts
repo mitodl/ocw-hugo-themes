@@ -27,9 +27,7 @@ const hugoServer = (
     renderToDisk: true,
     ...opts
   }
-  return `hugo server ${u.getOptions(
-    allOpts
-  )}`
+  return `hugo server ${u.getOptions(allOpts)}`
 }
 
 /**
