@@ -99,6 +99,15 @@ h4 {
   }
 }
 
+h5 {
+  font-size: $heading-five-font-lg;
+  color: $black;
+
+  @include media-breakpoint-down(xs) {
+    font-size: $heading-five-font-xs;
+  }
+}
+
 .standard-width {
   max-width: $max-home-width;
 }

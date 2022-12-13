@@ -130,69 +130,6 @@ pre {
   margin-bottom: 10px;
 }
 
-// not using font variables here as we need different font sizes on course pages
-// these font sizes are yet to be confirmed
-h1 {
-  font-size: 2.286rem !important; // 32px
-  color: $black;
-
-  @include media-breakpoint-down(xs) {
-    font-size: 1.715rem !important; // 24px
-  }
-}
-
-h2 {
-  font-size: 1.715rem !important; // 24px
-  color: $black !important;
-
-  @include media-breakpoint-down(xs) {
-    font-size: 1.429rem !important; // 16px
-  }
-
-  &.branded {
-    font-family: Helvetica, sans-serif;
-    font-weight: 300;
-
-    span {
-      color: $orange;
-      font-weight: 600;
-    }
-  }
-}
-
-h3 {
-  font-size: 1.143rem !important; // 16px
-  color: $black;
-}
-
-a + h3 {
-  margin-top: 1rem;
-}
-
-@include media-breakpoint-down(xs) {
-  h3 {
-    font-size: 1.143rem !important; // 16px
-  }
-}
-
-h4 {
-  font-size: 1rem !important; // 14px
-  color: $black;
-
-  @include media-breakpoint-down(xs) {
-    font-size: 1rem !important; // 12px
-  }
-}
-
-h5 {
-  font-size: 0.858rem !important; // 14px
-  color: $black;
-
-  @include media-breakpoint-down(xs) {
-    font-size: 0.858rem !important; // 12px
-  }
-}
-
 // TODO: overriding some css of header and footer in this new theme
 // when we roll out this theme completely then we can move this css to thier respective files in base-theme
 
