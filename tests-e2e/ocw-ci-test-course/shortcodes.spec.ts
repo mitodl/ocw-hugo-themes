@@ -24,5 +24,4 @@ test("Resource links include link to correct page", async ({ page }) => {
   })
   const href = await resourceLink.getAttribute("href")
   expect(href).toBe("/courses/ocw-ci-test-course/pages/first-test-page-title/")
-  expect(1).toBe(2)
 })
