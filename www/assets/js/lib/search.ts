@@ -17,7 +17,6 @@ import {
   LearningResourceResult,
   ResourceJSON
 } from "../LearningResources"
-import "array-flat-polyfill"
 
 const formatCourseJSONTopics = (courseJSON: CourseJSON) =>
   courseJSON.topics ?
