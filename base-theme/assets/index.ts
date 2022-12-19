@@ -14,6 +14,7 @@ import "./js/utils"
 import * as Sentry from "@sentry/browser"
 import { initSentry } from "./js/sentry"
 import PDFObject from "pdfobject"
+import "./js/polyfill"
 
 export interface OCWWindow extends Window {
   $: JQueryStatic
