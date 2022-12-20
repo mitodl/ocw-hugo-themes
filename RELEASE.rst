@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.80.0
+--------------
+
+- fail build on get_instructor errors (#1010)
+- fix: array-flat-polyfill added (#1008)
+- fix: removing absolute cache directory path (#1006)
+
 Version 1.79.0 (Released December 20, 2022)
 --------------
 
