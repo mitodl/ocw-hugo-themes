@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.79.0 (Released December 20, 2022)
+--------------
+
+- style: titles style updated (#1007)
+
 Version 1.78.3 (Released December 02, 2022)
 --------------
 
