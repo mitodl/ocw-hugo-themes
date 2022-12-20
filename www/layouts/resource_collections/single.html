@@ -26,7 +26,7 @@
         {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $urlPath "/content_map.json") "" -}}
           {{- with resources.GetRemote $url -}}
             {{ with .Err }}
-              {{- $errorMessage := printf "Failed to fetch resource collections on %v via %v with error: %v" site.BaseURL $url .Err -}}
+              {{- $errorMessage := printf "Failed to fetch resource collections on %v via %v with error: %v" site.BaseURL $url . -}}
               {{- partial "sentry_capture_message.html" $errorMessage -}}
             {{ else }}
               {{- $mapData := . | unmarshal -}}
@@ -42,7 +42,7 @@
         {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $urlPath "/data.json") "" -}}
         {{- with resources.GetRemote $url -}}
           {{ with .Err }}
-            {{- $errorMessage := printf "Failed to fetch resource collections on %v via %v with error: %v" site.BaseURL $url .Err -}}
+            {{- $errorMessage := printf "Failed to fetch resource collections on %v via %v with error: %v" site.BaseURL $url . -}}
             {{- partial "sentry_capture_message.html" $errorMessage -}}
           {{ else }}
             {{- $data := . | unmarshal -}}
@@ -58,7 +58,7 @@
       {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) $courseJSONRelpath) "" -}}
       {{- with resources.GetRemote $url -}}
         {{ with .Err }}
-          {{- $errorMessage := printf "Failed to fetch resource collections on %v via %v with error: %v" site.BaseURL $url .Err -}}
+          {{- $errorMessage := printf "Failed to fetch resource collections on %v via %v with error: %v" site.BaseURL $url . -}}
           {{- partial "sentry_capture_message.html" $errorMessage -}}
         {{ else }}
           {{- $resourceJSON := . | unmarshal -}}

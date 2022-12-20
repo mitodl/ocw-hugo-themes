@@ -4,7 +4,7 @@
   {{- $url := (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/news/") -}}
   {{ with resources.GetRemote $url }}
     {{ with .Err }}
-      {{ $errorMessage := printf "OCW News on %v failed to fetch %v with error: %v" site.BaseURL $url .Err }}
+      {{ $errorMessage := printf "OCW News on %v failed to fetch %v with error: %v" site.BaseURL $url . }}
       {{ partial "sentry_capture_message.html" $errorMessage }}
     {{ else }}
       {{ $items := (. | unmarshal).items }}
