@@ -39,7 +39,7 @@
         {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $id "/data.json") "" -}}
         {{ with resources.GetRemote $url }}
           {{ with .Err }}
-            {{- $errorMessage := printf "Failed to fetch sub-fields on %v via %v with error: %v" site.BaseURL $url .Err -}}
+            {{- $errorMessage := printf "Failed to fetch sub-fields on %v via %v with error: %v" site.BaseURL $url . -}}
               {{- partial "sentry_capture_message.html" $errorMessage -}}
           {{ else }}
             {{- $data := . | unmarshal -}}

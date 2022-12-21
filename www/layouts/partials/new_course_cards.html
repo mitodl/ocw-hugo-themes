@@ -29,7 +29,7 @@
                   {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $courseItem.url_path "/data.json") "" -}}
                   {{ with resources.GetRemote $url }}
                     {{ with .Err }}
-                      {{ $errorMessage := printf "New courses carousel on %v failed to fetch %v with error: %v" site.BaseURL $url .Err }}
+                      {{ $errorMessage := printf "New courses carousel on %v failed to fetch %v with error: %v" site.BaseURL $url . }}
                       {{ partial "sentry_capture_message.html" $errorMessage }}
                     {{ else }}
                       {{- $courseData := . | unmarshal -}}
