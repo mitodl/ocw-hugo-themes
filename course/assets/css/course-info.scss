@@ -1,182 +1,58 @@
+$panel-course-info-text-color: #464646;
+
 .course-info {
-  overflow: hidden;
-  $collapsedHeight: 200px;
-  $opaqueLayerHeight: 30px;
-
-  // This media query is not defined gloabally as it
-  // is targeted/specific to a particular use case only
-  // Hiding horizontal scroll on screens where content already fits in
-  @media (min-width: 1270px) {
-    overflow-x: hidden !important;
-  }
-
-  &.collapsed {
-    table {
-      display: block;
-      position: relative;
-      height: $collapsedHeight;
-      margin-bottom: 0 !important;
-    }
-
-    .opaque-layer {
-      position: absolute;
-      bottom: 0;
-      height: $opaqueLayerHeight;
-      width: 100%;
-      background: linear-gradient(to bottom, transparent, white);
-      z-index: 1;
-    }
-  }
-
-  table {
-    tr {
-      td:nth-child(1) {
-        color: $dark-gray;
-      }
-    }
-  }
-
-  .course-info-expander {
-    .material-icons {
-      margin-left: 48px;
-    }
-  }
-
-  #course-info.collapse:not(.show) {
-    display: block;
-    /* height = lineheight * no of lines to display */
-    height: 12.5em;
-    overflow: hidden;
-  }
-
-  #course-info.collapsing {
-    height: 12.5em;
+  .course-info-content {
+    margin-top: 5px;
   }
 }
 
-.partial-collapse-overlay {
+.panel-course-info-title {
+  font-size: $font-sm;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: $panel-course-info-text-color !important;
+}
+
+.panel-course-info-text {
+  font-size: $font-sm;
+  color: $panel-course-info-text-color !important;
+  a {
+    color: $panel-course-info-text-color !important;
+  }
+}
+
+.close-course-info {
+  margin-left: auto;
+  background-color: $course-info-btn-color !important;
+  border-radius: 0px !important;
+}
+
+.close-course-info:hover {
+  background-color: $course-info-btn-hover-color !important;
+}
+
+.show-course-info {
   position: absolute;
-  width: 100%;
-  height: 100%;
   top: 0;
-  z-index: 1;
-  background-size: cover;
-  @include media-breakpoint-up(lg) {
-    background: linear-gradient(transparent, transparent, $white) no-repeat
-      center;
-  }
-  @include media-breakpoint-down(md) {
-    background: linear-gradient(transparent, transparent, $light-gray) no-repeat
-      center;
-  }
-}
-
-.partial-collapse.collapse.show ~ .partial-collapse-overlay,
-.partial-collapse.collapsing ~ .partial-collapse-overlay {
-  display: none;
-}
-
-.partial-collapse-toggle-link {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: all;
-  z-index: 2;
-}
-
-.partial-collapse-icon-container {
-  position: absolute;
-  height: $partial-collapse-height;
-  width: 100%;
-  pointer-events: none;
-}
-
-.partial-collapse-icon {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   right: 0;
-  pointer-events: all;
+  background-color: $course-info-btn-color !important;
+  border-radius: 0px !important;
 }
 
-.partial-collapse-icon > i:after {
-  content: "expand_more";
+.show-course-info:hover {
+  background-color: $course-info-btn-hover-color !important;
 }
 
-.partial-collapse-toggle-link[aria-expanded="true"]
-  > .partial-collapse-icon-container
-  > .partial-collapse-icon
-  > i:after {
-  content: "expand_less" !important;
-}
-
-.partial-collapse.collapse:not(.show) {
-  display: block;
-  height: $partial-collapse-height;
-  overflow: hidden;
-}
-
-.partial-collapse.collapsing {
-  height: $partial-collapse-height;
-}
-
-.partial-collapse.collapse.show > ul > li > a.partial-collapse-link {
-  position: relative;
-  z-index: 3;
-}
-
-.topic-toggle {
+.close-mobile-course-info {
   position: absolute;
-  height: 26px;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 0;
-  pointer-events: all;
+  right: 0;
 }
 
-.topic-toggle > i:after {
-  content: "chevron_right";
+.download-course-link-button {
+  border-color: $blue !important;
+  color: $blue !important;
 }
 
-.topic-toggle[aria-expanded="true"] > i:after {
-  content: "expand_more" !important;
-}
-
-.course-description {
-  .description {
-    p:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  &.collapsed {
-    .description {
-      max-height: 6rem;
-      overflow: hidden;
-    }
-  }
-
-  .expand-link {
-    display: flex;
-    align-items: center;
-    border: 0;
-    padding: 0;
-    background-color: white;
-    color: $blue;
-
-    .material-icons {
-      color: black;
-    }
-  }
-
-  #course-description.collapse:not(.show) {
-    display: block;
-    /* height = lineheight * no of lines to display */
-    height: 4.5em;
-    overflow: hidden;
-  }
-
-  #course-description.collapsing {
-    height: 4.5em;
-  }
+.download-course-link-button:hover {
+  color: $white !important;
 }

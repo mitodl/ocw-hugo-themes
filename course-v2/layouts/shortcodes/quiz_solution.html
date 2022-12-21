@@ -1,4 +1,0 @@
-{{ $solution := .Inner }}
-{{ $questionId := .Parent.Get "questionId" }}
-
-{{ partial "quiz_multiple_choice_solution.html" (dict "solution" $solution "questionId" $questionId)}}

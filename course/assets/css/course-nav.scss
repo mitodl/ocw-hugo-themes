@@ -1,7 +1,10 @@
+nav {
+  display: block !important;
+}
+
 .course-nav {
   a {
     text-decoration: none;
-    font-size: $font-sm;
 
     &.active {
       font-weight: 600;
@@ -16,54 +19,28 @@
   }
 }
 
-.mobile-course-nav-toggle {
-  *:not(i) {
-    font-size: $font-normal;
-  }
-
-  i {
-    font-size: $font-lg;
-  }
+.mobile-course-nav-toggle-btn {
+  border: 1px solid $mobile-menu-btn-color;
+  color: $mobile-menu-btn-color;
+  border-radius: 15px;
+  padding: 3px 15px 3px 10px;
+  background: none;
 }
 
-.course-info-toggle {
-  position: absolute;
-  right: 0;
-  z-index: 10;
-  width: 38px;
-
-  .toggle {
-    writing-mode: vertical-lr;
-    transform: rotate(180deg);
-  }
+.mobile-course-info-toggle-btn {
+  color: $mobile-menu-btn-color;
 }
 
-.course-nav-list-item {
-  @include media-breakpoint-up(lg) {
-    padding-right: 2rem;
-  }
-
-  &:first-child {
-    .course-nav-parent {
-      padding-top: 0 !important;
-    }
-  }
-}
-
-.course-nav-list-item-child {
-  font-size: $font-xs;
-}
-
-.course-nav-section-toggle {
-  margin-left: 20px;
+.course-nav-text-wrapper {
+  width: 100%;
 }
 
 .course-nav-section-toggle > i:after {
-  content: "add";
+  content: "keyboard_arrow_down";
 }
 
 .course-nav-section-toggle[aria-expanded="true"] > i:after {
-  content: "remove" !important;
+  content: "keyboard_arrow_up" !important;
 }
 
 .course-nav-child-nav {

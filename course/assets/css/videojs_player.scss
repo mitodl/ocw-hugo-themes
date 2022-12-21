@@ -53,10 +53,9 @@ $slider-color: $pink;
     height: 10px;
 
     .vjs-progress-holder {
-      margin-left: 18px;
-      margin-right: 18px;
       color: $slider-color;
       font-size: 1.5em;
+      margin: 0 !important;
     }
 
     .vjs-play-progress,
@@ -70,12 +69,17 @@ $slider-color: $pink;
     .vjs-load-progress div {
       border-radius: 6px;
     }
+
+    .vjs-play-progress:before {
+      right: -0.9em !important;
+    }
   }
 
   .vjs-time-control {
     font-size: 1.4em;
-    padding-right: 0.3em;
     padding-left: 0.3em;
+    padding-right: 0.3em;
+
     @include media-breakpoint-down(xs) {
       display: none !important;
     }
@@ -148,7 +152,7 @@ $slider-color: $pink;
 
   .download-button-position {
     position: absolute;
-    right: 8rem;
+    right: 9rem;
 
     .vjs-menu-content {
       box-shadow: 5px 5px 10px;

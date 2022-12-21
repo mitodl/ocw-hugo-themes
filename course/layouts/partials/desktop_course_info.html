@@ -1,5 +1,10 @@
-<div id="desktop-course-info" class="col-12 col-lg-4 col-xl-4 px-6 mt-6 large-and-above-only border-left-gray">
-  {{ partial "course_info.html" (dict "context" . "inPanel" true) }}
-  {{ partial "topics.html" (dict "context" . "inPanel" true) }}
-  {{ partial "learning_resource_types.html" (dict "context" . "inPanel" true) }}
+<div class="border-left">
+  <div>
+    {{ partial "course_info.html" (dict "context" . "inPanel" true "isDesktopCourseDrawer" true) }}
+    <div class="px-3">
+      {{ partial "topics.html" (dict "context" . "inPanel" true) }}
+      {{ partial "learning_resource_types.html" (dict "context" . "inPanel" true) }}
+      {{ partialCached "download_course_link_button.html" (dict "context" . "inPanel" true) }}
+    </div>
+  </div>
 </div>

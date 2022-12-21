@@ -1,10 +1,14 @@
-function initResponsiveTables() {
-  const tables = document.querySelectorAll("#main-content table")
+const getTables = () =>
+  document.querySelectorAll<HTMLElement>("#course-content-section table")
+const getCourseContent = () => document.getElementById("course-content-section")
 
-  const observer = new ResizeObserver(() => calculateOverlap())
-  const mainContent = document.getElementById("main-content")
+function initResponsiveTables2() {
+  const tables = getTables()
+  const mainContent = getCourseContent()
   if (!mainContent) return
   if (!window.ResizeObserver) return
+
+  const observer = new ResizeObserver(() => calculateOverlap2())
   observer.observe(mainContent)
   tables.forEach(table => {
     const headings = table.getElementsByTagName("th")
@@ -21,25 +25,23 @@ function initResponsiveTables() {
   })
 }
 
-function calculateOverlap() {
-  const tables = document.querySelectorAll("#main-content table")
+function calculateOverlap2() {
+  const tables = getTables()
+  const mainContent = getCourseContent()
+  if (!mainContent) return
 
   tables.forEach(table => {
-    if (table.classList.contains("mobile-table")) return
-    const courseInfo = document.getElementById("desktop-course-info")
-    if (!courseInfo) return
-    const rect1 = table.getBoundingClientRect()
-    const rect2 = courseInfo.getBoundingClientRect()
-    const overlap = !(
-      rect1.right < rect2.left ||
-      rect1.left > rect2.right ||
-      rect1.bottom < rect2.top ||
-      rect1.top > rect2.bottom
-    )
-    if (overlap) {
+    const mainRect = mainContent.getBoundingClientRect()
+    const tableMinWidth = +(table.dataset.minWidth ?? 0)
+    if (mainRect.width > tableMinWidth) {
+      table.classList.remove("mobile-table")
+    }
+    const tableRect = table.getBoundingClientRect()
+    if (tableRect.right > mainRect.right) {
+      table.dataset.minWidth = `${tableRect.width}`
       table.classList.add("mobile-table")
     }
   })
 }
 
-initResponsiveTables()
+initResponsiveTables2()

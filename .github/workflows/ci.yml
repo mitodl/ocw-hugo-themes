@@ -32,7 +32,7 @@ jobs:
       SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
       STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
       RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
-      COURSE_HUGO_CONFIG_PATH: "$GITHUB_WORKSPACE/ocw-hugo-projects/ocw-course-v2/config.yaml"
+      COURSE_HUGO_CONFIG_PATH: "$GITHUB_WORKSPACE/ocw-hugo-projects/ocw-course/config.yaml"
       WWW_HUGO_CONFIG_PATH: "$GITHUB_WORKSPACE/ocw-hugo-projects/ocw-www/config.yaml"
     timeout-minutes: 60
     runs-on: ubuntu-latest

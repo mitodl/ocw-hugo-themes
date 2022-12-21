@@ -41,7 +41,7 @@ const envSchema = {
   }),
   OCW_COURSE_STARTER_SLUG: envalid.str({
     desc:       "Used when querying the OCW Studio API for course information",
-    devDefault: "ocw-course-v2"
+    devDefault: "ocw-course"
   }),
   OCW_STUDIO_BASE_URL: envalid.url({
     desc:       "The base URL of the OCW Studio instance to use for API requests.",
@@ -91,7 +91,7 @@ const envSchema = {
     desc:       "Path to the ocw-course Hugo configuration file",
     devDefault: path.resolve(
       __dirname,
-      "../ocw-hugo-projects/ocw-course-v2/config.yaml"
+      "../ocw-hugo-projects/ocw-course/config.yaml"
     )
   }),
   FIELDS_HUGO_CONFIG_PATH: envalid.str({

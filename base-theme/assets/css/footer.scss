@@ -1,3 +1,4 @@
+// old footer css, being used in www
 #footer-container {
   background-color: $footer-background-color;
   display: flex;
@@ -77,3 +78,36 @@
     }
   }
 }
+
+// new footer css
+.footer {
+  background-color: $footer-v2-background-color;
+  font-size: $font-sm !important;
+  color: $footer-v2-text-color !important;
+
+  a {
+    color: $footer-v2-text-color !important;
+  }
+
+  .footer-main-content {
+    max-width: $max-content-width;
+    padding: 1.5rem 1rem 2.5rem 1rem !important;
+
+    .footer-social-icon {
+      height: 21px;
+      width: 21px;
+      margin-left: 5px;
+      margin-right: 5px;
+      opacity: 0.6;
+    }
+
+    .footer-social-icon:hover {
+      opacity: 1;
+    }
+
+    .oeg-logo {
+      width: 90px;
+    }
+  }
+}
+

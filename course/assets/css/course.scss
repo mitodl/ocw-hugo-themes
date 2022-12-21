@@ -16,17 +16,50 @@
 @import "video-transcript";
 @import "course-content";
 @import "course-resources";
+@import "partial-collapse-list";
+@import "topic";
+@import "learning-resource-types";
+@import "course-image-section";
+
+html {
+  font-size: $course-font-root !important;
+}
+
+// TODO: This conditional rendering of logos should be removed when we completely move to the new course theme.
+#ocw-logo-white {
+  display: none;
+}
+
+#ocw-logo-white-v2 {
+  display: block !important;
+}
 
 #course-banner {
   color: $white;
   background-color: $blue;
 
+  .course-banner-content {
+    max-width: $max-content-width;
+    padding: 1.5rem 3rem !important;
+  }
+
+  .course-number-term-detail {
+    font-size: $font-sm;
+    color: $light-blue;
+  }
+
   a {
     text-decoration: none;
+    font-size: $font-xxxl;
+    font-weight: 400;
   }
 }
 
-#main-content article.content {
+.font-black {
+  color: black !important;
+}
+
+#course-main-content article.content {
   a:link {
     color: $course-content-link-unclicked;
   }
@@ -75,4 +108,44 @@ div[class^="reveal"],
 pre {
   padding: 10px;
   border: 1px solid $medium-gray;
+}
+
+.collapse-btn-section {
+  a.collapsed span:after {
+    content: "keyboard_arrow_down";
+  }
+
+  a:not(.collapsed) span:after {
+    content: "keyboard_arrow_up";
+  }
+}
+
+.course-detail-section {
+  margin-bottom: 40px;
+}
+
+.course-detail-title {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+// TODO: overriding some css of header and footer in this new theme
+// when we roll out this theme completely then we can move this css to thier respective files in base-theme
+
+#desktop-header {
+  height: $desktop-header-height-v2 !important;
+  .contents {
+    padding: 0 2rem !important;
+  }
+}
+
+#footer-container {
+  padding: 2rem 2rem !important;
+
+  .row {
+    max-width: $max-content-width !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
 }

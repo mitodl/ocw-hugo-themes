@@ -1,36 +1,41 @@
-<div class="d-inline-flex pr-5 pb-2 font-weight-bold">
-  <i class="course-feature-icon material-icons h2 pr-2 mb-0">
-    {{- if eq . "Course Introduction" -}}
-    groups
-    {{- else if in . "Audio" -}}
-    equalizer
-    {{- else if in . "Video" -}}
-    theaters
-    {{- else if or (in . "Problem Sets") (in . "Assignment") -}}
-      {{- if or (in . "with Examples") (in . "with Solutions") -}}
-      assignment_turned_in
-      {{- else -}}
-      assignment
+{{- $context := .context -}}
+{{ $inPanel := .inPanel }}
+
+<div class="{{ if not $inPanel }}learning-resource-type-item{{ end }}">
+  <div class="d-flex">
+    <i class="material-icons pr-1">
+      {{- if eq $context "Course Introduction" -}}
+      groups
+      {{- else if in $context "Audio" -}}
+      equalizer
+      {{- else if in $context "Video" -}}
+      theaters
+      {{- else if or (in $context "Problem Sets") (in $context "Assignment") -}}
+        {{- if or (in $context "with Examples") (in $context "with Solutions") -}}
+        assignment_turned_in
+        {{- else -}}
+        assignment
+        {{- end -}}
+      {{- else if in $context "Exams" -}}
+      grading
+      {{- else if eq $context "Image Gallery" -}}
+      collections
+      {{- else if eq $context "Lecture Notes" -}}
+      notes
+      {{- else if eq $context "Online Textbook" -}}
+      menu_book
+      {{- else if in $context "Projects" -}}
+      group_work
+      {{- else if in $context "Simulations" -}}
+      laptop_windows
+      {{- else if in $context "Instructor Insights" -}}
+      <span class="material-icons-round">
+        co_present
+      </span> 
       {{- end -}}
-    {{- else if in . "Exams" -}}
-    grading
-    {{- else if eq . "Image Gallery" -}}
-    collections
-    {{- else if eq . "Lecture Notes" -}}
-    notes
-    {{- else if eq . "Online Textbook" -}}
-    menu_book
-    {{- else if in . "Projects" -}}
-    group_work
-    {{- else if in . "Simulations" -}}
-    laptop_windows
-    {{- else if in . "Instructor Insights" -}}
-    <span class="material-icons-round">
-      co_present
-    </span> 
-    {{- end -}}
-  </i>
-  <span>
-    {{- . -}}
-  </span>
+    </i>
+    <span>
+      {{- $context -}}
+    </span>
+  </div>
 </div>

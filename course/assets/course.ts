@@ -5,26 +5,25 @@ import "nanogallery2/src/jquery.nanogallery2.core.js"
 
 import "./css/course.scss"
 
-import {
-  initDesktopCourseInfoToggle,
-  closeToggleButton
-} from "./js/course_info_toggle"
 import { initDivToggle } from "./js/div_toggle"
-import { initCourseInfoExpander } from "./js/course_expander"
+import {
+  initCourseInfoExpander,
+  initCourseDescriptionExpander
+} from "./js/course_expander"
 import { initVideoTranscriptTrack } from "./js/video_transcript_track"
 import { initPlayBackSpeedButton } from "./js/video_playback_speed"
 import { initVideoFullscreenToggle } from "./js/video_fullscreen_toggle"
 import { initDownloadButton } from "./js/video-download-button"
+import { initCourseDrawersClosingViaSwiping } from "./js/mobile_course_drawers"
 import {
   clearSolution,
   checkAnswer,
   showSolution
 } from "./js/quiz_multiple_choice"
-
 import "videojs-youtube"
 
 $(function() {
-  initDesktopCourseInfoToggle()
+  initCourseDescriptionExpander(document)
   initCourseInfoExpander(document)
   initDownloadButton()
   initPlayBackSpeedButton()
@@ -34,5 +33,5 @@ $(function() {
   checkAnswer()
   showSolution()
   initVideoFullscreenToggle()
-  closeToggleButton()
+  initCourseDrawersClosingViaSwiping()
 })

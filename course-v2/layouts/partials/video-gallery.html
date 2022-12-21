@@ -1,9 +1,0 @@
-{{- $ctx := . -}}
-{{- range .Params.videos.content -}}
-  {{- $uuid := . -}}
-  {{- range $ctx.Site.Pages -}}
-    {{- if eq (replace .Params.uid "-" "") (replace $uuid "-" "") -}}
-      {{ partial "video-gallery-item.html" . }}
-    {{- end -}}
-  {{- end -}}
-{{- end -}}

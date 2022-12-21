@@ -23,6 +23,7 @@ export const initVideoTranscriptTrack = () => {
           const transcriptContainer = videoPlayer
             .closest(".video-page")
             .querySelector(".transcript")
+            ?.querySelector(".video-tab-content-section")
 
           if (transcriptContainer) {
             transcriptContainer.appendChild(transcript.el())

@@ -1,8 +1,10 @@
-{{- $bannerClass := "text-uppercase display-4 font-weight-bold m-0 text-white" -}}
-{{- $currentPage := . -}}
+{{ $bannerClass := "text-capitalize display-4 m-0 text-white" }}
+{{ $currentPage := . }}
 <div id="course-banner" class="p-0">
-  <div class="max-content-width m-auto px-5 py-6">
-    {{- $courseData := .Site.Data.course -}}
+  <div class="max-content-width course-banner-content m-auto py-3">
+    {{ $courseData := .Site.Data.course }}
+    <span class="course-number-term-detail">{{ $courseData.primary_course_number }} | {{ $courseData.term }} {{ $courseData.year }} | {{ delimit $courseData.level ", " }}</span>
+    <br>
     <a
       class="{{ $bannerClass }}"
       href="{{ partial "course_home_page_url.html" . }}"
