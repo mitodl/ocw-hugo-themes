@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.80.1
+--------------
+
+- Fix .Err errors, elevate sentry severity (#1019)
+- make failing e2e tests fail on ci (#1011)
+
 Version 1.80.0 (Released December 21, 2022)
 --------------
 
