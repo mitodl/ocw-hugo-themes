@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.80.0
+Version 1.80.0 (Released December 21, 2022)
 --------------
 
 - fail build on get_instructor errors (#1010)
