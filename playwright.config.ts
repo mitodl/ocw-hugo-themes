@@ -7,10 +7,11 @@ import { env } from "./env"
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-  testDir: "./tests-e2e",
+  testDir:    "./tests-e2e",
+  testIgnore: ["**/jest/**"],
   /* Maximum time one test can run for. */
-  timeout: 30 * 1000,
-  expect:  {
+  timeout:    30 * 1000,
+  expect:     {
     timeout: 5000
   },
   fullyParallel: true,

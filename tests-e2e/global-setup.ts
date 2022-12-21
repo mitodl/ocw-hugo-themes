@@ -1,9 +1,8 @@
-import * as path from "node:path"
-import LocalOCW from "./LocalOcw"
+import LocalOCW, { fromRoot } from "./LocalOcw"
 
 const setupTests = async () => {
   const ocw = new LocalOCW({
-    rootDestinationDir: path.resolve("../", "test-sites", "tmp"),
+    rootDestinationDir: fromRoot("./test-sites/tmp/dist"),
     staticApiPort:      4321
   })
 

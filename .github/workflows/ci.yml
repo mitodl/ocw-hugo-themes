@@ -48,6 +48,8 @@ jobs:
         path: "ocw-hugo-projects"
     - name: Install dependencies
       run: yarn
+    - name: Run e2e jest tests
+      run: yarn test:e2e:jest
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests

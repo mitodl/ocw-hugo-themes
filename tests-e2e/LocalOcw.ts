@@ -209,3 +209,4 @@ class LocalOCW {
 }
 
 export default LocalOCW
+export { fromRoot }

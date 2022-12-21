@@ -26,6 +26,7 @@
     "test:watch": "jest --watch",
     "test:verbose": "jest --verbose",
     "test:e2e": "yarn with-env --dev -- playwright test",
+    "test:e2e:jest": "yarn jest --testPathIgnorePatterns='/node_modules/' --testPathPattern='/tests-e2e/jest/'",
     "typecheck": "tsc --noEmit",
     "with-env": "ts-node ./package_scripts/with-env.ts"
   },

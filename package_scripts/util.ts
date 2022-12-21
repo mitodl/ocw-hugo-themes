@@ -1,4 +1,4 @@
-import { ExecOptions } from "node:child_process"
+import { SpawnOptions } from "node:child_process"
 import * as fs from "node:fs"
 import execShCb from "exec-sh"
 
@@ -60,12 +60,13 @@ type HugoOptions = {
   verbose?: boolean
   environment?: "development" | "production"
   cacheDir?: string
+  ignoreCache?: boolean
 }
 /**
  * Run Hugo in a child process with the given options. See [hugo](https://gohugo.io/commands/hugo/)
  * for more.
  */
-const hugo = (hugoOptions: HugoOptions, execOptions: ExecOptions) => {
+const hugo = (hugoOptions: HugoOptions, execOptions: SpawnOptions) => {
   const flags = getOptions(hugoOptions)
   return execSh(`yarn hugo ${flags} --verbose`, execOptions)
 }
