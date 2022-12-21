@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.80.1
+Version 1.80.1 (Released December 21, 2022)
 --------------
 
 - Fix .Err errors, elevate sentry severity (#1019)
