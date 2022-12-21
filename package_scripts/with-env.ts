@@ -52,7 +52,12 @@ const runCommand = async () => {
     ...process.env,
     ...stringified
   } as NodeJS.ProcessEnv
-  execShCb(command, { env: envCopy, stdio: "inherit" })
+
+  try {
+    await execShCb.promise(command, { env: envCopy, stdio: "inherit" })
+  } catch (err) {
+    process.exit(1)
+  }
 }
 
 runCommand()
