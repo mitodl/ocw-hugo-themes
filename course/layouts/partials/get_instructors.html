@@ -4,8 +4,7 @@
   {{ $url := (print (strings.TrimSuffix "/" $staticApiBaseUrl) "/instructors/" . "/index.json") }}
   {{ with resources.GetRemote $url }}
     {{ with .Err }}
-      {{ $errorMessage := printf "Something went wrong while fetching instructors on %v via %v with error: %v" site.BaseURL $url .Err }}
-      {{ partial "sentry_capture_message.html" $errorMessage }}
+      {{ errorf "Something went wrong while fetching instructors on %v via %v with error: %v" site.BaseURL $url . }}
     {{ else }}
       {{ $data := (. | unmarshal).data }}
       {{ $searchUrl := partial "get_search_url.html" (dict "key" "instructors" "value" (title $data.title)) }}
@@ -13,8 +12,7 @@
       {{ $instructors = $instructors | append $instructor }}
     {{ end }}
   {{ else }}
-    {{ $errorMessage := printf "Failed to fetch course instructors through %v on %v" $url site.BaseURL }}
-    {{ partial "sentry_capture_message.html" $errorMessage }}
+    {{ errorf "Failed to fetch course instructors through %v on %v" $url site.BaseURL }}
   {{ end }}
 {{ end }}
 {{ return $instructors }}
