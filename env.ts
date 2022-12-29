@@ -58,9 +58,9 @@ const envSchema = {
     desc:       "The URL of the search API.",
     devDefault: "https://discussions-rc.odl.mit.edu/api/v0/search/"
   }),
-  SENTRY_ENV: envalid.url({
-    desc:       "The enviroment for Sentry",
-    devDefault: "dev"
+  SENTRY_ENV: envalid.str({
+    desc:       "The environment for Sentry",
+    devDefault: "development"
   }),
   SITEMAP_DOMAIN: envalid.str({
     desc:       "The domain used when writing fully qualified URLs into the sitemap",
