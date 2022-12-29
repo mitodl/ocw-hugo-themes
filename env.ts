@@ -60,7 +60,7 @@ const envSchema = {
   }),
   SENTRY_ENV: envalid.url({
     desc:       "The enviroment for Sentry",
-    devDefault:  "dev",
+    devDefault: "dev"
   }),
   SITEMAP_DOMAIN: envalid.str({
     desc:       "The domain used when writing fully qualified URLs into the sitemap",
