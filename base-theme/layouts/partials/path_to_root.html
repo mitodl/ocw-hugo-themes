@@ -1,8 +1,14 @@
+{{- $parsedBaseUrl := urls.Parse site.BaseURL -}}
 {{- $parsedUrl := urls.Parse . -}}
-{{- $slashCount := strings.Count "/" . -}}
+{{- $baseUrlSlashCount := strings.Count "/" $parsedBaseUrl.Path -}}
+{{- $slashCount := strings.Count "/" $parsedUrl.Path -}}
 {{- $pathToRoot := "" -}}
 {{- if gt $slashCount 1 -}}
-  {{- range seq (sub $slashCount 1) -}}
+  {{- $steps := sub $slashCount 1 -}}
+  {{- if gt $baseUrlSlashCount 1 -}}
+    {{- $steps = sub $steps $baseUrlSlashCount -}}
+  {{- end -}}
+  {{- range seq $steps -}}
     {{- $pathToRoot = $pathToRoot | print "../" -}}
   {{- end -}}
 {{- else -}}
