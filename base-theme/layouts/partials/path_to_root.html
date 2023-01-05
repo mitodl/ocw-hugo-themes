@@ -11,7 +11,8 @@
   {{- range seq $steps -}}
     {{- $pathToRoot = $pathToRoot | print "../" -}}
   {{- end -}}
-{{- else -}}
+{{- end -}}
+{{- if eq $pathToRoot "" -}}
   {{- $pathToRoot = "./" -}}
 {{- end -}}
 {{ return $pathToRoot }}
