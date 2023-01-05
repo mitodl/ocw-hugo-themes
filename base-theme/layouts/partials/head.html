@@ -1,6 +1,11 @@
 {{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
 
 <head>
+  <base href="{{ site.BaseURL }}">
+  <script>
+    var baseUrl = document.URL.substring(0, document.URL.lastIndexOf('/') + 1)
+    document.querySelector('base').href = baseUrl
+  </script>
   {{ block "extrahead" . }}{{ end }}
   {{ if $gtmId }}
     <!-- Google Tag Manager -->

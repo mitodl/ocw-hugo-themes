@@ -9,8 +9,6 @@
 */}}
 {{- $prefix := getenv "RESOURCE_BASE_URL" | default "" -}}
 {{- $url := printf "%s%s" (strings.TrimSuffix "/" $prefix) (urls.Parse $url).Path -}}
-{{- if hasPrefix $url "http" -}}
-  {{- return $url -}}
-{{- else -}}
-  {{- partial "site_root_url.html" $url -}}
+{{- with .context -}}
+{{- return relURL $url -}}
 {{- end -}}

@@ -11,7 +11,7 @@
 <div id="home-header">
   {{ block "header" . }}
   {{ $renderSearchIcon := index .Params "renderSearchIcon" | default true }}
-  {{ partialCached "header" . $renderSearchIcon }}
+  {{ partial "header" . $renderSearchIcon }}
   {{ end }}
 </div>
 <div class="d-flex flex-column align-items-center home-banner" style="background-image: url(/images/homepage_hero.jpg);">
@@ -83,15 +83,11 @@
 
   {{ with partial "get_featured_courses.html" . }}
     {{- $featuredCourses := . -}}
-    {{ partial "featured_course_cards.html" (dict "featuredCourses" $featuredCourses "klass" "") }}
+    {{ partial "featured_course_cards.html" (dict "context" . "featuredCourses" $featuredCourses "klass" "") }}
   {{ end }}
 
   {{ partial "home_course_collections.html" . }}
-
-  {{ $pages := .Site.Pages.ByPublishDate.Reverse }}
-  {{ $coursePages := where $pages "Type" "==" "course" }}
-  {{ $childPages := where $coursePages ".Params.layout" "==" "course_home" }}
-  {{ partial "new_course_cards.html" $childPages }}
+  {{ partial "new_course_cards.html" . }}
 
   <div class="give-now-wrapper">
     <div class="give-now my-5 d-flex justify-content-center">
@@ -165,5 +161,5 @@
     </div>
   </div>
 </div>
-{{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
+{{ block "footer" . }} {{ partial "footer" . }} {{end}}
 {{ end }}

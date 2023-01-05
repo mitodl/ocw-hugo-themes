@@ -12,9 +12,9 @@
   {{ end }}
   
   <div class="overflow-auto">
-    {{ partialCached "mobile_course_nav.html" . }}
-    {{ partialCached "mobile_course_info.html" . }}
-    {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
+    {{ partial "mobile_course_nav.html" . }}
+    {{ partial "mobile_course_info.html" . }}
+    {{ block "header" . }}{{ partial "header" . }}{{ end }}
     {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
 
   <div id="course-main-content">
@@ -27,22 +27,24 @@
     </div>
     <div class="row course-cards">
       <div class="col-2 course-home-grid large-and-above-only">  
-        {{ partialCached "desktop_nav.html" . }}
+        {{ partial "desktop_nav.html" . }}
       </div>
       <div class="col-12 col-md-8 col-lg-7 course-home-grid">
-        {{ partialCached "course_detail.html" . }}
+        {{ partial "course_detail.html" . }}
       </div>
       <div class="col-12 col-md-4 col-lg-3 mb-3 mb-md-0 course-home-grid">
-        {{ partialCached "course_image_section.html" . }}
+        {{ partial "course_image_section.html" . }}
       </div>
     </div>
   </div>
   
   {{ block "footer" . }}{{ partial "footer-v2" . }}{{end}}
-  {{ partialCached "hide_offline_links.html" . }}
+  {{ partial "hide_offline_links.html" . }}
   </div>
   {{ partialCached "navigation_js.html" . }}
   {{ partialCached "responsive_tables_js.html" . }}
+  {{- $theme := .Site.Data.webpack.main -}}
+  {{- $courseTheme := .Site.Data.webpack.course_v2 -}}
 
   {{- $webpack := .Site.Data.webpack -}}
   {{- $js_urls := slice $webpack.common.js $webpack.course_v2.js -}}

@@ -1,7 +1,7 @@
 {{ define "seo" }}
 
   {{- $sitemapDomain := partial "sitemap_domain.html" -}}
-  {{- $path := partial "site_root_url.html" .RelPermalink -}}
+  {{- $path := partial "site_root_url.html" (dict "context" . "url" .RelPermalink) -}}
 
   <!-- default value for the meta description -->
   {{- $defaultMetadataDescription := "MIT OpenCourseWare is a web based publication of virtually all MIT course content. OCW is open and available to the world and is a permanent MIT activity" -}}

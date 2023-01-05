@@ -3,7 +3,7 @@
 {{- $stories := where $pages "Type" "==" "stories" -}}
 <div>
   {{ block "header" . }}
-  {{ partialCached "header" . }}
+  {{ partial "header" . }}
   {{end}}
   <div class="testimonial-section container standard-width mx-auto mt-5 mb-5">
     <h1>OCW Stories</h1>
@@ -34,6 +34,6 @@
       {{ end }}
     </div>
   </div>
-  {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
+  {{ block "footer" . }} {{ partial "footer" . }} {{end}}
 </div>
 {{ end }}

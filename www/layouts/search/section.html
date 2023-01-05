@@ -2,7 +2,7 @@
 <div class="search-wrapper">
   {{ block "header" . }}
   {{ $renderSearchIcon := index .Params "renderSearchIcon" | default true }}
-  {{ partialCached "header" . $renderSearchIcon }}
+  {{ partial "header" . $renderSearchIcon }}
   {{ end }}
   <div class="container-fluid">
     <main>

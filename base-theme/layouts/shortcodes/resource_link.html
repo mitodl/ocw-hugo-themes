@@ -2,5 +2,6 @@
 {{- $title := index .Params 1 | safeHTML -}}
 {{- $anchor_id := index .Params 2 | default ""}}
 {{- range where $.Site.Pages "Params.uid" $uuid -}}
-    [{{ $title }}]({{- .Permalink -}}{{- $anchor_id -}})
+    {{- $url := printf "%s/index.html" (strings.TrimSuffix "/" .Permalink) -}}
+    [{{ $title }}]({{- $url -}}{{- $anchor_id -}})
 {{- end -}}

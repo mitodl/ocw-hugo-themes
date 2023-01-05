@@ -1,2 +1,2 @@
 {{ $courseHomePage := .Site.GetPage "/" }}
-{{ return $courseHomePage.RelPermalink }}
+{{ return printf "%s/index.html" (strings.TrimPrefix "/" $courseHomePage.RelPermalink) }}

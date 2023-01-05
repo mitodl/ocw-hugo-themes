@@ -2,7 +2,7 @@
 {{- $collection := . -}}
 <div>
   {{ block "header" . }}
-  {{ partialCached "header" . }}
+  {{ partial "header" . }}
   {{ end }}
   {{ partial "collection_cover_image" $collection }}
   <div class="container collection-outer-container standard-width mx-auto mt-5">
@@ -15,7 +15,7 @@
     {{ $collectionFeaturedList := index $collection.Params "featured-courses"}}
     {{ if (not (isset $collectionFeaturedList -1)) }}
       {{- $featured_list := index (where $.Site.Pages ".Params.uid" $collectionFeaturedList.content) 0 -}}
-      {{ partial "featured_course_cards"  (dict "featuredCourses" $featured_list.Params.courses "klass" "course-list-title col-lg-8 pb-2") }}
+      {{ partial "featured_course_cards" (dict "context" . "featuredCourses" $featured_list.Params.courses "klass" "course-list-title col-lg-8 pb-2") }}
     {{ end }}
     {{- range $collection.Params.courselists.content -}}
       {{- $course_list := index (where $.Site.Pages ".Params.uid" .) 0 -}}
@@ -59,6 +59,6 @@
   </script>
 </div>
   {{ block "footer" . }}
-    {{ partialCached "footer" . }}
+    {{ partial "footer" . }}
   {{end}}
 {{ end }}

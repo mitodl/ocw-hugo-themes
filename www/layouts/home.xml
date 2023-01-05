@@ -5,7 +5,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {{ range .Data.Pages }}
     {{- if and .RelPermalink (not .Params.headless) (not (eq .RelPermalink "sitemap.xml")) -}}
-      {{- $path := strings.TrimPrefix "/" (partial "site_root_url.html" .RelPermalink) -}}
+      {{- $path := strings.TrimPrefix "/" (partial "site_root_url.html" (dict "context" . "url" .RelPermalink)) -}}
       {{- if not (in $disallowedUrls $path) -}}
         {{- $url := printf "https://%v/%v" $sitemapDomain $path -}}
   <url>

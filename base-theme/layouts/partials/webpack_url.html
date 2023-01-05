@@ -9,8 +9,8 @@
       {{- print $webpackBase "/" .url -}}
     {{- end -}}
   {{- else -}}
-    {{- partial "site_root_url.html" .url -}}
+    {{- partial "site_root_url.html" (dict "context" .context "url" .url) -}}
   {{- end -}}
 {{- else -}}
-  {{- partial "site_root_url.html" .url -}}
+  {{- partial "site_root_url.html" (dict "context" .context "url" .url) -}}
 {{- end -}}

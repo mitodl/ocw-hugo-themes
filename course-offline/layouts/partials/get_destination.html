@@ -3,7 +3,7 @@
 {{ $isExternalCourseLink := strings.HasPrefix $destination "/courses" }}
 {{ if $isInternalLink }}
   {{ if $isExternalCourseLink }}
-    {{ $destination = partial "site_root_url.html" $destination }}
+    {{ $destination = partial "site_root_url.html" (dict "context" . "url" $destination) }}
   {{ else }}
     {{ $destination = printf "%s/index.html" (strings.TrimSuffix "/" $destination) }}
   {{ end }}

@@ -16,7 +16,7 @@ we want to use this new footer in other themes (www, course-offline etc)
 								Over 2,500 courses & materials
 							</div>
 							<div>
-								Freely sharing knowledge with learners and educators around the world. <a href='{{ partial "site_root_url.html" "/about" }}'>Learn more</a>
+								Freely sharing knowledge with learners and educators around the world. <a href='{{ partial "site_root_url.html" (dict "context" . "url" "/about") }}'>Learn more</a>
 							</div>
 						</div>
 					</div>
@@ -41,7 +41,7 @@ we want to use this new footer in other themes (www, course-offline etc)
 							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons License</a>
 						</div>
 						<div class="px-md-2 mt-2 mt-lg-0">
-							<a class="hide-offline" href='{{ partial "site_root_url.html" "/pages/privacy-and-terms-of-use/" }}'>Terms and Conditions</a>
+							<a class="hide-offline" href='{{ partial "site_root_url.html" (dict "context" . "url" "/pages/privacy-and-terms-of-use/") }}'>Terms and Conditions</a>
 						</div>
 					</div>
             	</div>

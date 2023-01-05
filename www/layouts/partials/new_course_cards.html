@@ -1,3 +1,4 @@
+{{- $context := . -}}
 {{- $staticApiBaseUrl := partial "static_api_base_url.html" -}}
 <div class="new-courses course-cards standard-width container mx-auto mt-3">
 {{ $studioBaseUrl := partial "ocw_studio_base_url.html" }}
@@ -31,7 +32,7 @@
                       {{ errorf "Failed to fetch new course info from %v with error %v" $url . }}
                     {{ else }}
                       {{- $courseData := . | unmarshal -}}
-                      {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $courseItem.url_path "numCourses" (len $resultsSlice))}}
+                      {{ partial "course_carousel_card.html" (dict "context" $context "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $courseItem.url_path "numCourses" (len $resultsSlice))}}
                     {{ end }}
                   {{ else }}
                     {{ errorf "Failed to fetch new course info from %v" $url }}

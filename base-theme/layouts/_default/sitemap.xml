@@ -1,3 +1,4 @@
+{{- $context := . -}}
 {{- $sitemapDomain := partial "sitemap_domain.html" -}}
 {{- $disallowedUrls := slice "categories/" "tags/" "pages/" "resources/" "video_galleries/" -}}
 {{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
@@ -5,7 +6,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {{ range .Data.Pages }}
     {{- if and .RelPermalink (not .Params.headless) -}}
-      {{- $path := strings.TrimPrefix "/" (partial "site_root_url.html" .RelPermalink) -}}
+      {{- $path := strings.TrimPrefix "/" (partial "site_root_url.html" (dict "context" $context "url" .RelPermalink)) -}}
       {{- $trimmedBaseUrl := strings.TrimPrefix "/" site.BaseURL -}}
       {{- $trimmedPath := strings.TrimPrefix "/" (replace $path $trimmedBaseUrl "") -}}
       {{- if not (in $disallowedUrls $trimmedPath) -}}

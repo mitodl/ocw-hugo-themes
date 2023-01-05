@@ -1,16 +1,17 @@
+{{- $relativePathToRoot := partial "path_to_root.html" .context.RelPermalink -}}
 {{- if eq site.BaseURL "" -}}
   {{/* No BaseURL is defined */}}
   {{- errorf "No BaseURL has been defined, please check our configuration" -}}
 {{- else if hasPrefix site.BaseURL "/" -}}
   {{/* BaseURL is relative to the root, so simply prefix what's passed in with "/" */}}
-  {{- printf "/%s" (strings.TrimPrefix "/" .) -}}
+  {{- printf "%s%s" $relativePathToRoot (strings.TrimPrefix "/" .url) -}}
 {{- else if hasPrefix site.BaseURL "http" -}}
   {{/* A fully qualified BaseURL is set, so disassemble it and construct the root URL */}}
   {{- $baseUrl := urls.Parse site.BaseURL -}}
   {{- if or (eq $baseUrl.Scheme nil) (eq $baseUrl.Host nil) -}}
-    {{- printf "%s/%s" (strings.TrimSuffix "/" site.BaseURL) (strings.TrimPrefix "/" .) -}}
+    {{- printf "%s/%s" (strings.TrimSuffix "/" site.BaseURL) (strings.TrimPrefix "/" .url) -}}
   {{- else -}}
-    {{- printf "%s://%s/%s" $baseUrl.Scheme $baseUrl.Host (strings.TrimPrefix "/" .) -}}
+    {{- printf "%s://%s/%s" $baseUrl.Scheme $baseUrl.Host (strings.TrimPrefix "/" .url) -}}
   {{- end -}}
 {{- else -}}
   {{/* A BaseURL value that doesn't start with "/" or "http" is not valid */}}

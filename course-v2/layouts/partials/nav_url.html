@@ -1,1 +1,8 @@
-{{ return .menuItem.URL }}
+{{ $url := .menuItem.URL }}
+{{ $noHttpPrefix := not (strings.HasPrefix $url "http") }}
+{{ $noHtmlSuffix := not (strings.HasSuffix $url ".html") }}
+{{ if and $noHttpPrefix $noHtmlSuffix }}
+  {{ $relativePathToRoot := partial "path_to_root.html" .context.RelPermalink }}
+  {{ $url = printf "%s%s/index.html" $relativePathToRoot (strings.TrimPrefix "/" .menuItem.URL) }}
+{{ end }}
+{{ return $url }}

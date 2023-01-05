@@ -1,3 +1,4 @@
+{{- $context := .context -}}
 {{- $staticApiBaseUrl := partial "static_api_base_url.html" -}}
 
 {{- $courses := .featuredCourses -}}
@@ -21,14 +22,14 @@
           </div>
           <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
             {{ range $index, $courseItem := $courses }}
-              {{- $urlPath := partial "site_root_url.html" $courseItem.id -}}
+              {{- $urlPath := partial "site_root_url.html" (dict "context" $context "url" $courseItem.id) -}}
               {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) $urlPath "/data.json") "" -}}
               {{ with resources.GetRemote $url }}
                 {{ with .Err }}
                   {{ errorf "Failed to fetch featured course info from %v with error %v" $url . }}
                 {{ else }}
                   {{- $courseData := . | unmarshal -}}
-                  {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $urlPath "numCourses" (len $courses))}}
+                  {{ partial "course_carousel_card.html" (dict "context" $context "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $urlPath "numCourses" (len $courses)) }}
                 {{ end }}
               {{ else }}
                 {{ errorf "Failed to fetch featured course info from %v" $url }}

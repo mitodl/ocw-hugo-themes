@@ -1,1 +1,1 @@
-{{ return partial "site_root_url.html" .url }}
+{{ return partial "site_root_url.html" (dict "context" .context "url" .url) }}
