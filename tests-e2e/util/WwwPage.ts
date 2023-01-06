@@ -27,23 +27,20 @@ class WwwPage {
 
   /**
    * Return a Locator for a Course Card by its title.
-   *
-   * Passing `{ expectedCount: 0 }` amounts to asserting that the CourseInfo
-   * section is not visible.
    */
   getCourseCard(title: string, { expectedCount = 1 } = {}): Locator {
     const cardXPath = `div[${xPath.predicates.hasClass("course-card")}]`
-    const courseInfo = this.page
+    const courseCard = this.page
       .getByRole("link", { name: title })
       .locator(`${closest(cardXPath)} >> visible=true`)
 
-    courseInfo.count().then(count => {
+    courseCard.count().then(count => {
       if (count !== expectedCount) {
         throw new Error(`Expected ${expectedCount} Course Cards, got ${count}`)
       }
     })
 
-    return courseInfo
+    return courseCard
   }
 }
 
