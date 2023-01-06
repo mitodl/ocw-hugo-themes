@@ -3,7 +3,6 @@
 {{ $studioBaseUrl := partial "ocw_studio_base_url.html" }}
 {{ $courseStarterSlug := getenv "OCW_COURSE_STARTER_SLUG" }}
 {{ $typeQuery := querify "type" $courseStarterSlug }}
-{{ if and $studioBaseUrl $courseStarterSlug }}
 {{ $coursesURL := (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/websites/?" $typeQuery) }}
 {{ with resources.GetRemote $coursesURL }}
   {{ if not .Err }}
@@ -50,7 +49,4 @@
 {{ else }}
   {{ errorf "Failed to fetch new courses through %v on %v" $coursesURL site.BaseURL }}
 {{ end }}
-{{ else }}
-OCW Studio URL not configured
-{{  end  }}
 </div>
