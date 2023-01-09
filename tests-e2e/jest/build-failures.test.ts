@@ -8,7 +8,11 @@ interface ExecError extends Error {
   stderr: string
 }
 
-const expectBuildError = async (ocw: LocalOCW, alias: TestSiteAlias, msg: string | RegExp) => {
+const expectBuildError = async (
+  ocw: LocalOCW,
+  alias: TestSiteAlias,
+  msg: string | RegExp
+) => {
   let error: ExecError
 
   try {
@@ -23,7 +27,7 @@ const expectBuildError = async (ocw: LocalOCW, alias: TestSiteAlias, msg: string
 describe("OCW Build Failures", () => {
   const ocw = new LocalOCW({
     rootDestinationDir: path.join(__dirname, "tmp"),
-    fixturesPort:       4322,
+    fixturesPort:       4322
   })
 
   beforeEach(async () => {
@@ -53,7 +57,8 @@ describe("OCW Build Failures", () => {
   ])(
     "Instructor static API errors crash build",
     async ({ statusCode, match }) => {
-      const shouldPatch = (req: IncomingMessage) => req.url?.includes("3caa0884-4fdd-4f3c-ba39-67a64c27d877")
+      const shouldPatch = (req: IncomingMessage) =>
+        req.url?.includes("3caa0884-4fdd-4f3c-ba39-67a64c27d877")
       ocw.fixturesServer.patchHandler((req, res) => {
         if (shouldPatch(req)) {
           res.writeHead(statusCode)
@@ -75,7 +80,8 @@ describe("OCW Build Failures", () => {
       match:      /Featured courses carousel .* with error/
     }
   ])("Featured course static API failures", async ({ statusCode, match }) => {
-    const shouldPatch = (req: IncomingMessage) => req.url?.includes("some-featured-course")
+    const shouldPatch = (req: IncomingMessage) =>
+      req.url?.includes("some-featured-course")
     ocw.fixturesServer.patchHandler((req, res) => {
       if (shouldPatch(req)) {
         res.writeHead(statusCode)
@@ -96,7 +102,8 @@ describe("OCW Build Failures", () => {
       match:      /New courses carousel .* with error/
     }
   ])("Featured course static API failures", async ({ statusCode, match }) => {
-    const shouldPatch = (req: IncomingMessage) => req.url?.includes("some-new-course")
+    const shouldPatch = (req: IncomingMessage) =>
+      req.url?.includes("some-new-course")
     ocw.fixturesServer.patchHandler((req, res) => {
       if (shouldPatch(req)) {
         res.writeHead(statusCode)
