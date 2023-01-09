@@ -32,13 +32,20 @@ const OCW_WWW_REWRITE: RedirectionRule = {
   transform: url => `/ocw-ci-test-www${url}`
 }
 
+/**
+ * Redirects requests to
+ *  original: /api/websites?type=course-v2
+ *  rewritten: /api/websites.json?type=course-v2
+ * so our static file server can serve the JSON.
+ */
 const API_JSON_REWRITE: RedirectionRule = {
   type:      "rewrite",
   match:     /^\/api\//,
   transform: urlText => {
-    const url = new URL(urlText, "http://ocw.mit.edu") // basename is needed but not used
+    // We need to provide some baseurl, but we will not use it.
+    const url = new URL(urlText, "http://fakesite.mit.edu")
     url.pathname = `${url.pathname.replace(/\/$/, "")}.json`
-    return url.toString()
+    return [url.pathname, url.search, url.hash].join("")
   }
 }
 
