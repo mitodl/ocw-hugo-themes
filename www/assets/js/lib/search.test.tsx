@@ -48,7 +48,7 @@ describe("search library", () => {
     const lr = searchResultToLearningResource(
       makeLearningResourceResult(LearningResourceType.Course)
     )
-    expect(getCoverImageUrl({ ...lr, image_src: "/images/foobar.jpeg" })).toBe(
+    expect(getCoverImageUrl({ ...lr, image_src: "/static_shared/images/foobar.jpeg" })).toBe(
       "http://resources-galore.example.com/images/foobar.jpeg"
     )
   })

@@ -322,7 +322,7 @@ export default function SearchPage(props: SearchPageProps) {
                     className="layout-button-left"
                   >
                     <img
-                      src="/images/icons/list_ui_icon.png"
+                      src="/static_shared/images/icons/list_ui_icon.png"
                       alt="search results with thumbnails"
                     />
                   </button>
@@ -331,7 +331,7 @@ export default function SearchPage(props: SearchPageProps) {
                     className="layout-button-right"
                   >
                     <img
-                      src="/images/icons/compact_ui_icon.png"
+                      src="/static_shared/images/icons/compact_ui_icon.png"
                       alt="compact search results"
                     />
                   </button>

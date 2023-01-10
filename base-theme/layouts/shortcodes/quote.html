@@ -2,8 +2,8 @@
   We have to load the quote images this way to prevent webpack 
   from injecting its domain like it does in the SCSS build 
 */}}
-{{ $quoteOpen := "/images/quote_open.png" }}
-{{ $quoteClose := "/images/quote_close.png" }}
+{{ $quoteOpen := "/static_shared/images/quote_open.png" }}
+{{ $quoteClose := "/static_shared/images/quote_close.png" }}
 <figure class="quotewrapper py-3">
   <blockquote class="quote">"{{- .Get 0 | markdownify -}}"</blockquote>
   <div class="sigwrapper">

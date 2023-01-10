@@ -80,7 +80,7 @@ export default function SearchFilterDrawer(props: Props) {
       <div className="layout-buttons layout-buttons-mobile">
         <button onClick={() => updateUI(null)} className="layout-button-left">
           <img
-            src="/images/icons/list_ui_icon.png"
+            src="/static_shared/images/icons/list_ui_icon.png"
             alt="search results with thumbnails"
           />
         </button>
@@ -89,7 +89,7 @@ export default function SearchFilterDrawer(props: Props) {
           className="layout-button-right"
         >
           <img
-            src="/images/icons/compact_ui_icon.png"
+            src="/static_shared/images/icons/compact_ui_icon.png"
             alt="compact search results"
           />
         </button>
