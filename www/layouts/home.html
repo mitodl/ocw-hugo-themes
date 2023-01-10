@@ -1,5 +1,6 @@
 {{ define "main" }}
 
+{{ $context := .}}
 {{ $getStartedZendeskPage := "https://mitocw.zendesk.com/hc/en-us/categories/4414679122971-Get-Started-with-MIT-OpenCourseWare" }}
 {{ $getStartedLocalPage := "/pages/get-started" }}
 {{ $getStartedLink := $getStartedZendeskPage }}
@@ -83,7 +84,7 @@
 
   {{ with partial "get_featured_courses.html" . }}
     {{- $featuredCourses := . -}}
-    {{ partial "featured_course_cards.html" (dict "context" . "featuredCourses" $featuredCourses "klass" "") }}
+    {{ partial "featured_course_cards.html" (dict "context" $context "featuredCourses" $featuredCourses "klass" "") }}
   {{ end }}
 
   {{ partial "home_course_collections.html" . }}
