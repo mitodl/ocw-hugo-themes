@@ -11,7 +11,7 @@ interface ExecError extends Error {
 const expectBuildError = async (
   ocw: LocalOCW,
   alias: TestSiteAlias,
-  msg: string | RegExp
+  messages: (string | RegExp)[]
 ) => {
   let error: ExecError
 
@@ -21,7 +21,9 @@ const expectBuildError = async (
     error = err as ExecError
   }
 
-  expect(error!.stdout).toMatch(msg)
+  messages.forEach(msg => {
+    expect(error!.stdout).toMatch(msg)
+  })
 }
 
 describe("OCW Build Failures", () => {
@@ -47,12 +49,15 @@ describe("OCW Build Failures", () => {
   test.each([
     {
       statusCode: 404,
-      match:
-        /Failed to fetch course instructors through .* on \/courses\/ocw-ci-test-course/
+      match:      [/Failed to fetch instructors/, /from .*4322\/instructors/]
     },
     {
       statusCode: 504,
-      match:      /failed to fetch remote resource: Gateway Timeout/
+      match:      [
+        /Failed to fetch instructors/,
+        /from .*4322\/instructors/,
+        /with error.* Gateway Timeout/
+      ]
     }
   ])(
     "Instructor static API errors crash build",
@@ -73,11 +78,18 @@ describe("OCW Build Failures", () => {
   test.each([
     {
       statusCode: 404,
-      match:      /Failed to fetch featured courses/
+      match:      [
+        /Failed to fetch featured course info/,
+        /from .*4322\/courses\/some-featured-course/
+      ]
     },
     {
       statusCode: 504,
-      match:      /Featured courses carousel .* with error/
+      match:      [
+        /Failed to fetch featured course info/,
+        /from .*4322\/courses\/some-featured-course.*/,
+        /with error.* Gateway Timeout/
+      ]
     }
   ])("Featured course static API failures", async ({ statusCode, match }) => {
     const shouldPatch = (req: IncomingMessage) =>
@@ -95,11 +107,15 @@ describe("OCW Build Failures", () => {
   test.each([
     {
       statusCode: 404,
-      match:      /Failed to fetch new course card/
+      match:      [/Failed to fetch new course info/]
     },
     {
       statusCode: 504,
-      match:      /New courses carousel .* with error/
+      match:      [
+        /Failed to fetch new course info/,
+        /from .*4322\/courses\/some-new-course.*/,
+        /with error.* Gateway Timeout/
+      ]
     }
   ])("Featured course static API failures", async ({ statusCode, match }) => {
     const shouldPatch = (req: IncomingMessage) =>
