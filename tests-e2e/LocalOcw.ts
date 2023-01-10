@@ -157,7 +157,8 @@ class LocalOCW {
                * When building test sites, use local server at fixturesPort for static
                * API requests. See test-sites/__fixtures__/README.md for more.
                */
-              STATIC_API_BASE_URL: `http://localhost:${this.fixturesPort}`
+              STATIC_API_BASE_URL: `http://localhost:${this.fixturesPort}`,
+              API_BEARER_TOKEN:    ""
             })
           )
         }

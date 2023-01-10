@@ -27,6 +27,10 @@ const envSchema = {
   /**
    * Dev-only defaults
    */
+  API_BEARER_TOKEN: envalid.str({
+    desc:       "The bearer token to use when making requests to the OCW Studio API.",
+    devDefault: ""
+  }),
   GIT_CONTENT_SOURCE: envalid.str({
     desc:       "Git organization/user URL from which to pull Hugo site content repositories.",
     devDefault: "git@github.mit.edu:ocw-content-rc"
