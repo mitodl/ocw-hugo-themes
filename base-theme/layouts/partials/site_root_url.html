@@ -1,9 +1,9 @@
-{{- $relativePathToRoot := partial "relative_path_to_root.html" .context.RelPermalink -}}
 {{- if eq site.BaseURL "" -}}
   {{/* No BaseURL is defined */}}
   {{- errorf "No BaseURL has been defined, please check our configuration" -}}
 {{- else if hasPrefix site.BaseURL "/" -}}
-  {{/* BaseURL is relative to the root, so simply prefix what's passed in with "/" */}}
+  {{/* BaseURL is absolute but not fully qualified, so find the relative path back */}}
+  {{- $relativePathToRoot := partial "relative_path_to_root.html" .context.RelPermalink -}}
   {{- printf "%s%s" $relativePathToRoot (strings.TrimPrefix "/" .url) -}}
 {{- else if hasPrefix site.BaseURL "http" -}}
   {{/* A fully qualified BaseURL is set, so disassemble it and construct the root URL */}}
