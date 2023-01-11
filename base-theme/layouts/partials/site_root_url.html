@@ -1,4 +1,4 @@
-{{- $relativePathToRoot := partial "path_to_root.html" .context.RelPermalink -}}
+{{- $relativePathToRoot := partial "relative_path_to_root.html" .context.RelPermalink -}}
 {{- if eq site.BaseURL "" -}}
   {{/* No BaseURL is defined */}}
   {{- errorf "No BaseURL has been defined, please check our configuration" -}}
