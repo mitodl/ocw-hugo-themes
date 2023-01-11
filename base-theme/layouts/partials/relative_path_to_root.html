@@ -2,16 +2,11 @@
   Takes a given absolute URL and returns a relative URL,
   relative to the home page of the currently rendering site
 */}}
-{{- $parsedBaseUrl := urls.Parse site.BaseURL -}}
 {{- $parsedUrl := urls.Parse . -}}
-{{- $baseUrlSlashCount := strings.Count "/" $parsedBaseUrl.Path -}}
 {{- $slashCount := strings.Count "/" $parsedUrl.Path -}}
 {{- $pathToRoot := "" -}}
 {{- if gt $slashCount 1 -}}
   {{- $steps := sub $slashCount 1 -}}
-  {{- if gt $baseUrlSlashCount 1 -}}
-    {{- $steps = sub $steps $baseUrlSlashCount -}}
-  {{- end -}}
   {{- range seq $steps -}}
     {{- $pathToRoot = $pathToRoot | print "../" -}}
   {{- end -}}
