@@ -1,0 +1,19 @@
+{
+    "count": 2500,
+    "next": null,
+    "previous": null,
+    "results": [
+        { "url_path": "courses/ocw-ci-test-course" },
+        { "url_path": "courses/ocw-ci-test-course" },
+        { "url_path": "courses/some-new-course" },
+        { "url_path": "courses/ocw-ci-test-course" },
+        { "url_path": "courses/ocw-ci-test-course" },
+        { "url_path": "courses/ocw-ci-test-course" },
+        { "url_path": "courses/ocw-ci-test-course" },
+        { "url_path": "courses/ocw-ci-test-course" },
+        { "url_path": "courses/ocw-ci-test-course" },
+        { "url_path": "courses/ocw-ci-test-course" },
+        { "url_path": "courses/ocw-ci-test-course" },
+        { "url_path": "courses/ocw-ci-test-course" }
+    ]
+}

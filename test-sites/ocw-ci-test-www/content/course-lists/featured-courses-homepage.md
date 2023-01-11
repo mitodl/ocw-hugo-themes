@@ -2,7 +2,17 @@
 content_type: course-lists
 courses:
 - id: courses/ocw-ci-test-course
-  title: Blarglefraster
+  title: OCW CI Test Course
+- id: courses/some-featured-course
+  title: Some Featured Course for Testing
+- id: courses/ocw-ci-test-course
+  title: OCW CI Test Course
+- id: courses/ocw-ci-test-course
+  title: OCW CI Test Course
+- id: courses/ocw-ci-test-course
+  title: OCW CI Test Course
+- id: courses/ocw-ci-test-course
+  title: OCW CI Test Course
 description: ''
 draft: false
 title: featured-courses-homepage

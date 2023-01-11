@@ -1,0 +1,49 @@
+{
+    "course_title": "Some New Course",
+    "course_description": "A dummy new course for testing. Does not have full course page.",
+    "site_uid": "1a99e1b3-5070-41dd-97f5-2b511bdc44de",
+    "legacy_uid": "",
+    "instructors": [],
+    "department_numbers": ["18"],
+    "learning_resource_types": [
+      "Activity Assignments"
+    ],
+    "topics": [],
+    "primary_course_number": "123",
+    "extra_course_numbers": "456",
+    "term": "Fall",
+    "year": "1999",
+    "level": [
+      "Graduate"
+    ],
+    "image_src": "https://draft-qa.ocw.mit.edu/courses/123-another-test-course-fall-1999/neutrino.jpg",
+    "course_image_metadata": {
+      "body": "",
+      "content_type": "resource",
+      "draft": false,
+      "file": "/courses/123-another-test-course-fall-1999/neutrino.jpg",
+      "file_type": "image/jpeg",
+      "image_metadata": {
+        "caption": "",
+        "credit": "",
+        "image-alt": ""
+      },
+      "iscjklanguage": false,
+      "learning_resource_types": [],
+      "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "resourcetype": "Image",
+      "title": "neutrino.jpg",
+      "uid": "50321ac4-3ef7-4815-a602-b637e69a9503",
+      "video_files": {
+        "video_captions_file": "",
+        "video_thumbnail_file": "",
+        "video_transcript_file": ""
+      },
+      "video_metadata": {
+        "video_speakers": "",
+        "video_tags": "",
+        "youtube_description": "",
+        "youtube_id": ""
+      }
+    }
+  }

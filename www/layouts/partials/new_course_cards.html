@@ -3,7 +3,6 @@
 {{ $studioBaseUrl := partial "ocw_studio_base_url.html" }}
 {{ $courseStarterSlug := getenv "OCW_COURSE_STARTER_SLUG" }}
 {{ $typeQuery := querify "type" $courseStarterSlug }}
-{{ if and $studioBaseUrl $courseStarterSlug }}
 {{ $coursesURL := (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/websites/?" $typeQuery) }}
 {{ with resources.GetRemote $coursesURL }}
   {{ if not .Err }}
@@ -29,15 +28,13 @@
                   {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $courseItem.url_path "/data.json") "" -}}
                   {{ with resources.GetRemote $url }}
                     {{ with .Err }}
-                      {{ $errorMessage := printf "New courses carousel on %v failed to fetch %v with error: %v" site.BaseURL $url . }}
-                      {{ partial "sentry_capture_message.html" $errorMessage }}
+                      {{ errorf "Failed to fetch new course info from %v with error %v" $url . }}
                     {{ else }}
                       {{- $courseData := . | unmarshal -}}
                       {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $courseItem.url_path "numCourses" (len $resultsSlice))}}
                     {{ end }}
                   {{ else }}
-                    {{ $errorMessage := printf "Failed to fetch new course card through %v on %v" $url site.BaseURL }}
-                    {{ partial "sentry_capture_message.html" $errorMessage }}
+                    {{ errorf "Failed to fetch new course info from %v" $url }}
                   {{ end }}
                 {{- end -}}
               {{ end }}
@@ -50,10 +47,6 @@
     {{ end }}
   {{ end }}
 {{ else }}
-  {{ $errorMessage := printf "Failed to fetch new courses through %v on %v" $coursesURL site.BaseURL }}
-  {{ partial "sentry_capture_message.html" $errorMessage }}
+  {{ errorf "Failed to fetch new courses list from %v" $coursesURL }}
 {{ end }}
-{{ else }}
-OCW Studio URL not configured
-{{  end  }}
 </div>

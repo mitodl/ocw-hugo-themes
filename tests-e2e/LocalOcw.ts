@@ -26,10 +26,27 @@ const fromRoot = (...pathFromRoot: string[]) => {
  * Redirect all requests /path/to/thing to /ocw-ci-test-www/path/to/thing,
  * except requests to /courses/.
  */
-const OCW_WWW_REDIRECT: RedirectionRule = {
+const OCW_WWW_REWRITE: RedirectionRule = {
   type:      "rewrite",
-  match:     /^\/(?!(courses\/))/,
+  match:     /^\/(?!(courses\/|api\/))/,
   transform: url => `/ocw-ci-test-www${url}`
+}
+
+/**
+ * Redirects requests to
+ *  original: /api/websites?type=course-v2
+ *  rewritten: /api/websites.json?type=course-v2
+ * so our static file server can serve the JSON.
+ */
+const API_JSON_REWRITE: RedirectionRule = {
+  type:      "rewrite",
+  match:     /^\/api\//,
+  transform: urlText => {
+    // We need to provide some baseurl, but we will not use it.
+    const url = new URL(urlText, "http://fakesite.mit.edu")
+    url.pathname = `${url.pathname.replace(/\/$/, "")}.json`
+    return [url.pathname, url.search, url.hash].join("")
+  }
 }
 
 interface LocalOCWOptions {
@@ -37,7 +54,7 @@ interface LocalOCWOptions {
    * All sites will be built to subdirectories of this directory.
    */
   rootDestinationDir: string
-  staticApiPort: number
+  fixturesPort: number
 }
 
 /**
@@ -46,13 +63,13 @@ interface LocalOCWOptions {
 class LocalOCW {
   private rootDestinationDir: string
 
-  private staticApiPort: number
+  private fixturesPort: number
 
   /**
    * A server that responds to STATIC_API_BASE_URL requests with JSON from
    * test-sites/__fixtures__.
    */
-  staticApiServer: {
+  fixturesServer: {
     /**
      * Set a handler to be called before the static fixtures handler.
      */
@@ -71,13 +88,13 @@ class LocalOCW {
     listen: () => void
   }
 
-  constructor({ rootDestinationDir, staticApiPort }: LocalOCWOptions) {
+  constructor({ rootDestinationDir, fixturesPort }: LocalOCWOptions) {
     this.rootDestinationDir = rootDestinationDir
-    this.staticApiPort = staticApiPort
-    this.staticApiServer = this.makeStaticApiServer()
+    this.fixturesPort = fixturesPort
+    this.fixturesServer = this.makeFixturesServer()
   }
 
-  private makeStaticApiServer = () => {
+  private makeFixturesServer = () => {
     let patchedHandler: http.RequestListener | undefined
     const server = new SimpleServer(
       (request, response) => {
@@ -91,7 +108,7 @@ class LocalOCW {
         })
       },
       {
-        rules: [OCW_WWW_REDIRECT]
+        rules: [OCW_WWW_REWRITE, API_JSON_REWRITE]
       }
     )
     return {
@@ -102,7 +119,7 @@ class LocalOCW {
         patchedHandler = undefined
       },
       close:  () => server.close(),
-      listen: () => server.listen(this.staticApiPort)
+      listen: () => server.listen(this.fixturesPort)
     }
   }
 
@@ -133,14 +150,15 @@ class LocalOCW {
           ...stringifyEnv(
             cleanEnv({
               ...process.env,
-              OCW_STUDIO_BASE_URL: "http://ocw-studio-rc.odl.mit.edu",
+              OCW_STUDIO_BASE_URL: `http://localhost:${this.fixturesPort}`,
               SEARCH_API_URL:      "https://open.mit.edu/api/v0/search/",
               RESOURCE_BASE_URL:   "https://live-qa.ocw.mit.edu/",
               /**
-               * When building test sites, use local server at staticApiPort for static
+               * When building test sites, use local server at fixturesPort for static
                * API requests. See test-sites/__fixtures__/README.md for more.
                */
-              STATIC_API_BASE_URL: `http://localhost:${this.staticApiPort}`
+              STATIC_API_BASE_URL: `http://localhost:${this.fixturesPort}`,
+              API_BEARER_TOKEN:    ""
             })
           )
         }
@@ -167,7 +185,7 @@ class LocalOCW {
             match:     /^\/static\//,
             transform: url => `http://localhost:${env.WEBPACK_PORT}${url}`
           },
-          OCW_WWW_REDIRECT
+          OCW_WWW_REWRITE
         ]
       }
     )

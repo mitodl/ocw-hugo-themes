@@ -8,15 +8,28 @@ import recursiveReaddir from "recursive-readdir"
  * that the fixtures are accurate
  */
 test("The fixtures are what Hugo would produce.", async () => {
+  const SKIP_DIRS = [
+    "api/",
+    /**
+     * The two courses below are not built, they are just used as previews on
+     * the test homepage.
+     */
+    "courses/some-featured-course",
+    "courses/some-new-course"
+  ]
+
   const fixtureDir = path.resolve(__dirname, "../test-sites/__fixtures__")
   const builtDir = path.resolve(__dirname, "../test-sites/tmp/dist")
-  const filepaths = await recursiveReaddir(
+  const filepaths: string[] = await recursiveReaddir(
     path.resolve(__dirname, "../test-sites/__fixtures__")
   )
   const jsonpaths = filepaths.filter(filepath => filepath.endsWith(".json"))
   const comparisons = await Promise.all(
     jsonpaths.map(async filepath => {
       const relative = path.relative(fixtureDir, filepath)
+      if (SKIP_DIRS.some(dir => relative.startsWith(dir))) {
+        return { fixture: null, built: null }
+      }
       const fixtureText = await fs.readFile(filepath, "utf-8")
       const builtText = await fs.readFile(
         path.join(builtDir, relative),
