@@ -1,4 +1,3 @@
-{{- $domain := strings.TrimSuffix "/" (getenv "STATIC_API_BASE_URL") -}}
-{{- $trimmedBaseUrl := strings.TrimPrefix "/" (strings.TrimSuffix "/" site.BaseURL) -}}
-{{- $shortId := site.Data.course.site_short_id -}}
-{{- return printf "%v/%v/%v.zip" $domain $trimmedBaseUrl $shortId -}}
+{{- $zipFile := printf "/%v.zip" site.Data.course.site_short_id -}}
+{{- $siteRootUrl := partial "site_root_url.html" (dict "context" . "url" $zipFile) -}}
+{{- return $siteRootUrl -}}
