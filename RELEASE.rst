@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.81.0 (Released January 12, 2023)
+--------------
+
+- Test build failures (#1017)
+
 Version 1.80.1 (Released December 21, 2022)
 --------------
 
