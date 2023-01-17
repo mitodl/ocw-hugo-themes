@@ -2,8 +2,8 @@
 <div class="new-courses course-cards standard-width container mx-auto mt-3">
 {{ $studioBaseUrl := partial "ocw_studio_base_url.html" }}
 {{ $courseStarterSlug := getenv "OCW_COURSE_STARTER_SLUG" }}
-{{ $typeQuery := querify "type" $courseStarterSlug }}
-{{ $coursesURL := (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/websites/?" $typeQuery) }}
+{{ $coursesQuery := querify "type" $courseStarterSlug "limit" 12 }}
+{{ $coursesURL := (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/websites/?" $coursesQuery) }}
 {{ with resources.GetRemote $coursesURL }}
   {{ if not .Err }}
     {{ $results := (. | unmarshal).results }}
@@ -22,7 +22,7 @@
               {{ partial "carousel_controls.html" $carouselId }}
             </div>
             <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
-              {{ $resultsSlice := first 10 $results }}
+              {{ $resultsSlice := first 12 $results }}
               {{ range $index, $courseItem := $resultsSlice  }}
                 {{- if $courseItem.url_path -}}
                   {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $courseItem.url_path "/data.json") "" -}}
