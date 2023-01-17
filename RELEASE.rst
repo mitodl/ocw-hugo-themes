@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.82.0
+--------------
+
+- display 12 new courses, not 10 (#1028)
+- Cc/disallow failed requests (#1027)
+
 Version 1.81.0 (Released January 12, 2023)
 --------------
 
