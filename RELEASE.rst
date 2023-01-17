@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.82.0
+Version 1.82.0 (Released January 17, 2023)
 --------------
 
 - display 12 new courses, not 10 (#1028)
