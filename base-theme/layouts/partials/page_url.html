@@ -1,1 +1,2 @@
-{{ return .url }}
+{{ $pathToRoot := partial "relative_path_to_root.html" .context.RelPermalink }}
+{{ return printf "%s/%s/index.html" (strings.TrimSuffix "/" $pathToRoot) (strings.TrimSuffix "/" (strings.TrimPrefix "/" .url)) }}
