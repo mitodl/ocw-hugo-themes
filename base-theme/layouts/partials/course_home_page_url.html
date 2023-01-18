@@ -1,2 +1,2 @@
-{{ $courseHomePage := .Site.GetPage "/" }}
-{{ return printf "%s/index.html" (strings.TrimPrefix "/" $courseHomePage.RelPermalink) }}
+{{ $pathToRoot := partial "relative_path_to_root.html" .RelPermalink }}
+{{ return (printf "%s/index.html" (strings.TrimSuffix "/" $pathToRoot)) }}
