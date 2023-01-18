@@ -9280,9 +9280,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hugo-bin-extended@npm:0.104.3":
-  version: 0.104.3
-  resolution: "hugo-bin-extended@npm:0.104.3"
+"hugo-bin-extended@npm:0.110.0":
+  version: 0.110.0
+  resolution: "hugo-bin-extended@npm:0.110.0"
   dependencies:
     bin-wrapper: ^4.1.0
     picocolors: ^1.0.0
@@ -9290,7 +9290,7 @@ __metadata:
     rimraf: ^3.0.2
   bin:
     hugo: cli.js
-  checksum: 4faea05cbf6b8f73e8e3ce72de4863c65a02b2d310bed4af50394b6f6e1ff7a5cb46df64d047837033dce1308a07498b65ff6b7050f32ae4bc9edb5f4b094fad
+  checksum: db0d45ce80e6311f2f00d0309d30c01c56fdad285ceb6083d239dfac597a5db1e66b5170b7b7088ecc8da691eeee4328874930148f69d5eb07b4909b4168133d
   languageName: node
   linkType: hard
 
@@ -13148,7 +13148,7 @@ __metadata:
     gulp: ^4.0.2
     hammerjs: 2.0.7
     history: ^5.3.0
-    hugo-bin-extended: 0.104.3
+    hugo-bin-extended: 0.110.0
     imagesloaded: 4.1.1
     imports-loader: ^0.8.0
     inquirer: ^8.2.5
