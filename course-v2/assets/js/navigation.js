@@ -19,7 +19,7 @@ function courseNav() {
         const navLinkPath = `/${navLink.replace(/\.\.\//g, "").replace(/\/(index\.html)?$/, "")}`
         const windowLocationPath = window.location.pathname.replace(/\/(index\.html)?$/, "")
 
-        if (navLinkPath === windowLocationPath) {
+        if (windowLocationPath.includes(navLinkPath)) {
           navLinkEl.classList.add("active")
           // @ts-expect-error TODO
           const uuid = navLinkEl.dataset.uuid
