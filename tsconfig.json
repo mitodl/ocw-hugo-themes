@@ -7,7 +7,7 @@
       "dom"
     ],
     "jsx": "react",
-    "module": "commonjs",
+    "module": "ES6",
     "moduleResolution": "node",
     "typeRoots": [
       "node_modules/@types",
@@ -41,6 +41,9 @@
   ],
   "ts-node": {
     "files": true,
-    "swc": true
+    "swc": true,
+    "compilerOptions": {
+      "module": "commonjs"
+    },
   }
 }
