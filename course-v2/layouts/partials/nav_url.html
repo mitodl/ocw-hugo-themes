@@ -3,7 +3,7 @@
 {{ $noHtmlSuffix := not (strings.HasSuffix $url ".html") }}
 {{ if and $noHttpPrefix $noHtmlSuffix }}
   {{ $relativePathToRoot := partial "relative_path_to_root.html" .context.RelPermalink }}
-  {{ $trimmedUrl := strings.TrimPrefix "/" (string.TrimSuffix "/" .menuItem.URL) }}
+  {{ $trimmedUrl := strings.TrimPrefix "/" (strings.TrimSuffix "/" .menuItem.URL) }}
   {{ $url = printf "%s%s/index.html" $relativePathToRoot $trimmedUrl }}
 {{ end }}
 {{ return $url }}
