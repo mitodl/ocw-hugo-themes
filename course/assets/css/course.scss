@@ -25,15 +25,6 @@ html {
   font-size: $course-font-root !important;
 }
 
-// TODO: This conditional rendering of logos should be removed when we completely move to the new course theme.
-#ocw-logo-white {
-  display: none;
-}
-
-#ocw-logo-white-v2 {
-  display: block !important;
-}
-
 #course-banner {
   color: $white;
   background-color: $blue;
