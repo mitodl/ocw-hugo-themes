@@ -15,11 +15,11 @@ function courseNav() {
         const navLink = navLinkEl.getAttribute("href") ?
           navLinkEl.getAttribute("href") :
           ""
-        if (
-          // @ts-expect-error TODO
-          navLink.replace(/\/$/, "") ===
-          window.location.pathname.replace(/\/$/, "")
-        ) {
+        // @ts-expect-error TODO
+        const navLinkPath = `/${navLink.replace(/\.\.\//g, "").replace(/\/(index\.html)?$/, "")}`
+        const windowLocationPath = window.location.pathname.replace(/\/(index\.html)?$/, "")
+
+        if (navLinkPath === windowLocationPath) {
           navLinkEl.classList.add("active")
           // @ts-expect-error TODO
           const uuid = navLinkEl.dataset.uuid
