@@ -1,3 +1,10 @@
+{{/*
+  TODO: With the change of moving course sites to use relative URLs wherever possible, BaseURL is not set to /courses/course_id anymore
+
+  We need a way to get this information during the build besides site.BaseURL, because if it is set it throws off relative_path_to_root.html
+  Another option is to continue to pass --baseURL and modify relative_path_to_root to optionally ignore it, allowing you to get the relative path
+  to both the currently rendering site's root and / or the path all the way back to the root including site.BaseURL
+*/}}
 {{- $sitemapDomain := partial "sitemap_domain.html" -}}
 {{- $disallowedUrls := slice "categories/" "tags/" "pages/" "resources/" "tags/" "collections/" "course-lists/" "instructors/" "promos/" "resource_collections/" -}}
 {{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
@@ -5,7 +12,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {{ range .Data.Pages }}
     {{- if and .RelPermalink (not .Params.headless) (not (eq .RelPermalink "sitemap.xml")) -}}
-      {{- $path := strings.TrimPrefix "/" (partial "site_root_url.html" (dict "context" . "url" .RelPermalink)) -}}
+      {{- $path := strings.TrimPrefix "/" (partial "absolute_url.html" .RelPermalink) -}}
       {{- if not (in $disallowedUrls $path) -}}
         {{- $url := printf "https://%v/%v" $sitemapDomain $path -}}
   <url>

@@ -22,7 +22,7 @@
           </div>
           <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
             {{ range $index, $courseItem := $courses }}
-              {{- $urlPath := partial "site_root_url.html" (dict "context" $context "url" $courseItem.id) -}}
+              {{- $urlPath := partial "absolute_url.html" $courseItem.id -}}
               {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) $urlPath "/data.json") "" -}}
               {{ with resources.GetRemote $url }}
                 {{ with .Err }}

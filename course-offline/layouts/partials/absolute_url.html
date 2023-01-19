@@ -1,0 +1,4 @@
+{{/* Offline, absolute URLs should be made fully qualified */}}
+{{/* TODO: Maybe create a dedicated env variable for this purpose? */}}
+{{ $baseUrl := partial "static_api_base_url.html" }}
+{{ return print (strings.TrimSuffix "/" $baseUrl) . }}
