@@ -19,6 +19,7 @@ const config: webpack.Configuration = {
     extensions: [".ts", ".tsx", ".js"]
   },
   entry: {
+    example_entry:       fromRoot("./base-theme/assets/js/example_entry.ts"),
     main:                fromRoot("./base-theme/assets/index.ts"),
     course:              fromRoot("./course/assets/course.ts"),
     course_v2:           fromRoot("./course-v2/assets/course-v2.ts"),
