@@ -1,4 +1,4 @@
-{{ $pathToRoot := partial "relative_path_to_root.html" .context.RelPermalink }}
+{{ $pathToRoot := partial "relative_path_to_root.html" (dict "url" .context.RelPermalink) }}
 {{ $resourcePath := (urls.Parse .url).Path }}
 {{ $resourceFileName := path.Base $resourcePath }}
 {{ return (printf "%s/static_resources/%s" (strings.TrimSuffix "/" $pathToRoot) $resourceFileName) }}
