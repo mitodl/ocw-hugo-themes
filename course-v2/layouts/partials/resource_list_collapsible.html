@@ -24,12 +24,12 @@
   </div>
 
   <div id="resource-list-container-{{ $resourceSlug }}" class="collapse{{ if $expand }} show{{ end }} py-3">
-  {{ partial "resource_list.html" (dict "resources" $resources "limitResources" $numberOfResources) }}
+  {{ partial "resource_list.html" (dict "context" . "resources" $resources "limitResources" $numberOfResources) }}
 
   {{ if eq $limitedResourcesShown true }}
   <div>
     <div class="float-right">
-    {{ partial "see_all.html" (dict "permalink" .Permalink) }}
+    {{ partial "see_all.html" (dict "context" . "permalink" .Permalink) }}
     </div>
   </div>
   {{ end }}

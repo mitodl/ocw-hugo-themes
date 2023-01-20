@@ -23,7 +23,8 @@
           </span>
       {{ end }}
       <div class="pt-2">
-        <a class="resource-list-title" href="{{ .permalink }}">
+        {{- $resourcePageLink := partial "site_root_url.html" (dict "context" .context "url" .permalink) -}}
+        <a class="resource-list-title" href="{{ $resourcePageLink }}">
           {{ .params.title }}
         </a>
       </div>
