@@ -3,6 +3,6 @@
 
 <div class="mb-5">
   {{ $resources := where .Pages "Params.content_type" "resource" }}
-  {{ partial "resource_list.html" (dict "resources" $resources) }}
+  {{ partial "resource_list.html" (dict "context" . "resources" $resources) }}
 </div>
 {{ end }}

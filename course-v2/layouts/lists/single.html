@@ -13,6 +13,6 @@
         {{ $page := where $.Site.Pages "Params.uid" $id }}
         {{ $resources = $resources |  append (index $page 0) }}
       {{ end }}
-      {{- partial "resource_list.html" (dict "resources" $resources "sort" false) -}}
+      {{- partial "resource_list.html" (dict "context" . "resources" $resources "sort" false) -}}
   </div>
 {{ end }}
