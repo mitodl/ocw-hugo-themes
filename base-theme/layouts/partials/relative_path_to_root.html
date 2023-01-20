@@ -11,7 +11,7 @@
 {{- if gt $slashCount 1 -}}
   {{- $steps := sub $slashCount 1 -}}
   {{- if and (gt $baseUrlSlashCount 1) $ignoreBaseUrl -}}
-   {{- $steps = sub $slashCount $baseUrlSlashCount -}}
+    {{- $steps = sub $slashCount (sub $baseUrlSlashCount 1) -}}
   {{- end -}}
   {{- range seq $steps -}}
     {{- $pathToRoot = $pathToRoot | print "../" -}}
