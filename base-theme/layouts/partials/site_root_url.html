@@ -7,7 +7,7 @@
   {{- $relativePathToRoot := partial "relative_path_to_root.html" (dict "url" .context.RelPermalink "ignoreBaseUrl" $ignoreBaseUrl) -}}
   {{- $url := .url -}}
   {{- if $ignoreBaseUrl -}}
-    {{- $url := replace $url site.BaseURL "" -}}
+    {{- $url = replace $url site.BaseURL "" -}}
   {{- end -}}
   {{- printf "%s%s" $relativePathToRoot (strings.TrimPrefix "/" $url) -}}
 {{- else if hasPrefix site.BaseURL "http" -}}
