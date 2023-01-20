@@ -2,7 +2,7 @@
 {{- $collection := . -}}
 <div>
   {{ block "header" . }}
-  {{ partialCached "header" . }}
+  {{ partial "header" . }}
   {{ end }}
   <div class="container standard-width mx-auto mt-5">
     <h1>
@@ -13,7 +13,7 @@
     </div>
     <div id="resource-collection-container"></div>
   </div>
-  {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
+  {{ block "footer" . }} {{ partial "footer" . }} {{end}}
     {{- $staticApiBaseUrl := partial "static_api_base_url.html" -}}
     {{- $contentMap := dict -}}
     {{- $courseJSONMap := dict -}}

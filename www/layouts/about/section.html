@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{ block "header" . }} {{ partialCached "header" . }} {{end}}
+{{ block "header" . }} {{ partial "header" . }} {{end}}
 <div
   id="about-us"
   class="page-single"
@@ -628,5 +628,5 @@
     </div>
   </div>
 </div>
-{{ block "footer" . }} {{ partialCached "footer" . }} {{ end }}
+{{ block "footer" . }} {{ partial "footer" . }} {{ end }}
 {{end}}

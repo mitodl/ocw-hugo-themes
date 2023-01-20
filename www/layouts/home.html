@@ -11,7 +11,7 @@
 <div id="home-header">
   {{ block "header" . }}
   {{ $renderSearchIcon := index .Params "renderSearchIcon" | default true }}
-  {{ partialCached "header" . $renderSearchIcon }}
+  {{ partial "header" . $renderSearchIcon }}
   {{ end }}
 </div>
 <div class="d-flex flex-column align-items-center home-banner" style="background-image: url(/images/homepage_hero.jpg);">
@@ -165,5 +165,5 @@
     </div>
   </div>
 </div>
-{{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
+{{ block "footer" . }} {{ partial "footer" . }} {{end}}
 {{ end }}

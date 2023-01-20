@@ -10,9 +10,9 @@
     <!-- End Google Tag Manager (noscript) -->
   {{ end }}
   <div class="overflow-auto">
-    {{ partialCached "mobile_course_nav.html" . }}
-    {{ partialCached "mobile_course_info.html" . }}
-    {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
+    {{ partial "mobile_course_nav.html" . }}
+    {{ partial "mobile_course_info.html" . }}
+    {{ block "header" . }}{{ partial "header" . }}{{ end }}
     {{ $isCourseHomePage := (eq .Params.layout "course_home") }}
     {{ if not $isCourseHomePage }}
     <div class="course-info-toggle medium-and-below-only bg-light shadow-sm border border-right-0 rounded-left">
@@ -25,7 +25,7 @@
     {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
     <div class="container-fluid">
       <div class="row outer-wrapper">
-        {{ partialCached "desktop_nav.html" . }}
+        {{ partial "desktop_nav.html" . }}
         <div class="left-col-bg"></div>
         <div id="main-content-wrapper" class="col-lg-9 p-0 bg-white">
           <main>
@@ -42,7 +42,7 @@
                   {{ block "main" . }}{{ end }}
                 </div>
                 {{ if not $isCourseHomePage }}
-                {{ partialCached "desktop_course_info.html" . }}
+                {{ partial "desktop_course_info.html" . }}
                 {{ end }}
               </div>
             </div>
@@ -51,10 +51,10 @@
       </div>
     </div>
     {{ block "footer" . }}{{ partial "footer" . }}{{end}}
-    {{ partialCached "hide_offline_links.html" . }}
+    {{ partial "hide_offline_links.html" . }}
   </div>
-  {{ partialCached "navigation_js.html" . }}
-  {{ partialCached "responsive_tables_js.html" . }}
+  {{ partial "navigation_js.html" . }}
+  {{ partial "responsive_tables_js.html" . }}
   {{- $theme := .Site.Data.webpack.main -}}
   {{- $courseTheme := .Site.Data.webpack.course -}}
 

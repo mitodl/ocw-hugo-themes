@@ -3,7 +3,7 @@
 {{ $field := . }}
 <div>
   {{ block "header" . }}
-  {{ partialCached "header" . }}
+  {{ partial "header" . }}
   {{ end }}
   {{ partial "collection_cover_image" $field }}
   <div class="container collection-outer-container standard-width mx-auto mt-5">
@@ -59,7 +59,7 @@
   </script>
 </div>
 {{ block "footer" . }}
-  {{ partialCached "footer" . }}
+  {{ partial "footer" . }}
 {{end}}
 {{ end }}
 {{ end }}

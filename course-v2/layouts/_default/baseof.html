@@ -10,9 +10,9 @@
     <!-- End Google Tag Manager (noscript) -->
   {{ end }}
   <div class="overflow-auto">
-    {{ partialCached "mobile_course_nav.html" . }}
-    {{ partialCached "mobile_course_info.html" . }}
-    {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
+    {{ partial "mobile_course_nav.html" . }}
+    {{ partial "mobile_course_info.html" . }}
+    {{ block "header" . }}{{ partial "header" . }}{{ end }}
     {{ $isCourseHomePage := (eq .Params.layout "course_home") }}
     {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
 
@@ -33,7 +33,7 @@
       </div>
       <div class="row course-cards">
         <div class="col-2 course-home-grid large-and-above-only">  
-          {{ partialCached "desktop_nav.html" . }}
+          {{ partial "desktop_nav.html" . }}
         </div>
         <div class="col-sm-12 col-lg-10 course-home-grid">
           <div class="">
@@ -58,7 +58,7 @@
                 via script written below hence hidden at the start to avoid a quick glitch  */}}
                 <div class="p-0 large-and-above-only d-none" id="desktop-course-drawer">
                   {{ if not $isCourseHomePage }}
-                    {{ partialCached "desktop_course_info.html" . }}
+                    {{ partial "desktop_course_info.html" . }}
                   {{ end }}
                 </div>
               </div>
@@ -70,7 +70,7 @@
 
     {{ block "footer" . }}{{ partial "footer-v2" . }}{{end}}
   </div>
-  {{ partialCached "hide_offline_links.html" . }}
+  {{ partial "hide_offline_links.html" . }}
   <script>
     // Script for maintaining and toggling course drawer state
     // note: This script is placed here instead of being in the bundle so it runs as soon as the HTML is rendered 
@@ -176,8 +176,8 @@
     }
   </script>
 
-  {{ partialCached "navigation_js.html" . }}
-  {{ partialCached "responsive_tables_js.html" . }}
+  {{ partial "navigation_js.html" . }}
+  {{ partial "responsive_tables_js.html" . }}
   {{- $theme := .Site.Data.webpack.main -}}
   {{- $courseTheme := .Site.Data.webpack.course_v2 -}}
   {{ partial "include_js.html" (dict "context" . "url" $theme.js) }}
