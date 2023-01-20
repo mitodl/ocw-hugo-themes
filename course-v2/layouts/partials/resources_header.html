@@ -7,10 +7,12 @@
 {{- $slashCount := strings.Count "/" $parsedUrl.Path -}}
 {{- $baseUrlSlashCount := strings.Count "/" $parsedBaseUrl.Path -}}
 {{- $pathToRoot := "" -}}
+{{- $conditionalCheck := false -}}
 {{- if gt $slashCount 1 -}}
   {{- $steps := sub $slashCount 1 -}}
   {{- if and (gt $baseUrlSlashCount 1) $ignoreBaseUrl -}}
-   {{- $steps := sub $slashCount $baseUrlSlashCount -}}
+    {{- $conditionalCheck = true -}}
+    {{- $steps = sub $slashCount $baseUrlSlashCount -}}
   {{- end -}}
   {{- range seq $steps -}}
     {{- $pathToRoot = $pathToRoot | print "../" -}}
