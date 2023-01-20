@@ -1,27 +1,5 @@
 {{- $zenDeskUrl := "https://mitocw.zendesk.com/hc/en-us/articles/4414681093659-I-have-downloaded-an-MIT-OpenCourseWare-course-but-I-can-t-access-the-materials-How-do-I-get-started-" -}}
 {{- $downloadCourseUrl := partial "get_course_download_url.html" . -}}
-
-{{- $ignoreBaseUrl := true -}}
-{{- $parsedUrl := urls.Parse .RelPermalink -}}
-{{- $parsedBaseUrl := urls.Parse site.BaseURL -}}
-{{- $slashCount := strings.Count "/" $parsedUrl.Path -}}
-{{- $baseUrlSlashCount := strings.Count "/" $parsedBaseUrl.Path -}}
-{{- $pathToRoot := "" -}}
-{{- $conditionalCheck := false -}}
-{{- if gt $slashCount 1 -}}
-  {{- $steps := sub $slashCount 1 -}}
-  {{- if and (gt $baseUrlSlashCount 1) $ignoreBaseUrl -}}
-    {{- $conditionalCheck = true -}}
-    {{- $steps = sub $slashCount $baseUrlSlashCount -}}
-  {{- end -}}
-  {{- range seq $steps -}}
-    {{- $pathToRoot = $pathToRoot | print "../" -}}
-  {{- end -}}
-{{- end -}}
-{{- if eq $pathToRoot "" -}}
-  {{- $pathToRoot = "./" -}}
-{{- end -}}
-
 {{- $containsVideos := partial "contains_videos.html" (dict "context" . "taxonomy" "learning_resource_types") -}}
 <div class="mb-2">
   <h2>Download</h2>
@@ -38,18 +16,5 @@
         For help downloading and using course materials, read our {{ partial "link.html" (dict "href" $zenDeskUrl "text" "FAQs" "target" "_blank") }}.
       </div>
     </div>
-  </div>
-  <div>parsed url path: {{ $parsedUrl.Path }}</div>
-  <div>parsed base url path: {{ $parsedBaseUrl.Path }}</div>
-  <div>slash count: {{ $slashCount }}</div>
-  <div>base url slash count: {{ $baseUrlSlashCount }}</div>
-  <div>relative path to root: {{ $pathToRoot }}</div>
-  <div>
-    conditional check: 
-    {{- if and (gt $baseUrlSlashCount 1) $ignoreBaseUrl -}}
-      passed
-    {{- else -}}
-      failed
-    {{- end -}}
   </div>
 </div>
