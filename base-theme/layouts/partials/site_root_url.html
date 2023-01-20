@@ -5,7 +5,11 @@
   {{/* BaseURL is absolute but not fully qualified, so find the relative path back */}}
   {{- $ignoreBaseUrl := .ignoreBaseUrl | default false -}}
   {{- $relativePathToRoot := partial "relative_path_to_root.html" (dict "url" .context.RelPermalink "ignoreBaseUrl" $ignoreBaseUrl) -}}
-  {{- printf "%s%s" $relativePathToRoot (strings.TrimPrefix "/" .url) -}}
+  {{- $url := .url -}}
+  {{- if $ignoreBaseUrl -}}
+    {{- $url := replace $url site.BaseURL "" -}}
+  {{- end -}}
+  {{- printf "%s%s" $relativePathToRoot (strings.TrimPrefix "/" $url) -}}
 {{- else if hasPrefix site.BaseURL "http" -}}
   {{/* A fully qualified BaseURL is set, so disassemble it and construct the root URL */}}
   {{- $baseUrl := urls.Parse site.BaseURL -}}
