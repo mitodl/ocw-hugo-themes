@@ -4,4 +4,4 @@
 {{ if and $noHttpPrefix $noHtmlSuffix }}
   {{ $url = partial "site_root_url.html" (dict "context" .context "url" $url "ignoreBaseUrl" true) }}
 {{ end }}
-{{ return printf "%s/index.html" $url }}
+{{ return printf "%s/index.html" (strings.TrimSuffix "/" $url) }}
