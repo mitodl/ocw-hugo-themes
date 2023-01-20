@@ -1,5 +1,12 @@
 {{- $zenDeskUrl := "https://mitocw.zendesk.com/hc/en-us/articles/4414681093659-I-have-downloaded-an-MIT-OpenCourseWare-course-but-I-can-t-access-the-materials-How-do-I-get-started-" -}}
 {{- $downloadCourseUrl := partial "get_course_download_url.html" . -}}
+
+{{- $zipFile := printf "/%v.zip" site.Data.course.site_short_id -}}
+{{- $parsedUrl := urls.Parse $zipFile -}}
+{{- $parsedBaseUrl := urls.Parse site.BaseURL -}}
+{{- $slashCount := strings.Count "/" $parsedUrl.Path -}}
+{{- $baseUrlSlashCount := strings.Count "/" $parsedBaseUrl.Path -}}
+
 {{- $containsVideos := partial "contains_videos.html" (dict "context" . "taxonomy" "learning_resource_types") -}}
 <div class="mb-2">
   <h2>Download</h2>
@@ -17,4 +24,8 @@
       </div>
     </div>
   </div>
+  <div>parsed url path: {{ $parsedUrl.Path }}</div>
+  <div>parsed base url path: {{ $parsedBaseUrl.Path }}</div>
+  <div>slash count: {{ $slashCount }}</div>
+  <div>base url slash count: {{ $baseUrlSlashCount }}</div>
 </div>
