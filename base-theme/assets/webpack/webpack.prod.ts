@@ -7,7 +7,8 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import common from "./webpack.common"
 
 const prodOverrides: Configuration = {
-  mode: "production",
+  mode:    "production",
+  devtool: "source-map",
 
   output: {
     path:       path.join(__dirname, "../../dist/static"),
