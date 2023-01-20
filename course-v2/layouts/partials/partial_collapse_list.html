@@ -1,5 +1,5 @@
 {{ $params := . }}
-{{ $className := .klass | default "coming-soon" }}
+{{ $className := .klass | default "" }}
 {{ $useLinks := .useLinks | default true }}
 {{ $showCollapse := .showCollapse | default true }}
 {{ if and (gt (len .list) 4) $showCollapse }}

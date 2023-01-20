@@ -149,7 +149,6 @@
     "spinkit": "^2.0.1",
     "style-loader": "^1.0.0",
     "terser-webpack-plugin": "^5.3.3",
-    "tippy.js": "^6.2.5",
     "tmp": "^0.2.1",
     "ts-jest": "^27.1.2",
     "ts-loader": "9.3.1",
