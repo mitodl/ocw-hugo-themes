@@ -2,8 +2,6 @@
 {{ $noHttpPrefix := not (strings.HasPrefix $url "http") }}
 {{ $noHtmlSuffix := not (strings.HasSuffix $url ".html") }}
 {{ if and $noHttpPrefix $noHtmlSuffix }}
-  {{ $relativePathToRoot := partial "relative_path_to_root.html" (dict "url" .context.RelPermalink "ignoreBaseUrl" true) }}
-  {{ $trimmedUrl := strings.TrimPrefix "/" (strings.TrimSuffix "/" .menuItem.URL) }}
-  {{ $url = printf "%s%s/index.html" $relativePathToRoot $trimmedUrl }}
+  {{ $url = partial "site_root_url.html" (dict "context" .context "url" $url "ignoreBaseUrl" true) }}
 {{ end }}
-{{ return $url }}
+{{ return printf "%s/index.html" $url }}
