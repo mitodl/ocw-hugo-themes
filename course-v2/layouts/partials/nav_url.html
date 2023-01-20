@@ -2,6 +2,6 @@
 {{ $noHttpPrefix := not (strings.HasPrefix $url "http") }}
 {{ $noHtmlSuffix := not (strings.HasSuffix $url ".html") }}
 {{ if and $noHttpPrefix $noHtmlSuffix }}
-  {{ $url = partial "site_root_url.html" (dict "context" .context "url" $url "ignoreBaseUrl" true) }}
+  {{ $url = partial "site_root_url.html" (dict "context" .context "url") }}
 {{ end }}
 {{ return printf "%s/index.html" (strings.TrimSuffix "/" $url) }}
