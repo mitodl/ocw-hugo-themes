@@ -1323,7 +1323,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@popperjs/core@npm:^2.8.3, @popperjs/core@npm:^2.8.6":
+"@popperjs/core@npm:^2.8.6":
   version: 2.9.2
   resolution: "@popperjs/core@npm:2.9.2"
   checksum: a5916302e706b7dfbbbcd8728bafc1682b450d5ec70dd10da84a07c89a419fa72f83cbf990798589e6e69e1b520d6768176ea4bd360d7450d08a2fbc25a14e1c
@@ -13199,7 +13199,6 @@ __metadata:
     spinkit: ^2.0.1
     style-loader: ^1.0.0
     terser-webpack-plugin: ^5.3.3
-    tippy.js: ^6.2.5
     tmp: ^0.2.1
     ts-jest: ^27.1.2
     ts-loader: 9.3.1
@@ -17819,15 +17818,6 @@ __metadata:
   version: 4.0.1
   resolution: "timed-out@npm:4.0.1"
   checksum: 98efc5d6fc0d2a329277bd4d34f65c1bf44d9ca2b14fd267495df92898f522e6f563c5e9e467c418e0836f5ca1f47a84ca3ee1de79b1cc6fe433834b7f02ec54
-  languageName: node
-  linkType: hard
-
-"tippy.js@npm:^6.2.5":
-  version: 6.3.1
-  resolution: "tippy.js@npm:6.3.1"
-  dependencies:
-    "@popperjs/core": ^2.8.3
-  checksum: a2e8559590e7149bb08274bc52bca497fc63ee3cac9a28b1ab76a143cebdcddb0f2d01452c7c1be26df2e60d54785bc4f5a2aac7af3628cb76e674e70bfc7381
   languageName: node
   linkType: hard
 

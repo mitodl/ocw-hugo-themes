@@ -1,4 +1,3 @@
-import "../../node_modules/tippy.js/dist/tippy.css"
 import "../../node_modules/nanogallery2/src/css/nanogallery2.css"
 
 import "./css/www.scss"
