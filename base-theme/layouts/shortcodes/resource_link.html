@@ -1,7 +1,9 @@
 {{- $uuid := index .Params 0 -}}
 {{- $title := index .Params 1 | safeHTML -}}
 {{- $anchor_id := index .Params 2 | default ""}}
+{{- $pathToRoot := partial "relative_path_to_root.html" (dict "url" .Page.RelPermalink) -}}
 {{- range where $.Site.Pages "Params.uid" $uuid -}}
-    {{- $url := strings.TrimSuffix "/" .RelPermalink -}}
+    {{- $trimmedPermalink := strings.TrimPrefix "/" (strings.TrimSuffix "/" .RelPermalink) -}}
+    {{- $url := printf "%s/%s/index.html" (strings.TrimSuffix "/" $pathToRoot) $trimmedPermalink -}}
     [{{ $title }}]({{- $url -}}{{- $anchor_id -}})
 {{- end -}}
