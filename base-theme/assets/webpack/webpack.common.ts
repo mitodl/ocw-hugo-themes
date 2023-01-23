@@ -13,16 +13,31 @@ import packageJson from "../../../package.json"
 const fromRoot = (pathFromRoot: string) =>
   path.resolve(__dirname, "../../../", pathFromRoot)
 
+const entryNames = {
+  courseV1: "course_v1",
+  courseV2: "course_v2",
+  www:       "www",
+  fields:    "fields"
+}
+
 const config: webpack.Configuration = {
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.
     extensions: [".ts", ".tsx", ".js"]
   },
   entry: {
-    main:                fromRoot("./base-theme/assets/index.ts"),
-    course_v2:           fromRoot("./course-v2/assets/course-v2.ts"),
-    www:                 fromRoot("./www/assets/www.tsx"),
-    fields:              fromRoot("./fields/assets/fields.js")
+    [entryNames.courseV2]: [
+      fromRoot("./course-v2/assets/course-v2.ts"),
+      fromRoot("./base-theme/assets/index.ts"),
+    ],
+    [entryNames.www]: [
+      fromRoot("./www/assets/www.tsx"),
+      fromRoot("./base-theme/assets/index.ts"),
+    ],
+    [entryNames.fields]: [
+      fromRoot("./fields/assets/fields.js"),
+      fromRoot("./base-theme/assets/index.ts"),
+    ]
   },
 
   output: {
@@ -121,7 +136,26 @@ const config: webpack.Configuration = {
         openAnalyzer: true
       }) :
       []
-  )
+  ),
+  optimization: {
+    splitChunks:  {
+      name:        "common",
+      minChunks:   2,
+      cacheGroups: {
+        shared: {
+          test: /[\\/]node_modules[\\/]/,
+          name(module, chunks, cacheGroupKey) {
+            const chunkNames = chunks.map(item => item.name)
+            if (chunkNames.includes(entryNames.www)) {
+              return `${cacheGroupKey}_www`
+            }
+            return cacheGroupKey
+          },
+          chunks: 'all',
+        }
+      }
+    },
+  }
 }
 
 export default config
