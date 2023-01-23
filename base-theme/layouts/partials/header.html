@@ -1,9 +1,9 @@
 <!-- navbar for mobile screens -->
-{{ $siteRootUrl := partial "absolute_url.html" "url" "/" }}
+{{ $siteRootUrl := partial "site_root_url.html" (dict "context" . "url" "/") }}
 {{ $giveNowUrl := "https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home" }}
-{{ $aboutUrl := partial "absolute_url.html" "/about" }}
+{{ $aboutUrl := partial "site_root_url.html" (dict "context" . "url" "/about") }}
 {{ $zenDeskUrl := "https://mitocw.zendesk.com/hc/en-us" }}
-{{ $contactUrl := partial "absolute_url.html" "/contact" }}
+{{ $contactUrl := partial "site_root_url.html" (dict "context" . "url" "/contact") }}
 <div id="mobile-header" class="position-relative bg-black medium-and-below-only">
   <nav class="navbar navbar-expand-lg navbar-dark bg-black d-flex">
     <button
