@@ -1,3 +1,4 @@
+{{ $context := .context }}
 {{ $courseData := .context.Site.Data.course }}
 {{ $scratch := newScratch }}
 {{ $scratch.Set "index" 0 }}
@@ -15,7 +16,7 @@
 
       {{- range $topic, $subtopics := $topics -}}
       <li>
-        {{- partial "topic.html" (dict "index" ($scratch.Get "index") "topic" $topic "subtopics" $subtopics) -}}
+        {{- partial "topic.html" (dict "context" $context "index" ($scratch.Get "index") "topic" $topic "subtopics" $subtopics) -}}
       </li>
       {{ $scratch.Set "index" (add 1 ($scratch.Get "index")) }}
       {{- end -}}

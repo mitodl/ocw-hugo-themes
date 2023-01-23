@@ -1,1 +1,2 @@
-{{ return print "/search?" (querify (index site.Data.search_query_keys .key) .value) }}
+{{ $pathToRoot := partial "relative_path_to_root.html" (dict "url" .context.RelPermalink) }}
+{{ return printf "%s/search?%s" $pathToRoot (querify (index site.Data.search_query_keys .key) .value) }}

@@ -1,3 +1,4 @@
+{{ $context := . }}
 {{- $courseData := .Site.Data.course -}}
 {{- $courseImageUrl := index (partial "course-image-url.html" .) 0 -}}
 {{- $courseImageMetadata := index (partial "course-image-url.html" .) 1 -}}
@@ -8,7 +9,7 @@
   "site_uid": {{- $courseData.site_uid | jsonify -}},
   "legacy_uid": {{- $courseData.legacy_uid | jsonify -}},
   {{- with $courseData.instructors.content -}}
-  {{- $instructors := partial "get_instructors.html" .  -}}
+  {{- $instructors := partial "get_instructors.html" (dict "context" $context "instructors" .)  -}}
   "instructors": [
   {{- range $index, $instructor := $instructors -}}
   {{- if $index -}}

@@ -1,6 +1,7 @@
-{{ $courseData := .context.Site.Data.course }} {{ $inPanel := .inPanel }} {{
-$isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
-
+{{ $context := .context }}
+{{ $courseData := .context.Site.Data.course }}
+{{ $inPanel := .inPanel }}
+{{ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
 <div class="course-info">
   <div class="course-detail-title {{ if $inPanel }}bg-light-gray{{ end }}">
     <div class="d-flex">
@@ -31,7 +32,7 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
       <div class="col-12 {{ if not $inPanel }}col-sm-6{{ end }}">
         {{ with $courseData.instructors.content }}
         <div class="">
-          {{ $instructors := partial "get_instructors.html" . }}
+          {{ $instructors := partial "get_instructors.html" (dict "context" $context "instructors" .)  }}
           <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
             {{ if eq (len $instructors) 1 }}Instructor{{ else }}Instructors{{
             end }}
@@ -42,9 +43,10 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
             "showCollapse" $inPanel) }}
           </div>
         </div>
-        {{ end }} {{ with $courseData.department_numbers }}
+        {{ end }}
+        {{ with $courseData.department_numbers }}
         <div class="mt-4">
-          {{ $departments := partial "get_departments.html" . }}
+          {{ $departments := partial "get_departments.html" (dict "context" $context "department_numbers" .) }}
           <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
             Departments
           </div>
@@ -74,11 +76,11 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
           </div>
           <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
             {{ if eq (printf "%T" $courseData.level) "string" }} {{
-            $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
+            $levelSearchUrl := partial "get_search_url.html" (dict "context" $context "key" "level" "value" $courseData.level) }}
             {{- partial "link.html" (dict "href" $levelSearchUrl "text" $courseData.level "stripLinkOffline" true) -}}
             {{ else }}
               {{ range $courseData.level }}
-                {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) }}
+                {{ $levelSearchUrl := partial "get_search_url.html" (dict "context" $context "key" "level" "value" .) }}
                 {{- partial "link.html" (dict "href" $levelSearchUrl "text" . "stripLinkOffline" true) -}}<br />
               {{ end }}
             {{ end }}
