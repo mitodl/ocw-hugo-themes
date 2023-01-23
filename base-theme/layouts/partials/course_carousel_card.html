@@ -18,7 +18,7 @@
     </a>
     <div class="course-card-content pt-1 px-3 pb-3">
       <div class="course-level">
-        {{ $coursePrimaryNumber }}{{ partial "course_cards_level.html" $courseLevel }}
+        {{ $coursePrimaryNumber }}{{ partial "course_cards_level.html" (dict "context" .context "level" $courseLevel) }}
       </div>
       <div class="course-card-title pt-1">
         <div class="h5">
@@ -26,10 +26,10 @@
         </div>
       </div>
       <div class="course-card-instructors pt-1">
-        <span class="card-label">Instructors(s):</span> {{ partial "course_cards_instructors.html" $courseInstructors }}
+        <span class="card-label">Instructors(s):</span> {{ partial "course_cards_instructors.html" (dict "context" .context "instructors" $courseInstructors) }}
       </div>
       <div class="course-card-topics pt-2">
-        <span class="card-label">Topic(s):</span> {{ partial "course_cards_topics.html" $courseTopics }}
+        <span class="card-label">Topic(s):</span> {{ partial "course_cards_topics.html" (dict "context" .context "topics" $courseTopics) }}
       </div>
     </div>
   </div>

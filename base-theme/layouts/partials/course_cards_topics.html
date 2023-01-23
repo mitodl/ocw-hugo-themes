@@ -1,6 +1,6 @@
 {{ $context := .context }}
 {{- $topics := slice -}}
-{{- range . -}}
+{{- range .topics -}}
   {{- range . -}}
     {{- $topics = $topics | append (title .) -}}
   {{- end -}}

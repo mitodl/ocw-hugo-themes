@@ -1,5 +1,6 @@
 {{- $context := .context -}}
-{{- with first 3 (uniq .) -}}
+{{- $instructors := .instructors -}}
+{{- with first 3 (uniq $instructors) -}}
   {{- $numInstructors := len . -}}
   {{- range $index, $instructorObject := . -}}
     {{- $title := $instructorObject.title | default "" -}}

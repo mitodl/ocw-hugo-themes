@@ -1,10 +1,11 @@
 {{ $context := .context }}
-{{ if eq (printf "%T" .) "string" }}
+{{ $level := .level }}
+{{ if eq (printf "%T" $level) "string" }}
   {{ $levelSearchUrl := partial "get_search_url.html" (dict "context" $context "key" "level" "value" .) }}
-  {{- partial "link.html" (dict "href" $levelSearchUrl "text" . "stripLinkOffline" true) -}}
+  {{- partial "link.html" (dict "href" $levelSearchUrl "text" $level "stripLinkOffline" true) -}}
 {{ else }}
 {{/* safe guard from nil values  */}}
-  {{ with .}}
+  {{ with $level}}
     {{ $numLevels := len . }}
     {{ if gt $numLevels 0}}
       <span> | </span>
