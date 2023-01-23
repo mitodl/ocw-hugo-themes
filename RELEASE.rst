@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.83.0
+--------------
+
+- remove tippy (#1046)
+- produce source-maps in prod build (#1042)
+- Updating Hugo to v0.110.0 (#1040)
+
 Version 1.82.0 (Released January 17, 2023)
 --------------
 
