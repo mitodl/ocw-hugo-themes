@@ -1,6 +1,6 @@
 {{- define "title" -}}{{ partial "title.html" . }}{{- end -}}
 {{- define "extrahead" -}}
 {{- $layout := .Params.layout -}}
-{{- $courseTheme := .Site.Data.webpack.course_v2 -}}
-{{ partial "include_css.html" (dict "context" . "url" $courseTheme.css) }}
+{{- $css_urls := slice .Site.Data.webpack.course_v2.css }}
+{{ partial "include_css.html" (dict "context" . "urls" $css_urls) }}
 {{- end -}}

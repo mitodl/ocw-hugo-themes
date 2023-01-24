@@ -16,8 +16,8 @@ const fromRoot = (pathFromRoot: string) =>
 const entryNames = {
   courseV1: "course_v1",
   courseV2: "course_v2",
-  www:       "www",
-  fields:    "fields"
+  www:      "www",
+  fields:   "fields"
 }
 
 const config: webpack.Configuration = {
@@ -28,15 +28,15 @@ const config: webpack.Configuration = {
   entry: {
     [entryNames.courseV2]: [
       fromRoot("./course-v2/assets/course-v2.ts"),
-      fromRoot("./base-theme/assets/index.ts"),
+      fromRoot("./base-theme/assets/index.ts")
     ],
     [entryNames.www]: [
       fromRoot("./www/assets/www.tsx"),
-      fromRoot("./base-theme/assets/index.ts"),
+      fromRoot("./base-theme/assets/index.ts")
     ],
     [entryNames.fields]: [
       fromRoot("./fields/assets/fields.js"),
-      fromRoot("./base-theme/assets/index.ts"),
+      fromRoot("./base-theme/assets/index.ts")
     ]
   },
 
@@ -138,7 +138,7 @@ const config: webpack.Configuration = {
       []
   ),
   optimization: {
-    splitChunks:  {
+    splitChunks: {
       minChunks:   2,
       cacheGroups: {
         common: {
@@ -150,7 +150,7 @@ const config: webpack.Configuration = {
           }
         }
       }
-    },
+    }
   }
 }
 

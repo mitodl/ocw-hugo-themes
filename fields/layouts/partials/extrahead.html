@@ -1,9 +1,8 @@
 {{ define "title" }}{{ partial "title.html" . }}{{ end }}
 {{ define "extrahead" }}
-{{ $wwwTheme := .Site.Data.webpack.www }}
-{{ $fieldsTheme := .Site.Data.webpack.fields }}
-{{ partial "include_css.html" (dict "context" . "url" $wwwTheme.css) }}
-{{ partial "include_css.html" (dict "context" . "url" $fieldsTheme.css) }}
+{{ $webpack := .Site.Data.webpack }}
+{{ $css_urls := slice $webpack.www.css $webpack.fields.css }}
+{{ partial "include_css.html" (dict "context" . "urls" $css_urls) }}
 <link
 href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css"
 rel="stylesheet"
