@@ -13,23 +13,23 @@
 {{ end }}
 <div class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 .itemsInCarousel) }}{{ end }} w-100 d-flex justify-content-center">
   <div class="course-card card bg-white">
-    <a href="{{ partialCached "absolute_url.html" .urlPath }}" aria-hidden="true" tabindex="-1">
-      <img src="{{ partialCached "resource_url.html" (dict "context" .context "url" $courseImageSrc) }}" alt=""/>
+    <a href="{{ partial "absolute_url.html" .urlPath }}" aria-hidden="true" tabindex="-1">
+      <img src="{{ partial "resource_url.html" (dict "context" .context "url" $courseImageSrc) }}" alt=""/>
     </a>
     <div class="course-card-content pt-1 px-3 pb-3">
       <div class="course-level">
-        {{ $coursePrimaryNumber }}{{ partialCached "course_cards_level.html" (dict "context" .context "level" $courseLevel) }}
+        {{ $coursePrimaryNumber }}{{ partial "course_cards_level.html" (dict "context" .context "level" $courseLevel) }}
       </div>
       <div class="course-card-title pt-1">
         <div class="h5">
-          <a href="{{ partialCached "absolute_url.html" .urlPath }}">{{ $courseTitle }}</a>
+          <a href="{{ partial "absolute_url.html" .urlPath }}">{{ $courseTitle }}</a>
         </div>
       </div>
       <div class="course-card-instructors pt-1">
-        <span class="card-label">Instructors(s):</span> {{ partialCached "course_cards_instructors.html" (dict "context" .context "instructors" $courseInstructors) }}
+        <span class="card-label">Instructors(s):</span> {{ partial "course_cards_instructors.html" (dict "context" .context "instructors" $courseInstructors) }}
       </div>
       <div class="course-card-topics pt-2">
-        <span class="card-label">Topic(s):</span> {{ partialCached "course_cards_topics.html" (dict "context" .context "topics" $courseTopics) }}
+        <span class="card-label">Topic(s):</span> {{ partial "course_cards_topics.html" (dict "context" .context "topics" $courseTopics) }}
       </div>
     </div>
   </div>

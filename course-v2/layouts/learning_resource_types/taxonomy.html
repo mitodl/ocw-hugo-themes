@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{ partialCached "resources_header.html" . }}
+{{ partial "resources_header.html" . }}
 {{ $numberOfResourcesLimit := 10 }}
 {{ $taxonomy := "learning_resource_types" }}
 
@@ -8,12 +8,12 @@
     {{ with .Pages }}
       {{ range . }}
         {{ if in .Title "Video" }}
-          {{ partialCached "resource_list_collapsible.html" (dict "context" . "expand" true) }}
+          {{ partial "resource_list_collapsible.html" (dict "context" . "expand" true) }}
         {{ end }}
       {{ end }}
       {{ range . }}
         {{ if not (in .Title "Video") }}
-          {{ partialCached "resource_list_collapsible.html" (dict "context" . "expand" false) }}
+          {{ partial "resource_list_collapsible.html" (dict "context" . "expand" false) }}
         {{ end }}
       {{ end }}
     {{ end }}

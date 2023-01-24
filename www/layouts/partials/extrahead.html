@@ -1,4 +1,4 @@
-{{ define "title" }}{{ partialCached "title.html" . }}{{ end }}
+{{ define "title" }}{{ partial "title.html" . }}{{ end }}
 {{ define "extrahead" }}
 {{ $css_urls := slice .Site.Data.webpack.www.css }}
 {{ partial "include_css.html" (dict "context" . "urls" $css_urls ) }}

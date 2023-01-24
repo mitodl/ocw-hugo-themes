@@ -23,7 +23,7 @@
   <meta property="og:title" content="{{- $title -}}" />
   <meta property="og:description" content="{{- $metaDataDescription -}}" />
 
-  {{ partialCached "extra_metadata.html" (dict "context" . ) }}
+  {{ partial "extra_metadata.html" (dict "context" . ) }}
   
   <link rel="canonical" href="https://{{ strings.TrimSuffix "/" $sitemapDomain }}/{{- strings.TrimPrefix "/" $path -}}" />
 

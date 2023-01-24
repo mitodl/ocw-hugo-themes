@@ -1,4 +1,4 @@
-{{ define "title" }}{{ partialCached "title.html" . }}{{ end }}
+{{ define "title" }}{{ partial "title.html" . }}{{ end }}
 {{ define "extrahead" }}
 {{ $webpack := .Site.Data.webpack }}
 {{ $css_urls := slice $webpack.www.css $webpack.fields.css }}

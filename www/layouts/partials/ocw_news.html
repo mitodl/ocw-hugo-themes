@@ -5,7 +5,7 @@
   {{ with resources.GetRemote $url }}
     {{ with .Err }}
       {{ $errorMessage := printf "OCW News on %v failed to fetch %v with error: %v" site.BaseURL $url . }}
-      {{ partialCached "sentry_capture_message.html" $errorMessage }}
+      {{ partial "sentry_capture_message.html" $errorMessage }}
     {{ else }}
       {{ $items := (. | unmarshal).items }}
       {{ if $items }}
@@ -18,7 +18,7 @@
             <div id="{{ $carouselId }}" class="carousel slide">
               <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold text-uppercase">
                 <h2>OCW News</h2>
-                {{ partialCached "carousel_controls.html" $carouselId }}
+                {{ partial "carousel_controls.html" $carouselId }}
               </div>
               <div class="carousel-inner d-flex mt-2 px-0">
               {{ range $index, $newsItem := (first 4 $items) }}
@@ -69,7 +69,7 @@
     {{ end }}
   {{ else }}
     {{ $errorMessage := printf "Failed to fetch news items through %v on %v" $url site.BaseURL }}
-    {{ partialCached "sentry_capture_message.html" $errorMessage }}
+    {{ partial "sentry_capture_message.html" $errorMessage }}
   {{ end }}
 {{ else }}
 OCW Studio URL not configured

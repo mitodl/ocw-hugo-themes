@@ -1,7 +1,7 @@
 {{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
 <!doctype html>
 <html lang="{{ $.Site.Language.Lang }}">
-  {{ partialCached "head.html" . }}
+  {{ partial "head.html" . }}
   <body>
     {{ if $gtmId }}
       <!-- Google Tag Manager (noscript) -->
@@ -10,7 +10,7 @@
       <!-- End Google Tag Manager (noscript) -->
     {{ end }}
     <div>
-      {{ block "notification" . }}{{ partialCached "notification" . }}{{ end }}
+      {{ block "notification" . }}{{ partial "notification" . }}{{ end }}
       {{ block "main" . }}{{ end }}
     </div>
     {{- $webpack := .Site.Data.webpack -}}

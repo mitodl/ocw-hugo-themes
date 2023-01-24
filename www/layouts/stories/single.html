@@ -2,14 +2,14 @@
 {{- $story := . -}}
 <div>
   {{ block "header" . }}
-  {{ partialCached "header" . }}
+  {{ partial "header" . }}
   {{ end }}
   <div class="testimonial-single container standard-width mx-auto mt-5 mb-5">
     <h1>OCW Stories</h1>
     <div class="testimonials">
       <div class="testimonial d-flex flex-wrap flex-sm-nowrap">
         <div class="img-container">
-          <img src="{{ partialCached "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $story.Params.image.content).Params.file) }}" alt="" />
+          <img src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $story.Params.image.content).Params.file) }}" alt="" />
         </div>
         <div class="detail d-flex flex-column flex-nowrap justify-content-between p-0 ml-sm-5">
           <div class="text">
@@ -26,6 +26,6 @@
       {{ .Content }}
     </div>
   </div>
-  {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
+  {{ block "footer" . }} {{ partial "footer" . }} {{end}}
 </div>
 {{ end }}

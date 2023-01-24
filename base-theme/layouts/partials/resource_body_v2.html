@@ -15,16 +15,16 @@
       {{- if .Params.file -}}
       <div class="row">
           <div class="col-12 d-flex flex-direction-row align-items-center">
-              <a class="download-file" href="{{ partialCached "resource_url.html" (dict "context" . "url" .Params.file) }}"><span class="material-icons">file_download</span> Download File</a>
+              <a class="download-file" href="{{ partial "resource_url.html" (dict "context" . "url" .Params.file) }}"><span class="material-icons">file_download</span> Download File</a>
           </div>
       </div>
       {{- end -}}
   {{- else -}}
-      {{ partialCached "video.html" . }}
+      {{ partial "video.html" . }}
   {{- end -}}
   {{ if eq .Params.file_type "application/pdf" }}
-  {{ partialCached "pdf_viewer.html" . }}
+  {{ partial "pdf_viewer.html" . }}
   {{ else if eq .Params.resourcetype "Image" }}
-  {{ partialCached "image_page.html" . }}
+  {{ partial "image_page.html" . }}
   {{ end }}
 </div>

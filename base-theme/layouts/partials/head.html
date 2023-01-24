@@ -30,16 +30,16 @@
     font-weight: 400;
     src: local('Material Icons'),
       local('MaterialIcons-Regular'),
-      url({{ partialCached "webpack_url.html" (dict "context" . "url" "/static_shared/fonts/MaterialIcons-Regular.woff2") }}) format('woff2'),
-      url({{ partialCached "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/MaterialIcons-Regular.woff") }}) format('woff'),
-      url({{ partialCached "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/MaterialIcons-Regular.ttf") }}) format('truetype');
+      url({{ partial "webpack_url.html" (dict "context" . "url" "/static_shared/fonts/MaterialIcons-Regular.woff2") }}) format('woff2'),
+      url({{ partial "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/MaterialIcons-Regular.woff") }}) format('woff'),
+      url({{ partial "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/MaterialIcons-Regular.ttf") }}) format('truetype');
   }
   @font-face {
     font-family: 'Material Icons Round';
     font-style: normal;
     font-weight: 400;
     src: local("MaterialIcons-Round"),
-    url({{ partialCached "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/MaterialIconsRound-Regular.woff2") }}) format('woff2');
+    url({{ partial "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/MaterialIconsRound-Regular.woff2") }}) format('woff2');
   }
   @font-face {
     font-family: 'Cardo Bold';
@@ -47,7 +47,7 @@
     font-weight: bold;
     src: local('Cardo'),
       local('Cardo-Bold'),
-      url({{ partialCached "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/Cardo-Bold.ttf") }}) format('truetype');
+      url({{ partial "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/Cardo-Bold.ttf") }}) format('truetype');
   }
   @font-face {
     font-family: 'Cardo Italic';
@@ -55,7 +55,7 @@
     font-weight: 400;
     src: local('Cardo'),
       local('Cardo-Italic'),
-      url({{ partialCached "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/Cardo-Italic.ttf") }}) format('truetype');
+      url({{ partial "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/Cardo-Italic.ttf") }}) format('truetype');
   }
   @font-face {
     font-family: 'Helvetica Light';
@@ -63,7 +63,7 @@
     font-weight: 400;
     src: local('Helvetica Light'),
       local('Helvetica-Light'),
-      url({{ partialCached "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/Helvetica-Light.ttf") }}) format('truetype');
+      url({{ partial "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/Helvetica-Light.ttf") }}) format('truetype');
   }
   </style>
 </head>

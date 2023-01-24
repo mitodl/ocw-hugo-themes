@@ -3,7 +3,7 @@
   {{- $uuid := . -}}
   {{- range $ctx.Site.Pages -}}
     {{- if eq (replace .Params.uid "-" "") (replace $uuid "-" "") -}}
-      {{ partialCached "video-gallery-item.html" . }}
+      {{ partial "video-gallery-item.html" . }}
     {{- end -}}
   {{- end -}}
 {{- end -}}

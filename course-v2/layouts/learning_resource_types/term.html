@@ -1,8 +1,8 @@
 {{ define "main" }}
-{{ partialCached "course_content.html" . }}
+{{ partial "course_content.html" . }}
 
 <div class="mb-5">
   {{ $resources := where .Pages "Params.content_type" "resource" }}
-  {{ partialCached "resource_list.html" (dict "context" . "resources" $resources) }}
+  {{ partial "resource_list.html" (dict "context" . "resources" $resources) }}
 </div>
 {{ end }}
