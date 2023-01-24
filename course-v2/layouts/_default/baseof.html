@@ -10,9 +10,9 @@
     <!-- End Google Tag Manager (noscript) -->
   {{ end }}
   <div class="overflow-auto">
-    {{ partial "mobile_course_nav.html" . }}
-    {{ partial "mobile_course_info.html" . }}
-    {{ block "header" . }}{{ partial "header" . }}{{ end }}
+    {{ partialCached "mobile_course_nav.html" . }}
+    {{ partialCached "mobile_course_info.html" . }}
+    {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
     {{ $isCourseHomePage := (eq .Params.layout "course_home") }}
     {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
 
@@ -58,7 +58,7 @@
                 via script written below hence hidden at the start to avoid a quick glitch  */}}
                 <div class="p-0 large-and-above-only d-none" id="desktop-course-drawer">
                   {{ if not $isCourseHomePage }}
-                    {{ partial "desktop_course_info.html" . }}
+                    {{ partialCached "desktop_course_info.html" . }}
                   {{ end }}
                 </div>
               </div>
@@ -70,7 +70,7 @@
 
     {{ block "footer" . }}{{ partial "footer-v2" . }}{{end}}
   </div>
-  {{ partial "hide_offline_links.html" . }}
+  {{ partialCached "hide_offline_links.html" . }}
   <script>
     // Script for maintaining and toggling course drawer state
     // note: This script is placed here instead of being in the bundle so it runs as soon as the HTML is rendered 
