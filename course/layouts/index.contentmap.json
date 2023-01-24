@@ -1,5 +1,0 @@
-{{- $contentMap := dict -}}
-{{- range where $.Site.Pages "Params.uid" "!=" nil -}}
-  {{- $contentMap = merge $contentMap (dict .Params.uid .RelPermalink) -}}
-{{- end -}}
-{{- $contentMap | jsonify -}}

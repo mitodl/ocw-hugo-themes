@@ -1,7 +1,0 @@
-{{ $departments := slice }}
-{{ range . }}
-{{ $department := index site.Data.departments . }}
-{{ $department := merge $department (dict "url" (partial "get_search_url.html" (dict "key" "department_numbers" "value" $department.title))) }}
-{{ $departments = $departments | append $department }}
-{{ end }}
-{{ return $departments }}

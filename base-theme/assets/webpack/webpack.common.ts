@@ -20,9 +20,8 @@ const config: webpack.Configuration = {
   },
   entry: {
     main:                fromRoot("./base-theme/assets/index.ts"),
-    course:              fromRoot("./course/assets/course.ts"),
     course_v2:           fromRoot("./course-v2/assets/course-v2.ts"),
-    instructor_insights: fromRoot("./course/assets/instructor-insights.js"),
+    instructor_insights: fromRoot("./course-v2/assets/instructor-insights.js"),
     www:                 fromRoot("./www/assets/www.tsx"),
     fields:              fromRoot("./fields/assets/fields.js")
   },
