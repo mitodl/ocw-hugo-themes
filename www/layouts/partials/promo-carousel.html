@@ -1,6 +1,8 @@
-{{- $pages := .Site.RegularPages -}}
-{{- $promos := where $pages "Type" "==" "promos" -}}
+{{- $featuredPromos :=  .Site.Data.homepage.featured_promos.content | default slice -}}
 {{- $carouselId := "promo-carousel" -}}
+{{- $promos := partial "featured_pages" (dict "context" . "featuredPagesUid" $featuredPromos) -}}
+
+{{ if $promos }}
 <div id="{{ $carouselId }}" class="promo-carousel pt-2 carousel carousel-fade slide" data-interval="false" data-touch="true" data-ride="carousel">
   <ol class="carousel-indicators">
     {{ range $index, $promo := $promos }}
@@ -36,3 +38,4 @@
     </a>
   </div>
 </div>
+{{ end }}
