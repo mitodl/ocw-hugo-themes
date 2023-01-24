@@ -27,7 +27,7 @@
     </div>
     <div class="row course-cards">
       <div class="col-2 course-home-grid large-and-above-only">  
-        {{ partial "desktop_nav.html" . }}
+        {{ partialCached "desktop_nav.html" . }}
       </div>
       <div class="col-12 col-md-8 col-lg-7 course-home-grid">
         {{ partial "course_detail.html" . }}
