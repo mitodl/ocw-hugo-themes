@@ -1,2 +1,3 @@
 {{ $homePage := site.GetPage "/" }}
-{{ return partial "site_root_url.html" (dict "context" . "url" $homePage.RelPermalink) }}
+{{ $url := printf "%s/index.html" (strings.TrimSuffix "/" $homePage.RelPermalink) }}
+{{ return partial "site_root_url.html" (dict "context" . "url" $url) }}
