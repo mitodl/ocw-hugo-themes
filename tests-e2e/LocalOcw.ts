@@ -182,7 +182,7 @@ class LocalOCW {
         rules: [
           {
             type:      "redirect",
-            match:     /^\/static\//,
+            match:     /^\/static_shared\//,
             transform: url => `http://localhost:${env.WEBPACK_PORT}${url}`
           },
           OCW_WWW_REWRITE

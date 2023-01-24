@@ -11,7 +11,7 @@ else
   CONTENT_PATH=$(echo $1 | sed 's:/*$::')
   CONFIG_PATH=$2
   THEMES_PATH=$(pwd)
-  STATIC_PATH=$CONTENT_PATH/dist/static
+  STATIC_PATH=$CONTENT_PATH/dist/static_shared
   # Ensure static dir exists
   mkdir -p $STATIC_PATH
   # Build webpack assets

@@ -27,7 +27,7 @@ const config: webpack.Configuration = {
   },
 
   output: {
-    path:     fromRoot("./base-theme/dist/static"),
+    path:     fromRoot("./base-theme/dist/static_shared"),
     filename: "js/[name].js"
   },
 
