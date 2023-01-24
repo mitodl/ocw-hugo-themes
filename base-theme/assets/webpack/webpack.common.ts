@@ -35,6 +35,10 @@ const config: webpack.Configuration = {
   module: {
     rules: [
       {
+        test: /nanogallery2/,
+        use:  "imports-loader?module.exports=>undefined&exports=>undefined"
+      },
+      {
         test: /\.(jpg)|(png)|(svg)|(gif)$/,
         use:  [
           {
@@ -77,40 +81,6 @@ const config: webpack.Configuration = {
           "css-loader",
           "postcss-loader",
           "sass-loader"
-        ]
-      },
-
-      {
-        test: require.resolve("shifty"),
-        use:  [
-          { loader: "expose-loader", options: { exposes: ["NGTweenable"] } }
-        ]
-      },
-
-      {
-        test: require.resolve("hammerjs"),
-        use:  [
-          {
-            loader:  "expose-loader",
-            options: { exposes: ["NGHammer"] }
-          }
-        ]
-      },
-
-      {
-        test: require.resolve("imagesloaded"),
-        use:  [
-          {
-            loader:  "expose-loader",
-            options: { exposes: ["ngimagesLoaded", "ngImagesLoaded"] }
-          }
-        ]
-      },
-
-      {
-        test: require.resolve("screenfull"),
-        use:  [
-          { loader: "expose-loader", options: { exposes: ["ngscreenfull"] } }
         ]
       }
     ]
