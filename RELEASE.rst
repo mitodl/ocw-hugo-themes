@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.83.0
+Version 1.83.0 (Released January 24, 2023)
 --------------
 
 - remove tippy (#1046)
