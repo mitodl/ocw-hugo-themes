@@ -38,7 +38,7 @@
             end }}
           </div>
           <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
-            {{ partial "partial_collapse_list.html" (dict "list" $instructors
+            {{ partialCached "partial_collapse_list.html" (dict "list" $instructors
             "id" "instructors" "key" "title" "klass" "course-info-instructor"
             "showCollapse" $inPanel) }}
           </div>
@@ -51,7 +51,7 @@
             Departments
           </div>
           <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
-            {{ partial "partial_collapse_list.html" (dict "list" $departments
+            {{ partialCached "partial_collapse_list.html" (dict "list" $departments
             "id" "departments" "key" "title" "klass" "course-info-department"
             "useLinks" true) }}
           </div>
@@ -92,7 +92,7 @@
       {{ if not $inPanel }}
       <div class="col-12 col-sm-6">
         <div class="mt-4 mt-sm-0">
-          {{ partial "topics.html" (merge . (dict "renderMarginTop" false)) }}
+          {{ partialCached "topics.html" (merge . (dict "renderMarginTop" false)) }}
         </div>
       </div>
       {{ end }}

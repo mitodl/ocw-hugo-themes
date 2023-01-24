@@ -21,17 +21,17 @@
   	<div class="description">
     	{{ .Content }}
   	</div>
-  	{{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation)}}
+  	{{ partialCached "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation)}}
 
 	{{ if $captionsLocation }}
-		{{ partial "video_expandable_tab.html" (dict "tabClass" "transcript" "tabTitle" "Transcript") }}
+		{{ partialCached "video_expandable_tab.html" (dict "tabClass" "transcript" "tabTitle" "Transcript") }}
 	{{end}}
 
   	{{ if $relatedResourses }}
-  		{{ partial "video_expandable_tab.html" (dict "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
+  		{{ partialCached "video_expandable_tab.html" (dict "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
   	{{ end }}
 	
   	{{ if and $optionalTabTitle $optionalTabContent }}
-		{{ partial "video_expandable_tab.html" (dict "tabClass" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
+		{{ partialCached "video_expandable_tab.html" (dict "tabClass" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
   	{{end}}
 </div>

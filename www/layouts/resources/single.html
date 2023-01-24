@@ -1,6 +1,6 @@
 {{ define "main" }}
 {{ block "header" . }}
-  {{ partial "header" . }}
+  {{ partialCached "header" . }}
 {{ end }}
 <div class="container mt-5">
   <div class="rounded mb-2">

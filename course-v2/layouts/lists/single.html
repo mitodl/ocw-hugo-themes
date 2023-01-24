@@ -4,7 +4,7 @@
   {{- $uids := .Params.resources.content -}}
   {{- $resources := slice -}}
 
-  {{ partial "course_content.html" . }}
+  {{ partialCached "course_content.html" . }}
   <div class="mb-5">
     <div class="mb-3 collection-description">
       {{ $bundle.Description | .RenderString }}

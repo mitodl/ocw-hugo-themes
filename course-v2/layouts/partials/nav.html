@@ -3,7 +3,7 @@
 <nav id="course-nav" class="course-nav">
   <ul class="w-100 m-auto list-unstyled">
     {{ range $menu }}
-      {{ partial "nav_item.html" (dict "menuItem" . "context" $context) }}
+      {{ partialCached "nav_item.html" (dict "menuItem" . "context" $context) }}
     {{ end }}
   </ul>
 </nav>

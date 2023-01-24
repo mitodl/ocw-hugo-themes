@@ -1,4 +1,4 @@
 {{ define "main" }}
-{{ partial "resource_title_v2.html" . }}
-{{ partial "resource_body_v2.html" . }}
+{{ partialCached "resource_title_v2.html" . }}
+{{ partialCached "resource_body_v2.html" . }}
 {{ end }}

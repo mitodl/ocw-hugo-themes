@@ -1,10 +1,10 @@
 <div class="border-left">
   <div>
-    {{ partial "course_info.html" (dict "context" . "inPanel" true "isDesktopCourseDrawer" true) }}
+    {{ partialCached "course_info.html" (dict "context" . "inPanel" true "isDesktopCourseDrawer" true) }}
     <div class="px-3">
-      {{ partial "topics.html" (dict "context" . "inPanel" true) }}
-      {{ partial "learning_resource_types.html" (dict "context" . "inPanel" true) }}
-      {{ partial "download_course_link_button.html" (dict "context" . "inPanel" true) }}
+      {{ partialCached "topics.html" (dict "context" . "inPanel" true) }}
+      {{ partialCached "learning_resource_types.html" (dict "context" . "inPanel" true) }}
+      {{ partialCached "download_course_link_button.html" (dict "context" . "inPanel" true) }}
     </div>
   </div>
 </div>

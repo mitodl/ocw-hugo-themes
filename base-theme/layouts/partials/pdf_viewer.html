@@ -1,6 +1,6 @@
 <div class="pdf-viewer w-100 pb-5">
   <div class="pr-4">
-    <a class="download-link" href="{{ partial "resource_url.html" (dict "context" . "url" .Params.file) }}">
+    <a class="download-link" href="{{ partialCached "resource_url.html" (dict "context" . "url" .Params.file) }}">
       <div class="btn bg-link-blue text-white rounded float-right mb-3">
         <span>DOWNLOAD</span>
         <div class="ripple-container"></div>
@@ -15,7 +15,7 @@
         height: "100vh",
         fallbackLink: ""
       }
-      window.PDFObject.embed("{{ partial "resource_url.html" (dict "context" . "url" .Params.file) }}", "#pdf-wrapper", options)
+      window.PDFObject.embed("{{ partialCached "resource_url.html" (dict "context" . "url" .Params.file) }}", "#pdf-wrapper", options)
     })
   </script>
 </div>

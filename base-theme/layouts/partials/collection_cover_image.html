@@ -6,6 +6,6 @@
   {{- $collectionImageMetadata = partial "resource_metadata.html" $collectionImageUuid.content }}
   {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) $collectionImageMetadata.Params.file) "" -}}
   <div id="collection-header">
-    <img src='{{ partial "resource_url.html" (dict "context" . "url" $url) }}' alt='{{ $collectionImageMetadata.Params.metadata.image_alt }}' />
+    <img src='{{ partialCached "resource_url.html" (dict "context" . "url" $url) }}' alt='{{ $collectionImageMetadata.Params.metadata.image_alt }}' />
   </div>
 {{ end }}

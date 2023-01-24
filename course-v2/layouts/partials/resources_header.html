@@ -13,7 +13,7 @@
       <div class="col-12 col-md-9">
         This package contains the same content as the online version of the course
         {{- if $containsVideos }}, <em>except for the audio/video materials</em>. These can be downloaded below{{ end }}. 
-        For help downloading and using course materials, read our {{ partial "link.html" (dict "href" $zenDeskUrl "text" "FAQs" "target" "_blank") }}.
+        For help downloading and using course materials, read our {{ partialCached "link.html" (dict "href" $zenDeskUrl "text" "FAQs" "target" "_blank") }}.
       </div>
     </div>
   </div>

@@ -12,7 +12,7 @@
 <div id="home-header">
   {{ block "header" . }}
   {{ $renderSearchIcon := index .Params "renderSearchIcon" | default true }}
-  {{ partial "header" . $renderSearchIcon }}
+  {{ partialCached "header" . $renderSearchIcon }}
   {{ end }}
 </div>
 <div class="d-flex flex-column align-items-center home-banner" style="background-image: url(/images/homepage_hero.jpg);">
@@ -79,16 +79,16 @@
 
   </div>
 </div>
-{{ partial "promo-carousel.html" . }}
+{{ partialCached "promo-carousel.html" . }}
 <div class="home-page-content" style="background-image: url(/images/homepage_bg.png);">
 
   {{ with partial "get_featured_courses.html" . }}
     {{- $featuredCourses := . -}}
-    {{ partial "featured_course_cards.html" (dict "context" $context "featuredCourses" $featuredCourses "klass" "") }}
+    {{ partialCached "featured_course_cards.html" (dict "context" $context "featuredCourses" $featuredCourses "klass" "") }}
   {{ end }}
 
-  {{ partial "home_course_collections.html" . }}
-  {{ partial "new_course_cards.html" . }}
+  {{ partialCached "home_course_collections.html" . }}
+  {{ partialCached "new_course_cards.html" . }}
 
   <div class="give-now-wrapper">
     <div class="give-now my-5 d-flex justify-content-center">
@@ -109,8 +109,8 @@
       </div>
     </div>
   </div>
-  {{ partial "ocw_news.html" . }}
-  {{ partial "home_stories.html" . }}
+  {{ partialCached "ocw_news.html" . }}
+  {{ partialCached "home_stories.html" . }}
   <div class="social-cards-wrapper">
     <div class="social-cards standard-width d-flex justify-content-center container">
       <div class="row w-100">
@@ -136,7 +136,7 @@
         <div class="social-card col-12 col-md-6 mt-3 mt-md-0">
           <div class="d-flex flex-column justify-content-center h-100">
             <div class="h5">SUBSCRIBE TO THE OCW NEWSLETTER</div>
-            {{ partial "newsletter_signup.html" }}
+            {{ partialCached "newsletter_signup.html" }}
           </div>
         </div>
       </div>
@@ -162,5 +162,5 @@
     </div>
   </div>
 </div>
-{{ block "footer" . }} {{ partial "footer" . }} {{end}}
+{{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
 {{ end }}

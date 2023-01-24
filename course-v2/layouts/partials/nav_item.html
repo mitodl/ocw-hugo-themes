@@ -31,7 +31,7 @@
     id="nav-container_{{ .menuItem.Identifier }}">
     <ul class="course-nav-child-nav m-auto">
       {{ range .menuItem.Children }}
-        {{ partial "nav_item.html" (dict "menuItem" . "context" $context "parentId" $id ) }}
+        {{ partialCached "nav_item.html" (dict "menuItem" . "context" $context "parentId" $id ) }}
       {{ end }}
     </ul>
   </div>

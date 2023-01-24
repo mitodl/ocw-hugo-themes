@@ -9,20 +9,20 @@ we want to use this new footer in other themes (www, course-offline etc)
             	<div class="col-12 col-md-9">
 					<div class="d-md-flex align-items-center">
 						<a href="https://openlearning.mit.edu/" target="_blank">
-							<img width="150px" src='{{ partial "site_root_url.html" (dict "context" . "url" "/static_shared/images/mit-ol.png") }}' alt="MIT Open Learning" />
+							<img width="150px" src='{{ partialCached "site_root_url.html" (dict "context" . "url" "/static_shared/images/mit-ol.png") }}' alt="MIT Open Learning" />
 						</a>
 						<div class="ml-md-3 mt-4 mt-md-0">
 							<div class="font-weight-bold">
 								Over 2,500 courses & materials
 							</div>
 							<div>
-								Freely sharing knowledge with learners and educators around the world. <a href='{{ partial "site_root_url.html" (dict "context" . "url" "/about") }}'>Learn more</a>
+								Freely sharing knowledge with learners and educators around the world. <a href='{{ partialCached "site_root_url.html" (dict "context" . "url" "/about") }}'>Learn more</a>
 							</div>
 						</div>
 					</div>
             	</div>
 				<div class="col-12 col-md-3 d-none d-md-block">
-					{{ partial "footer-v2-social-icons.html" . }}
+					{{ partialCached "footer-v2-social-icons.html" . }}
 				</div>
         	</div>
     	</div>
@@ -32,7 +32,7 @@ we want to use this new footer in other themes (www, course-offline etc)
             	<div class="col-12 col-md-8">
 					<div class="d-lg-flex">
 						<div class="pr-md-2 mt-2 mt-lg-0 d-none d-lg-block">
-							{{ partial "footer-v2-copyrights.html" . }}
+							{{ partialCached "footer-v2-copyrights.html" . }}
 						</div>
 						<div class="px-md-2 mt-2 mt-lg-0">
 							<a href="https://accessibility.mit.edu" target="_blank">Accessibility</a>
@@ -41,7 +41,7 @@ we want to use this new footer in other themes (www, course-offline etc)
 							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons License</a>
 						</div>
 						<div class="px-md-2 mt-2 mt-lg-0">
-							<a class="hide-offline" href='{{ partial "site_root_url.html" (dict "context" . "url" "/pages/privacy-and-terms-of-use/") }}'>Terms and Conditions</a>
+							<a class="hide-offline" href='{{ partialCached "site_root_url.html" (dict "context" . "url" "/pages/privacy-and-terms-of-use/") }}'>Terms and Conditions</a>
 						</div>
 					</div>
             	</div>
@@ -50,7 +50,7 @@ we want to use this new footer in other themes (www, course-offline etc)
 						<div>
 						Proud member of: 
 						<a href="https://www.oeglobal.org/" target="_blank">
-							<img class="oeg-logo" src='{{ partial "site_root_url.html" (dict "context" . "url" "/static_shared/images/oeg_logo.png") }}' alt="Open Education Global"/>
+							<img class="oeg-logo" src='{{ partialCached "site_root_url.html" (dict "context" . "url" "/static_shared/images/oeg_logo.png") }}' alt="Open Education Global"/>
 						</a>
 						</div>
 					</div>
@@ -59,11 +59,11 @@ we want to use this new footer in other themes (www, course-offline etc)
 		</div>
 
 		<div class="col-12 mt-5 d-md-none">
-			{{ partial "footer-v2-social-icons.html" . }}
+			{{ partialCached "footer-v2-social-icons.html" . }}
 		</div>
 
 		<div class="col-12 mt-4 pl-3 pl-md-4 d-lg-none">
-			{{ partial "footer-v2-copyrights.html" . }}
+			{{ partialCached "footer-v2-copyrights.html" . }}
 		</div>
 	</div>
 </div>

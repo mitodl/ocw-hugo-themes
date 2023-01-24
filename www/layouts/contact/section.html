@@ -1,4 +1,4 @@
-{{ define "main" }} {{ block "header" . }} {{ partial "header" . }} {{end}}
+{{ define "main" }} {{ block "header" . }} {{ partialCached "header" . }} {{end}}
 
 <div id="contact-main-section" class="page-single">
   <div class="px-lg-5 px-3 mt-6">
@@ -95,5 +95,5 @@
     </div>
   </div>
 </div>
-{{ block "footer" . }} {{ partial "footer" . }} {{end}}
+{{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
 {{ end }}

@@ -18,7 +18,7 @@
         <div id="{{ $carouselId }}" class="carousel slide" data-interval="false" data-touch="true" data-ride="carousel">
           <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold">
             <h2 class="{{ $klass }}">Featured Courses</h2>
-            {{ partial "carousel_controls.html" $carouselId }}
+            {{ partialCached "carousel_controls.html" $carouselId }}
           </div>
           <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
             {{ range $index, $courseItem := $courses }}
@@ -29,7 +29,7 @@
                   {{ errorf "Failed to fetch featured course info from %v with error %v" $url . }}
                 {{ else }}
                   {{- $courseData := . | unmarshal -}}
-                  {{ partial "course_carousel_card.html" (dict "context" $context "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $urlPath "numCourses" (len $courses)) }}
+                  {{ partialCached "course_carousel_card.html" (dict "context" $context "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $urlPath "numCourses" (len $courses)) }}
                 {{ end }}
               {{ else }}
                 {{ errorf "Failed to fetch featured course info from %v" $url }}

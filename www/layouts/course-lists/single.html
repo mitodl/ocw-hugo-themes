@@ -2,12 +2,12 @@
 {{- $courselist := . -}}
 <div>
   {{ block "header" . }}
-  {{ partial "header" . }}
+  {{ partialCached "header" . }}
   {{ end }}
   <div class="container standard-width mx-auto mt-5">
-    {{ partial "course_list" . }}
+    {{ partialCached "course_list" . }}
   </div>
-  {{ block "footer" . }} {{ partial "footer" . }} {{end}}
+  {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
   {{- $staticApiBaseUrl := partial "static_api_base_url.html" -}}
   {{- $courseListData := (slice) -}}
   {{ with $courselist.Params.courses }}
@@ -25,7 +25,7 @@
         {{ end }}
       {{ else }}
         {{ $errorMessage := printf "Failed to fetch course list through %v on %v" $url site.BaseURL }}
-        {{ partial "sentry_capture_message.html" $errorMessage }}
+        {{ partialCached "sentry_capture_message.html" $errorMessage }}
       {{ end }}
     {{- end -}}
   {{ end }}

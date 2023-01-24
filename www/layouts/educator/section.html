@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{ block "header" . }} {{ partial "header" . }} {{end}}
+{{ block "header" . }} {{ partialCached "header" . }} {{end}}
 <div id="educator-main-section" class="page-single">
   <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top on-page-sub-nav">
     <div class="navbar-brand">
@@ -449,5 +449,5 @@
     </div>
   </div>
 </div>
-{{ block "footer" . }} {{ partial "footer" . }} {{end}}
+{{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
 {{ end }}

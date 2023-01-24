@@ -3,9 +3,9 @@
 {{ $field := . }}
 <div>
   {{ block "header" . }}
-  {{ partial "header" . }}
+  {{ partialCached "header" . }}
   {{ end }}
-  {{ partial "collection_cover_image" $field }}
+  {{ partialCached "collection_cover_image" $field }}
   <div class="container collection-outer-container standard-width mx-auto mt-5">
     <h1>
       {{ $field.Title }}
@@ -16,11 +16,11 @@
     {{ $fieldFeaturedList := index $field.Params "featured-courses"}}
     {{ if (not (isset $fieldFeaturedList -1)) }}
       {{- $featured_list := index (where $.Site.Pages ".Params.uid" $fieldFeaturedList.content) 0 -}}
-      {{ partial "featured_course_cards"  (dict "context" . "featuredCourses" $featured_list.Params.courses "klass" "course-list-title col-lg-8 pb-2") }}
+      {{ partialCached "featured_course_cards"  (dict "context" . "featuredCourses" $featured_list.Params.courses "klass" "course-list-title col-lg-8 pb-2") }}
     {{ end }}
     {{ range $field.Params.subfields.content }}
       {{ $subfield := index (where $.Site.Pages ".Params.uid" .) 0 }}
-      {{ partial "course_list" $subfield }}
+      {{ partialCached "course_list" $subfield }}
       <div>
       <div class="col-12 col-lg-8 pb-2 mb-5">
         <a class="float-right collection-see-all" href="{{ $subfield.RelPermalink }}">See all</a>
@@ -48,7 +48,7 @@
           {{ end }}
         {{ else }}
           {{ $errorMessage := printf "Failed to fetch sub-fields through %v on %v" $url site.BaseURL }}
-          {{ partial "sentry_capture_message.html" $errorMessage }}
+          {{ partialCached "sentry_capture_message.html" $errorMessage }}
         {{ end }}
       {{- end -}}
     {{ end }}
@@ -59,7 +59,7 @@
   </script>
 </div>
 {{ block "footer" . }}
-  {{ partial "footer" . }}
+  {{ partialCached "footer" . }}
 {{end}}
 {{ end }}
 {{ end }}

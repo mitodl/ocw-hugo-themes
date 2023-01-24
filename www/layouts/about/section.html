@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{ block "header" . }} {{ partial "header" . }} {{end}}
+{{ block "header" . }} {{ partialCached "header" . }} {{end}}
 <div
   id="about-us"
   class="page-single"
@@ -237,13 +237,13 @@
           class="col-6 d-flex flex-column justify-content-end"
         >
           {{ with $.Site.GetPage "/milestones/2001-2005" }}
-          {{ partial "milestone_card_desktop.html" . }}
+          {{ partialCached "milestone_card_desktop.html" . }}
           {{ end }}
           {{ with $.Site.GetPage "/milestones/2011-2015" }}
-          {{ partial "milestone_card_desktop.html" . }}
+          {{ partialCached "milestone_card_desktop.html" . }}
           {{ end }}
           {{ with $.Site.GetPage "/milestones/2021" }}
-          {{ partial "milestone_card_desktop.html" . }}
+          {{ partialCached "milestone_card_desktop.html" . }}
           {{ end }}
         </div>
         <div
@@ -251,10 +251,10 @@
           class="col-6 d-flex flex-column justify-content-start"
         >
           {{ with $.Site.GetPage "/milestones/2006-2010" }}
-          {{ partial "milestone_card_desktop.html" . }}
+          {{ partialCached "milestone_card_desktop.html" . }}
           {{ end }}
           {{ with $.Site.GetPage "/milestones/2016-2020" }}
-          {{ partial "milestone_card_desktop.html" . }}
+          {{ partialCached "milestone_card_desktop.html" . }}
           {{ end }}
         </div>
       </div>
@@ -270,7 +270,7 @@
         <div class="carousel-inner">
           {{ range $index, $milestone := where .Site.RegularPages "Section" "milestones" }}
           <div class="carousel-item{{ if eq $index 0 }} active{{ end }}">
-            {{ partial "milestone_card_mobile.html" $milestone }}
+            {{ partialCached "milestone_card_mobile.html" $milestone }}
           </div>
           {{ end }}
         </div>
@@ -339,7 +339,7 @@
               behind some of MIT’s most interesting courses, from nuclear physics to film appreciation
               to ethical responsibilities of computing.
             </p>
-            {{ partial "simplecast.html" "a9349695-05d2-4150-bba6-271cbf875ba0" }}
+            {{ partialCached "simplecast.html" "a9349695-05d2-4150-bba6-271cbf875ba0" }}
           </li>
           <li>
             <span class="font-weight-bold">Open Textbooks</span>
@@ -479,7 +479,7 @@
       <div class="row pb-6">
         {{ end }}
         <div class="col-3">
-          {{ partial "staff_card.html" . }}
+          {{ partialCached "staff_card.html" . }}
         </div>
         {{ if eq (mod (sub $index 3) 4) 0 }}
       </div>
@@ -502,7 +502,7 @@
           <div class="carousel-item{{ if eq $index 0 }} active{{ end }}">
             <div class="w-100 d-flex justify-content-center mx-4">
               <div>
-                {{ partial "staff_card.html" $staff }}
+                {{ partialCached "staff_card.html" $staff }}
               </div>
             </div>
           </div>
@@ -628,5 +628,5 @@
     </div>
   </div>
 </div>
-{{ block "footer" . }} {{ partial "footer" . }} {{ end }}
+{{ block "footer" . }} {{ partialCached "footer" . }} {{ end }}
 {{end}}

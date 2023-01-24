@@ -2,4 +2,4 @@
 {{ $inner := .Inner }}
 {{ $questionId := .Parent.Parent.Get "questionId" }}
 
-{{ partial "quiz_multiple_choice_choice.html" (dict "correct" $correct "choiceText" $inner "questionId" $questionId) }}
+{{ partialCached "quiz_multiple_choice_choice.html" (dict "correct" $correct "choiceText" $inner "questionId" $questionId) }}

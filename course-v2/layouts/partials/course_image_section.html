@@ -16,7 +16,7 @@
         </div>
       </div>
       <div>
-        {{ partial "download_course_link_button.html" (dict "context" . "inPanel" true) }}
+        {{ partialCached "download_course_link_button.html" (dict "context" . "inPanel" true) }}
       </div>
     </div>
   </div>

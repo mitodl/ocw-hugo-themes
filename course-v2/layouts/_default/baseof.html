@@ -1,7 +1,7 @@
 {{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
 <!doctype html>
 <html lang="{{ $.Site.Language.Lang }}">
-{{ partial "head.html" . }}
+{{ partialCached "head.html" . }}
 <body class="course-home-page">
   {{ if $gtmId }}
     <!-- Google Tag Manager (noscript) -->
@@ -10,11 +10,11 @@
     <!-- End Google Tag Manager (noscript) -->
   {{ end }}
   <div class="overflow-auto">
-    {{ partial "mobile_course_nav.html" . }}
-    {{ partial "mobile_course_info.html" . }}
-    {{ block "header" . }}{{ partial "header" . }}{{ end }}
+    {{ partialCached "mobile_course_nav.html" . }}
+    {{ partialCached "mobile_course_info.html" . }}
+    {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
     {{ $isCourseHomePage := (eq .Params.layout "course_home") }}
-    {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
+    {{ block "subheader" . }}{{ partialCached "course_banner.html" . }}{{ end }}
 
     <div id="course-main-content">
       <div class="row">
@@ -22,10 +22,10 @@
           <div class="medium-and-below-only">
             <div class="d-flex align-items-center mb-3">
               <div class="col-6 px-0">
-                {{ partial "mobile_nav_toggle.html" . }}
+                {{ partialCached "mobile_nav_toggle.html" . }}
               </div>
               <div class="col-6 px-0">
-                {{ partial "course_info_toggle.html" (dict "isCourseHomePage" $isCourseHomePage) }}
+                {{ partialCached "course_info_toggle.html" (dict "isCourseHomePage" $isCourseHomePage) }}
               </div>
             </div>
           </div>
@@ -33,7 +33,7 @@
       </div>
       <div class="row course-cards">
         <div class="col-2 course-home-grid large-and-above-only">  
-          {{ partial "desktop_nav.html" . }}
+          {{ partialCached "desktop_nav.html" . }}
         </div>
         <div class="col-sm-12 col-lg-10 course-home-grid">
           <div class="">
@@ -58,7 +58,7 @@
                 via script written below hence hidden at the start to avoid a quick glitch  */}}
                 <div class="p-0 large-and-above-only d-none" id="desktop-course-drawer">
                   {{ if not $isCourseHomePage }}
-                    {{ partial "desktop_course_info.html" . }}
+                    {{ partialCached "desktop_course_info.html" . }}
                   {{ end }}
                 </div>
               </div>
@@ -68,9 +68,9 @@
       </div>
     </div>
 
-    {{ block "footer" . }}{{ partial "footer-v2" . }}{{end}}
+    {{ block "footer" . }}{{ partialCached "footer-v2" . }}{{end}}
   </div>
-  {{ partial "hide_offline_links.html" . }}
+  {{ partialCached "hide_offline_links.html" . }}
   <script>
     // Script for maintaining and toggling course drawer state
     // note: This script is placed here instead of being in the bundle so it runs as soon as the HTML is rendered 
@@ -182,7 +182,7 @@
   {{- $js_urls := slice $webpack.common.js $webpack.course_v2.js -}}
   {{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
   <!-- Appzi: Capture Insightful Feedback -->
-  {{ partial "mathjax_if_necessary.html" (dict "context" .) }}
+  {{ partialCached "mathjax_if_necessary.html" (dict "context" .) }}
 
   <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>
 

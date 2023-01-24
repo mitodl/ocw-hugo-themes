@@ -1,4 +1,4 @@
-{{ define "main" }} {{ block "header" . }} {{ partial "header" . }}
+{{ define "main" }} {{ block "header" . }} {{ partialCached "header" . }}
 {{end}}
 <div id="newsletter-main-section" class="page-single">
   <div class="px-lg-5 px-3 mt-6">
@@ -447,5 +447,5 @@
   </script>
   <!--End mc_embed_signup-->
 </div>
-{{ block "footer" . }} {{ partial "footer" . }} {{end}}
+{{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
 {{ end }}

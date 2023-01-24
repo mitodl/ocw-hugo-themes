@@ -1,15 +1,15 @@
 <div class="card">
   <div class="card-body">
     <section class="course-detail-section">
-      {{ partial "course_description.html" (dict "context" .) }}
+      {{ partialCached "course_description.html" (dict "context" .) }}
     </section>
 
     <section class="course-detail-section">
-      {{ partial "course_info.html" (dict "context" . "inPanel" false) }}
+      {{ partialCached "course_info.html" (dict "context" . "inPanel" false) }}
     </section>
 
     <section class="course-detail-section">
-      {{ partial "learning_resource_types.html" (dict "context" . "inPanel" false) }}
+      {{ partialCached "learning_resource_types.html" (dict "context" . "inPanel" false) }}
     </section>
   </div>
 </div>
