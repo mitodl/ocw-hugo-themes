@@ -139,19 +139,15 @@ const config: webpack.Configuration = {
   ),
   optimization: {
     splitChunks:  {
-      name:        "common",
       minChunks:   2,
       cacheGroups: {
-        shared: {
-          test: /[\\/]node_modules[\\/]/,
-          name(module, chunks, cacheGroupKey) {
-            const chunkNames = chunks.map(item => item.name)
-            if (chunkNames.includes(entryNames.www)) {
-              return `${cacheGroupKey}_www`
-            }
-            return cacheGroupKey
-          },
-          chunks: 'all',
+        common: {
+          test:   /[\\/]node_modules[\\/]/,
+          name:   "common",
+          chunks: chunk => {
+            const splitChunks = [entryNames.www, entryNames.courseV2]
+            return splitChunks.includes(chunk.name)
+          }
         }
       }
     },
