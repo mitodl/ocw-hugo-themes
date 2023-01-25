@@ -1,6 +1,6 @@
 {{- $featuredPromos :=  .Site.Data.homepage.featured_promos.content | default slice -}}
 {{- $carouselId := "promo-carousel" -}}
-{{- $promos := partial "featured_pages" (dict "context" . "featuredPagesUid" $featuredPromos) -}}
+{{- $promos := partial "filtered_pages" (dict "context" . "featuredPagesUid" $featuredPromos) | default (where .Site.RegularPages "Type" "==" "promos") -}}
 
 {{ if $promos }}
 <div id="{{ $carouselId }}" class="promo-carousel pt-2 carousel carousel-fade slide" data-interval="false" data-touch="true" data-ride="carousel">
