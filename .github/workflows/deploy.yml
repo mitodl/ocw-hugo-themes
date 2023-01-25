@@ -46,9 +46,6 @@ jobs:
 
       - name: Run webpack build
         run: npm run build:webpack -- --output-path=../ocw-www/public/static_shared/
-
-      - name: Copy webpack build to course
-        run: mkdir -p ../ocw-course/public-v1/ && cp -r ../ocw-www/public/static_shared/ ../ocw-course/public-v1/
       
       - name: Copy webpack build to course v2
         run: mkdir -p ../ocw-course/public-v2/ && cp -r ../ocw-www/public/static_shared/ ../ocw-course/public-v2/
