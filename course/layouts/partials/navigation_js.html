@@ -1,5 +1,0 @@
-{{ $navjs := resources.Get "js/navigation.js" }}
-{{ $minified := $navjs | resources.Minify }}
-<script>
-{{ $minified.Content | safeJS }}
-</script>

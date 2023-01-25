@@ -47,23 +47,11 @@ jobs:
       - name: Run webpack build
         run: npm run build:webpack -- --output-path=../ocw-www/public/static/
 
-      - name: Copy webpack build to course
-        run: mkdir -p ../ocw-course/public-v1/ && cp -r ../ocw-www/public/static/ ../ocw-course/public-v1/
-      
       - name: Copy webpack build to course v2
         run: mkdir -p ../ocw-course/public-v2/ && cp -r ../ocw-www/public/static/ ../ocw-course/public-v2/
 
       - name: Run the www hugo build
         run: (cd ../ocw-www; hugo --config $GITHUB_WORKSPACE/ocw-hugo-projects/ocw-www/config.yaml --themesDir ../ocw-hugo-themes)
-        env:
-          OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
-          SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
-          OCW_COURSE_STARTER_SLUG: ${{ secrets.OCW_COURSE_STARTER_SLUG }}
-          STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
-          RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
-  
-      - name: Run the course hugo build
-        run: (cd ../ocw-course; hugo --config $GITHUB_WORKSPACE/ocw-hugo-projects/ocw-course/config.yaml  --destination public-v1 --themesDir ../ocw-hugo-themes)
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
           SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
@@ -94,21 +82,6 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-      
-      - name: Deploy Course Preview to Netlify
-        uses: nwtgck/actions-netlify@v1.1
-        if: ${{ github.event_name == 'pull_request' }}
-        with:
-          publish-dir: '../ocw-course/public-v1'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Deploy from GitHub Actions"
-          enable-pull-request-comment: false
-          enable-commit-comment: false
-          overwrites-pull-request-comment: false
-          alias: ocw-hugo-themes-course-pr-${{ github.event.number }}
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
       - name: Deploy v2 Course Preview to Netlify
         uses: nwtgck/actions-netlify@v1.1
@@ -128,7 +101,7 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          body=$(echo 'Netlify Deployments:<br>www: https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/ <br> Course v1: https://ocw-hugo-themes-course-pr-${{ github.event.number }}--ocw-next.netlify.app/ <br> Course v2: https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/')
+          body=$(echo 'Netlify Deployments:<br>www: https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/ <br> Course v2: https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/')
           echo ::set-output name=body::$body
       
       - name: Find Comment

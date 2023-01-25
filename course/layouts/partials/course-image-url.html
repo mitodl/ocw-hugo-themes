@@ -1,8 +1,0 @@
-{{- $courseData := .Site.Data.course -}}
-{{- $courseImageUid := $courseData.course_image.content -}}
-{{- $courseImageMetadata := (dict "Params" (dict "file" "None" "image_metadata" (dict "image-alt" "" "caption" ""))) -}}
-{{- if $courseImageUid -}}
-{{- $courseImageMetadata = partial "resource_metadata.html" $courseImageUid }}
-{{- end -}}
-{{- $courseImageUrl := partial "resource_url.html" (dict "context" . "url" $courseImageMetadata.Params.file) -}}
-{{ return (slice $courseImageUrl $courseImageMetadata )}}

@@ -1,4 +1,0 @@
-{
-  "title": {{- .Title | jsonify -}},
-  "content": {{- .Plain | jsonify  -}}
-}
