@@ -11,8 +11,8 @@ const devOverrides: Configuration = {
   mode: "development",
 
   output: {
-    path:       path.join(__dirname, "../../dist/static"),
-    publicPath: "/static",
+    path:       path.join(__dirname, "../../dist/static_shared"),
+    publicPath: "/static_shared",
     filename:   "js/[name].js"
   },
 

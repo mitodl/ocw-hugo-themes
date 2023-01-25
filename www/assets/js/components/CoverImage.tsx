@@ -39,12 +39,12 @@ export default function CoverImage({ object }: Props) {
               alt={altText}
             />
             <img
-              src="/images/video_play_overlay.png"
+              src="/static_shared/images/video_play_overlay.png"
               className="video-play-icon"
               alt=""
             />
             <img
-              src="/images/mobile_video_thumbnail.png"
+              src="/static_shared/images/mobile_video_thumbnail.png"
               className="mobile-video-icon"
               alt={altText}
             />

@@ -3,7 +3,7 @@ import React from "react"
 export default function Footer() {
   return (
     <footer className="search-footer px-2">
-      <img src="/images/mit-ol.png" width="140px" />
+      <img src="/static_shared/images/mit-ol.png" width="140px" />
       <div className="mt-4">
         <a
           className="text-muted"

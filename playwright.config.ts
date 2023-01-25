@@ -33,7 +33,7 @@ const config: PlaywrightTestConfig = {
   ],
   webServer: {
     command:             "yarn start:webpack",
-    url:                 `http://0.0.0.0:${env.WEBPACK_PORT}/static/css/main.css`,
+    url:                 `http://0.0.0.0:${env.WEBPACK_PORT}/static_shared/css/main.css`,
     reuseExistingServer: !process.env.CI
   },
   globalSetup: path.resolve(__dirname, "./tests-e2e/global-setup.ts")

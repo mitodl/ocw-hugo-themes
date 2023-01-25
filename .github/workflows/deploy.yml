@@ -45,10 +45,10 @@ jobs:
           path: "ocw-hugo-projects"
 
       - name: Run webpack build
-        run: npm run build:webpack -- --output-path=../ocw-www/public/static/
-
+        run: npm run build:webpack -- --output-path=../ocw-www/public/static_shared/
+      
       - name: Copy webpack build to course v2
-        run: mkdir -p ../ocw-course/public-v2/ && cp -r ../ocw-www/public/static/ ../ocw-course/public-v2/
+        run: mkdir -p ../ocw-course/public-v2/ && cp -r ../ocw-www/public/static_shared/ ../ocw-course/public-v2/
 
       - name: Run the www hugo build
         run: (cd ../ocw-www; hugo --config $GITHUB_WORKSPACE/ocw-hugo-projects/ocw-www/config.yaml --themesDir ../ocw-hugo-themes)
