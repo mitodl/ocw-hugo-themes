@@ -1,5 +1,3 @@
-import "../../node_modules/nanogallery2/src/css/nanogallery2.css"
-
 import "./css/www.scss"
 import "./css/search.scss"
 
