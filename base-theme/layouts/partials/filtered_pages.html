@@ -1,0 +1,7 @@
+{{- $pages := .context.Site.RegularPages -}}
+{{- $result := slice -}}
+{{- $featuredPagesUid := .featuredPagesUid -}}
+{{ range $featuredPagesUid}}
+  {{ $result = $result | append (where $pages "Params.uid" "==" .) }}
+{{ end }}
+{{ return $result }}
