@@ -14,7 +14,6 @@ const fromRoot = (pathFromRoot: string) =>
   path.resolve(__dirname, "../../../", pathFromRoot)
 
 const entryNames = {
-  courseV1: "course_v1",
   courseV2: "course_v2",
   www:      "www",
   fields:   "fields"
