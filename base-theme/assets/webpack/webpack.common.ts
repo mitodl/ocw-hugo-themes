@@ -14,9 +14,10 @@ const fromRoot = (pathFromRoot: string) =>
   path.resolve(__dirname, "../../../", pathFromRoot)
 
 const entryNames = {
-  courseV2: "course_v2",
-  www:      "www",
-  fields:   "fields"
+  instructorInsights: "instructor_insights",
+  courseV2:           "course_v2",
+  www:                "www",
+  fields:             "fields"
 }
 
 const config: webpack.Configuration = {
@@ -28,6 +29,9 @@ const config: webpack.Configuration = {
     [entryNames.courseV2]: [
       fromRoot("./course-v2/assets/course-v2.ts"),
       fromRoot("./base-theme/assets/index.ts")
+    ],
+    [entryNames.instructorInsights]: [
+      fromRoot("./course-v2/assets/css/instructor-insights.scss")
     ],
     [entryNames.www]: [
       fromRoot("./www/assets/www.tsx"),
