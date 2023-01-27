@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.83.1 (Released January 27, 2023)
+--------------
+
+- remove 4 deps included in nanogallery2 (#1054)
+- refactor: old course theme removed (#1051)
+- add pre-commit config (#1048)
+- change TS config to target ES6 modules (#1044)
+
 Version 1.83.0 (Released January 24, 2023)
 --------------
 
