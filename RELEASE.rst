@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.83.1
+Version 1.83.1 (Released January 27, 2023)
 --------------
 
 - remove 4 deps included in nanogallery2 (#1054)
