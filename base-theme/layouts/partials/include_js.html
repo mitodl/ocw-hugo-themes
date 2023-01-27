@@ -1,5 +1,7 @@
 {{ $context := .context }}
 {{ $urls := .urls }}
 {{ range $url := $urls }}
-    <script src="{{ partial "webpack_url.html" (dict "context" $context "url" $url) }}"></script>
+    {{ with $url }}
+    <script src="{{ partial "webpack_url.html" (dict "context" $context "url" . ) }}"></script>
+    {{ end }}
 {{ end }}
