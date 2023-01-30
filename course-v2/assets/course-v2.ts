@@ -20,6 +20,7 @@ import {
   checkAnswer,
   showSolution
 } from "./js/quiz_multiple_choice"
+import "video.js/dist/video-js.css"
 import "videojs-youtube"
 
 $(function() {

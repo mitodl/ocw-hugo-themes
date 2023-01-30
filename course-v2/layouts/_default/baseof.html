@@ -178,10 +178,9 @@
 
   {{ partialCached "navigation_js.html" . }}
   {{ partialCached "responsive_tables_js.html" . }}
-  {{- $theme := .Site.Data.webpack.main -}}
-  {{- $courseTheme := .Site.Data.webpack.course_v2 -}}
-  {{ partial "include_js.html" (dict "context" . "url" $theme.js) }}
-  {{ partial "include_js.html" (dict "context" . "url" $courseTheme.js) }}
+  {{- $webpack := .Site.Data.webpack -}}
+  {{- $js_urls := slice $webpack.common.js $webpack.course_v2.js -}}
+  {{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
   <!-- Appzi: Capture Insightful Feedback -->
   {{ partial "mathjax_if_necessary.html" (dict "context" .) }}
 
