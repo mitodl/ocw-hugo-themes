@@ -1,0 +1,192 @@
+{{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
+<!doctype html>
+<html lang="{{ $.Site.Language.Lang }}">
+{{ partial "head.html" . }}
+<body class="course-home-page">
+  {{ if $gtmId }}
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId }}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  {{ end }}
+  <div class="overflow-auto">
+    {{ partialCached "mobile_course_nav.html" . }}
+    {{ partialCached "mobile_course_info.html" . }}
+    {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
+    {{ $isCourseHomePage := (eq .Params.layout "course_home") }}
+    {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
+
+    <div id="course-main-content">
+      <div class="row">
+        <div class="col-12 course-home-grid">
+          <div class="medium-and-below-only">
+            <div class="d-flex align-items-center mb-3">
+              <div class="col-6 px-0">
+                {{ partial "mobile_nav_toggle.html" . }}
+              </div>
+              <div class="col-6 px-0">
+                {{ partial "course_info_toggle.html" (dict "isCourseHomePage" $isCourseHomePage) }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row course-cards">
+        <div class="col-2 course-home-grid large-and-above-only">  
+          {{ partialCached "desktop_nav.html" . }}
+        </div>
+        <div class="col-sm-12 col-lg-10 course-home-grid">
+          <div class="">
+            <div class="card">
+              <div class="d-flex">
+                <div class="col-12 p-0" id="main-course-section">
+                  <div class="card-body">
+                    {{ if not $isCourseHomePage }}
+                      <button 
+                        type="button" 
+                        class="btn show-course-info large-and-above-only"
+                        id="show-desktop-course-drawer"
+                        aria-label="Show Course Info"
+                        >
+                        <img src="/static_shared/images/left_arrow.svg" alt=""/>
+                      </button>
+                    {{ end }} 
+                    {{ block "main" . }}{{ end }}
+                  </div>
+                </div>
+                {{/*  adding d-none class here as this section (with id="desktop-course-drawer") is being controlled (shown/hidden) 
+                via script written below hence hidden at the start to avoid a quick glitch  */}}
+                <div class="p-0 large-and-above-only d-none" id="desktop-course-drawer">
+                  {{ if not $isCourseHomePage }}
+                    {{ partialCached "desktop_course_info.html" . }}
+                  {{ end }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{ block "footer" . }}{{ partial "footer-v2" . }}{{end}}
+  </div>
+  {{ partialCached "hide_offline_links.html" . }}
+  <script>
+    // Script for maintaining and toggling course drawer state
+    // note: This script is placed here instead of being in the bundle so it runs as soon as the HTML is rendered 
+    // this way, a glitch/layout thrashing in the course drawer is avoided.
+    // code for toggling the course drawer has also been placed here to avoid code duplication.
+    
+    // constants
+    'use strict';
+    const COURSE_DRAWER_LOCAL_STORAGE_KEY = "desktopCourseDrawerState"
+    const COURSE_DRAWER_OPENED = "opened"
+    const COURSE_DRAWER_CLOSED = "closed"
+    // IDs of elements
+    const DESKTOP_COURSE_DRAWER_ID = "desktop-course-drawer"
+    const SHOW_COURSE_DRAWER_BTN_ID = "show-desktop-course-drawer"
+    const HIDE_COURSE_DRAWER_BTN_ID = "hide-desktop-course-drawer"
+    const MAIN_COURSE_SECTION_ID = "main-course-section"
+
+    try{
+
+      /*
+      * Checks if user has already selected any option/state for drawer then it sets that else keep it open by default
+      */
+      function maintainDesktopCourseDrawerState() {
+        const isCourseDrawerOpen = getLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY)
+        if (isCourseDrawerOpen === null) {
+          // No preference found so setting to "opened" as default and opening the drawer
+          setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
+          showOrHideDesktopCourseDrawer(COURSE_DRAWER_OPENED)
+        } else {
+          showOrHideDesktopCourseDrawer(isCourseDrawerOpen)
+        }
+      }
+
+      /*
+      * Adds and defines "click" event listeners for show-drawer and hide-drawer buttons, making this function act as a drawer toggler.
+      */
+      function toggleDesktopCourseDrawer() {
+        const showCourseDrawerBtn = document.getElementById(SHOW_COURSE_DRAWER_BTN_ID)
+        const hideCourseDrawerBtn = document.getElementById(HIDE_COURSE_DRAWER_BTN_ID)
+        showCourseDrawerBtn.addEventListener("click", () => {
+          setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
+          showOrHideDesktopCourseDrawer(COURSE_DRAWER_OPENED)
+        })
+        hideCourseDrawerBtn.addEventListener("click", () => {
+          setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_CLOSED)
+          showOrHideDesktopCourseDrawer(COURSE_DRAWER_CLOSED)
+        })
+      }
+
+      // helper functions
+
+      function showOrHideDesktopCourseDrawer(state) {
+        const desktopCourseDrawer = document.getElementById(DESKTOP_COURSE_DRAWER_ID)
+        const showCourseDrawerBtn = document.getElementById(SHOW_COURSE_DRAWER_BTN_ID)
+        const mainCourseSection = document.getElementById(MAIN_COURSE_SECTION_ID)
+        if (state === COURSE_DRAWER_OPENED) {
+          desktopCourseDrawer.classList.add("col-3")
+          desktopCourseDrawer.classList.remove("d-none")
+          showCourseDrawerBtn.classList.add("d-none")
+          mainCourseSection.classList.add("col-lg-9")
+          mainCourseSection.classList.remove("col-md-12")
+        } else {
+          desktopCourseDrawer.classList.remove("col-3")
+          desktopCourseDrawer.classList.add("d-none")
+          showCourseDrawerBtn.classList.remove("d-none")
+          mainCourseSection.classList.remove("col-lg-9")
+          mainCourseSection.classList.add("col-md-12")
+        }
+      }
+
+      function setOrGetLocalStorageItem(action,key,value) {
+        try {
+          // checking browser support for localStorage
+          if (typeof Storage !== "undefined") {
+            if (action === "set") {
+              localStorage.setItem(key, value)
+              return true
+            } else {
+              return localStorage.getItem(key)
+            }
+          }
+          console.error("This browser has no web storage support.")
+          return null
+        } catch (e) {
+          console.error("An exception occurred while storing/fetching data in/from localstorage: ", e)
+          return null
+        }
+      }
+
+      function setLocalStorageItem(key, value) {
+        return setOrGetLocalStorageItem("set", key, value)
+      }
+      
+      function getLocalStorageItem(key){
+        return setOrGetLocalStorageItem("get", key)
+      }
+
+      maintainDesktopCourseDrawerState()
+      toggleDesktopCourseDrawer()
+    }
+    catch(e){
+      console.error("Something went wrong in maintaining/toggling course drawer state", e)
+    }
+  </script>
+
+  {{ partialCached "navigation_js.html" . }}
+  {{ partialCached "responsive_tables_js.html" . }}
+  {{- $webpack := .Site.Data.webpack -}}
+  {{- $js_urls := slice $webpack.common.js $webpack.course_v2.js -}}
+  {{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
+  <!-- Appzi: Capture Insightful Feedback -->
+  {{ partial "mathjax_if_necessary.html" (dict "context" .) }}
+
+  <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>
+
+  <!-- End Appzi -->
+</body>
+
+</html>

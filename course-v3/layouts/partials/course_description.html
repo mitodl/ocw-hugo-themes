@@ -1,0 +1,24 @@
+{{ $courseData := .context.Site.Data.course }}
+{{ $shouldCollapseDescription := false }}
+{{ with $courseData.course_description }}
+  {{ $shouldCollapseDescription = gt (len .) 320 }}
+{{ end }}
+<div id="course-description">
+  <div class="course-detail-title">
+    Course Description
+  </div>
+  {{ if $shouldCollapseDescription }}
+  <div id="collapsed-description" class="description">
+    {{- .context.RenderString (truncate 320 $courseData.course_description) -}}
+    {{- partial "link_button.html" (dict "text" "Show more" "id" "expand-description")  -}}
+  </div>
+  <div id="expanded-description" class="description d-none">
+    {{- .context.RenderString $courseData.course_description -}}
+    {{- partial "link_button.html" (dict "text" "Show less" "id" "collapse-description")  -}}
+  </div>
+  {{ else }}
+  <div id="full-description" class="description">
+    {{- .context.RenderString $courseData.course_description -}}
+  </div>
+  {{ end }}
+</div>

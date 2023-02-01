@@ -1,0 +1,11 @@
+{{- $containsVideos := false -}}
+{{- with (.context.GetPage (printf "/%s" .taxonomy)) -}}
+    {{- with .Pages -}}
+      {{- range . -}}
+        {{- if in .Title "Video" -}}
+          {{- $containsVideos = true -}}
+        {{- end -}}
+      {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $containsVideos -}}
