@@ -1,0 +1,7 @@
+{{ $url := .menuItem.URL }}
+{{ $noHttpPrefix := not (strings.HasPrefix $url "http") }}
+{{ $noHtmlSuffix := not (strings.HasSuffix $url ".html") }}
+{{ if and $noHttpPrefix $noHtmlSuffix }}
+  {{ $url = printf "%s/index.html" (strings.TrimSuffix "/" $url) }}
+{{ end }}
+{{ return $url }}
