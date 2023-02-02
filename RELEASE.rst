@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.84.0
+Version 1.84.0 (Released February 02, 2023)
 --------------
 
 - Deduplicate webpack assets (#1059)
