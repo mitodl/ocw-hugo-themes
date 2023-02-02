@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.84.0 (Released February 02, 2023)
+--------------
+
+- Deduplicate webpack assets (#1059)
+- Updated error message (#879)
+- Updated promo carousel to handle featured promos (#1053)
+- collect and isolate shared static assets (#1056)
+
 Version 1.83.1 (Released January 27, 2023)
 --------------
 
