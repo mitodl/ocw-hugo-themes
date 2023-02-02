@@ -1,0 +1,12 @@
+{{ $showNoResourcesFoundMessage := true }}
+{{ with (.context.GetPage (printf "/%s" .taxonomy)) }}
+    {{ with .Pages }}
+      {{ range . }}
+        {{ $resources := where .Pages "Params.content_type" "resource" }}
+        {{ if gt (len $resources) 0 }}
+            {{ $showNoResourcesFoundMessage = false }}
+        {{ end }}
+      {{ end }}
+  {{ end }}
+{{ end }}
+{{ return $showNoResourcesFoundMessage }}
