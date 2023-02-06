@@ -181,7 +181,6 @@
     let videoJSImported = false
     if (hasVideoJS ==="true" && !videoJSImported) {
       var script = document.createElement("script");
-      var link = document.createElement("link");
       script.src = "base-theme/dist/static_shared/js/videoJS.js";
       document.body.appendChild(script);
       videoJSImported = true;
