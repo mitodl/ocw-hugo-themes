@@ -1,6 +1,16 @@
 {{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
 <!doctype html>
 <html lang="{{ $.Site.Language.Lang }}">
+  <script>
+    let videoJSImported = false;
+    let hasVideoJS = localStorage.getItem('hasVideoJS');
+    if (hasVideoJS === 'true' && !videoJSImported) {
+      var script = document.createElement("script");
+      script.src = "../../assets/videojs-imports.ts";
+      document.body.appendChild(script);
+      videoJSImported = true;
+    }
+  </script>
 {{ partial "head.html" . }}
 <body class="course-home-page">
   {{ if $gtmId }}

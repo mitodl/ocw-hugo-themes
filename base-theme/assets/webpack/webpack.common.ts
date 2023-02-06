@@ -28,6 +28,7 @@ const config: webpack.Configuration = {
   entry: {
     [entryNames.courseV2]: [
       fromRoot("./course-v2/assets/course-v2.ts"),
+      fromRoot("./course-v2/assets/videojs-imports.ts"),
       fromRoot("./base-theme/assets/index.ts")
     ],
     [entryNames.instructorInsights]: [
