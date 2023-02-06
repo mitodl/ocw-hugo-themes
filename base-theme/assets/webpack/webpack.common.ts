@@ -6,6 +6,11 @@ import AssetsPlugin from "assets-webpack-plugin"
 import Dotenv from "dotenv-webpack"
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import packageJson from "../../../package.json"
+process.env.WEBPACK_ANALYZE = "true"
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// const useVideoJS = JSON.parse(localStorage.getItem("hasVideoJS") || "")
+
+// console.log(hasVideoJS)
 
 /**
  * Resolve a path relative to package root.
@@ -17,7 +22,8 @@ const entryNames = {
   instructorInsights: "instructor_insights",
   courseV2:           "course_v2",
   www:                "www",
-  fields:             "fields"
+  fields:             "fields",
+  videoJS:            "videojs"
 }
 
 const config: webpack.Configuration = {
@@ -28,7 +34,6 @@ const config: webpack.Configuration = {
   entry: {
     [entryNames.courseV2]: [
       fromRoot("./course-v2/assets/course-v2.ts"),
-      fromRoot("./course-v2/assets/videojs-imports.ts"),
       fromRoot("./base-theme/assets/index.ts")
     ],
     [entryNames.instructorInsights]: [
@@ -41,7 +46,8 @@ const config: webpack.Configuration = {
     [entryNames.fields]: [
       fromRoot("./fields/assets/fields.js"),
       fromRoot("./base-theme/assets/index.ts")
-    ]
+    ],
+    [entryNames.videoJS]: [fromRoot("./course-v2/assets/videojs-imports.ts")]
   },
 
   output: {

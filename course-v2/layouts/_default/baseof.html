@@ -177,11 +177,12 @@
   </script>
 
   <script>
-    let videoJSImported = false;
-    let hasVideoJS = localStorage.getItem('hasVideoJS');
-    if (hasVideoJS === 'true' && !videoJSImported) {
+    const hasVideoJS = localStorage.getItem('hasVideoJS');
+    let videoJSImported = false
+    if (hasVideoJS ==="true" && !videoJSImported) {
       var script = document.createElement("script");
-      script.src = "../../assets/videojs-imports.ts";
+      var link = document.createElement("link");
+      script.src = "base-theme/dist/static_shared/js/videoJS.js";
       document.body.appendChild(script);
       videoJSImported = true;
     }
