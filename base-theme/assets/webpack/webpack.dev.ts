@@ -45,7 +45,7 @@ const devOverrides: Configuration = {
         "dist/**/*.js",
         "dist/**/*.css",
         "data/webpack.json"
-      ]
+      ],
     }),
 
     new MiniCssExtractPlugin({

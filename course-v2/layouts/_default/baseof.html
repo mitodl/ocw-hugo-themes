@@ -179,9 +179,9 @@
   <script>
     const hasVideoJS = localStorage.getItem('hasVideoJS');
     let videoJSImported = false
-    if (hasVideoJS ==="true" && !videoJSImported) {
+    if (hasVideoJS === "true" && !videoJSImported) {
       var script = document.createElement("script");
-      script.src = "base-theme/dist/static_shared/js/videoJS.js";
+      script.src = "http://localhost:3001/static_shared/js/videojs.js";
       document.body.appendChild(script);
       videoJSImported = true;
     }
