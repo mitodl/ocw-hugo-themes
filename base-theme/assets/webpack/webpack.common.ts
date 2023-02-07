@@ -42,9 +42,7 @@ const config: webpack.Configuration = {
       fromRoot("./fields/assets/fields.js"),
       fromRoot("./base-theme/assets/index.ts")
     ],
-    [entryNames.videojs]: [
-      fromRoot("./course-v2/assets/videojs-imports.ts"),
-    ]
+    [entryNames.videojs]: [fromRoot("./course-v2/assets/videojs-imports.ts")]
   },
 
   output: {

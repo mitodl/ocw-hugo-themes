@@ -1,4 +1,5 @@
 import "../../node_modules/nanogallery2/src/css/nanogallery2.css"
+import "video.js/dist/video-js.css"
 
 import "offcanvas-bootstrap/dist/js/bootstrap.offcanvas.js"
 import "nanogallery2/src/jquery.nanogallery2.core.js"
