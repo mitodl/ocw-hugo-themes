@@ -36,3 +36,8 @@ $(function() {
   initVideoFullscreenToggle()
   initCourseDrawersClosingViaSwiping()
 })
+
+// @ts-expect-error declaring on window would be better
+window.initVideoJS = () => import("./js/initVideoJS").then(myModule => {
+  myModule.initVideoJS()
+})
