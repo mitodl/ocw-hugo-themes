@@ -30,3 +30,9 @@
         <track kind="captions" src="{{ .captionsLocation }}" srclang="en" label="English" default>
   {{ end }}
 </div>
+<script src="http://localhost:3001/static_shared/js/videojs.js"></script>
+<script>
+  window.initVideoJS().then(function(initVideoJS) {
+    initVideoJS()
+  })
+</script>
