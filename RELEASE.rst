@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.85.0
+--------------
+
+- remove zip file existence check (#1077)
+- Changed course number detail colour to white for better contarst (#1061)
+- add ocw-course-v3 and course-offline-v2 (#1068)
+- team listing updated: Jennifer Carter added (#1067)
+
 Version 1.84.0 (Released February 02, 2023)
 --------------
 
