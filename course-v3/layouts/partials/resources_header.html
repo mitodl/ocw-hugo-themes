@@ -1,9 +1,7 @@
 {{- $zenDeskUrl := "https://mitocw.zendesk.com/hc/en-us/articles/4414681093659-I-have-downloaded-an-MIT-OpenCourseWare-course-but-I-can-t-access-the-materials-How-do-I-get-started-" -}}
 {{- $downloadCourseUrl := partial "get_course_download_url.html" . -}}
-{{- $zipExists := partial "file_exists_at_url.html" (dict "context" . "url" $downloadCourseUrl ) -}}
 {{- $noResourcesFound := partial "show_no_resources_found.html" (dict "context" . "taxonomy" "learning_resource_types") -}}
 {{- $containsVideos := partial "contains_videos.html" (dict "context" . "taxonomy" "learning_resource_types") -}}
-{{- if $zipExists -}}
 <div class="mb-2">
   <h2>Download</h2>
   <div class="hide-offline download-course-container background-color-light-grey p-3">
@@ -21,6 +19,6 @@
     </div>
   </div>
 </div>
-{{- else if $noResourcesFound -}}
+{{- if $noResourcesFound -}}
   {{ partial "no_resources_found.html" }}
 {{- end -}}
