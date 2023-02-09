@@ -1,8 +1,9 @@
-{{ $menu := index .Site.Menus "leftnav" }}
+{{ $menu := index .context.Site.Menus "leftnav" }}
+{{ $device := .device }}
 <nav id="course-nav" class="course-nav">
   <ul class="w-100 m-auto list-unstyled">
     {{ range $menu }}
-      {{ partial "nav_item.html" (dict "menuItem" .) }}
+      {{ partial "nav_item.html" (dict "menuItem" . "device" $device) }}
     {{ end }}
   </ul>
 </nav>

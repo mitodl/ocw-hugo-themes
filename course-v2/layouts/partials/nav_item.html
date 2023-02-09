@@ -1,4 +1,5 @@
 {{ $id := .menuItem.Identifier }}
+{{ $device := .device }}
 {{ $hasParent := isset . "parentId" }}
 {{ $hasChildren := .menuItem.HasChildren }}
 {{ $url := partial "nav_url.html" . }}
@@ -14,9 +15,9 @@
     </span>
     {{ if .menuItem.HasChildren }}
     <a class="course-nav-section-toggle"
-      href="#nav-container_{{ .menuItem.Identifier }}"
+      href="#nav-container_{{ $device }}_{{ .menuItem.Identifier }}"
       data-toggle="collapse"
-      aria-controls="nav-container_{{ .menuItem.Identifier }}"
+      aria-controls="nav-container_{{ $device }}_{{ .menuItem.Identifier }}"
       aria-expanded=""
       data-uuid="{{ .menuItem.Identifier }}">
       <i class="material-icons md-18"></i>
@@ -27,10 +28,10 @@
   <span class="medium-and-below-only"><hr/></span>
   {{ end }}
   <div class="collapse"
-    id="nav-container_{{ .menuItem.Identifier }}">
+    id="nav-container_{{ $device }}_{{ .menuItem.Identifier }}">
     <ul class="course-nav-child-nav m-auto">
       {{ range .menuItem.Children }}
-        {{ partial "nav_item.html" (dict "menuItem" . "parentId" $id ) }}
+        {{ partial "nav_item.html" (dict "menuItem" . "parentId" $id "device" $device) }}
       {{ end }}
     </ul>
   </div>
