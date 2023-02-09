@@ -1,4 +1,5 @@
 {{ $index := .index }}
+{{ $device := .device }}
 {{ $context := .context }}
 {{ $subtopics := slice }}
 {{ if not (eq .subtopics nil) }}
@@ -8,9 +9,9 @@
 <div class="position-relative pt-1 pb-1{{ if gt (len $subtopics) 0 }} pl-4 ml-n2 {{ end }}">
   {{ if gt (len $subtopics) 0 }}
   <a class="topic-toggle"
-    href="#subtopic-container_{{ $index }}"
+    href="#subtopic-container_{{ $device }}_{{ $index }}"
     data-toggle="collapse"
-    aria-controls="subtopic-container_{{ $index }}"
+    aria-controls="subtopic-container_{{ $device }}_{{ $index }}"
     aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}">
     <i class="material-icons"></i>
   </a>
@@ -22,7 +23,7 @@
   </span>
 </div>
 {{ if gt (len $subtopics) 0 }}
-<div class="pl-4 subtopic-container collapse{{if eq $index 0 }} show{{ end }}" id="subtopic-container_{{ $index }}">
+<div class="pl-4 subtopic-container collapse{{if eq $index 0 }} show{{ end }}" id="subtopic-container_{{ $device }}_{{ $index }}">
   {{ $scratch.Set "index" 0 }}
   {{ range $subtopic, $specialities := $subtopics }}
   {{ $subtopicIndex := $scratch.Get "index" }}
