@@ -1,4 +1,0 @@
-{{- $domain := strings.TrimSuffix "/" (getenv "STATIC_API_BASE_URL") -}}
-{{- $trimmedBaseUrl := strings.TrimPrefix "/" (strings.TrimSuffix "/" site.BaseURL) -}}
-{{- $shortId := site.Data.course.site_short_id -}}
-{{- return printf "%v/%v/%v.zip" $domain $trimmedBaseUrl $shortId -}}
