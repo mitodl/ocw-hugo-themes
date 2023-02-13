@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.85.1
+--------------
+
+- Adding Shira Segal to OCW Team listing (#1080)
+
 Version 1.85.0 (Released February 09, 2023)
 --------------
 
