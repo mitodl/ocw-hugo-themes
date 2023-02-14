@@ -1,8 +1,0 @@
-.drawer {
-  background: white;
-  max-width: 50% !important;
-
-  @include media-breakpoint-down(xs) {
-    max-width: 75% !important;
-  }
-}
