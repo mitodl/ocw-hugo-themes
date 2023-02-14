@@ -1,5 +1,5 @@
 <div class="mb-2 border-gray rounded video-gallery-card">
-  <a class="video-link" href="{{- .RelPermalink -}}">
+  <a class="video-link" href="{{ partial "page_url.html" (dict "context" . "url" .RelPermalink) }}">
     <div class="inner-container">
       <div class="left-col">
         {{- if isset .Params.video_files "video_thumbnail_file" -}}
