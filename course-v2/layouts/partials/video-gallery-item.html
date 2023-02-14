@@ -3,7 +3,7 @@
     <div class="inner-container">
       <div class="left-col">
         {{- if isset .Params.video_files "video_thumbnail_file" -}}
-        <img class="thumbnail" src ="{{ .Params.video_files.video_thumbnail_file }}" alt="" />
+        <img class="thumbnail" src="{{ .Params.video_files.video_thumbnail_file }}" alt="" />
         {{- else -}}
         <img class="youtube-logo-overlay" src="/static_shared/images/youtube.svg" alt="YouTube" />
         {{- end -}}
