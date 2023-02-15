@@ -16,5 +16,5 @@
       />
     </button>
   </h3>
-  {{ partial "nav.html" . }}
+  {{ partial "nav.html" (dict "context" . "device" "mobile") }}
 </div>
