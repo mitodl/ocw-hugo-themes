@@ -82,7 +82,7 @@ const config: webpack.Configuration = {
             ]
           },
           {
-            use:  [
+            use: [
               {
                 loader:  "file-loader",
                 options: {
@@ -90,8 +90,8 @@ const config: webpack.Configuration = {
                 }
               }
             ]
-          },
-        ],
+          }
+        ]
       },
       {
         test:    /\.(t|j)sx?$/,
