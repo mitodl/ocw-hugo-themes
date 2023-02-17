@@ -66,7 +66,7 @@ const config: webpack.Configuration = {
         ]
       },
       {
-        test: /\.(woff|ttf|woff2|eot)$/,
+        test:  /\.(woff|ttf|woff2|eot)$/,
         oneOf: [
           {
             test: /nanogallery2/,
@@ -76,7 +76,7 @@ const config: webpack.Configuration = {
                 options: {
                   publicPath: "./",
                   outputPath: "css",
-                  name: "fonts/[contenthash].[ext]"
+                  name:       "fonts/[contenthash].[ext]"
                 }
               }
             ]
