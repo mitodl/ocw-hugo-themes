@@ -27,6 +27,7 @@ $(function() {
 })
 
 // @ts-expect-error for window.initVideoJS()
-window.initVideoJS = () => import("./videojs-imports").then(module => {
-  module.initVideoJS()
-})
+window.initVideoJS = () =>
+  import("./videojs-imports").then(module => {
+    module.initVideoJS()
+  })

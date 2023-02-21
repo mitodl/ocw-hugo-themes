@@ -12,4 +12,3 @@ export const initVideoJS = () => {
   initVideoTranscriptTrack()
   initVideoFullscreenToggle()
 }
-

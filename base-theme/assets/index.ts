@@ -23,7 +23,6 @@ window.jQuery = $
 window.$ = $
 window.Popper = Popper
 window.PDFObject = PDFObject
-window.test = "String"
 
 $(function() {
   window.Sentry = initSentry()
