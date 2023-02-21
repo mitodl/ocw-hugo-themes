@@ -9,7 +9,6 @@ import PDFObject from "pdfobject"
 import "./js/polyfill"
 
 export interface OCWWindow extends Window {
-  test: string
   $: JQueryStatic
   jQuery: JQueryStatic
   Popper: typeof Popper
