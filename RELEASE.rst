@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.85.2 (Released February 21, 2023)
+--------------
+
+- remove download button from offline site (#1085)
+- fix offline video gallery item url (#1084)
+- fix: duplicate IDs (#1074)
+- remove course-v3 and course-offline-v3 (#1081)
+
 Version 1.85.1 (Released February 13, 2023)
 --------------
 
