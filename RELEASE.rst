@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.85.2
+Version 1.85.2 (Released February 21, 2023)
 --------------
 
 - remove download button from offline site (#1085)
