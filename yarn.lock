@@ -13151,6 +13151,7 @@ __metadata:
     postcss-preset-env: ^6.7.0
     prettier-eslint: 13.0.0
     prettier-eslint-cli: ^7.1.0
+    promise-polyfill: ^8.3.0
     raf: ^3.4.1
     ramda: ^0.27.0
     react: ^16.13.1
@@ -14895,6 +14896,13 @@ __metadata:
   version: 8.2.0
   resolution: "promise-polyfill@npm:8.2.0"
   checksum: e1edbf249259e64819d801b5cb59cf218e52d603bf7b23083a8f40ab4015f25b7de0c8373b26322643c7ab234fa37103f39f9c92b15d31249487546cd8e2be9b
+  languageName: node
+  linkType: hard
+
+"promise-polyfill@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "promise-polyfill@npm:8.3.0"
+  checksum: 206373802076c77def0805758d0a8ece64120dfa6603f092404a1004211f8f2f67f33cadbc35953fc2a8ed0b0d38c774e88bdf01e20ce7a920723a60df84b7a5
   languageName: node
   linkType: hard
 
