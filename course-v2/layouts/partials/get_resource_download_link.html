@@ -1,5 +1,6 @@
 {{- $resourceParams := . -}}
 {{- $downloadLink := $resourceParams.file | default nil -}}
+
 {{ if and (eq $downloadLink nil) (eq $resourceParams.resourcetype "Video") }}
   {{ $downloadLink = $resourceParams.video_files.archive_url }}
 {{ else if $downloadLink }}
