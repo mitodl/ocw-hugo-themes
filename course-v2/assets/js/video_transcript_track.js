@@ -10,13 +10,18 @@ export const initVideoTranscriptTrack = () => {
         window.videojs = videojs
         require("videojs-transcript-ac")
 
-        const options = {
-          showTitle:         false,
-          showTrackSelector: false
-        }
+        let transcript = null
+        const hasTextTracks = this.textTracks().length !== 0
 
-        // @ts-expect-error TODO
-        const transcript = this.transcript(options)
+        if (hasTextTracks) {
+          const options = {
+            showTitle:         false,
+            showTrackSelector: false
+          }
+
+          // @ts-expect-error TODO
+          transcript = this.transcript(options)
+        }
 
         if (videoPlayer.closest(".video-page")) {
           // @ts-expect-error TODO
@@ -25,7 +30,7 @@ export const initVideoTranscriptTrack = () => {
             .querySelector(".transcript")
             ?.querySelector(".video-tab-content-section")
 
-          if (transcriptContainer) {
+          if (transcript && transcriptContainer) {
             transcriptContainer.appendChild(transcript.el())
           }
         }
