@@ -38,8 +38,11 @@
         {{ $paramsWithAlphabeticTitles = $paramsWithAlphabeticTitles | append $paramsWithAlphabeticTitleAndIndex }}
       {{ end }}  
     {{ end }}
-    {{ template "renderSortedResources" (dict "resourcesToRender" (sort ($paramsWithNumericTitles) ".numericalTitle" "asc") "resources" $resources "limitResources" $limitResources "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon ) }}
-    {{ template "renderSortedResources" (dict "resourcesToRender" (sort ($paramsWithAlphabeticTitles) ".alphabeticalTitle" "asc") "resources" $resources "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon ) }}
+    {{ $sortedNumericTitles := sort $paramsWithNumericTitles ".numericalTitle" "asc" }}
+    {{ $sortedAlphabeticTitles := sort $paramsWithAlphabeticTitles ".alphabeticalTitle" "asc" }}
+    {{ $allParamsWithTitles := append $sortedNumericTitles $sortedAlphabeticTitles }}
+    
+  {{ template "renderSortedResources" (dict "resourcesToRender" $allParamsWithTitles "resources" $resources "limitResources" $limitResources "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) }}
   {{ else }}
     {{ template "renderResources" (dict "resources" sort (first $limitResources $resources) .Params "title") "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon }}
   {{ end }}
