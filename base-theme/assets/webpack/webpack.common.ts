@@ -51,7 +51,7 @@ const config: webpack.Configuration = {
   module: {
     rules: [
       {
-        test: /nanogallery2/,
+        test: /nanogallery2(?!.*\.(woff|woff2)$)/,
         use:  "imports-loader?module.exports=>undefined&exports=>undefined"
       },
       {
@@ -65,15 +65,31 @@ const config: webpack.Configuration = {
           }
         ]
       },
-
       {
-        test: /\.(woff|ttf|woff2|eot)$/,
-        use:  [
+        test:  /\.(woff|ttf|woff2|eot)$/,
+        oneOf: [
           {
-            loader:  "file-loader",
-            options: {
-              name: "fonts/[fullhash].[ext]"
-            }
+            test: /nanogallery2/,
+            use:  [
+              {
+                loader:  "file-loader",
+                options: {
+                  publicPath: "./",
+                  outputPath: "css",
+                  name:       "fonts/[contenthash].[ext]"
+                }
+              }
+            ]
+          },
+          {
+            use: [
+              {
+                loader:  "file-loader",
+                options: {
+                  name: "fonts/[contenthash].[ext]"
+                }
+              }
+            ]
           }
         ]
       },
