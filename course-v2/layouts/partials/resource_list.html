@@ -2,14 +2,14 @@
   {{ $resources := .resources }}
   {{ $limitResources := .limitResources}}
   {{ range $index, $resourceToRender := (first (int $limitResources) .resourcesToRender) }}
-    {{- partial "resource_list_item.html" (dict "params" . "permalink" (index $resources .resourceIndex).Permalink "hideThumbnail" .hideThumbnail "hideDownloadIcon" .hideDownloadIcon) -}}
+    {{- partial "resource_list_item.html" (dict "params" . "permalink" (index $resources .resourceIndex).Permalink "hideThumbnail" false "hideDownloadIcon" false) -}}
     <hr>
   {{end}}
 {{ end }}
 
 {{ define "renderResources" }}
   {{ range .resources }}
-    {{- partial "resource_list_item.html" (dict "params" .Params "permalink" .Permalink "hideThumbnail" .hideThumbnail "hideDownloadIcon" .hideDownloadIcon) -}}
+    {{- partial "resource_list_item.html" (dict "params" .Params "permalink" .Permalink "hideThumbnail" false "hideDownloadIcon" false) -}}
     <hr>
   {{end}}
 {{ end }}
