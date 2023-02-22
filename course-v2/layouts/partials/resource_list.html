@@ -1,15 +1,14 @@
 {{ define "renderSortedResources" }}
   {{ $resources := .resources }}
-  {{ $limitResources := .limitResources}}
-  {{ range $index, $resourceToRender := (first (int $limitResources) .resourcesToRender) }}
-    {{- partial "resource_list_item.html" (dict "params" . "permalink" (index $resources .resourceIndex).Permalink "hideThumbnail" false "hideDownloadIcon" false) -}}
+  {{ range $resourceToRender :=  .resourcesToRender }}
+    {{- partial "resource_list_item.html" (dict "params" . "permalink" (index $resources .resourceIndex).Permalink "hideThumbnail" .hideThumbnail "hideDownloadIcon" .hideDownloadIcon) -}}
     <hr>
   {{end}}
 {{ end }}
 
 {{ define "renderResources" }}
   {{ range .resources }}
-    {{- partial "resource_list_item.html" (dict "params" .Params "permalink" .Permalink "hideThumbnail" false "hideDownloadIcon" false) -}}
+    {{- partial "resource_list_item.html" (dict "params" .Params "permalink" .Permalink "hideThumbnail" .hideThumbnail "hideDownloadIcon" .hideDownloadIcon) -}}
     <hr>
   {{end}}
 {{ end }}
@@ -42,9 +41,9 @@
     {{ $sortedAlphabeticTitles := sort $paramsWithAlphabeticTitles ".alphabeticalTitle" "asc" }}
     {{ $allParamsWithTitles := append $sortedNumericTitles $sortedAlphabeticTitles }}
     
-  {{ template "renderSortedResources" (dict "resourcesToRender" $allParamsWithTitles "resources" $resources "limitResources" $limitResources "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) }}
+  {{ template "renderSortedResources" (dict "resourcesToRender" (first $limitResources $allParamsWithTitles) "resources" $resources "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) }}
   {{ else }}
-    {{ template "renderResources" (dict "resources" sort (first $limitResources $resources) .Params "title") "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon }}
+    {{ template "renderResources" (dict "resources" (first $limitResources $resources) "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) }}
   {{ end }}
 {{ else }}
   {{ partial "no_resources_found.html" }}
