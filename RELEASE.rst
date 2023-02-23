@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.85.3
+--------------
+
+- check for textTracks before creating transcript (#1091)
+- Fix: Image Gallery Controls Not Rendering (#1088)
+- refactor: remove youtube shortcode (#1069)
+
 Version 1.85.2 (Released February 21, 2023)
 --------------
 
