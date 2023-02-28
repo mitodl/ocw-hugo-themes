@@ -1,16 +1,1 @@
-{{- $port := getenv "WEBPACK_PORT" -}}
-{{- $host := getenv "WEBPACK_HOST" -}}
-{{- $webpackBase := print "http://" $host ":" $port -}}
-{{- if or site.IsServer (not (eq site.BaseURL "")) -}}
-  {{- if or site.IsServer (in site.BaseURL ":3000") -}}
-    {{- if hasPrefix .url "/" -}}
-      {{- print $webpackBase .url -}}
-    {{- else -}}
-      {{- print $webpackBase "/" .url -}}
-    {{- end -}}
-  {{- else -}}
-    {{- partial "site_root_url.html" .url -}}
-  {{- end -}}
-{{- else -}}
-  {{- partial "site_root_url.html" .url -}}
-{{- end -}}
+{{- partial "site_root_url.html" .url -}}

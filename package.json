@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint $PROJECT_CWD/'**/*.{js,jsx,ts,tsx}'",
     "start": "NODE_ENV=development ts-node ./package_scripts/start.ts",
-    "start:webpack": "yarn with-env --dev -- webpack serve --config ./base-theme/assets/webpack/webpack.dev.ts --hot --stats-children",
+    "start:webpack": "yarn with-env --dev -- webpack --config ./base-theme/assets/webpack/webpack.dev.ts --stats-children",
     "start:www": "echo This command has been removed. Use `yarn start www` instead.",
     "start:course": "echo This command has been removed. Use `yarn start course` instead.",
     "start:fields": "echo This command has been removed. Use `yarn start fields` instead.",
