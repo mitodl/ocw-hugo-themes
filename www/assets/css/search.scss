@@ -227,7 +227,10 @@
     }
 
     .layout-buttons-mobile {
-      display: inline-block;
+      @include breakpoint(mobile) {
+        display: inline-block;
+      }
+      display: none;
       float: right;
       padding-right: 20px button {
         height: 32px;
