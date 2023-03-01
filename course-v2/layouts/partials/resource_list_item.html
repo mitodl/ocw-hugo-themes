@@ -23,9 +23,7 @@
           </span>
       {{ end }}
       <div class="pt-2">
-        <a class="resource-list-title" href="{{ .permalink }}">
-          {{ .params.title }}
-        </a>
+        {{partial "resource_list_item_title.html" (dict "permalink" .permalink "title" .params.title)}}
       </div>
     </div>
   </div>
