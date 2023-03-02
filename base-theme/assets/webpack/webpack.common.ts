@@ -17,7 +17,9 @@ const entryNames = {
   instructorInsights: "instructor_insights",
   courseV2:           "course_v2",
   www:                "www",
-  fields:             "fields"
+  wwwOffline:         "www_offline",
+  fields:             "fields",
+  videojs:            "videojs",
 }
 
 const config: webpack.Configuration = {
@@ -35,6 +37,10 @@ const config: webpack.Configuration = {
     ],
     [entryNames.www]: [
       fromRoot("./www/assets/www.tsx"),
+      fromRoot("./base-theme/assets/index.ts")
+    ],
+    [entryNames.wwwOffline]: [
+      fromRoot("./www-offline/assets/www-offline.tsx"),
       fromRoot("./base-theme/assets/index.ts")
     ],
     [entryNames.fields]: [

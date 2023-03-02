@@ -1,5 +1,5 @@
-{{- $parsedUrl := urls.Parse .RelPermalink -}}
-{{- $slashCount := strings.Count "/" .RelPermalink -}}
+{{- $parsedUrl := urls.Parse . -}}
+{{- $slashCount := strings.Count "/" . -}}
 {{- $pathToRoot := "" -}}
 {{- if gt $slashCount 1 -}}
   {{- range seq (sub $slashCount 1) -}}

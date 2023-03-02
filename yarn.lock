@@ -11824,6 +11824,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lunr@npm:^2.3.9":
+  version: 2.3.9
+  resolution: "lunr@npm:2.3.9"
+  checksum: 176719e24fcce7d3cf1baccce9dd5633cd8bdc1f41ebe6a180112e5ee99d80373fe2454f5d4624d437e5a8319698ca6837b9950566e15d2cae5f2a543a3db4b8
+  languageName: node
+  linkType: hard
+
 "m3u8-parser@npm:4.5.2":
   version: 4.5.2
   resolution: "m3u8-parser@npm:4.5.2"
@@ -13146,6 +13153,7 @@ __metadata:
     lodash.has: ^4.5.2
     lodash.toarray: ^4.4.0
     lodash.uppercase: ^4.3.0
+    lunr: ^2.3.9
     mathjax: ^3.2.2
     mini-css-extract-plugin: ^2.6.1
     nanogallery2: ^2.4.2

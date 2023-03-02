@@ -1,0 +1,35 @@
+{{ define "main" }}
+<div>
+  {{ block "header" . }}
+  {{ $renderSearchIcon := index .Params "renderSearchIcon" | default true }}
+  {{ partialCached "header" . $renderSearchIcon }}
+  {{ end }}
+</div>
+<div>
+{{ $websites := where site.Pages.ByTitle "Section" "websites" }}
+{{ $paginator := .Paginate $websites }}
+{{ $pageSize := $paginator.PageSize }}
+<div>
+  <h1>DEBUG</h1>
+  <div>
+  Context Permalink: {{ .Permalink }}<br>
+  Page URL: {{ $paginator.URL }}<br>
+  Page Number: {{ $paginator.PageNumber }}
+  </div>
+</div>
+{{ template "_internal/pagination.html" . }}
+{{ range $paginator.Pages }}
+{{ $pathToRoot := strings.TrimSuffix "/" (partial "path_to_root.html" $paginator.URL) }}
+{{ $urlPath := strings.TrimPrefix "/" .Params.url_path }}
+{{ $url := printf "%s/%s/index.html" $pathToRoot $urlPath }}
+  <div class="post">
+    <h2>
+      <a href="{{ $url }}">{{ .Title }}</a>
+    </h2>
+    <div>
+      {{ .Params.course_description }}
+    </div>
+  </div>
+{{ end }}
+</div>
+{{ end }}
