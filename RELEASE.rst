@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.85.3
+Version 1.85.3 (Released March 02, 2023)
 --------------
 
 - check for textTracks before creating transcript (#1091)
