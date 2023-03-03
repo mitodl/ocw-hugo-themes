@@ -114,7 +114,7 @@ class LocalOCW {
         })
       },
       {
-        rules: [OCW_WWW_REWRITE, API_JSON_REWRITE]
+        rules: [OCW_WWW_REWRITE, API_JSON_REWRITE, OCW_STATIC_SHARED]
       }
     )
     return {
@@ -185,7 +185,7 @@ class LocalOCW {
         })
       },
       {
-        rules: [OCW_WWW_REWRITE, OCW_STATIC_SHARED]
+        rules: [OCW_WWW_REWRITE]
       }
     )
     server.listen(LOCAL_OCW_PORT)
