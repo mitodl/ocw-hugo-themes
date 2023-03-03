@@ -13,7 +13,7 @@ import {
   TestSiteAlias
 } from "./util/test_sites"
 import SimpleServer, { RedirectionRule } from "./util/SimpleServer"
-import { env, cleanEnv, stringifyEnv } from "../env"
+import { cleanEnv, stringifyEnv } from "../env"
 import { hugo } from "../package_scripts/util"
 
 const execSh = execShCb.promise
