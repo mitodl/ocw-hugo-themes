@@ -12,7 +12,7 @@ const prodOverrides: Configuration = {
 
   output: {
     path:       path.join(__dirname, "../../dist/static_shared"),
-    publicPath: "/static_shared",
+    publicPath: "/static_shared/",
     filename:   "js/[name].[fullhash:5].js"
   },
 
