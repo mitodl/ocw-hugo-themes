@@ -135,6 +135,12 @@ const config: webpack.Configuration = {
     }),
 
     new CopyWebpackPlugin({
+      patterns: [
+        { from: "./base-theme/assets/images/", to: "images/[name][ext]" }
+      ]
+    }),
+
+    new CopyWebpackPlugin({
       patterns: [{ from: "./node_modules/mathjax/es5/", to: "mathjax/" }]
     }),
 
