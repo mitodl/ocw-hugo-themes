@@ -32,12 +32,6 @@ const OCW_WWW_REWRITE: RedirectionRule = {
   transform: url => `/ocw-ci-test-www${url}`
 }
 
-const OCW_STATIC_SHARED: RedirectionRule = {
-  type:      "rewrite",
-  match:     /^\/static_shared\//,
-  transform: url => `/ocw-ci-test-www${url}`
-}
-
 /**
  * Redirects requests to
  *  original: /api/websites?type=course-v2
@@ -114,7 +108,7 @@ class LocalOCW {
         })
       },
       {
-        rules: [OCW_WWW_REWRITE, API_JSON_REWRITE, OCW_STATIC_SHARED]
+        rules: [OCW_WWW_REWRITE, API_JSON_REWRITE]
       }
     )
     return {
