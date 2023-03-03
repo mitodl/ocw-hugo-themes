@@ -1,7 +1,6 @@
 import { PlaywrightTestConfig } from "@playwright/test"
 import { devices } from "@playwright/test"
 import * as path from "path"
-import { env } from "./env"
 
 /**
  * See https://playwright.dev/docs/test-configuration.
