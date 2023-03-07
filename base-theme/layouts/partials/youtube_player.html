@@ -31,7 +31,9 @@
   {{ end }}
 </div>
 <script>
-  window.initVideoJS().then(function(initVideoJS) {
-    initVideoJS()
-  })
+  window.onload = function() {
+    window.initVideoJS().then(function(initVideoJS) {
+      initVideoJS()
+    })
+  }
 </script>
