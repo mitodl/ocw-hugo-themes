@@ -180,11 +180,6 @@ class LocalOCW {
       },
       {
         rules: [
-          {
-            type:      "redirect",
-            match:     /^\/static_shared\//,
-            transform: url => `http://localhost:$3000${url}`
-          },
           OCW_WWW_REWRITE
         ]
       }

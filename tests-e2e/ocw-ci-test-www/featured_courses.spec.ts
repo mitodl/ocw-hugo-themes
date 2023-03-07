@@ -10,5 +10,4 @@ test("Course Card lists Instructors", async ({ page }) => {
   await expect(card).toContainText(
     "Instructors(s): Prof. Tester One, Dr. Tester Two, Another Tester Three"
   )
-  console.log(card.textContent())
 })
