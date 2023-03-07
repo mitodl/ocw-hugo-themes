@@ -110,7 +110,7 @@ const envSchema = {
   }),
   WEBPACK_WATCH_MODE: envalid.bool({
     desc:       "Turns webpack watch mode on",
-    devDefault: true,
+    devDefault: true
   })
 }
 
