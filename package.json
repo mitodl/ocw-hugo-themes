@@ -15,6 +15,7 @@
     "build": "yarn with-env -- ./package_scripts/build.sh",
     "build:githash": "mkdir -p base-theme/dist/static && git rev-parse HEAD > base-theme/dist/static/hash.txt",
     "build:hugo": "hugo -d ../dist -v",
+    "build:webpack:dev": "cross-env NODE_ENV=development WEBPACK_WATCH_MODE=false webpack --config base-theme/assets/webpack/webpack.dev.ts",
     "build:hugo:debug": "hugo -d ../dist -v --templateMetrics --debug",
     "build:webpack": "cross-env NODE_ENV=production webpack --config base-theme/assets/webpack/webpack.prod.ts",
     "webpack:stats": "NODE_ENV=production webpack --config base-theme/assets/webpack/webpack.prod.ts --profile --json > stats.json",

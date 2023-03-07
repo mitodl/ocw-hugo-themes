@@ -4,6 +4,7 @@ import { Configuration } from "webpack"
 import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import common from "./webpack.common"
+import {env} from "../../../env"
 import "webpack-dev-server" // this import tells webpack's typings about the devServer type
 
 const devOverrides: Configuration = {
@@ -17,7 +18,7 @@ const devOverrides: Configuration = {
 
   devtool: "eval-source-map",
 
-  watch: true,
+  watch: env.WEBPACK_WATCH_MODE,
 
   plugins: [
     new CleanWebpackPlugin({
