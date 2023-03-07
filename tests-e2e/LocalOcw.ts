@@ -179,9 +179,7 @@ class LocalOCW {
         })
       },
       {
-        rules: [
-          OCW_WWW_REWRITE
-        ]
+        rules: [OCW_WWW_REWRITE]
       }
     )
     server.listen(LOCAL_OCW_PORT)
