@@ -25,6 +25,10 @@ html {
   font-size: $course-font-root !important;
 }
 
+#heading-1 {
+  line-height: $heading-three-line-height;
+}
+
 #heading-2 {
   /* Use <h4> for Studio's Heading 2 */
   font-size: $heading-four-font;
