@@ -72,23 +72,40 @@ $font-normal: 1rem; /* 16px */
 $font-sm: 0.875rem; /* 14px */
 $font-xs: 0.75rem; /* 12px */
 
-// calculated pixel values for headings below are for courses theme
-// to calculate them for www theme, multiply rem value with 16px
+
+// calculated pixel values for headings and line-height 
+// below are for courses theme
+// to calculate for www theme, multiply rem value with 16px
 // h1
 $heading-one-font-lg: 2.28rem; /* 32px */
 $heading-one-font-xs: 1.71rem; /* 24px */
+
+$heading-one-line-height-lg: 2.25rem; /* 31.5px */
+$heading-one-line-height-xs: 1.75rem; /* 24.5px */
+
 // h2
 $heading-two-font-lg: 1.6rem; /* 22.4px */
 $heading-two-font-xs: 1.43rem; /* 20px */
+
+$heading-two-line-height-lg: 1.6rem; /* 22.4px */
+$heading-two-line-height-xs: 1.5rem; /* 21px */
+
 // h3
-$heading-three-font-lg: 1.14rem; /* 16px */
-$heading-three-font-xs: 1.14rem; /* 16px */
+$heading-three-font: 1.14rem; /* 16px */
+$heading-three-line-height: 1rem; /* 14px */
+
 // h4
-$heading-four-font-lg: 1rem; /* 14px */
-$heading-four-font-xs: 1rem; /* 14px */
+$heading-four-font: 1rem; /* 14px */
+$heading-four-line-height: 1rem; /* 14px */
+
 // h5
-$heading-five-font-lg: 0.86rem; /* 12px */
-$heading-five-font-xs: 0.86rem; /* 12px */
+$heading-five-font: 0.86rem; /* 12px */
+$heading-five-line-height: 1.75rem; /* 14px */
+
 // material icon
 $material-icon-font-normal: 1.5rem; /* Preferred icon size = 24px */
 $material-icon-font-lg: 1.75rem; /* 28px */
+
+
+
+
