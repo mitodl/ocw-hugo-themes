@@ -72,7 +72,7 @@ h2 {
 }
 
 h3 {
-  font-size: $heading-three-font-lg;
+  font-size: $heading-three-font;
   color: $black;
 }
 
@@ -80,28 +80,14 @@ a + h3 {
   margin-top: 1rem;
 }
 
-@include media-breakpoint-down(xs) {
-  h3 {
-    font-size: $heading-three-font-xs;
-  }
-}
-
 h4 {
-  font-size: $heading-four-font-lg;
+  font-size: $heading-four-font;
   color: $black;
-
-  @include media-breakpoint-down(xs) {
-    font-size: $heading-four-font-xs;
-  }
 }
 
 h5 {
-  font-size: $heading-five-font-lg;
+  font-size: $heading-five-font;
   color: $black;
-
-  @include media-breakpoint-down(xs) {
-    font-size: $heading-five-font-xs;
-  }
 }
 
 .standard-width {
