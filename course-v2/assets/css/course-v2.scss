@@ -25,6 +25,20 @@ html {
   font-size: $course-font-root !important;
 }
 
+#heading-2 {
+  /* Use <h4> for Studio's Heading 2 */
+  font-size: $heading-four-font;
+  line-height: $heading-four-line-height;
+}
+
+#heading-3 {
+  /* Use <h5> for Studio's Heading 3 */
+  font-size: $heading-five-font;
+  line-height: $heading-five-line-height;
+  color: $black !important;
+  text-transform: uppercase;
+}
+
 #course-banner {
   color: $white;
   background-color: $blue;
@@ -126,6 +140,7 @@ pre {
 
 #desktop-header {
   height: $desktop-header-height-v2 !important;
+
   .contents {
     padding: 0 2rem !important;
   }
