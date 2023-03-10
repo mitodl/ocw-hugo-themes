@@ -26,17 +26,18 @@ html {
 }
 
 h3[id^="heading-1"] {
+  /* Use <h3> styling for Studio's Heading 1 */
   line-height: $heading-three-line-height;
 }
 
 h3[id^="heading-2"] {
-  /* Use <h4> for Studio's Heading 2 */
+  /* Use <h4> styling for Studio's Heading 2 */
   font-size: $heading-four-font;
   line-height: $heading-four-line-height;
 }
 
 h4[id^="heading-3"] {
-  /* Use <h5> for Studio's Heading 3 */
+  /* Use <h5> styling for Studio's Heading 3 */
   font-size: $heading-five-font;
   line-height: $heading-five-line-height;
   color: $dark-charcoal !important;
