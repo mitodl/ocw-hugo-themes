@@ -73,35 +73,53 @@ $font-normal: 1rem; /* 16px */
 $font-sm: 0.875rem; /* 14px */
 $font-xs: 0.75rem; /* 12px */
 
-// in www theme, 16px=1rem
-// in course-v2 theme, 14px=1rem
-// below calculated rem values are for courses theme,
-// to calculate for www theme, divide px values by 16
 // h1
-$heading-one-font-lg: 2.28rem; /* 32px */
-$heading-one-font-xs: 1.71rem; /* 24px */
+$heading-one-font-lg: 2rem; /* 32px */
+$heading-one-font-xs: 1.5rem; /* 24px */
 
-$heading-one-line-height-lg: 2.57rem; /* 36px */
-$heading-one-line-height-xs: 2rem; /* 28px */
+$heading-one-line-height-lg: 2.25rem; /* 36px */
+$heading-one-line-height-xs: 1.75rem; /* 28px */
+
+$course-heading-one-font-lg: 2.28rem; /* 32px */
+$course-heading-one-font-xs: 1.71rem; /* 24px */
+
+$course-heading-one-line-height-lg: 2.57rem; /* 36px */
+$course-heading-one-line-height-xs: 2rem; /* 28px */
 
 // h2
-$heading-two-font-lg: 1.6rem; /* 22.4px */
-$heading-two-font-xs: 1.43rem; /* 20px */
+$heading-two-font-lg: 1.4rem; /* 22.4px */
+$heading-two-font-xs: 1.25rem; /* 20px */
 
-$heading-two-line-height-lg: 1.83rem; /* 25.6px */
-$heading-two-line-height-xs: 1.71rem; /* 24px */
+$heading-two-line-height-lg: 1.6rem; /* 25.6px */
+$heading-two-line-height-xs: 1.5rem; /* 24px */
+
+$course-heading-two-font-lg: 1.6rem; /* 22.4px */
+$course-heading-two-font-xs: 1.43rem; /* 20px */
+
+$course-heading-two-line-height-lg: 1.83rem; /* 25.6px */
+$course-heading-two-line-height-xs: 1.71rem; /* 24px */
 
 // h3
-$heading-three-font: 1.14rem; /* 16px */
-$heading-three-line-height: 1.14rem; /* 16px */
+$heading-three-font: 1rem; /* 16px */
+$heading-three-line-height: 1rem; /* 16px */
+
+$course-heading-three-font: 1.14rem; /* 16px */
+$course-heading-three-line-height: 1.14rem; /* 16px */
 
 // h4
-$heading-four-font: 1rem; /* 14px */
-$heading-four-line-height: 1.14rem; /* 16px */
+$heading-four-font: 0.875rem; /* 14px */
+$heading-four-line-height: 1rem; /* 16px */
+
+$course-heading-four-font: 1rem; /* 14px */
+$course-heading-four-line-height: 1.14rem; /* 16px */
 
 // h5
-$heading-five-font: 0.86rem; /* 12px */
-$heading-five-line-height: 2rem; /* 28px */
+$heading-five-font: 0.75rem; /* 12px */
+$heading-five-line-height: 1.75rem; /* 28px */
+
+$course-heading-five-font: 0.86rem; /* 12px */
+$course-heading-five-line-height: 2rem; /* 28px */
+
 
 // material icon
 $material-icon-font-normal: 1.5rem; /* Preferred icon size = 24px */
