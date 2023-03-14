@@ -1,3 +1,22 @@
+{{ define "renderSortedResources" }}
+  {{ $resources := .resources }}
+  {{ $hideThumbnail := .hideThumbnail}}
+  {{ $hideDownloadIcon := .hideDownloadIcon}}
+  {{ range $resourceToRender :=  .resourcesToRender }}
+    {{- partial "resource_list_item.html" (dict "params" . "permalink" (index $resources .resourceIndex).Permalink "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) -}}
+    <hr>
+  {{end}}
+{{ end }}
+
+{{ define "renderResources" }}
+  {{ $hideThumbnail := .hideThumbnail}}
+  {{ $hideDownloadIcon := .hideDownloadIcon}}
+  {{ range .resources }}
+    {{- partial "resource_list_item.html" (dict "params" .Params "permalink" .Permalink "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) -}}
+    <hr>
+  {{end}}
+{{ end }}
+
 {{- $hideThumbnail := .hideThumbnail | default false -}}
 {{- $hideDownloadIcon := .hideDownloadIcon | default false -}}
 {{- $defaultSort := .sort | default true -}}
@@ -6,18 +25,29 @@
 {{ $numberOfResources := len $resources }}
 
 {{ $limitResources := .limitResources | default $numberOfResources }}
+{{ $paramsWithNumericTitles := slice}}
+{{ $paramsWithAlphabeticTitles := slice}}
 
 {{ if gt $numberOfResources 0 }}
   {{ if $defaultSort }}
-    {{ range sort (first $limitResources $resources) .Params "title" }}
-      {{- partial "resource_list_item.html" (dict "params" .Params "permalink" .Permalink "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) -}}
-      <hr>
-    {{end}}
-  {{ else }}
-    {{ range (first $limitResources $resources)}}
-      {{- partial "resource_list_item.html" (dict "params" .Params "permalink" .Permalink "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) -}}
-      <hr>
+    {{ range $resourceIndex, $resource:= $resources }}
+      {{ $numericalTitle :=  (index (findRE `\d+` .Params.title) 0) }}
+      {{ $paramsWithResourceIndex := merge .Params (dict "resourceIndex" $resourceIndex) }}
+      {{ if $numericalTitle }}
+        {{ $paramsWithNumericTitleAndIndex := merge $paramsWithResourceIndex (dict "numericalTitle" $numericalTitle) }}
+        {{ $paramsWithNumericTitles = $paramsWithNumericTitles | append $paramsWithNumericTitleAndIndex  }}
+      {{ else }}
+        {{ $paramsWithAlphabeticTitleAndIndex := merge $paramsWithResourceIndex (dict "alphabeticalTitle" .Params.title) }}
+        {{ $paramsWithAlphabeticTitles = $paramsWithAlphabeticTitles | append $paramsWithAlphabeticTitleAndIndex }}
+      {{ end }}  
     {{ end }}
+    {{ $sortedNumericTitles := sort $paramsWithNumericTitles ".numericalTitle" "asc" }}
+    {{ $sortedAlphabeticTitles := sort $paramsWithAlphabeticTitles ".alphabeticalTitle" "asc" }}
+    {{ $allParamsWithTitles := append $sortedNumericTitles $sortedAlphabeticTitles }}
+    
+  {{ template "renderSortedResources" (dict "resourcesToRender" (first $limitResources $allParamsWithTitles) "resources" $resources "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) }}
+  {{ else }}
+    {{ template "renderResources" (dict "resources" (first $limitResources $resources) "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) }}
   {{ end }}
 {{ else }}
   {{ partial "no_resources_found.html" }}
