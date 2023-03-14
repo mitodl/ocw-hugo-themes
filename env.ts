@@ -107,6 +107,10 @@ const envSchema = {
       __dirname,
       "../ocw-hugo-projects/ocw-www/config.yaml"
     )
+  }),
+  WEBPACK_WATCH_MODE: envalid.bool({
+    desc:       "Turns webpack watch mode on",
+    devDefault: true
   })
 }
 

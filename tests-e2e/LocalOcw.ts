@@ -13,7 +13,7 @@ import {
   TestSiteAlias
 } from "./util/test_sites"
 import SimpleServer, { RedirectionRule } from "./util/SimpleServer"
-import { env, cleanEnv, stringifyEnv } from "../env"
+import { cleanEnv, stringifyEnv } from "../env"
 import { hugo } from "../package_scripts/util"
 
 const execSh = execShCb.promise
@@ -179,14 +179,7 @@ class LocalOCW {
         })
       },
       {
-        rules: [
-          {
-            type:      "redirect",
-            match:     /^\/static_shared\//,
-            transform: url => `http://localhost:${env.WEBPACK_PORT}${url}`
-          },
-          OCW_WWW_REWRITE
-        ]
+        rules: [OCW_WWW_REWRITE]
       }
     )
     server.listen(LOCAL_OCW_PORT)
