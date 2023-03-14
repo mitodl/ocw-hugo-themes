@@ -81,8 +81,13 @@ h5 {
 
   a {
     text-decoration: none;
-    font-size: $font-xxxl;
+    font-size: $course-heading-one-font-lg;
+    line-height: $course-heading-one-line-height-lg;
     font-weight: 400;
+    @include media-breakpoint-down(xs) {
+      font-size: $course-heading-one-font-xs;
+      line-height: $course-heading-one-line-height-xs;
+    }
   }
 }
 
@@ -156,8 +161,9 @@ pre {
 }
 
 .course-detail-title {
+  font-size: $course-heading-four-font;
+  line-height: $course-heading-four-line-height;
   font-weight: bold;
-  text-transform: uppercase;
   margin-bottom: 10px;
 }
 

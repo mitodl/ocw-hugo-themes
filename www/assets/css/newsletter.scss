@@ -4,6 +4,10 @@
 
   h2 {
     font-size: $heading-two-font-lg !important;
+
+    @include media-breakpoint-down(xs) {
+      font-size: $heading-two-font-xs !important;
+    }
   }
 
   form {
