@@ -39,12 +39,6 @@
     margin-bottom: 0;
   }
 
-  .search-page .search-box-inner h1 {
-    @include breakpoint(phone) {
-      font-size: $font-lg;
-    }
-  }
-
   .results-total {
     font-size: $font-sm;
     padding-right: 20px;
@@ -125,8 +119,6 @@
     }
 
     h1 {
-      font-size: $heading-one-font-xs;
-
       @include breakpoint(phone) {
         margin-top: 20px;
       }

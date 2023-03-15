@@ -7,7 +7,8 @@ $panel-course-info-text-color: #464646;
 }
 
 .panel-course-info-title {
-  font-size: $font-sm;
+  font-size: $course-heading-five-font;
+  line-height: $course-heading-five-line-height;
   text-transform: uppercase;
   font-weight: bold;
   color: $panel-course-info-text-color !important;

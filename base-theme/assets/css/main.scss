@@ -45,19 +45,23 @@ a {
 
 h1 {
   font-size: $heading-one-font-lg;
+  line-height: $heading-one-line-height-lg;
   color: $black;
 
   @include media-breakpoint-down(xs) {
     font-size: $heading-one-font-xs;
+    line-height: $heading-one-line-height-xs;
   }
 }
 
 h2 {
   font-size: $heading-two-font-lg;
+  line-height: $heading-two-line-height-lg;
   color: $black;
 
   @include media-breakpoint-down(xs) {
     font-size: $heading-two-font-xs;
+    line-height: $heading-two-line-height-xs;
   }
 
   &.branded {
@@ -72,7 +76,8 @@ h2 {
 }
 
 h3 {
-  font-size: $heading-three-font-lg;
+  font-size: $heading-three-font;
+  line-height: $heading-three-line-height;
   color: $black;
 }
 
@@ -80,28 +85,17 @@ a + h3 {
   margin-top: 1rem;
 }
 
-@include media-breakpoint-down(xs) {
-  h3 {
-    font-size: $heading-three-font-xs;
-  }
-}
-
 h4 {
-  font-size: $heading-four-font-lg;
-  color: $black;
-
-  @include media-breakpoint-down(xs) {
-    font-size: $heading-four-font-xs;
-  }
+  font-size: $heading-four-font;
+  line-height: $heading-four-line-height;
+  color: $black !important;
 }
 
 h5 {
-  font-size: $heading-five-font-lg;
-  color: $black;
-
-  @include media-breakpoint-down(xs) {
-    font-size: $heading-five-font-xs;
-  }
+  font-size: $heading-five-font;
+  line-height: $heading-five-line-height;
+  color: $panel-course-info-text-color;
+  text-transform: uppercase;
 }
 
 .standard-width {

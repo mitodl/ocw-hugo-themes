@@ -25,6 +25,46 @@ html {
   font-size: $course-font-root !important;
 }
 
+// overriding default heading values with course heading values
+h1 {
+  font-size: $course-heading-one-font-lg !important;
+  line-height: $course-heading-one-line-height-lg !important;
+
+  @include media-breakpoint-down(xs) {
+    font-size: $course-heading-one-font-xs !important;
+    line-height: $course-heading-one-line-height-xs !important;
+  }
+}
+
+h2 {
+  font-size: $course-heading-two-font-lg !important;
+  line-height: $course-heading-two-line-height-lg !important;
+
+  @include media-breakpoint-down(xs) {
+    font-size: $course-heading-two-font-xs !important;
+    line-height: $course-heading-two-line-height-xs !important;
+  }
+}
+
+h3 {
+  font-size: $course-heading-three-font !important;
+  line-height: $course-heading-three-line-height !important;
+}
+
+a + h3 {
+  margin-top: 1.14rem !important;
+}
+
+h4 {
+  font-size: $course-heading-four-font !important;
+  line-height: $course-heading-four-line-height !important;
+}
+
+h5 {
+  font-size: $course-heading-five-font !important;
+  line-height: $course-heading-five-line-height !important;
+}
+
 #course-banner {
   color: $white;
   background-color: $blue;
@@ -41,8 +81,13 @@ html {
 
   a {
     text-decoration: none;
-    font-size: $font-xxxl;
+    font-size: $course-heading-one-font-lg;
+    line-height: $course-heading-one-line-height-lg;
     font-weight: 400;
+    @include media-breakpoint-down(xs) {
+      font-size: $course-heading-one-font-xs;
+      line-height: $course-heading-one-line-height-xs;
+    }
   }
 }
 
@@ -116,8 +161,9 @@ pre {
 }
 
 .course-detail-title {
+  font-size: $course-heading-four-font;
+  line-height: $course-heading-four-line-height;
   font-weight: bold;
-  text-transform: uppercase;
   margin-bottom: 10px;
 }
 
@@ -126,6 +172,7 @@ pre {
 
 #desktop-header {
   height: $desktop-header-height-v2 !important;
+
   .contents {
     padding: 0 2rem !important;
   }
