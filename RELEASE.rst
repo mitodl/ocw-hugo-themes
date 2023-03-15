@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.85.4 (Released March 15, 2023)
+--------------
+
+- add breakpoint to mobile button css (#1099)
+- Fix: Bad links on offline Download page (#1098)
+
 Version 1.85.3 (Released March 02, 2023)
 --------------
 
