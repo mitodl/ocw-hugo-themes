@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.85.4
+Version 1.85.4 (Released March 15, 2023)
 --------------
 
 - add breakpoint to mobile button css (#1099)
