@@ -53,6 +53,7 @@
     "@types/lodash.has": "^4.5.6",
     "@types/lodash.toarray": "^4.4.6",
     "@types/lodash.uppercase": "^4.3.6",
+    "@types/promise-polyfill": "^6.0.4",
     "@types/ramda": "^0.27.62",
     "@types/react-dom": "^17.0.11",
     "@types/react-infinite-scroller": "^1.2.2",

@@ -3,6 +3,7 @@ import "video.js/dist/video-js.css"
 
 import "offcanvas-bootstrap/dist/js/bootstrap.offcanvas.js"
 import "nanogallery2/src/jquery.nanogallery2.core.js"
+import "promise-polyfill/src/polyfill.js"
 import "./css/course-v2.scss"
 import { initDivToggle } from "./js/div_toggle"
 import {
