@@ -30,8 +30,10 @@
         <track kind="captions" src="{{ .captionsLocation }}" srclang="en" label="English" default>
   {{ end }}
 </div>
+<script src="node_modules/promise-polyfill/src/polyfill.js"></script>
 <script>
   window.onload = function() {
+    if (window.initVideoJS)
     window.initVideoJS()
   }
 </script>
