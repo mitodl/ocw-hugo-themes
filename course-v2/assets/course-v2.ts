@@ -3,7 +3,6 @@ import "video.js/dist/video-js.css"
 import "offcanvas-bootstrap/dist/js/bootstrap.offcanvas.js"
 import "promise-polyfill/src/polyfill.js"
 import "offcanvas-bootstrap/dist/js/bootstrap.offcanvas.js"
-
 import "./css/course-v2.scss"
 import { initDivToggle } from "./js/div_toggle"
 import {
