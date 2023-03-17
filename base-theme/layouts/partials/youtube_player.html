@@ -30,3 +30,10 @@
         <track kind="captions" src="{{ .captionsLocation }}" srclang="en" label="English" default>
   {{ end }}
 </div>
+
+<script>
+  window.onload = function() {
+    if (window.initVideoJS)
+      window.initVideoJS()
+  }
+</script>
