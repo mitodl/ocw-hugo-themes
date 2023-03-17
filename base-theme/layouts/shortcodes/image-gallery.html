@@ -1,3 +1,10 @@
 <div id="{{ .Get "id" }}" class="image-gallery" data-nanogallery2='{ "itemsBaseURL": "{{ .Get "baseUrl" }}" }'>
 {{ .Inner }}
 </div>
+
+<script>
+    window.onload = function() {
+      if (window.initNanogallery2)
+        window.initNanogallery2()
+    }
+</script>

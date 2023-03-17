@@ -18,7 +18,8 @@ const entryNames = {
   courseV2:           "course_v2",
   www:                "www",
   fields:             "fields",
-  videojs:            "videojs"
+  videojs:            "videojs",
+  nanogallery2:       "nanogallery2"
 }
 
 const config: webpack.Configuration = {
@@ -42,7 +43,10 @@ const config: webpack.Configuration = {
       fromRoot("./fields/assets/fields.js"),
       fromRoot("./base-theme/assets/index.ts")
     ],
-    [entryNames.videojs]: [fromRoot("./course-v2/assets/videojs-imports.js")]
+    [entryNames.videojs]:      [fromRoot("./course-v2/assets/videojs-imports.js")],
+    [entryNames.nanogallery2]: [
+      fromRoot("./course-v2/assets/nanogallery2-imports.js")
+    ]
   },
 
   output: {
