@@ -17,7 +17,7 @@ const entryNames = {
   instructorInsights: "instructor_insights",
   courseV2:           "course_v2",
   www:                "www",
-  fields:             "fields",
+  fields:             "fields"
 }
 
 const config: webpack.Configuration = {
@@ -40,7 +40,7 @@ const config: webpack.Configuration = {
     [entryNames.fields]: [
       fromRoot("./fields/assets/fields.js"),
       fromRoot("./base-theme/assets/index.ts")
-    ],
+    ]
   },
 
   output: {
