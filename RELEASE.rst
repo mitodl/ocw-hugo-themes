@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.86.0 (Released March 20, 2023)
+--------------
+
+- feat: update headings (#1104)
+- feat: update webpack config; HugoServer and Webpack Port to be same (3000) (#1102)
+- feat: reorder resources in download course page (#1090)
+
 Version 1.85.4 (Released March 15, 2023)
 --------------
 
