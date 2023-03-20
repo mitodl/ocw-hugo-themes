@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.86.0
+Version 1.86.0 (Released March 20, 2023)
 --------------
 
 - feat: update headings (#1104)
