@@ -1,0 +1,13 @@
+{{ $courseData := slice }}
+{{ $staticApiBaseUrl := getenv "STATIC_API_BASE_URL" }}
+{{ $url := (print (strings.TrimSuffix "/" $staticApiBaseUrl) "/" . "/data.json") }}
+{{ with resources.GetRemote $url }}
+  {{ with .Err }}
+    {{ errorf "Failed to fetch course data from %v with error %v" $url . }}
+  {{ else }}
+    {{  $courseData = unmarshal . }}
+  {{ end }}
+{{ else }}
+  {{ errorf "Failed to fetch course data from %v" $url }}
+{{ end }}
+{{ return $courseData }}
