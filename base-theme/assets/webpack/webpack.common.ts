@@ -18,8 +18,7 @@ const entryNames = {
   courseV2:           "course_v2",
   www:                "www",
   wwwOffline:         "www_offline",
-  fields:             "fields",
-  videojs:            "videojs",
+  fields:             "fields"
 }
 
 const config: webpack.Configuration = {
