@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.86.1
+Version 1.86.1 (Released March 21, 2023)
 --------------
 
 - feat: implement lazy loading for videojs with dynamic import (#1089)
