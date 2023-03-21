@@ -1,8 +1,6 @@
-import "../../node_modules/nanogallery2/src/css/nanogallery2.css"
 import "video.js/dist/video-js.css"
 
 import "offcanvas-bootstrap/dist/js/bootstrap.offcanvas.js"
-import "nanogallery2/src/jquery.nanogallery2.core.js"
 import "promise-polyfill/src/polyfill.js"
 import "./css/course-v2.scss"
 import { initDivToggle } from "./js/div_toggle"
@@ -32,3 +30,6 @@ window.initVideoJS = () =>
   import("./videojs-imports").then(module => {
     module.initVideoJS()
   })
+
+// @ts-expect-error for window.initNanogallery2()
+window.initNanogallery2 = () => import("./nanogallery2-imports")
