@@ -1,0 +1,16 @@
+@import "../../../base-theme/assets/css/imports/reset";
+@import "../../../base-theme/assets/css/imports/_mixins";
+@import "../../../base-theme/assets/css/bootstrap-overrides";
+@import "../../../base-theme/assets/css/breakpoints";
+@import "../../../base-theme/assets/css/variables";
+@import "../../../base-theme/assets/css/font";
+@import "~bootstrap/scss/bootstrap";
+@import "~offcanvas-bootstrap/src/sass/bootstrap.offcanvas";
+
+@import "../../../www/assets/css/common";
+@import "../../../www/assets/css/home";
+@import "../../../www/assets/css/search";
+
+html {
+  font-size: $font-root !important;
+}
