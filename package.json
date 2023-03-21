@@ -113,7 +113,6 @@
     "lodash.has": "^4.5.2",
     "lodash.toarray": "^4.4.0",
     "lodash.uppercase": "^4.3.0",
-    "lunr": "^2.3.9",
     "mathjax": "^3.2.2",
     "mini-css-extract-plugin": "^2.6.1",
     "nanogallery2": "^2.4.2",
