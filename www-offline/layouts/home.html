@@ -8,8 +8,9 @@
 <div class="search-wrapper">
   <div class="search-page row justify-content-center">
     <div class="search-results-area col-9 py-4">
-      {{ $websites := where site.Pages.ByTitle "Section" "websites" }}
-      {{ $paginator := .Paginate $websites }}
+      {{ $websites := where site.Pages ".Params.content_type" "==" "website" }}
+      {{ $sortedWebsites := partial "sort_websites_by_course_number.html" $websites }}
+      {{ $paginator := .Paginate $sortedWebsites }}
       {{ template "_internal/pagination.html" . }}
       <section>
       {{ range $paginator.Pages }}

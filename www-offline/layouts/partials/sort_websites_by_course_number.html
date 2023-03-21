@@ -1,0 +1,23 @@
+{{ $sitesWithNumericCourseNumbers := slice }}
+{{ $sitesWithAlphabeticCourseNumbers := slice }}
+{{ range . }}
+  {{ $courseNumberParts := split .Params.primary_course_number "." }}
+  {{ $departmentNumber := index $courseNumberParts 0 }}
+  {{ $numericalDepartmentNumber := (index (findRE `\d+` $departmentNumber) 0) }}
+  {{ if $numericalDepartmentNumber }}
+    {{ $numericalCourseNumber :=  (index (findRE `\d+` .Params.primary_course_number) 0) }}
+    {{ $sitesWithNumericCourseNumbers = $sitesWithNumericCourseNumbers | append (dict "website" . "courseNumber" $numericalCourseNumber) }}
+  {{ else }}
+    {{ $sitesWithAlphabeticCourseNumbers = $sitesWithAlphabeticCourseNumbers | append (dict "website" . "courseNumber" .Params.primary_course_number) }}
+  {{ end }}
+{{ end }}
+{{ $sortedNumericCourseNumbers := sort $sitesWithNumericCourseNumbers ".courseNumber" "asc" }}
+{{ $sortedAlphabeticCourseNumbers := sort $sitesWithAlphabeticCourseNumbers ".courseNumber" "asc" }}
+{{ $sortedWebsites := slice }}
+{{ range $sortedNumericCourseNumbers }}
+  {{ $sortedWebsites = $sortedWebsites | append .website }}
+{{ end }}
+{{ range $sortedAlphabeticCourseNumbers }}
+  {{ $sortedWebsites = $sortedWebsites | append .website }}
+{{ end }}
+{{ return $sortedWebsites }}
