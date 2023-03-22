@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.86.2
+Version 1.86.2 (Released March 22, 2023)
 --------------
 
 - feat: lazyloading for nanogallery2 using dynamic import (#1108)
