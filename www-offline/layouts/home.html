@@ -11,9 +11,6 @@
       {{ $websites := where site.Pages ".Params.content_type" "==" "website" }}
       {{ $sortedWebsites := partial "sort_websites_by_course_number.html" $websites }}
       {{ $paginator := .Paginate $sortedWebsites }}
-      <div class="px-3">
-      {{ partial "pagination.html" (dict "page" . "format" "default") }}
-      </div>
       <section>
       {{ range $paginator.Pages }}
       {{ $pathToRoot := strings.TrimSuffix "/" (partial "path_to_root.html" $paginator.URL) }}
@@ -40,6 +37,9 @@
         </article>
       {{ end }}
       </section>
+      <div class="px-3 py-4">
+        {{ partial "pagination.html" (dict "page" . "format" "default") }}
+      </div>
     </div>
   </div>
 </div>
