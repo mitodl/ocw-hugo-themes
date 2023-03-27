@@ -1,23 +1,52 @@
-<div class="bg-dark-gray white-color mb-2">
-  <div
-    class="video-tab-toggle-section pointer"
-    data-target=".{{- .tabClass -}}"
-    data-toggle="collapse"
-    aria-controls="{{- .tabClass -}}"
-    aria-expanded=""
-  >
+<div class="bg-black white-color mb-2">
+  <div class="video-tab-toggle-section pointer" data-target=".{{- .tabClass -}}" data-toggle="collapse" aria-controls="{{- .tabClass -}}" aria-expanded="">
     <div class="video-tab-header">
       <span>
-        {{- .tabTitle -}}
-      </span>
-      <div class="float-right">
-        <i class="material-icons md-18"></i>
-      </div>
+        {{ if .tabTitle }}
+          <i class="material-icons toggle md-18"></i>
+          {{- .tabTitle -}}
+        {{ end }}
+      {{ if or (eq .tabTitle "Transcript") (eq .tabTitle "") }}
+
+        <div class="float-right">
+
+          <div class="download-icons">
+            
+          <i class="material-icons md-18"></i>
+          <i class="material-icons md-18"></i>
+          </div>
+        </div>
+      {{ end }}
+    </span>
     </div>
   </div>
-  <div class="container collapse pr-0 {{ .tabClass }}">
+  <div class="popup hide">
+    <ul>
+      {{ if .downloadLink }}
+      <li><a href="{{.downloadLink}}" target="_blank">Download Video</a></li>
+      {{ end }}
+      {{ if .transcriptLink }}
+      <li><a href="{{.transcriptLink}}" target="_blank">Download Transcript</a></li>
+      {{ end }}
+    </ul>
+  </div>
+  <div class="video-tab container collapse pr-0 {{ .tabClass }}">
     <div class="video-tab-content-section">
       {{- .tabContent | markdownify -}}
     </div>
   </div>
+
 </div>
+<script>
+  const downloadIcon = document.querySelector('.download-icons');
+  const popup = document.querySelector('.popup');
+  
+  downloadIcon.addEventListener('click', (event) => {
+    event.stopPropagation();
+    popup.classList.toggle('hide');
+  });
+
+  document.addEventListener('click', () => {
+    popup.classList.add('hide');
+  });
+</script>

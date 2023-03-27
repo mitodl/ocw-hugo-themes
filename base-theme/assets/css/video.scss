@@ -1,22 +1,78 @@
 .video-tab-header {
   padding: 5px 15px 5px;
+  overflow: auto;
 }
+.video-tab-content {
+  background-color: purple;
+}
+.video-tab.container:not(.transcript) {
+  padding: 0px 0px 0px 47px;
+  // margin-top: 15px !important;
+  // padding: 5px 0px 5px 47px !important;
 
-.video-tab-content-section {
-  padding: 0 0 10px 20px !important;
+  background-color: $video-tab-content-background-color;
+
   a {
-    color: $white !important;
+    color: $video-tab-content-color;
   }
 }
 
+.video-tab.container {
+  padding-left: 0px;
+}
 .video-tab-toggle-section {
-  i:after {
-    content: "keyboard_arrow_down";
+  i.toggle:after {
+    content: "keyboard_arrow_right";
   }
 }
 
 .video-tab-toggle-section[aria-expanded="true"] {
-  i:after {
-    content: "keyboard_arrow_up" !important;
+  i.toggle:after {
+    content: "keyboard_arrow_down";
   }
+}
+
+.download-icons {
+  i:first-child:after {
+    font-family: "Material Icons";
+    content: "\e258";
+  }
+  i:nth-child(2):after {
+    font-family: "Material Icons";
+    content: "\e5c5";
+  }
+}
+
+.popup {
+  position: absolute;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10; // Need a higher z-index than active transcript line
+}
+.hide {
+  visibility: hidden;
+}
+.popup ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.popup li {
+  margin: 0;
+  padding: 0;
+}
+
+.popup a {
+  display: block;
+  padding: 5px;
+  text-decoration: none;
+  color: #333;
+}
+
+.popup a:hover {
+  background-color: #f5f5f5;
 }
