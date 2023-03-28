@@ -1,42 +1,44 @@
-<div class="bg-black white-color mb-2">
-  <div class="video-tab-toggle-section pointer" data-target=".{{- .tabClass -}}" data-toggle="collapse" aria-controls="{{- .tabClass -}}" aria-expanded="">
-    <div class="video-tab-header">
-      <span>
-        {{ if .tabTitle }}
-          <i class="material-icons toggle md-18"></i>
+<div 
+  class="video-tab-toggle-section pointer" 
+  data-target=".{{- .tabClass -}}"
+  data-toggle="collapse"
+  aria-controls="{{- .tabClass -}}"
+  aria-expanded=""
+  >
+  <div class="video-tab-header">
+    {{ if .tabTitle }}
+        <i class="material-icons toggle md-18"></i>
+        <span class="tab-title">
           {{- .tabTitle -}}
-        {{ end }}
-      {{ if or (eq .tabTitle "Transcript") (eq .tabTitle "") }}
-
-        <div class="float-right">
-
-          <div class="download-icons">
-            
-          <i class="material-icons md-18"></i>
-          <i class="material-icons md-18"></i>
-          </div>
+        </span>
+    {{ end }}
+    {{ if or (eq .tabTitle "Transcript") (eq .tabTitle "") }}
+      <div class="float-right">
+        <div class="download-icons">
+        <img class="download-icon" src="/static_shared/images/videojs_download.svg"/>
+        {{/*  <i class="material-icons"></i>  */}}
+        <i class="material-icons caret-down"></i>
         </div>
-      {{ end }}
-    </span>
-    </div>
+      </div>
+    {{ end }}
   </div>
-  <div class="popup hide">
-    <ul>
-      {{ if .downloadLink }}
-      <li><a href="{{.downloadLink}}" target="_blank">Download Video</a></li>
-      {{ end }}
-      {{ if .transcriptLink }}
-      <li><a href="{{.transcriptLink}}" target="_blank">Download Transcript</a></li>
-      {{ end }}
-    </ul>
-  </div>
-  <div class="video-tab container collapse pr-0 {{ .tabClass }}">
-    <div class="video-tab-content-section">
-      {{- .tabContent | markdownify -}}
-    </div>
-  </div>
-
 </div>
+<div class="popup hide">
+  <ul>
+    {{ if .downloadLink }}
+    <li><a href="{{.downloadLink}}" target="_blank">Download video</a></li>
+    {{ end }}
+    {{ if .transcriptLink }}
+    <li><a href="{{.transcriptLink}}" target="_blank">Download transcript</a></li>
+    {{ end }}
+  </ul>
+</div>
+<div class="video-tab container collapse pr-0 {{ .tabClass }}">
+  <div class="video-tab-content-section">
+    {{- .tabContent | markdownify -}}
+  </div>
+</div>
+
 <script>
   const downloadIcon = document.querySelector('.download-icons');
   const popup = document.querySelector('.popup');
