@@ -146,7 +146,7 @@ a.video-download-button:visited {
 .video-tab-download-popup {
   position: absolute;
   right: 6.5%;
-  background-color: #fff;
+  background-color: $white;
   border: 1px solid #ccc;
   padding: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -165,11 +165,11 @@ a.video-download-button:visited {
   display: block;
   padding: 5px 40px 5px 5px;
   text-decoration: none;
-  color: #333;
+  color: $black;
 }
 
 .video-tab-download-popup a:hover {
-  background-color: #f5f5f5;
+  background-color: $light-gray;
 }
 
 .vjs-poster,

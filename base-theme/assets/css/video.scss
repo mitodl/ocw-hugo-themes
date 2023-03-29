@@ -8,7 +8,7 @@
     font-family: "Roboto";
     line-height: 1.14rem;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.87);
+    color: $video-tab-title-color;
     position: relative;
     bottom: 4px;
     left: 2px;
@@ -26,7 +26,7 @@
 }
 .video-tab.container:not(.transcript) {
   padding-left: 6%;
-  background-color: $video-tab-content-background-color;
+  background-color: $light-gray;
 
   a {
     color: $video-tab-content-color;

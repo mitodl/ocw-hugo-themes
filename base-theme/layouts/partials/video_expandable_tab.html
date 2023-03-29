@@ -7,10 +7,10 @@
   >
   <div class="video-tab-header">
     {{ if .tabTitle }}
-        <i class="material-icons toggle md-18"></i>
-        <span class="tab-title">
-          {{- .tabTitle -}}
-        </span>
+      <i class="material-icons toggle md-18"></i>
+      <span class="tab-title">
+        {{- .tabTitle -}}
+      </span>
     {{ end }}
     {{ if or (eq .tabTitle "Transcript") (eq .tabTitle "") }}
       <div class="float-right">
@@ -24,12 +24,12 @@
 </div>
 <div class="video-tab-download-popup hidden">
   <ul>
-      {{ if .downloadLink }}
-          <li><a href="{{.downloadLink}}" target="_blank">Download video</a></li>
-      {{ end }}
-      {{ if .transcriptLink }}
-          <li><a href="{{.transcriptLink}}" target="_blank">Download transcript</a></li>
-      {{ end }}
+    {{ if .downloadLink }}
+      <li><a href="{{.downloadLink}}" target="_blank">Download video</a></li>
+    {{ end }}
+    {{ if .transcriptLink }}
+      <li><a href="{{.transcriptLink}}" target="_blank">Download transcript</a></li>
+    {{ end }}
   </ul>
 </div>
 <div class="video-tab container collapse pr-0 {{ .tabClass }}">
