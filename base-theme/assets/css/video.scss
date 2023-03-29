@@ -24,18 +24,17 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.video-tab.container:not(.transcript) {
-  padding-left: 6%;
+.video-tab.container {
   background-color: $light-gray;
-
+  color: $video-tab-content-color;
   a {
     color: $video-tab-content-color;
   }
 }
-
-.video-tab.container {
-  padding-left: 0px;
+.video-tab.container:not(.transcript) {
+  padding-left: 6%;
 }
+
 .video-tab-toggle-section {
   i.toggle:after {
     content: "keyboard_arrow_right";

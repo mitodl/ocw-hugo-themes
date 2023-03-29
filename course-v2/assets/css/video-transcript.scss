@@ -2,7 +2,6 @@
   width: 100%;
   margin: auto;
   font-family: Arial, sans-serif;
-  background-color: $transcript-background-color;
 }
 
 .transcript-body {
@@ -12,7 +11,6 @@
 }
 
 .transcript-line {
-  color: $transcript-line-color;
   position: relative;
   padding: 5px 0px 5px 6%;
   cursor: pointer;
