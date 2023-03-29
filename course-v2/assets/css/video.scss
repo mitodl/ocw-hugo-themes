@@ -171,3 +171,8 @@ a.video-download-button:visited {
 .video-tab-download-popup a:hover {
   background-color: #f5f5f5;
 }
+
+.vjs-poster,
+.vjs-big-play-button {
+  display: none !important;
+}
