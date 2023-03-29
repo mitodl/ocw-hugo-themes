@@ -25,10 +25,14 @@
 <div class="video-tab-download-popup hidden">
   <ul>
     {{ if .downloadLink }}
-      <li><a href="{{.downloadLink}}" target="_blank">Download video</a></li>
+      <li>
+        <a href="{{.downloadLink}}" target="_blank">Download video</a>
+      </li>
     {{ end }}
     {{ if .transcriptLink }}
-      <li><a href="{{.transcriptLink}}" target="_blank">Download transcript</a></li>
+      <li>
+        <a href="{{.transcriptLink}}" target="_blank">Download transcript</a>
+      </li>
     {{ end }}
   </ul>
 </div>
