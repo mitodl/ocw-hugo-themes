@@ -73,6 +73,7 @@
     padding-bottom: 56% !important;
     position: relative;
     max-width: 100%;
+    margin-bottom: 1px;
   }
 
   .video-container iframe {
@@ -140,4 +141,33 @@ a.video-download-button:visited {
   .video-download-container:first-child {
     padding-bottom: 0px;
   }
+}
+
+.video-tab-download-popup {
+  position: absolute;
+  right: 6.5%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10; // Need a higher z-index than active transcript line
+}
+.video-tab-download-popup.hidden {
+  visibility: hidden;
+}
+.video-tab-download-popup ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.video-tab-download-popup a {
+  display: block;
+  padding: 5px 40px 5px 5px;
+  text-decoration: none;
+  color: #333;
+}
+
+.video-tab-download-popup a:hover {
+  background-color: #f5f5f5;
 }

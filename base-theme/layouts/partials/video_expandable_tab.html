@@ -15,22 +15,21 @@
     {{ if or (eq .tabTitle "Transcript") (eq .tabTitle "") }}
       <div class="float-right">
         <div class="download-icons">
-        <img class="download-icon" src="/static_shared/images/videojs_download.svg"/>
-        {{/*  <i class="material-icons"></i>  */}}
-        <i class="material-icons caret-down"></i>
+          <img class="download-icon" src="/static_shared/images/videojs_download.svg"/>
+          <i class="material-icons caret-down"></i>
         </div>
       </div>
     {{ end }}
   </div>
 </div>
-<div class="popup hide">
+<div class="video-tab-download-popup hidden">
   <ul>
-    {{ if .downloadLink }}
-    <li><a href="{{.downloadLink}}" target="_blank">Download video</a></li>
-    {{ end }}
-    {{ if .transcriptLink }}
-    <li><a href="{{.transcriptLink}}" target="_blank">Download transcript</a></li>
-    {{ end }}
+      {{ if .downloadLink }}
+          <li><a href="{{.downloadLink}}" target="_blank">Download video</a></li>
+      {{ end }}
+      {{ if .transcriptLink }}
+          <li><a href="{{.transcriptLink}}" target="_blank">Download transcript</a></li>
+      {{ end }}
   </ul>
 </div>
 <div class="video-tab container collapse pr-0 {{ .tabClass }}">
@@ -39,16 +38,4 @@
   </div>
 </div>
 
-<script>
-  const downloadIcon = document.querySelector('.download-icons');
-  const popup = document.querySelector('.popup');
-  
-  downloadIcon.addEventListener('click', (event) => {
-    event.stopPropagation();
-    popup.classList.toggle('hide');
-  });
-
-  document.addEventListener('click', () => {
-    popup.classList.add('hide');
-  });
-</script>
+{{- partial "video_tab_download_popup.html" (dict "downloadLink" .downloadLink "transcriptLink" .transcriptLink ) -}}

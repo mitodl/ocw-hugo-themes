@@ -14,10 +14,10 @@
 .transcript-line {
   color: $transcript-line-color;
   position: relative;
-  // padding: 5px 0px 5px 47px;
-  padding: 5px 0px 5px 47px;
+  padding: 5px 0px 5px 6%;
   cursor: pointer;
   line-height: 1.3;
+  display: block;
 }
 
 .transcript-timestamp {
@@ -43,8 +43,8 @@
   font-weight: bold;
   background-color: $transcript-active-line-background-color;
   color: $black;
-  border-left: 4px solid $transcript-active-line-border-color;
-  padding-left: 43px;
+  box-shadow: inset 4px 0 0 0 $transcript-active-line-border-color;
+  padding-left: 6%;
   box-sizing: border-box;
   width: 100%;
 }
