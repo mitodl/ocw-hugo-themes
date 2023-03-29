@@ -14,8 +14,8 @@
     {{ end }}
     {{ if or (eq .tabTitle "Transcript") (eq .tabTitle "") }}
       <div class="float-right">
-        <div class="download-icons">
-          <img class="download-icon" src="/static_shared/images/videojs_download.svg"/>
+        <div class="video-download-icons">
+          <img class="video-download-icon" src="/static_shared/images/videojs_download.svg"/>
           <i class="material-icons caret-down"></i>
         </div>
       </div>
@@ -37,5 +37,3 @@
     {{- .tabContent | markdownify -}}
   </div>
 </div>
-
-{{- partial "video_tab_download_popup.html" (dict "downloadLink" .downloadLink "transcriptLink" .transcriptLink ) -}}
