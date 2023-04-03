@@ -4,8 +4,11 @@
   {{ $courseNumberParts := split .Params.primary_course_number "." }}
   {{ $departmentNumber := index $courseNumberParts 0 }}
   {{ $courseNumber := index $courseNumberParts 1 }}
-  {{ $numericalDepartmentNumber := index (findRE `\d+` $departmentNumber) 0 }}
+  {{ $numericalDepartmentNumber := strings.TrimLeft "0" (index (findRE `\d+` $departmentNumber) 0) }}
   {{ $numericalCourseNumber := strings.TrimLeft "0" (index (findRE `\d+` $courseNumber) 0) }}
+  {{ if eq $numericalCourseNumber "" }}
+    {{ $numericalCourseNumber = "0" }}
+  {{ end }}
   {{ if and $numericalDepartmentNumber $numericalCourseNumber }}
     {{ $numericalDepartmentNumber = int $numericalDepartmentNumber }}
     {{ $numericalCourseNumber = int $numericalCourseNumber }}
