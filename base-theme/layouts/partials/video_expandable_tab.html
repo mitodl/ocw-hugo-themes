@@ -1,23 +1,43 @@
-<div class="bg-dark-gray white-color mb-2">
-  <div
-    class="video-tab-toggle-section pointer"
-    data-target=".{{- .tabClass -}}"
-    data-toggle="collapse"
-    aria-controls="{{- .tabClass -}}"
-    aria-expanded=""
+<div 
+  class="video-tab-toggle-section pointer" 
+  data-target=".{{- .tabClass -}}"
+  data-toggle="collapse"
+  aria-controls="{{- .tabClass -}}"
+  aria-expanded=""
   >
-    <div class="video-tab-header">
-      <span>
+  <div class="video-tab-header">
+    {{ if .tabTitle }}
+      <i class="material-icons toggle md-18"></i>
+      <span class="tab-title">
         {{- .tabTitle -}}
       </span>
+    {{ end }}
+    {{ if or (eq .tabTitle "Transcript") (eq .tabTitle "") }}
       <div class="float-right">
-        <i class="material-icons md-18"></i>
+        <div class="video-download-icons">
+          <img class="video-download-icon" src="/static_shared/images/videojs_download.svg"/>
+          <i class="material-icons caret-down"></i>
+        </div>
       </div>
-    </div>
+    {{ end }}
   </div>
-  <div class="container collapse pr-0 {{ .tabClass }}">
-    <div class="video-tab-content-section">
-      {{- .tabContent | markdownify -}}
-    </div>
+</div>
+<div class="video-tab-download-popup hidden">
+  <ul>
+    {{ if .downloadLink }}
+      <li>
+        <a href="{{.downloadLink}}" target="_blank">Download video</a>
+      </li>
+    {{ end }}
+    {{ if .transcriptLink }}
+      <li>
+        <a href="{{.transcriptLink}}" target="_blank">Download transcript</a>
+      </li>
+    {{ end }}
+  </ul>
+</div>
+<div class="video-tab container collapse pr-0 {{ .tabClass }}">
+  <div class="video-tab-content-section">
+    {{- .tabContent | markdownify -}}
   </div>
 </div>

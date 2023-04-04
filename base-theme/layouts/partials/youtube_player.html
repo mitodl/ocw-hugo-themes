@@ -17,17 +17,18 @@
     data-transcriptlink = "{{ .transcriptLink }}" 
     data-setup='{
     "fluid": true,
+    "youtube": { "ytControls": 2 },
     "techOrder": ["youtube"],
     "inactivityTimeout": 0,
     "sources": [{"type": "video/youtube", "src": "https://www.youtube.com/embed/{{ .youtubeKey }}"}]
     {{$youtubeParams}} }'
   >
       {{ if .captionsLocation }}
-        <track kind="captions" src="{{ .captionsLocation }}" srclang="en" label="English" default>
+        <track kind="captions" src="{{ .captionsLocation }}" mode="disabled" srclang="en" label="English">
       {{ end }}
   </video>
   {{ if .captionsLocation }}
-        <track kind="captions" src="{{ .captionsLocation }}" srclang="en" label="English" default>
+        <track kind="captions" src="{{ .captionsLocation }}" mode="disabled" srclang="en" label="English">
   {{ end }}
 </div>
 

@@ -22,9 +22,10 @@
     	{{ .Content }}
   	</div>
   	{{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation)}}
-
 	{{ if $captionsLocation }}
-		{{ partial "video_expandable_tab.html" (dict "tabClass" "transcript" "tabTitle" "Transcript") }}
+		{{ partial "video_expandable_tab.html" (dict "tabClass" "transcript" "tabTitle" "Transcript" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation) }}
+	{{ else }}
+		{{ partial "video_expandable_tab.html" (dict "tabClass" "" "tabTitle" "" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation) }}
 	{{end}}
 
   	{{ if $relatedResourses }}

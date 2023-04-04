@@ -1,22 +1,69 @@
 .video-tab-header {
   padding: 5px 15px 5px;
-}
-
-.video-tab-content-section {
-  padding: 0 0 10px 20px !important;
-  a {
-    color: $white !important;
+  border-top: 1px solid #3d3c3d;
+  background-color: black;
+  color: white;
+  height: 37px;
+  .tab-title {
+    font-family: "Roboto";
+    line-height: 1.14rem;
+    text-transform: uppercase;
+    color: $video-tab-title-color;
+    position: relative;
+    bottom: 4px;
+    left: 2px;
   }
+}
+.video-tab.container {
+  padding-left: 0px;
+}
+.video-tab-content-section {
+  padding-top: 5px;
+  padding-bottom: 7px;
+}
+.video-tab-content-section > a {
+  display: inline-block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.video-tab.container {
+  background-color: $light-gray;
+  color: $video-tab-content-color;
+  a {
+    color: $video-tab-content-color;
+  }
+}
+.video-tab.container:not(.transcript) {
+  padding-left: 6%;
 }
 
 .video-tab-toggle-section {
-  i:after {
-    content: "keyboard_arrow_down";
+  i.toggle:after {
+    content: "keyboard_arrow_right";
+  }
+  i.toggle {
+    position: relative;
+    top: 2px;
   }
 }
 
 .video-tab-toggle-section[aria-expanded="true"] {
-  i:after {
-    content: "keyboard_arrow_up" !important;
+  i.toggle:after {
+    content: "keyboard_arrow_down";
+  }
+}
+
+.video-download-icons {
+  i.caret-down:after {
+    content: "\e5c5";
+  }
+  i.caret-down {
+    font-size: 1.35rem;
+  }
+  img.video-download-icon {
+    height: 22px;
+    position: relative;
+    left: 9px;
+    vertical-align: baseline;
   }
 }
