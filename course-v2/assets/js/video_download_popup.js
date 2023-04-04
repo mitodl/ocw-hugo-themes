@@ -1,4 +1,4 @@
-export const videoToggleDownloadPopup = () => {
+export const initVideoDownloadPopup = () => {
   const downloadIcon = document.querySelector(".video-download-icons")
   const popup = document.querySelector(".video-tab-download-popup")
   if (downloadIcon) {
