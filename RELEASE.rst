@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.87.0
+--------------
+
+- offline www theme (#1113)
+- feat: use youtube controls in videojs player (#1115)
+
 Version 1.86.2 (Released March 22, 2023)
 --------------
 
