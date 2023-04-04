@@ -1,0 +1,7 @@
+{{ $instructors := slice }}
+{{ range . }}
+  {{ range where site.Pages "Params.uid" . }}
+    {{ $instructors = $instructors | append .Params }}
+  {{ end }}
+{{ end }}
+{{ return $instructors }}

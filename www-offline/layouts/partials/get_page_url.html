@@ -1,0 +1,5 @@
+{{ $url := . }}
+{{ if strings.HasSuffix $url "/" }}
+  {{ $url = printf "%sindex.html" $url }}
+{{ end }}
+{{ return $url }}
