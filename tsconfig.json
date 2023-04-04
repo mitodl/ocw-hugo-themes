@@ -21,7 +21,7 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "outDir": "dist"
+    "outDir": "./dist"
   },
   "include": [
     "./base-theme/assets/**/*.ts",
@@ -35,7 +35,8 @@
     "./www/assets/**/*.js",
   ],
   "exclude": [
-    "./base-theme/assets/webpack"
+    "./base-theme/assets/webpack",
+    "./dist/**/*"
   ],
   "ts-node": {
     "files": true,
