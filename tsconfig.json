@@ -36,7 +36,7 @@
   ],
   "exclude": [
     "./base-theme/assets/webpack",
-    "./dist/**/*"
+    "./dist/**/*.js"
   ],
   "ts-node": {
     "files": true,
