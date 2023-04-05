@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.87.0
+Version 1.87.0 (Released April 05, 2023)
 --------------
 
 - offline www theme (#1113)
