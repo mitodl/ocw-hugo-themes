@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.88.0
+--------------
+
+- run image gallery base urls through resource_url.html (#1120)
+- fix: tsconfig.json errors for Overwriting Input File (#1117)
+
 Version 1.87.0 (Released April 05, 2023)
 --------------
 
