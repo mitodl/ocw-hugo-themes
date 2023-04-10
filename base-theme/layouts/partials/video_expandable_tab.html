@@ -1,5 +1,5 @@
-<div 
-  class="video-tab-toggle-section pointer" 
+<div
+  class="video-tab-toggle-section pointer"
   data-target=".{{- .tabClass -}}"
   data-toggle="collapse"
   aria-controls="{{- .tabClass -}}"
@@ -38,6 +38,6 @@
 </div>
 <div class="video-tab container collapse pr-0 {{ .tabClass }}">
   <div class="video-tab-content-section">
-    {{- .tabContent | markdownify -}}
+    {{ .context.RenderString .tabContent }}
   </div>
 </div>

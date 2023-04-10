@@ -7,6 +7,7 @@
 {{ $optionalTabContent := .Params.optional_text | default ""}}
 {{ $startTime := .Params.start_time | default "" }}
 {{ $endTime := .Params.end_time | default "" }}
+{{ $context := . }}
 
 {{ if (eq $downloadLink nil) }}
 {{ $downloadLink = .Params.video_files.archive_url }}
@@ -29,9 +30,9 @@
 	{{end}}
 
   	{{ if $relatedResourses }}
-  		{{ partial "video_expandable_tab.html" (dict "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
+	  {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
   	{{ end }}
-	
+
   	{{ if and $optionalTabTitle $optionalTabContent }}
 		{{ partial "video_expandable_tab.html" (dict "tabClass" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
   	{{end}}
