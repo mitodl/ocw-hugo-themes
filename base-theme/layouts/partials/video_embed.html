@@ -6,6 +6,8 @@
 {{ $startTime := $resource.Params.start_time | default "" }}
 {{ $endTime := $resource.Params.end_time | default "" }}
 {{ $downloadLink := $resource.Params.file }}
+{{ $transcriptPdfLocation := partial "resource_url.html" (dict "context" . "url" $resource.Params.video_files.video_transcript_file) }}
+
 {{ if (eq $downloadLink nil) }}
 {{ $downloadLink = $resource.Params.video_files.archive_url }}
 {{ else }}
@@ -16,11 +18,6 @@
   {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink) }}
   {{ range where site.Pages "Params.uid" $uid }}
   {{ $resourceUrl := partial "page_url.html" (dict "context" $context "url" .Permalink) }}
-  <div class="video-buttons-container">
-      <div class='video-page-link-section' onclick="window.location='{{ $resourceUrl }}';">
-        <div class="video-page-link">View video page</div>
-        <i class="material-icons video-page-link">chevron_right</i>
-      </div>
-    </div>
+  {{ partial "video_expandable_tab.html" (dict "tabTitle" "View video page" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation "resourceUrl" $resourceUrl) }}
   {{ end }}
 </div>

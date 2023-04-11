@@ -57,16 +57,13 @@
 
 .video-embed {
   max-width: $video-section-max-width;
-}
+  margin-bottom: 15px;
 
-.embedded-video-container {
-  // this padding will be applied when video is embedded
-  padding-bottom: 44px;
-  background-color: $light-gray;
 }
 
 .video-page {
   max-width: $video-section-max-width;
+  margin-bottom: 15px;
 
   .video-container {
     height: 0;
@@ -85,12 +82,6 @@
   }
 }
 
-.video-buttons-container {
-  background-color: $light-gray;
-  overflow: hidden;
-  margin-bottom: 35px;
-}
-
 .video-download-container {
   float: right;
   padding-top: 25px;
@@ -106,22 +97,6 @@
 
 a.video-download-button:visited {
   color: white;
-}
-
-.video-page-link-section {
-  padding: 5px 15px 5px;
-  display: inline-flex;
-}
-
-.video-page-link {
-  text-decoration: none;
-  color: $black !important;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.video-page-link:hover {
-  text-decoration: none !important;
 }
 
 #course-main-content a.download-file.video-download-button:link {
