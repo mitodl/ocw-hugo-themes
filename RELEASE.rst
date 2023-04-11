@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.88.0
+Version 1.88.0 (Released April 11, 2023)
 --------------
 
 - run image gallery base urls through resource_url.html (#1120)
