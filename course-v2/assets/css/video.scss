@@ -58,7 +58,6 @@
 .video-embed {
   max-width: $video-section-max-width;
   margin-bottom: 15px;
-
 }
 
 .video-page {
@@ -140,7 +139,7 @@ a.video-download-button:visited {
   display: block;
   padding: 5px 40px 5px 5px;
   text-decoration: none;
-  color: $black;
+  color: $black !important;
 }
 
 .video-tab-download-popup a:hover {
