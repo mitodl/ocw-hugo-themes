@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.88.1
+--------------
+
+- feat: YouTube controller design layout for embed videos (#1124)
+- Set sentry environment tag by SENTRY_ENV env variable (#1024)
+
 Version 1.88.0 (Released April 11, 2023)
 --------------
 
