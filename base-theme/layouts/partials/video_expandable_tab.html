@@ -7,12 +7,22 @@
   >
   <div class="video-tab-header">
     {{ if .tabTitle }}
-      <i class="material-icons toggle md-18"></i>
-      <span class="tab-title">
-        {{- .tabTitle -}}
+      {{/*  In case of embed videos, the tab bar should have a clickable link  */}}
+      <span 
+        class="tab-title-section" 
+        {{ if and .resourceUrl (eq .tabTitle "View video page") }} 
+        onclick="window.location='{{ .resourceUrl }}';"
+        {{ end }}
+        >
+        <i class="material-icons toggle md-18"></i>
+        <span class="tab-title">
+          {{- .tabTitle -}}
+        </span>
       </span>
     {{ end }}
-    {{ if or (eq .tabTitle "Transcript") (eq .tabTitle "") }}
+    {{/*  If we have transcript or the video is embed video, show download button on those tabs.
+      Otherwise show download button in a standalone tab bar  */}}
+    {{ if or (eq .tabTitle "Transcript") (eq .tabTitle "View video page") (eq .tabTitle "") }}
       <div class="float-right">
         <div class="video-download-icons">
           <img class="video-download-icon" src="/static_shared/images/videojs_download.svg"/>
