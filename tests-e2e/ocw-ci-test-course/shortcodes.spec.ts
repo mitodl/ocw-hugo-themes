@@ -25,3 +25,15 @@ test("Resource links include link to correct page", async ({ page }) => {
   const href = await resourceLink.getAttribute("href")
   expect(href).toBe("/courses/ocw-ci-test-course/pages/first-test-page-title/")
 })
+
+test("Related resources link to correct page", async ({ page }) => {
+  const course = new CoursePage(page, "course")
+  await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
+  const tab = page.getByText("Related Resources")
+  await tab.click()
+  const resourceLink = page.getByRole("link", {
+    name: "(PDF)"
+  })
+  const href = await resourceLink.getAttribute("href")
+  expect(href).toBe("/courses/ocw-ci-test-course/resources/example_pdf/")
+})
