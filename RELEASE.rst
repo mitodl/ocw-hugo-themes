@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.88.1
+Version 1.88.1 (Released April 13, 2023)
 --------------
 
 - feat: YouTube controller design layout for embed videos (#1124)
