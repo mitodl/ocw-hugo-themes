@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.88.2
+Version 1.88.2 (Released April 14, 2023)
 --------------
 
 - Update Video Partial to Handle Resource Link Shortcodes (#1123)
