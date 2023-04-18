@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.88.3
+--------------
+
+- Video player not loading for Spaced Youtube IDs (#1130)
+
 Version 1.88.2 (Released April 14, 2023)
 --------------
 
