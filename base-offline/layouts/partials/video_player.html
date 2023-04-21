@@ -1,0 +1,28 @@
+{{ $random := delimit (shuffle (split (md5 "seed") "" )) "" }}
+<div class="video-container embedded-video-container">
+  <video
+    id="video-player-{{ .youtubeKey }}-{{ $random }}"
+    class="video-js vjs-default-skin vjs-big-play-centered vjs-ocw"
+    controls
+    data-setup='{
+    "fluid": true,
+    "inactivityTimeout": 0'
+  >
+      {{ if .archiveUrl }}
+        <source src="{{ partial "resource_url.html" (dict "context" .context "url" .archiveUrl) }}" type="video/mp4" />
+      {{ end }}
+      {{ if .captionsLocation }}
+        <track kind="captions" src="{{ .captionsLocation }}" mode="disabled" srclang="en" label="English">
+      {{ end }}
+  </video>
+  {{ if .captionsLocation }}
+        <track kind="captions" src="{{ .captionsLocation }}" mode="disabled" srclang="en" label="English">
+  {{ end }}
+</div>
+
+<script>
+  window.onload = function() {
+    if (window.initVideoJS)
+      window.initVideoJS()
+  }
+</script>
