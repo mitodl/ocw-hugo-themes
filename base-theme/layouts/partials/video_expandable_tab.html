@@ -9,7 +9,7 @@
   <div class="video-tab-header">
     {{ if .tabTitle }}
       {{/*  In case of embed videos, the tab bar should have a clickable link  */}}
-      <span 
+      <button
         class="tab-title-section" 
         {{ if and .resourceUrl (eq .tabTitle "View video page") }} 
         onclick="window.location='{{ .resourceUrl }}';"
@@ -19,33 +19,33 @@
         <span class="tab-title">
           {{- .tabTitle -}}
         </span>
-      </span>
+      </button>
     {{ end }}
     {{/*  If we have transcript or the video is embed video, show download button on those tabs.
       Otherwise show download button in a standalone tab bar  */}}
     {{ if or (eq .tabTitle "Transcript") (eq .tabTitle "View video page") (eq .tabTitle "") }}
       <div class="float-right">
-        <div class="video-download-icons">
+        <button class="video-download-icons">
           <img class="video-download-icon" src="/static_shared/images/videojs_download.svg"/>
           <i class="material-icons caret-down"></i>
-        </div>
+        </button>
       </div>
     {{ end }}
   </div>
-</div>
-<div class="video-tab-download-popup hidden">
-  <ul>
-    {{ if .downloadLink }}
-      <li>
-        <a href="{{.downloadLink}}" target="_blank">Download video</a>
-      </li>
-    {{ end }}
-    {{ if .transcriptLink }}
-      <li>
-        <a href="{{.transcriptLink}}" target="_blank">Download transcript</a>
-      </li>
-    {{ end }}
-  </ul>
+  <div class="video-tab-download-popup hidden" id="video-tab-download-popup">
+    <ul>
+      {{ if .downloadLink }}
+        <li>
+          <a href="{{.downloadLink}}" target="_blank">Download video</a>
+        </li>
+      {{ end }}
+      {{ if .transcriptLink }}
+        <li>
+          <a href="{{.transcriptLink}}" target="_blank">Download transcript</a>
+        </li>
+      {{ end }}
+    </ul>
+  </div>
 </div>
 <div class="video-tab container collapse pr-0 {{ .tabClass }}" role="tabpanel">
   <div class="video-tab-content-section">
