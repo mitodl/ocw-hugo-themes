@@ -119,12 +119,12 @@ a.video-download-button:visited {
 
 .video-tab-download-popup {
   position: absolute;
-  right: 6.5%;
+  right: 2.5%;
   background-color: $white;
   border: 1px solid #ccc;
   padding: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  z-index: 10; // Need a higher z-index than active transcript line
+  z-index: 999 !important; // Need a higher z-index than active transcript line
 }
 .video-tab-download-popup.hidden {
   visibility: hidden;
@@ -149,4 +149,8 @@ a.video-download-button:visited {
 .vjs-poster,
 .vjs-big-play-button {
   display: none !important;
+}
+
+.video-tab-toggle-section{
+  position: relative;
 }

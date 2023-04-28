@@ -4,11 +4,15 @@
   background-color: black;
   color: white;
   height: 37px;
+  .tab-title-section {
+    background: none;
+    border: none;
+  }
   .tab-title {
     font-family: "Roboto";
     line-height: 1.14rem;
     text-transform: uppercase;
-    color: $video-tab-title-color;
+    color: $video-tab-title-color !important;
     position: relative;
     bottom: 4px;
     left: 2px;
@@ -42,6 +46,7 @@
     content: "keyboard_arrow_right";
   }
   i.toggle {
+    color: $white;
     position: relative;
     top: 2px;
   }
@@ -54,6 +59,11 @@
 }
 
 .video-download-icons {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  color: $white;
   i.caret-down:after {
     content: "\e5c5";
   }
