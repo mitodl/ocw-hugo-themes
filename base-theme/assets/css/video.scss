@@ -4,10 +4,7 @@
   background-color: black;
   color: white;
   height: 37px;
-  .tab-title-section {
-    background: none;
-    border: none;
-  }
+
   .tab-title {
     font-family: "Roboto";
     line-height: 1.14rem;
@@ -16,6 +13,18 @@
     position: relative;
     bottom: 4px;
     left: 2px;
+  }
+
+  .tab-title-section {
+    > * {
+      padding-right: 10px;
+      background: none;
+      border: none;
+    }
+    a {
+      text-decoration: none;
+      display: inline-block;
+    }
   }
 }
 .video-tab.container {
