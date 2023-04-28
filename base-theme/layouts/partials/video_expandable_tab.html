@@ -1,3 +1,5 @@
+{{ $isEmbedVideo := eq .tabTitle "View video page" }}
+{{ $videoHasTranscript := eq .tabTitle "Transcript" }}
 <div
   class="video-tab-toggle-section pointer"
   data-target=".{{- .tabClass -}}"
@@ -9,7 +11,7 @@
   <div class="video-tab-header">
     {{ if .tabTitle }}
       <span class="tab-title-section">
-        {{ if and .resourceUrl (eq .tabTitle "View video page") }}
+        {{ if and .resourceUrl $isEmbedVideo }}
           <a href="{{ .resourceUrl }}">
           {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}
           </a>
@@ -22,7 +24,7 @@
     {{ end }}
     {{/*  If we have transcript or the video is embed video, show download button on those tabs.
       Otherwise show download button in a standalone tab bar  */}}
-    {{ if or (eq .tabTitle "Transcript") (eq .tabTitle "View video page") (eq .tabTitle "") }}
+    {{ if or ($videoHasTranscript) ($isEmbedVideo) (eq .tabTitle "") }}
       <div class="float-right">
         <button class="video-download-icons">
           <img class="video-download-icon" src="/static_shared/images/videojs_download.svg"/>
@@ -35,12 +37,12 @@
     <ul>
       {{ if .downloadLink }}
         <li>
-          <a href="{{.downloadLink}}" target="_blank">Download video</a>
+          <a href="{{ .downloadLink }}" target="_blank">Download video</a>
         </li>
       {{ end }}
       {{ if .transcriptLink }}
         <li>
-          <a href="{{.transcriptLink}}" target="_blank">Download transcript</a>
+          <a href="{{ .transcriptLink }}" target="_blank">Download transcript</a>
         </li>
       {{ end }}
     </ul>
