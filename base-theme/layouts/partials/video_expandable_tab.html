@@ -7,18 +7,17 @@
   >
   <div class="video-tab-header">
     {{ if .tabTitle }}
-      {{/*  In case of embed videos, the tab bar should have a clickable link  */}}
-      <button
-        class="tab-title-section" 
-        {{ if and .resourceUrl (eq .tabTitle "View video page") }} 
-        onclick="window.location='{{ .resourceUrl }}';"
+      <span class="tab-title-section">
+        {{ if and .resourceUrl (eq .tabTitle "View video page") }}
+          <a href="{{ .resourceUrl }}">
+          {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}
+          </a>
+        {{ else }}
+          <button>
+            {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}
+          </button>
         {{ end }}
-        >
-        <i class="material-icons toggle md-18"></i>
-        <span class="tab-title">
-          {{- .tabTitle -}}
-        </span>
-      </button>
+      </span>
     {{ end }}
     {{/*  If we have transcript or the video is embed video, show download button on those tabs.
       Otherwise show download button in a standalone tab bar  */}}
