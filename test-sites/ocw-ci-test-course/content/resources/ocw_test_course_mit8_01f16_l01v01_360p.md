@@ -11,8 +11,8 @@ image_metadata:
 learning_resource_types: []
 license: https://creativecommons.org/licenses/by-nc-sa/4.0/
 ocw_type: ""
-optional_tab_title: ""
-optional_text: ""
+optional_tab_title: "Optional Tab"
+optional_text: "[OCW](https://ocw.mit.edu)"
 parent_title: Test Course Video
 parent_type: SupplementalResourceSection
 related_resources_text: >-
