@@ -21,9 +21,6 @@ test("Expected expandable tabs are properly rendered", async ({ page }) => {
   const tabHTML = await (
     await page.locator("div.video-tab-content-section").all()
   ).map(async tabContents => await tabContents.innerHTML())
-  console.log(await tabHTML[0])
-  console.log(await tabHTML[1])
-  console.log(await tabHTML[2])
   const relatedResourcesHTML = await tabHTML[1]
   const optionalTabHTML = await tabHTML[2]
   expect(relatedResourcesHTML).toContain("Practice problems")
