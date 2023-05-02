@@ -28,13 +28,16 @@ class WwwPage {
   /**
    * Return a Locator for a Course Card by its title.
    */
-  getCourseCard(title: string, { expectedCount = 1 } = {}): Locator {
+  async getCourseCard(
+    title: string,
+    { expectedCount = 1 } = {}
+  ): Promise<Locator> {
     const cardXPath = `div[${xPath.predicates.hasClass("course-card")}]`
-    const courseCard = this.page
+    const courseCard = await this.page
       .getByRole("link", { name: title })
       .locator(`${closest(cardXPath)} >> visible=true`)
 
-    courseCard.count().then(count => {
+    await courseCard.count().then(count => {
       if (count !== expectedCount) {
         throw new Error(`Expected ${expectedCount} Course Cards, got ${count}`)
       }

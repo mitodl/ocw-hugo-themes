@@ -166,7 +166,7 @@
   },
   "packageManager": "yarn@3.2.2",
   "devDependencies": {
-    "@playwright/test": "^1.27.1",
+    "@playwright/test": "^1.33.0",
     "@types/serve-handler": "^6.1.1"
   }
 }
