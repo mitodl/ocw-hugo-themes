@@ -12,7 +12,10 @@ learning_resource_types: []
 license: https://creativecommons.org/licenses/by-nc-sa/4.0/
 ocw_type: ""
 optional_tab_title: "Optional Tab"
-optional_text: "[OCW](https://ocw.mit.edu)"
+optional_text: >-
+  Lecture Notes
+
+  {{% resource_link "60fcbd34-2dd0-40ca-bc7c-689b96d7c0b0" "(PDF)" %}}
 parent_title: Test Course Video
 parent_type: SupplementalResourceSection
 related_resources_text: >-

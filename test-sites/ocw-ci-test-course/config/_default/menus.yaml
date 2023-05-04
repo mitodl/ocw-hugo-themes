@@ -25,3 +25,7 @@ leftnav:
   parent: d9eb8c7e-b9ac-42db-83d1-5e36b8189f5d
   url: /pages/subsection-1b
   weight: 20
+- identifier: a9916d12-f128-bdd2-a11b-02e75f786ba1
+  name: Video Series Overview
+  url: /pages/video-series-overview/
+  weight: 50

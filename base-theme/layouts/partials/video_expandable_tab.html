@@ -26,7 +26,7 @@
       Otherwise show download button in a standalone tab bar  */}}
     {{ if or ($videoHasTranscript) ($isEmbedVideo) (eq .tabTitle "") }}
       <div class="float-right">
-        <button class="video-download-icons">
+        <button class="video-download-icons" aria-label="Download Button">
           <img class="video-download-icon" src="/static_shared/images/videojs_download.svg"/>
           <i class="material-icons caret-down"></i>
         </button>
