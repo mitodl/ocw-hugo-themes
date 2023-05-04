@@ -14,7 +14,6 @@ test("Expected expandable tabs are properly rendered", async ({ page }) => {
   await course.goto("/resources/ocw_test_course_mit8_01f16_l01v01_360p")
   const tabTitles = await page.locator("span.tab-title").allTextContents()
   expect(tabTitles).toStrictEqual([
-    "Transcript",
     "Related Resources",
     "Optional Tab"
   ])
