@@ -12,11 +12,8 @@ test("Course page has title in <head>", async ({ page }) => {
 test("Expected expandable tabs are properly rendered", async ({ page }) => {
   const course = new CoursePage(page, "course")
   await course.goto("/resources/ocw_test_course_mit8_01f16_l01v01_360p")
-  const tabTitles = await page.locator("span.tab-title").allTextContents()
-  expect(tabTitles).toStrictEqual([
-    "Related Resources",
-    "Optional Tab"
-  ])
+  const tabTitles1 = await page.locator("span.tab-title").allTextContents()
+  expect(tabTitles1).toStrictEqual(["Related Resources", "Optional Tab"])
   const tabHTML = await (
     await page.locator("div.video-tab-content-section").all()
   ).map(async tabContents => await tabContents.innerHTML())
@@ -29,4 +26,7 @@ test("Expected expandable tabs are properly rendered", async ({ page }) => {
   expect(optionalTabHTML).toContain(
     '<a href="https://ocw.mit.edu" target="_blank" rel="noopener">OCW</a>'
   )
+  await course.goto("/resources/ocw_test_course_mit8_01f16_l01v02_360p")
+  const tabTitles2 = await page.locator("span.tab-title").allTextContents()
+  expect(tabTitles2).toStrictEqual(["Transcript"])
 })

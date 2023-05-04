@@ -1,6 +1,10 @@
 {{ $youtubeKey := trim .Params.video_metadata.youtube_id " "}}
 {{ $captionsLocation := partial "video_captions_file_url.html" (dict "context" . "url" .Params.video_files.video_captions_file) }}
 {{ $transcriptPdfLocation := partial "resource_url.html" (dict "context" . "url" .Params.video_files.video_transcript_file) }}
+{{ $transcriptAndCaptionExist := false }}
+{{ if and .Params.video_files.video_captions_file .Params.video_files.video_transcript_file }}
+	{{ $transcriptAndCaptionExist = true }}
+{{ end }}
 {{ $downloadLink := .Params.file }}
 {{ $relatedResourses := .Params.related_resources_text | default "" }}
 {{ $optionalTabTitle := .Params.optional_tab_title | default "" }}
@@ -23,7 +27,7 @@
     	{{ .Content }}
   	</div>
   	{{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation)}}
-	{{ if .Params.video_files.video_transcript_file }}
+	{{ if $transcriptAndCaptionExist }}
 		{{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "transcript" "tabTitle" "Transcript" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation) }}
 	{{ else }}
 		{{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "" "tabTitle" "" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation) }}
