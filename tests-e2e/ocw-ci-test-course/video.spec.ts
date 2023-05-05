@@ -6,6 +6,7 @@ test("Download button links (download video and download transcript) should be k
 }) => {
   const course = new CoursePage(page, "course")
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
+  await page.waitForTimeout(2000)
   const links = [
     "https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
     "https://live-qa.ocw.mit.edu",
@@ -18,9 +19,7 @@ test("Download button links (download video and download transcript) should be k
 
   for (let i = 0; i < 2; i++) {
     await page.keyboard.press("Tab")
-    // const focusedElement = page.locator(':focus')
     const hrefAttribute = await page.locator(':focus').getAttribute('href')
-    console.log(hrefAttribute)
     expect(hrefAttribute).toBe(links[i])
   }
 })
@@ -31,7 +30,7 @@ test("Embed video redirects to video page using keyboard navigation", async ({
   const course = new CoursePage(page, "course")
   await course.goto("pages/video-series-overview/")
   const videoRedirectLink = page.getByRole("link", {
-    name: "keyboard_arrow_right View video page",
+    name: "View video page",
   })
   await videoRedirectLink.focus()
   page.keyboard.press("Enter")
@@ -51,7 +50,7 @@ test("Video tabs content (links) are navigable using keyboard", async ({
       await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
       const title = tabDict[tabClass].title
       const tabByRole = page.getByRole("button", {
-        name: (`keyboard_arrow_right ${title}`),
+        name: (`${title}`),
       })
       await tabByRole.focus()
       // Use keyboard to expand the tab
@@ -78,7 +77,7 @@ test("Expand/collapse video tabs using keyboard", async ({
     if (tabClass) {
       const title = tabClassToTitle[tabClass]
       const tabByRole = page.getByRole("button", {
-        name: (`keyboard_arrow_right ${title}`),
+        name: (`${title}`),
       })
       await tabByRole.focus()
       // Use keyboard to expand the tab
