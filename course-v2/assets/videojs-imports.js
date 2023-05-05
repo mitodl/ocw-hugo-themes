@@ -11,5 +11,5 @@ export const initVideoJS = () => {
   initPlayBackSpeedButton()
   initVideoTranscriptTrack()
   initVideoFullscreenToggle()
-  initVideoDownloadPopup()
+  // initVideoDownloadPopup()
 }

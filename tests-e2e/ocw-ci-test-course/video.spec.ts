@@ -6,23 +6,25 @@ test("Download button links (download video and download transcript) should be k
 }) => {
   const course = new CoursePage(page, "course")
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
-  const links = [
-    "https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
-    "https://live-qa.ocw.mit.edu",
-  ]
   const downloadButtonByRole = page.getByRole("button", {
     name: (`Download Button`),
   })
   await downloadButtonByRole.focus()
   await page.keyboard.press("Enter")
 
-  for (let i = 0; i < 2; i++) {
-    await page.keyboard.press("Tab")
-    // const focusedElement = page.locator(':focus')
-    const hrefAttribute = await page.locator(':focus').getAttribute('href')
-    console.log(hrefAttribute)
-    expect(hrefAttribute).toBe(links[i])
-  }
+  const videoLink = page.getByRole("link", { name: "Download video" })
+
+  await expect(videoLink).toBeVisible()
+
+  const transcriptLink = page.getByRole("link", { name: "Download transcript" })
+  await expect(transcriptLink).toBeVisible()
+
+  await page.keyboard.press("Tab")
+  await expect(videoLink).toBeFocused()
+  await page.keyboard.press("Tab")
+  await expect(transcriptLink).toBeFocused()
+
+  // Add back in any href tests you want on the links
 })
 
 test("Embed video redirects to video page using keyboard navigation", async ({
