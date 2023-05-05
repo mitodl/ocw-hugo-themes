@@ -1,10 +1,16 @@
 export const initVideoDownloadPopup = () => {
-  const downloadIcons = document.querySelector(".video-download-icons")
+  const downloadIcon = document.querySelector(".video-download-icons")
   const popup = document.querySelector(".video-tab-download-popup")
-  if (downloadIcons) {
-    downloadIcons.addEventListener("click", event => {
+  if (downloadIcon) {
+    downloadIcon.addEventListener("click", event => {
       event.stopPropagation()
       if (popup) popup.classList.toggle("hidden")
     })
   }
+
+  document.addEventListener("click", () => {
+    if (popup) {
+      popup.classList.add("hidden")
+    }
+  })
 }
