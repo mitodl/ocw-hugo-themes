@@ -87,9 +87,8 @@ test("Transcripts start time matches video start time", async ({ page }) => {
 
   await page.frameLocator('role=region[name="Video Player"] >> iframe').locator('.ytp-cued-thumbnail-overlay-image').getAttribute('style')
 
-  const playButton = page.frameLocator('role=region[name="Video Player"] >> iframe').getByRole('button', { name:'Play' })
-  expect(playButton).toBeVisible({ timeout:10000 })
-  await playButton.click()
+  const playButton = page.frameLocator('role=region[name="Video Player"] >> iframe').getByRole('button', { name: 'Play' })
+  expect(playButton).toBeVisible({ timeout: 10000 })
   await playButton.click()
 
   const activeCaption = await page.locator('.transcript-line.is-active').getAttribute('data-begin')
