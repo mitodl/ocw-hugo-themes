@@ -55,7 +55,7 @@ jobs:
     - name: Build Webpack
       run: yarn build:webpack:dev
     - name: Run Playwright tests
-      run: yarn test:e2e
+      run: yarn test:e2e video.spec.ts --repeat-each 100
     - uses: actions/upload-artifact@v3
       if: always()
       with:

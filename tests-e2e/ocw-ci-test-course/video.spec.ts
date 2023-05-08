@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
 
-test("Download button links (download video and download transcript) should be keyboard navigable", async ({
+test.only("Download button links (download video and download transcript) should be keyboard navigable", async ({
   page,
 }) => {
   const course = new CoursePage(page, "course")
