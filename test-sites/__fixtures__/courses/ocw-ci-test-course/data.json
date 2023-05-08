@@ -55,7 +55,7 @@
     "Graduate",
     "Undergraduate"
   ],
-  "image_src": "http://localhost:8044/courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg",
+  "image_src": "https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg",
   "course_image_metadata": {
     "body": "",
     "content_type": "resource",

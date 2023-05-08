@@ -152,7 +152,7 @@ class LocalOCW {
               ...process.env,
               OCW_STUDIO_BASE_URL: `http://localhost:${this.fixturesPort}`,
               SEARCH_API_URL:      "https://open.mit.edu/api/v0/search/",
-              RESOURCE_BASE_URL:   "http://localhost:8044",
+              RESOURCE_BASE_URL:   "https://live-qa.ocw.mit.edu/",
               /**
                * When building test sites, use local server at fixturesPort for static
                * API requests. See test-sites/__fixtures__/README.md for more.
