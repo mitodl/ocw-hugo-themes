@@ -90,6 +90,7 @@ test("Transcripts start time matches video start time", async ({ page }) => {
   const playButton = page.frameLocator('role=region[name="Video Player"] >> iframe').getByRole('button', { name: 'Play' })
   expect(playButton).toBeVisible({ timeout: 10000 })
   await playButton.click()
+  await playButton.click()
 
   const activeCaption = await page.locator('.transcript-line.is-active').getAttribute('data-begin')
   const nextCaption = await page.locator('.transcript-line.is-active + div').getAttribute('data-begin')
