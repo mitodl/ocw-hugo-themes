@@ -59,13 +59,13 @@ test("End time exists", async ({ page }) => {
   const course = new CoursePage(page, "course")
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
   const src = await page.locator('iframe.vjs-tech').getAttribute('src')
-  expect(src).toMatch(/.*?end=15.*/)
+  expect(src).toMatch(/.*?end=50.*/)
 })
 
 test("Start and end time exists", async ({ page }) => {
   const course = new CoursePage(page, "course")
   const expectedStartTime = '13'
-  const expectedEndTime = '15'
+  const expectedEndTime = '50'
 
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
   const src = await page.locator('iframe.vjs-tech').getAttribute('src')
@@ -85,9 +85,12 @@ test("Transcripts start time matches video start time", async ({ page }) => {
   const urlParams = new URLSearchParams(src || '')
   expect(urlParams.get('start')).toEqual(expectedStartTime)
 
-  const playButton = page.frameLocator('role=region[name="Video Player"] >> iframe').getByRole('button', { name: 'Play' })
-  await page.waitForTimeout(1000)
+  await page.frameLocator('role=region[name="Video Player"] >> iframe').locator('.ytp-cued-thumbnail-overlay-image').getAttribute('style')
+
+  const playButton = page.frameLocator('role=region[name="Video Player"] >> iframe').getByRole('button', {name:'Play'})
+  expect(playButton).toBeVisible({timeout:10000})
   await playButton.click()
+  // await playButton.click()
 
   const activeCaption = await page.locator('.transcript-line.is-active').getAttribute('data-begin')
   const nextCaption = await page.locator('.transcript-line.is-active + div').getAttribute('data-begin')

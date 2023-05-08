@@ -22,7 +22,7 @@ related_resources_text: >-
 resource_index_text: ""
 resourcetype: Video
 start_time: 13
-end_time: 15
+end_time: 50
 title: ocw_test_course_MIT8_01F16_L01v01_360p.mp4
 uid: e95c5f3f-e4ba-4b8d-b505-824aa2a322d0
 video_files:
