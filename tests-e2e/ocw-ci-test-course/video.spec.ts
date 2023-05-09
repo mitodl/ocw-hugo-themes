@@ -11,7 +11,7 @@ test("Download button links (download video and download transcript) should be k
     "https://live-qa.ocw.mit.edu"
   ]
   const downloadButtonByRole = page.getByRole("button", {
-    name: (`Download Button`),
+    name: `Download Button`
   })
   await downloadButtonByRole.focus()
   await page.keyboard.press("Enter")
@@ -144,8 +144,10 @@ test("Expand/collapse video tabs using keyboard", async ({ page }) => {
       //   await toggleButton.evaluate(tab => tab.getAttribute("aria-expanded"))
       // ).toBe("false")
       await page.waitForFunction(tabClass => {
-        const el = document.querySelector(`.video-tab.container.${tabClass}.collapse`)
-        return el && !el.classList.contains('show')
+        const el = document.querySelector(
+          `.video-tab.container.${tabClass}.collapse`
+        )
+        return el && !el.classList.contains("show")
       }, tabClass)
     }
   }
