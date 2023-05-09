@@ -33,7 +33,7 @@ class WwwPage {
     { expectedCount = 1 } = {}
   ): Promise<Locator> {
     const cardXPath = `div[${xPath.predicates.hasClass("course-card")}]`
-    const courseCard = await this.page
+    const courseCard = this.page
       .getByRole("link", { name: title })
       .locator(`${closest(cardXPath)} >> visible=true`)
 
