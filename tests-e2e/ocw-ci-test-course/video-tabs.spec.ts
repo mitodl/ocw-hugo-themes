@@ -1,17 +1,19 @@
 import { test, expect } from "@playwright/test"
-import { CoursePage } from "../util"
+import { VideoPage } from "../util/VideoPage"
 
-test("Course page has title in <head>", async ({ page }) => {
-  const course = new CoursePage(page, "course")
-  await course.goto("/resources/ocw_test_course_mit8_01f16_l01v01_360p")
+test("A page without a transcript has the proper tab titles and contents", async ({
+  page
+}) => {
+  const videoPage = new VideoPage(page)
+  await videoPage.goto("/resources/ocw_test_course_mit8_01f16_l01v01_360p")
 
-  await expect(page.getByRole("tab")).toHaveText([
+  await expect(videoPage.tabs).toHaveText([
     /\s*$/, // first tab is just download button with no title.
     /Related Resources/,
     /Optional Tab/
   ])
 
-  const panels = await page.getByRole("tabpanel", { includeHidden: true }).all()
+  const panels = await videoPage.tabPanels.all()
   const html = await Promise.all(panels.map(panel => panel.innerHTML()))
 
   expect(html).toHaveLength(3)
@@ -26,6 +28,10 @@ test("Course page has title in <head>", async ({ page }) => {
   expect(optionalTabHTML).toContain(
     '<a href="https://ocw.mit.edu" target="_blank" rel="noopener">OCW</a>'
   )
-  await course.goto("/resources/ocw_test_course_mit8_01f16_l01v02_360p")
+})
+
+test("A page with a transcript has a transcript tab", async ({ page }) => {
+  const videoPage = new VideoPage(page)
+  await videoPage.goto("/resources/ocw_test_course_mit8_01f16_l01v02_360p")
   await expect(page.getByRole("tab")).toHaveText(["Transcript"])
 })
