@@ -18,6 +18,6 @@
   {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink) }}
   {{ range where site.Pages "Params.uid" $uid }}
   {{ $resourceUrl := partial "page_url.html" (dict "context" $context "url" .Permalink) }}
-  {{ partial "video_expandable_tab.html" (dict "tabTitle" "View video page" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation "resourceUrl" $resourceUrl) }}
+  {{ partial "video_expandable_tab.html" (dict "context" $context "tabTitle" "View video page" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation "resourceUrl" $resourceUrl) }}
   {{ end }}
 </div>
