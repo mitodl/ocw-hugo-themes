@@ -6,6 +6,7 @@ test("Course page has title in <head>", async ({ page }) => {
   await course.goto("/resources/ocw_test_course_mit8_01f16_l01v01_360p")
 
   await expect(page.getByRole("tab")).toHaveText([
+    /\s*$/, // first tab is just download button with no title.
     /Related Resources/,
     /Optional Tab/
   ])
