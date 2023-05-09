@@ -1,62 +1,34 @@
 import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
 
-test("Download button links (download video and download transcript) should be keyboard navigable", async ({
+test("Verify that the 'Download video' and 'Download transcript' links are keyboard navigable and have the correct download URLs", async ({
   page
 }) => {
   const course = new CoursePage(page, "course")
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
-  const links = [
+  const downloadLinks = [
     "https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
     "https://live-qa.ocw.mit.edu"
   ]
-  const downloadButtonByRole = page.getByRole("button", {
-    name: `Download Button`
+  const downloadButton = page.getByRole("button", {
+    name: `Download button`
   })
-  await downloadButtonByRole.focus()
+  await downloadButton.focus()
   await page.keyboard.press("Enter")
 
-  const videoLink = page.getByRole("link", { name: "Download video" })
-
-  // await expect(videoLink).toBeVisible()
-
-  const transcriptLink = page.getByRole("link", { name: "Download transcript" })
-  // await expect(transcriptLink).toBeVisible()
-  const arr = [videoLink, transcriptLink]
-
-  // await page.keyboard.press("Tab")
-  // await expect(videoLink).toBeFocused()
-  // await page.keyboard.press("Tab")
-  // await expect(transcriptLink).toBeFocused()
+  const videoDownloadLink = page.getByRole("link", { name: "Download video" })
+  const transcriptDownloadLink = page.getByRole("link", {
+    name: "Download transcript"
+  })
+  const downloadLinksArr = [videoDownloadLink, transcriptDownloadLink]
 
   for (let i = 0; i < 2; i++) {
-    await expect(arr[i]).toBeVisible()
+    await expect(downloadLinksArr[i]).toBeVisible()
     await page.keyboard.press("Tab")
     const hrefAttribute = await page.locator(":focus").getAttribute("href")
-    expect(hrefAttribute).toBe(links[i])
+    expect(hrefAttribute).toBe(downloadLinks[i])
   }
-
-  // Add back in any href tests you want on the links
 })
-//   const course = new CoursePage(page, "course")
-//   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
-//   await page.waitForTimeout(2000)
-//   const links = [
-//     "https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
-//     "https://live-qa.ocw.mit.edu"
-//   ]
-//   const downloadButtonByRole = page.getByRole("button", {
-//     name: `Download Button`
-//   })
-//   await downloadButtonByRole.focus()
-//   await page.keyboard.press("Enter")
-
-//   for (let i = 0; i < 2; i++) {
-//     await page.keyboard.press("Tab")
-//     const hrefAttribute = await page.locator(":focus").getAttribute("href")
-//     expect(hrefAttribute).toBe(links[i])
-//   }
-// })
 
 test("Embed video redirects to video page using keyboard navigation", async ({
   page
@@ -73,9 +45,7 @@ test("Embed video redirects to video page using keyboard navigation", async ({
     "resources/ocw_test_course_mit8_01f16_l01v01_360p"
   )
 })
-test("Video tabs content (links) are navigable using keyboard", async ({
-  page
-}) => {
+test("Video tabs content (links) are keyoard navigable", async ({ page }) => {
   const tabDict: { [key: string]: { title: string; redirectPath: string } } = {
     "related-resource": {
       title:        "Related Resources",
@@ -90,12 +60,11 @@ test("Video tabs content (links) are navigable using keyboard", async ({
     if (tabClass) {
       const course = new CoursePage(page, "course")
       await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
-      const title = tabDict[tabClass].title
-      const tabByRole = page.getByRole("button", {
-        name: `${title}`
+      const tabTitle = tabDict[tabClass].title
+      const tabButton = page.getByRole("button", {
+        name: `${tabTitle}`
       })
-      await tabByRole.focus()
-      // Use keyboard to expand the tab
+      await tabButton.focus()
       page.keyboard.press("Enter")
       page.keyboard.press("Tab")
       page.keyboard.press("Enter")
@@ -104,7 +73,9 @@ test("Video tabs content (links) are navigable using keyboard", async ({
     }
   }
 })
-test("Expand/collapse video tabs using keyboard", async ({ page }) => {
+test("Expand and collapse video tabs using keyboard navigation", async ({
+  page
+}) => {
   const course = new CoursePage(page, "course")
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
 
@@ -116,38 +87,36 @@ test("Expand/collapse video tabs using keyboard", async ({ page }) => {
   for (const tabClass in tabClassToTitle) {
     if (tabClass) {
       const title = tabClassToTitle[tabClass]
-      const tabByRole = page.getByRole("button", {
+      const tabButton = page.getByRole("button", {
         name: `${title}`
       })
-      await expect(tabByRole).toBeVisible()
-      await tabByRole.focus()
+      await expect(tabButton).toBeVisible()
+      await tabButton.focus()
 
       // Use keyboard to expand the tab
       page.keyboard.press("Enter")
 
-      const toggleButton = await page.waitForSelector(
+      const toggleSection = await page.waitForSelector(
         `.video-tab-toggle-section[data-target=".${tabClass}"]`
       )
       await expect(
         page.locator(`.video-tab.container.${tabClass}.collapse`)
       ).toHaveClass(/show/)
       expect(
-        await toggleButton.evaluate(tab => tab.getAttribute("aria-expanded"))
+        await toggleSection.evaluate(toggle =>
+          toggle.getAttribute("aria-expanded")
+        )
       ).toBe("true")
       // Use keyboard to collapse the tab
       page.keyboard.press("Enter")
-      await page.waitForFunction(toggleButton => {
-        const ariaExpanded = toggleButton.getAttribute("aria-expanded")
-        return ariaExpanded === "false"
-      }, toggleButton)
-      // expect(
-      //   await toggleButton.evaluate(tab => tab.getAttribute("aria-expanded"))
-      // ).toBe("false")
+      await page.waitForFunction(toggleSection => {
+        return toggleSection.getAttribute("aria-expanded") === "false"
+      }, toggleSection)
       await page.waitForFunction(tabClass => {
-        const el = document.querySelector(
+        const tabContainer = document.querySelector(
           `.video-tab.container.${tabClass}.collapse`
         )
-        return el && !el.classList.contains("show")
+        return tabContainer && !tabContainer.classList.contains("show")
       }, tabClass)
     }
   }
