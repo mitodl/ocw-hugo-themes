@@ -6,23 +6,57 @@ test("Download button links (download video and download transcript) should be k
 }) => {
   const course = new CoursePage(page, "course")
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
-  await page.waitForTimeout(2000)
   const links = [
     "https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
     "https://live-qa.ocw.mit.edu"
   ]
   const downloadButtonByRole = page.getByRole("button", {
-    name: `Download Button`
+    name: (`Download Button`),
   })
   await downloadButtonByRole.focus()
   await page.keyboard.press("Enter")
 
+  const videoLink = page.getByRole("link", { name: "Download video" })
+
+  // await expect(videoLink).toBeVisible()
+
+  const transcriptLink = page.getByRole("link", { name: "Download transcript" })
+  // await expect(transcriptLink).toBeVisible()
+  const arr = [videoLink, transcriptLink]
+
+  // await page.keyboard.press("Tab")
+  // await expect(videoLink).toBeFocused()
+  // await page.keyboard.press("Tab")
+  // await expect(transcriptLink).toBeFocused()
+
   for (let i = 0; i < 2; i++) {
+    await expect(arr[i]).toBeVisible()
     await page.keyboard.press("Tab")
     const hrefAttribute = await page.locator(":focus").getAttribute("href")
     expect(hrefAttribute).toBe(links[i])
   }
+
+  // Add back in any href tests you want on the links
 })
+//   const course = new CoursePage(page, "course")
+//   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
+//   await page.waitForTimeout(2000)
+//   const links = [
+//     "https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
+//     "https://live-qa.ocw.mit.edu"
+//   ]
+//   const downloadButtonByRole = page.getByRole("button", {
+//     name: `Download Button`
+//   })
+//   await downloadButtonByRole.focus()
+//   await page.keyboard.press("Enter")
+
+//   for (let i = 0; i < 2; i++) {
+//     await page.keyboard.press("Tab")
+//     const hrefAttribute = await page.locator(":focus").getAttribute("href")
+//     expect(hrefAttribute).toBe(links[i])
+//   }
+// })
 
 test("Embed video redirects to video page using keyboard navigation", async ({
   page
@@ -85,9 +119,12 @@ test("Expand/collapse video tabs using keyboard", async ({ page }) => {
       const tabByRole = page.getByRole("button", {
         name: `${title}`
       })
+      await expect(tabByRole).toBeVisible()
       await tabByRole.focus()
+
       // Use keyboard to expand the tab
       page.keyboard.press("Enter")
+
       const toggleButton = await page.waitForSelector(
         `.video-tab-toggle-section[data-target=".${tabClass}"]`
       )
@@ -99,12 +136,17 @@ test("Expand/collapse video tabs using keyboard", async ({ page }) => {
       ).toBe("true")
       // Use keyboard to collapse the tab
       page.keyboard.press("Enter")
-      expect(
-        await toggleButton.evaluate(tab => tab.getAttribute("aria-expanded"))
-      ).toBe("false")
-      await expect(
-        page.locator(`.video-tab.container.${tabClass}.collapse`)
-      ).not.toHaveClass(/show/)
+      await page.waitForFunction(toggleButton => {
+        const ariaExpanded = toggleButton.getAttribute("aria-expanded")
+        return ariaExpanded === "false"
+      }, toggleButton)
+      // expect(
+      //   await toggleButton.evaluate(tab => tab.getAttribute("aria-expanded"))
+      // ).toBe("false")
+      await page.waitForFunction(tabClass => {
+        const el = document.querySelector(`.video-tab.container.${tabClass}.collapse`)
+        return el && !el.classList.contains('show')
+      }, tabClass)
     }
   }
 })
