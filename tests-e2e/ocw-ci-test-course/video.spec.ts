@@ -42,7 +42,7 @@ test("Embed video redirects to video page using keyboard navigation", async ({
   await videoRedirectLink.focus()
   page.keyboard.press("Enter")
   await course.page.waitForURL(
-    '**/resources/ocw_test_course_mit8_01f16_l01v01_360p/'
+    "**/resources/ocw_test_course_mit8_01f16_l01v01_360p/"
   )
   expect(course.page.url()).toContain(
     "resources/ocw_test_course_mit8_01f16_l01v01_360p"
@@ -51,11 +51,11 @@ test("Embed video redirects to video page using keyboard navigation", async ({
 test("Video tabs content (links) are keyoard navigable", async ({ page }) => {
   const tabs = [
     {
-      title:        "Related Resources",
+      title: "Related Resources",
       url:   "courses/ocw-ci-test-course/resources/example_pdf/"
     },
     {
-      title:        "Optional Tab",
+      title: "Optional Tab",
       url:   "courses/ocw-ci-test-course/resources/example_notes/"
     }
   ]
@@ -69,9 +69,7 @@ test("Video tabs content (links) are keyoard navigable", async ({ page }) => {
     page.keyboard.press("Enter")
     page.keyboard.press("Tab")
     page.keyboard.press("Enter")
-    await course.page.waitForURL(
-      `**/${tab.url}`
-    )
+    await course.page.waitForURL(`**/${tab.url}`)
     expect(course.page.url()).toContain(tab.url)
   }
 })
@@ -91,7 +89,8 @@ test.only("Expand and collapse video tabs using keyboard navigation", async ({
 
   for (const [tabClass, tabTitle] of Object.entries(tabClassToTitle)) {
     const tabButton = page.getByRole("button", {
-      name: `${tabTitle}`, exact: true
+      name:  `${tabTitle}`,
+      exact: true
     })
     await expect(tabButton).toBeVisible()
     await tabButton.focus()
