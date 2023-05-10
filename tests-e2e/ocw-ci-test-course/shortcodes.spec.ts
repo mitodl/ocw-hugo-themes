@@ -89,8 +89,12 @@ test("Transcripts start time matches video start time", async ({ page }) => {
   const playButton = videoSection.playButton()
   await playButton.click()
 
-  const activeCaption = await videoSection.transcript.activeLine().getAttribute("data-begin")
-  const nextCaption = await videoSection.transcript.nextLine().getAttribute("data-begin")
+  const activeCaption = await videoSection.transcript
+    .activeLine()
+    .getAttribute("data-begin")
+  const nextCaption = await videoSection.transcript
+    .nextLine()
+    .getAttribute("data-begin")
 
   expect(parseFloat(activeCaption || "0")).toBeLessThanOrEqual(
     parseFloat(expectedStartTime)
