@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test"
-import { CoursePage } from "../util"
+import { CoursePage, VideoSection } from "../util"
 
 test("Resource links titles render without extra spaces", async ({ page }) => {
   const course = new CoursePage(page, "course")
@@ -76,6 +76,7 @@ test("Start and end time exists", async ({ page }) => {
 
 test("Transcripts start time matches video start time", async ({ page }) => {
   const course = new CoursePage(page, "course")
+  const videoSection = new VideoSection(page)
   const expectedStartTime = "13"
 
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
@@ -84,23 +85,12 @@ test("Transcripts start time matches video start time", async ({ page }) => {
   const urlParams = new URLSearchParams(src || "")
   expect(urlParams.get("start")).toEqual(expectedStartTime)
 
-  await page
-    .frameLocator('role=region[name="Video Player"] >> iframe')
-    .locator(".ytp-cued-thumbnail-overlay-image")
-    .getAttribute("style")
-
-  const playButton = page
-    .frameLocator('role=region[name="Video Player"] >> iframe')
-    .getByRole("button", { name: "Play" })
-  await page.waitForTimeout(1000)
+  await videoSection.expectPlayerReady()
+  const playButton = videoSection.playButton()
   await playButton.click()
 
-  const activeCaption = await page
-    .locator(".transcript-line.is-active")
-    .getAttribute("data-begin")
-  const nextCaption = await page
-    .locator(".transcript-line.is-active + div")
-    .getAttribute("data-begin")
+  const activeCaption = await videoSection.transcript.activeLine().getAttribute("data-begin")
+  const nextCaption = await videoSection.transcript.nextLine().getAttribute("data-begin")
 
   expect(parseFloat(activeCaption || "0")).toBeLessThanOrEqual(
     parseFloat(expectedStartTime)
