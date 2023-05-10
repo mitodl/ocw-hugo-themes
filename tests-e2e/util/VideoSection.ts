@@ -46,8 +46,9 @@ class VideoSection {
 
   transcript = {
     lines:      () => this.videoSection().locator(".transcript-line"),
-    activeLine: () => this.transcript.lines().locator(".is-active"),
-    nextLine:   () => this.transcript.activeLine().locator(". + div")
+    activeLine: () => this.videoSection().locator(".transcript-line.is-active"),
+    nextLine:   () =>
+      this.videoSection().locator(".transcript-line.is-active + div")
   }
 }
 
