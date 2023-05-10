@@ -4,6 +4,7 @@
   data-toggle="collapse"
   aria-controls="{{- .tabClass -}}"
   aria-expanded=""
+  role="tab"
   >
   <div class="video-tab-header">
     {{ if .tabTitle }}
@@ -46,7 +47,7 @@
     {{ end }}
   </ul>
 </div>
-<div class="video-tab container collapse pr-0 {{ .tabClass }}">
+<div class="video-tab container collapse pr-0 {{ .tabClass }}" role="tabpanel">
   <div class="video-tab-content-section">
     {{ .context.RenderString .tabContent }}
   </div>
