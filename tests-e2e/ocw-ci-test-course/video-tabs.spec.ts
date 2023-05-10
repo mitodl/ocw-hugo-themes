@@ -73,7 +73,7 @@ test("Video tabs content (links) are keyoard navigable", async ({ page }) => {
     expect(coursePage.page.url()).toContain(tab.url)
   }
 })
-test.only("Expand and collapse video tabs using keyboard navigation", async ({
+test("Expand and collapse video tabs using keyboard navigation", async ({
   page
 }) => {
   const coursePage = new CoursePage(page, "course")
