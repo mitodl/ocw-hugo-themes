@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.89.0
+--------------
+
+- pass page context to video_expandable_tab wherever it's used (#1138)
+
 Version 1.88.3 (Released April 19, 2023)
 --------------
 
