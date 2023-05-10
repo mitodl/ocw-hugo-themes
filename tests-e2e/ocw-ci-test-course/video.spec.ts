@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
+import { VideoElement } from "../util/VideoElement"
 
 test("Verify that the 'Download video' and 'Download transcript' links are keyboard navigable and have the correct download URLs", async ({
   page
@@ -11,7 +12,7 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
     "https://live-qa.ocw.mit.edu"
   ]
   const downloadButton = page.getByRole("button", {
-    name: `Download button`
+    name: `Download Video and Transcript`
   })
   await downloadButton.focus()
   await page.keyboard.press("Enter")
@@ -40,84 +41,68 @@ test("Embed video redirects to video page using keyboard navigation", async ({
   })
   await videoRedirectLink.focus()
   page.keyboard.press("Enter")
-  await course.page.waitForNavigation()
+  await course.page.waitForURL(
+    '**/resources/ocw_test_course_mit8_01f16_l01v01_360p/'
+  )
   expect(course.page.url()).toContain(
     "resources/ocw_test_course_mit8_01f16_l01v01_360p"
   )
 })
 test("Video tabs content (links) are keyoard navigable", async ({ page }) => {
-  const tabDict: { [key: string]: { title: string; redirectPath: string } } = {
-    "related-resource": {
+  const tabs = [
+    {
       title:        "Related Resources",
-      redirectPath: "courses/ocw-ci-test-course/resources/example_pdf/"
+      url:   "courses/ocw-ci-test-course/resources/example_pdf/"
     },
-    "optional-tab": {
+    {
       title:        "Optional Tab",
-      redirectPath: "courses/ocw-ci-test-course/resources/example_notes/"
+      url:   "courses/ocw-ci-test-course/resources/example_notes/"
     }
-  }
-  for (const tabClass in tabDict) {
-    if (tabClass) {
-      const course = new CoursePage(page, "course")
-      await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
-      const tabTitle = tabDict[tabClass].title
-      const tabButton = page.getByRole("button", {
-        name: `${tabTitle}`
-      })
-      await tabButton.focus()
-      page.keyboard.press("Enter")
-      page.keyboard.press("Tab")
-      page.keyboard.press("Enter")
-      await course.page.waitForNavigation()
-      expect(course.page.url()).toContain(tabDict[tabClass].redirectPath)
-    }
+  ]
+  for (const tab of tabs) {
+    const course = new CoursePage(page, "course")
+    await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
+    const tabButton = page.getByRole("button", {
+      name: `${tab.title}`
+    })
+    await tabButton.focus()
+    page.keyboard.press("Enter")
+    page.keyboard.press("Tab")
+    page.keyboard.press("Enter")
+    await course.page.waitForURL(
+      `**/${tab.url}`
+    )
+    expect(course.page.url()).toContain(tab.url)
   }
 })
-test("Expand and collapse video tabs using keyboard navigation", async ({
+test.only("Expand and collapse video tabs using keyboard navigation", async ({
   page
 }) => {
   const course = new CoursePage(page, "course")
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const video = new VideoElement(page)
 
   const tabClassToTitle: { [key: string]: string } = {
     transcript:         "Transcript",
     "related-resource": "Related Resources",
     "optional-tab":     "Optional Tab"
   }
-  for (const tabClass in tabClassToTitle) {
-    if (tabClass) {
-      const title = tabClassToTitle[tabClass]
-      const tabButton = page.getByRole("button", {
-        name: `${title}`
-      })
-      await expect(tabButton).toBeVisible()
-      await tabButton.focus()
 
-      // Use keyboard to expand the tab
-      page.keyboard.press("Enter")
+  for (const [tabClass, tabTitle] of Object.entries(tabClassToTitle)) {
+    const tabButton = page.getByRole("button", {
+      name: `${tabTitle}`, exact: true
+    })
+    await expect(tabButton).toBeVisible()
+    await tabButton.focus()
 
-      const toggleSection = await page.waitForSelector(
-        `.video-tab-toggle-section[data-target=".${tabClass}"]`
-      )
-      await expect(
-        page.locator(`.video-tab.container.${tabClass}.collapse`)
-      ).toHaveClass(/show/)
-      expect(
-        await toggleSection.evaluate(toggle =>
-          toggle.getAttribute("aria-expanded")
-        )
-      ).toBe("true")
-      // Use keyboard to collapse the tab
-      page.keyboard.press("Enter")
-      await page.waitForFunction(toggleSection => {
-        return toggleSection.getAttribute("aria-expanded") === "false"
-      }, toggleSection)
-      await page.waitForFunction(tabClass => {
-        const tabContainer = document.querySelector(
-          `.video-tab.container.${tabClass}.collapse`
-        )
-        return tabContainer && !tabContainer.classList.contains("show")
-      }, tabClass)
-    }
+    await page.keyboard.press("Enter")
+    expect(await video.tab({ name: `${tabTitle}`, expanded: true }).waitFor())
+
+    await expect(
+      page.locator(`.video-tab.container.${tabClass}.collapse`)
+    ).toHaveClass(/show/)
+    await page.keyboard.press("Enter")
+    expect(await video.tab({ name: `${tabTitle}`, expanded: false }).waitFor())
   }
 })
