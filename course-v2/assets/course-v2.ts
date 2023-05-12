@@ -14,6 +14,7 @@ import {
   checkAnswer,
   showSolution
 } from "./js/quiz_multiple_choice"
+import { initVideoDownloadPopup } from "./js/video_download_popup"
 
 $(function() {
   initCourseDescriptionExpander(document)
@@ -26,10 +27,12 @@ $(function() {
 })
 
 // @ts-expect-error for window.initVideoJS()
-window.initVideoJS = () =>
+window.initVideoJS = () => {
+  initVideoDownloadPopup()
   import("./videojs-imports").then(module => {
     module.initVideoJS()
   })
+}
 
 // @ts-expect-error for window.initNanogallery2()
 window.initNanogallery2 = () => import("./nanogallery2-imports")
