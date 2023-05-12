@@ -4,9 +4,9 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
 <div class="course-info">
   <div class="course-detail-title {{ if $inPanel }}bg-light-gray{{ end }}">
     <div class="d-flex">
-      <div class="font-black {{ if $inPanel }}py-1 pl-3 mt-2 m-0{{ end }}">
+      <h4 class="font-black {{ if $inPanel }}py-1 pl-3 mt-2 m-0{{ end }}">
         Course Info
-      </div>
+      </h4>
       {{ if $inPanel }}
       <button
         type="button"
@@ -30,10 +30,10 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
         {{ with $courseData.instructors.content }}
         <div class="">
           {{ $instructors := partial "get_instructors.html" . }}
-          <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
+          <h5 class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
             {{ if eq (len $instructors) 1 }}Instructor{{ else }}Instructors{{
             end }}
-          </div>
+            </h5>
           <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
             {{ partial "partial_collapse_list.html" (dict "list" $instructors
             "id" "instructors" "key" "title" "klass" "course-info-instructor"
@@ -43,9 +43,9 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
         {{ end }} {{ with $courseData.department_numbers }}
         <div class="mt-4">
           {{ $departments := partial "get_departments.html" . }}
-          <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
+          <h5 class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
             Departments
-          </div>
+          </h5>
           <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
             {{ partial "partial_collapse_list.html" (dict "list" $departments
             "id" "departments" "key" "title" "klass" "course-info-department"
@@ -55,9 +55,9 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
         {{ end }} 
         {{ if $inPanel }}
         <div class="mt-4">
-          <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
+          <h5 class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
             As Taught In
-          </div>
+          </h5>
           <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
             {{ $courseData.term }}
             {{ if isset $courseData "year" }}
@@ -67,9 +67,9 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
         </div>
 
         <div class="mt-4">
-          <div class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
+          <h5 class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
             Level
-          </div>
+          </h5>
           <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
             {{ if eq (printf "%T" $courseData.level) "string" }} {{
             $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}

@@ -4,9 +4,9 @@
   {{ $shouldCollapseDescription = gt (len .) 320 }}
 {{ end }}
 <div id="course-description">
-  <div class="course-detail-title">
+  <h4 class="course-detail-title">
     Course Description
-  </div>
+  </h4>
   {{ if $shouldCollapseDescription }}
   <div id="collapsed-description" class="description">
     {{- .context.RenderString (truncate 320 $courseData.course_description) -}}
