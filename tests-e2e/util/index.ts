@@ -1,4 +1,5 @@
 export { default as CoursePage } from "./CoursePage"
 export { default as WwwPage } from "./WwwPage"
+export { VideoElement } from "./VideoElement"
 export * from "./test_sites"
 export * from "./locators"
