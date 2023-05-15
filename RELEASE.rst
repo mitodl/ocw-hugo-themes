@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.89.1
+--------------
+
+- feat: keyboard navigable video buttons (#1135)
+- use the shortcode .Page variable as context in the image gallery shortcode (#1144)
+
 Version 1.89.0 (Released May 11, 2023)
 --------------
 
