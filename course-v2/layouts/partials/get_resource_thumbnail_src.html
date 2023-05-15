@@ -1,7 +1,8 @@
 {{- $resourceType := .resourceType -}}
+{{- $fileType := .fileType -}}
 {{- $resourceThumbnailSrc := "/static_shared/images/file_thumbnail.png" -}}
 
-{{ if eq $resourceType "Document" }}
+{{ if and (eq $resourceType "Document") (eq $fileType "application/pdf") }}
   {{- $resourceThumbnailSrc = "/static_shared/images/pdf_thumbnail.png" -}}
 {{ else if eq $resourceType "Image" }}
   {{- $resourceThumbnailSrc = "/static_shared/images/file_thumbnail.png" -}}
