@@ -52,9 +52,7 @@ test(`Verify accesibility and semantic structure of headings`, async ({
   for (const { label, expectedHeadingLevel } of headingsData) {
     const heading = page.getByRole("heading", { name: label })
     await heading.waitFor()
-    const accessibleHeadingLevel = await heading.evaluate(
-      node => node.tagName
-    )
+    const accessibleHeadingLevel = await heading.evaluate(node => node.tagName)
     expect(accessibleHeadingLevel).toBe(expectedHeadingLevel)
   }
 })
