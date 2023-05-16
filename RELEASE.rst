@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.89.1
+Version 1.89.1 (Released May 16, 2023)
 --------------
 
 - feat: keyboard navigable video buttons (#1135)
