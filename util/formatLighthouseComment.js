@@ -1,5 +1,6 @@
 const readline = require("readline")
 
+// eslint-disable-next-line no-unused-vars
 const emojify = score => {
   if (score === 100) {
     return "💯"
