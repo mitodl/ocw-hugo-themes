@@ -173,11 +173,7 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          body=$(echo '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
-          body="${body//'abc'/'abc'}"
-          body="${body//$'abc'/'abc'}"
-          body="${body//$'abc'/'abc}"
-          echo "body=$body" >> "$GITHUB_OUTPUT"
+          echo "body=${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}" >> "$GITHUB_OUTPUT"
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
