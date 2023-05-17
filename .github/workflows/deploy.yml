@@ -102,7 +102,7 @@ jobs:
         id: set-comment-body
         run: |
           body=$(echo 'Netlify Deployments:<br>www: https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/ <br> Course v2: https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/')
-          echo ::set-output name=body::$body  
+          echo "body=test123" >> "$GITHUB_OUTPUT"
     
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -177,8 +177,8 @@ jobs:
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}"
-          echo ::set-output name=body::$body
-          
+          echo "body=test123" >> "$GITHUB_OUTPUT"
+
       - name: Find Comment
         uses: peter-evans/find-comment@v2
         id: fc
