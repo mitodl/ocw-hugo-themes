@@ -55,6 +55,7 @@ async function main() {
 
   const message = "Lighthouse results:\n\n"
   console.log(message)
+  console.log("space")
   console.log(data)
 
   // message += data
