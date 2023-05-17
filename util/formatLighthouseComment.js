@@ -39,9 +39,7 @@ const emojify = score => {
 }
 
 const decodeUrlCharacters = message => {
-  let decodedMessage = message.replace(/%0A/g, "\n") // Decode line breaks
-  decodedMessage = decodedMessage.replace(/%0D/g, "\r") // Decode carriage returns
-  decodedMessage = decodedMessage.replace(/%25/g, "%") // Decode percent signs
+  const decodedMessage = decodeURIComponent(message)
   return decodedMessage
 }
 
