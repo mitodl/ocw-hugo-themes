@@ -53,30 +53,30 @@ async function main() {
 
   const { data } = JSON.parse(input)
 
-  let message = "Lighthouse results:\n\n"
+  let message = "Lighthouse results:\n"
 
-  data.forEach(entry => {
-    const { url, scores } = entry
-    const {
-      accessibility,
-      bestPractices,
-      performance,
-      progressiveWebApp,
-      seo
-    } = scores
+  message += data
+    .map(entry => {
+      const { url, scores } = entry
+      const {
+        accessibility,
+        bestPractices,
+        performance,
+        progressiveWebApp,
+        seo
+      } = scores
 
-    message += `results for [${url}]:\n\n`
-    message += `| Accessibility | Best Practices | Performance | Progressive Web App | SEO |\n`
-    message += `| --------------- | --------------- | ------------ | ------------------- | ------ |\n`
-    message += `| ${accessibility} ${emojify(
-      accessibility
-    )} | ${bestPractices} ${emojify(bestPractices)} | ${performance} ${emojify(
-      performance
-    )} | ${progressiveWebApp} ${emojify(progressiveWebApp)} | ${seo} ${emojify(
-      seo
-    )} |\n\n`
-  })
+      return `\nresults for <${url}>:
 
+| Accessibility   | Best Practices  | Performance  | Progressive Web App | SEO    |
+| --------------- | --------------- | ------------ | ------------------- | ------ |
+|${accessibility} ${emojify(accessibility)} |${bestPractices} ${emojify(
+  bestPractices
+)} |${performance} ${emojify(performance)}|${progressiveWebApp} ${emojify(
+  progressiveWebApp
+)} | ${seo} ${emojify(seo)} |\n\n`
+    })
+    .join("")
   console.log(message)
 }
 
