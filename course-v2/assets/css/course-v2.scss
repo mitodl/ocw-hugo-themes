@@ -81,13 +81,11 @@ h5 {
 
   a {
     text-decoration: none;
-    font-size: $course-heading-one-font-lg;
-    line-height: $course-heading-one-line-height-lg;
+  }
+
+  h1 {
     font-weight: 400;
-    @include media-breakpoint-down(xs) {
-      font-size: $course-heading-one-font-xs;
-      line-height: $course-heading-one-line-height-xs;
-    }
+    margin-bottom: 0px;
   }
 }
 
@@ -162,11 +160,11 @@ pre {
 
 .course-detail-title {
   margin-bottom: 10px;
-}
 
-.course-detail-title h2 {
-  font-size: $course-heading-four-font !important;
-  line-height: $course-heading-four-line-height !important;
+  h2 {
+    font-size: $course-heading-four-font !important;
+    line-height: $course-heading-four-line-height !important;
+  }
 }
 
 // TODO: overriding some css of header and footer in this new theme
