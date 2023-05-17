@@ -38,6 +38,13 @@ const emojify = score => {
   return "😵"
 }
 
+const decodeUrlCharacters = message => {
+  let decodedMessage = message.replace(/%0A/g, "\n") // Decode line breaks
+  decodedMessage = decodedMessage.replace(/%0D/g, "\r") // Decode carriage returns
+  decodedMessage = decodedMessage.replace(/%25/g, "%") // Decode percent signs
+  return decodedMessage
+}
+
 async function main() {
   let input = ""
 
@@ -75,7 +82,8 @@ async function main() {
     )} |\n\n`
   })
 
-  process.stdout.write(message)
+  const decodedMessage = decodeUrlCharacters(message)
+  process.stdout.write(decodedMessage)
 }
 
 main()
