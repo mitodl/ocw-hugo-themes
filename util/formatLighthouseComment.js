@@ -68,7 +68,13 @@ async function main() {
     message += `results for [${url}]:\n\n`
     message += `| Accessibility | Best Practices | Performance | Progressive Web App | SEO |\n`
     message += `| --------------- | --------------- | ------------ | ------------------- | ------ |\n`
-    message += `| ${accessibility} ${emojify(accessibility)} | ${bestPractices} ${emojify(bestPractices)} | ${performance} ${emojify(performance)} | ${progressiveWebApp} ${emojify(progressiveWebApp)} | ${seo} ${emojify(seo)} |\n\n`
+    message += `| ${accessibility} ${emojify(
+      accessibility
+    )} | ${bestPractices} ${emojify(bestPractices)} | ${performance} ${emojify(
+      performance
+    )} | ${progressiveWebApp} ${emojify(progressiveWebApp)} | ${seo} ${emojify(
+      seo
+    )} |\n\n`
   })
 
   console.log(message)
