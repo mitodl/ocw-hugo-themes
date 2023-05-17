@@ -69,7 +69,7 @@ jobs:
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
 
       - name: Deploy www Preview to Netlify
-        uses: nwtgck/actions-netlify@v1.1
+        uses: nwtgck/actions-netlify@v2
         if: ${{ github.event_name == 'pull_request' }}
         with:
           publish-dir: '../ocw-www/public'
@@ -84,7 +84,7 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
       - name: Deploy v2 Course Preview to Netlify
-        uses: nwtgck/actions-netlify@v1.1
+        uses: nwtgck/actions-netlify@v2
         if: ${{ github.event_name == 'pull_request' }}
         with:
           publish-dir: '../ocw-course/public-v2'
@@ -132,7 +132,7 @@ jobs:
 
       
       - name: Deploy CI build to Netlify
-        uses: nwtgck/actions-netlify@v1.1
+        uses: nwtgck/actions-netlify@v2
         if: ${{ github.event_name == 'push' }}
         with:
           publish-dir: '../ocw-www/public'
