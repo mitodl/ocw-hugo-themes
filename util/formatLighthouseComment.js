@@ -38,7 +38,7 @@ const emojify = score => {
   }
 
   return "😵"
-};
+}
 
 async function main() {
   const rl = readline.createInterface({
