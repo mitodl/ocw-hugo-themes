@@ -10,16 +10,16 @@ test(`Verify accesibility and semantic structure of headings`, async ({
       expectedHeadingLevel: "H1"
     },
     {
+      label:                "Course Info",
+      expectedHeadingLevel: "H2"
+    },
+    {
       label:                "Section 2",
       expectedHeadingLevel: "H2"
     },
     {
       label:                "H3 heading",
       expectedHeadingLevel: "H3"
-    },
-    {
-      label:                "Course Info",
-      expectedHeadingLevel: "H2"
     },
     {
       label:                "INSTRUCTORS",
