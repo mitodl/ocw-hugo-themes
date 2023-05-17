@@ -53,32 +53,34 @@ async function main() {
 
   const { data } = JSON.parse(input)
 
-  let message = "Lighthouse results:\n\n"
-
-  message += data
-    .map(entry => {
-      const { url, scores } = entry
-      const {
-        accessibility,
-        bestPractices,
-        performance,
-        progressiveWebApp,
-        seo
-      } = scores
-
-      return `Results for [${url}]:\n\n| Accessibility | Best Practices | Performance | Progressive Web App | SEO |\n| --------------- | --------------- | ------------ | ------------------- | ------ |\n| ${accessibility} ${emojify(
-        accessibility
-      )} | ${bestPractices} ${emojify(
-        bestPractices
-      )} | ${performance} ${emojify(
-        performance
-      )} | ${progressiveWebApp} ${emojify(
-        progressiveWebApp
-      )} | ${seo} ${emojify(seo)} |`
-    })
-    .join("\n\n")
-
+  const message = "Lighthouse results:\n\n"
   console.log(message)
+  console.log(data)
+
+  // message += data
+  //   .map(entry => {
+  //     const { url, scores } = entry
+  //     const {
+  //       accessibility,
+  //       bestPractices,
+  //       performance,
+  //       progressiveWebApp,
+  //       seo
+  //     } = scores
+
+  //     return `Results for [${url}]:\n\n| Accessibility | Best Practices | Performance | Progressive Web App | SEO |\n| --------------- | --------------- | ------------ | ------------------- | ------ |\n| ${accessibility} ${emojify(
+  //       accessibility
+  //     )} | ${bestPractices} ${emojify(
+  //       bestPractices
+  //     )} | ${performance} ${emojify(
+  //       performance
+  //     )} | ${progressiveWebApp} ${emojify(
+  //       progressiveWebApp
+  //     )} | ${seo} ${emojify(seo)} |`
+  //   })
+  //   .join("\n\n")
+
+  // console.log(message)
 }
 
 main()
