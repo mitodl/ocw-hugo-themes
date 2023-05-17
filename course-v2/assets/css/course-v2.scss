@@ -164,6 +164,11 @@ pre {
   margin-bottom: 10px;
 }
 
+.course-detail-title h2 {
+  font-size: $course-heading-four-font !important;
+  line-height: $course-heading-four-line-height !important;
+}
+
 // TODO: overriding some css of header and footer in this new theme
 // when we roll out this theme completely then we can move this css to thier respective files in base-theme
 
