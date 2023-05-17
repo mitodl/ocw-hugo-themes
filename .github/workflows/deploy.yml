@@ -69,7 +69,7 @@ jobs:
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
 
       - name: Deploy www Preview to Netlify
-        uses: nwtgck/actions-netlify@v2
+        uses: nwtgck/actions-netlify@v1.1
         if: ${{ github.event_name == 'pull_request' }}
         with:
           publish-dir: '../ocw-www/public'
@@ -84,7 +84,7 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
       - name: Deploy v2 Course Preview to Netlify
-        uses: nwtgck/actions-netlify@v2
+        uses: nwtgck/actions-netlify@v1.1
         if: ${{ github.event_name == 'pull_request' }}
         with:
           publish-dir: '../ocw-course/public-v2'
@@ -102,8 +102,8 @@ jobs:
         id: set-comment-body
         run: |
           body=$(echo 'Netlify Deployments:<br>www: https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/ <br> Course v2: https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/')
-          echo "body=$body" >> "$GITHUB_OUTPUT"
-    
+          echo ::set-output name=body::$body
+      
       - name: Find Comment
         uses: peter-evans/find-comment@v2
         id: fc
@@ -132,7 +132,7 @@ jobs:
 
       
       - name: Deploy CI build to Netlify
-        uses: nwtgck/actions-netlify@v2
+        uses: nwtgck/actions-netlify@v1.1
         if: ${{ github.event_name == 'push' }}
         with:
           publish-dir: '../ocw-www/public'
@@ -144,8 +144,7 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-    outputs:
-      body: ${{ steps.set-comment-body.outputs.body }}
+
   
   lighthouse:
     needs: build
@@ -173,8 +172,11 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          body=$(echo -E '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}')
-          echo "body=$body" >> "$GITHUB_OUTPUT"
+          body=$(echo '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
+          body="${body//'%'/'%25'}"
+          body="${body//$'\n'/'%0A'}"
+          body="${body//$'\r'/'%0D'}"
+          echo ::set-output name=body::$body
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -186,7 +188,7 @@ jobs:
           body-includes: "Lighthouse results:"
       - name: Create comment
         if: ${{ steps.fc.outputs.comment-id == 0 }}
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v1
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
@@ -194,11 +196,9 @@ jobs:
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v1
         continue-on-error: true
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
           body: ${{ steps.set-comment-body.outputs.body }}
-    outputs:
-      body: ${{ steps.set-comment-body.outputs.body }}

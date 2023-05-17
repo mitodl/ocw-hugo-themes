@@ -1,3 +1,5 @@
+const readline = require("readline")
+
 const emojify = score => {
   if (score === 100) {
     return "💯"
@@ -38,50 +40,45 @@ const emojify = score => {
   return "😵"
 }
 
-const decodeUrlCharacters = message => {
-  const decodedMessage = decodeURIComponent(message)
-  return decodedMessage
-}
-
 async function main() {
+  const rl = readline.createInterface({
+    input: process.stdin
+  })
+
   let input = ""
 
-  const chunks = []
-  for await (const chunk of process.stdin) {
-    chunks.push(chunk)
+  for await (const line of rl) {
+    input += line
   }
-  input = chunks.join("")
 
   const { data } = JSON.parse(input)
 
   let message = "Lighthouse results:\n\n"
 
-  data.forEach(entry => {
-    const { url, scores } = entry
-    const {
-      accessibility,
-      bestPractices,
-      performance,
-      progressiveWebApp,
-      seo
-    } = scores
+  message += data
+    .map(entry => {
+      const { url, scores } = entry
+      const {
+        accessibility,
+        bestPractices,
+        performance,
+        progressiveWebApp,
+        seo
+      } = scores
 
-    message += `results for [${url}]:\n\n`
-    message +=
-      "| Accessibility | Best Practices | Performance | Progressive Web App | SEO |\n"
-    message +=
-      "| --------------- | --------------- | ------------ | ------------------- | ------ |\n"
-    message += `| ${accessibility} ${emojify(
-      accessibility
-    )} | ${bestPractices} ${emojify(bestPractices)} | ${performance} ${emojify(
-      performance
-    )} | ${progressiveWebApp} ${emojify(progressiveWebApp)} | ${seo} ${emojify(
-      seo
-    )} |\n\n`
-  })
+      return `Results for [${url}]:\n\n| Accessibility | Best Practices | Performance | Progressive Web App | SEO |\n| --------------- | --------------- | ------------ | ------------------- | ------ |\n| ${accessibility} ${emojify(
+        accessibility
+      )} | ${bestPractices} ${emojify(
+        bestPractices
+      )} | ${performance} ${emojify(
+        performance
+      )} | ${progressiveWebApp} ${emojify(
+        progressiveWebApp
+      )} | ${seo} ${emojify(seo)} |\n\n`
+    })
+    .join("")
 
-  const decodedMessage = decodeUrlCharacters(message)
-  process.stdout.write(decodedMessage)
+  console.log(message)
 }
 
 main()
