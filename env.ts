@@ -39,6 +39,10 @@ const envSchema = {
     desc:       "A string representing a Google account ID to initialize Google Tag Manager with",
     devDefault: ""
   }),
+  NOINDEX: envalid.bool({
+    desc:       "Whether a noindex tag should be added to prevent indexing by web crawlers.",
+    devDefault: false
+  }),
   OCW_COURSE_STARTER_SLUG: envalid.str({
     desc:       "Used when querying the OCW Studio API for course information",
     devDefault: "ocw-course-v2"
