@@ -1,0 +1,39 @@
+{{ $random := delimit (shuffle (split (md5 "seed") "" )) "" }}
+{{$youtubeParams:=`, "youtube": {`}}
+{{if and (ne .startTime "") (ne .endTime "")}}
+{{$youtubeParams = printf "%s" (delimit (slice `"start": ` .startTime `, "end":`  .endTime  `, `) "" ) | printf "%s%s" $youtubeParams}}
+{{else if ne .startTime ""}}
+{{$youtubeParams = printf "%s" (delimit (slice `"start": ` .startTime `, `) "") | printf "%s%s" $youtubeParams }}
+{{else if ne .endTime ""}}
+{{$youtubeParams = printf "%s" (delimit (slice `"end": ` .endTime `, `) "") |  printf "%s%s" $youtubeParams }}
+{{end}}
+{{$youtubeParams = printf "%s" `"ytControls":2}` | printf "%s%s" $youtubeParams |}}
+<div class="video-container embedded-video-container">
+  <video
+    id="video-player-{{ .youtubeKey }}-{{ $random }}"
+    class="video-js vjs-default-skin vjs-big-play-centered vjs-ocw"
+    controls
+    data-downloadlink = "{{ .downloadLink }}"
+    data-transcriptlink = "{{ .transcriptLink }}" 
+    data-setup='{
+    "fluid": true,
+    "techOrder": ["youtube"],
+    "inactivityTimeout": 0,
+    "sources": [{"type": "video/youtube", "src": "https://www.youtube.com/embed/{{ .youtubeKey }}"}]
+    {{$youtubeParams}} }'
+  >
+      {{ if .captionsLocation }}
+        <track kind="captions" src="{{ .captionsLocation }}" mode="disabled" srclang="en" label="English">
+      {{ end }}
+  </video>
+  {{ if .captionsLocation }}
+        <track kind="captions" src="{{ .captionsLocation }}" mode="disabled" srclang="en" label="English">
+  {{ end }}
+</div>
+
+<script>
+  window.onload = function() {
+    if (window.initVideoJS)
+      window.initVideoJS()
+  }
+</script>
