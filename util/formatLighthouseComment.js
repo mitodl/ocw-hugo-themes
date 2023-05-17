@@ -74,9 +74,9 @@ async function main() {
         performance
       )} | ${progressiveWebApp} ${emojify(
         progressiveWebApp
-      )} | ${seo} ${emojify(seo)} |\n\n`
+      )} | ${seo} ${emojify(seo)} |`
     })
-    .join("")
+    .join("\n\n")
 
   console.log(message)
 }
