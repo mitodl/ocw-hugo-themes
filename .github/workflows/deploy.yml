@@ -119,8 +119,7 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ env.GITHUB_OUTPUT }}
-
+          body: ${{ steps.set-comment-body.outputs.body }}
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -129,7 +128,7 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ env.GITHUB_OUTPUT }}
+          body: ${{ steps.set-comment-body.outputs.body }}
 
       
       - name: Deploy CI build to Netlify
@@ -145,7 +144,8 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
+    outputs:
+      body: ${{ steps.set-comment-body.outputs.body }}
   
   lighthouse:
     needs: build
@@ -193,7 +193,7 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ env.GITHUB_OUTPUT }}
+          body: ${{ steps.set-comment-body.outputs.body }}
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -202,4 +202,6 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ env.GITHUB_OUTPUT }}
+          body: ${{ steps.set-comment-body.outputs.body }}
+    outputs:
+      body: ${{ steps.set-comment-body.outputs.body }}
