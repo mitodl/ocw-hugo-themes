@@ -149,11 +149,11 @@ For `yarn start www`, see note about [CORS](#cors).
 The `start` CLI commands provide some configuration options and, in general, the default values of these options are set to environment variables. For example:
 
 - to change where site content should be stored, alter `COURSE_CONTENT_PATH` and `WWW_CONTENT_PATH` environment variables. (Can be overriden with `--content-dir` cli option.)
-- to change the github org from which site content is fetched alter `GIT_CONTENT_SOURCE` environment variable (can be override with --git-content-source). \*By default content is pulled from rc.
+- to change the github org from which site content is fetched alter `GIT_CONTENT_SOURCE` environment variable (can be overriden with `--git-content-source`). By default, content is pulled from RC.
 
 Run `yarn start course --help` , `yarn start www --help`, and see [Environment Variables](#environment-variables) for more details.
 
-**Customizing site content:** To customize site content, either edit the site markdown locally, or edit the site at https://ocw-studio-rc.odl.mit.edu/sites/. After editing content in Studio, run `yarn start course <course-short-id>` (or `yarn start www` if you're working on ocw-www). \*If you already had the site locally, you will need to `cd` to the content directory and manually fetch the updated content with `git pull`!).
+**Customizing site content:** To customize site content, either edit the site markdown locally, or edit the site at https://ocw-studio-rc.odl.mit.edu/sites/. After editing content in Studio, run `yarn start course <course-short-id>` (or `yarn start www` if you're working on ocw-www). If you already had the site locally, you will need to `cd` to the content directory and manually fetch the updated content with `git pull`.
 
 **MIT Fields:** In addition to ocw-www and the course sites, an experimental project "MIT Fields" is also available. Run `yarn start fields` to run an example fields site.
 
@@ -191,7 +191,7 @@ To further explain the various environment variables and what they do:
 | `WEBPACK_ANALYZE`         | N/A                           | `true`                                              | Used in webpack build. If set to `true`, a dependency analysis of the bundle will be included in the build output.                                                                           |
 | `WEBPACK_HOST`            | N/A                           | `localhost`                                         | Host used by Hugo when querying the Webpack Dev Server. Can be set to your local IP to enable testing OCW on other devices (e.g., phones) within your network.                               |
 | `WEBPACK_PORT`            | N/A                           | `3001`                                              | Port used by Webpack Dev Server                                                                                                                                                              |
-| `NOINDEX`                 | `base-theme`, `www`           | `true`                                              | Whether a noindex tag should be added to prevent indexing by web crawlers                                                                                                                    |
+| `NOINDEX`                 | `base-theme`                  | `true`                                              | Whether a noindex tag should be added to prevent indexing by web crawlers                                                                                                                    |
 
 ### Writing Tests
 
@@ -199,7 +199,7 @@ Most tests in OCW Hugo Themes should be written as e2e tests with Playwright. Se
 
 ### Miscellaneous commands
 
-- `WEBPACK_ANALYZE=true yarn run build:webpack`: This builds the project for production and should open a an analysis of the bundle in your web browser.
+- `WEBPACK_ANALYZE=true yarn run build:webpack`: This builds the project for production and should open an analysis of the bundle in your web browser.
 
 ### External API's
 
