@@ -102,7 +102,7 @@ jobs:
         id: set-comment-body
         run: |
           body=$(echo 'Netlify Deployments:<br>www: https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/ <br> Course v2: https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/')
-          echo "body=$body" >> $GITHUB_ENV
+          echo "body=$body" >> $GITHUB_OUTPUT
       
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -119,7 +119,8 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.set-comment-body.outputs.body }}
+          body: ${{ env.GITHUB_OUTPUT }}
+
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -128,7 +129,7 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ steps.set-comment-body.outputs.body }}
+          body: ${{ env.GITHUB_OUTPUT }}
 
       
       - name: Deploy CI build to Netlify
@@ -176,7 +177,7 @@ jobs:
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}"
-          echo "body=$body" >> $GITHUB_ENV
+          echo "body=$body" >> $GITHUB_OUTPUT
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -192,7 +193,7 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.set-comment-body.outputs.body }}
+          body: ${{ env.GITHUB_OUTPUT }}
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -201,4 +202,4 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ steps.set-comment-body.outputs.body }}
+          body: ${{ env.GITHUB_OUTPUT }}
