@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.89.2
+Version 1.89.2 (Released May 18, 2023)
 --------------
 
 - Adding env variable to disable indexing by web crawlers (#1152)
