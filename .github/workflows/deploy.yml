@@ -120,7 +120,7 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.set-comment-body.outputs }}
+          body: ${{ steps.set-comment-body.outputs.body }}
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -129,7 +129,8 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ steps.set-comment-body.outputs }}
+          body: ${{ steps.set-comment-body.outputs.body }}
+
 
       
       - name: Deploy CI build to Netlify
@@ -188,7 +189,7 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.set-comment-body.outputs }}
+          body: ${{ steps.set-comment-body.outputs.body }}
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -197,4 +198,4 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ steps.set-comment-body.outputs }}
+          body: ${{ steps.set-comment-body.outputs.body }}
