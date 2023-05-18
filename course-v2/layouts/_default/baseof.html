@@ -178,15 +178,8 @@
 
   {{ partialCached "navigation_js.html" . }}
   {{ partialCached "responsive_tables_js.html" . }}
-  {{- $webpack := .Site.Data.webpack -}}
-  {{- $js_urls := slice $webpack.common.js $webpack.course_v2.js -}}
-  {{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
-  <!-- Appzi: Capture Insightful Feedback -->
-  {{ partial "mathjax_if_necessary.html" (dict "context" .) }}
-
-  <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>
-
-  <!-- End Appzi -->
+  {{ block "basejs" . }}{{ end }}
+  {{ block "extrajs" . }}{{ end }}
 </body>
 
 </html>
