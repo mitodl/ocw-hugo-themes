@@ -173,13 +173,10 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          body=$(cat <<-EOF
-            This is a multi-line
-            string example using heredoc.
-            It can span across multiple lines.
-          EOF
-          )
-          echo "body=$body" >> "$GITHUB_OUTPUT"
+        delimiter="$(openssl rand -hex 8)"
+        echo "output-name<<${delimiter}" >> "${GITHUB_OUTPUT}"
+        echo "Some\nMultiline\nOutput" >> "${GITHUB_OUTPUT}"
+        echo "${delimiter}" >> "${GITHUB_OUTPUT}"
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
