@@ -173,10 +173,7 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-        echo "text<<$EOF" >> $GITHUB_OUTPUT
         echo "hello world" >> $GITHUB_OUTPUT
-        echo "$EOF" >> $GITHUB_OUTPUT
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
