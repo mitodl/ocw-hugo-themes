@@ -173,10 +173,10 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-        delimiter="abc"
-        body=""
-        cat "output-name<<${delimiter}" >> "$body"
-        cat "Some\nMultiline\nOutput" >> "$body"
+        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+        body=$(echo 'test')
+        cat "output-name<<$EOF" >> "$body"
+        cat "Some\nMultiline\nOutput<<$EOF" >> "$body"
         echo "body=$body" >> "${GITHUB_OUTPUT}"
 
       - name: Find Comment
