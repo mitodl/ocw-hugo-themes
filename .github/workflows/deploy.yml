@@ -173,9 +173,9 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          slack_message=$(echo "*  Total tests:* 1Gist report: 4")
-          body=$(echo "$slack_message<<EOF test")
-          echo "body=$body" >> "${GITHUB_OUTPUT}"
+          slack_message=$(echo -n "*  Total tests:* 1Gist report: 4")
+          body=$(echo -n "$slack_message<<EOF test")
+          echo -n "body=$body" >> "${GITHUB_OUTPUT}"
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
