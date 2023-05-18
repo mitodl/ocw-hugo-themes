@@ -173,10 +173,11 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-        delimiter="$(openssl rand -hex 8)"
-        echo "output-name<<${delimiter}" >> "${GITHUB_OUTPUT}"
-        echo "Some\nMultiline\nOutput" >> "${GITHUB_OUTPUT}"
-        echo "${delimiter}" >> "${GITHUB_OUTPUT}"
+        delimiter="abc"
+        body=""
+        cat "output-name<<${delimiter}" >> "$body"
+        cat "Some\nMultiline\nOutput" >> "$body"
+        echo "body=$body" >> "${GITHUB_OUTPUT}"
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
