@@ -173,10 +173,7 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          slack_message=$(echo "*  Total tests:* 1
-          *  Passes:* 2
-          *  Failed:* 3
-          *  Gist report: 4")
+          slack_message=$(echo "*  Total tests:* 1Gist report: 4")
           body=$(echo "$slack_message<<EOF test")
           echo "body=$body" >> "${GITHUB_OUTPUT}"
 
