@@ -171,8 +171,11 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          echo "body=healo world<<$EOF" >> $GITHUB_OUTPUT
+          body="Hello world"
+          body+="\n\n"
+          body+="**New line** Hello world!"
+          echo "body=$body" >> $GITHUB_OUTPUT
+
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
