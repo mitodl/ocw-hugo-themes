@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.89.2
+--------------
+
+- Adding env variable to disable indexing by web crawlers (#1152)
+- Playwright video tests added - Start/End time - Transcript time (#1139)
+
 Version 1.89.1 (Released May 16, 2023)
 --------------
 
