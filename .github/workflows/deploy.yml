@@ -173,8 +173,7 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          body="red
-      blue green"
+          body="red /n \n blue green"
           echo "body=\${body}" >> "$GITHUB_OUTPUT"
 
       - name: Find Comment
