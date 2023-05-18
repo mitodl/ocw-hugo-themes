@@ -173,7 +173,12 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          body="red /n \n blue green"
+          body=$(cat <<EOF
+          This is a multi-line
+          string example using heredoc.
+          It can span across multiple lines.
+          EOF
+          )
           echo "body=$body" >> "$GITHUB_OUTPUT"
 
       - name: Find Comment
