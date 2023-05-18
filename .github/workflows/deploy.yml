@@ -102,7 +102,6 @@ jobs:
         id: set-comment-body
         run: |
           echo "body=healo world" >> $GITHUB_OUTPUT
-          echo "cody=world hello" >> $GITHUB_OUTPUT
     
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -119,7 +118,7 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.set-comment-body.outputs }}
+          body: ${{ steps.set-comment-body.outputs.body }}
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -128,7 +127,7 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ steps.set-comment-body.outputs }}
+          body: ${{ steps.set-comment-body.outputs.body }}
 
 
       
@@ -172,8 +171,8 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          echo "body=healo world" >> $GITHUB_OUTPUT
-          echo "cody=world hello" >> $GITHUB_OUTPUT
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "body=healo world<<$EOF" >> $GITHUB_OUTPUT
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -189,7 +188,7 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.set-comment-body.outputs }}
+          body: ${{ steps.set-comment-body.outputs.body }}
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -198,4 +197,4 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ steps.set-comment-body.outputs }}
+          body: ${{ steps.set-comment-body.outputs.body }}
