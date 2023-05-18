@@ -174,8 +174,8 @@ jobs:
         id: set-comment-body
         run: |
           body="red
-          blue green"
-          echo "body=${body}" >> "$GITHUB_OUTPUT"
+      blue green"
+          echo "body=\${body}" >> "$GITHUB_OUTPUT"
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
