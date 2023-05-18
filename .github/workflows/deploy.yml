@@ -173,11 +173,9 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-        body=$(echo 'test')
-        cat "output-name<<$EOF" >> "$body"
-        cat "Some\nMultiline\nOutput<<$EOF" >> "$body"
-        echo "body=$body" >> "${GITHUB_OUTPUT}"
+        body = $(echo 'JSON_RESPONSE<<EOF')
+        curl https://example.lab >> $body
+        echo 'body=$body' >> $GITHUB_OUTPUT
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
