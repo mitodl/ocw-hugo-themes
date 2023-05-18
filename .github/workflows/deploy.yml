@@ -173,9 +173,12 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-        body = $(echo 'JSON_RESPONSE<<EOF')
-        curl https://example.lab >> $body
-        echo 'body=$body' >> $GITHUB_OUTPUT
+          slack_message="*  Total tests:* 1
+          *  Passes:* 2
+          *  Failed:* 3
+          *  Gist report: 4"
+          body="$slack_message<<EOF test"
+          echo 'body=$body' >> $GITHUB_OUTPUT
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
