@@ -102,7 +102,7 @@ jobs:
         id: set-comment-body
         run: |
           body=$(echo 'Netlify Deployments:<br>www: https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/ <br> Course v2: https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/')
-          echo "body=$body" >> "$GITHUB_OUTPUT"
+          echo "$body" >> "$GITHUB_OUTPUT"
     
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -119,7 +119,7 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.set-comment-body.outputs.body }}
+          body: ${{ steps.set-comment-body.outputs }}
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -128,7 +128,7 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ steps.set-comment-body.outputs.body }}
+          body: ${{ steps.set-comment-body.outputs }}
 
       
       - name: Deploy CI build to Netlify
@@ -145,7 +145,7 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
     outputs:
-      body: ${{ steps.set-comment-body.outputs.body }}
+      body: ${{ steps.set-comment-body.outputs }}
   
   lighthouse:
     needs: build
@@ -173,10 +173,10 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          slack_message=$(echo "*  Total tests:* 1Gist report: 4")
-          body=$(echo "$slack_message<<$EOF test")
-          echo "body=$body" >> "${GITHUB_OUTPUT}"
+        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+        echo "text<<$EOF" >> $GITHUB_OUTPUT
+        echo "hello world" >> $GITHUB_OUTPUT
+        echo "$EOF" >> $GITHUB_OUTPUT
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -192,7 +192,7 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.set-comment-body.outputs.body }}
+          body: ${{ steps.set-comment-body.outputs }}
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -201,6 +201,6 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ steps.set-comment-body.outputs.body }}
+          body: ${{ steps.set-comment-body.outputs }}
     outputs:
-      body: ${{ steps.set-comment-body.outputs.body }}
+      body: ${{ steps.set-comment-body.outputs }}
