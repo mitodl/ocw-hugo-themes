@@ -171,10 +171,10 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          body="Hello world"
-          body+="\n\n"
+          body="Hello world<br>"
           body+="**New line** Hello world!"
           echo "body=$body" >> $GITHUB_OUTPUT
+          ::set-output name=body::value=$body
 
 
       - name: Find Comment
