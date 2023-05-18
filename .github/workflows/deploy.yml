@@ -145,8 +145,6 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-    outputs:
-      body: ${{ steps.set-comment-body.outputs }}
   
   lighthouse:
     needs: build
@@ -200,5 +198,3 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
           body: ${{ steps.set-comment-body.outputs }}
-    outputs:
-      body: ${{ steps.set-comment-body.outputs }}
