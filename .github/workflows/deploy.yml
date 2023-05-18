@@ -174,8 +174,6 @@ jobs:
           body="Hello world<br>"
           body+="**New line** Hello world!"
           echo "body=$body" >> $GITHUB_OUTPUT
-          ::set-output name=body::value=$body
-
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
