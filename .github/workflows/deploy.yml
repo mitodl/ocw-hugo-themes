@@ -172,7 +172,7 @@ jobs:
         id: set-comment-body
         run: |
           body="Hello world<br>"
-          body+="**New line** Hello world!"
+          body+="**New line** <br>Hello world!"
           echo "body=$body" >> $GITHUB_OUTPUT
 
       - name: Find Comment
