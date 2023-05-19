@@ -101,7 +101,8 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          echo "body=healo world" >> $GITHUB_OUTPUT
+          body=$(echo 'Netlify Deployments:<br>www: https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/ <br> Course v2: https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/')
+          echo "body=$body" >> $GITHUB_OUTPUT
     
       - name: Find Comment
         uses: peter-evans/find-comment@v2
