@@ -14,11 +14,6 @@ import {
   checkAnswer,
   showSolution
 } from "../../course-v2/assets/js/quiz_multiple_choice"
-import { initVideoDownloadPopup } from "../../course-v2/assets/js/video_download_popup"
-import { initVideoTranscriptTrack } from "../../course-v2/assets/js/video_transcript_track"
-import { initPlayBackSpeedButton } from "../../course-v2/assets/js/video_playback_speed"
-import { initVideoFullscreenToggle } from "../../course-v2/assets/js/video_fullscreen_toggle"
-import { initDownloadButton } from "../../course-v2/assets/js/video-download-button"
 import "nanogallery2/src/jquery.nanogallery2.core.js"
 import "nanogallery2/src/css/nanogallery2.css"
 import "videojs-youtube"
@@ -32,11 +27,3 @@ $(function() {
   showSolution()
   initCourseDrawersClosingViaSwiping()
 })
-
-export const initVideoJS = () => {
-  initVideoDownloadPopup()
-  initDownloadButton()
-  initPlayBackSpeedButton()
-  initVideoTranscriptTrack()
-  initVideoFullscreenToggle()
-}
