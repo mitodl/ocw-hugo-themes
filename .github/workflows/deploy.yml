@@ -171,8 +171,10 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          body="Hello world<br>"
-          body+="**New line** <br>Hello world!"
+          body=$(echo '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
+          body="${body//'%'/'%25'}"
+          body="${body//$'\n'/'%0A'}"
+          body="${body//$'\r'/'%0D'}"
           echo "body=$body" >> $GITHUB_OUTPUT
 
       - name: Find Comment
