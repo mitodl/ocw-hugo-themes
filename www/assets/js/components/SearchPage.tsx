@@ -4,7 +4,8 @@ import {
   Aggregations,
   useCourseSearch,
   serializeSort,
-  LearningResourceType
+  LearningResourceType,
+  Facets
 } from "@mitodl/course-search-utils"
 import { without } from "ramda"
 import { History as RouterHistory } from "history"
@@ -57,6 +58,10 @@ export default function SearchPage(props: SearchPageProps) {
   const [searchApiFailed, setSearchApiFailed] = useState(false)
   const [requestInFlight, setRequestInFlight] = useState(false)
 
+  const isResourceSearch = (activeFacets: Facets) => {
+    return activeFacets.type?.includes(LearningResourceType.ResourceFile)
+  }
+
   const runSearch = useCallback(
     async (text, activeFacets, from, sort, ui) => {
       activeFacets["offered_by"] = [OCW_PLATFORM]
@@ -65,13 +70,20 @@ export default function SearchPage(props: SearchPageProps) {
         activeFacets["type"] = [LearningResourceType.Course]
       }
       const pageSize = getPageSizeFromUIParam(ui)
+
+      const relevantFacets = isResourceSearch(activeFacets) ?
+        RESOURCE_FACETS :
+        COURSE_FACETS
+      const allowedAggregations = relevantFacets.map(facet => facet[0])
+
       setRequestInFlight(true)
       const newResults = await search({
         text,
         from,
         activeFacets,
-        size: pageSize,
-        sort: sort
+        size:         pageSize,
+        sort:         sort,
+        aggregations: allowedAggregations
       })
       setRequestInFlight(false)
 
@@ -165,11 +177,7 @@ export default function SearchPage(props: SearchPageProps) {
 
   const toggleResourceSearch = useCallback(
     nextResourceFilterState => async () => {
-      const isResourceFilterActive = (activeFacets.type ?? []).includes(
-        LearningResourceType.ResourceFile
-      )
-
-      if (isResourceFilterActive === nextResourceFilterState) {
+      if (isResourceSearch(activeFacets) === nextResourceFilterState) {
         // Immediately return in case the user clicks and already active facet.
         // Github issue https://github.com/mitodl/ocw-hugo-themes/issues/105
         return
@@ -196,10 +204,9 @@ export default function SearchPage(props: SearchPageProps) {
     [toggleFacets, activeFacets]
   )
 
-  const isResourceSearch = (activeFacets.type ?? []).includes(
-    LearningResourceType.ResourceFile
-  )
-  const facetMap = isResourceSearch ? RESOURCE_FACETS : COURSE_FACETS
+  const facetMap = isResourceSearch(activeFacets) ?
+    RESOURCE_FACETS :
+    COURSE_FACETS
   const pageSize = getPageSizeFromUIParam(ui)
   return (
     <div className="search-page w-100">
@@ -238,7 +245,7 @@ export default function SearchPage(props: SearchPageProps) {
           <div className="search-results-area col-12 col-lg-9 pb-2 pt-2">
             <div
               className={`search-toggle ${
-                isResourceSearch ? "nofacet" : "facet"
+                isResourceSearch(activeFacets) ? "nofacet" : "facet"
               }`}
             >
               {!emptyOrNil(suggestions) ? (
@@ -273,7 +280,7 @@ export default function SearchPage(props: SearchPageProps) {
                 <li className="nav-item flex-grow-0">
                   <button
                     className={`nav-link search-nav ${
-                      isResourceSearch ? "" : "active"
+                      isResourceSearch(activeFacets) ? "" : "active"
                     }`}
                     onClick={toggleResourceSearch(false)}
                   >
@@ -283,7 +290,7 @@ export default function SearchPage(props: SearchPageProps) {
                 <li className="nav-item flex-grow-0">
                   <button
                     className={`nav-link search-nav ${
-                      isResourceSearch ? "active" : ""
+                      isResourceSearch(activeFacets) ? "active" : ""
                     }`}
                     onClick={toggleResourceSearch(true)}
                   >
@@ -302,7 +309,7 @@ export default function SearchPage(props: SearchPageProps) {
                     </span>
                   ) : null}
                 </li>
-                {!isResourceSearch ? (
+                {!isResourceSearch(activeFacets) ? (
                   <li className="sort-nav-item nav-item d-flex align-items-center justify-content-end">
                     Sort by{" "}
                     <select

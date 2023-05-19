@@ -99,6 +99,12 @@ describe("SearchPage component", () => {
             ...defaultCourseFacets,
             ...params.activeFacets
           },
+          aggregations: [
+            "department_name",
+            "level",
+            "topics",
+            "course_feature_tags"
+          ],
           sort: null
         }
       ])
@@ -124,7 +130,13 @@ describe("SearchPage component", () => {
           from:         0,
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort:         null
+          sort:         null,
+          aggregations: [
+            "department_name",
+            "level",
+            "topics",
+            "course_feature_tags"
+          ]
         }
       ],
       [
@@ -133,7 +145,13 @@ describe("SearchPage component", () => {
           from:         0,
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort:         null
+          sort:         null,
+          aggregations: [
+            "department_name",
+            "level",
+            "topics",
+            "course_feature_tags"
+          ]
         }
       ]
     ])
@@ -163,7 +181,13 @@ describe("SearchPage component", () => {
           from:         0,
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: { ...defaultCourseFacets, ...parameters.activeFacets },
-          sort:         null
+          sort:         null,
+          aggregations: [
+            "department_name",
+            "level",
+            "topics",
+            "course_feature_tags"
+          ]
         }
       ],
       [
@@ -175,7 +199,8 @@ describe("SearchPage component", () => {
             ...defaultResourceFacets,
             ...{ topics: ["Mathematics"] }
           },
-          sort: null
+          sort:         null,
+          aggregations: ["resource_type", "topics"]
         }
       ]
     ])
@@ -313,7 +338,13 @@ describe("SearchPage component", () => {
           from:         0,
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort:         null
+          sort:         null,
+          aggregations: [
+            "department_name",
+            "level",
+            "topics",
+            "course_feature_tags"
+          ]
         }
       ],
       [
@@ -322,7 +353,13 @@ describe("SearchPage component", () => {
           from:         DEFAULT_UI_PAGE_SIZE,
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort:         null
+          sort:         null,
+          aggregations: [
+            "department_name",
+            "level",
+            "topics",
+            "course_feature_tags"
+          ]
         }
       ],
       [
@@ -331,7 +368,13 @@ describe("SearchPage component", () => {
           from:         2 * DEFAULT_UI_PAGE_SIZE,
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort:         null
+          sort:         null,
+          aggregations: [
+            "department_name",
+            "level",
+            "topics",
+            "course_feature_tags"
+          ]
         }
       ]
     ])
@@ -362,7 +405,13 @@ describe("SearchPage component", () => {
           from:         0,
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort:         null
+          sort:         null,
+          aggregations: [
+            "department_name",
+            "level",
+            "topics",
+            "course_feature_tags"
+          ]
         }
       ],
       [
@@ -371,7 +420,13 @@ describe("SearchPage component", () => {
           from:         DEFAULT_UI_PAGE_SIZE,
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
-          sort:         null
+          sort:         null,
+          aggregations: [
+            "department_name",
+            "level",
+            "topics",
+            "course_feature_tags"
+          ]
         }
       ]
     ])
