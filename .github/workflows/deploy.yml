@@ -182,7 +182,9 @@ jobs:
 
           echo "BODY<<EOF" >> $GITHUB_ENV
           echo $BODY >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          echo "$EOF" >> $GITHUB_ENV
+          echo $BODY >> $GITHUB_ENV
+
 
 
 
