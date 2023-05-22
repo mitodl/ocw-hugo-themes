@@ -175,7 +175,7 @@ jobs:
         run: |
           delimiter="$(openssl rand -hex 8)"
           {
-            body=$(echo '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
+            body=$(echo -e "${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}" | node util/formatLighthouseComment.js)
             echo "body<<${delimiter}"
             echo ${body}
             echo "${delimiter}"
