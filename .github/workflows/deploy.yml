@@ -174,12 +174,9 @@ jobs:
         id: set-comment-body
         run: |
           delimiter="$(openssl rand -hex 8)"
-          {
-            body=$(echo -e '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
-            echo "body<<${delimiter}"
-            echo ${body}
-            echo "${delimiter}"
-          } >> $GITHUB_OUTPUT
+          body=$(echo -e "${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}" | node util/formatLighthouseComment.js)
+          body="${delimiter}${body}${delimiter}"
+          echo "body=$body" >> $GITHUB_ENV
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -206,4 +203,8 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
           body: "test\n${{ steps.set-comment-body.outputs.body }}\ntest2"
+          body: |
+            test
+            ${{ env.body }}
+            test2
 
