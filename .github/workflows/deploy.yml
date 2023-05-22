@@ -173,13 +173,11 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          delimiter=$'\n'
-          {
-            body=$(echo '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
-            echo "body<<${delimiter}"
-            echo ${body}
-            echo "${delimiter}"
-          } >> $GITHUB_ENV
+          delimiter="$(openssl rand -hex 8)"
+          body="Line 1${delimiter}Line 2${delimiter}Line 3"
+          echo "body<<${delimiter}" >> $GITHUB_ENV
+          echo -e "${body}" >> $GITHUB_ENV
+          echo "${delimiter}" >> $GITHUB_ENV
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
