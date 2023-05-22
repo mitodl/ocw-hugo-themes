@@ -205,5 +205,5 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: "```test\n${{ steps.set-comment-body.outputs.body }}\ntest2```"
+          body: "test\n${{ steps.set-comment-body.outputs.body }}\ntest2"
 
