@@ -42,42 +42,45 @@ const emojify = score => {
 
 async function main() {
   const rl = readline.createInterface({
-    input: process.stdin
+    input:    process.stdin,
+    output:   process.stdout,
+    terminal: false
   })
 
-  let input = ""
+  const lines = []
+  rl.on("line", line => {
+    lines.push(line)
+  })
 
-  for await (const line of rl) {
-    input += line
-  }
+  rl.on("close", () => {
+    const { data } = JSON.parse(lines.join("\n"))
+    let message = "Lighthouse results:\n"
 
-  const { data } = JSON.parse(input)
+    message += data
+      .map(entry => {
+        const { url, scores } = entry
+        const {
+          accessibility,
+          bestPractices,
+          performance,
+          progressiveWebApp,
+          seo
+        } = scores
 
-  let message = "Lighthouse results:\n"
+        return `results for <${url}>:\n\n| Accessibility   | Best Practices  | Performance  | Progressive Web App | SEO    |\n| --------------- | --------------- | ------------ | ------------------- | ------ |\n| ${accessibility} ${emojify(
+          accessibility
+        )} | ${bestPractices} ${emojify(
+          bestPractices
+        )} | ${performance} ${emojify(
+          performance
+        )} | ${progressiveWebApp} ${emojify(
+          progressiveWebApp
+        )} | ${seo} ${emojify(seo)} |\n\n`
+      })
+      .join("")
 
-  message += data
-    .map(entry => {
-      const { url, scores } = entry
-      const {
-        accessibility,
-        bestPractices,
-        performance,
-        progressiveWebApp,
-        seo
-      } = scores
-
-      return `\nresults for <${url}>:
-
-| Accessibility   | Best Practices  | Performance  | Progressive Web App | SEO    |
-| --------------- | --------------- | ------------ | ------------------- | ------ |
-|${accessibility} ${emojify(accessibility)} |${bestPractices} ${emojify(
-  bestPractices
-)} |${performance} ${emojify(performance)}|${progressiveWebApp} ${emojify(
-  progressiveWebApp
-)} | ${seo} ${emojify(seo)} |\n\n`
-    })
-    .join("")
-  console.log(message)
+    console.log(message)
+  })
 }
 
 main()
