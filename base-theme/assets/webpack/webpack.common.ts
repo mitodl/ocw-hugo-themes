@@ -16,6 +16,7 @@ const fromRoot = (pathFromRoot: string) =>
 const entryNames = {
   instructorInsights: "instructor_insights",
   courseV2:           "course_v2",
+  courseOffline:      "course_offline",
   www:                "www",
   wwwOffline:         "www_offline",
   fields:             "fields"
@@ -29,6 +30,10 @@ const config: webpack.Configuration = {
   entry: {
     [entryNames.courseV2]: [
       fromRoot("./course-v2/assets/course-v2.ts"),
+      fromRoot("./base-theme/assets/index.ts")
+    ],
+    [entryNames.courseOffline]: [
+      fromRoot("./course-offline/assets/course-offline.ts"),
       fromRoot("./base-theme/assets/index.ts")
     ],
     [entryNames.instructorInsights]: [

@@ -1,0 +1,5 @@
+{{- define "basejs" -}}
+{{- $webpack := .Site.Data.webpack -}}
+{{- $js_urls := slice $webpack.course_offline.js -}}
+{{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
+{{- end -}}
