@@ -177,7 +177,7 @@ jobs:
           {
             body=$(echo '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
             echo "body<<${delimiter}"
-            echo ${ body }
+            echo ${body}
             echo "${delimiter}"
           } >> $GITHUB_OUTPUT
 
