@@ -3,9 +3,9 @@
 
 {{ if gt (len ($courseData.learning_resource_types | default slice)) 0 }}
 <div class="">
-  <div class="course-detail-title {{ if $inPanel }}panel-course-info-title mt-3{{ end }}">
+  <h5 class="course-detail-title {{ if $inPanel }}panel-course-info-title mt-3{{ end }}">
     Learning Resource Types
-  </div>
+  </h5>
   <div>
     <div class="row {{ if $inPanel }}d-inline m-0{{ end }}">
       {{ range $courseData.learning_resource_types }}
