@@ -173,13 +173,13 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          delimiter=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          delimiter=$'\n'
           {
             body=$(echo '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
             echo "body<<${delimiter}"
             echo ${body}
             echo "${delimiter}"
-          } >> $GITHUB_OUTPUT
+          } >> $GITHUB_ENV
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -195,7 +195,7 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.set-comment-body.outputs.body }}
+          body: ${{ env.body }}
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -204,4 +204,4 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ steps.set-comment-body.outputs.body }}
+          body: ${{ env.body }}
