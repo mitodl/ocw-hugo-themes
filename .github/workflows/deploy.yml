@@ -175,15 +175,11 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          BODY=$"this is line one \n
-                            this is line two \n
-                            this is line three \n"    
-          echo "body" >> "$BODY"
-
-
-
-
-
+          echo "This is the lead in sentence for the list" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY # this is a blank line
+          echo "- Lets add a bullet point" >> $GITHUB_STEP_SUMMARY
+          echo "- Lets add a second bullet point" >> $GITHUB_STEP_SUMMARY
+          echo "- How about a third one?" >> $GITHUB_STEP_SUMMARY
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -199,7 +195,7 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ env.BODY }}
+          body: ${{ env.GITHUB_STEP_SUMMARY }}
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -208,4 +204,4 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ env.BODY }}
+          body: ${{ env.GITHUB_STEP_SUMMARY }}
