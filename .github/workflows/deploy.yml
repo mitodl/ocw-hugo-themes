@@ -195,7 +195,6 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.set-comment-body.outputs.body }}
           body: "```\n${{ steps.set-comment-body.outputs.body }}\n```"
 
 
@@ -206,6 +205,5 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ steps.set-comment-body.outputs.body }}
           body: "```\n${{ steps.set-comment-body.outputs.body }}\n```"
 
