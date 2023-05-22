@@ -175,10 +175,12 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           BODY=$(echo '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
-          echo "BODY<<EOF" >> $GITHUB_ENV
-          echo $BODY >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          body="${body//$'\n'/'$EOF'}"
+          echo "BODY<<$EOF" >> "$GITHUB_ENV"
+          echo $BODY >> "$GITHUB_ENV"
+          echo "$EOF" >> "$GITHUB_ENV"
 
 
       - name: Find Comment
