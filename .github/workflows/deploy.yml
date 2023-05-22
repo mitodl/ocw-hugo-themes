@@ -173,7 +173,7 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          delimiter=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           {
             body=$(echo '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
             echo "body<<${delimiter}"
