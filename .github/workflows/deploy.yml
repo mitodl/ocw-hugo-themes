@@ -174,7 +174,7 @@ jobs:
         id: set-comment-body
         run: |
           delimiter="$(openssl rand -hex 8)"
-          body=$(echo -e "${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}" | node util/formatLighthouseComment.js)
+          body=$(echo -e '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
           body="${delimiter}${body}${delimiter}"
           echo "body=$body" >> $GITHUB_ENV
 
