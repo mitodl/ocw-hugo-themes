@@ -174,10 +174,12 @@ jobs:
         id: set-comment-body
         run: |
           delimiter="$(openssl rand -hex 8)"
-          body="Line 1${delimiter}Line 2${delimiter}Line 3"
-          echo "body<<${delimiter}" >> $GITHUB_ENV
-          echo -e "${body}" >> $GITHUB_ENV
-          echo "${delimiter}" >> $GITHUB_ENV
+          {
+            body=$(echo '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
+            echo "body<<${delimiter}"
+            echo ${ body }
+            echo "${delimiter}"
+          } >> $GITHUB_OUTPUT
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -193,7 +195,9 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ env.body }}
+          body: ${{ steps.set-comment-body.outputs.body }}
+          body: "```\n${{ steps.set-comment-body.outputs.body }}\n```"
+
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -202,4 +206,6 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ env.body }}
+          body: ${{ steps.set-comment-body.outputs.body }}
+          body: "```\n${{ steps.set-comment-body.outputs.body }}\n```"
+
