@@ -195,7 +195,7 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-        body: ${{ steps.set-comment-body.outputs.stdout }}
+          body: ${{ steps.set-comment-body.outputs.stdout }}
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -204,4 +204,4 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-        body: ${{ steps.set-comment-body.outputs.stdout }}
+          body: ${{ env.GITHUB_STEP_SUMMARY }}
