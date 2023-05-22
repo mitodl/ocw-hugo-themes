@@ -101,10 +101,8 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          BODY=$(echo 'Netlify Deployments:<br>www: https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/ <br> Course v2: https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/')
-          echo "BODY<<EOF" >> $GITHUB_ENV
-          echo $BODY >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          body=$(echo 'Netlify Deployments:<br>www: https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/ <br> Course v2: https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/')
+          echo "body=$body" >> $GITHUB_OUTPUT
 
     
       - name: Find Comment
@@ -122,7 +120,7 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ env.BODY }}
+          body: ${{ steps.set-comment-body.outputs.body }}
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -131,7 +129,7 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ env.BODY }}
+          body: ${{ steps.set-comment-body.outputs.body }}
 
 
       
@@ -175,11 +173,13 @@ jobs:
       - name: Set comment body
         id: set-comment-body
         run: |
-          echo "This is the lead in sentence for the list" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY # this is a blank line
-          echo "- Lets add a bullet point" >> $GITHUB_STEP_SUMMARY
-          echo "- Lets add a second bullet point" >> $GITHUB_STEP_SUMMARY
-          echo "- How about a third one?" >> $GITHUB_STEP_SUMMARY
+          body=$(echo '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          {
+            echo "body<<${delimiter}"
+            cat ${{ body }}
+            echo "${delimiter}"
+          } >> $GITHUB_OUTPUT
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -195,7 +195,7 @@ jobs:
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.set-comment-body.outputs.stdout }}
+          body: ${{ steps.set-comment-body.outputs.body }}
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -204,4 +204,4 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ${{ env.GITHUB_STEP_SUMMARY }}
+          body: ${{ steps.set-comment-body.outputs.body }}
