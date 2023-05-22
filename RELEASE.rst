@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.89.3
+Version 1.89.3 (Released May 22, 2023)
 --------------
 
 - perform only nessesary aggregations (#1154)
