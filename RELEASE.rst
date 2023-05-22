@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.90.0
+--------------
+
+- replace <div> with semantic heading tags in course theme (#1147)
+- disable bundle splitting in offline sites (#1156)
+
 Version 1.89.3 (Released May 22, 2023)
 --------------
 
