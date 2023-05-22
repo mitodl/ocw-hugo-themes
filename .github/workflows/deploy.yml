@@ -176,14 +176,13 @@ jobs:
         id: set-comment-body
         run: |
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          BODY="this is line one \n
+          BODY=$"this is line one \n
                             this is line two \n
                             this is line three \n"    
+          echo "JSON_RESPONSE<<$EOF" >> "$GITHUB_ENV"
+          echo "$EOF" >> "$GITHUB_ENV"
+          echo "body" >> "$BODY"
 
-          echo "BODY<<EOF" >> $GITHUB_ENV
-          echo $BODY >> $GITHUB_ENV
-          echo "$EOF" >> $GITHUB_ENV
-          echo $BODY >> $GITHUB_ENV
 
 
 
