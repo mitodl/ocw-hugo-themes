@@ -147,34 +147,4 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
   
-  lighthouse:
-    needs: build
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.15.0
-          cache: "yarn"
-      
-      - name: Run Lighthouse
-        steps:
-          - uses: actions/checkout@v3
-          - run: mkdir -p ${{ github.workspace }}/tmp/artifacts
-          - name: Run Lighthouse
-            uses: foo-software/lighthouse-check-action@master
-            with:
-              branch: ${{ github.ref }}
-              outputDirectory: ${{ github.workspace }}/tmp/artifacts
-              accessToken: ${{ secrets.GITHUB_TOKEN }}
-              urls: 'https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/,https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/search/,https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/'
-              sha: ${{ github.sha }}
-
-          - name: Upload artifacts
-            uses: actions/upload-artifact@master
-            with:
-              name: Lighthouse reports
-              path: ${{ github.workspace }}/tmp/artifacts
-              
+ 
