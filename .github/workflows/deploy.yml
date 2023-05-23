@@ -69,7 +69,7 @@ jobs:
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
 
       - name: Deploy www Preview to Netlify
-        uses: nwtgck/actions-netlify@v2
+        uses: nwtgck/actions-netlify@v2.0
         if: ${{ github.event_name == 'pull_request' }}
         with:
           publish-dir: '../ocw-www/public'
@@ -84,7 +84,7 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
       - name: Deploy v2 Course Preview to Netlify
-        uses: nwtgck/actions-netlify@v2
+        uses: nwtgck/actions-netlify@v2.0
         if: ${{ github.event_name == 'pull_request' }}
         with:
           publish-dir: '../ocw-course/public-v2'
@@ -114,7 +114,7 @@ jobs:
 
       - name: Create comment
         if: ${{ steps.fc.outputs.comment-id == 0 }}
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
@@ -122,7 +122,7 @@ jobs:
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         continue-on-error: true
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
@@ -131,7 +131,7 @@ jobs:
 
       
       - name: Deploy CI build to Netlify
-        uses: nwtgck/actions-netlify@v2
+        uses: nwtgck/actions-netlify@v2.0
         if: ${{ github.event_name == 'push' }}
         with:
           publish-dir: '../ocw-www/public'
