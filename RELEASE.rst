@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.90.0
+Version 1.90.0 (Released May 23, 2023)
 --------------
 
 - replace <div> with semantic heading tags in course theme (#1147)
