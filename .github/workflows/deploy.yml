@@ -159,51 +159,21 @@ jobs:
           node-version: 16.15.0
           cache: "yarn"
       
-      - run: mkdir -p ${{ github.workspace }}/tmp/artifacts
-
       - name: Run Lighthouse
-        uses: foo-software/lighthouse-check-action@master
-        id: lighthouseCheck
-        with:
-          branch: ${{ github.ref }}
-          outputDirectory: ${{ github.workspace }}/tmp/artifacts
-          urls: 'https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/,https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/search/,https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/'
-          sha: ${{ github.sha }}
+        steps:
+          - uses: actions/checkout@v3
+          - run: mkdir -p ${{ github.workspace }}/tmp/artifacts
+          - name: Run Lighthouse
+            uses: foo-software/lighthouse-check-action@master
+            with:
+              branch: ${{ github.ref }}
+              outputDirectory: ${{ github.workspace }}/tmp/artifacts
+              accessToken: ${{ secrets.GITHUB_TOKEN }}
+              urls: 'https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/,https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/search/,https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/'
+              sha: ${{ github.sha }}
 
-      - name: Set comment body
-        id: set-comment-body
-        run: |
-          delimiter="$(openssl rand -hex 8)"
-          body=$(echo -e '${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}' | node util/formatLighthouseComment.js)
-          body="${delimiter}${body}${delimiter}"
-          echo "body=$body" >> $GITHUB_ENV
-
-      - name: Find Comment
-        uses: peter-evans/find-comment@v2
-        id: fc
-        continue-on-error: true
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-author: 'github-actions[bot]'
-          body-includes: "Lighthouse results:"
-      - name: Create comment
-        if: ${{ steps.fc.outputs.comment-id == 0 }}
-        uses: peter-evans/create-or-update-comment@v2
-        continue-on-error: true
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: "```\n${{ steps.set-comment-body.outputs.body }}\n```"
-
-
-      - name: Update comment
-        if: ${{ steps.fc.outputs.comment-id != 0 }}
-        uses: peter-evans/create-or-update-comment@v2
-        continue-on-error: true
-        with:
-          comment-id: ${{ steps.fc.outputs.comment-id }}
-          edit-mode: replace
-          body: |
-            test
-            ${{ env.body }}
-            test2
-
+          - name: Upload artifacts
+            uses: actions/upload-artifact@master
+            with:
+              name: Lighthouse reports
+              path: ${{ github.workspace }}/tmp/artifacts
