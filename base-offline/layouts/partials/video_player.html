@@ -1,22 +1,14 @@
 {{ $archiveUrl := .archiveUrl }}
 {{ $archiveVideoFound := false }}
-<div>
-  <h2>DEBUG</h2>
-  {{ $staticResourcesBundle := site.GetPage "/static_resources" }}
-  {{ $archiveVideos := $staticResourcesBundle.Resources.ByType "video" }}
-  {{ range $archiveVideos }}
+{{ $staticResourcesBundle := site.GetPage "/static_resources" }}
+{{ $archiveVideos := $staticResourcesBundle.Resources.ByType "video" }}
+{{ range $archiveVideos }}
   {{ if strings.Contains $archiveUrl .Name }}
-  <div>
-  {{ .Name }}
-  {{ $archiveVideoFound = true }}
-  </div>
+    {{ $archiveVideoFound = true }}
   {{ end }}
-  {{ end }}
-</div>
+{{ end }}
 {{ if not $archiveVideoFound }}
-archive video not found
 {{ partial "youtube_player.html" (dict "context" .context "youtubeKey" .youtubeKey "archiveUrl" .archiveUrl "captionsLocation" .captionsLocation "startTime" .startTime "endTime" .endTime "downloadLink" .downloadLink "transcriptLink" .transcriptPdfLocation)}}
 {{ else }}
-archive video found
 {{ partial "local_video_player.html" (dict "context" .context "youtubeKey" .youtubeKey "archiveUrl" .archiveUrl "captionsLocation" .captionsLocation "startTime" .startTime "endTime" .endTime "downloadLink" .downloadLink "transcriptLink" .transcriptPdfLocation)}}
 {{ end }}
