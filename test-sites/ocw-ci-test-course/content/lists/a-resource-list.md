@@ -6,7 +6,6 @@ resources:
   content:
     - 7f1c9c9a-7dd8-4c6e-8592-fb43e1d7d363
     - f816672c-d3b3-43f9-91d3-af02ae574260
-    - 11752460-96c1-484e-bade-104e43064ab2
     - bd6d24ab-8bd3-4cac-9306-28645cf41985
     - 0c1253c6-e8bc-4804-96ad-c7914220957c
     - 335051d5-910a-41ce-9850-c0749ecc74b5
