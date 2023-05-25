@@ -29,3 +29,7 @@ leftnav:
   name: Video Series Overview
   url: /pages/video-series-overview/
   weight: 50
+- identifier: 79392061-a205-4e93-83f2-276dbc9668e6
+  name: Resource List
+  url: /lists/a-resource-list
+  weight: 80

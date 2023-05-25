@@ -2,10 +2,11 @@
   <div class="row">
     <div class="d-inline-flex">
       {{ if not .hideThumbnail }}
-        {{ $thumbnailSrc := partial "get_resource_thumbnail_src.html" (dict "resourceType" .params.resourcetype) }}
+        {{ $thumbnailAttrs := partial "get_resource_thumbnail_attributes.html" (dict "resourceType" .params.resourcetype "fileType" .params.file_type) }}
         <img
           class="resource-thumbnail"
-          src="{{- $thumbnailSrc -}}"
+          aria-label="{{- $thumbnailAttrs.ariaLabel -}}"
+          src="{{- $thumbnailAttrs.src -}}"
         />
       {{ end }}
 
