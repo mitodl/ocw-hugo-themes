@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.90.1
+--------------
+
+- fix: non-pdf files show pdf thumbnail (#1149)
+
 Version 1.90.0 (Released May 23, 2023)
 --------------
 
