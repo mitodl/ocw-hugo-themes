@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.90.2
+--------------
+
+- Deprecation Warning Fixes and Dependency Updates (#1159)
+
 Version 1.90.1 (Released May 25, 2023)
 --------------
 
