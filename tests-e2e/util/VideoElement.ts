@@ -5,7 +5,7 @@ export class VideoElement {
   readonly container: Locator
 
   constructor(page: Page) {
-    this.container = page.locator(".video-page")
+    this.container = page.locator(".video-embed, .video-page")
   }
 
   tab(opts: ByRoleOptions): Locator {
@@ -14,6 +14,24 @@ export class VideoElement {
 
   tabPanel(opts: ByRoleOptions): Locator {
     return this.container.getByRole("tabpanel", opts)
+  }
+
+  downloadButton(): Locator {
+    return this.container.getByRole("button", {
+      name: `Download Video and Transcript`
+    })
+  }
+
+  downloadVideo(): Locator {
+    return this.container.getByRole("link", {
+      name: `Download video`
+    })
+  }
+
+  downloadTranscript(): Locator {
+    return this.container.getByRole("link", {
+      name: `Download transcript`
+    })
   }
 
   /**
