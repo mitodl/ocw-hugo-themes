@@ -3,9 +3,22 @@ import { Locator, Page, FrameLocator, expect } from "@playwright/test"
 type ByRoleOptions = Parameters<Page["getByRole"]>[1]
 export class VideoElement {
   readonly container: Locator
+  private readonly page: Page
 
-  constructor(page: Page) {
-    this.container = page.locator(".video-embed, .video-page")
+  constructor(page: Page, n?: number) {
+    this.page = page
+    this.container = page.locator(".video-page, .video-embed")
+    if (n !== undefined) {
+      this.container = this.container.nth(n)
+    }
+  }
+
+  async count(): Promise<number> {
+    return await this.container.count()
+  }
+
+  nth(n: number): VideoElement {
+    return new VideoElement(this.page, n)
   }
 
   tab(opts: ByRoleOptions): Locator {

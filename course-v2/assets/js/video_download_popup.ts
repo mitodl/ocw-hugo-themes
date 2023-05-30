@@ -14,9 +14,7 @@ export const initVideoDownloadPopup = () => {
 
   document.addEventListener("click", () => {
     popups.forEach(popup => {
-      if (popup) {
-        popup.classList.add("hidden")
-      }
+      popup.classList.add("hidden")
     })
   })
 }
