@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
 import { VideoElement } from "../util/VideoElement"
 
-test.only("Verify that the Download Button works for multiple embed videos in a page", async ({
+test("Verify that the Download Button works for multiple embed videos in a page", async ({
   page
 }) => {
   const coursePage = new CoursePage(page, "course")
