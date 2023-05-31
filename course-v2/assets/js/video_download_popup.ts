@@ -8,13 +8,12 @@ export const initVideoDownloadPopup = () => {
       const popup = popups[index] as HTMLElement
       downloadIcon.addEventListener("click", event => {
         event.stopPropagation()
-        // Clicked on the same download button, toggle the popup
         if (popup === activePopup) {
+          // Clicked on the same download button, toggle the popup
           popup.classList.toggle("hidden")
           activePopup = null
-        }
-        // Clicked on a different download button, close previous popup (if any) and toggle open new popup
-        else {
+        } else {
+          // Clicked on a different download button, close previous popup (if any) and toggle open new popup
           if (activePopup) {
             activePopup.classList.add("hidden")
           }
