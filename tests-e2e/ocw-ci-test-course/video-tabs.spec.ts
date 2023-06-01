@@ -2,6 +2,28 @@ import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
 import { VideoElement } from "../util/VideoElement"
 
+test("that the Download Button works for multiple embed videos in a page", async ({
+  page
+}) => {
+  const coursePage = new CoursePage(page, "course")
+  await coursePage.goto("pages/multiple-videos-series-overview/")
+  const videoElementsCount = await new VideoElement(page).count()
+  expect(videoElementsCount).toBe(3)
+
+  for (let i = 0; i < videoElementsCount; i++) {
+    const videoElement = new VideoElement(page, i)
+    await videoElement.downloadButton().click()
+    expect(videoElement.downloadVideo()).toHaveAttribute(
+      "href",
+      "https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4"
+    )
+    expect(videoElement.downloadTranscript()).toHaveAttribute(
+      "href",
+      "https://live-qa.ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf"
+    )
+    await videoElement.downloadButton().click()
+  }
+})
 test("Verify that the 'Download video' and 'Download transcript' links are keyboard navigable and have the correct download URLs", async ({
   page
 }) => {
