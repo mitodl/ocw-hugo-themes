@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
 import { VideoElement } from "../util/VideoElement"
 
-test("that the Download Button works for multiple embed videos in a page", async ({
+test.only("that the Download Button works for multiple embed videos in a page", async ({
   page
 }) => {
   const coursePage = new CoursePage(page, "course")
@@ -10,7 +10,7 @@ test("that the Download Button works for multiple embed videos in a page", async
   const videoElementsCount = await new VideoElement(page).count()
   expect(videoElementsCount).toBe(3)
 
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < videoElementsCount; i++) {
     const videoElement = new VideoElement(page, i)
     await videoElement.downloadButton().click()
     expect(videoElement.downloadVideo()).toHaveAttribute(
