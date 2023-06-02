@@ -6,7 +6,7 @@
     controls
     data-setup='{
     "fluid": true,
-    "inactivityTimeout": 0'
+    "inactivityTimeout": 0}'
   >
       {{ if .archiveUrl }}
         <source src="{{ partial "resource_url.html" (dict "context" .context "url" .archiveUrl) }}" type="video/mp4" />
