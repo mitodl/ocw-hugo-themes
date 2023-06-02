@@ -1,7 +1,8 @@
 {{ $random := delimit (shuffle (split (md5 "seed") "" )) "" }}
+{{ $playerId := printf "video-player-%s-%s" .youtubeKey $random }}
 <div class="video-container embedded-video-container">
   <video
-    id="video-player-{{ .youtubeKey }}-{{ $random }}"
+    id="{{ $playerId }}"
     class="video-js vjs-default-skin vjs-big-play-centered vjs-16-9"
     controls
     data-setup='{
@@ -14,9 +15,20 @@
   </video>
 </div>
 
+{{ if and .startTime .endTime }}
 <script>
   window.onload = function() {
-    if (window.initVideoJS)
-      window.initVideoJS()
+    if (window.videojs) {
+      let player = window.videojs("{{ $playerId }}")
+      let startTime = {{ .startTime }}
+      let endTime = {{ .endTime }}
+      player.currentTime(startTime)
+      player.on("timeupdate", function(e) {
+        if(player.currentTime() >= endTime) {
+          player.pause()
+        }
+      })
+    }
   }
 </script>
+{{ end }}
