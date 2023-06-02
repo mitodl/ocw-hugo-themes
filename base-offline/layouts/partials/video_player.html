@@ -8,7 +8,7 @@
   {{ end }}
 {{ end }}
 {{ if not $archiveVideoFound }}
-{{ partial "youtube_player.html" (dict "context" .context "youtubeKey" .youtubeKey "archiveUrl" .archiveUrl "captionsLocation" .captionsLocation "startTime" .startTime "endTime" .endTime "downloadLink" .downloadLink "transcriptLink" .transcriptPdfLocation)}}
+{{ partial "youtube_player.html" (dict "context" .context "youtubeKey" .youtubeKey "archiveUrl" .archiveUrl "startTime" .startTime "endTime" .endTime)}}
 {{ else }}
-{{ partial "local_video_player.html" (dict "context" .context "youtubeKey" .youtubeKey "archiveUrl" .archiveUrl "captionsLocation" .captionsLocation "startTime" .startTime "endTime" .endTime "downloadLink" .downloadLink "transcriptLink" .transcriptPdfLocation)}}
+{{ partial "local_video_player.html" (dict "context" .context "youtubeKey" .youtubeKey "archiveUrl" .archiveUrl "startTime" .startTime "endTime" .endTime)}}
 {{ end }}
