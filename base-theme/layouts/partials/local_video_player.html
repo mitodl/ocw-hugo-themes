@@ -11,13 +11,7 @@
       {{ if .archiveUrl }}
         <source src="{{ partial "resource_url.html" (dict "context" .context "url" .archiveUrl) }}" type="video/mp4" />
       {{ end }}
-      {{ if .captionsLocation }}
-        <track kind="captions" src="{{ .captionsLocation }}" mode="disabled" srclang="en" label="English">
-      {{ end }}
   </video>
-  {{ if .captionsLocation }}
-        <track kind="captions" src="{{ .captionsLocation }}" mode="disabled" srclang="en" label="English">
-  {{ end }}
 </div>
 
 <script>
