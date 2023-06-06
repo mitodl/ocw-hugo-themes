@@ -9137,7 +9137,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hugo-bin-extended@npm:0.112.7":
+"hugo-bin-extended@npm:~0.112.7":
   version: 0.112.7
   resolution: "hugo-bin-extended@npm:0.112.7"
   dependencies:
@@ -12913,7 +12913,7 @@ __metadata:
     fuse.js: ^6.5.3
     gulp: ^4.0.2
     history: ^5.3.0
-    hugo-bin-extended: 0.112.7
+    hugo-bin-extended: ~0.112.7
     imports-loader: ^0.8.0
     inquirer: ^8.2.5
     isomorphic-fetch: ^2.2.1
