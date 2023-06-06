@@ -2,6 +2,7 @@
 {{ $studioBaseUrl := partial "ocw_studio_base_url.html" }}
 {{ if $studioBaseUrl }}
   {{- $url := (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/news/") -}}
+  {{/*  <h1>{{$url}}</h1>  */}}
   {{ with resources.GetRemote $url }}
     {{ with .Err }}
       {{ $errorMessage := printf "OCW News on %v failed to fetch %v with error: %v" site.BaseURL $url . }}
@@ -52,9 +53,37 @@
                     style="background: linear-gradient(to bottom, transparent, #777777), url({{ $item.image }})">
                 <a href="{{ $item.link.text }}" class="py-2 px-3 text-white text-decoration-none">
                   {{ $item.title.text }}
+                  {{/*  {{ $item.pubDate.text }}  */}}
                 </a>
               </div>
             {{ end }}
+          </div>
+        </div>
+
+        <div class="news-container d-none d-lg-flex">
+          <div class="main-picture">
+            <img src="https://via.placeholder.com/800x400" alt="Main Picture">
+            <div class="overlay">
+              <div class="date-banner">{{(index $items 0).pubDate.text}}</div>
+              <h2 class="heading">{{(index $items 0).title.text}}</h2>
+            </div>
+          </div>
+          <div class="side-area">
+            {{ range $index, $item := after 1 (first 5 $items) }}
+
+            <div class="card"
+                  style="background: black"
+                  >
+              <img src="{{$item.image}}" alt="Image 1">
+              <div class="card-desc">
+              <div class="card-title">{{ $item.title.text | truncate 60 }}</div>
+
+              {{ $formattedDate := replaceRE "(\\w+), (\\d{2}) (\\w+) (\\d{4}).*" "$3 $2, $4" $item.pubDate.text }}
+              <div class="card-date">{{ $formattedDate }}</div>
+              </div>
+            
+            </div>
+          {{ end }}
           </div>
         </div>
 
