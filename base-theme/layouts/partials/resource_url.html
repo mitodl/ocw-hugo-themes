@@ -7,12 +7,8 @@
   The RESOURCE_BASE_URL env variable is prefixed before the URL. That way for local
   development, you can set this to the S3 URL you expect the resources to be available at.
 */}}
-{{- $prefix := getenv "RESOURCE_BASE_URL" | default "" -}}
-{{- $url := printf "%s%s" (strings.TrimSuffix "/" $prefix) (urls.Parse $url).Path -}}
-{{- if not (hasPrefix $url "http") -}}
-  {{- partial "site_root_url.html" $url -}}
-{{- end -}}
-{{- if not .url -}}
-  {{- $url = .url -}}
+{{- if .url -}}
+  {{- $prefix := getenv "RESOURCE_BASE_URL" | default "" -}}
+  {{- $url = printf "%s%s" (strings.TrimSuffix "/" $prefix) (urls.Parse .url).Path -}}
 {{- end -}}
 {{- return $url -}}
