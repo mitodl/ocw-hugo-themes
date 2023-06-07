@@ -572,8 +572,8 @@ $promo-carousel-height: 200px;
 }
 
 .card {
-  display: -webkit-box !important;
-  // flex-direction: row !important;
+  display: flex !important;
+  flex-direction: row !important;
   align-items: center;
   margin-bottom: 15px;
   border-radius: 5px;
@@ -584,6 +584,8 @@ $promo-carousel-height: 200px;
 .card img {
   width: 168px;
   height: 94px;
+  -webkit-box-flex: 0;
+  flex: 0 0 auto;
   object-fit: cover;
   object-position: center;
   border-radius: 5px;
@@ -593,9 +595,9 @@ $promo-carousel-height: 200px;
   font-size: 16px;
     // overflow: hidden;
   // display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; /* start showing ellipsis when 3rd line is reached */
-  white-space: pre-wrap; /* let the text wrap preserving spaces */
+  // -webkit-box-orient: vertical;
+  // -webkit-line-clamp: 2; /* start showing ellipsis when 3rd line is reached */
+  // white-space: pre-wrap; /* let the text wrap preserving spaces */
 }
 
 .card-date {

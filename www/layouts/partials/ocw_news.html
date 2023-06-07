@@ -77,8 +77,14 @@
               <img src="{{$item.image}}" alt="Image 1">
               <div class="card-desc">
               <div class="card-title">{{ $item.title.text | truncate 60 }}</div>
+              {{ $formattedDate := replaceRE "(\\w+), 0*(\\d{1,2}) (\\w+) (\\d{4}).*" "$3 $2, $4" $item.pubDate.text }}
+              {{ $monthAbbreviation := substr $formattedDate 0 3 }}
+              {{ $monthMap := dict "Jan" "January" "Feb" "February" "Mar" "March" "Apr" "April" "May" "May" "Jun" "June" "Jul" "July" "Aug" "August" "Sep" "September" "Oct" "October" "Nov" "November" "Dec" "December" }}
+              {{ $monthFullName := index $monthMap $monthAbbreviation }}
+              {{ $formattedDate := replace $formattedDate $monthAbbreviation $monthFullName }}
+              
 
-              {{ $formattedDate := replaceRE "(\\w+), (\\d{2}) (\\w+) (\\d{4}).*" "$3 $2, $4" $item.pubDate.text }}
+              {{/*  {{ $formattedDate := printf "%s %s, %s" $monthFullName $day $year }}  */}}
               <div class="card-date">{{ $formattedDate }}</div>
               </div>
             
