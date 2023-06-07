@@ -62,10 +62,13 @@
 
         <div class="news-container d-none d-lg-flex">
           <div class="main-picture">
-            <img src="https://via.placeholder.com/800x400" alt="Main Picture">
+            {{ $firstItem := index $items 1 }}
+            {{ $firstItemFormattedDate := partialCached "date_format.html" $firstItem.pubDate.text }}
+            <img src="{{$firstItem.image}}" alt="Main Picture">
             <div class="overlay">
-              <div class="date-banner">{{(index $items 0).pubDate.text}}</div>
-              <h2 class="heading">{{(index $items 0).title.text}}</h2>
+
+              <div class="date-banner">{{ $firstItemFormattedDate }}</div>
+              <h2 class="heading">{{ $firstItem.title.text }}</h2>
             </div>
           </div>
           <div class="side-area">
@@ -77,11 +80,12 @@
               <img src="{{$item.image}}" alt="Image 1">
               <div class="card-desc">
               <div class="card-title">{{ $item.title.text | truncate 60 }}</div>
-              {{ $formattedDate := replaceRE "(\\w+), 0*(\\d{1,2}) (\\w+) (\\d{4}).*" "$3 $2, $4" $item.pubDate.text }}
-              {{ $monthAbbreviation := substr $formattedDate 0 3 }}
-              {{ $monthMap := dict "Jan" "January" "Feb" "February" "Mar" "March" "Apr" "April" "May" "May" "Jun" "June" "Jul" "July" "Aug" "August" "Sep" "September" "Oct" "October" "Nov" "November" "Dec" "December" }}
-              {{ $monthFullName := index $monthMap $monthAbbreviation }}
-              {{ $formattedDate := replace $formattedDate $monthAbbreviation $monthFullName }}
+              {{ $formattedDate := partialCached "date_format.html" $item.pubDate.text }}
+              {{/*  {{ $formattedDate := replaceRE "(\\w+), 0*(\\d{1,2}) (\\w+) (\\d{4}).*" "$3 $2, $4" $item.pubDate.text }}  */}}
+              {{/*  {{ $monthAbbreviation := substr $formattedDate 0 3 }}  */}}
+              {{/*  {{ $monthMap := dict "Jan" "January" "Feb" "February" "Mar" "March" "Apr" "April" "May" "May" "Jun" "June" "Jul" "July" "Aug" "August" "Sep" "September" "Oct" "October" "Nov" "November" "Dec" "December" }}  */}}
+              {{/*  {{ $monthFullName := index $monthMap $monthAbbreviation }}  */}}
+              {{/*  {{ $formattedDate := replace $formattedDate $monthAbbreviation $monthFullName }}  */}}
               
 
               {{/*  {{ $formattedDate := printf "%s %s, %s" $monthFullName $day $year }}  */}}

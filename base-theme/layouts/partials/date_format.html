@@ -1,0 +1,7 @@
+{{/*  Converts date of type "Fri, 07 Apr 2023 22:49:11 +0000" to "April 7, 2023"  */}}
+{{- $formattedDate := replaceRE "(\\w+), 0*(\\d{1,2}) (\\w+) (\\d{4}).*" "$3 $2, $4" . -}}
+{{- $monthAbbreviation := substr $formattedDate 0 3 -}}
+{{- $monthMap := dict "Jan" "January" "Feb" "February" "Mar" "March" "Apr" "April" "May" "May" "Jun" "June" "Jul" "July" "Aug" "August" "Sep" "September" "Oct" "October" "Nov" "November" "Dec" "December" -}}
+{{- $monthFullName := index $monthMap $monthAbbreviation -}}
+{{- $formattedDate := replace $formattedDate $monthAbbreviation $monthFullName -}}
+{{ return $formattedDate }}
