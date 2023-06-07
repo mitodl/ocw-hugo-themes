@@ -548,7 +548,7 @@ $promo-carousel-height: 200px;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 35%;
+  height: 33%;
   background-color: rgba(3, 21, 45, 0.8);
   // padding-left: 3.12rem;
   // padding-right: 3.12rem;
@@ -619,4 +619,46 @@ $promo-carousel-height: 200px;
 
 .card-date {
   font-size: 12px;
+}
+
+.card-title a,
+.image-link {
+  color: gray;
+  transition: color 0.3s ease;
+}
+
+.card:hover .card-title a,
+.card:hover .image-link {
+  color: white;
+}
+
+.card-title a,
+.image-link {
+  color: gray !important;
+  transition: color 0.3s ease;
+  // text-decoration: none; /* Ensure no underline on the links */
+}
+
+.card:hover .card-title a,
+.card:hover .image-link,
+.card:hover .card-date {
+  color: white;
+}
+
+.card-title a,
+.image-link, .card-date {
+  color: gray !important;
+  transition: color 0.3s ease;
+  // text-decoration: none; /* Ensure no underline on the links */
+}
+
+.card:hover .card-title a,
+.card:hover .image-link,
+.card:hover .card-date {
+  color: white !important;
+}
+
+.card-title a:hover,
+.image-link:hover {
+  color: white !important;
 }

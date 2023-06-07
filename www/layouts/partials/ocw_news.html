@@ -64,39 +64,36 @@
           <div class="main-picture">
             {{ $firstItem := index $items 1 }}
             {{ $firstItemFormattedDate := partialCached "date_format.html" $firstItem.pubDate.text }}
-            <img src="{{$firstItem.image}}" alt="Main Picture">
+            {{/*  <a href="{{ $firstItem.link.text }}" class="text-white text-decoration-none">  */}}
+              <img src="{{$firstItem.image}}" alt="Main Picture">
+            {{/*  </a>  */}}
             <div class="overlay">
               <div class="inside-overlay">
-              <div class="date-banner">{{ $firstItemFormattedDate }}</div>
-              <h1 class="heading">{{ $firstItem.title.text }}</h2>
-            </div>
+                <div class="date-banner">{{ $firstItemFormattedDate }}</div>
+                <h1 class="heading">
+                  <a href="{{ $firstItem.link.text }}" class="text-white text-decoration-none">{{ $firstItem.title.text }}</a>
+                </h1>
+              </div>
             </div>
           </div>
           <div class="side-area">
             {{ range $index, $item := after 1 (first 5 $items) }}
-
-            <div class="card"
-                  style="background: black"
-                  >
-              <img src="{{$item.image}}" alt="Image 1">
-              <div class="card-desc">
-              <div class="card-title">{{ $item.title.text | truncate 60 }}</div>
-              {{ $formattedDate := partialCached "date_format.html" $item.pubDate.text }}
-              {{/*  {{ $formattedDate := replaceRE "(\\w+), 0*(\\d{1,2}) (\\w+) (\\d{4}).*" "$3 $2, $4" $item.pubDate.text }}  */}}
-              {{/*  {{ $monthAbbreviation := substr $formattedDate 0 3 }}  */}}
-              {{/*  {{ $monthMap := dict "Jan" "January" "Feb" "February" "Mar" "March" "Apr" "April" "May" "May" "Jun" "June" "Jul" "July" "Aug" "August" "Sep" "September" "Oct" "October" "Nov" "November" "Dec" "December" }}  */}}
-              {{/*  {{ $monthFullName := index $monthMap $monthAbbreviation }}  */}}
-              {{/*  {{ $formattedDate := replace $formattedDate $monthAbbreviation $monthFullName }}  */}}
-              
-
-              {{/*  {{ $formattedDate := printf "%s %s, %s" $monthFullName $day $year }}  */}}
-              <div class="card-date">{{ $formattedDate }}</div>
+              <div class="card" style="background: black">
+                <a href="{{ $item.link.text }}" class="text-decoration-none">
+                  <img src="{{$item.image}}" alt="Image 1">
+                </a>
+                <div class="card-desc">
+                  <div class="card-title">
+                    <a href="{{ $item.link }}" class="text-decoration-none py-2">{{ $item.title.text | truncate 60 }}</a>
+                  </div>
+                  {{ $formattedDate := partialCached "date_format.html" $item.pubDate.text }}
+                  <div class="card-date">{{ $formattedDate }}</div>
+                </div>
               </div>
-            
-            </div>
-          {{ end }}
+            {{ end }}
           </div>
         </div>
+        
 
         <div class="d-flex py-4">
           <div class="ml-auto">
