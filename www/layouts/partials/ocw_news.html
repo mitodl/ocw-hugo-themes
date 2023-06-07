@@ -66,9 +66,10 @@
             {{ $firstItemFormattedDate := partialCached "date_format.html" $firstItem.pubDate.text }}
             <img src="{{$firstItem.image}}" alt="Main Picture">
             <div class="overlay">
-
+              <div class="inside-overlay">
               <div class="date-banner">{{ $firstItemFormattedDate }}</div>
-              <h2 class="heading">{{ $firstItem.title.text }}</h2>
+              <h1 class="heading">{{ $firstItem.title.text }}</h2>
+            </div>
             </div>
           </div>
           <div class="side-area">

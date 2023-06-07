@@ -527,7 +527,7 @@ $promo-carousel-height: 200px;
 }
 
 .main-picture {
-  width: 60%;
+  width: 58.4%;
   position: relative;
 }
 
@@ -536,27 +536,51 @@ $promo-carousel-height: 200px;
   height: 100%;
   object-fit: cover;
 }
-
+.inside-overlay{
+  padding: 30px 3rem;
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+}
 .overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 30%;
+  height: 35%;
   background-color: rgba(3, 21, 45, 0.8);
-  padding: 10px;
+  // padding-left: 3.12rem;
+  // padding-right: 3.12rem;
+  // padding-top: 3.75rem;
+  // padding-bottom: 3.75rem;
+
+  // color: $white;
+  // box-sizing: border-box;
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  // width: 100%;
 }
 
 .date-banner {
-  display: inline-block;
-  background-color: silver;
-  color: black;
+  color: $white;
   padding: 5px;
 }
 
 .heading {
-  margin-top: 10px;
+  // padding-left: 3.12rem;
+  // padding-right: 3.12rem;
+  // padding-top: 3.75rem;
+  // padding-bottom: 3.75rem;
   color: $white;
+  // box-sizing: border-box;
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  // width: 100%;
 }
 
 .subheading {
@@ -577,7 +601,6 @@ $promo-carousel-height: 200px;
   margin-bottom: 15px;
   border-radius: 5px;
   overflow: hidden;
-
 }
 
 .card img {
@@ -592,11 +615,6 @@ $promo-carousel-height: 200px;
 }
 .card-title {
   font-size: 16px;
-    // overflow: hidden;
-  // display: -webkit-box;
-  // -webkit-box-orient: vertical;
-  // -webkit-line-clamp: 2; /* start showing ellipsis when 3rd line is reached */
-  // white-space: pre-wrap; /* let the text wrap preserving spaces */
 }
 
 .card-date {
