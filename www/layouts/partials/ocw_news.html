@@ -45,7 +45,7 @@
           </div>
         {{ end }}
 
-        <div class="d-none d-lg-block">
+        {{/*  <div class="d-none d-lg-block">
           <h2>OCW News</h2>
           <div class="d-grid items-grid">
             {{ range $index, $item := (first 4 $items) }}
@@ -53,41 +53,38 @@
                     style="background: linear-gradient(to bottom, transparent, #777777), url({{ $item.image }})">
                 <a href="{{ $item.link.text }}" class="py-2 px-3 text-white text-decoration-none">
                   {{ $item.title.text }}
-                  {{/*  {{ $item.pubDate.text }}  */}}
                 </a>
               </div>
             {{ end }}
           </div>
-        </div>
+        </div>  */}}
 
-        <div class="news-container d-none d-lg-flex">
-          <div class="main-picture">
-            {{ $firstItem := index $items 1 }}
+          <div class="news-container d-none d-lg-flex">
+            {{ $firstItem := index $items 0 }}
             {{ $firstItemFormattedDate := partialCached "date_format.html" $firstItem.pubDate.text }}
-            {{/*  <a href="{{ $firstItem.link.text }}" class="text-white text-decoration-none">  */}}
+            <div class="featured-news">
               <img src="{{$firstItem.image}}" alt="Main Picture">
-            {{/*  </a>  */}}
-            <div class="overlay">
-              <div class="inside-overlay">
-                <div class="date-banner">{{ $firstItemFormattedDate }}</div>
-                <h1 class="heading">
-                  <a href="{{ $firstItem.link.text }}" class="text-white text-decoration-none">{{ $firstItem.title.text }}</a>
-                </h1>
+              <div class="news-overlay">
+                <div class="featured-news-content">
+                  <div class="featured-news-date">{{ $firstItemFormattedDate }}</div>
+                  <h1 class="featured-news-heading">
+                    <a href="{{ $firstItem.link.text }}" class="text-white text-decoration-none">{{ $firstItem.title.text }}</a>
+                  </h1>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="side-area">
+          <div class="news-sidebar">
             {{ range $index, $item := after 1 (first 5 $items) }}
-              <div class="card" style="background: black">
+              <div class="news-card" style="background: black">
                 <a href="{{ $item.link.text }}" class="text-decoration-none">
-                  <img src="{{$item.image}}" alt="Image 1">
+                  <img src="{{$item.image}}">
                 </a>
-                <div class="card-desc">
-                  <div class="card-title">
+                <div class="news-card-content">
+                  <div class="news-card-title">
                     <a href="{{ $item.link }}" class="text-decoration-none py-2">{{ $item.title.text | truncate 60 }}</a>
                   </div>
                   {{ $formattedDate := partialCached "date_format.html" $item.pubDate.text }}
-                  <div class="card-date">{{ $formattedDate }}</div>
+                  <div class="news-card-date">{{ $formattedDate }}</div>
                 </div>
               </div>
             {{ end }}

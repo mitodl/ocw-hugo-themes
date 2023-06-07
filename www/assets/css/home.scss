@@ -520,30 +520,25 @@ $promo-carousel-height: 200px;
 
 .news-container {
   display: flex;
-  height: 500px; /* Adjust the height as needed */
-  // width: 730px;
+  height: 500px;
   border-radius: 8px;
   overflow: hidden;
 }
 
-.main-picture {
+.featured-news {
   width: 58.4%;
   position: relative;
 }
 
-.main-picture img {
+.featured-news img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.inside-overlay{
+.featured-news-content {
   padding: 30px 3rem;
-  // position: absolute;
-  // top: 50%;
-  // left: 50%;
-  // transform: translate(-50%, -50%);
 }
-.overlay {
+.news-overlay {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -564,12 +559,12 @@ $promo-carousel-height: 200px;
   // width: 100%;
 }
 
-.date-banner {
+.featured-news-date {
   color: $white;
-  padding: 5px;
+  // padding: 5px;
 }
 
-.heading {
+.featured-news-heading {
   // padding-left: 3.12rem;
   // padding-right: 3.12rem;
   // padding-top: 3.75rem;
@@ -587,14 +582,14 @@ $promo-carousel-height: 200px;
   font-size: 14px;
 }
 
-.side-area {
+.news-sidebar {
   width: 42%;
   background-color: black;
   padding: 20px;
   color: gray;
 }
 
-.card {
+.news-card {
   display: flex !important;
   flex-direction: row !important;
   align-items: center;
@@ -603,7 +598,7 @@ $promo-carousel-height: 200px;
   overflow: hidden;
 }
 
-.card img {
+.news-card img {
   width: 168px;
   height: 94px;
   -webkit-box-flex: 0;
@@ -613,52 +608,51 @@ $promo-carousel-height: 200px;
   border-radius: 5px;
   margin-right: 10px;
 }
-.card-title {
+.news-card-title {
   font-size: 16px;
 }
 
-.card-date {
+.news-card-date {
   font-size: 12px;
 }
 
-.card-title a,
+.news-card-title a,
 .image-link {
   color: gray;
   transition: color 0.3s ease;
 }
 
-.card:hover .card-title a,
-.card:hover .image-link {
+.news-card:hover .news-card-title a,
+.news-card:hover .image-link {
   color: white;
 }
 
-.card-title a,
+.news-card-title a,
 .image-link {
   color: gray !important;
   transition: color 0.3s ease;
-  // text-decoration: none; /* Ensure no underline on the links */
 }
 
-.card:hover .card-title a,
-.card:hover .image-link,
-.card:hover .card-date {
+.news-card:hover .news-card-title a,
+.news-card:hover .image-link,
+.news-card:hover .news-card-date {
   color: white;
 }
 
-.card-title a,
-.image-link, .card-date {
+.news-card-title a,
+.image-link,
+.news-card-date {
   color: gray !important;
   transition: color 0.3s ease;
-  // text-decoration: none; /* Ensure no underline on the links */
 }
 
-.card:hover .card-title a,
-.card:hover .image-link,
-.card:hover .card-date {
+.news-card:hover .news-card-title a,
+.news-card:hover .image-link,
+.news-card:hover .news-card-date {
   color: white !important;
 }
 
-.card-title a:hover,
+.news-card-title a:hover,
 .image-link:hover {
   color: white !important;
 }
