@@ -15,19 +15,25 @@
   </video>
 </div>
 
-{{ if and .startTime .endTime }}
+{{ if or .startTime .endTime }}
 <script>
   window.onload = function() {
     if (window.videojs) {
-      let player = window.videojs("{{ $playerId }}")
-      let startTime = {{ .startTime }}
-      let endTime = {{ .endTime }}
-      player.currentTime(startTime)
-      player.on("timeupdate", function(e) {
-        if(player.currentTime() >= endTime) {
+      const player = window.videojs("{{ $playerId }}")
+      const startTime = {{ .startTime }}
+      const endTime = {{ .endTime }}
+      if (startTime) {
+        player.currentTime(startTime)
+      }
+      const stopper = () => {
+        if (player.currentTime() >= endTime) {
           player.pause()
+          player.off("timeupdate", stopper)
         }
-      })
+      }
+      if (endTime) {
+        player.on("timeupdate", stopper)
+      }
     }
   }
 </script>
