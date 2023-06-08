@@ -59,21 +59,22 @@
           </div>
         </div>  */}}
 
-          <div class="news-container d-none d-lg-flex">
-            {{ $firstItem := index $items 0 }}
+        <div class="news-container">
+          <div class="featured-news">
+            {{ $firstItem := index $items 1 }}
             {{ $firstItemFormattedDate := partialCached "date_format.html" $firstItem.pubDate.text }}
-            <div class="featured-news">
-              <img src="{{$firstItem.image}}" alt="Main Picture">
-              <div class="news-overlay">
-                <div class="featured-news-content">
-                  <div class="featured-news-date">{{ $firstItemFormattedDate }}</div>
-                  <h1 class="featured-news-heading">
-                    <a href="{{ $firstItem.link.text }}" class="text-white text-decoration-none">{{ $firstItem.title.text }}</a>
-                  </h1>
-                </div>
+            <img src="{{$firstItem.image}}" alt="Main Picture">
+            <div class="news-overlay">
+              <div class="featured-news-content">
+                <div class="featured-news-date">{{ $firstItemFormattedDate }}</div>
+                <h1 class="featured-news-heading">
+                  <a href="{{ $firstItem.link.text }}" class="text-white text-decoration-none">{{ $firstItem.title.text }}</a>
+                </h1>
               </div>
             </div>
-          <div class="news-sidebar">
+          </div>
+
+          <div class="news-sidebar d-none d-md-block">
             {{ range $index, $item := after 1 (first 5 $items) }}
               <div class="news-card" style="background: black">
                 <a href="{{ $item.link.text }}" class="text-decoration-none">
@@ -90,7 +91,7 @@
             {{ end }}
           </div>
         </div>
-        
+
 
         <div class="d-flex py-4">
           <div class="ml-auto">
