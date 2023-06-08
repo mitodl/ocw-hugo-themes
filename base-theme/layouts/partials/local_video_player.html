@@ -1,0 +1,40 @@
+{{ $random := delimit (shuffle (split (md5 "seed") "" )) "" }}
+{{ $playerId := printf "video-player-%s-%s" .youtubeKey $random }}
+<div class="video-container embedded-video-container">
+  <video
+    id="{{ $playerId }}"
+    class="video-js vjs-default-skin vjs-big-play-centered vjs-16-9"
+    controls
+    data-setup='{
+    "fluid": true,
+    "inactivityTimeout": 0}'
+  >
+      {{ if .archiveUrl }}
+        <source src="{{ partial "resource_url.html" (dict "context" .context "url" .archiveUrl) }}" type="video/mp4" />
+      {{ end }}
+  </video>
+</div>
+
+{{ if or .startTime .endTime }}
+<script>
+  window.onload = function() {
+    if (window.videojs) {
+      const player = window.videojs("{{ $playerId }}")
+      const startTime = {{ .startTime }}
+      const endTime = {{ .endTime }}
+      if (startTime) {
+        player.currentTime(startTime)
+      }
+      const stopper = () => {
+        if (player.currentTime() >= endTime) {
+          player.pause()
+          player.off("timeupdate", stopper)
+        }
+      }
+      if (endTime) {
+        player.on("timeupdate", stopper)
+      }
+    }
+  }
+</script>
+{{ end }}
