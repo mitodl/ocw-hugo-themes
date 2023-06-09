@@ -27,6 +27,8 @@
                   {{ range $index, $newsItem := (first 4 $items) }}
                     {{ $modulo := (mod $index $itemsInCarousel) }}
                     {{ $group := (div $index $itemsInCarousel) }}
+                    {{ $newsItemFormattedDate := partialCached "date_format.html" $newsItem.pubDate.text }}
+
                     {{ if eq $modulo 0 }}
                     <div class="carousel-item row {{ if eq $group 0 }}active{{ end }}">
                     {{ end }}
@@ -37,7 +39,7 @@
                               </a>
                               <div class="news-overlay">
                                 <div class="featured-news-content">
-                                  <div class="featured-news-date">{{ $newsItem.title.text }}</div>
+                                  <div class="featured-news-date">{{ $newsItemFormattedDate }}</div>
                                   <h1 class="featured-news-heading">
                                     <a href="{{ $newsItem.link.text }}" class="text-white text-decoration-none">{{ $newsItem.title.text }}</a>
                                   </h1>
@@ -88,7 +90,6 @@
             {{ end }}
           </div>
         </div>
-
 
         <div class="d-flex py-4">
           <div class="ml-auto">

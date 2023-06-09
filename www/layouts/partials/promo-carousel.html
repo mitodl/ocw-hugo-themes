@@ -1,41 +1,48 @@
-{{- $featuredPromos :=  .Site.Data.homepage.featured_promos.content | default slice -}}
-{{- $carouselId := "promo-carousel" -}}
-{{- $promos := partial "filtered_pages" (dict "context" . "featuredPagesUid" $featuredPromos) | default (where .Site.RegularPages "Type" "==" "promos") -}}
-
-{{ if $promos }}
-<div id="{{ $carouselId }}" class="promo-carousel pt-2 carousel carousel-fade slide" data-interval="false" data-touch="true" data-ride="carousel">
-  <ol class="carousel-indicators">
-    {{ range $index, $promo := $promos }}
-    <li data-target="#{{ $carouselId }}" data-slide-to="{{ $index }}" class="{{ if eq $index 0}}active{{ end }}" />
-    {{ end }}
-  </ol>
-  <div class="carousel-section d-flex flex-direction-row align-items-sm-center">
-    <a href="#{{ $carouselId }}" role="button" data-slide="prev" class="bg-white prev">
-      <span class="material-icons" aria-hidden="true">keyboard_arrow_left</span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <div class="carousel-inner h-100">
-      {{ range $index, $promo := $promos }}
-      <div class="carousel-item {{ if eq $index 0}}active{{ end }}">
-        <div class="carousel-content d-flex m-auto align-items-center bg-white">
-          <div class="img-container p-2">
-            <img class="promo-image img-fluid" src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $promo.Params.image.content).Params.file) }}" alt="" />
+<div class="ocw-news standard-width container mx-auto">
+  {{ $studioBaseUrl := partial "ocw_studio_base_url.html" }}
+  {{ if $studioBaseUrl }}
+    {{- $url := (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/news/") -}}
+    {{/*  <h1>{{$url}}</h1>  */}}
+    {{ with resources.GetRemote $url }}
+      {{ with .Err }}
+        {{ $errorMessage := printf "OCW News on %v failed to fetch %v with error: %v" site.BaseURL $url . }}
+        {{ partial "sentry_capture_message.html" $errorMessage }}
+      {{ else }}
+        {{ $items := (. | unmarshal).items }}
+        {{ if $items }}
+          <div class="d-flex d-md-none">
+            <div class="carousel slide">
+              <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold text-uppercase">
+                <h2>OCW News</h2>
+              </div>
+              <div class="news-container">
+                <div class="featured-news">
+                  <div class="carousel-inner d-flex mt-2 px-0">
+                    {{ range $index, $newsItem := (first 4 $items) }}
+                      <div class="item-wrapper col-12">
+                        <div class="item-{{ $index }}">
+                          <img src="{{$newsItem.image}}" alt="Main Picture">
+                          <a href="{{ $newsItem.link.text }}" class="py-2 px-3 text-white text-decoration-none">
+                            {{ $newsItem.title.text }}
+                          </a>
+                          <div class="news-overlay">
+                            <div class="featured-news-content">
+                              <div class="featured-news-date">{{ $newsItem.title.text }}</div>
+                              <h1 class="featured-news-heading">
+                                <a href="{{ $newsItem.link.text }}" class="text-white text-decoration-none">{{ $newsItem.title.text }}</a>
+                              </h1>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {{ end }}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="promo-info d-flex flex-column px-2 px-md-4 align-items-start h-100">
-            <h2>{{ $promo.Params.title }}</h2>
-            <h3>{{ $promo.Params.subtitle }}</h3>
-            <a class="font-weight-bold" href="{{ $promo.Params.link_url }}">
-              {{ $promo.Params.link_title }}
-            </a>
-          </div>
-        </div>
-      </div>
+        {{ end }}
       {{ end }}
-    </div>
-    <a href="#{{ $carouselId }}" role="button" data-slide="next" class="bg-white next">
-      <span class="material-icons" aria-hidden="true">keyboard_arrow_right</span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
+    {{ end }}
+  {{ end }}
 </div>
-{{ end }}
