@@ -520,7 +520,7 @@ $promo-carousel-height: 200px;
 
 .news-container {
   display: flex;
-  height: 500px;
+  // height: 500px;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -592,7 +592,6 @@ $promo-carousel-height: 200px;
   color: gray;
   // flex-basis: 42%;
   flex: 1 1 auto;
-
 }
 
 .news-card {
@@ -833,9 +832,7 @@ $promo-carousel-height: 200px;
 }
 
 .news-card-content {
-
   .news-card-title {
-
     @media (max-width: 990px) {
       display: -webkit-box;
       -webkit-box-orient: vertical;
