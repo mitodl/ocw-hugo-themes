@@ -18,7 +18,7 @@
     "build:hugo:debug": "hugo -d ../dist -v --templateMetrics --debug",
     "build:webpack": "cross-env NODE_ENV=production webpack --config base-theme/assets/webpack/webpack.prod.ts",
     "build:webpack:dev": "cross-env NODE_ENV=development WEBPACK_WATCH_MODE=false webpack --config base-theme/assets/webpack/webpack.dev.ts",
-    "build:webpack:serve": "cross-env NODE_ENV=development webpack serve --config base-theme/assets/webpack/webpack.dev.ts",
+    "webpack:serve": "cross-env NODE_ENV=development webpack serve --config base-theme/assets/webpack/webpack.dev.ts",
     "webpack:stats": "NODE_ENV=production webpack --config base-theme/assets/webpack/webpack.prod.ts --profile --json > stats.json",
     "webpack:analyze": "webpack-bundle-analyzer stats.json dist",
     "fmt": "yarn fmt:check --write",

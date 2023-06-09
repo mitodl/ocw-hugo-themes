@@ -12,7 +12,7 @@ if [[ "$NODE_ENV" == "development" ]]; then
     if ! nc -z -w 10 "$WEBPACK_HOST" "$WEBPACK_PORT"; then
         echo -e "${YELLOW}Webpack server at $WEBPACK_HOST:$WEBPACK_PORT is not responsive."
         echo -e "Run webpack server in the background for faster start-up times."
-        echo -e "\n\t yarn build:webpack:serve \n${RESET}"
+        echo -e "\n\t yarn webpack:serve \n${RESET}"
 
         echo "Building webpack..."
         if ! yarn build:webpack:dev; then
