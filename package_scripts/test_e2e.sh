@@ -14,7 +14,7 @@ if [[ "$NODE_ENV" == "development" ]]; then
         echo -e "Run webpack server in the background for faster start-up times."
         echo -e "\n\t yarn build:webpack:serve \n${RESET}"
 
-        echo "Budiling webpack..."
+        echo "Building webpack..."
         if ! yarn build:webpack:dev; then
             echo -e "\n${RED}Command 'yarn build:webpack:dev' failed. Exiting...${RESET}\n"
             exit 1
