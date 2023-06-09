@@ -18,6 +18,14 @@ const devOverrides: Configuration = {
 
   devtool: "eval-source-map",
 
+  devServer: {
+    host:          env.WEBPACK_HOST,
+    port:          env.WEBPACK_PORT,
+    devMiddleware: {
+      writeToDisk: true
+    }
+  },
+
   watch: env.WEBPACK_WATCH_MODE,
 
   plugins: [
