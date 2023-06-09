@@ -10,7 +10,7 @@
     {{ else }}
       {{ $items := (. | unmarshal).items }}
       {{ if $items }}
-        {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none")) }}
+        {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") ) }}
         {{ range $breakpoint, $carouselInfo := $breakdowns }}
           {{ $itemsInCarousel := index $carouselInfo "size" }}
           {{ $breakpointVisibilityClass := index $carouselInfo "class" }}
@@ -21,46 +21,44 @@
                 <h2>OCW News</h2>
                 {{ partial "carousel_controls.html" $carouselId }}
               </div>
-              <div class="carousel-inner d-flex mt-2 px-0">
-              {{ range $index, $newsItem := (first 4 $items) }}
-                {{ $modulo := (mod $index $itemsInCarousel) }}
-                {{ $group := (div $index $itemsInCarousel) }}
-                {{ if eq $modulo 0 }}
-                <div class="carousel-item row {{ if eq $group 0 }}active{{ end }}">
-                {{ end }}
-                  <div class="item-wrapper col-{{ (div 12 $itemsInCarousel) }}">
-                    <div class="item item-{{ $index }}"
-                          style="background: linear-gradient(to bottom, transparent, #777777), url({{ $newsItem.image }})">
-                      <a href="{{ $newsItem.link.text }}" class="py-2 px-3 text-white text-decoration-none">
-                        {{ $newsItem.title.text }}
-                      </a>
+              <div class="news-container">
+                <div class="featured-news">
+                  <div class="carousel-inner d-flex mt-2 px-0">
+                  {{ range $index, $newsItem := (first 4 $items) }}
+                    {{ $modulo := (mod $index $itemsInCarousel) }}
+                    {{ $group := (div $index $itemsInCarousel) }}
+                    {{ if eq $modulo 0 }}
+                    <div class="carousel-item row {{ if eq $group 0 }}active{{ end }}">
+                    {{ end }}
+                      <div class="item-wrapper col-{{ (div 12 $itemsInCarousel) }}">
+                        <div class="item-{{ $index }}">
+                              <img src="{{$newsItem.image}}" alt="Main Picture">
+                              <a href="{{ $newsItem.link.text }}" class="py-2 px-3 text-white text-decoration-none">
+                                {{ $newsItem.title.text }}
+                              </a>
+                              <div class="news-overlay">
+                                <div class="featured-news-content">
+                                  <div class="featured-news-date">{{ $newsItem.title.text }}</div>
+                                  <h1 class="featured-news-heading">
+                                    <a href="{{ $newsItem.link.text }}" class="text-white text-decoration-none">{{ $newsItem.title.text }}</a>
+                                  </h1>
+                                </div>
+                              </div>
+                        </div>
+                      </div>
+                    {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub 4 1))) }}
                     </div>
-                  </div>
-                {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub 4 1))) }}
+                    {{ end }}
+                  {{ end }}
                 </div>
-                {{ end }}
-              {{ end }}
+                </div>
               </div>
             </div>
           </div>
         {{ end }}
 
-        {{/*  <div class="d-none d-lg-block">
-          <h2>OCW News</h2>
-          <div class="d-grid items-grid">
-            {{ range $index, $item := (first 4 $items) }}
-              <div class="item item-{{ $index }}"
-                    style="background: linear-gradient(to bottom, transparent, #777777), url({{ $item.image }})">
-                <a href="{{ $item.link.text }}" class="py-2 px-3 text-white text-decoration-none">
-                  {{ $item.title.text }}
-                </a>
-              </div>
-            {{ end }}
-          </div>
-        </div>  */}}
-
         <div class="news-container">
-          <div class="featured-news">
+          <div class="featured-news  d-none d-md-block">
             {{ $firstItem := index $items 1 }}
             {{ $firstItemFormattedDate := partialCached "date_format.html" $firstItem.pubDate.text }}
             <img src="{{$firstItem.image}}" alt="Main Picture">
@@ -74,7 +72,7 @@
             </div>
           </div>
 
-          <div class="news-sidebar d-none d-md-block">
+          <div class="news-sidebar  d-none d-md-block">
             {{ range $index, $item := after 1 (first 5 $items) }}
               <div class="news-card" style="background: black">
                 <a href="{{ $item.link.text }}" class="text-decoration-none">
