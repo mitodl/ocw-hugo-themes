@@ -17,6 +17,15 @@ import {
 import "nanogallery2/src/jquery.nanogallery2.core.js"
 import "nanogallery2/src/css/nanogallery2.css"
 import "videojs-youtube"
+import videojs from "video.js"
+
+export interface OCWWindow extends Window {
+  $: JQueryStatic
+  jQuery: JQueryStatic
+  videojs: typeof videojs
+}
+
+declare let window: OCWWindow
 
 $(function() {
   initCourseDescriptionExpander(document)
@@ -26,4 +35,5 @@ $(function() {
   checkAnswer()
   showSolution()
   initCourseDrawersClosingViaSwiping()
+  window.videojs = videojs
 })

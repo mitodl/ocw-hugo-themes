@@ -1,6 +1,7 @@
 {{ $context := .context }}
 {{ $resource := .resource }}
 {{ $youtubeKey := trim $resource.Params.video_metadata.youtube_id " "}}
+{{ $archiveUrl := $resource.Params.video_files.archive_url }}
 {{ $captionsLocation := partial "video_captions_file_url.html" (dict "context" . "url" $resource.Params.video_files.video_captions_file) }}
 {{ $uid := $resource.Params.uid }}
 {{ $startTime := $resource.Params.start_time | default "" }}
@@ -15,7 +16,7 @@
 {{ end }}
 
 <div class="video-embed">
-  {{ partial "youtube_player.html" (dict "youtubeKey" $youtubeKey "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink) }}
+  {{ partial "video_player.html" (dict "context" $context "youtubeKey" $youtubeKey "archiveUrl" $archiveUrl "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink) }}
   {{ range where site.Pages "Params.uid" $uid }}
   {{ $resourceUrl := partial "page_url.html" (dict "context" $context "url" .Permalink) }}
   {{ partial "video_expandable_tab.html" (dict "context" $context "tabTitle" "View video page" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation "resourceUrl" $resourceUrl) }}

@@ -1,0 +1,26 @@
+{{ $youtubeKey := trim .Params.video_metadata.youtube_id " "}}
+{{ $archiveUrl := .Params.video_files.archive_url }}
+{{ $relatedResourses := .Params.related_resources_text | default "" }}
+{{ $optionalTabTitle := .Params.optional_tab_title | default "" }}
+{{ $optionalTabContent := .Params.optional_text | default ""}}
+{{ $startTime := .Params.start_time | default "" }}
+{{ $endTime := .Params.end_time | default "" }}
+{{ $context := . }}
+
+<div class="video-page">
+	<div class="show-offline d-none alert alert-warning" role="alert">
+		Viewing videos requires an internet connection
+	</div>
+  	<div class="description">
+    	{{ .Content }}
+  	</div>
+  	{{ partial "video_player.html" (dict "context" $context "youtubeKey" $youtubeKey "archiveUrl" $archiveUrl "startTime" $startTime "endTime" $endTime)}}
+
+  	{{ if $relatedResourses }}
+	  {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
+  	{{ end }}
+
+  	{{ if and $optionalTabTitle $optionalTabContent }}
+		{{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
+  	{{end}}
+</div>

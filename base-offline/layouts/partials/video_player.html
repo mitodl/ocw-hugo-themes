@@ -1,0 +1,14 @@
+{{ $archiveVideoFound := false }}
+{{ $archiveUrl := .archiveUrl }}
+{{ $parsedArchiveUrl := urls.Parse $archiveUrl }}
+{{ $parsedArchiveUrlPath := path.Split $parsedArchiveUrl.Path }}
+{{ $archiveFile := $parsedArchiveUrlPath.File }}
+{{ $staticResourcesBundle := site.GetPage "/static_resources" }}
+{{ $archiveVideos := $staticResourcesBundle.Resources.ByType "video" }}
+{{ $archiveVideoSearchResuts := $staticResourcesBundle.Resources.Match $archiveFile }}
+{{ $archiveVideoFound = gt (len $archiveVideoSearchResuts) 0 }}
+{{ if not $archiveVideoFound }}
+{{ partial "youtube_player.html" (dict "context" .context "youtubeKey" .youtubeKey "archiveUrl" .archiveUrl "startTime" .startTime "endTime" .endTime)}}
+{{ else }}
+{{ partial "local_video_player.html" (dict "context" .context "youtubeKey" .youtubeKey "archiveUrl" .archiveUrl "startTime" .startTime "endTime" .endTime)}}
+{{ end }}
