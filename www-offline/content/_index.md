@@ -1,0 +1,3 @@
+---
+renderSearchIcon: true
+---

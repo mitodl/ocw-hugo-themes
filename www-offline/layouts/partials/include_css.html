@@ -2,6 +2,6 @@
 {{ $urls := .urls }}
 {{ range $url := $urls }}
     {{ with $url }}
-    <link href="{{ printf "%s/%s" (strings.TrimSuffix "/" $context.Permalink) (strings.TrimPrefix "/" $url) }}" rel="stylesheet">
+    <link href="{{ printf "%s/%s" (strings.TrimSuffix "/" (path.Dir $context.Permalink)) (strings.TrimPrefix "/" $url) }}" rel="stylesheet">
     {{ end }}
 {{ end }}
