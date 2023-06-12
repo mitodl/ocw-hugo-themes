@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.90.3
+Version 1.90.3 (Released June 12, 2023)
 --------------
 
 - offline video playback (#1160)
