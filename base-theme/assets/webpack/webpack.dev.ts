@@ -18,6 +18,18 @@ const devOverrides: Configuration = {
 
   devtool: "eval-source-map",
 
+  devServer: {
+    host:          env.WEBPACK_HOST,
+    port:          env.WEBPACK_PORT,
+    devMiddleware: {
+      // Compiled assets are written to disk so that they can be
+      // accessed through the hugo server.
+      //
+      // You can find more details here: https://github.com/mitodl/ocw-hugo-themes/issues/1096
+      writeToDisk: true
+    }
+  },
+
   watch: env.WEBPACK_WATCH_MODE,
 
   plugins: [
