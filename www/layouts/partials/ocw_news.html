@@ -10,7 +10,8 @@
     {{ else }}
       {{ $items := (. | unmarshal).items }}
       {{ if $items }}
-        {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") ) }}
+        {{/*  {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none")) }}  */}}
+        {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-lg-none") )}}
         {{ range $breakpoint, $carouselInfo := $breakdowns }}
           {{ $itemsInCarousel := index $carouselInfo "size" }}
           {{ $breakpointVisibilityClass := index $carouselInfo "class" }}
@@ -21,9 +22,9 @@
                 <h2>OCW News</h2>
                 {{ partial "carousel_controls.html" $carouselId }}
               </div>
-              <div class="news-container">
+              <div class="news-container sm">
                 <div class="featured-news">
-                  <div class="carousel-inner d-flex mt-2 px-0">
+                  <div class="carousel-inner d-flex px-0">
                   {{ range $index, $newsItem := (first 4 $items) }}
                     {{ $modulo := (mod $index $itemsInCarousel) }}
                     {{ $group := (div $index $itemsInCarousel) }}
@@ -60,7 +61,7 @@
 
         <div class="news-container">
           <div class="featured-news  d-none d-md-block">
-            {{ $firstItem := index $items 1 }}
+            {{ $firstItem := index $items 0 }}
             {{ $firstItemFormattedDate := partialCached "date_format.html" $firstItem.pubDate.text }}
             <img src="{{$firstItem.image}}" alt="Main Picture">
             <div class="news-overlay">
