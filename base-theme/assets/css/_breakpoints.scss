@@ -23,5 +23,9 @@
     @media (max-width: 599px) {
       @content;
     }
+  } @else if $name == ipad {
+    @media (max-width: 820px) {
+      @content;
+    }
   }
 }
