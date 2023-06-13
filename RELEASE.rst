@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.91.0
+Version 1.91.0 (Released June 13, 2023)
 --------------
 
 - Delete PR Template
