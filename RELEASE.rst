@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.91.0
+--------------
+
+- Delete PR Template
+- feat: ensure webpack is built before e2e tests (#1171)
+- enhancement: upgrade hugo-bin-extended (#1167)
+
 Version 1.90.3 (Released June 12, 2023)
 --------------
 
