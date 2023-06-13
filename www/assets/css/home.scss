@@ -556,7 +556,7 @@ $promo-carousel-height: 200px;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 34%;
+      height: 33%;
       background-color: rgba(3, 21, 45, 0.8);
     }
 
@@ -568,8 +568,17 @@ $promo-carousel-height: 200px;
       color: $white;
       font-size: $featured-news-heading-font-lg;
       line-height: $featured-news-line-height-lg;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       @include media-breakpoint-down(md) {
+        font-size: $featured-news-heading-font-md;
+        line-height: $featured-news-line-height-md;
+      }
+      @include breakpoint(ipad) {
         font-size: $featured-news-heading-font-sm;
         line-height: $featured-news-line-height-sm;
       }
@@ -579,18 +588,22 @@ $promo-carousel-height: 200px;
       color: $white;
       font-size: $featured-news-date-font;
       line-height: $featured-news-date-line-height;
-      padding-bottom: 5px;
+      padding-bottom: 7px;
     }
 
     .featured-news-content {
-      padding: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       height: 100%;
-
+      h3 {
+        margin: 0;
+      }
       @include media-breakpoint-up(lg) {
-        padding: 40px 50px;
+        padding-left: 40px;
+        padding-right: 40px;
       }
     }
   }
@@ -648,8 +661,8 @@ $promo-carousel-height: 200px;
     }
 
     .news-card-title {
-      font-size: 16px;  
-      margin-bottom: 10px; 
+      font-size: 16px;
+      margin-bottom: 10px;
 
       @include media-breakpoint-down(md) {
         display: -webkit-box;
@@ -663,9 +676,9 @@ $promo-carousel-height: 200px;
         font-weight: 700;
         line-height: 20px;
         margin: 0;
-        @include media-breakpoint-down(md){
-        font-size: 14px;
-        font-weight: 600;
+        @include media-breakpoint-down(md) {
+          font-size: 14px;
+          font-weight: 600;
         }
       }
     }
@@ -693,6 +706,12 @@ $promo-carousel-height: 200px;
 
   #news-carousel-xs-sm {
     display: none;
+  }
+}
+
+#news-carousel-xs-sm {
+  .carousel-header {
+    margin-bottom: 1.25rem;
   }
 }
 
