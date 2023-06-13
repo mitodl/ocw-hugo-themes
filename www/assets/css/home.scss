@@ -560,7 +560,7 @@ $promo-carousel-height: 200px;
       background-color: rgba(3, 21, 45, 0.8);
     }
 
-    .news-overlay.sm {
+    .news-overlay.mobile {
       height: 22.6%;
     }
 
@@ -616,7 +616,7 @@ $promo-carousel-height: 200px;
   }
 }
 
-.news-container.sm {
+.news-container.mobile {
   @include breakpoint(ipad) {
     display: flex;
   }
@@ -700,7 +700,7 @@ $promo-carousel-height: 200px;
 }
 
 @media screen and (min-width: 821px) {
-  .news-container.sm {
+  .news-container.mobile {
     display: none;
   }
 

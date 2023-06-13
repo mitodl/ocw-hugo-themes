@@ -20,7 +20,7 @@
                 <h2>OCW News</h2>
                 {{ partial "carousel_controls.html" $carouselId }}
               </div>
-              <div class="news-container sm">
+              <div class="news-container mobile">
                 <div class="featured-news">
                   <div class="carousel-inner d-flex px-0">
                     {{ range $index, $newsItem := (first 5 $items) }}
@@ -34,10 +34,10 @@
                           <a href="{{ $newsItem.link.text }}" class="text-white text-decoration-none">
                             <img src="{{$newsItem.image}}" alt="Main Picture">
                           </a>
-                          <div class="news-overlay sm">
+                          <div class="news-overlay mobile">
                             <div class="featured-news-content">
                               <div class="featured-news-date">{{ $newsItemFormattedDate }}</div>
-                              <h3 class="featured-news-heading sm">
+                              <h3 class="featured-news-heading mobile">
                                 <a href="{{ $newsItem.link.text }}" class="text-white text-decoration-none">{{ $newsItem.title.text }}</a>
                               </h1>
                             </div>
@@ -71,7 +71,7 @@
           </div>
           <div class="news-sidebar d-none d-md-block">
             {{ range $index, $item := after 1 (first 5 $items) }}
-              <div class="news-card" style="background: black">
+              <div class="news-card">
                 <a href="{{ $item.link.text }}" class="text-decoration-none">
                   <img src="{{$item.image}}">
                 </a>
