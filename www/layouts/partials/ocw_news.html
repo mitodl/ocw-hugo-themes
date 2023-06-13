@@ -10,7 +10,6 @@
     {{ else }}
       {{ $items := (. | unmarshal).items }}
       {{ if $items }}
-        {{/*  {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none")) }}  */}}
         {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-lg-none") )}}
         {{ range $breakpoint, $carouselInfo := $breakdowns }}
           {{ $itemsInCarousel := index $carouselInfo "size" }}
@@ -24,7 +23,7 @@
               </div>
               <div class="news-container sm">
                 <div class="featured-news">
-                  <div class="carousel-inner d-flex px-0">
+                  <div class="carousel-inner d-flex mt-2 px-0">
                   {{ range $index, $newsItem := (first 4 $items) }}
                     {{ $modulo := (mod $index $itemsInCarousel) }}
                     {{ $group := (div $index $itemsInCarousel) }}
