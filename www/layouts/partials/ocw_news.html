@@ -2,7 +2,6 @@
 {{ $studioBaseUrl := partial "ocw_studio_base_url.html" }}
 {{ if $studioBaseUrl }}
   {{- $url := (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/news/") -}}
-  {{/*  <h1>{{$url}}</h1>  */}}
   {{ with resources.GetRemote $url }}
     {{ with .Err }}
       {{ $errorMessage := printf "OCW News on %v failed to fetch %v with error: %v" site.BaseURL $url . }}
@@ -23,57 +22,54 @@
               </div>
               <div class="news-container sm">
                 <div class="featured-news">
-                  <div class="carousel-inner d-flex mt-2 px-0">
-                  {{ range $index, $newsItem := (first 4 $items) }}
-                    {{ $modulo := (mod $index $itemsInCarousel) }}
-                    {{ $group := (div $index $itemsInCarousel) }}
-                    {{ $newsItemFormattedDate := partialCached "date_format.html" $newsItem.pubDate.text }}
-
-                    {{ if eq $modulo 0 }}
-                    <div class="carousel-item row {{ if eq $group 0 }}active{{ end }}">
-                    {{ end }}
-                      <div class="">
+                  <div class="carousel-inner d-flex px-0">
+                    {{ range $index, $newsItem := (first 5 $items) }}
+                      {{ $modulo := (mod $index $itemsInCarousel) }}
+                      {{ $group := (div $index $itemsInCarousel) }}
+                      {{ $newsItemFormattedDate := partialCached "date_format.html" $newsItem.pubDate.text }}
+                      {{ if eq $modulo 0 }}
+                        <div class="carousel-item row {{ if eq $group 0 }}active{{ end }}">
+                      {{ end }}
                         <div class="item-{{ $index }}">
-                              <a href="{{ $newsItem.link.text }}" class="text-white text-decoration-none">
-                              <img src="{{$newsItem.image}}" alt="Main Picture">
-                              </a>
-                              <div class="news-overlay sm">
-                                <div class="featured-news-content">
-                                  <div class="featured-news-date">{{ $newsItemFormattedDate }}</div>
-                                  <h1 class="featured-news-heading sm">
-                                    <a href="{{ $newsItem.link.text }}" class="text-white text-decoration-none">{{ $newsItem.title.text }}</a>
-                                  </h1>
-                                </div>
-                              </div>
+                          <a href="{{ $newsItem.link.text }}" class="text-white text-decoration-none">
+                            <img src="{{$newsItem.image}}" alt="Main Picture">
+                          </a>
+                          <div class="news-overlay sm">
+                            <div class="featured-news-content">
+                              <div class="featured-news-date">{{ $newsItemFormattedDate }}</div>
+                              <h3 class="featured-news-heading sm">
+                                <a href="{{ $newsItem.link.text }}" class="text-white text-decoration-none">{{ $newsItem.title.text }}</a>
+                              </h1>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub 4 1))) }}
-                    </div>
+                      {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub 5 1))) }}
+                        </div>
+                      {{ end }}
                     {{ end }}
-                  {{ end }}
-                </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         {{ end }}
 
+        <h2 class="ocw-news-main-heading">OCW News</h2>
         <div class="news-container">
-          <div class="featured-news  d-none d-md-block">
+          <div class="featured-news d-none d-md-block">
             {{ $firstItem := index $items 0 }}
             {{ $firstItemFormattedDate := partialCached "date_format.html" $firstItem.pubDate.text }}
-            <img src="{{$firstItem.image}}" alt="Main Picture">
+            <img src="{{$firstItem.image}}">
             <div class="news-overlay">
               <div class="featured-news-content">
                 <div class="featured-news-date">{{ $firstItemFormattedDate }}</div>
-                <h1 class="featured-news-heading">
+                <h3 class="featured-news-heading">
                   <a href="{{ $firstItem.link.text }}" class="text-white text-decoration-none">{{ $firstItem.title.text }}</a>
                 </h1>
               </div>
             </div>
           </div>
-
-          <div class="news-sidebar  d-none d-md-block">
+          <div class="news-sidebar d-none d-md-block">
             {{ range $index, $item := after 1 (first 5 $items) }}
               <div class="news-card" style="background: black">
                 <a href="{{ $item.link.text }}" class="text-decoration-none">
@@ -81,7 +77,7 @@
                 </a>
                 <div class="news-card-content">
                   <div class="news-card-title">
-                    <a href="{{ $item.link }}" class="text-decoration-none py-2">{{ $item.title.text | truncate 60 }}</a>
+                    <a href="{{ $item.link.text }}" class="text-decoration-none py-2">{{ $item.title.text | truncate 60 }}</a>
                   </div>
                   {{ $formattedDate := partialCached "date_format.html" $item.pubDate.text }}
                   <div class="news-card-date">{{ $formattedDate }}</div>
