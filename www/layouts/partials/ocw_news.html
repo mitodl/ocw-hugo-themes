@@ -16,7 +16,7 @@
           {{ $carouselId := (printf "news-carousel-%v" $breakpoint) }}
           <div class="{{ $breakpointVisibilityClass }}">
             <div id="{{ $carouselId }}" class="carousel slide">
-              <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold text-uppercase">
+              <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold">
                 <h2>OCW News</h2>
                 {{ partial "carousel_controls.html" $carouselId }}
               </div>
