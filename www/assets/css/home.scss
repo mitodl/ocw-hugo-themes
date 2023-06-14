@@ -594,10 +594,13 @@ $promo-carousel-height: 200px;
       h3 {
         margin: 0;
       }
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up(md) {
         padding: 40px 50px;
       }
-      @include media-breakpoint-down(lg) {
+      @include media-breakpoint-down(md) {
+        padding: 30px;
+      }
+      @include breakpoint(ipad) {
         padding: 20px;
       }
     }
