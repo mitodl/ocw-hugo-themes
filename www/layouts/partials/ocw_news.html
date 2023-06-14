@@ -57,7 +57,7 @@
         <h2 class="ocw-news-main-heading">OCW News</h2>
         <div class="news-container">
           <div class="featured-news d-none d-md-block">
-            {{ $firstItem := index $items 0 }}
+            {{ $firstItem := index $items 4 }}
             {{ $firstItemFormattedDate := partialCached "date_format.html" $firstItem.pubDate.text }}
             <img src="{{$firstItem.image}}">
             <div class="news-overlay">
