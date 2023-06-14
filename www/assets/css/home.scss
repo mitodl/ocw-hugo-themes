@@ -556,12 +556,7 @@ $promo-carousel-height: 200px;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 33%;
       background-color: rgba(3, 21, 45, 0.8);
-    }
-
-    .news-overlay.mobile {
-      height: 22.6%;
     }
 
     .featured-news-heading {
@@ -592,8 +587,6 @@ $promo-carousel-height: 200px;
     }
 
     .featured-news-content {
-      padding-left: 20px;
-      padding-right: 20px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -602,8 +595,13 @@ $promo-carousel-height: 200px;
         margin: 0;
       }
       @include media-breakpoint-up(lg) {
-        padding-left: 40px;
-        padding-right: 40px;
+        padding: 40px;
+      }
+      @include media-breakpoint-down(md) {
+        padding: 30px;
+      }
+      @include media-breakpoint-down(sm) {
+        padding: 20px;
       }
     }
   }
@@ -624,22 +622,24 @@ $promo-carousel-height: 200px;
 
 .news-sidebar {
   width: 42%;
-  background-color: black;
-  padding: 25px;
-  padding-top: 32.5px;
+  background-color: $news-sidear-bg-color;
+  padding: 30px;
   color: $news-card-content-color;
   flex: 1 1 auto;
 
   @include media-breakpoint-down(md) {
     width: 50%;
-    padding-right: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
-
+  .news-card:last-child {
+    margin-bottom: 0px;
+  }
   .news-card {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     border-radius: 5px;
     overflow: hidden;
 
@@ -663,14 +663,12 @@ $promo-carousel-height: 200px;
     .news-card-title {
       font-size: 16px;
       margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
-      @include media-breakpoint-down(md) {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
       h3 {
         font-size: 16px;
         font-weight: 700;
