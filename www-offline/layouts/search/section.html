@@ -1,30 +1,49 @@
 {{ define "main" }}
 {{ $pathToRoot := strings.TrimSuffix "/" (partial "path_to_root.html" .Permalink) }}
 {{ $websites := where site.Pages ".Params.content_type" "==" "website" }}
+{{ block "header" . }}
+{{ $renderSearchIcon := index .Params "renderSearchIcon" | default true }}
+{{ partial "header" . $renderSearchIcon }}
+{{ end }}
 <div class="search-wrapper">
-  {{ block "header" . }}
-  {{ $renderSearchIcon := index .Params "renderSearchIcon" | default true }}
-  {{ partialCached "header" . $renderSearchIcon }}
-  {{ end }}
-  <div class="container-fluid">
-    <main>
-      <div class="container-fluid p-0">
-        <div class="row m-0">
-          <div id="search-page" class="w-100">
-            <div class="d-flex flex-column flex-md-row p-2 p-md-0">
-              <input
-                id="search-input"
-                class="w-100"
-                type="text"
-                aria-label="Search"
-                />
+  <div class="search-page row justify-content-center">
+    <div class="search-results-area col-12 py-4">
+      <div class="container-fluid">
+        <main>
+          <div class="container-fluid p-0">
+            <div class="row m-0">
+              <div id="search-page" class="w-100">
+                <div class="container">
+                  <div class="search-box py-sm-5 py-md-7 py-lg-5 row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6 search-box-inner d-flex flex-column align-items-center mb-2 mb-sm-5 mb-md-4">
+                      <h1>Explore OpenCourseWare</h1>
+                      <div class="w-100 d-flex flex-column align-items-center search-input-wrapper mt-5">
+                        <div class="w-100">
+                          <form role="search" class="search-box d-flex flex-direction-row">
+                            <input
+                              id="search-input"
+                              class="w-100 pl-2"
+                              type="text"
+                              aria-label="Search"
+                              placeholder="Search OpenCourseWare"
+                              />
+                            <button id="search-button" type="submit" class="py-2 px-3">Search</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>                
+                    <div class="col-lg-3"></div>
+                  </div>
+                </div>
+                <section id="search-results" class="m-auto px-8">
+                </section>
+              </div>
             </div>
-            <section id="search-results" class="m-auto">
-            </section>
           </div>
-        </div>
+        </main>
       </div>
-    </main>
+    </div>
   </div>
 </div>
 <script>
@@ -114,19 +133,29 @@
         keys: ["title", "primary_course_number"]
       }
       const fuse = new Fuse(websites, searchOptions)
+      const searchInput = document.getElementById("search-input")
+      const searchButton = document.getElementById("search-button")
+      const performSearch = searchString => {
+        const searchResults = fuse.search(searchString)
+        const searchResultComponents = searchResults.map(searchResult => {
+          return `<search-result data-url="${searchResult.item["url"]}" data-title=${searchResult.item["title"]} data-primary-course-number=${searchResult.item["primary_course_number"]} data-level=${searchResult.item["level"]}></search-result>`
+        })
+        const searchResultsSection = document.getElementById("search-results")
+        searchResultsSection.innerHTML = searchResultComponents.join("")
+      }
       const onInput = e => {
         if (e.target.value) {
           const searchString = e.target.value
-          const searchResults = fuse.search(searchString)
-          const searchResultComponents = searchResults.map(searchResult => {
-            return `<search-result data-url="${searchResult.item["url"]}" data-title=${searchResult.item["title"]} data-primary-course-number=${searchResult.item["primary_course_number"]} data-level=${searchResult.item["level"]}></search-result>`
-          })
-          const searchResultsSection = document.getElementById("search-results")
-          searchResultsSection.innerHTML = searchResultComponents.join("")
+          performSearch(searchString)
         }
       }
-      const searchInput = document.getElementById("search-input")
+      const onSearchButtonClick = e => {
+        e.preventDefault()
+        performSearch(searchInput.value)
+      }
+      
       searchInput.addEventListener("input", onInput)
+      searchButton.addEventListener("click", onSearchButtonClick)
     }
   }
 </script>
