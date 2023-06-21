@@ -1,5 +1,5 @@
 <!-- navbar for mobile screens -->
-{{ $siteRootUrl := partial "site_root_url.html" "/" }}
+{{ $homeUrl := partial "home_url.html" }}
 {{ $giveNowUrl := "https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home" }}
 {{ $aboutUrl := partial "site_root_url.html" "/about" }}
 {{ $zenDeskUrl := "https://mitocw.zendesk.com/hc/en-us" }}
@@ -18,7 +18,7 @@
       <i class="material-icons display-4 text-white align-bottom">menu</i>
     </button>
     <div class="mx-auto">
-      <a href="{{ $siteRootUrl }}">
+      <a href="{{ $homeUrl }}">
         <img width="250" src="/static_shared/images/ocw_logo_white_v2.svg" alt="MIT OpenCourseWare"/>
       </a>
     </div>
@@ -47,7 +47,7 @@
   <div class="contents">
     <div class="left">
       <div class="ocw-logo mr-6">
-        <a href="{{ $siteRootUrl }}">
+        <a href="{{ $homeUrl }}">
           <img src="/static_shared/images/ocw_logo_white_v2.svg" alt="MIT OpenCourseWare" />
         </a>
       </div>
