@@ -46,116 +46,120 @@
   </div>
 </div>
 <script>
-  const searchResultTemplate = document.createElement("template")
-  searchResultTemplate.innerHTML = `
-<article>
-  <div class="card learning-resource-card compact-view">
-    <div class="card-contents">
-      <div class="lr-info search-result">
-        <div class="col-2 course-num">
-        </div>
-        <div class="course-title">
-          <a class="course-link"></a>
-        </div>
-        <div class="col-2 resource-level">
+window.onload = function() {
+  if (window.Fuse) {
+    // define the search-result web component and add it for use
+    const searchResultTemplate = document.createElement("template")
+    searchResultTemplate.innerHTML = `
+    <article>
+      <div class="card learning-resource-card compact-view">
+        <div class="card-contents">
+          <div class="lr-info search-result">
+            <div class="col-2 course-num">
+            </div>
+            <div class="course-title">
+              <a class="course-link"></a>
+            </div>
+            <div class="col-2 resource-level">
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</article>
-`
+    </article>
+    `
 
-  class SearchResult extends HTMLElement {
-    constructor() {
-      super()
+    class SearchResult extends HTMLElement {
+      constructor() {
+        super()
+      }
+
+      connectedCallback() {
+        this.innerHTML = searchResultTemplate.innerHTML
+        this.courseNumberDiv = this.querySelector(".course-num")
+        this.courseLink = this.querySelector(".course-link")
+        this.levelDiv = this.querySelector(".resource-level")
+        this.courseNumberDiv.innerHTML = this.primaryCourseNumber
+        this.courseLink.setAttribute("href", this.url)
+        this.courseLink.innerHTML = this.title
+        this.levelDiv.innerHTML = this.level
+      }
+
+      get title() {
+        return this.getAttribute("data-title")
+      }
+
+      get primaryCourseNumber() {
+        return this.getAttribute("data-primary-course-number")
+      }
+
+      get level() {
+        return this.getAttribute("data-level")
+      }
+
+      get url() {
+        return this.getAttribute("data-url")
+      }
     }
 
-    connectedCallback() {
-      this.innerHTML = searchResultTemplate.innerHTML
-      this.courseNumberDiv = this.querySelector(".course-num")
-      this.courseLink = this.querySelector(".course-link")
-      this.levelDiv = this.querySelector(".resource-level")
-      this.courseNumberDiv.innerHTML = this.primaryCourseNumber
-      this.courseLink.setAttribute("href", this.url)
-      this.courseLink.innerHTML = this.title
-      this.levelDiv.innerHTML = this.level
-    }
+    window.customElements.define("search-result", SearchResult)
 
-    get title() {
-      return this.getAttribute("data-title")
-    }
-
-    get primaryCourseNumber() {
-      return this.getAttribute("data-primary-course-number")
-    }
-
-    get level() {
-      return this.getAttribute("data-level")
-    }
-
-    get url() {
-      return this.getAttribute("data-url")
-    }
-  }
-
-  window.customElements.define("search-result", SearchResult)
-
-  window.onload = function() {
-    if (window.Fuse) {
-      const websites = [
-        {{ $websites := where site.Pages ".Params.content_type" "==" "website" }}
-        {{ range $websites }}
-        {{ $urlPath := strings.TrimPrefix "/" .Params.url_path }}
-        {{ $url := printf "%s/%s/index.html" $pathToRoot $urlPath }}
-        {
-          "title": {{- .Title | jsonify -}},
-          "primary_course_number": {{- .Params.primary_course_number | jsonify -}},
-          "url": {{- $url -}},
-          {{ if .Params.level }}
-          "level": {{ (delimit .Params.level ", ") | jsonify }}
-          {{ else }}
-          "level": ""
-          {{ end }}
-        },
+    // an array of known websites generated at build time
+    const websites = [
+      {{ $websites := where site.Pages ".Params.content_type" "==" "website" }}
+      {{ range $websites }}
+      {{ $urlPath := strings.TrimPrefix "/" .Params.url_path }}
+      {{ $url := printf "%s/%s/index.html" $pathToRoot $urlPath }}
+      {
+        "title": {{- .Title | jsonify -}},
+        "primary_course_number": {{- .Params.primary_course_number | jsonify -}},
+        "url": {{- $url -}},
+        {{ if .Params.level }}
+        "level": {{ (delimit .Params.level ", ") | jsonify }}
+        {{ else }}
+        "level": ""
         {{ end }}
-      ]
-      const Fuse = window.Fuse
-      const searchOptions = {
-        shouldSort: true,
-        threshold: 0.4,
-        location: 0,
-        distance: 100,
-        matchAllTokens: true,
-        includeScore: true,
-        maxPatternLength: 32,
-        minMatchCharLength: 5,
-        keys: ["title", "primary_course_number"]
-      }
-      const fuse = new Fuse(websites, searchOptions)
-      const searchInput = document.getElementById("search-input")
-      const searchButton = document.getElementById("search-button")
-      const performSearch = searchString => {
-        const searchResults = fuse.search(searchString)
-        const searchResultComponents = searchResults.map(searchResult => {
-          return `<search-result data-url="${searchResult.item["url"]}" data-title=${searchResult.item["title"]} data-primary-course-number=${searchResult.item["primary_course_number"]} data-level=${searchResult.item["level"]}></search-result>`
-        })
-        const searchResultsSection = document.getElementById("search-results")
-        searchResultsSection.innerHTML = searchResultComponents.join("")
-      }
-      const onInput = e => {
-        if (e.target.value) {
-          const searchString = e.target.value
-          performSearch(searchString)
-        }
-      }
-      const onSearchButtonClick = e => {
-        e.preventDefault()
-        performSearch(searchInput.value)
-      }
-      
-      searchInput.addEventListener("input", onInput)
-      searchButton.addEventListener("click", onSearchButtonClick)
+      },
+      {{ end }}
+    ]
+
+    // initialize Fuse and bind event listeners
+    const Fuse = window.Fuse
+    const searchOptions = {
+      shouldSort: true,
+      threshold: 0.4,
+      location: 0,
+      distance: 100,
+      matchAllTokens: true,
+      includeScore: true,
+      maxPatternLength: 32,
+      minMatchCharLength: 5,
+      keys: ["title", "primary_course_number"]
     }
+    const fuse = new Fuse(websites, searchOptions)
+    const searchInput = document.getElementById("search-input")
+    const searchButton = document.getElementById("search-button")
+    const performSearch = searchString => {
+      const searchResults = fuse.search(searchString)
+      const searchResultComponents = searchResults.map(searchResult => {
+        return `<search-result data-url="${searchResult.item["url"]}" data-title=${searchResult.item["title"]} data-primary-course-number=${searchResult.item["primary_course_number"]} data-level=${searchResult.item["level"]}></search-result>`
+      })
+      const searchResultsSection = document.getElementById("search-results")
+      searchResultsSection.innerHTML = searchResultComponents.join("")
+    }
+    const onInput = e => {
+      if (e.target.value) {
+        const searchString = e.target.value
+        performSearch(searchString)
+      }
+    }
+    const onSearchButtonClick = e => {
+      e.preventDefault()
+      performSearch(searchInput.value)
+    }
+    
+    searchInput.addEventListener("input", onInput)
+    searchButton.addEventListener("click", onSearchButtonClick)
   }
+}
 </script>
 {{ end }}
