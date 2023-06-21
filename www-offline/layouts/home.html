@@ -1,8 +1,7 @@
 {{ define "main" }}
 <div>
   {{ block "header" . }}
-  {{ $renderSearchIcon := index .Params "renderSearchIcon" | default true }}
-  {{ partial "header" . $renderSearchIcon }}
+  {{ partial "header" . }}
   {{ end }}
 </div>
 <div class="search-wrapper">

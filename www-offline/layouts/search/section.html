@@ -2,8 +2,7 @@
 {{ $pathToRoot := strings.TrimSuffix "/" (partial "path_to_root.html" .Permalink) }}
 {{ $websites := where site.Pages ".Params.content_type" "==" "website" }}
 {{ block "header" . }}
-{{ $renderSearchIcon := index .Params "renderSearchIcon" | default true }}
-{{ partial "header" . $renderSearchIcon }}
+{{ partial "header" . }}
 {{ end }}
 <div class="search-wrapper">
   <div class="search-page row justify-content-center">
