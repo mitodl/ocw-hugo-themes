@@ -1,0 +1,134 @@
+{{ define "main" }}
+{{ $pathToRoot := strings.TrimSuffix "/" (partial "path_to_root.html" .Permalink) }}
+{{ $websites := where site.Pages ".Params.content_type" "==" "website" }}
+{{ block "header" . }}
+{{ partial "header" . }}
+{{ end }}
+<div class="search-wrapper">
+  <div class="search-page row justify-content-center">
+    <div class="search-results-area col-12 py-4">
+      <div class="container-fluid">
+        <main>
+          <div class="container-fluid p-0">
+            <div class="row m-0">
+              <div id="search-page" class="w-100">
+                <div class="container">
+                  <div class="search-box py-sm-5 py-md-7 py-lg-5 row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6 search-box-inner d-flex flex-column align-items-center mb-2 mb-sm-5 mb-md-4">
+                      <h1>Explore OpenCourseWare</h1>
+                      <div class="w-100 d-flex flex-column align-items-center search-input-wrapper mt-5">
+                        <div class="w-100">
+                          <form role="search" class="search-box d-flex flex-direction-row">
+                            <input
+                              id="search-input"
+                              class="w-100 pl-2"
+                              type="text"
+                              aria-label="Search"
+                              placeholder="Search OpenCourseWare"
+                              />
+                            <button id="search-button" type="button" class="py-2 px-3">Search</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>                
+                    <div class="col-lg-3"></div>
+                  </div>
+                </div>
+                <section id="search-results" class="m-auto px-lg-8">
+                  <h3 class="col-3 text-center m-auto">Start typing to search</h3>
+                </section>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+window.onload = function() {
+  if (window.Fuse) {
+    // an array of known websites generated at build time
+    const websites = [
+      {{ $websites := where site.Pages ".Params.content_type" "==" "website" }}
+      {{ range $websites }}
+      {{ $urlPath := strings.TrimPrefix "/" .Params.url_path }}
+      {{ $url := printf "%s/%s/index.html" $pathToRoot $urlPath }}
+      {{ $delimiter := ", " }}
+      {
+        "title": "{{- .Title -}}",
+        "primary_course_number": "{{- .Params.primary_course_number -}}",
+        "url": "{{- $url -}}",
+        {{ if .Params.level }}
+        "level": "{{- delimit .Params.level $delimiter -}}"
+        {{ else }}
+        "level": ""
+        {{ end }}
+      },
+      {{ end }}
+    ]
+
+    // initialize Fuse and bind event listeners
+    const Fuse = window.Fuse
+    const searchOptions = {
+      shouldSort: true,
+      threshold: 0.4,
+      location: 0,
+      distance: 100,
+      matchAllTokens: true,
+      includeScore: true,
+      maxPatternLength: 32,
+      minMatchCharLength: 3,
+      keys: ["title", "primary_course_number"]
+    }
+    const fuse = new Fuse(websites, searchOptions)
+    const searchInput = document.getElementById("search-input")
+    const searchButton = document.getElementById("search-button")
+    const performSearch = searchString => {
+      const searchResults = fuse.search(searchString)
+      if (searchResults.length > 0) {
+        const searchResultComponents = searchResults.map(searchResult => {
+          return `
+          <article>
+            <div class="card learning-resource-card compact-view">
+              <div class="card-contents">
+                <div class="lr-info search-result">
+                  <div class="col-2 course-num">
+                    ${searchResult.item["primary_course_number"]}
+                  </div>
+                  <div class="course-title">
+                    <a class="course-link" href="${searchResult.item["url"]}">${searchResult.item["title"]}</a>
+                  </div>
+                  <div class="col-2 resource-level">
+                    ${searchResult.item["level"]}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+          `
+        })
+        const searchResultsSection = document.getElementById("search-results")
+        searchResultsSection.innerHTML = searchResultComponents.join("")
+      }
+      else {
+        searchResultsSection.innerHTML = `<h3 class="col-3 text-center m-auto">No results found</h3>`
+      }
+    }
+    const onInput = e => {
+      if (e.target.value) {
+        const searchString = e.target.value
+        performSearch(searchString)
+      }
+    }
+    const onSearchButtonClick = e => {
+      performSearch(searchInput.value)
+    }
+    
+    searchInput.addEventListener("input", onInput)
+    searchButton.addEventListener("click", onSearchButtonClick)
+  }
+}
+</script>
+{{ end }}

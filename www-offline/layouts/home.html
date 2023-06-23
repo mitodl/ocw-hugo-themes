@@ -1,17 +1,16 @@
 {{ define "main" }}
 <div>
   {{ block "header" . }}
-  {{ $renderSearchIcon := false }}
-  {{ partial "header" . $renderSearchIcon }}
+  {{ partial "header" . }}
   {{ end }}
 </div>
 <div class="search-wrapper">
   <div class="search-page row justify-content-center">
-    <div class="search-results-area col-9 py-4">
+    <div class="search-results-area col-12 py-4">
       {{ $websites := where site.Pages ".Params.content_type" "==" "website" }}
       {{ $sortedWebsites := partial "sort_websites_by_course_number.html" $websites }}
       {{ $paginator := .Paginate $sortedWebsites }}
-      <section class="m-auto">
+      <section class="m-auto px-8">
       {{ range $paginator.Pages }}
       {{ $pathToRoot := strings.TrimSuffix "/" (partial "path_to_root.html" $paginator.URL) }}
       {{ $urlPath := strings.TrimPrefix "/" .Params.url_path }}
