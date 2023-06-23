@@ -36,6 +36,7 @@
                   </div>
                 </div>
                 <section id="search-results" class="m-auto px-lg-8">
+                  <h3 class="col-3 text-center m-auto">Start typing to search</h3>
                 </section>
               </div>
             </div>
@@ -86,29 +87,34 @@ window.onload = function() {
     const searchButton = document.getElementById("search-button")
     const performSearch = searchString => {
       const searchResults = fuse.search(searchString)
-      const searchResultComponents = searchResults.map(searchResult => {
-        return `
-        <article>
-          <div class="card learning-resource-card compact-view">
-            <div class="card-contents">
-              <div class="lr-info search-result">
-                <div class="col-2 course-num">
-                  ${searchResult.item["primary_course_number"]}
-                </div>
-                <div class="course-title">
-                  <a class="course-link" href="${searchResult.item["url"]}">${searchResult.item["title"]}</a>
-                </div>
-                <div class="col-2 resource-level">
-                  ${searchResult.item["level"]}
+      if (searchResults.length > 0) {
+        const searchResultComponents = searchResults.map(searchResult => {
+          return `
+          <article>
+            <div class="card learning-resource-card compact-view">
+              <div class="card-contents">
+                <div class="lr-info search-result">
+                  <div class="col-2 course-num">
+                    ${searchResult.item["primary_course_number"]}
+                  </div>
+                  <div class="course-title">
+                    <a class="course-link" href="${searchResult.item["url"]}">${searchResult.item["title"]}</a>
+                  </div>
+                  <div class="col-2 resource-level">
+                    ${searchResult.item["level"]}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </article>
-        `
-      })
-      const searchResultsSection = document.getElementById("search-results")
-      searchResultsSection.innerHTML = searchResultComponents.join("")
+          </article>
+          `
+        })
+        const searchResultsSection = document.getElementById("search-results")
+        searchResultsSection.innerHTML = searchResultComponents.join("")
+      }
+      else {
+        searchResultsSection.innerHTML = `<h3 class="col-3 text-center m-auto">No results found</h3>`
+      }
     }
     const onInput = e => {
       if (e.target.value) {
