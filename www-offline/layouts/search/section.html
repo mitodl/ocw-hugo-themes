@@ -27,7 +27,7 @@
                               aria-label="Search"
                               placeholder="Search OpenCourseWare"
                               />
-                            <button id="search-button" type="submit" class="py-2 px-3">Search</button>
+                            <button id="search-button" type="button" class="py-2 px-3">Search</button>
                           </form>
                         </div>
                       </div>
@@ -123,7 +123,6 @@ window.onload = function() {
       }
     }
     const onSearchButtonClick = e => {
-      e.preventDefault()
       performSearch(searchInput.value)
     }
     
