@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.92.0
+--------------
+
+- offline search for mirror drives (#1175)
+
 Version 1.91.0 (Released June 13, 2023)
 --------------
 
