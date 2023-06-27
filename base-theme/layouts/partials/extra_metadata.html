@@ -1,5 +1,6 @@
 {{ $context := .context }}
 {{ $imageData := partial "course-image-url.html" $context }}
-{{ $courseImageUrl := index $imageData 0 }}
-
-<meta property="og:image" content="{{- $courseImageUrl -}}" />
+{{ $courseImageMetadata := index $imageData 1 }}
+{{- $sitemapDomain := partial "sitemap_domain.html" -}}
+{{- $absCourseImage := printf "https://%s%s" $sitemapDomain $courseImageMetadata.Params.file -}}
+<meta property="og:image" content="{{- $absCourseImage -}}" />
