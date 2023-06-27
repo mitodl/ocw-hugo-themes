@@ -606,10 +606,10 @@ $promo-carousel-height: 200px;
     }
   }
   .news-card:hover {
-    .news-card-title a,
-    .news-card-title a:hover,
+    .news-card-title h3,
+    .news-card-title h3:hover,
     .news-card-date {
-      color: white;
+      color: $white;
     }
   }
 }
@@ -632,7 +632,7 @@ $promo-carousel-height: 200px;
     padding-left: 15px;
     padding-right: 15px;
   }
-  .news-card:last-child {
+  a:last-child .news-card {
     margin-bottom: 0px;
   }
   .news-card {
@@ -681,7 +681,7 @@ $promo-carousel-height: 200px;
       }
     }
 
-    .news-card-title a,
+    .news-card-title h3,
     .news-card-date {
       color: $news-card-content-color;
       transition: color 0.3s ease;
