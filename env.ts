@@ -54,7 +54,7 @@ const envSchema = {
   OCW_TEST_COURSE: envalid.str({
     devDefault: "9.40-spring-2018"
   }),
-  RESOURCE_BASE_URL: envalid.url({
+  RESOURCE_BASE_URL: envalid.str({
     desc:       "Base URL with which to prefix resource paths in hugo's output.",
     devDefault: "https://live-qa.ocw.mit.edu/"
   }),
