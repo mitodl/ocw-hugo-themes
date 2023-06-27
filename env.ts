@@ -55,7 +55,8 @@ const envSchema = {
     devDefault: "9.40-spring-2018"
   }),
   RESOURCE_BASE_URL: envalid.str({
-    desc:       "Base URL with which to prefix resource paths in hugo's output.",
+    // str, not url, to allow for ""
+    desc:       "Base URL with which to prefix resource paths in Hugo's output.",
     devDefault: "https://live-qa.ocw.mit.edu/"
   }),
   SEARCH_API_URL: envalid.url({
