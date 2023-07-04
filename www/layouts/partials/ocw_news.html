@@ -9,51 +9,88 @@
     {{ else }}
       {{ $items := (. | unmarshal).items }}
       {{ if $items }}
-        {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none")) }}
+        {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-lg-none") )}}
         {{ range $breakpoint, $carouselInfo := $breakdowns }}
           {{ $itemsInCarousel := index $carouselInfo "size" }}
           {{ $breakpointVisibilityClass := index $carouselInfo "class" }}
           {{ $carouselId := (printf "news-carousel-%v" $breakpoint) }}
           <div class="{{ $breakpointVisibilityClass }}">
             <div id="{{ $carouselId }}" class="carousel slide">
-              <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold text-uppercase">
+              <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold">
                 <h2>OCW News</h2>
                 {{ partial "carousel_controls.html" $carouselId }}
               </div>
-              <div class="carousel-inner d-flex mt-2 px-0">
-              {{ range $index, $newsItem := (first 4 $items) }}
-                {{ $modulo := (mod $index $itemsInCarousel) }}
-                {{ $group := (div $index $itemsInCarousel) }}
-                {{ if eq $modulo 0 }}
-                <div class="carousel-item row {{ if eq $group 0 }}active{{ end }}">
-                {{ end }}
-                  <div class="item-wrapper col-{{ (div 12 $itemsInCarousel) }}">
-                    <div class="item item-{{ $index }}"
-                          style="background: linear-gradient(to bottom, transparent, #777777), url({{ $newsItem.image }})">
-                      <a href="{{ $newsItem.link.text }}" class="py-2 px-3 text-white text-decoration-none">
-                        {{ $newsItem.title.text }}
-                      </a>
-                    </div>
+              <div class="news-container mobile">
+                <div class="featured-news">
+                  <div class="carousel-inner d-flex px-0">
+                    {{ range $index, $newsItem := (first 5 $items) }}
+                      {{ $group := (div $index $itemsInCarousel) }}
+                      <div class="carousel-item row {{ if eq $group 0 }}active{{ end }}">
+                        <div class="item-{{ $index }}">
+                          <a href="{{ $newsItem.link.text }}" class="text-white text-decoration-none">
+                            {{ if $newsItem.image }}
+                            <img src="{{$newsItem.image}}" alt="" />
+                            {{ else }}
+                            <img src="/static_shared/images/default_news.png" alt="" />
+                            {{ end }}
+                            <div class="news-overlay mobile">
+                              <div class="featured-news-content">
+                                <div class="featured-news-date">{{ time.Format "January 2, 2006" $newsItem.pubDate.text }}</div>
+                                <h3 class="featured-news-heading mobile">
+                                  {{- $newsItem.title.text -}}
+                                </h3>
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    {{ end }}
                   </div>
-                {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub 4 1))) }}
                 </div>
-                {{ end }}
-              {{ end }}
               </div>
             </div>
           </div>
         {{ end }}
 
-        <div class="d-none d-lg-block">
-          <h2>OCW News</h2>
-          <div class="d-grid items-grid">
-            {{ range $index, $item := (first 4 $items) }}
-              <div class="item item-{{ $index }}"
-                    style="background: linear-gradient(to bottom, transparent, #777777), url({{ $item.image }})">
-                <a href="{{ $item.link.text }}" class="py-2 px-3 text-white text-decoration-none">
-                  {{ $item.title.text }}
-                </a>
+        <h2 class="ocw-news-main-heading">OCW News</h2>
+        <div class="news-container">
+          {{ $firstItem := index $items 0 }}
+            <div class="featured-news d-none d-md-block">
+              <a href="{{ $firstItem.link.text }}">
+                {{ if $firstItem.image }}
+                <img src="{{$firstItem.image}}" alt="" />
+                {{ else }}
+                <img src="/static_shared/images/default_news.png" alt="" />
+                {{ end }}
+                <div class="news-overlay">
+                  <div class="featured-news-content">
+                    <div class="featured-news-date">{{ time.Format "January 2, 2006" $firstItem.pubDate.text }}</div>
+                    <h3 class="featured-news-heading text-white">
+                      {{ $firstItem.title.text }}
+                    </h3>
+                  </div>
+                </div>
+              </a>
+            </div>
+          <div class="news-sidebar d-none d-md-block">
+            {{ range $index, $item := after 1 (first 5 $items) }}
+            <a href="{{ $item.link.text }}">
+              <div class="news-card">
+                {{ if $item.image }}
+                <img src="{{$item.image}}" alt="" />
+                {{ else }}
+                <img src="/static_shared/images/default_news.png" alt="" />
+                {{ end }}
+                <div class="news-card-content">
+                  <div class="news-card-title">
+                    <h3 class="">
+                      {{- $item.title.text | truncate 60 -}}
+                    </h3>
+                  </div>
+                  <div class="news-card-date">{{ time.Format "January 2, 2006" $item.pubDate.text }}</div>
+                </div>
               </div>
+            </a>
             {{ end }}
           </div>
         </div>

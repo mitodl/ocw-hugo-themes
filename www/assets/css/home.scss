@@ -394,6 +394,12 @@ $searchbox-height: 50px;
     height: 215px;
   }
 
+  .carousel-item.active,
+  .carousel-item-next,
+  .carousel-item-prev {
+    display: block !important;
+  }
+
   .items-grid {
     height: 375px;
     display: grid;
@@ -515,5 +521,200 @@ $promo-carousel-height: 200px;
         width: 100%;
       }
     }
+  }
+}
+
+.news-container {
+  font-family: "Arial", sans-serif;
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 500px;
+
+  @include breakpoint(ipad) {
+    display: none;
+  }
+
+  .featured-news {
+    width: 58.4%;
+    position: relative;
+    flex: 1 1 auto;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      @include breakpoint(ipad) {
+        height: 500px;
+        width: 100%;
+      }
+    }
+
+    .news-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(3, 21, 45, 0.8);
+    }
+
+    .featured-news-heading {
+      color: $white;
+      font-size: $featured-news-heading-font-lg;
+      line-height: $featured-news-line-height-lg;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @include media-breakpoint-down(md) {
+        font-size: $featured-news-heading-font-md;
+        line-height: $featured-news-line-height-md;
+      }
+      @include breakpoint(ipad) {
+        font-size: $featured-news-heading-font-sm;
+        line-height: $featured-news-line-height-sm;
+      }
+    }
+
+    .featured-news-date {
+      color: $white;
+      font-size: $featured-news-date-font;
+      line-height: $featured-news-date-line-height;
+      padding-bottom: 7px;
+    }
+
+    .featured-news-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      h3 {
+        margin: 0;
+      }
+      @include media-breakpoint-up(md) {
+        padding: 40px 50px;
+      }
+      @include media-breakpoint-down(md) {
+        padding: 30px;
+      }
+      @include breakpoint(ipad) {
+        padding: 20px;
+      }
+    }
+  }
+  .news-card:hover {
+    .news-card-title h3,
+    .news-card-title h3:hover,
+    .news-card-date {
+      color: $white;
+    }
+  }
+}
+
+.news-container.mobile {
+  @include breakpoint(ipad) {
+    display: flex;
+  }
+}
+
+.news-sidebar {
+  width: 42%;
+  background-color: $news-sidear-bg-color;
+  padding: 30px;
+  color: $news-card-content-color;
+  flex: 1 1 auto;
+
+  @include media-breakpoint-down(md) {
+    width: 50%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  a:last-child .news-card {
+    margin-bottom: 0px;
+  }
+  .news-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+
+    img {
+      width: 168px;
+      height: 94px;
+      -webkit-box-flex: 0;
+      flex: 0 0 auto;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    .news-card-content {
+      position: relative;
+      bottom: 2px;
+      left: 1px;
+    }
+
+    .news-card-title {
+      font-size: 16px;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      h3 {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 20px;
+        margin: 0;
+        @include media-breakpoint-down(md) {
+          font-size: 14px;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .news-card-title h3,
+    .news-card-date {
+      color: $news-card-content-color;
+      transition: color 0.3s ease;
+
+      @include media-breakpoint-down(md) {
+        color: $news-card-content-color;
+      }
+    }
+
+    .news-card-date {
+      font-size: 12px;
+    }
+  }
+}
+
+@media screen and (min-width: 821px) {
+  .news-container.mobile {
+    display: none;
+  }
+
+  #news-carousel-xs-sm {
+    display: none;
+  }
+}
+
+#news-carousel-xs-sm {
+  .carousel-header {
+    margin-bottom: 1.25rem;
+  }
+}
+
+.ocw-news-main-heading {
+  @include breakpoint(ipad) {
+    display: none;
   }
 }
