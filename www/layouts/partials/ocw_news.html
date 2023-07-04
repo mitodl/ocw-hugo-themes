@@ -32,16 +32,16 @@
                         <div class="item-{{ $index }}">
                           <a href="{{ $newsItem.link.text }}" class="text-white text-decoration-none">
                             {{ if $newsItem.image }}
-                            <img src="{{$newsItem.image}}" alt="">
+                            <img src="{{$newsItem.image}}" alt="" />
                             {{ else }}
-                            <img src="/static_shared/images/default_news.png" alt="">
+                            <img src="/static_shared/images/default_news.png" alt="" />
                             {{ end }}
                             <div class="news-overlay mobile">
                               <div class="featured-news-content">
                                 <div class="featured-news-date">{{ time.Format "January 2, 2006" $newsItem.pubDate.text }}</div>
                                 <h3 class="featured-news-heading mobile">
                                   <a href="{{ $newsItem.link.text }}" class="text-white text-decoration-none">{{ $newsItem.title.text }}</a>
-                                </h1>
+                                </h3>
                               </div>
                             </div>
                           </a>
@@ -63,9 +63,9 @@
             <div class="featured-news d-none d-md-block">
               <a href="{{ $firstItem.link.text }}">
                 {{ if $firstItem.image }}
-                <img src="{{$firstItem.image}}" alt="">
+                <img src="{{$firstItem.image}}" alt="" />
                 {{ else }}
-                <img src="/static_shared/images/default_news.png" alt="">
+                <img src="/static_shared/images/default_news.png" alt="" />
                 {{ end }}
                 <div class="news-overlay">
                   <div class="featured-news-content">
@@ -75,16 +75,16 @@
                     </h3>
                   </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </div>
           <div class="news-sidebar d-none d-md-block">
             {{ range $index, $item := after 1 (first 5 $items) }}
             <a href="{{ $item.link.text }}">
               <div class="news-card">
                 {{ if $item.image }}
-                <img src="{{$item.image}}" alt="">
+                <img src="{{$item.image}}" alt="" />
                 {{ else }}
-                <img src="/static_shared/images/default_news.png" alt="">
+                <img src="/static_shared/images/default_news.png" alt="" />
                 {{ end }}
                 <div class="news-card-content">
                   <div class="news-card-title">
