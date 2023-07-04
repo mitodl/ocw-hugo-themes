@@ -1,11 +1,12 @@
 {{ $baseUrl := .Get "baseUrl" }}
 <div id="{{ .Get "id" }}" class="image-gallery" data-nanogallery2='{ "itemsBaseURL": "{{ partial "resource_url.html" (dict "context" .Page "url" $baseUrl) }}" }'>
-{{ .Inner }}
+  {{ .Inner }}
 </div>
 
 <script>
-    window.onload = function() {
-      if (window.initNanogallery2)
-        window.initNanogallery2()
+  window.addEventListener('load', function() {
+    if (window.initNanogallery2) {
+        window.initNanogallery2();
     }
+});
 </script>
