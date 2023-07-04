@@ -24,11 +24,8 @@
                 <div class="featured-news">
                   <div class="carousel-inner d-flex px-0">
                     {{ range $index, $newsItem := (first 5 $items) }}
-                      {{ $modulo := (mod $index $itemsInCarousel) }}
                       {{ $group := (div $index $itemsInCarousel) }}
-                      {{ if eq $modulo 0 }}
-                        <div class="carousel-item row {{ if eq $group 0 }}active{{ end }}">
-                      {{ end }}
+                      <div class="carousel-item row {{ if eq $group 0 }}active{{ end }}">
                         <div class="item-{{ $index }}">
                           <a href="{{ $newsItem.link.text }}" class="text-white text-decoration-none">
                             {{ if $newsItem.image }}
@@ -40,15 +37,13 @@
                               <div class="featured-news-content">
                                 <div class="featured-news-date">{{ time.Format "January 2, 2006" $newsItem.pubDate.text }}</div>
                                 <h3 class="featured-news-heading mobile">
-                                  <a href="{{ $newsItem.link.text }}" class="text-white text-decoration-none">{{ $newsItem.title.text }}</a>
+                                  {{- $newsItem.title.text -}}
                                 </h3>
                               </div>
                             </div>
                           </a>
                         </div>
-                      {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub 5 1))) }}
-                        </div>
-                      {{ end }}
+                      </div>
                     {{ end }}
                   </div>
                 </div>
@@ -89,7 +84,7 @@
                 <div class="news-card-content">
                   <div class="news-card-title">
                     <h3 class="">
-                      {{ $item.title.text | truncate 60 }}
+                      {{- $item.title.text | truncate 60 -}}
                     </h3>
                   </div>
                   <div class="news-card-date">{{ time.Format "January 2, 2006" $item.pubDate.text }}</div>
