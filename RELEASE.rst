@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.92.0
+Version 1.92.0 (Released July 05, 2023)
 --------------
 
 - Update og:image tag to use fully-qualified URL (#1177)
