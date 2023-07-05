@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.93.0
+--------------
+
+- OCW News Redesign (#1168)
+
 Version 1.92.0 (Released July 05, 2023)
 --------------
 
