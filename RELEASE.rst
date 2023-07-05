@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.92.0 (Released July 05, 2023)
+--------------
+
+- Update og:image tag to use fully-qualified URL (#1177)
+- offline search for mirror drives (#1175)
+
 Version 1.91.0 (Released June 13, 2023)
 --------------
 
