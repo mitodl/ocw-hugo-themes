@@ -47,7 +47,7 @@
   </div>
 </div>
 <script>
-window.onload = function() {
+window.addEventListener('load', function() {
   if (window.Fuse) {
     // an array of known websites generated at build time
     const websites = [
@@ -129,6 +129,6 @@ window.onload = function() {
     searchInput.addEventListener("input", onInput)
     searchButton.addEventListener("click", onSearchButtonClick)
   }
-}
+})
 </script>
 {{ end }}

@@ -17,7 +17,7 @@
 
 {{ if or .startTime .endTime }}
 <script>
-  window.onload = function() {
+  window.addEventListener('load', function() {
     if (window.videojs) {
       const player = window.videojs("{{ $playerId }}")
       const startTime = {{ .startTime }}
@@ -35,6 +35,6 @@
         player.on("timeupdate", stopper)
       }
     }
-  }
+  })
 </script>
 {{ end }}
