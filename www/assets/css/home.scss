@@ -524,12 +524,15 @@ $promo-carousel-height: 200px;
   }
 }
 
+.news-container:not(.mobile) {
+  height: 500px;
+}
 .news-container {
   font-family: "Arial", sans-serif;
   display: flex;
   border-radius: 8px;
   overflow: hidden;
-  height: 500px;
+  // height: 500px;
 
   @include breakpoint(ipad) {
     display: none;
@@ -544,10 +547,14 @@ $promo-carousel-height: 200px;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      background-size: cover;
 
       @include breakpoint(ipad) {
         height: 500px;
         width: 100%;
+      }
+      @include  media-breakpoint-down(xs){
+        height: 215px;
       }
     }
 
