@@ -73,12 +73,8 @@ window.addEventListener('load', function() {
     const Fuse = window.Fuse
     const searchOptions = {
       shouldSort: true,
-      threshold: 0.2,
-      location: 0,
-      distance: 100,
-      matchAllTokens: true,
       includeScore: true,
-      maxPatternLength: 32,
+      threshold: 0.2,
       minMatchCharLength: 3,
       keys: ["title", "primary_course_number"]
     }
