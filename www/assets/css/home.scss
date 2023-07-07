@@ -553,7 +553,7 @@ $promo-carousel-height: 200px;
         height: 500px;
         width: 100%;
       }
-      @include  media-breakpoint-down(xs){
+      @include media-breakpoint-down(xs) {
         height: 215px;
       }
     }
