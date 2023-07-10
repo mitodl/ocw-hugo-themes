@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.93.1
+--------------
+
+- replace all instances of window.onload with addEventListener (#1185)
+- remove custom PR and issue templates... (#1181)
+
 Version 1.93.0 (Released July 06, 2023)
 --------------
 
