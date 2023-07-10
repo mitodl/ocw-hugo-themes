@@ -73,12 +73,9 @@ window.addEventListener('load', function() {
     const Fuse = window.Fuse
     const searchOptions = {
       shouldSort: true,
-      threshold: 0.4,
-      location: 0,
-      distance: 100,
-      matchAllTokens: true,
+      ignoreLocation: true,
       includeScore: true,
-      maxPatternLength: 32,
+      threshold: 0.2,
       minMatchCharLength: 3,
       keys: ["title", "primary_course_number"]
     }
@@ -87,6 +84,7 @@ window.addEventListener('load', function() {
     const searchButton = document.getElementById("search-button")
     const performSearch = searchString => {
       const searchResults = fuse.search(searchString)
+      const searchResultsSection = document.getElementById("search-results")
       if (searchResults.length > 0) {
         const searchResultComponents = searchResults.map(searchResult => {
           return `
@@ -109,7 +107,6 @@ window.addEventListener('load', function() {
           </article>
           `
         })
-        const searchResultsSection = document.getElementById("search-results")
         searchResultsSection.innerHTML = searchResultComponents.join("")
       }
       else {
