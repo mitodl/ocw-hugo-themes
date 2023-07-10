@@ -527,6 +527,7 @@ $promo-carousel-height: 200px;
 .news-container:not(.mobile) {
   height: 500px;
 }
+
 .news-container {
   font-family: "Arial", sans-serif;
   display: flex;
@@ -587,9 +588,9 @@ $promo-carousel-height: 200px;
 
     .featured-news-heading.mobile {
       @include media-breakpoint-down(xs) {
-        font-size: 1rem;
-        line-height: 1.3rem;
-        font-weight: 400;
+        font-size: $featured-news-heading-font-xs;
+        line-height: $featured-news-line-height-xs;
+        font-weight: $featured-news-font-weight-xs;
       }
     }
 
