@@ -89,3 +89,10 @@ test("twitter:image:src tag has fully-qualified URL", async ({ page }) => {
     "https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg"
   )
 })
+
+test("twitter:card tag is 'summary_large_image'", async ({ page }) => {
+  const course = new CoursePage(page, "course")
+  await course.goto()
+  const metaShareImage = page.locator('meta[name="twitter:card"]')
+  await expect(metaShareImage).toHaveAttribute("content", "summary_large_image")
+})
