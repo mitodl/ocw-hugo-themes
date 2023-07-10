@@ -72,3 +72,24 @@ test("og:image tag has fully-qualified URL", async ({ page }) => {
     "https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg"
   )
 })
+
+test("twitter:site tag points to correct Twitter account", async ({ page }) => {
+  const course = new CoursePage(page, "course")
+  await course.goto()
+  const metaShareImage = page.locator('meta[name="twitter:site"]')
+  await expect(metaShareImage).toHaveAttribute(
+    "content",
+    "@mitocw"
+  )
+})
+
+
+test("twitter:image:src tag has fully-qualified URL", async ({ page }) => {
+  const course = new CoursePage(page, "course")
+  await course.goto()
+  const metaShareImage = page.locator('meta[name="twitter:image:src"]')
+  await expect(metaShareImage).toHaveAttribute(
+    "content",
+    "https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg"
+  )
+})
