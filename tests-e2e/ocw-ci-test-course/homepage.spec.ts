@@ -77,12 +77,8 @@ test("twitter:site tag points to correct Twitter account", async ({ page }) => {
   const course = new CoursePage(page, "course")
   await course.goto()
   const metaShareImage = page.locator('meta[name="twitter:site"]')
-  await expect(metaShareImage).toHaveAttribute(
-    "content",
-    "@mitocw"
-  )
+  await expect(metaShareImage).toHaveAttribute("content", "@mitocw")
 })
-
 
 test("twitter:image:src tag has fully-qualified URL", async ({ page }) => {
   const course = new CoursePage(page, "course")
