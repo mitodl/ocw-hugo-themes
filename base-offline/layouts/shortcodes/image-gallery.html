@@ -5,8 +5,9 @@
 
 <script>
   window.addEventListener('load', function() {
-    if (window.initNanogallery2) {
+    if (window.initNanogallery2 && window.nanogallery2Loaded == false) {
       window.initNanogallery2()
+      window.nanogallery2Loaded = true
     }
   })
 </script>

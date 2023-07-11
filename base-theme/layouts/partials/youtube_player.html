@@ -33,8 +33,9 @@
 
 <script>
   window.addEventListener('load', function() {
-    if (window.initVideoJS) {
+    if (window.initVideoJS && window.videoJSLoaded == false) {
       window.initVideoJS()
+      window.videoJSLoaded = true
     }
   })
 </script>

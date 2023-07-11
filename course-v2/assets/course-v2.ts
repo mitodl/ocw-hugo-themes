@@ -14,7 +14,15 @@ import {
   showSolution
 } from "./js/quiz_multiple_choice"
 import { initVideoDownloadPopup } from "./js/video_download_popup"
-import _ from "lodash"
+
+export interface OCWWindow extends Window {
+  initVideoJS: () => void
+  initNanogallery2: () => void
+  videoJSLoaded: boolean
+  nanogallery2Loaded: boolean
+}
+
+declare let window: OCWWindow
 
 $(function() {
   initCourseDescriptionExpander(document)
@@ -26,19 +34,14 @@ $(function() {
   initCourseDrawersClosingViaSwiping()
 })
 
-const initVideoJS = _.once(() => {
+window.videoJSLoaded = false
+window.nanogallery2Loaded = false
+
+window.initVideoJS = () => {
   initVideoDownloadPopup()
   import("./videojs-imports").then(module => {
     module.initVideoJS()
   })
-})
+}
 
-const initNanogallery2 = _.once(() => {
-  import("./nanogallery2-imports")
-})
-
-// @ts-expect-error for window.initVideoJS()
-window.initVideoJS = () => initVideoJS()
-
-// @ts-expect-error for window.initNanogallery2()
-window.initNanogallery2 = () => initNanogallery2()
+window.initNanogallery2 = () => import("./nanogallery2-imports")
