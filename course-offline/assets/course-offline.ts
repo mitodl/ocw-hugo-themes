@@ -1,5 +1,4 @@
 import "video.js/dist/video-js.css"
-
 import "offcanvas-bootstrap/dist/js/bootstrap.offcanvas.js"
 import "promise-polyfill/src/polyfill.js"
 import "../../course-v2/assets/css/course-v2.scss"
@@ -18,6 +17,7 @@ import "nanogallery2/src/jquery.nanogallery2.core.js"
 import "nanogallery2/src/css/nanogallery2.css"
 import "videojs-youtube"
 import videojs from "video.js"
+import _ from "lodash"
 
 export interface OCWWindow extends Window {
   $: JQueryStatic
@@ -27,6 +27,8 @@ export interface OCWWindow extends Window {
 
 declare let window: OCWWindow
 
+const initVideoJS = _.once(() => (window.videojs = videojs))
+
 $(function() {
   initCourseDescriptionExpander(document)
   initCourseInfoExpander(document)
@@ -35,5 +37,5 @@ $(function() {
   checkAnswer()
   showSolution()
   initCourseDrawersClosingViaSwiping()
-  window.videojs = videojs
+  initVideoJS()
 })
