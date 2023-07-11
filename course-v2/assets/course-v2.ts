@@ -36,6 +36,7 @@ const initVideoJS = _.once(() => {
 const initNanogallery2 = _.once(() => {
   import("./nanogallery2-imports")
 })
+
 // @ts-expect-error for window.initVideoJS()
 window.initVideoJS = () => {
   initVideoJS()
