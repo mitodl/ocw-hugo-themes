@@ -63,12 +63,24 @@ test.describe("Course info", () => {
   })
 })
 
-test("og:image tag has fully-qualified URL", async ({ page }) => {
+test("Has expected meta tags in <head>", async ({ page }) => {
   const course = new CoursePage(page, "course")
   await course.goto()
   const metaShareImage = page.locator('meta[property="og:image"]')
+  const metaTwitterSite = page.locator('meta[name="twitter:site"]')
+  const metaTwitterImage = page.locator('meta[name="twitter:image:src"]')
+  const metaTwitterCard = page.locator('meta[name="twitter:card"]')
   await expect(metaShareImage).toHaveAttribute(
     "content",
     "https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg"
+  )
+  await expect(metaTwitterSite).toHaveAttribute("content", "@mitocw")
+  await expect(metaTwitterImage).toHaveAttribute(
+    "content",
+    "https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg"
+  )
+  await expect(metaTwitterCard).toHaveAttribute(
+    "content",
+    "summary_large_image"
   )
 })
