@@ -18,8 +18,6 @@ import { initVideoDownloadPopup } from "./js/video_download_popup"
 export interface OCWWindow extends Window {
   initVideoJS: () => void
   initNanogallery2: () => void
-  videoJSLoaded: boolean
-  nanogallery2Loaded: boolean
 }
 
 declare let window: OCWWindow
@@ -34,14 +32,20 @@ $(function() {
   initCourseDrawersClosingViaSwiping()
 })
 
-window.videoJSLoaded = false
-window.nanogallery2Loaded = false
+let videoJSLoaded = false
+let nanogallery2Loaded = false
 
 window.initVideoJS = () => {
+  if (videoJSLoaded) return
   initVideoDownloadPopup()
   import("./videojs-imports").then(module => {
     module.initVideoJS()
   })
+  videoJSLoaded = true
 }
 
-window.initNanogallery2 = () => import("./nanogallery2-imports")
+window.initNanogallery2 = () => {
+  if (nanogallery2Loaded) return
+  import("./nanogallery2-imports")
+  nanogallery2Loaded = true
+}
