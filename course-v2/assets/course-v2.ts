@@ -38,9 +38,7 @@ const initNanogallery2 = _.once(() => {
 })
 
 // @ts-expect-error for window.initVideoJS()
-window.initVideoJS = () => {
-  initVideoJS()
-}
+window.initVideoJS = () => initVideoJS()
 
 // @ts-expect-error for window.initNanogallery2()
 window.initNanogallery2 = () => initNanogallery2()
