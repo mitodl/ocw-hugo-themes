@@ -1,5 +1,4 @@
 import "video.js/dist/video-js.css"
-
 import "offcanvas-bootstrap/dist/js/bootstrap.offcanvas.js"
 import "promise-polyfill/src/polyfill.js"
 import "./css/course-v2.scss"
@@ -16,6 +15,13 @@ import {
 } from "./js/quiz_multiple_choice"
 import { initVideoDownloadPopup } from "./js/video_download_popup"
 
+export interface OCWWindow extends Window {
+  initVideoJS: () => void
+  initNanogallery2: () => void
+}
+
+declare let window: OCWWindow
+
 $(function() {
   initCourseDescriptionExpander(document)
   initCourseInfoExpander(document)
@@ -26,13 +32,20 @@ $(function() {
   initCourseDrawersClosingViaSwiping()
 })
 
-// @ts-expect-error for window.initVideoJS()
+let videoJSLoaded = false
+let nanogallery2Loaded = false
+
 window.initVideoJS = () => {
+  if (videoJSLoaded) return
   initVideoDownloadPopup()
   import("./videojs-imports").then(module => {
     module.initVideoJS()
   })
+  videoJSLoaded = true
 }
 
-// @ts-expect-error for window.initNanogallery2()
-window.initNanogallery2 = () => import("./nanogallery2-imports")
+window.initNanogallery2 = () => {
+  if (nanogallery2Loaded) return
+  import("./nanogallery2-imports")
+  nanogallery2Loaded = true
+}
