@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.94.0
+--------------
+
+- Optimize imports using global flag variable to ensure videojs and nanogallery are loaded once only (#1191)
+- Adding Twitter-specific tags (#1190)
+- adjust fuse threshold in offline search to better filter out irrelevant results (#1183)
+- Change OCW News mobile(xs) display to horizontal (#1184)
+- replace all instances of window.onload with addEventListener (#1185)
+- remove custom PR and issue templates... (#1181)
+
 Version 1.93.0 (Released July 06, 2023)
 --------------
 
