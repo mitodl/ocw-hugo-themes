@@ -1,5 +1,4 @@
 import "video.js/dist/video-js.css"
-import { once } from "lodash"
 import "offcanvas-bootstrap/dist/js/bootstrap.offcanvas.js"
 import "promise-polyfill/src/polyfill.js"
 import "./css/course-v2.scss"
