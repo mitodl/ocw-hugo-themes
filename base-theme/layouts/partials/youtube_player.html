@@ -33,7 +33,7 @@
 
 <script>
   window.addEventListener('load', function() {
-    if (window.initVideoJS && window.videoJSLoaded == false) {
+    if (window.initVideoJS && !window.videoJSLoaded) {
       window.initVideoJS()
       window.videoJSLoaded = true
     }
