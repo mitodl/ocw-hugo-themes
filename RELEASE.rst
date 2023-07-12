@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.94.0
+Version 1.94.0 (Released July 12, 2023)
 --------------
 
 - Optimize imports using global flag variable to ensure videojs and nanogallery are loaded once only (#1191)
