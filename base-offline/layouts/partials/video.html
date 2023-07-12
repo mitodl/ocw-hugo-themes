@@ -1,5 +1,6 @@
 {{ $youtubeKey := trim .Params.video_metadata.youtube_id " "}}
 {{ $archiveUrl := .Params.video_files.archive_url }}
+{{ $downloadLink := .Params.file }}
 {{ $relatedResourses := .Params.related_resources_text | default "" }}
 {{ $optionalTabTitle := .Params.optional_tab_title | default "" }}
 {{ $optionalTabContent := .Params.optional_text | default ""}}
@@ -14,7 +15,7 @@
   	<div class="description">
     	{{ .Content }}
   	</div>
-  	{{ partial "video_player.html" (dict "context" $context "youtubeKey" $youtubeKey "archiveUrl" $archiveUrl "startTime" $startTime "endTime" $endTime)}}
+  	{{ partial "video_player.html" (dict "context" $context "youtubeKey" $youtubeKey "archiveUrl" $archiveUrl "downloadLink" $downloadLink "startTime" $startTime "endTime" $endTime) }}
 
   	{{ if $relatedResourses }}
 	  {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
