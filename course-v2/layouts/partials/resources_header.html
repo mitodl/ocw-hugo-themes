@@ -1,7 +1,9 @@
+{{- $hideDownload := .Site.Data.course.hide_download -}}
 {{- $zenDeskUrl := "https://mitocw.zendesk.com/hc/en-us/articles/4414681093659-I-have-downloaded-an-MIT-OpenCourseWare-course-but-I-can-t-access-the-materials-How-do-I-get-started-" -}}
 {{- $downloadCourseUrl := partial "get_course_download_url.html" . -}}
 {{- $noResourcesFound := partial "show_no_resources_found.html" (dict "context" . "taxonomy" "learning_resource_types") -}}
 {{- $containsVideos := partial "contains_videos.html" (dict "context" . "taxonomy" "learning_resource_types") -}}
+{{- if not $hideDownload -}}
 <div class="mb-2">
   <h2>Download</h2>
   <div class="hide-offline download-course-container background-color-light-grey p-3">
@@ -13,12 +15,13 @@
       </div>
       <div class="col-12 col-md-9">
         This package contains the same content as the online version of the course
-        {{- if $containsVideos }}, <em>except for the audio/video materials</em>. These can be downloaded below{{ end }}. 
+        {{- if $containsVideos }}, <em>except for the audio/video materials</em>. These can be downloaded below{{ end }}.
         For help downloading and using course materials, read our {{ partial "link.html" (dict "href" $zenDeskUrl "text" "FAQs" "target" "_blank") }}.
       </div>
     </div>
   </div>
 </div>
+{{- end -}}
 {{- if $noResourcesFound -}}
   {{ partial "no_resources_found.html" }}
 {{- end -}}
