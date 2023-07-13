@@ -1,7 +1,9 @@
+{{- $hideDownload := .context.Site.Data.course.hide_download -}}
 {{- $trimmedBaseUrl := strings.TrimSuffix "/" site.BaseURL -}}
 {{- $downloadPageUrl := print $trimmedBaseUrl "/download" -}}
 {{- $downloadPageUrl = partial "page_url.html" (dict "context" .context "url" $downloadPageUrl) -}}
 {{- $downloadCourseUrl := partial "get_course_download_url.html" .context -}}
+{{- if not $hideDownload -}}
 <hr>
 <div class="pb-3">
   <a class="download-course-link-button btn btn-outline-primary btn-link link-button text-decoration-none px-4 py-2"
@@ -10,3 +12,4 @@
     <div class="text-center w-100">Download Course</div>
   </a>
 </div>
+{{- end -}}
