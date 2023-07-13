@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.95.0
+--------------
+
+- Allow hiding course download button (#1194)
+
 Version 1.94.0 (Released July 12, 2023)
 --------------
 
