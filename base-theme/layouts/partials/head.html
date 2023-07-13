@@ -20,6 +20,7 @@
   {{ block "seo" . }}{{ end }}
   <title>{{ block "title" . }}{{ end }}</title>
   {{ $css_urls := slice .Site.Data.webpack.common.css }}
+  {{ block "basejs" . }}{{ end }}
   {{ partial "include_css.html" (dict "context" . "urls" $css_urls) }}
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
   <style>
