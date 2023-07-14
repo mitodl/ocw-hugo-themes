@@ -68,6 +68,7 @@ jobs:
           OCW_COURSE_STARTER_SLUG: ${{ secrets.OCW_COURSE_STARTER_SLUG }}
           STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
+          GTM_ACCOUNT_ID: "GTM-PJMJGF6"
 
       - name: Deploy www Preview to Netlify
         uses: nwtgck/actions-netlify@v2.0
