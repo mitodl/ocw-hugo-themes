@@ -58,7 +58,7 @@ jobs:
           OCW_COURSE_STARTER_SLUG: ${{ secrets.OCW_COURSE_STARTER_SLUG }}
           STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
-          GTM_ID: "GTM-PJMJGF6"
+          GTM_ACCOUNT_ID: "GTM-PJMJGF6"
 
       - name: Run the course v2 hugo build
         run: (cd ../ocw-course; hugo --config $GITHUB_WORKSPACE/ocw-hugo-projects/ocw-course-v2/config.yaml  --destination public-v2 --themesDir ../ocw-hugo-themes)
