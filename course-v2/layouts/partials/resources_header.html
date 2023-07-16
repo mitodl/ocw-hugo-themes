@@ -3,7 +3,9 @@
 {{- $downloadCourseUrl := partial "get_course_download_url.html" . -}}
 {{- $noResourcesFound := partial "show_no_resources_found.html" (dict "context" . "taxonomy" "learning_resource_types") -}}
 {{- $containsVideos := partial "contains_videos.html" (dict "context" . "taxonomy" "learning_resource_types") -}}
-{{- if not $hideDownload -}}
+{{- if $hideDownload -}}
+  {{ partial "no_resources_found.html" }}
+{{- else -}}
 <div class="mb-2">
   <h2>Download</h2>
   <div class="hide-offline download-course-container background-color-light-grey p-3">
@@ -21,7 +23,7 @@
     </div>
   </div>
 </div>
-{{- end -}}
 {{- if $noResourcesFound -}}
   {{ partial "no_resources_found.html" }}
+{{- end -}}
 {{- end -}}
