@@ -38,6 +38,7 @@
   },
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
+    "@fullhuman/postcss-purgecss": "^5.0.0",
     "@mitodl/course-search-utils": "^2.3.0",
     "@mitodl/ocw-to-hugo": "1.36.0",
     "@sentry/browser": "^5.19.0",
