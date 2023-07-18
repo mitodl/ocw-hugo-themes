@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.96.0
+Version 1.96.0 (Released July 18, 2023)
 --------------
 
 - fix: broken offline course images (#1188)
