@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.96.0 (Released July 18, 2023)
+--------------
+
+- fix: broken offline course images (#1188)
+- if video_files.archive_url is not available, use file instead to get the video file name (#1195)
+
 Version 1.95.0 (Released July 13, 2023)
 --------------
 
