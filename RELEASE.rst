@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.96.1
+--------------
+
+- move gtm script to very top (#1201)
+
 Version 1.96.0 (Released July 18, 2023)
 --------------
 
