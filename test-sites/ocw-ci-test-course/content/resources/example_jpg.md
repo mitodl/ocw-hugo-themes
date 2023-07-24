@@ -8,7 +8,8 @@ image_metadata:
   caption: ''
   credit: ''
   image-alt: ''
-learning_resource_types: []
+learning_resource_types:
+- Activity Assignments
 license: https://creativecommons.org/licenses/by-nc-sa/4.0/
 resourcetype: Image
 title: example_jpg.jpg
