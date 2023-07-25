@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.96.2
+Version 1.96.2 (Released July 25, 2023)
 --------------
 
 - Course theme accessibility fixes (aria-hidden and aria-expanded) (#1207)
