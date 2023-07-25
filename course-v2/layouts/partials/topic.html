@@ -13,7 +13,7 @@
     data-toggle="collapse"
     aria-controls="subtopic-container_{{ $device }}_{{ $index }}"
     aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}">
-    <i class="material-icons"></i>
+    <i aria-hidden="true" class="material-icons"></i>
   </a>
   {{ end }}
   <span class="topic-text-wrapper">
@@ -34,7 +34,7 @@
       data-toggle="collapse"
       aria-controls="speciality-container_{{ $device }}_{{ $index }}_{{ $subtopicIndex }}"
       aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}">
-      <i class="material-icons"></i>
+      <i aria-hidden="true" class="material-icons"></i>
     </a>
     {{ end }}
     <span class="topic-text-wrapper">

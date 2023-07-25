@@ -14,10 +14,11 @@
         {{ $downloadableLink := partial "get_resource_download_link.html" .params }}
           <span class="pr-2">
             {{ if $downloadableLink }}
-              <a href="{{- $downloadableLink -}}" target="_blank" download>
+              <a href="{{- $downloadableLink -}}" aria-label="Download file" target="_blank" download>
                 <img
                   class="hide-offline resource-download"
                   src="/static_shared/images/download.svg"
+                  aria-hidden="true"
                 />
               </a>
             {{ end }}
