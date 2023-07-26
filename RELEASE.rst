@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.96.3
+Version 1.96.3 (Released July 26, 2023)
 --------------
 
 - Hide all downloadable resources when hide course download is set (#1204)
