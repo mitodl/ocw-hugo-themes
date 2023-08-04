@@ -167,6 +167,14 @@ pre {
   }
 }
 
+.touch-device-only {
+  display: none;
+
+  @media (pointer: coarse) {
+    display: block;
+  }
+}
+
 // TODO: overriding some css of header and footer in this new theme
 // when we roll out this theme completely then we can move this css to thier respective files in base-theme
 
