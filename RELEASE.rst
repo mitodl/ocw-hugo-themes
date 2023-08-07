@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.96.4
+--------------
+
+- Fix: Missing search icon by using SVG (#1217)
+
 Version 1.96.3 (Released July 26, 2023)
 --------------
 
