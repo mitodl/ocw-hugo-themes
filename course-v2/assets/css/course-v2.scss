@@ -167,10 +167,10 @@ pre {
   }
 }
 
-.touch-device-only {
+.limited-pointer-only {
   display: none;
 
-  @media (pointer: coarse) {
+  @media (pointer: coarse), (pointer: none) {
     display: block;
   }
 }
