@@ -2,23 +2,70 @@
   {{- if ne .Params.resourcetype "Video" }}
       {{- if .Content -}}
           <div class="row">
-              <div class="label col-3">Description:</div>
-              <div class="col-9">{{ .Content }}</div>
+              <div class="description-label col-12">Description:</div>
+              <div class="description-content col-12">{{ .Content }}</div>
           </div>
       {{- end -}}
       {{- if .Params.learning_resource_types -}}
           <div class="row">
-              <div class="label col-3">Resource Type:</div>
-              <div class="col-9">{{ delimit (.Params.learning_resource_types | default slice) ", " }}</div>
+              <div class="resource-label col-3">Resource Type:</div>
+              <div class="resource-content col-9">{{ delimit (.Params.learning_resource_types | default slice) ", " }}</div>
           </div>
       {{- end -}}
-      {{- if .Params.file -}}
-      <div class="row">
+      {{/*  {{- if .Params.file -}}  */}}
+      {{/*  <div class="row">
           <div class="col-12 d-flex flex-direction-row align-items-center">
               <a class="download-file" href="{{ partial "resource_url.html" (dict "context" . "url" .Params.file) }}"><span aria-hidden="true" class="material-icons">file_download</span> Download File</a>
           </div>
+      </div>  */}}
+      <div class="resource-list-item container">
+      <div class="">
+        <div class="row d-flex flex-wrap" style="">
+        <div class="d-flex col-12 col-md-6 align-self-center" style="">
+          {{/*  {{ if not .hideThumbnail }}  */}}
+          {{/*  <div>  */}}
+            {{/*  <div class="thumbnail">  */}}
+            {{ $thumbnailAttrs := partial "get_resource_thumbnail_attributes.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
+            <img
+              class="resource-thumbnail"
+              aria-label="{{- $thumbnailAttrs.ariaLabel -}}"
+              src="{{- $thumbnailAttrs.src -}}"
+            />
+            {{/*  </div>  */}}
+          {{/*  {{ end }}  */}}
+          {{/*  <div class="download-thumbnail">  */}}
+          {{ $downloadableLink := partial "get_resource_download_link.html" .Params }}
+          <span class="pr-2">
+            {{ if $downloadableLink }}
+              <a href="{{- $downloadableLink -}}" aria-label="Download file" target="_blank" download>
+                <img
+                  class="hide-offline resource-download"
+                  src="/static_shared/images/download.svg"
+                  aria-hidden="true"
+                />
+              </a>
+            {{ end }}
+          </span>
+        {{/*  </div>  */}}
+        <div class="">
+            {{.Params.title }}
+           {{ if .Params.file_size }}
+             <div class="resource-list-file-size">
+               {{ partial "file_size_formatter.html" .Params.file_size }}
+             </div>
+           {{ end }}
+       </div>
       </div>
-      {{- end -}}
+    
+    <div class="col-12 col-md-4 align-self-center" style="">
+        {{/*  {{ if .Params.file }}  */}}
+        <button class="download-file" href="{{ partial "resource_url.html" (dict "context" . "url" .Params.file) }}">Download File</button>
+        {{/*  <button style="height:40px; width:100px">Hello</button>  */}}
+   </div>
+      </div>
+      </div>
+    </div>
+      {{/*  {{- end -}}  */}}
   {{- else -}}
       {{ partial "video.html" . }}
   {{- end -}}

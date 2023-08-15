@@ -362,13 +362,21 @@ article.content {
 .download-file {
   display: inline-flex;
   padding: 10px 22px;
-  background-color: $medium-gray;
+  background-color: #027ffe;
   color: white;
   text-decoration: none;
 }
 
+@media (max-width: 767px) {
+  .download-file{
+    width: 100%;
+    padding: 10px; /* Adjust padding as needed for mobile */
+  }
+}
+
 .download-file:hover {
   text-decoration: none;
+  color: white;
 }
 
 .white-color {

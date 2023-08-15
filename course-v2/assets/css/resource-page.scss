@@ -1,12 +1,16 @@
 .resource-page {
   .row {
     min-height: 60px;
-
     display: flex;
     flex-direction: row;
     align-items: center;
+    .description-label {
+      font-weight: 700;
+    }
   }
 }
+
 .resource-page.container {
   padding-left: 0px;
+  margin-top: 20px;
 }
