@@ -9,7 +9,7 @@
 <div class="mb-2">
   <h2>Download</h2>
   <div class="hide-offline download-course-container background-color-light-grey p-3">
-    <div class="row">
+    <div class="row align-items-center">
       <div class="d-flex justify-content-center col-12 col-md-3 px-3 pb-2 pb-md-0">
         <a class="download-course-button p-2" href="{{ $downloadCourseUrl }}">
           <span aria-hidden="true" class="material-icons">file_download</span> Download course
@@ -21,6 +21,11 @@
         For help downloading and using course materials, read our {{ partial "link.html" (dict "href" $zenDeskUrl "text" "FAQs" "target" "_blank") }}.
       </div>
     </div>
+  </div>
+  <div class="alert-warning p-2 limited-pointer-only">
+    <strong>Note: </strong>
+    The downloaded course may not work on mobile devices.
+    We recommend using a computer with the downloaded course package.
   </div>
 </div>
 {{- if $noResourcesFound -}}
