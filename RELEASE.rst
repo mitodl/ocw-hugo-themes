@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.97.0
+--------------
+
+- feat: add mobile device warning to download course page (#1216)
+
 Version 1.96.4 (Released August 07, 2023)
 --------------
 
