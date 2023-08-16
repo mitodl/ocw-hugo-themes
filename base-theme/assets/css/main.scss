@@ -360,17 +360,30 @@ article.content {
 }
 
 .download-file {
-  display: inline-flex;
-  padding: 10px 22px;
-  background-color: #027ffe;
+  display: initial;
+  padding: 15px 33px;
+  background-color: #007FFF;
   color: white;
   text-decoration: none;
+  border-radius: 5px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 576px) {
   .download-file{
+    display: inline-flex;
     width: 100%;
-    padding: 10px; /* Adjust padding as needed for mobile */
+    padding: 10px; 
+  }
+}
+
+// .button-container {
+//   display: block;
+//   align-items: center;
+// }
+
+@media (max-width: 576px) {
+  .button-container{
+    width: 100%;
   }
 }
 

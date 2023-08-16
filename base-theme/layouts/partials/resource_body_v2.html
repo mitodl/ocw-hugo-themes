@@ -20,8 +20,8 @@
       </div>  */}}
       <div class="resource-list-item container">
       <div class="">
-        <div class="row d-flex flex-wrap" style="">
-        <div class="d-flex col-12 col-md-6 align-self-center" style="">
+        <div class="row col-12 col-sm-10 d-flex flex-wrap" style="border: 1px solid #DEE2E6; border-radius: 3px; padding: 10px">
+        <div class="d-flex col-12 col-sm-3 align-self-center" style="padding: 0px">
           {{/*  {{ if not .hideThumbnail }}  */}}
           {{/*  <div>  */}}
             {{/*  <div class="thumbnail">  */}}
@@ -57,10 +57,12 @@
        </div>
       </div>
     
-    <div class="col-12 col-md-4 align-self-center" style="">
-        {{/*  {{ if .Params.file }}  */}}
-        <button class="download-file" href="{{ partial "resource_url.html" (dict "context" . "url" .Params.file) }}">Download File</button>
-        {{/*  <button style="height:40px; width:100px">Hello</button>  */}}
+    <div class="col-12 col-sm align-self-center" style="display: flex; justify-content: flex-end; padding: 0px">
+        {{ if .Params.file }}
+        <div class="button-container">
+        <a class="download-file" href="{{ partial "resource_url.html" (dict "context" . "url" .Params.file) }}">Download File</a>
+        </div>
+        {{ end }}
    </div>
       </div>
       </div>
