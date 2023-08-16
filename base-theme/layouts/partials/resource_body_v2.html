@@ -8,7 +8,7 @@
       {{- end -}}
       {{- if .Params.learning_resource_types -}}
           <div class="row resource-type">
-              <div class="label">Resource Type:</div>
+              <div class="label resource-type">Resource Type:</div>
               <div class="content">{{ delimit (.Params.learning_resource_types | default slice) ", " }}</div>
           </div>
       {{- end -}}
