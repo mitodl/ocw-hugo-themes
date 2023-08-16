@@ -2,22 +2,16 @@
   {{- if ne .Params.resourcetype "Video" }}
       {{- if .Content -}}
           <div class="row">
-              <div class="description-label col-12">Description:</div>
-              <div class="description-content col-12">{{ .Content }}</div>
+              <div class="label col-12">Description:</div>
+              <div class="content col-12">{{ .Content }}</div>
           </div>
       {{- end -}}
       {{- if .Params.learning_resource_types -}}
-          <div class="row">
-              <div class="resource-label col-3">Resource Type:</div>
-              <div class="resource-content col-9">{{ delimit (.Params.learning_resource_types | default slice) ", " }}</div>
+          <div class="row resource-type">
+              <div class="label">Resource Type:</div>
+              <div class="content">{{ delimit (.Params.learning_resource_types | default slice) ", " }}</div>
           </div>
       {{- end -}}
-      {{/*  {{- if .Params.file -}}  */}}
-      {{/*  <div class="row">
-          <div class="col-12 d-flex flex-direction-row align-items-center">
-              <a class="download-file" href="{{ partial "resource_url.html" (dict "context" . "url" .Params.file) }}"><span aria-hidden="true" class="material-icons">file_download</span> Download File</a>
-          </div>
-      </div>  */}}
       <div class="resource-list-item container">
       <div class="">
         <div class="row col-12 col-sm-10 d-flex flex-wrap" style="border: 1px solid #DEE2E6; border-radius: 3px; padding: 10px">

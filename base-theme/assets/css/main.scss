@@ -362,17 +362,17 @@ article.content {
 .download-file {
   display: initial;
   padding: 15px 33px;
-  background-color: #007FFF;
+  background-color: #007fff;
   color: white;
   text-decoration: none;
   border-radius: 5px;
 }
 
 @media (max-width: 576px) {
-  .download-file{
+  .download-file {
     display: inline-flex;
     width: 100%;
-    padding: 10px; 
+    padding: 10px;
   }
 }
 
@@ -382,7 +382,7 @@ article.content {
 // }
 
 @media (max-width: 576px) {
-  .button-container{
+  .button-container {
     width: 100%;
   }
 }
