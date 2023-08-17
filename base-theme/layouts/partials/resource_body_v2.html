@@ -1,4 +1,4 @@
-<div class="resource-page container">
+<div class="resource-page">
   {{- if ne .Params.resourcetype "Video" }}
       {{- if .Content -}}
           <div class="row">
@@ -12,22 +12,16 @@
               <div class="content">{{ delimit (.Params.learning_resource_types | default slice) ", " }}</div>
           </div>
       {{- end -}}
-      <div class="resource-list-item container">
+      <div class="col resource-list-item">
       <div class="">
-        <div class="row col-12 col-sm-10 d-flex flex-wrap" style="border: 1px solid #DEE2E6; border-radius: 3px; padding: 10px">
+        <div class="row col-lg-10 d-flex flex-wrap" style="border: 1px solid #DEE2E6; border-radius: 3px; padding: 10px">
         <div class="d-flex col-12 col-sm-3 align-self-center" style="padding: 0px">
-          {{/*  {{ if not .hideThumbnail }}  */}}
-          {{/*  <div>  */}}
-            {{/*  <div class="thumbnail">  */}}
             {{ $thumbnailAttrs := partial "get_resource_thumbnail_attributes.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
             <img
               class="resource-thumbnail"
               aria-label="{{- $thumbnailAttrs.ariaLabel -}}"
               src="{{- $thumbnailAttrs.src -}}"
             />
-            {{/*  </div>  */}}
-          {{/*  {{ end }}  */}}
-          {{/*  <div class="download-thumbnail">  */}}
           {{ $downloadableLink := partial "get_resource_download_link.html" .Params }}
           <span class="pr-2">
             {{ if $downloadableLink }}
@@ -40,7 +34,6 @@
               </a>
             {{ end }}
           </span>
-        {{/*  </div>  */}}
         <div class="">
             {{.Params.title }}
            {{ if .Params.file_size }}
@@ -61,7 +54,6 @@
       </div>
       </div>
     </div>
-      {{/*  {{- end -}}  */}}
   {{- else -}}
       {{ partial "video.html" . }}
   {{- end -}}
