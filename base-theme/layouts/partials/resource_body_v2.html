@@ -1,4 +1,4 @@
-<div class="resource-page">
+<div class="resource-page-container">
   {{- if ne .Params.resourcetype "Video" }}
       {{- if .Content -}}
           <div class="row">
@@ -12,7 +12,7 @@
               <div class="content">{{ delimit (.Params.learning_resource_types | default slice) ", " }}</div>
           </div>
       {{- end -}}
-      <div class="col resource-list-item">
+      <div class="resource-list-item">
       <div class="row">
         <div class="col-lg-10 d-flex flex-wrap" style="border: 1px solid #DEE2E6; border-radius: 3px; padding: 10px">
         <div class="d-flex col-12 col-lg-7 col-md-8 col-sm-7" style="padding: 0px">
