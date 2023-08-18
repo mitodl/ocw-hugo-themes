@@ -49,9 +49,18 @@ h4 {
 }
 
 .resource-list-item {
+  .resource-list-file-size {
+    font-weight: 700;
+  }
+
   .resource-thumbnail {
     height: 38px;
     width: 32px;
+  }
+
+  .thumbnail-container {
+    align-items: center;
+    margin-bottom: 10px;
   }
 
   .see-all-resources-icon {
@@ -65,7 +74,7 @@ h4 {
     border: solid 0.5px $medium-gray;
     border-radius: 20px;
     margin-left: -12px;
-    margin-top: 17px;
+    margin-top: 14px;
     background-color: $white;
   }
 
@@ -111,8 +120,4 @@ h4 {
       }
     }
   }
-}
-
-.resource-list-file-size {
-  font-weight: 700;
 }
