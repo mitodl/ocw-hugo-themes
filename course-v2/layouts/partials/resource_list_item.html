@@ -9,7 +9,6 @@
           src="{{- $thumbnailAttrs.src -}}"
         />
       {{ end }}
-
       {{ if not .hideDownloadIcon }}
         {{ $downloadableLink := partial "get_resource_download_link.html" .params }}
           <span class="pr-2">
@@ -33,6 +32,5 @@
         {{ end }}
       </div>
     </div>
-
   </div>
 </div>
