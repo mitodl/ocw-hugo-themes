@@ -1,21 +1,21 @@
 <div class="resource-page-container">
   {{- if ne .Params.resourcetype "Video" }}
-      {{- if .Content -}}
-          <div class="row">
-              <div class="label col-12">Description:</div>
-              <div class="content col-12">{{ .Content }}</div>
-          </div>
-      {{- end -}}
-      {{- if .Params.learning_resource_types -}}
-          <div class="row resource-type">
-              <div class="label resource-type">Resource Type:</div>
-              <div class="content">{{ delimit (.Params.learning_resource_types | default slice) ", " }}</div>
-          </div>
-      {{- end -}}
-      <div class="resource-list-item">
+    {{- if .Content -}}
+      <div class="row">
+        <div class="label col-12">Description:</div>
+        <div class="content col-12">{{ .Content }}</div>
+      </div>
+    {{- end -}}
+    {{- if .Params.learning_resource_types -}}
+        <div class="row resource-type">
+          <div class="label resource-type">Resource Type:</div>
+          <div class="content">{{ delimit (.Params.learning_resource_types | default slice) ", " }}</div>
+        </div>
+    {{- end -}}
+    <div class="resource-list-item">
       <div class="row">
         <div class="col-lg-10 d-flex flex-wrap" style="border: 1px solid #DEE2E6; border-radius: 3px; padding: 10px">
-        <div class="d-flex col-12 col-lg-7 col-md-8 col-sm-7" style="padding: 0px">
+          <div class="d-flex col-12 col-lg-7 col-md-8 col-sm-7" style="padding: 0px">
             {{ $thumbnailAttrs := partial "get_resource_thumbnail_attributes.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
             <img
               class="resource-thumbnail"
@@ -23,44 +23,45 @@
               src="{{- $thumbnailAttrs.src -}}"
               style="display: block; margin-top: auto; margin-bottom: auto"
             />
-          {{ $downloadableLink := partial "get_resource_download_link.html" .Params }}
-          <span class="download-link">
-            {{ if $downloadableLink }}
-              <a href="{{- $downloadableLink -}}" aria-label="Download file" target="_blank" download>
-                <img
-                  class="hide-offline resource-download"
-                  src="/static_shared/images/download.svg"
-                  aria-hidden="true"
-                />
-              </a>
+            {{ $downloadableLink := partial "get_resource_download_link.html" .Params }}
+            <span class="download-link">
+              {{ if $downloadableLink }}
+                <a href="{{- $downloadableLink -}}" aria-label="Download file" target="_blank" download>
+                  <img
+                    class="hide-offline resource-download"
+                    src="/static_shared/images/download.svg"
+                    aria-hidden="true"
+                  />
+                </a>
+              {{ end }}
+            </span>
+            <div class="resource-list-item-details">
+              {{.Params.title }}
+              {{ if .Params.file_size }}
+                <div class="resource-list-file-size">
+                  {{ partial "file_size_formatter.html" .Params.file_size }}
+                </div>
+              {{ end }}
+            </div>
+          </div>
+          <div class="col-12 col-sm align-self-center" style="display: flex; justify-content: flex-end; padding: 0px">
+            {{ if .Params.file }}
+              <div class="button-container">
+                <a class="download-file" href="{{ partial "resource_url.html" (dict "context" . "url" .Params.file) }}">
+                  Download File
+                </a>
+              </div>
             {{ end }}
-          </span>
-        <div class="resource-list-item-details">
-            {{.Params.title }}
-           {{ if .Params.file_size }}
-             <div class="resource-list-file-size">
-               {{ partial "file_size_formatter.html" .Params.file_size }}
-             </div>
-           {{ end }}
-       </div>
-      </div>
-    
-    <div class="col-12 col-sm align-self-center" style="display: flex; justify-content: flex-end; padding: 0px">
-        {{ if .Params.file }}
-        <div class="button-container">
-        <a class="download-file" href="{{ partial "resource_url.html" (dict "context" . "url" .Params.file) }}">Download File</a>
+          </div>
         </div>
-        {{ end }}
-   </div>
-      </div>
       </div>
     </div>
   {{- else -}}
       {{ partial "video.html" . }}
   {{- end -}}
   {{ if eq .Params.file_type "application/pdf" }}
-  {{ partial "pdf_viewer.html" . }}
+    {{ partial "pdf_viewer.html" . }}
   {{ else if eq .Params.resourcetype "Image" }}
-  {{ partial "image_page.html" . }}
+    {{ partial "image_page.html" . }}
   {{ end }}
 </div>
