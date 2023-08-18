@@ -65,7 +65,7 @@ h4 {
     border: solid 0.5px $medium-gray;
     border-radius: 20px;
     margin-left: -12px;
-    margin-top: 16px;
+    margin-top: 17px;
     background-color: $white;
   }
 
@@ -82,12 +82,34 @@ h4 {
   }
 
   .resource-list-item-details {
+    padding-top: 2px;
     margin-bottom: auto;
     margin-top: auto;
   }
 
   .download-link {
     padding-right: 10px;
+  }
+
+  .row {
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .thumbnail-container {
+      padding: 0px;
+    }
+
+    .resource-details-container {
+      border: 1px solid #dee2e6;
+      border-radius: 3px;
+      padding: 10px;
+
+      .download-button-container {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0px;
+      }
+    }
   }
 }
 
