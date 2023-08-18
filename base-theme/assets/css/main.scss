@@ -352,10 +352,14 @@ article.content {
 }
 
 .course-section-title-container {
-  // max-width: 795px;
+  padding-right: 1.5rem;
 
   #course-title {
     border-bottom: 1px solid $medium-gray;
+  }
+
+  @include media-breakpoint-down(xs) {
+    padding-right: 15px;
   }
 }
 
@@ -369,14 +373,20 @@ article.content {
   transition: background-color 0.15s ease-in-out, 0.15s color ease-in-out;
 }
 
-@media (max-width: 576px) {
-  .download-file {
+.download-file:visited {
+  color: white;
+}
+
+.download-file {
+  @include media-breakpoint-down(xs) {
     display: inline-flex;
     justify-content: center;
     width: 100%;
     padding: 10px;
   }
-  .button-container {
+}
+.button-container {
+  @include media-breakpoint-down(xs) {
     width: 100%;
   }
 }

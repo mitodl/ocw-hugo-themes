@@ -21,9 +21,10 @@
               class="resource-thumbnail"
               aria-label="{{- $thumbnailAttrs.ariaLabel -}}"
               src="{{- $thumbnailAttrs.src -}}"
+              style="display: block; margin-top: auto; margin-bottom: auto"
             />
           {{ $downloadableLink := partial "get_resource_download_link.html" .Params }}
-          <span class="pr-2">
+          <span class="download-link">
             {{ if $downloadableLink }}
               <a href="{{- $downloadableLink -}}" aria-label="Download file" target="_blank" download>
                 <img
@@ -34,7 +35,7 @@
               </a>
             {{ end }}
           </span>
-        <div class="">
+        <div class="resource-list-item-details">
             {{.Params.title }}
            {{ if .Params.file_size }}
              <div class="resource-list-file-size">

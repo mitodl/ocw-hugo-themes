@@ -24,7 +24,7 @@
             {{ end }}
           </span>
       {{ end }}
-      <div class="pt-2">
+      <div class="resource-list-item-details">
         {{ partial "resource_list_item_title.html" (dict "permalink" .permalink "title" .params.title) }}
         {{ if .params.file_size }}
           <div class="resource-list-file-size">

@@ -65,7 +65,7 @@ h4 {
     border: solid 0.5px $medium-gray;
     border-radius: 20px;
     margin-left: -12px;
-    margin-top: 13px;
+    margin-top: 16px;
     background-color: $white;
   }
 
@@ -79,6 +79,15 @@ h4 {
 
   .resource-list-title:hover {
     text-decoration: underline;
+  }
+
+  .resource-list-item-details {
+    margin-bottom: auto;
+    margin-top: auto;
+  }
+
+  .download-link {
+    padding-right: 10px;
   }
 }
 
