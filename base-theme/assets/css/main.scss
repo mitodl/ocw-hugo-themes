@@ -352,7 +352,7 @@ article.content {
 }
 
 .course-section-title-container {
-  max-width: 795px;
+  // max-width: 795px;
 
   #course-title {
     border-bottom: 1px solid $medium-gray;
@@ -366,6 +366,7 @@ article.content {
   color: white;
   text-decoration: none;
   border-radius: 5px;
+  transition: background-color 0.15s ease-in-out, 0.15s color ease-in-out;
 }
 
 @media (max-width: 576px) {
@@ -375,22 +376,15 @@ article.content {
     width: 100%;
     padding: 10px;
   }
-}
-
-// .button-container {
-//   display: block;
-//   align-items: center;
-// }
-
-@media (max-width: 576px) {
   .button-container {
     width: 100%;
   }
 }
 
 .download-file:hover {
-  text-decoration: none;
   color: white;
+  text-decoration: none;
+  background-color: #A31F34;
 }
 
 .white-color {

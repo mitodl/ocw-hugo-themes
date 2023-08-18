@@ -13,9 +13,9 @@
           </div>
       {{- end -}}
       <div class="col resource-list-item">
-      <div class="">
-        <div class="row col-lg-10 d-flex flex-wrap" style="border: 1px solid #DEE2E6; border-radius: 3px; padding: 10px">
-        <div class="d-flex col-12 col-sm-3 align-self-center" style="padding: 0px">
+      <div class="row">
+        <div class="col-lg-10 d-flex flex-wrap" style="border: 1px solid #DEE2E6; border-radius: 3px; padding: 10px">
+        <div class="d-flex col-12 col-lg-7 col-md-8 col-sm-7" style="padding: 0px">
             {{ $thumbnailAttrs := partial "get_resource_thumbnail_attributes.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
             <img
               class="resource-thumbnail"
