@@ -60,7 +60,10 @@ h4 {
 
   .thumbnail-container {
     align-items: center;
-    margin-bottom: 10px;
+
+    @include media-breakpoint-down(xs) {
+      margin-bottom: 10px;
+    }
   }
 
   .see-all-resources-icon {
