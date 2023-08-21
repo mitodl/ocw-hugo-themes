@@ -38,29 +38,15 @@
         <div class="col-sm-12 col-lg-10 course-home-grid">
           <div class="">
             <div class="card">
-              <div class="d-flex">
-                <div class="col-12 p-0" id="main-course-section">
+              <div class="d-flex justify-content-between">
+                <div class="p-0" id="main-course-section">
                   <div class="card-body">
-                    {{ if not $isCourseHomePage }}
-                      <button 
-                        type="button" 
-                        class="btn show-course-info large-and-above-only"
-                        id="show-desktop-course-drawer"
-                        aria-label="Show Course Info"
-                        >
-                        <img src="/static_shared/images/left_arrow.svg" alt=""/>
-                      </button>
-                    {{ end }} 
                     {{ block "main" . }}{{ end }}
                   </div>
                 </div>
-                {{/*  adding d-none class here as this section (with id="desktop-course-drawer") is being controlled (shown/hidden) 
-                via script written below hence hidden at the start to avoid a quick glitch  */}}
-                <div class="p-0 large-and-above-only d-none" id="desktop-course-drawer">
-                  {{ if not $isCourseHomePage }}
-                    {{ partialCached "desktop_course_info.html" . }}
-                  {{ end }}
-                </div>
+                {{ if not $isCourseHomePage }}
+                  {{ partialCached "desktop_course_info.html" . }}
+                {{ end }}
               </div>
             </div>
           </div>
@@ -84,60 +70,45 @@
     const COURSE_DRAWER_CLOSED = "closed"
     // IDs of elements
     const DESKTOP_COURSE_DRAWER_ID = "desktop-course-drawer"
-    const SHOW_COURSE_DRAWER_BTN_ID = "show-desktop-course-drawer"
-    const HIDE_COURSE_DRAWER_BTN_ID = "hide-desktop-course-drawer"
-    const MAIN_COURSE_SECTION_ID = "main-course-section"
+    const COURSE_DRAWER_BTN_ID = "desktop-course-drawer-button"
 
     try{
 
       /*
       * Checks if user has already selected any option/state for drawer then it sets that else keep it open by default
       */
-      function maintainDesktopCourseDrawerState() {
-        const isCourseDrawerOpen = getLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY)
-        if (isCourseDrawerOpen === null) {
+      function initializeDesktopCourseDrawerState() {
+        const state = getLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY)
+        if (state === null) {
           // No preference found so setting to "opened" as default and opening the drawer
           setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
           showOrHideDesktopCourseDrawer(COURSE_DRAWER_OPENED)
         } else {
-          showOrHideDesktopCourseDrawer(isCourseDrawerOpen)
+          showOrHideDesktopCourseDrawer(state)
         }
-      }
 
-      /*
-      * Adds and defines "click" event listeners for show-drawer and hide-drawer buttons, making this function act as a drawer toggler.
-      */
-      function toggleDesktopCourseDrawer() {
-        const showCourseDrawerBtn = document.getElementById(SHOW_COURSE_DRAWER_BTN_ID)
-        const hideCourseDrawerBtn = document.getElementById(HIDE_COURSE_DRAWER_BTN_ID)
-        showCourseDrawerBtn.addEventListener("click", () => {
-          setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
-          showOrHideDesktopCourseDrawer(COURSE_DRAWER_OPENED)
-        })
-        hideCourseDrawerBtn.addEventListener("click", () => {
-          setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_CLOSED)
-          showOrHideDesktopCourseDrawer(COURSE_DRAWER_CLOSED)
+        document.addEventListener("DOMContentLoaded", () => {
+          const drawer = $(`#${DESKTOP_COURSE_DRAWER_ID}`)
+
+          drawer.on("shown.bs.collapse", (event) => {
+            setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
+          })
+      
+          drawer.on("hidden.bs.collapse", (event) => {
+            setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_CLOSED)
+          })
         })
       }
-
-      // helper functions
 
       function showOrHideDesktopCourseDrawer(state) {
-        const desktopCourseDrawer = document.getElementById(DESKTOP_COURSE_DRAWER_ID)
-        const showCourseDrawerBtn = document.getElementById(SHOW_COURSE_DRAWER_BTN_ID)
-        const mainCourseSection = document.getElementById(MAIN_COURSE_SECTION_ID)
+        const drawer = document.getElementById(DESKTOP_COURSE_DRAWER_ID)
+        const button = document.getElementById(COURSE_DRAWER_BTN_ID)
         if (state === COURSE_DRAWER_OPENED) {
-          desktopCourseDrawer.classList.add("col-3")
-          desktopCourseDrawer.classList.remove("d-none")
-          showCourseDrawerBtn.classList.add("d-none")
-          mainCourseSection.classList.add("col-lg-9")
-          mainCourseSection.classList.remove("col-md-12")
+          drawer.classList.add("show")
+          button.setAttribute("aria-expanded", "true")
         } else {
-          desktopCourseDrawer.classList.remove("col-3")
-          desktopCourseDrawer.classList.add("d-none")
-          showCourseDrawerBtn.classList.remove("d-none")
-          mainCourseSection.classList.remove("col-lg-9")
-          mainCourseSection.classList.add("col-md-12")
+          drawer.classList.remove("show")
+          button.setAttribute("aria-expanded", "false")
         }
       }
 
@@ -168,8 +139,7 @@
         return setOrGetLocalStorageItem("get", key)
       }
 
-      maintainDesktopCourseDrawerState()
-      toggleDesktopCourseDrawer()
+      initializeDesktopCourseDrawerState();
     }
     catch(e){
       console.error("Something went wrong in maintaining/toggling course drawer state", e)

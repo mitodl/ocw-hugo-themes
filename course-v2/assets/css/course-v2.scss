@@ -160,6 +160,9 @@ pre {
 
 .course-detail-title {
   margin-bottom: 10px;
+  min-height: 35px;
+  display: flex;
+  align-items: center;
 
   h2 {
     font-size: $course-heading-four-font !important;

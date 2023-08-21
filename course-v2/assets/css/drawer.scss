@@ -6,3 +6,44 @@
     max-width: 75% !important;
   }
 }
+
+#desktop-course-drawer {
+  &.collapsing {
+    -webkit-transition: none;
+    transition: none;
+    display: none;
+  }
+}
+
+#desktop-course-drawer-button {
+  z-index: 990;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & .drawer-icon-img {
+    display: none;
+  }
+
+  &[aria-expanded="true"] {
+    .collapse-drawer-img {
+      display: block;
+    }
+
+    .expand-drawer-img {
+      display: none;
+    }
+  }
+
+  &[aria-expanded="false"] {
+    .collapse-drawer-img {
+      display: none;
+    }
+
+    .expand-drawer-img {
+      display: block;
+    }
+  }
+}
