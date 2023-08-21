@@ -15,13 +15,12 @@
     <div class="resource-list-item">
       <div class="row">
         <div class="resource-details-container col-lg-10 d-flex flex-wrap">
-          <div class="thumbnail-container d-flex col-12 col-lg-7 col-md-8 col-sm-7">
+          <div class="wrapper d-flex col-12 col-lg-7 col-md-8 col-sm-7">
             {{ $thumbnailAttrs := partial "get_resource_thumbnail_attributes.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
             <img
               class="resource-thumbnail"
               aria-label="{{- $thumbnailAttrs.ariaLabel -}}"
               src="{{- $thumbnailAttrs.src -}}"
-              style="display: block; margin-top: auto; margin-bottom: auto"
             />
             {{ $downloadableLink := partial "get_resource_download_link.html" .Params }}
             <span class="download-link">

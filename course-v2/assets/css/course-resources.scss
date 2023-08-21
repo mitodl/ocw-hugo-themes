@@ -56,9 +56,11 @@ h4 {
   .resource-thumbnail {
     height: 38px;
     width: 32px;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
-  .thumbnail-container {
+  .wrapper {
     align-items: center;
 
     @include media-breakpoint-down(xs) {
@@ -101,13 +103,15 @@ h4 {
 
   .download-link {
     padding-right: 10px;
+    display: flex;
+    align-items: center;
   }
 
   .row {
     padding-left: 15px;
     padding-right: 15px;
 
-    .thumbnail-container {
+    .wrapper {
       padding: 0px;
     }
 
