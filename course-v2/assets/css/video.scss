@@ -151,6 +151,14 @@ a.video-download-button:visited {
   display: none !important;
 }
 
+// Stop layout shift when the video player has not yet dynamically loaded
+.youtube-container > video {
+  height: 0;
+  max-width: 100%;
+  width: 100%;
+  padding-top: 56.25%;
+}
+
 .video-tab-toggle-section {
   position: relative;
 }
