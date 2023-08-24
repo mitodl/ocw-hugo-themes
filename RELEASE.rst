@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.97.1
+Version 1.97.1 (Released August 24, 2023)
 --------------
 
 - fix: course-info toggle accessibility (#1228)
