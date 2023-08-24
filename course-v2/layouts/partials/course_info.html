@@ -3,28 +3,11 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
 
 <div class="course-info">
   <div class="course-detail-title {{ if $inPanel }}bg-light-gray{{ end }}">
-    <div class="d-flex">
-      <h2 class="font-black {{ if $inPanel }}py-1 pl-3 mt-2 m-0{{ end }}">
-        Course Info
-      </h2>
-      {{ if $inPanel }}
-      <button
-        type="button"
-        class="btn close-course-info large-and-above-only"
-        id="{{ if $isDesktopCourseDrawer }}hide-desktop-course-drawer{{ end }}"
-        aria-label="Close Course Info"
-        >
-        <img
-          class="toggle navbar-toggle offcanvas-toggle"
-          src="/static_shared/images/close_small.svg"
-          alt=""
-          width="12px"
-        />
-      </button>
-      {{ end }}
-    </div>
+    <h2 class="font-black {{ if $inPanel }}py-1 pl-3 m-0{{ end }}">
+      Course Info
+    </h2>
   </div>
-  <div class="position-relative {{ if $inPanel }}px-3 mt-4{{ end }}">
+  <div class="{{ if $inPanel }}px-3 mt-4{{ end }}">
     <div class="row">
       <div class="col-12 {{ if not $inPanel }}col-sm-6{{ end }}">
         {{ with $courseData.instructors.content }}

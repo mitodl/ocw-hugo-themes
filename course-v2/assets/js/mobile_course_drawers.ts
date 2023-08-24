@@ -7,11 +7,13 @@ export const initCourseDrawersClosingViaSwiping = () => {
   enableSwiping(
     "mobile-course-nav",
     "mobile-course-nav-toggle",
+    "close-mobile-course-menu-button",
     SwipeDirection.Left
   )
   enableSwiping(
     "course-info-drawer",
     "mobile-course-info-toggle",
+    "close-mobile-course-info-button",
     SwipeDirection.Right
   )
 }
@@ -21,14 +23,19 @@ export const initCourseDrawersClosingViaSwiping = () => {
  *
  * @param {string} elementId element on which touch eventlistenter is added.
  * @param {string} buttonId This button will be clicked on swiping
+ * @param {string} closeButtonId This button will be clicked to close the drawer
  * @param {string} swipeDirection L= Swipe left, R= Swipe Right
  */
 const enableSwiping = (
   elementId: string,
   buttonId: string,
+  closeButtonId: string,
   swipeDirection: SwipeDirection
 ) => {
   const element = document.getElementById(elementId)
+  const button = document.getElementById(buttonId)
+  const closeButton = document.getElementById(closeButtonId)
+
   if (!element) throw Error(`Element having ID: ${elementId} does not exist`)
 
   let touchstartX = 0
@@ -51,5 +58,13 @@ const enableSwiping = (
 
       buttonElement.click()
     }
+  })
+
+  button?.addEventListener("click", () => {
+    closeButton?.focus()
+  })
+
+  closeButton?.addEventListener("click", () => {
+    button?.focus()
   })
 }

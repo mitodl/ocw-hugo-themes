@@ -19,17 +19,7 @@ $panel-course-info-text-color: #464646;
   }
 }
 
-.close-course-info {
-  margin-left: auto;
-  background-color: $course-info-btn-color !important;
-  border-radius: 0px !important;
-}
-
-.close-course-info:hover {
-  background-color: $course-info-btn-hover-color !important;
-}
-
-.show-course-info {
+.course-info-button {
   position: absolute;
   top: 0;
   right: 0;
@@ -37,7 +27,7 @@ $panel-course-info-text-color: #464646;
   border-radius: 0px !important;
 }
 
-.show-course-info:hover {
+.course-info-button:hover {
   background-color: $course-info-btn-hover-color !important;
 }
 
