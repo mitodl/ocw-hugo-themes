@@ -7,7 +7,7 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
       Course Info
     </h2>
   </div>
-  <div class="position-relative {{ if $inPanel }}px-3 mt-4{{ end }}">
+  <div class="{{ if $inPanel }}px-3 mt-4{{ end }}">
     <div class="row">
       <div class="col-12 {{ if not $inPanel }}col-sm-6{{ end }}">
         {{ with $courseData.instructors.content }}
