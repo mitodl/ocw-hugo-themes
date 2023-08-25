@@ -39,7 +39,7 @@
           <div class="">
             <div class="card">
               <div class="d-flex justify-content-between">
-                <div class="p-0 col-9" id="main-course-section">
+                <div class="p-0 col-lg-9" id="main-course-section">
                   <div class="card-body">
                     {{ block "main" . }}{{ end }}
                   </div>
@@ -94,14 +94,14 @@
           
 
           drawer.on("shown.bs.collapse", (event) => {
-            mainSection.addClass("col-9")
+            mainSection.addClass("col-lg-9")
             mainSection.removeClass("col-12")
             setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
           })
       
           drawer.on("hidden.bs.collapse", (event) => {
             mainSection.addClass("col-12")
-            mainSection.removeClass("col-9")
+            mainSection.removeClass("col-lg-9")
             setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_CLOSED)
           })
         })
@@ -118,7 +118,7 @@
         } else {
           drawer.classList.remove("show")
           button.setAttribute("aria-expanded", "false")
-          mainSection.classList.remove("col-9")
+          mainSection.classList.remove("col-lg-9")
           mainSection.classList.add("col-12")
         }
       }
