@@ -5,17 +5,18 @@
   data-target=".{{- .tabClass -}}"
   data-toggle="collapse"
   aria-controls="{{- .tabClass -}}"
+  aria-expanded=""
   role="tab"
   >
   <div class="video-tab-header">
     {{ if .tabTitle }}
-      <span class="tab-title-section" aria-label="{{ .tabTitle }}">
+      <span class="tab-title-section">
         {{ if and .resourceUrl $isEmbedVideo }}
-          <a href="{{ .resourceUrl }}">
+          <a href="{{ .resourceUrl }}" aria-label="{{ .tabTitle }}">
           {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}
           </a>
         {{ else }}
-          <button>
+          <button aria-label="{{ .tabTitle }}">
             {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}
           </button>
         {{ end }}
@@ -24,8 +25,8 @@
     {{/*  If we have transcript or the video is embed video, show download button on those tabs.
       Otherwise show download button in a standalone tab bar  */}}
     {{ if or ($videoHasTranscript) ($isEmbedVideo) (eq .tabTitle "") }}
-      <div class="float-right" aria-label="Download Video and Transcript">
-        <button class="video-download-icons">
+      <div class="float-right">
+        <button class="video-download-icons" aria-label="Download Video and Transcript">
           <img class="video-download-icon" src="/static_shared/images/videojs_download.svg"/>
           <i class="material-icons caret-down"></i>
         </button>
