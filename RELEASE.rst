@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.97.2
+--------------
+
+- fix: main section layout (#1232)
+- Stop layout shift on videos (#1227)
+
 Version 1.97.1 (Released August 24, 2023)
 --------------
 
