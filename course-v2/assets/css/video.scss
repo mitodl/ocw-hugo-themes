@@ -151,6 +151,14 @@ a.video-download-button:visited {
   display: none !important;
 }
 
+//video element is replaced by VideoJS; set dimensions to prevent layout shift when VJS loads.
+.youtube-container > video {
+  height: 0;
+  max-width: 100%;
+  width: 100%;
+  padding-top: 56.25%; // apply aspect ratio padding of (9,16)
+}
+
 .video-tab-toggle-section {
   position: relative;
 }
