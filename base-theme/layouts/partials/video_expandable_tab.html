@@ -5,8 +5,9 @@
   data-target=".{{- .tabClass -}}"
   data-toggle="collapse"
   aria-controls="{{- .tabClass -}}"
-  aria-expanded=""
+  aria-expanded="false"
   role="tab"
+  aria-label="{{ .tabTitle }}"
   >
   <div class="video-tab-header">
     {{ if .tabTitle }}
@@ -26,7 +27,7 @@
       Otherwise show download button in a standalone tab bar  */}}
     {{ if or ($videoHasTranscript) ($isEmbedVideo) (eq .tabTitle "") }}
       <div class="float-right">
-        <button class="video-download-icons" aria-label="Download Video and Transcript">
+        <button class="video-download-icons" aria-label="Download Video and Transcript" aria-expanded="false">
           <img class="video-download-icon" src="/static_shared/images/videojs_download.svg"/>
           <i class="material-icons caret-down"></i>
         </button>
@@ -48,7 +49,7 @@
     </ul>
   </div>
 </div>
-<div class="video-tab container collapse pr-0 {{ .tabClass }}" role="tabpanel">
+<div class="video-tab container collapse pr-0 {{ .tabClass }}" role="tabpanel" aria-label="test">
   <div class="video-tab-content-section">
     {{ .context.RenderString .tabContent }}
   </div>
