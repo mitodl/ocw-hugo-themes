@@ -156,7 +156,7 @@ a.video-download-button:visited {
   height: 0;
   max-width: 100%;
   width: 100%;
-  padding-top: 56.25%;
+  padding-top: 56.25%; // apply aspect ratio padding of (9,16)
 }
 
 .video-tab-toggle-section {
