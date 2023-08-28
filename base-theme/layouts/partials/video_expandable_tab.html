@@ -28,7 +28,7 @@
       Otherwise show download button in a standalone tab bar  */}}
     {{ if or ($videoHasTranscript) ($isEmbedVideo) (eq .tabTitle "") }}
       <div class="float-right">
-        <button class="video-download-icons" aria-label="Download Video and Transcript" aria-expanded="false">
+        <button class="video-download-icons" aria-label="Show Downloads" aria-expanded="false">
           <img class="video-download-icon" src="/static_shared/images/videojs_download.svg" aria-hidden="true"/>
           <i class="material-icons caret-down" aria-hidden="true"></i>
         </button>
@@ -50,7 +50,7 @@
     </ul>
   </div>
 </div>
-<div class="video-tab container collapse pr-0 {{ .tabClass }}" role="tabpanel" aria-labelledby="tab-1">
+<div class="video-tab container collapse pr-0 {{ .tabClass }}" role="tabpanel">
   <div class="video-tab-content-section">
     {{ .context.RenderString .tabContent }}
   </div>
