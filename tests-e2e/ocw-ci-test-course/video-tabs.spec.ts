@@ -58,8 +58,9 @@ test("Embed video redirects to video page using keyboard navigation", async ({
 }) => {
   const coursePage = new CoursePage(page, "course")
   await coursePage.goto("pages/video-series-overview/")
-  const videoRedirectLink = page
-    .getByRole("tab", {
+  const videoPage = new VideoElement(page)
+  const videoRedirectLink = videoPage
+    .tab({
       name: "View video page"
     })
     .locator("a")
@@ -114,8 +115,8 @@ test("Expand and collapse video tabs using keyboard navigation", async ({
   }
 
   for (const [tabClass, tabTitle] of Object.entries(tabClassToTitle)) {
-    const tabButton = page
-      .getByRole("tab", {
+    const tabButton = videoPage
+      .tab({
         name:  `${tabTitle}`,
         exact: true
       })
