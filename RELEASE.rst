@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.97.2
+Version 1.97.2 (Released August 28, 2023)
 --------------
 
 - fix: main section layout (#1232)
