@@ -5,21 +5,20 @@
   data-target=".{{- .tabClass -}}"
   data-toggle="collapse"
   aria-controls="{{- .tabClass -}}"
-  aria-expanded="false"
-  role="tab"
-  {{ if ne .tabTitle "View video page" }}
+  {{ if (not $isEmbedVideo) }}
     aria-label="{{ .tabTitle }}"
+    role="tab"
   {{ end }}
   >
   <div class="video-tab-header">
     {{ if .tabTitle }}
       <span class="tab-title-section">
         {{ if and .resourceUrl $isEmbedVideo }}
-          <a href="{{ .resourceUrl }}" aria-label="{{.tabTitle}}">
+          <a href="{{ .resourceUrl }}" aria-label="{{ .tabTitle }}">
           {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}
           </a>
         {{ else }}
-          <button aria-label="Open {{.tabTitle}} tab">
+          <button aria-label="Open {{ .tabTitle }}">
             {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}
           </button>
         {{ end }}
