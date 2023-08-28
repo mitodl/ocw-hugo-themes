@@ -13,11 +13,11 @@
     {{ if .tabTitle }}
       <span class="tab-title-section">
         {{ if and .resourceUrl $isEmbedVideo }}
-          <a href="{{ .resourceUrl }}">
+          <a href="{{ .resourceUrl }}" aria-hidden="true">
           {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}
           </a>
         {{ else }}
-          <button>
+          <button aria-hidden="true">
             {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}
           </button>
         {{ end }}
@@ -28,8 +28,8 @@
     {{ if or ($videoHasTranscript) ($isEmbedVideo) (eq .tabTitle "") }}
       <div class="float-right">
         <button class="video-download-icons" aria-label="Download Video and Transcript" aria-expanded="false">
-          <img class="video-download-icon" src="/static_shared/images/videojs_download.svg"/>
-          <i class="material-icons caret-down"></i>
+          <img class="video-download-icon" src="/static_shared/images/videojs_download.svg" aria-hidden="true"/>
+          <i class="material-icons caret-down" aria-hidden="true"></i>
         </button>
       </div>
     {{ end }}
@@ -49,7 +49,7 @@
     </ul>
   </div>
 </div>
-<div class="video-tab container collapse pr-0 {{ .tabClass }}" role="tabpanel" aria-label="test">
+<div class="video-tab container collapse pr-0 {{ .tabClass }}" role="tabpanel">
   <div class="video-tab-content-section">
     {{ .context.RenderString .tabContent }}
   </div>
