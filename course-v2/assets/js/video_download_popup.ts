@@ -10,11 +10,7 @@ export const initVideoDownloadPopup = () => {
       event.stopPropagation()
       if (popup === activePopup) {
         // Clicked on the same download button, toggle the popup
-        if (downloadIcon.getAttribute("aria-expanded") === "true") {
-          downloadIcon.setAttribute("aria-expanded", "false")
-        } else {
-          downloadIcon.setAttribute("aria-expanded", "true")
-        }
+        downloadIcon.setAttribute("aria-expanded", "false")
         popup.classList.toggle("hidden")
         activePopup = null
       } else {

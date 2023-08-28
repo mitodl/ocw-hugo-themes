@@ -13,11 +13,11 @@
     {{ if .tabTitle }}
       <span class="tab-title-section">
         {{ if and .resourceUrl $isEmbedVideo }}
-          <a href="{{ .resourceUrl }}" aria-label="{{ .tabTitle }}">
+          <a href="{{ .resourceUrl }}">
           {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}
           </a>
         {{ else }}
-          <button aria-label="{{ .tabTitle }}">
+          <button>
             {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}
           </button>
         {{ end }}
