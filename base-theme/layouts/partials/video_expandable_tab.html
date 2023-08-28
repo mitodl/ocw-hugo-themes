@@ -7,17 +7,19 @@
   aria-controls="{{- .tabClass -}}"
   aria-expanded="false"
   role="tab"
-  aria-label="{{ .tabTitle }}"
+  {{ if ne .tabTitle "View video page" }}
+    aria-label="{{ .tabTitle }}"
+  {{ end }}
   >
   <div class="video-tab-header">
     {{ if .tabTitle }}
       <span class="tab-title-section">
         {{ if and .resourceUrl $isEmbedVideo }}
-          <a href="{{ .resourceUrl }}" aria-hidden="true">
+          <a href="{{ .resourceUrl }}" aria-label="{{.tabTitle}}">
           {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}
           </a>
         {{ else }}
-          <button aria-hidden="true">
+          <button aria-label="Open {{.tabTitle}} tab">
             {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}
           </button>
         {{ end }}
@@ -49,7 +51,7 @@
     </ul>
   </div>
 </div>
-<div class="video-tab container collapse pr-0 {{ .tabClass }}" role="tabpanel">
+<div class="video-tab container collapse pr-0 {{ .tabClass }}" role="tabpanel" aria-labelledby="tab-1">
   <div class="video-tab-content-section">
     {{ .context.RenderString .tabContent }}
   </div>
