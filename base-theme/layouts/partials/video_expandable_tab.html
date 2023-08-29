@@ -20,8 +20,8 @@
     {{/*  If we have transcript or the video is embed video, show download button on those tabs.
       Otherwise show download button in a standalone tab bar  */}}
     {{ if or ($videoHasTranscript) ($isEmbedVideo) (eq .tabTitle "") }}
-      <div class="float-right">
-        <button class="video-download-icons d-flex align-items-baseline" aria-label="Show Downloads" aria-expanded="false">
+      <div>
+        <button class="video-download-icons" aria-label="Show Downloads" aria-expanded="false">
           <img class="video-download-icon" src="/static_shared/images/videojs_download.svg" aria-hidden="true"/>
           <i class="material-icons caret-down" aria-hidden="true"></i>
         </button>
