@@ -1,5 +1,5 @@
 .video-tab-header {
-  padding: 5px 15px 5px;
+  padding: 5px 15px;
   border-top: 1px solid #3d3c3d;
   background-color: black;
   color: white;
@@ -14,6 +14,8 @@
     left: 2px;
   }
   .tab-title-section {
+    width: 100%;
+
     > * {
       padding-right: 10px;
       background: none;
@@ -59,7 +61,12 @@
   }
 }
 
-.video-tab-toggle-section[aria-expanded="true"] {
+.tab-toggle-button {
+  text-align: left;
+  width: 100%;
+}
+
+.tab-toggle-button[aria-expanded="true"] {
   i.toggle:after {
     content: "keyboard_arrow_down";
   }
@@ -80,7 +87,7 @@
   img.video-download-icon {
     height: 22px;
     position: relative;
-    left: 9px;
+    left: 5.25px;
     vertical-align: baseline;
   }
 }

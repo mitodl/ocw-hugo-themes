@@ -2,15 +2,8 @@
 {{ $videoHasTranscript := eq .tabTitle "Transcript" }}
 <div
   class="video-tab-toggle-section pointer"
-  data-target=".{{- .tabClass -}}"
-  data-toggle="collapse"
-  aria-controls="{{- .tabClass -}}"
-  {{ if (not $isEmbedVideo) }}
-    aria-label="{{ .tabTitle }}"
-    role="tab"
-  {{ end }}
   >
-  <div class="video-tab-header">
+  <div class="video-tab-header d-flex justify-content-between">
     {{ if .tabTitle }}
       <span class="tab-title-section">
         {{ if and .resourceUrl $isEmbedVideo }}
@@ -18,7 +11,7 @@
           {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}
           </a>
         {{ else }}
-          <button aria-label="Open {{ .tabTitle }}">
+          <button class="tab-toggle-button" aria-label="{{ .tabTitle }}" role="tab" aria-expanded="false" data-toggle="collapse" aria-controls="{{- .tabClass -}}" data-target=".{{- .tabClass -}}">
             {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}
           </button>
         {{ end }}
@@ -28,7 +21,7 @@
       Otherwise show download button in a standalone tab bar  */}}
     {{ if or ($videoHasTranscript) ($isEmbedVideo) (eq .tabTitle "") }}
       <div class="float-right">
-        <button class="video-download-icons" aria-label="Show Downloads" aria-expanded="false">
+        <button class="video-download-icons d-flex align-items-baseline" aria-label="Show Downloads" aria-expanded="false">
           <img class="video-download-icon" src="/static_shared/images/videojs_download.svg" aria-hidden="true"/>
           <i class="material-icons caret-down" aria-hidden="true"></i>
         </button>
