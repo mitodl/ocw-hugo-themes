@@ -1,5 +1,4 @@
 .video-tab-header {
-  padding: 5px 15px;
   border-top: 1px solid #3d3c3d;
   background-color: black;
   color: white;
@@ -23,6 +22,7 @@
       border: none;
     }
     a {
+      padding: 5px 15px;
       text-decoration: none;
       display: inline-block;
     }
@@ -65,6 +65,7 @@
 .tab-toggle-button {
   flex: auto;
   text-align: left;
+  padding: 5px 0px 5px 15px;
 }
 
 .tab-toggle-button[aria-expanded="true"] {
@@ -79,6 +80,7 @@
   background: none;
   border: none;
   color: $white;
+  padding: 5px 15px 5px 0px;
   i.caret-down:after {
     content: "\e5c5";
   }
