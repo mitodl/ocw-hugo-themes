@@ -14,7 +14,8 @@
     left: 2px;
   }
   .tab-title-section {
-    width: 100%;
+    display: flex;
+    flex: 1;
 
     > * {
       padding-right: 10px;
@@ -62,8 +63,8 @@
 }
 
 .tab-toggle-button {
+  flex: auto;
   text-align: left;
-  width: 100%;
 }
 
 .tab-toggle-button[aria-expanded="true"] {
