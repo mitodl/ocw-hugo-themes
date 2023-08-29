@@ -84,7 +84,8 @@ test("Video tabs content (links) are keyoard navigable", async ({ page }) => {
   for (const tab of tabs) {
     const coursePage = new CoursePage(page, "course")
     await coursePage.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
-    const tabButton = page.getByRole("tab", {
+    const videoPage = new VideoElement(page)
+    const tabButton = videoPage.tab({
       name: `${tab.title}`
     })
     await tabButton.focus()
@@ -109,7 +110,7 @@ test("Expand and collapse video tabs using keyboard navigation", async ({
   }
 
   for (const [tabClass, tabTitle] of Object.entries(tabClassToTitle)) {
-    const tabButton = page.getByRole("tab", {
+    const tabButton = videoPage.tab({
       name:  `${tabTitle}`,
       exact: true
     })
