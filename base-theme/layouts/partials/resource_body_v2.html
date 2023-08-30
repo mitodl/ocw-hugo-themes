@@ -45,7 +45,7 @@
           </div>
           <div class="download-button-container col-12 col-sm align-self-center">
             {{ if .Params.file }}
-              <div class="download-file-wrapper">
+              <div class="button-container">
                 <a class="download-file" href="{{ partial "resource_url.html" (dict "context" . "url" .Params.file) }}">
                   Download File
                 </a>

@@ -364,12 +364,13 @@ article.content {
 }
 
 .download-file {
+  display: initial;
   padding: 15px 33px;
-  background-color: $download-file-btn-color;
+  background-color: #007fff;
   color: white;
   text-decoration: none;
   border-radius: 5px;
-  transition: background-color 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out, 0.15s color ease-in-out;
 }
 
 .download-file:visited {
@@ -384,7 +385,7 @@ article.content {
     padding: 10px;
   }
 }
-.download-file-wrapper {
+.button-container {
   @include media-breakpoint-down(xs) {
     width: 100%;
   }
@@ -393,7 +394,7 @@ article.content {
 .download-file:hover {
   color: white;
   text-decoration: none;
-  background-color: $download-file-btn-hover-color;
+  background-color: #a31f34;
 }
 
 .white-color {
