@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.97.3
+Version 1.97.3 (Released August 30, 2023)
 --------------
 
 - Remove extra closing brace (#1235)
