@@ -1,7 +1,7 @@
 {{ $isEmbedVideo := eq .tabTitle "View video page" }}
 {{ $videoHasTranscript := eq .tabTitle "Transcript" }}
 <div class="video-tab-toggle-section pointer">
-  <div class="video-tab-header d-flex justify-content-end">
+  <div class="video-tab-header d-flex">
     {{ if .tabTitle }}
       <span class="tab-title-section">
         {{ if and .resourceUrl $isEmbedVideo }}
@@ -18,7 +18,7 @@
     {{/*  If we have transcript or the video is embed video, show download button on those tabs.
       Otherwise show download button in a standalone tab bar  */}}
     {{ if or ($videoHasTranscript) ($isEmbedVideo) (eq .tabTitle "") }}
-      <div>
+      <div class="ml-auto">
         <button class="video-download-icons" aria-label="Show Downloads" aria-expanded="false">
           <img class="video-download-icon" src="/static_shared/images/videojs_download.svg" aria-hidden="true"/>
           <i class="material-icons caret-down" aria-hidden="true"></i>
