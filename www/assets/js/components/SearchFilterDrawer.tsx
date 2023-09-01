@@ -53,12 +53,17 @@ export default function SearchFilterDrawer(props: Props) {
   return drawerOpen ? (
     <div className="search-filter-drawer-open">
       <div className="controls">
-        <i className="material-icons" onClick={closeDrawer}>
+        <i
+          className="material-icons"
+          onClick={closeDrawer}
+          role="button"
+          tabIndex={0}
+        >
           close
         </i>
       </div>
       <div className="apply-filters">
-        <button onClick={closeDrawer} className="blue-btn">
+        <button onClick={closeDrawer} className="blue-btn" role="button">
           Apply Filters
         </button>
       </div>
@@ -72,25 +77,37 @@ export default function SearchFilterDrawer(props: Props) {
   ) : (
     <div className="controls-outer">
       <div className="controls">
-        <div onClick={openDrawer} className="filter-controls">
+        <div
+          onClick={openDrawer}
+          className="filter-controls"
+          role="button"
+          tabIndex={0}
+        >
           Filter
-          <i className="material-icons">arrow_drop_down</i>
+          <i className="material-icons" aria-hidden="true">arrow_drop_down</i>
         </div>
       </div>
       <div className="layout-buttons layout-buttons-mobile">
-        <button onClick={() => updateUI(null)} className="layout-button-left">
+        <button
+          onClick={() => updateUI(null)}
+          className="layout-button-left"
+          aria-label="search results with thumbnails"
+        >
           <img
             src="/images/icons/list_ui_icon.png"
             alt="search results with thumbnails"
+            aria-hidden="true"
           />
         </button>
         <button
           onClick={() => updateUI(SEARCH_COMPACT_UI)}
           className="layout-button-right"
+          aria-label="compact search results"
         >
           <img
             src="/images/icons/compact_ui_icon.png"
             alt="compact search results"
+            aria-hidden="true"
           />
         </button>
       </div>

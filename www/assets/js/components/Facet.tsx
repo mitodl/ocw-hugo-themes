@@ -31,9 +31,12 @@ function SearchFacet(props: Props) {
       <div
         className="filter-section-title pl-3 pt-2 pb-2"
         onClick={() => setShowFacetList(!showFacetList)}
+        role="button"
+        aria-expanded={showFacetList ? "true" : "false"}
+        tabIndex={0}
       >
         {title}
-        <i className={`material-icons ${titleLineIcon}`}>{titleLineIcon}</i>
+        <i className={`material-icons ${titleLineIcon}`} aria-hidden="true">{titleLineIcon}</i>
       </div>
       {showFacetList ? (
         <React.Fragment>

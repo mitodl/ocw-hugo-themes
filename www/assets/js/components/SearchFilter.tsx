@@ -10,7 +10,7 @@ export default function SearchFilter(props: Props) {
   const { value, clearFacet, labelFunction } = props
 
   return (
-    <div className="active-search-filter">
+    <div className="active-search-filter" aria-label="active search filters">
       <div>{labelFunction ? labelFunction(value) : value}</div>
       <div
         className="remove-filter"
@@ -21,8 +21,10 @@ export default function SearchFilter(props: Props) {
           }
         }}
         tabIndex={0}
+        role="button"
+        aria-label="close"
       >
-        <i className="material-icons">close</i>
+        <i className="material-icons" aria-hidden="true">close</i>
       </div>
     </div>
   )

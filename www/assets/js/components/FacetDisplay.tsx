@@ -57,6 +57,7 @@ const FacetDisplay = React.memo(
                 }
               }}
               tabIndex={0}
+              role="button"
             >
               Clear All
             </span>

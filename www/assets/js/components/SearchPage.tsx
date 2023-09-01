@@ -327,19 +327,23 @@ export default function SearchPage(props: SearchPageProps) {
                   <button
                     onClick={() => updateUI(null)}
                     className="layout-button-left"
+                    aria-label="search results with thumbnails"
                   >
                     <img
                       src="/images/icons/list_ui_icon.png"
                       alt="search results with thumbnails"
+                      aria-hidden="true"
                     />
                   </button>
                   <button
                     onClick={() => updateUI(SEARCH_COMPACT_UI)}
                     className="layout-button-right"
+                    aria-label="compact search results"
                   >
                     <img
                       src="/images/icons/compact_ui_icon.png"
                       alt="compact search results"
+                      aria-hidden="true"
                     />
                   </button>
                 </div>
