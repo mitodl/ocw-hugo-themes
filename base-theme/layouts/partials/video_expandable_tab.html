@@ -1,7 +1,7 @@
 {{ $isEmbedVideo := eq .tabTitle "View video page" }}
 {{ $videoHasTranscript := eq .tabTitle "Transcript" }}
 <div class="video-tab-toggle-section pointer">
-  <div class="video-tab-header d-flex">
+  <div class="video-tab-header d-flex justify-content-end">
     {{ if .tabTitle }}
       <span class="tab-title-section">
         {{ if and .resourceUrl $isEmbedVideo }}
