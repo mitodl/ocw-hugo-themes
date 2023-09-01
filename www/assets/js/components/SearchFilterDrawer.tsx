@@ -84,7 +84,9 @@ export default function SearchFilterDrawer(props: Props) {
           tabIndex={0}
         >
           Filter
-          <i className="material-icons" aria-hidden="true">arrow_drop_down</i>
+          <i className="material-icons" aria-hidden="true">
+            arrow_drop_down
+          </i>
         </div>
       </div>
       <div className="layout-buttons layout-buttons-mobile">

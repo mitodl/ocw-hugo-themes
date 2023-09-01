@@ -24,7 +24,9 @@ export default function SearchFilter(props: Props) {
         role="button"
         aria-label="close"
       >
-        <i className="material-icons" aria-hidden="true">close</i>
+        <i className="material-icons" aria-hidden="true">
+          close
+        </i>
       </div>
     </div>
   )

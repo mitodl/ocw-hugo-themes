@@ -70,7 +70,9 @@ function FilterableSearchFacet(props: Props) {
         tabIndex={0}
       >
         {title}
-        <i className={`material-icons ${titleLineIcon}`} aria-hidden="true">{titleLineIcon}</i>
+        <i className={`material-icons ${titleLineIcon}`} aria-hidden="true">
+          {titleLineIcon}
+        </i>
       </div>
       {showFacetList ? (
         <>
@@ -83,7 +85,9 @@ function FilterableSearchFacet(props: Props) {
               placeholder={`Search ${title || ""}`}
             />
             {filterText === "" ? (
-              <i className="material-icons search-icon mt-1" aria-hidden="true">search</i>
+              <i className="material-icons search-icon mt-1" aria-hidden="true">
+                search
+              </i>
             ) : (
               <i
                 className="material-icons clear-icon"

@@ -36,7 +36,9 @@ function SearchFacet(props: Props) {
         tabIndex={0}
       >
         {title}
-        <i className={`material-icons ${titleLineIcon}`} aria-hidden="true">{titleLineIcon}</i>
+        <i className={`material-icons ${titleLineIcon}`} aria-hidden="true">
+          {titleLineIcon}
+        </i>
       </div>
       {showFacetList ? (
         <React.Fragment>
