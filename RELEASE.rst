@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.98.0
+--------------
+
+- fix: accessibility of video tabs (#1233)
+
 Version 1.97.3 (Released August 30, 2023)
 --------------
 
