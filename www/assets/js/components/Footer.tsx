@@ -3,7 +3,11 @@ import React from "react"
 export default function Footer() {
   return (
     <footer className="search-footer px-2">
-      <img src="/static_shared/images/mit-ol.png" width="140px" />
+      <img
+        src="/static_shared/images/mit-ol.png"
+        width="140px"
+        alt="MIT Open Learning"
+      />
       <div className="mt-4">
         <a
           className="text-muted"
