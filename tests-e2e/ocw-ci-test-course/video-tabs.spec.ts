@@ -34,7 +34,7 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
     "https://live-qa.ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf"
   ]
   const downloadButton = page.getByRole("button", {
-    name: `Download Video and Transcript`
+    name: `Show Downloads`
   })
   await downloadButton.focus()
   await page.keyboard.press("Enter")
@@ -84,7 +84,8 @@ test("Video tabs content (links) are keyoard navigable", async ({ page }) => {
   for (const tab of tabs) {
     const coursePage = new CoursePage(page, "course")
     await coursePage.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
-    const tabButton = page.getByRole("button", {
+    const videoPage = new VideoElement(page)
+    const tabButton = videoPage.tab({
       name: `${tab.title}`
     })
     await tabButton.focus()
@@ -109,7 +110,7 @@ test("Expand and collapse video tabs using keyboard navigation", async ({
   }
 
   for (const [tabClass, tabTitle] of Object.entries(tabClassToTitle)) {
-    const tabButton = page.getByRole("button", {
+    const tabButton = videoPage.tab({
       name:  `${tabTitle}`,
       exact: true
     })
