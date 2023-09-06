@@ -93,22 +93,20 @@ export default function SearchFilterDrawer(props: Props) {
         <button
           onClick={() => updateUI(null)}
           className="layout-button-left"
-          aria-label="search results with thumbnails"
+          type="button"
+          aria-label="show detailed results"
         >
-          <img
-            src="/images/icons/list_ui_icon.png"
-            alt="search results with thumbnails"
-            aria-hidden="true"
-          />
+          <img src="/images/icons/list_ui_icon.png" alt="" aria-hidden="true" />
         </button>
         <button
           onClick={() => updateUI(SEARCH_COMPACT_UI)}
           className="layout-button-right"
-          aria-label="compact search results"
+          type="button"
+          aria-label="show compact results"
         >
           <img
             src="/images/icons/compact_ui_icon.png"
-            alt="compact search results"
+            alt=""
             aria-hidden="true"
           />
         </button>
