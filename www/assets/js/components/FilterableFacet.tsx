@@ -62,18 +62,17 @@ function FilterableSearchFacet(props: Props) {
 
   return results && results.buckets && results.buckets.length === 0 ? null : (
     <div className="facets filterable-facet mb-3">
-      <div
-        className="filter-section-title pl-3 pt-2 pb-2"
-        onClick={() => setShowFacetList(!showFacetList)}
-        role="button"
+      <button
+        className="filter-section-button pl-3 py-2 pr-0"
+        type="button"
         aria-expanded={showFacetList ? "true" : "false"}
-        tabIndex={0}
+        onClick={() => setShowFacetList(!showFacetList)}
       >
         {title}
         <i className={`material-icons ${titleLineIcon}`} aria-hidden="true">
           {titleLineIcon}
         </i>
-      </div>
+      </button>
       {showFacetList ? (
         <>
           <div className="input-wrapper">
@@ -85,23 +84,26 @@ function FilterableSearchFacet(props: Props) {
               placeholder={`Search ${title || ""}`}
             />
             {filterText === "" ? (
-              <i className="material-icons search-icon mt-1" aria-hidden="true">
+              <i
+                className="input-postfix-icon material-icons search-icon mt-1"
+                aria-hidden="true"
+              >
                 search
               </i>
             ) : (
-              <i
-                className="material-icons clear-icon"
+              <button
+                className="input-postfix-button"
+                type="button"
+                role="button"
                 onClick={() => setFilterText("")}
                 onKeyPress={e => {
                   if (e.key === "Enter") {
                     setFilterText("")
                   }
                 }}
-                tabIndex={0}
-                role="button"
               >
-                clear
-              </i>
+                <span className="material-icons">clear</span>
+              </button>
             )}
           </div>
           <div className="facet-list">

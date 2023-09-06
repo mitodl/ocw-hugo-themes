@@ -28,18 +28,17 @@ function SearchFacet(props: Props) {
 
   return results && results.buckets && results.buckets.length === 0 ? null : (
     <div className="facets mb-3">
-      <div
-        className="filter-section-title pl-3 pt-2 pb-2"
-        onClick={() => setShowFacetList(!showFacetList)}
-        role="button"
+      <button
+        className="filter-section-button pl-3 py-2 pr-0"
+        type="button"
         aria-expanded={showFacetList ? "true" : "false"}
-        tabIndex={0}
+        onClick={() => setShowFacetList(!showFacetList)}
       >
         {title}
         <i className={`material-icons ${titleLineIcon}`} aria-hidden="true">
           {titleLineIcon}
         </i>
-      </div>
+      </button>
       {showFacetList ? (
         <React.Fragment>
           {results && results.buckets ?
@@ -58,12 +57,13 @@ function SearchFacet(props: Props) {
             ) :
             null}
           {results && results.buckets.length >= FACET_COLLAPSE_THRESHOLD ? (
-            <div
-              className={"facet-more-less"}
+            <button
+              className="facet-more-less-button"
               onClick={() => setShowAllFacets(!showAllFacets)}
+              type="button"
             >
               {showAllFacets ? "View less" : "View more"}
-            </div>
+            </button>
           ) : null}
         </React.Fragment>
       ) : null}

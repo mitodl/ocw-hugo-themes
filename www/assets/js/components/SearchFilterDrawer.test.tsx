@@ -28,10 +28,10 @@ describe("SearchFilterDrawer component", () => {
   test("phone mode renders a filter control and layout buttons", async () => {
     getViewportWidthMock.mockImplementation(() => 500)
     const wrapper = render()
-    const filterControl = wrapper.find(".filter-controls")
+    const filterDrawerButton = wrapper.find(".filter-drawer-button")
     const mockEvent = { preventDefault: jest.fn() }
-    expect(filterControl.text()).toBe("Filterarrow_drop_down")
-    filterControl.simulate("click", mockEvent)
+    expect(filterDrawerButton.text()).toBe("Filterarrow_drop_down")
+    filterDrawerButton.simulate("click", mockEvent)
     wrapper.update()
     expect(wrapper.find(".search-filter-drawer-open").exists()).toBeTruthy()
     expect(wrapper.find(FacetDisplay).exists()).toBeTruthy()

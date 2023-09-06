@@ -53,17 +53,16 @@ export default function SearchFilterDrawer(props: Props) {
   return drawerOpen ? (
     <div className="search-filter-drawer-open">
       <div className="controls">
-        <i
-          className="material-icons"
+        <button
+          className="bg-transparent border-0"
           onClick={closeDrawer}
-          role="button"
-          tabIndex={0}
+          type="button"
         >
-          close
-        </i>
+          <span className="material-icons">close</span>
+        </button>
       </div>
       <div className="apply-filters">
-        <button onClick={closeDrawer} className="blue-btn" role="button">
+        <button onClick={closeDrawer} className="blue-btn" type="button">
           Apply Filters
         </button>
       </div>
@@ -77,17 +76,16 @@ export default function SearchFilterDrawer(props: Props) {
   ) : (
     <div className="controls-outer">
       <div className="controls">
-        <div
+        <button
+          className="filter-drawer-button"
+          type="button"
           onClick={openDrawer}
-          className="filter-controls"
-          role="button"
-          tabIndex={0}
         >
           Filter
           <i className="material-icons" aria-hidden="true">
             arrow_drop_down
           </i>
-        </div>
+        </button>
       </div>
       <div className="layout-buttons layout-buttons-mobile">
         <button

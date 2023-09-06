@@ -282,6 +282,7 @@ export default function SearchPage(props: SearchPageProps) {
                     className={`nav-link search-nav ${
                       isResourceSearch(activeFacets) ? "" : "active"
                     }`}
+                    type="button"
                     onClick={toggleResourceSearch(false)}
                   >
                     Courses
@@ -292,6 +293,7 @@ export default function SearchPage(props: SearchPageProps) {
                     className={`nav-link search-nav ${
                       isResourceSearch(activeFacets) ? "active" : ""
                     }`}
+                    type="button"
                     onClick={toggleResourceSearch(true)}
                   >
                     Resources

@@ -2,15 +2,18 @@
   .input-wrapper {
     position: relative;
 
-    i.material-icons {
+    i.input-postfix-icon,
+    button.input-postfix-button {
       position: absolute;
       right: 5px;
       top: 8px;
       color: $medium-gray;
     }
 
-    i.clear-icon {
-      cursor: pointer;
+    button.input-postfix-button {
+      border: none;
+      background: none;
+      padding-right: 0;
     }
   }
 
@@ -34,14 +37,15 @@
   }
 }
 
-.filter-section-title {
+.filter-section-button {
   font-size: $font-md;
   font-weight: 600;
-  cursor: pointer;
   display: flex;
   justify-content: space-between;
   border-radius: 4px 4px 0 0;
   background-color: #f6f6f6;
+  width: 100%;
+  border: none;
 }
 
 .filter-section-main-title {
@@ -113,11 +117,13 @@
     }
   }
 
-  .facet-more-less {
-    cursor: pointer;
+  .facet-more-less-button {
     color: $search-gray;
     font-size: $font-sm;
     text-align: right;
+    background: none;
+    border: none;
+    width: 100%;
   }
 }
 
@@ -130,12 +136,14 @@
 .active-search-filters {
   margin: 0rem 1rem 1.4rem 1rem;
 
-  .clear-all-filters {
+  .clear-all-filters-button {
     font-size: $font-normal;
     font-weight: normal;
     text-decoration: underline;
-    cursor: pointer;
     margin-top: 0.15rem;
+    background: none;
+    border: none;
+    padding-right: 0;
   }
 
   .active-search-filter {
@@ -149,12 +157,16 @@
     border: 1px solid $medium-gray;
     border-radius: 14px;
 
-    .remove-filter {
+    .remove-filter-button {
       max-height: 18px;
       margin-right: 5px;
-      cursor: pointer;
 
-      i {
+      border: none;
+      background: none;
+      padding-right: 0;
+      padding-top: 0;
+
+      .material-icons {
         font-size: $font-md;
       }
     }

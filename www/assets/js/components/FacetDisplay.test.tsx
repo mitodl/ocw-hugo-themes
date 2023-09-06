@@ -70,7 +70,7 @@ describe("FacetDisplay component", () => {
         .find("SearchFilter")
         .map(el => el.prop("value"))
     ).toEqual(["Academic Writing", "Accounting", "Aerodynamics", "Mathematics"])
-    wrapper.find(".clear-all-filters").simulate("click")
+    wrapper.find(".clear-all-filters-button").simulate("click")
     expect(clearAllFilters).toHaveBeenCalled()
   })
 })
