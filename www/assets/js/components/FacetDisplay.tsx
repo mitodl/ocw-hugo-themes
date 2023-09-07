@@ -52,11 +52,6 @@ const FacetDisplay = React.memo(
               className="clear-all-filters-button"
               type="button"
               onClick={clearAllFilters}
-              onKeyPress={e => {
-                if (e.key === "Enter") {
-                  clearAllFilters()
-                }
-              }}
             >
               Clear All
             </button>

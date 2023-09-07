@@ -10,19 +10,17 @@ export default function SearchFilter(props: Props) {
   const { value, clearFacet, labelFunction } = props
 
   return (
-    <div className="active-search-filter" aria-label="active search filters">
+    <div className="active-search-filter">
       <div>{labelFunction ? labelFunction(value) : value}</div>
       <button
         className="remove-filter-button"
         type="button"
         onClick={clearFacet}
-        onKeyPress={e => {
-          if (e.key === "Enter") {
-            clearFacet()
-          }
-        }}
+        aria-label="clear filter"
       >
-        <span className="material-icons">close</span>
+        <span className="material-icons" aria-hidden="true">
+          close
+        </span>
       </button>
     </div>
   )

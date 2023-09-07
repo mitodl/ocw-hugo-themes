@@ -57,8 +57,11 @@ export default function SearchFilterDrawer(props: Props) {
           className="bg-transparent border-0"
           onClick={closeDrawer}
           type="button"
+          aria-label="close search filters"
         >
-          <span className="material-icons">close</span>
+          <span className="material-icons" aria-hidden="true">
+            close
+          </span>
         </button>
       </div>
       <div className="apply-filters">

@@ -94,15 +94,12 @@ function FilterableSearchFacet(props: Props) {
               <button
                 className="input-postfix-button"
                 type="button"
-                role="button"
                 onClick={() => setFilterText("")}
-                onKeyPress={e => {
-                  if (e.key === "Enter") {
-                    setFilterText("")
-                  }
-                }}
+                aria-label="clear search text"
               >
-                <span className="material-icons">clear</span>
+                <span className="material-icons" aria-hidden="true">
+                  clear
+                </span>
               </button>
             )}
           </div>
