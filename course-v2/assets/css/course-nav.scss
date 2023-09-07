@@ -35,6 +35,12 @@ nav {
   width: 100%;
 }
 
+.course-nav-section-toggle {
+  border: none;
+  padding: 0;
+  background: none;
+}
+
 .course-nav-section-toggle > i:after {
   content: "keyboard_arrow_down";
 }
