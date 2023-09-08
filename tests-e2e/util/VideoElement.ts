@@ -31,7 +31,7 @@ export class VideoElement {
 
   downloadButton(): Locator {
     return this.container.getByRole("button", {
-      name: `Download Video and Transcript`
+      name: `Show Downloads`
     })
   }
 
