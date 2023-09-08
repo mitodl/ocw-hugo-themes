@@ -282,6 +282,7 @@ export default function SearchPage(props: SearchPageProps) {
                     className={`nav-link search-nav ${
                       isResourceSearch(activeFacets) ? "" : "active"
                     }`}
+                    type="button"
                     onClick={toggleResourceSearch(false)}
                   >
                     Courses
@@ -292,6 +293,7 @@ export default function SearchPage(props: SearchPageProps) {
                     className={`nav-link search-nav ${
                       isResourceSearch(activeFacets) ? "active" : ""
                     }`}
+                    type="button"
                     onClick={toggleResourceSearch(true)}
                   >
                     Resources
@@ -327,19 +329,25 @@ export default function SearchPage(props: SearchPageProps) {
                   <button
                     onClick={() => updateUI(null)}
                     className="layout-button-left"
+                    type="button"
+                    aria-label="show detailed results"
                   >
                     <img
                       src="/images/icons/list_ui_icon.png"
-                      alt="search results with thumbnails"
+                      alt=""
+                      aria-hidden="true"
                     />
                   </button>
                   <button
                     onClick={() => updateUI(SEARCH_COMPACT_UI)}
                     className="layout-button-right"
+                    type="button"
+                    aria-label="show compact results"
                   >
                     <img
                       src="/images/icons/compact_ui_icon.png"
-                      alt="compact search results"
+                      alt=""
+                      aria-hidden="true"
                     />
                   </button>
                 </div>

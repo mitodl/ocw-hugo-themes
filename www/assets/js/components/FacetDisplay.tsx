@@ -48,18 +48,13 @@ const FacetDisplay = React.memo(
         <div className="active-search-filters">
           <div className="filter-section-main-title">
             Filters
-            <span
-              className="clear-all-filters"
+            <button
+              className="clear-all-filters-button"
+              type="button"
               onClick={clearAllFilters}
-              onKeyPress={e => {
-                if (e.key === "Enter") {
-                  clearAllFilters()
-                }
-              }}
-              tabIndex={0}
             >
               Clear All
-            </span>
+            </button>
           </div>
           {facetMap.map(([name]) =>
             (activeFacets[name] || []).map((facet, i) => (

@@ -12,18 +12,16 @@ export default function SearchFilter(props: Props) {
   return (
     <div className="active-search-filter">
       <div>{labelFunction ? labelFunction(value) : value}</div>
-      <div
-        className="remove-filter"
+      <button
+        className="remove-filter-button"
+        type="button"
         onClick={clearFacet}
-        onKeyPress={e => {
-          if (e.key === "Enter") {
-            clearFacet()
-          }
-        }}
-        tabIndex={0}
+        aria-label="clear filter"
       >
-        <i className="material-icons">close</i>
-      </div>
+        <span className="material-icons" aria-hidden="true">
+          close
+        </span>
+      </button>
     </div>
   )
 }
