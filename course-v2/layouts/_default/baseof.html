@@ -91,15 +91,20 @@
         document.addEventListener("DOMContentLoaded", () => {
           const drawer = $(`#${DESKTOP_COURSE_DRAWER_ID}`)
           const mainSection = $(`#${MAIN_COURSE_SECTION_ID}`)
-          
 
           drawer.on("shown.bs.collapse", (event) => {
+            if (event.target.id !== DESKTOP_COURSE_DRAWER_ID) {
+              return;
+            }
             mainSection.addClass("col-lg-9")
             mainSection.removeClass("col-12")
             setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
           })
       
           drawer.on("hidden.bs.collapse", (event) => {
+            if (event.target.id !== DESKTOP_COURSE_DRAWER_ID) {
+              return;
+            }
             mainSection.addClass("col-12")
             mainSection.removeClass("col-lg-9")
             setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_CLOSED)
