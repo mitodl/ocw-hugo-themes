@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.98.0
+Version 1.98.0 (Released September 11, 2023)
 --------------
 
 - feat: add aria attributes to www search page (#1238)
