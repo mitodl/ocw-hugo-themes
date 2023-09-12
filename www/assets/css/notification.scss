@@ -28,6 +28,7 @@
 
   .notification-close {
     position: absolute;
+    user-select: none;
     background: none;
     color: inherit;
     border: none;
