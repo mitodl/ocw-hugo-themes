@@ -62,13 +62,17 @@ function FilterableSearchFacet(props: Props) {
 
   return results && results.buckets && results.buckets.length === 0 ? null : (
     <div className="facets filterable-facet mb-3">
-      <div
-        className="filter-section-title pl-3 pt-2 pb-2"
+      <button
+        className="filter-section-button pl-3 py-2 pr-0"
+        type="button"
+        aria-expanded={showFacetList ? "true" : "false"}
         onClick={() => setShowFacetList(!showFacetList)}
       >
         {title}
-        <i className={`material-icons ${titleLineIcon}`}>{titleLineIcon}</i>
-      </div>
+        <i className={`material-icons ${titleLineIcon}`} aria-hidden="true">
+          {titleLineIcon}
+        </i>
+      </button>
       {showFacetList ? (
         <>
           <div className="input-wrapper">
@@ -80,20 +84,23 @@ function FilterableSearchFacet(props: Props) {
               placeholder={`Search ${title || ""}`}
             />
             {filterText === "" ? (
-              <i className="material-icons search-icon mt-1">search</i>
-            ) : (
               <i
-                className="material-icons clear-icon"
-                onClick={() => setFilterText("")}
-                onKeyPress={e => {
-                  if (e.key === "Enter") {
-                    setFilterText("")
-                  }
-                }}
-                tabIndex={0}
+                className="input-postfix-icon material-icons search-icon mt-1"
+                aria-hidden="true"
               >
-                clear
+                search
               </i>
+            ) : (
+              <button
+                className="input-postfix-button"
+                type="button"
+                onClick={() => setFilterText("")}
+                aria-label="clear search text"
+              >
+                <span className="material-icons" aria-hidden="true">
+                  clear
+                </span>
+              </button>
             )}
           </div>
           <div className="facet-list">

@@ -177,11 +177,13 @@
       display: flex;
       justify-content: flex-end;
 
-      i {
+      button {
         margin-right: 18px;
         margin-top: 18px;
-        font-size: 2rem;
-        cursor: pointer;
+        padding: 0;
+        span.material-icons {
+          font-size: 2rem;
+        }
       }
     }
 
@@ -195,11 +197,14 @@
     }
   }
 
-  .filter-controls {
+  .filter-drawer-button {
     display: flex;
     align-items: center;
-    cursor: pointer;
     font-size: $font-normal;
+
+    background: none;
+    border: 0;
+    padding: 0;
 
     i.material-icons {
       font-size: 2.25rem;

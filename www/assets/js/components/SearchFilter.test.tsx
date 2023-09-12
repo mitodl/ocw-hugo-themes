@@ -28,7 +28,7 @@ describe("SearchFilter", () => {
   it("should trigger clearFacet function on click", async () => {
     const { render, onClickStub } = setup()
     const wrapper = render({ value: "ocw" })
-    wrapper.find(".remove-filter").simulate("click")
+    wrapper.find(".remove-filter-button").simulate("click")
     expect(onClickStub).toHaveBeenCalledTimes(1)
   })
 })

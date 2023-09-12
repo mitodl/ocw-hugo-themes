@@ -53,12 +53,19 @@ export default function SearchFilterDrawer(props: Props) {
   return drawerOpen ? (
     <div className="search-filter-drawer-open">
       <div className="controls">
-        <i className="material-icons" onClick={closeDrawer}>
-          close
-        </i>
+        <button
+          className="bg-transparent border-0"
+          onClick={closeDrawer}
+          type="button"
+          aria-label="close search filters"
+        >
+          <span className="material-icons" aria-hidden="true">
+            close
+          </span>
+        </button>
       </div>
       <div className="apply-filters">
-        <button onClick={closeDrawer} className="blue-btn">
+        <button onClick={closeDrawer} className="blue-btn" type="button">
           Apply Filters
         </button>
       </div>
@@ -72,25 +79,36 @@ export default function SearchFilterDrawer(props: Props) {
   ) : (
     <div className="controls-outer">
       <div className="controls">
-        <div onClick={openDrawer} className="filter-controls">
+        <button
+          className="filter-drawer-button"
+          type="button"
+          onClick={openDrawer}
+        >
           Filter
-          <i className="material-icons">arrow_drop_down</i>
-        </div>
+          <i className="material-icons" aria-hidden="true">
+            arrow_drop_down
+          </i>
+        </button>
       </div>
       <div className="layout-buttons layout-buttons-mobile">
-        <button onClick={() => updateUI(null)} className="layout-button-left">
-          <img
-            src="/images/icons/list_ui_icon.png"
-            alt="search results with thumbnails"
-          />
+        <button
+          onClick={() => updateUI(null)}
+          className="layout-button-left"
+          type="button"
+          aria-label="show detailed results"
+        >
+          <img src="/images/icons/list_ui_icon.png" alt="" aria-hidden="true" />
         </button>
         <button
           onClick={() => updateUI(SEARCH_COMPACT_UI)}
           className="layout-button-right"
+          type="button"
+          aria-label="show compact results"
         >
           <img
             src="/images/icons/compact_ui_icon.png"
-            alt="compact search results"
+            alt=""
+            aria-hidden="true"
           />
         </button>
       </div>
