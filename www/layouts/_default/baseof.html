@@ -10,7 +10,7 @@
       <!-- End Google Tag Manager (noscript) -->
     {{ end }}
     <div>
-      {{ block "notification" . }}{{ partial "notification" . }}{{ end }}
+      {{ block "notification" . }}{{ partial "notification.html" . }}{{ end }}
       {{ block "main" . }}{{ end }}
     </div>
     {{- $webpack := .Site.Data.webpack -}}
