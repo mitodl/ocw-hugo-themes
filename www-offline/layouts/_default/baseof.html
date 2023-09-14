@@ -4,7 +4,7 @@
   {{ partial "head.html" . }}
   <body>
     <div>
-      {{ block "notification" . }}{{ partial "notification" . }}{{ end }}
+      {{ block "notification" . }}{{ partial "notification.html" . }}{{ end }}
       {{ block "main" . }}{{ end }}
     </div>
     {{- $webpack := .Site.Data.webpack -}}
