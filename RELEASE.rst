@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.98.1
+--------------
+
+- Make notifications accessible (#1242)
+
 Version 1.98.0 (Released September 11, 2023)
 --------------
 
