@@ -1,6 +1,6 @@
 {{ $menu := index .context.Site.Menus "leftnav" }}
 {{ $device := .device }}
-<nav class="course-nav" aria-label="Main menu">
+<nav class="course-nav" aria-label="Course materials">
   <ul class="w-100 m-auto list-unstyled">
     {{ range $menu }}
       {{ partial "nav_item.html" (dict "menuItem" . "device" $device) }}
