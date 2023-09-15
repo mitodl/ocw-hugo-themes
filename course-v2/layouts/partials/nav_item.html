@@ -14,25 +14,31 @@
       </a>
     </span>
     {{ if .menuItem.HasChildren }}
-    <a class="course-nav-section-toggle"
-      href="#nav-container_{{ $device }}_{{ .menuItem.Identifier }}"
+    <button
+      class="course-nav-section-toggle"
+      type="button"
+      id="nav-button_{{ $device }}_{{ .menuItem.Identifier }}"
       data-toggle="collapse"
+      data-target="#nav-container_{{ $device }}_{{ .menuItem.Identifier }}"
+      data-uuid="{{ .menuItem.Identifier }}"
       aria-controls="nav-container_{{ $device }}_{{ .menuItem.Identifier }}"
-      aria-expanded=""
-      data-uuid="{{ .menuItem.Identifier }}">
-      <i class="material-icons md-18"></i>
-    </a>
+      aria-expanded="false"
+      aria-label="Subsections for {{.menuItem.Name}}"
+    >
+      <i class="material-icons md-18" aria-hidden="true"></i>
+    </button>
     {{ end }}
   </div>
   {{ if or (not $hasParent) $hasChildren }}
   <span class="medium-and-below-only"><hr/></span>
   {{ end }}
-  <div class="collapse"
-    id="nav-container_{{ $device }}_{{ .menuItem.Identifier }}">
-    <ul class="course-nav-child-nav m-auto">
-      {{ range .menuItem.Children }}
-        {{ partial "nav_item.html" (dict "menuItem" . "parentId" $id "device" $device) }}
-      {{ end }}
-    </ul>
-  </div>
+  <ul
+    class="course-nav-child-nav m-auto collapse"
+    id="nav-container_{{ $device }}_{{ .menuItem.Identifier }}"
+    aria-labelledby="nav-button_{{ $device }}_{{ .menuItem.Identifier }}"
+  >
+    {{ range .menuItem.Children }}
+      {{ partial "nav_item.html" (dict "menuItem" . "parentId" $id "device" $device) }}
+    {{ end }}
+  </ul>
 </li>
