@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.99.0
+Version 1.99.0 (Released September 18, 2023)
 --------------
 
 - feat: improve navbar and topics accessibility (#1241)
