@@ -34,7 +34,8 @@
       {{ end }}
       {{ with $firstThreeCourseTopics }}
       <div class="course-card-topics pt-2">
-        <span class="card-label">Topic{{ if gt (len $firstThreeCourseTopics) 1 }}s{{ end }}:</span> {{ partial "course_cards_topics.html" $firstThreeCourseTopics }}
+        <span class="card-label">Topic{{ if gt (len $firstThreeCourseTopics) 1 }}s{{ end }}:</span> 
+        {{ partial "course_cards_topics.html" $firstThreeCourseTopics }}
       </div>
       {{ end }}
     </div>
