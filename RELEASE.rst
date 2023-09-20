@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.99.1
+--------------
+
+- fix: instructor(s) and topic(s) typo (#1245)
+
 Version 1.99.0 (Released September 18, 2023)
 --------------
 
