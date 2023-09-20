@@ -12,14 +12,17 @@
       margin: 0;
       text-align: left;
       width: 100%;
+      align-items: center;
       cursor: pointer;
-
+      @include media-breakpoint-down(xs) {
+        padding: 0px;
+      }
       .left-col {
         display: flex;
         justify-content: center;
         align-items: center;
         position: relative;
-        margin-right: 10px;
+        // margin-right: 10px;
 
         img.thumbnail {
           border-radius: 5px;
@@ -42,13 +45,17 @@
 
       .right-col {
         position: relative;
-        margin-left: 10px;
+        // margin-left: 10px;
         width: 100%;
 
         .video-title {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
+          margin: 0px !important;
+          padding: 5px 10px !important;
+          font-size: 0.7975rem !important;
+          line-height: 1rem !important;
+          // position: absolute;
+          // top: 50%;
+          // transform: translateY(-50%);
         }
       }
     }
