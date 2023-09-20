@@ -1,10 +1,4 @@
-{{- $topics := slice -}}
-{{- range . -}}
-  {{- range . -}}
-    {{- $topics = $topics | append (title .) -}}
-  {{- end -}}
-{{- end -}}
-{{- $topics = (first 3 (uniq $topics)) -}}
+{{- $topics := . -}}
 {{- $numTopics := len $topics -}}
 {{- range $index, $rawTopic := $topics -}}
   {{- $topic := title $rawTopic -}}

@@ -4,6 +4,7 @@
 {{ $courseLevel := .courseData.level | default slice }}
 {{ $courseInstructors := .courseData.instructors | default slice }}
 {{ $courseTopics := .courseData.topics | default slice }}
+{{ $firstThreeCourseTopics := partial "course_cards_topics_list.html" $courseTopics | default slice }}
 {{ $isMobile := (eq .itemsInCarousel 1) }}
 
 {{ $modulo := (mod .index .itemsInCarousel) }}
@@ -25,12 +26,18 @@
           <a href="{{ partial "site_root_url.html" .urlPath }}">{{ $courseTitle }}</a>
         </div>
       </div>
+      {{ with $courseInstructors }}
       <div class="course-card-instructors pt-1">
-        <span class="card-label">Instructors(s):</span> {{ partial "course_cards_instructors.html" $courseInstructors }}
+        <span class="card-label">Instructor{{ if gt (len $courseInstructors) 1 }}s{{ end }}:</span>
+        {{ partial "course_cards_instructors.html" $courseInstructors }}
       </div>
+      {{ end }}
+      {{ with $firstThreeCourseTopics }}
       <div class="course-card-topics pt-2">
-        <span class="card-label">Topic(s):</span> {{ partial "course_cards_topics.html" $courseTopics }}
+        <span class="card-label">Topic{{ if gt (len $firstThreeCourseTopics) 1 }}s{{ end }}:</span> 
+        {{ partial "course_cards_topics.html" $firstThreeCourseTopics }}
       </div>
+      {{ end }}
     </div>
   </div>
 </div>
