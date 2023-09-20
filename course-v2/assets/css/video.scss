@@ -55,10 +55,18 @@
           margin-left: 0px;
         }
         .video-title {
-          margin: 0px !important;
-          padding: 5px 10px !important;
+          // margin: 0px !important;
+          margin: 5px 10px !important;
           font-size: 0.7975rem !important;
           line-height: 1rem !important;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+
+          @include media-breakpoint-down(xs) {
+            -webkit-line-clamp: 4;
+          }
           // position: absolute;
           // top: 50%;
           // transform: translateY(-50%);
