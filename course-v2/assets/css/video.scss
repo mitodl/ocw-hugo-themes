@@ -52,7 +52,7 @@
         width: 100%;
 
         @include media-breakpoint-down(xs) {
-          margin-left: 0px;
+          margin: 0px;
         }
         .video-title {
           // margin: 0px !important;
