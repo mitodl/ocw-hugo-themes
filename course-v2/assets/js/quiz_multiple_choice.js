@@ -49,11 +49,13 @@ export const showSolution = () => {
           .closest(".multiple-choice-question")
           .getElementsByClassName("correctness-icon-correct")[0]
           .classList.add("toggle-visible")
+        button.textContent = "Hide Solution"
       } else {
         button
           .closest(".multiple-choice-question")
           .getElementsByClassName("correctness-icon-correct")[0]
           .classList.remove("toggle-visible")
+        button.textContent = "Show Solution"
       }
     })
   })
