@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.99.2
+--------------
+
+- fix mobile layout responsiveness for video resources (#1246)
+- Toggle show solution for multiple-choice quizzes (#1249)
+
 Version 1.99.1 (Released September 26, 2023)
 --------------
 
