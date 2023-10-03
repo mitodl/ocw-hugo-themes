@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.99.2
+Version 1.99.2 (Released October 03, 2023)
 --------------
 
 - fix mobile layout responsiveness for video resources (#1246)
