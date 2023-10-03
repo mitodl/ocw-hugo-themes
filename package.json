@@ -11,6 +11,7 @@
     "start:www": "echo This command has been removed. Use `yarn start www` instead.",
     "start:course": "echo This command has been removed. Use `yarn start course` instead.",
     "start:fields": "echo This command has been removed. Use `yarn start fields` instead.",
+    "subset-fonts": "ts-node ./package_scripts/subset-fonts.ts",
     "prebuild": "rimraf dist",
     "build": "yarn with-env -- ./package_scripts/build.sh",
     "build:githash": "mkdir -p base-theme/dist/static && git rev-parse HEAD > base-theme/dist/static/hash.txt",

@@ -29,9 +29,9 @@
     font-weight: 400;
     src: local('Material Icons'),
       local('MaterialIcons-Regular'),
-      url({{ partial "webpack_url.html" (dict "context" . "url" "/static_shared/fonts/MaterialIcons-Regular.woff2") }}) format('woff2'),
-      url({{ partial "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/MaterialIcons-Regular.woff") }}) format('woff'),
-      url({{ partial "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/MaterialIcons-Regular.ttf") }}) format('truetype');
+      url({{ partial "webpack_url.html" (dict "context" . "url" "/static_shared/fonts/MaterialIcons-Regular.subset.woff2") }}) format('woff2'),
+      url({{ partial "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/MaterialIcons-Regular.subset.woff") }}) format('woff'),
+      url({{ partial "webpack_url.html" (dict "context" . "url"  "/static_shared/fonts/MaterialIcons-Regular.subset.ttf") }}) format('truetype');
   }
   @font-face {
     font-family: 'Material Icons Round';
