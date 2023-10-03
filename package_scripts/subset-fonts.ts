@@ -81,8 +81,10 @@ async function subsetFont(
     switch (fontExt) {
     case ".woff":
       flavorArg = "--flavor=woff"
+      break
     case ".woff2":
       flavorArg = "--flavor=woff2"
+      break
     }
 
     const unicodesArg = `--unicodes=5f-7a,30-39,${codepointsList.join(",")}`
