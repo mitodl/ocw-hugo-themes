@@ -70,8 +70,7 @@ const config: webpack.Configuration = {
           {
             loader:  "file-loader",
             options: {
-              name:       "images/[fullhash].[ext]",
-              outputPath: "images"
+              name: "images/[fullhash].[ext]"
             }
           }
         ]
@@ -134,10 +133,9 @@ const config: webpack.Configuration = {
       systemvars: true
     }),
     new AssetsPlugin({
-      filename:            "webpack.json",
-      path:                path.join(process.cwd(), "base-theme", "data"),
-      prettyPrint:         true,
-      includeAllFileTypes: true // Include the content hash for all file types
+      filename:    "webpack.json",
+      path:        path.join(process.cwd(), "base-theme", "data"),
+      prettyPrint: true
     }),
 
     new CopyWebpackPlugin({
