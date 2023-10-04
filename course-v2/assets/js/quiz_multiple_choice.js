@@ -9,6 +9,13 @@ export const clearSolution = () => {
       ).forEach(solution => {
         solution.classList.remove("toggle-visible")
       })
+      const question = radio.closest(".multiple-choice-question")
+      question
+        .getElementsByClassName("multiple-choice-solution")[0]
+        .classList.remove("toggle-visible")
+      question.getElementsByClassName(
+        "multiple-choice-show-button"
+      )[0].textContent = "Show Solution"
     })
   }
 }
