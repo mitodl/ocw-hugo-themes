@@ -1,3 +1,4 @@
 
 {{- $sitemapDomain := partial "sitemap_domain.html" -}}
-<meta property="og:image" content="https://{{- $sitemapDomain -}}/static_shared/images/ocw_logo_orange.png" />
+{{- $hashedResourcePermalink := partial "hashed_resource.html" "static_shared/images/ocw_logo_orange.png" -}}
+<meta property="og:image" content="https://{{- $sitemapDomain -}}{{$hashedResourcePermalink}}" />

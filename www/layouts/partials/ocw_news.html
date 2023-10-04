@@ -31,7 +31,7 @@
                             {{ if $newsItem.image }}
                             <img src="{{$newsItem.image}}" alt="" />
                             {{ else }}
-                            <img src="/static_shared/images/default_news.png" alt="" />
+                            <img src="{{ partial "hashed_resource.html" "static_shared/images/default_news.png" }}" alt="" />
                             {{ end }}
                             <div class="news-overlay mobile">
                               <div class="featured-news-content">
@@ -60,7 +60,7 @@
                 {{ if $firstItem.image }}
                 <img src="{{$firstItem.image}}" alt="" />
                 {{ else }}
-                <img src="/static_shared/images/default_news.png" alt="" />
+                <img src="{{ partial "hashed_resource.html" "static_shared/images/default_news.png" }}" alt="" />
                 {{ end }}
                 <div class="news-overlay">
                   <div class="featured-news-content">
@@ -79,7 +79,7 @@
                 {{ if $item.image }}
                 <img src="{{$item.image}}" alt="" />
                 {{ else }}
-                <img src="/static_shared/images/default_news.png" alt="" />
+                <img src="{{ partial "hashed_resource.html" "static_shared/images/default_news.png" }}" alt="" />
                 {{ end }}
                 <div class="news-card-content">
                   <div class="news-card-title">

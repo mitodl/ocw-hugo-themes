@@ -19,7 +19,7 @@
     </button>
     <div class="mx-auto">
       <a href="{{ $homeUrl }}">
-        <img width="250" src="/static_shared/images/ocw_logo_white_v2.svg" alt="MIT OpenCourseWare"/>
+        <img width="250" src="{{ partial "hashed_resource.html" "static_shared/images/ocw_logo_white_v2.svg" }}" alt="MIT OpenCourseWare" />
       </a>
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -48,7 +48,7 @@
     <div class="left">
       <div class="ocw-logo mr-6">
         <a href="{{ $homeUrl }}">
-          <img src="/static_shared/images/ocw_logo_white_v2.svg" alt="MIT OpenCourseWare" />
+			    <img src="{{ partial "hashed_resource.html" "static_shared/images/ocw_logo_white_v2.svg" }}" alt="MIT OpenCourseWare" />
         </a>
       </div>
     </div>

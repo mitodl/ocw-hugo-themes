@@ -1,0 +1,4 @@
+{{ $resourcePath := . }}
+{{ $resource := resources.Get $resourcePath }}
+{{ $resourceHash := $resource | resources.Fingerprint "md5" }}
+{{ return $resourceHash.Permalink }}
