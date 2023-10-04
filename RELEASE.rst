@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.100.0
+---------------
+
+- Make quiz state consistent (#1258)
+- Make multiple choice quiz buttons keyboard-interactive (#1253)
+- Easier selection for multiple choice quiz options (#1254)
+
 Version 1.99.2 (Released October 03, 2023)
 --------------
 
