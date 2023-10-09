@@ -3,16 +3,11 @@
  * https://stackoverflow.com/questions/64614572/creating-a-material-icons-subset
  */
 
-import * as fs from "fs"
-import * as path from "path"
-import { promisify } from "util"
-import { exec } from "child_process"
+import * as fs from "node:fs"
+import { readdir, stat, readFile } from "node:fs/promises"
+import * as path from "node:path"
 import { program } from "commander"
-
-const readdirAsync = promisify(fs.readdir)
-const statAsync = promisify(fs.stat)
-const execAsync = promisify(exec)
-const readFileAsync = promisify(fs.readFile)
+import execSh from "exec-sh"
 
 interface Options {
   fontsDir: string
@@ -66,7 +61,7 @@ async function subsetFont(
 
   try {
     // Read the codepoints file and create comma-separated unicode list
-    const codepointsContent = await readFileAsync(codepointsPath, "utf-8")
+    const codepointsContent = await readFile(codepointsPath, "utf-8")
     const codepointsList = codepointsContent
       .split("\n")
       .map(line => line.trim().split(/\s+/)[1]) // Extract the second column (the codepoint)
@@ -90,7 +85,7 @@ async function subsetFont(
     const unicodesArg = `--unicodes=5f-7a,30-39,${codepointsList.join(",")}`
     const command = `fonttools subset ${fontPath} --output-file=${outputPath} --no-layout-closure ${unicodesArg} ${flavorArg}`
 
-    const { stderr } = await execAsync(command)
+    const { stderr } = await execSh.promise(command)
 
     if (stderr) {
       console.error(`Error subsetting ${fontPath}: ${stderr}`)
@@ -109,13 +104,13 @@ async function subsetFont(
  */
 async function main({ fontsDir }: Options) {
   try {
-    const files = await readdirAsync(fontsDir)
+    const files = await readdir(fontsDir)
     console.log(`Processing files: ${files}`)
 
     for (const file of files) {
       const fontPath = path.join(fontsDir, file)
       const codepointsPath = fontPath.replace(/\.\w+$/, ".subset.codepoints")
-      const fontStat = await statAsync(fontPath)
+      const fontStat = await stat(fontPath)
 
       if (
         fontStat.isFile() &&
