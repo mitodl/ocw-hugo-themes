@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.100.0
+Version 1.100.0 (Released October 09, 2023)
 ---------------
 
 - Update OCW Staff Team Listing (#1256)
