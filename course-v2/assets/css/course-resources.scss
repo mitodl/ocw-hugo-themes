@@ -47,8 +47,8 @@ h4 {
     display: inline;
   }
 }
-.resource-type-thumbnail{
-  background-color: #0851BB;
+.resource-type-thumbnail {
+  background-color: #0851bb;
   text-transform: uppercase;
   height: 13.5px;
   color: $white;
@@ -58,14 +58,14 @@ h4 {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
-.resource-type-thumbnail.video{
-  background-color:#494949;
+.resource-type-thumbnail.video {
+  background-color: #494949;
 }
-.resource-type-thumbnail.pdf{
-  background-color: #A31F34;
+.resource-type-thumbnail.pdf {
+  background-color: #a31f34;
 }
-.download-div{
-  background-color: #EDEDED;
+.download-div {
+  background-color: #ededed;
   height: 33.5px;
   display: flex;
   justify-content: center;
@@ -74,17 +74,18 @@ h4 {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-.parent-div{
-  min-width: 40px; 
-  // padding: 12px 10px 5px 10px; 
-  // background-color: #ededed; 
+.parent-div {
+  min-width: 40px;
+  // padding: 12px 10px 5px 10px;
+  // background-color: #ededed;
   // display: flex;
 }
 
 .resource-item:first-child {
   border-top: 1px solid #dee2e6;
 }
-.resource-item.resource-body{
+
+.resource-item.resource-body {
   border: 1px solid #dee2e6;
 }
 .resource-item {
@@ -92,7 +93,7 @@ h4 {
   border-top: none;
   border-radius: 1px;
   padding: 8px 15px;
-  
+
   .resource-list-file-size {
     font-size: 10px;
   }

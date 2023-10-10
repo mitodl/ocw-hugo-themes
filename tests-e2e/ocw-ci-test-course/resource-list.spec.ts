@@ -1,51 +1,31 @@
 import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
 
-test("Resource list shows correct thumbnails and aria labels for different types of files", async ({
-  page
-}) => {
+test("Resource list shows correct resource types", async ({ page }) => {
   const expectedResources = [
     {
-      title:     "file.mp4",
-      thumbnail: {
-        src:       "/static_shared/images/mobile_video_thumbnail.png",
-        ariaLabel: "Video File"
-      }
+      title:        "file.mp4",
+      resourceType: "video"
     },
     {
-      title:     "file.png",
-      thumbnail: {
-        src:       "/static_shared/images/file_thumbnail.png",
-        ariaLabel: "Image File"
-      }
+      title:        "file.png",
+      resourceType: "file"
     },
     {
-      title:     "file.pdf",
-      thumbnail: {
-        src:       "/static_shared/images/pdf_thumbnail.png",
-        ariaLabel: "PDF File"
-      }
+      title:        "file.pdf",
+      resourceType: "pdf"
     },
     {
-      title:     "file.docx",
-      thumbnail: {
-        src:       "/static_shared/images/file_thumbnail.png",
-        ariaLabel: "File"
-      }
+      title:        "file.docx",
+      resourceType: "file"
     },
     {
-      title:     "file.py",
-      thumbnail: {
-        src:       "/static_shared/images/file_thumbnail.png",
-        ariaLabel: "File"
-      }
+      title:        "file.py",
+      resourceType: "file"
     },
     {
-      title:     "file.txt",
-      thumbnail: {
-        src:       "/static_shared/images/file_thumbnail.png",
-        ariaLabel: "File"
-      }
+      title:        "file.txt",
+      resourceType: "file"
     }
   ]
 
@@ -57,12 +37,12 @@ test("Resource list shows correct thumbnails and aria labels for different types
       has: page.getByRole("link", { name: expectedResource.title })
     })
 
-    const thumbnail = await resource.getByRole("img", {
-      name: expectedResource.thumbnail.ariaLabel
-    })
-    const src = await thumbnail.getAttribute("src")
+    const resourceType = await resource.getByText(
+      expectedResource.resourceType,
+      { exact: true }
+    )
 
-    await expect(thumbnail).toBeVisible()
-    expect(src).toBe(expectedResource.thumbnail.src)
+    await expect(resource).toBeVisible()
+    await expect(resourceType).toBeVisible()
   }
 })
