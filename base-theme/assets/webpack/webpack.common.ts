@@ -140,7 +140,16 @@ const config: webpack.Configuration = {
 
     new CopyWebpackPlugin({
       patterns: [
-        { from: "./base-theme/assets/fonts/", to: "fonts/[name][ext]" }
+        {
+          from: "./base-theme/assets/fonts/**/*.{ttf,woff,woff2}",
+          to: "fonts/[name][ext]",
+          globOptions: {
+            ignore: [
+              "./**/MaterialIcons-Regular.{ttf,woff,woff2}",
+              "./**/MaterialIconsRound-Regular.{ttf,woff,woff2}",
+            ]
+          }
+        }
       ]
     }),
 
