@@ -223,3 +223,7 @@ sure that in whatever browser you open with CORS disabled, you are only testing
 your local `ocw-www` site and not visiting other sites. Here is a link that
 shows how to do this in various browsers:
 https://medium.com/swlh/avoiding-cors-errors-on-localhost-in-2020-5a656ed8cefa
+
+### Managing icon fonts
+
+Please refer to [these docs](./base-theme/assets/fonts/material-design-icons/README.md).
