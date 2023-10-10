@@ -1,0 +1,23 @@
+{{- $resourceType := .resourceType -}}
+{{- $fileType := .fileType -}}
+
+{{- $resourceName := "file" -}}
+{{- $ariaLabel := "File" -}}
+
+{{ if and (eq $resourceType "Document") (eq $fileType "application/pdf") }}
+  {{- $resourceName = "pdf" -}}
+  {{- $ariaLabel = "PDF File" -}}
+{{ else if eq $resourceType "Image" }}
+  {{- $resourceName = "file" -}}
+  {{- $ariaLabel = "Image File" -}}
+{{ else if eq $resourceType "Video" }}
+  {{- $resourceName = "video" -}}
+  {{- $ariaLabel = "Video File" -}}
+{{ end }}
+
+{{- $attributes := dict
+  "resourceName" $resourceName
+  "ariaLabel" $ariaLabel
+-}}
+
+{{ return $attributes }}

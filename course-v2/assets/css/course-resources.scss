@@ -47,15 +47,61 @@ h4 {
     display: inline;
   }
 }
+.resource-type-thumbnail{
+  background-color: #0851BB;
+  text-transform: uppercase;
+  height: 13.5px;
+  color: $white;
+  font-size: 9px;
+  display: flex;
+  justify-content: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.resource-type-thumbnail.video{
+  background-color:#494949;
+}
+.resource-type-thumbnail.pdf{
+  background-color: #A31F34;
+}
+.download-div{
+  background-color: #EDEDED;
+  height: 33.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.parent-div{
+  min-width: 40px; 
+  // padding: 12px 10px 5px 10px; 
+  // background-color: #ededed; 
+  // display: flex;
+}
 
-.resource-list-item {
+.resource-item:first-child {
+  border-top: 1px solid #dee2e6;
+}
+.resource-item.resource-body{
+  border: 1px solid #dee2e6;
+}
+.resource-item {
+  border: 1px solid #dee2e6;
+  border-top: none;
+  border-radius: 1px;
+  padding: 8px 15px;
+  
   .resource-list-file-size {
-    font-weight: 700;
+    font-size: 10px;
   }
 
   .resource-thumbnail {
-    height: 38px;
-    width: 32px;
+    // height: 45px;
+    // width: 40px;
+    // min-height: 45px;
+    min-width: 40px;
     margin-top: auto;
     margin-bottom: auto;
   }
@@ -97,12 +143,13 @@ h4 {
 
   .resource-list-item-details {
     padding-top: 2px;
+    padding-left: 10px;
     margin-bottom: auto;
     margin-top: auto;
   }
 
   .download-link {
-    padding-right: 10px;
+    // padding-right: 10px;
     display: flex;
     align-items: center;
   }
@@ -116,13 +163,13 @@ h4 {
     }
 
     .resource-details-container {
-      border: 1px solid #dee2e6;
-      border-radius: 3px;
-      padding: 10px;
+      // border: 1px solid #dee2e6;
+      // border-radius: 3px;
+      // padding: 10px;
 
       .download-button-container {
-        display: flex;
-        justify-content: flex-end;
+        // display: flex;
+        // justify-content: flex-end;
         padding: 0px;
       }
     }

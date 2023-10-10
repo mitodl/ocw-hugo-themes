@@ -23,12 +23,12 @@
   </a>
   </div>
 
-  <div id="resource-list-container-{{ $resourceSlug }}" class="collapse{{ if $expand }} show{{ end }} py-3">
+  <div id="resource-list-container-{{ $resourceSlug }}" class="collapse{{ if $expand }} show{{ end }}">
   {{ partial "resource_list.html" (dict "resources" $resources "limitResources" $numberOfResources) }}
 
   {{ if eq $limitedResourcesShown true }}
-  <div>
-    <div class="float-right">
+  <div class="see-all d-flex">
+    <div class="ml-auto py-2">
     {{ partial "see_all.html" (dict "permalink" .Permalink) }}
     </div>
   </div>

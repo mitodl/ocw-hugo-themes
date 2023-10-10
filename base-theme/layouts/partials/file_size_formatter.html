@@ -1,20 +1,48 @@
 {{ $fileSize := int . }}
+{{/*  Cap at 999 TB  */}}
+{{ if gt $fileSize 1098412116148224 }}{{ $fileSize = 1098412116148224 }}{{ end }}
+{{ $modifiedFileSize := 0}}
 {{ $units := slice "B" "KB" "MB" "GB" "TB" }}
 {{ $unitIndex := 4 }}
+{{ $formattedSize := 0 }}
+{{ $decimalPoints := 0 }}
+{{ $roundFlag := 0 }}
 
 {{ range $i, $unit := $units }}
     {{ if lt $fileSize (pow 1024 (add $i 1)) }}
         {{ $unitIndex = $i }}
+        {{ $modifiedFileSize = div $fileSize (pow 1024 $i) }}
+        {{ if gt $modifiedFileSize 999.5 }}
+            {{ if gt $i 2 }}
+            {{ $modifiedFileSize = float (printf "%.2f" (div $modifiedFileSize 1024)) }}
+            {{ else }}
+            {{ $modifiedFileSize = float (printf "%.0f" (div $modifiedFileSize 1024)) }}
+            {{ end }}
+            {{ $unitIndex = add $unitIndex 1 }}
+            {{ $roundFlag = 1}}
+        {{ end }}
         {{ break }}
     {{ end }}
 {{ end }}
 
-{{ $decimalPoints := 0 }}
-{{ if eq $unitIndex 3 }}{{ $decimalPoints = 1 }}
-{{ else if eq $unitIndex 4 }}{{ $decimalPoints = 2 }}
-{{ end }}
 
-{{ $formatString := printf "%%.%df %%s" $decimalPoints }}
-{{ $formattedSize := printf $formatString (div $fileSize (pow 1024.0 $unitIndex)) (index $units $unitIndex) }}
+
+{{/*  {{ if or (and (or (gt $modifiedFileSize 1) (eq $modifiedFileSize 0)) (eq (mod $modifiedFileSize 1) 0)) (lt $unitIndex 3) }}  */}}
+{{/*  {{ $formattedSize = $modifiedFileSize + (index $units $unitIndex) }}  */}}
+{{/*  {{ $formattedSize = printf "%.2f %s" $modifiedFileSize (index $units $unitIndex) }}  */}}
+{{/*  {{ $formattedSize = (string $modifiedFileSize) ~ " " ~ (index $units $unitIndex) }}  */}}
+{{ if $roundFlag }}
+{{ $formattedSize = printf "%s %s" (string $modifiedFileSize) (index $units $unitIndex) }}
+{{ else }}
+{{ if and (gt $unitIndex 2) (lt $modifiedFileSize 100) }}
+{{ $formattedSize = printf "%.1f %s" $modifiedFileSize (index $units $unitIndex) }}
+{{ else }}
+{{ $formattedSize = printf "%.0f %s" $modifiedFileSize (index $units $unitIndex) }}
+{{ end }}
+{{end}}
+{{/*  {{ else }}  */}}
+    {{/*  {{ $formattedSize = printf "%.2f %s" $modifiedFileSize (index $units $unitIndex) }}  */}}
+{{/*  {{ end }}  */}}
+
 
 {{- return $formattedSize -}}

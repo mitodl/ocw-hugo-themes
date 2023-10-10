@@ -4,7 +4,7 @@
   {{ $hideDownloadIcon := .hideDownloadIcon}}
   {{ range $resourceToRender :=  .resourcesToRender }}
     {{- partial "resource_list_item.html" (dict "params" . "permalink" (index $resources .resourceIndex).Permalink "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) -}}
-    <hr>
+    {{/*  <hr>  */}}
   {{end}}
 {{ end }}
 
@@ -13,7 +13,7 @@
   {{ $hideDownloadIcon := .hideDownloadIcon}}
   {{ range .resources }}
     {{- partial "resource_list_item.html" (dict "params" .Params "permalink" .Permalink "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) -}}
-    <hr>
+    {{/*  <hr>  */}}
   {{end}}
 {{ end }}
 

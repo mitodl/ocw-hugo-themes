@@ -1,38 +1,36 @@
-<div class="resource-list-item">
+<div class="resource-item">
   <div class="row">
     <div class="d-inline-flex">
-      {{ if not .hideThumbnail }}
-        {{ $thumbnailAttrs := partial "get_resource_thumbnail_attributes.html" (dict "resourceType" .params.resourcetype "fileType" .params.file_type) }}
-        <img
-          class="resource-thumbnail"
-          aria-label="{{- $thumbnailAttrs.ariaLabel -}}"
-          src="{{- $thumbnailAttrs.src -}}"
-        />
-      {{ end }}
-
-      {{ if not .hideDownloadIcon }}
-        {{ $downloadableLink := partial "get_resource_download_link.html" .params }}
-          <span class="download-link">
-            {{ if $downloadableLink }}
-              <a href="{{- $downloadableLink -}}" aria-label="Download file" target="_blank" download>
-                <img
-                  class="hide-offline resource-download"
-                  src="/static_shared/images/download.svg"
-                  aria-hidden="true"
-                />
-              </a>
+      <div class="parent-divs resource-thumbnail">
+        {{ $resourceAttrs := partial "get_resource_attributes.html" (dict "resourceType" .params.resourcetype "fileType" .params.file_type) }}
+        <div class="resource-type-thumbnail {{ $resourceAttrs.resourceName }}">
+          <div class="d-flex align-self-center">{{- $resourceAttrs.resourceName -}}</div>
+        </div>  
+        <div class="download-div">
+          {{ if not .hideDownloadIcon }}
+            {{ $downloadableLink := partial "get_resource_download_link.html" .params }}
+              <span class="download-link">
+                {{ if $downloadableLink }}
+                  <a href="{{- $downloadableLink -}}" aria-label="Download file" target="_blank" download>
+                    <img
+                      class="hide-offline resources-download"
+                      src="/static_shared/images/resource-download.svg"
+                      aria-hidden="true"
+                    />
+                  </a>
+                {{ end }}
+              </span>
+              {{ if .params.file_size }}
+              <div class="resource-list-file-size">
+                {{ partial "file_size_formatter.html" .params.file_size }}
+              </div>
             {{ end }}
-          </span>
-      {{ end }}
+          {{ end }}
+        </div>
+      </div>
       <div class="resource-list-item-details">
         {{ partial "resource_list_item_title.html" (dict "permalink" .permalink "title" .params.title) }}
-        {{ if .params.file_size }}
-          <div class="resource-list-file-size">
-            {{ partial "file_size_formatter.html" .params.file_size }}
-          </div>
-        {{ end }}
       </div>
     </div>
-
   </div>
 </div>

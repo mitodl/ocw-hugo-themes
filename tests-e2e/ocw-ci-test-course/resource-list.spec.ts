@@ -53,7 +53,7 @@ test("Resource list shows correct thumbnails and aria labels for different types
   await course.goto("/lists/a-resource-list")
 
   for (const expectedResource of expectedResources) {
-    const resource = await page.locator(".resource-list-item", {
+    const resource = await page.locator(".resource-item", {
       has: page.getByRole("link", { name: expectedResource.title })
     })
 
