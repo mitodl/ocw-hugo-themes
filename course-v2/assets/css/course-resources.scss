@@ -51,13 +51,14 @@ h4 {
 .resource-type-thumbnail {
   background-color: #0851bb;
   text-transform: uppercase;
-  height: 13.5px;
+  height: 11.5px;
   color: $white;
   font-size: 9px;
   display: flex;
   justify-content: center;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  padding-top: 1px;
 }
 .resource-type-thumbnail.video {
   background-color: #494949;
@@ -74,6 +75,7 @@ h4 {
   flex-direction: column;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  border-bottom: 1px solid #cfcfcf;
 }
 .parent-div {
   min-width: 40px;
@@ -81,8 +83,11 @@ h4 {
   // background-color: #ededed;
   // display: flex;
 }
-.resource-item:hover {
+.resource-item.resource-list-page:hover {
   background-color: #fefbf5;
+}
+.resource-item.resource-list-page {
+  transition: background-color 0.05s ease;
 }
 .resource-item:first-child {
   border-top: 1px solid #dee2e6;
@@ -96,7 +101,6 @@ h4 {
   border-top: none;
   border-radius: 1px;
   padding: 8px 15px;
-  transition: background-color 0.05s ease; /* Smooth transition */
 
   .resource-list-file-size {
     font-size: 10px;
