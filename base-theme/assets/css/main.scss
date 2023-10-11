@@ -366,7 +366,7 @@ article.content {
 .download-file {
   display: initial;
   padding: 15px 33px;
-  background-color: #007fff;
+  background-color: $resource-download-btn-color;
   color: white;
   text-decoration: none;
   border-radius: 5px;
@@ -387,7 +387,7 @@ article.content {
 .download-file:hover {
   color: white;
   text-decoration: none;
-  background-color: #a31f34;
+  background-color: $resource-download-btn-hover-color;
 }
 
 .download-button-container {
