@@ -2,7 +2,7 @@
 {{/*  Cap at 999 TB  */}}
 {{ if gt $fileSize 1098412116148224 }}{{ $fileSize = 1098412116148224 }}{{ end }}
 {{ $modifiedFileSize := 0 }}
-{{ $units := slice "B" "KB" "MB" "GB" "TB" }}
+{{ $units := slice "B" "kB" "MB" "GB" "TB" }}
 {{ $unitIndex := 4 }}
 {{ $formattedSize := 0 }}
 {{ $decimalPoints := 0 }}
