@@ -1,6 +1,20 @@
 Release Notes
 =============
 
+Version 1.100.0 (Released October 09, 2023)
+---------------
+
+- Update OCW Staff Team Listing (#1256)
+- Make quiz state consistent (#1258)
+- Make multiple choice quiz buttons keyboard-interactive (#1253)
+- Easier selection for multiple choice quiz options (#1254)
+
+Version 1.99.2 (Released October 03, 2023)
+--------------
+
+- fix mobile layout responsiveness for video resources (#1246)
+- Toggle show solution for multiple-choice quizzes (#1249)
+
 Version 1.99.1 (Released September 26, 2023)
 --------------
 
