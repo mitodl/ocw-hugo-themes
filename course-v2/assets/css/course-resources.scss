@@ -48,52 +48,8 @@ h4 {
   }
 }
 
-.resource-type-thumbnail {
-  background-color: #0851bb;
-  text-transform: uppercase;
-  height: 11.5px;
-  color: $white;
-  font-size: 9px;
-  display: flex;
-  justify-content: center;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  padding-top: 1.5px;
-}
-.resource-type-thumbnail.video {
-  background-color: #494949;
-}
-.resource-type-thumbnail.pdf {
-  background-color: #a31f34;
-}
-.download-div {
-  background-color: #ededed;
-  height: 33.5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-bottom: 1px solid #cfcfcf;
-  padding-bottom: 2px;
-}
-.parent-div {
-  min-width: 40px;
-}
-.resource-item.resource-list-page:hover {
-  background-color: #fefbf5;
-}
-.resource-item.resource-list-page {
-  transition: background-color 0.05s ease;
-}
-.resource-item:first-child {
-  border-top: 1px solid #dee2e6;
-}
 
-.resource-item.resource-body {
-  border: 1px solid #dee2e6;
-}
+
 .resource-item {
   border: 1px solid #dee2e6;
   border-top: none;
@@ -104,12 +60,59 @@ h4 {
     font-size: 10px;
     line-height: 1.2;
   }
-
-  .resource-thumbnail {
+  .resource-thumbnail { 
     min-width: 40px;
     max-width: 40px;
     margin-top: auto;
     margin-bottom: auto;
+
+    .resource-type-thumbnail {
+      background-color: #0851bb;
+      text-transform: uppercase;
+      height: 11.5px;
+      color: $white;
+      font-size: 9px;
+      display: flex;
+      justify-content: center;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      padding-top: 1.5px;
+    }
+    .resource-type-thumbnail.video {
+      background-color: #494949;
+    }
+    .resource-type-thumbnail.pdf {
+      background-color: #a31f34;
+    }
+
+    .download-container {
+      background-color: #ededed;
+      height: 33.5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border-bottom: 1px solid #cfcfcf;
+      padding-bottom: 2px;
+    }
+  }
+
+  .resource-item.resource-list-page:hover {
+    background-color: #fefbf5;
+  }
+
+  .resource-item.resource-list-page {
+    transition: background-color 0.05s ease;
+  }
+
+  .resource-item:first-child {
+    border-top: 1px solid #dee2e6;
+  }
+
+  .resource-item.resource-body {
+    border: 1px solid #dee2e6;
   }
 
   .wrapper {

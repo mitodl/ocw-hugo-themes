@@ -16,12 +16,12 @@
       <div class="row p-0 m-0">
         <div class="resource-details-container col-lg-12 d-flex flex-wrap">
           <div class="wrapper d-flex col-12 col-lg-7 col-md-8 col-sm-7">
-            <div class="parent-divs resource-thumbnail">
+            <div class="resource-thumbnail">
               {{ $resourceCategory := partial "get_resource_category.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
               <div class="resource-type-thumbnail {{ $resourceCategory }}">
                 <div class="d-flex align-self-center">{{- $resourceCategory -}}</div>
               </div>  
-              <div class="download-div{{if not .Params.file_size}} pb-1{{end}}">
+              <div class="download-container{{ if not .Params.file_size }} pb-1{{ end }}">
                   {{ $downloadableLink := partial "get_resource_download_link.html" .Params }}
                     <span class="download-link">
                       {{ if $downloadableLink }}
@@ -46,8 +46,8 @@
             </div>
           </div>
           <div class="download-button-container col-12 col-sm align-self-center d-flex justify-content-end p-0">
-            {{ if .Params.file }}
-              <div class="button-container">
+            {{- if .Params.file -}}
+              <div class="button-wrapper">
                 <a class="download-file" href="{{ partial "resource_url.html" (dict "context" . "url" .Params.file) }}">
                   Download File
                 </a>

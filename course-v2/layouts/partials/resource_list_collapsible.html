@@ -27,7 +27,7 @@
       {{ partial "resource_list.html" (dict "resources" $resources "limitResources" $numberOfResources) }}
 
       {{ if eq $limitedResourcesShown true }}
-        <div class="see-all d-flex">
+        <div class="d-flex">
           <div class="ml-auto py-2">
           {{ partial "see_all.html" (dict "permalink" .Permalink) }}
           </div>

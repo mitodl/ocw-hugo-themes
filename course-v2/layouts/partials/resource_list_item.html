@@ -1,12 +1,12 @@
 <div class="resource-item resource-list-page">
   <div class="row">
     <div class="d-inline-flex">
-      <div class="parent-divs resource-thumbnail">
+      <div class="resource-thumbnail">
         {{ $resourceCategory := partial "get_resource_category.html" (dict "resourceType" .params.resourcetype "fileType" .params.file_type) }}
         <div class="resource-type-thumbnail {{ $resourceCategory }}">
           <div class="d-flex align-self-center">{{- $resourceCategory -}}</div>
         </div>  
-        <div class="download-div{{if not .params.file_size}} pb-1{{end}}">
+        <div class="download-container{{if not .params.file_size}} pb-1{{end}}">
           {{ if not .hideDownloadIcon }}
             {{ $downloadableLink := partial "get_resource_download_link.html" .params }}
             <span class="download-link">
