@@ -20,7 +20,7 @@
     - If integer part is greater than 999
     Round off to next unit upto 2 decimals
     Eg. 1010.1 GB becomes 0.99 TB
-    All this is done because of design constraint (max. 3 digits allowed)
+    This is done because of design constraint (max. 3 digits allowed)
 */}}
 {{ range $i, $unit := $units }}
     {{ if lt $fileSize (pow 1024 (add $i 1)) }}
