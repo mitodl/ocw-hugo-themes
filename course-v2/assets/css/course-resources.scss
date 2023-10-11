@@ -80,9 +80,6 @@ h4 {
 }
 .parent-div {
   min-width: 40px;
-  // padding: 12px 10px 5px 10px;
-  // background-color: #ededed;
-  // display: flex;
 }
 .resource-item.resource-list-page:hover {
   background-color: #fefbf5;
@@ -109,10 +106,8 @@ h4 {
   }
 
   .resource-thumbnail {
-    // height: 45px;
-    // width: 40px;
-    // min-height: 45px;
     min-width: 40px;
+    max-width: 40px;
     margin-top: auto;
     margin-bottom: auto;
   }
@@ -159,12 +154,6 @@ h4 {
     margin-top: auto;
   }
 
-  .download-link {
-    // padding-right: 10px;
-    // display: flex;
-    // align-items: center;
-  }
-
   .row {
     padding-left: 15px;
     padding-right: 15px;
@@ -174,15 +163,7 @@ h4 {
     }
 
     .resource-details-container {
-      // border: 1px solid #dee2e6;
-      // border-radius: 3px;
-      // padding: 10px;
-
-      .download-button-container {
-        // display: flex;
-        // justify-content: flex-end;
-        padding: 0px;
-      }
+      padding: 10px;
     }
   }
 }
