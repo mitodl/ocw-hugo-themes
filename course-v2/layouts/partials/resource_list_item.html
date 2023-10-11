@@ -2,9 +2,9 @@
   <div class="row">
     <div class="d-inline-flex">
       <div class="parent-divs resource-thumbnail">
-        {{ $resourceAttrs := partial "get_resource_attributes.html" (dict "resourceType" .params.resourcetype "fileType" .params.file_type) }}
-        <div class="resource-type-thumbnail {{ $resourceAttrs.resourceName }}">
-          <div class="d-flex align-self-center">{{- $resourceAttrs.resourceName -}}</div>
+        {{ $resourceCategory := partial "get_resource_category.html" (dict "resourceType" .params.resourcetype "fileType" .params.file_type) }}
+        <div class="resource-type-thumbnail {{ $resourceCategory }}">
+          <div class="d-flex align-self-center">{{- $resourceCategory -}}</div>
         </div>  
         <div class="download-div{{if not .params.file_size}} pb-1{{end}}">
           {{ if not .hideDownloadIcon }}

@@ -1,31 +1,31 @@
 import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
 
-test("Resource list shows correct resource types", async ({ page }) => {
+test("Resource list shows correct resource categories", async ({ page }) => {
   const expectedResources = [
     {
-      title:        "file.mp4",
-      resourceType: "video"
+      title:            "file.mp4",
+      resourceCategory: "video"
     },
     {
-      title:        "file.png",
-      resourceType: "file"
+      title:            "file.png",
+      resourceCategory: "file"
     },
     {
-      title:        "file.pdf",
-      resourceType: "pdf"
+      title:            "file.pdf",
+      resourceCategory: "pdf"
     },
     {
-      title:        "file.docx",
-      resourceType: "file"
+      title:            "file.docx",
+      resourceCategory: "file"
     },
     {
-      title:        "file.py",
-      resourceType: "file"
+      title:            "file.py",
+      resourceCategory: "file"
     },
     {
-      title:        "file.txt",
-      resourceType: "file"
+      title:            "file.txt",
+      resourceCategory: "file"
     }
   ]
 
@@ -37,12 +37,12 @@ test("Resource list shows correct resource types", async ({ page }) => {
       has: page.getByRole("link", { name: expectedResource.title })
     })
 
-    const resourceType = await resource.getByText(
-      expectedResource.resourceType,
+    const resourceCategory = await resource.getByText(
+      expectedResource.resourceCategory,
       { exact: true }
     )
 
     await expect(resource).toBeVisible()
-    await expect(resourceType).toBeVisible()
+    await expect(resourceCategory).toBeVisible()
   }
 })

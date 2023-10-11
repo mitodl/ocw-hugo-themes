@@ -17,9 +17,9 @@
         <div class="resource-details-container col-lg-12 d-flex flex-wrap">
           <div class="wrapper d-flex col-12 col-lg-7 col-md-8 col-sm-7">
             <div class="parent-divs resource-thumbnail">
-              {{ $resourceAttrs := partial "get_resource_attributes.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
-              <div class="resource-type-thumbnail {{ $resourceAttrs.resourceName }}">
-                <div class="d-flex align-self-center">{{- $resourceAttrs.resourceName -}}</div>
+              {{ $resourceCategory := partial "get_resource_category.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
+              <div class="resource-type-thumbnail {{ $resourceCategory }}">
+                <div class="d-flex align-self-center">{{- $resourceCategory -}}</div>
               </div>  
               <div class="download-div{{if not .Params.file_size}} pb-1{{end}}">
                   {{ $downloadableLink := partial "get_resource_download_link.html" .Params }}
