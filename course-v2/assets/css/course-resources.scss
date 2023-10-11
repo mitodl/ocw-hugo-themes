@@ -58,7 +58,7 @@ h4 {
   justify-content: center;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  padding-top: 1px;
+  padding-top: 1.5px;
 }
 .resource-type-thumbnail.video {
   background-color: #494949;
@@ -76,6 +76,7 @@ h4 {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   border-bottom: 1px solid #cfcfcf;
+  padding-bottom: 2px;
 }
 .parent-div {
   min-width: 40px;
@@ -104,6 +105,7 @@ h4 {
 
   .resource-list-file-size {
     font-size: 10px;
+    line-height: 1.2;
   }
 
   .resource-thumbnail {
@@ -159,8 +161,8 @@ h4 {
 
   .download-link {
     // padding-right: 10px;
-    display: flex;
-    align-items: center;
+    // display: flex;
+    // align-items: center;
   }
 
   .row {

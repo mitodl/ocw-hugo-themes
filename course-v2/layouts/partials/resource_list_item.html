@@ -4,9 +4,9 @@
       <div class="parent-divs resource-thumbnail">
         {{ $resourceAttrs := partial "get_resource_attributes.html" (dict "resourceType" .params.resourcetype "fileType" .params.file_type) }}
         <div class="resource-type-thumbnail {{ $resourceAttrs.resourceName }}">
-          <div class="d-flex align-self-center" aria-label="{{- $resourceAttrs.ariaLabel -}}">{{- $resourceAttrs.resourceName -}}</div>
+          <div class="d-flex align-self-center">{{- $resourceAttrs.resourceName -}}</div>
         </div>  
-        <div class="download-div">
+        <div class="download-div{{if not .params.file_size}} pb-1{{end}}">
           {{ if not .hideDownloadIcon }}
             {{ $downloadableLink := partial "get_resource_download_link.html" .params }}
             <span class="download-link">

@@ -20,9 +20,9 @@
             <div class="parent-divs resource-thumbnail">
               {{ $resourceAttrs := partial "get_resource_attributes.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
               <div class="resource-type-thumbnail {{ $resourceAttrs.resourceName }}">
-                {{- $resourceAttrs.resourceName -}}
+                <div class="d-flex align-self-center">{{- $resourceAttrs.resourceName -}}</div>
               </div>  
-              <div class="download-div">
+              <div class="download-div{{if not .Params.file_size}} pb-1{{end}}">
                 {{/*  {{ if not .hideDownloadIcon }}  */}}
                   {{ $downloadableLink := partial "get_resource_download_link.html" .Params }}
                     <span class="download-link">
