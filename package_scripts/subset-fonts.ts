@@ -4,10 +4,11 @@
  */
 
 import * as fs from "node:fs"
-import { readdir, stat, readFile } from "node:fs/promises"
 import * as path from "node:path"
-import { program } from "commander"
+import { readdir, stat, readFile } from "node:fs/promises"
+
 import execSh from "exec-sh"
+import { program } from "commander"
 
 interface Options {
   fontsDir: string
@@ -127,9 +128,11 @@ async function main({ fontsDir }: Options) {
 program
   .description(
     `Create font subsets.
-  
+
+This commands scans a directory for \`<font name>\` and \`<font name>.subset.codepoints\` files.
+Then uses these files to generate \`<font name>.subset.<font type>\` subsets.
+
 Supports ttf, woff, and woff2.
-Creates subsets for fonts that have a \`*.subset.codepoints\` defined.
   `
   )
   .option(
