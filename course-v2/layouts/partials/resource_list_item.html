@@ -9,18 +9,18 @@
         <div class="download-div">
           {{ if not .hideDownloadIcon }}
             {{ $downloadableLink := partial "get_resource_download_link.html" .params }}
-              <span class="download-link">
-                {{ if $downloadableLink }}
-                  <a href="{{- $downloadableLink -}}" target="_blank" download>
-                    <img
-                      class="hide-offline resources-download"
-                      src="/static_shared/images/resource-download.svg"
-                      aria-hidden="true"
-                    />
-                  </a>
-                {{ end }}
-              </span>
-              {{ if .params.file_size }}
+            <span class="download-link">
+              {{ if $downloadableLink }}
+                <a href="{{- $downloadableLink -}}" target="_blank" download>
+                  <img
+                    class="hide-offline resources-download"
+                    src="/static_shared/images/resource-download.svg"
+                    aria-hidden="true"
+                  />
+                </a>
+              {{ end }}
+            </span>
+            {{ if .params.file_size }}
               <div class="resource-list-file-size">
                 {{ partial "file_size_formatter.html" .params.file_size }}
               </div>

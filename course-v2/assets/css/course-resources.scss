@@ -47,6 +47,7 @@ h4 {
     display: inline;
   }
 }
+
 .resource-type-thumbnail {
   background-color: #0851bb;
   text-transform: uppercase;
@@ -80,7 +81,9 @@ h4 {
   // background-color: #ededed;
   // display: flex;
 }
-
+.resource-item:hover {
+  background-color: #fefbf5;
+}
 .resource-item:first-child {
   border-top: 1px solid #dee2e6;
 }
@@ -93,6 +96,7 @@ h4 {
   border-top: none;
   border-radius: 1px;
   padding: 8px 15px;
+  transition: background-color 0.05s ease; /* Smooth transition */
 
   .resource-list-file-size {
     font-size: 10px;

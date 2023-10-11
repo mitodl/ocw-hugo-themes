@@ -14,6 +14,7 @@
   {{ range .resources }}
     {{- partial "resource_list_item.html" (dict "params" .Params "permalink" .Permalink "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) -}}
     {{/*  <hr>  */}}
+
   {{end}}
 {{ end }}
 

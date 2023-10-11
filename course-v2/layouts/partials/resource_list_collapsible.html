@@ -1,39 +1,39 @@
 {{ $expand := .expand }}
 {{ with .context}}
-{{ $numberOfResourcesLimit := 10 }}
-<div class="resource-list">
-{{ $resources := where .Pages "Params.content_type" "resource" }}
-{{ $numberOfResources := len $resources }}
-{{ if gt $numberOfResources 0 }}
-  {{ $limitedResourcesShown := false }}
+  {{ $numberOfResourcesLimit := 10 }}
+  <div class="resource-list">
+    {{ $resources := where .Pages "Params.content_type" "resource" }}
+    {{ $numberOfResources := len $resources }}
+    {{ if gt $numberOfResources 0 }}
+      {{ $limitedResourcesShown := false }}
 
-  {{ if gt $numberOfResources $numberOfResourcesLimit }}
-  {{ $numberOfResources = $numberOfResourcesLimit }}
-  {{ $limitedResourcesShown = true }}
-  {{ end }}
-  {{ $resourceSlug := urlize (lower .Title) }}
-  <div class="resource-list-toggle">
-  <a href="#resource-list-container-{{ $resourceSlug }}"
-  class="{{ if not $expand }}collapsed {{ end }}py-3"
-  data-toggle="collapse"
-  aria-controls="resource-list-container-{{ $resourceSlug }}"
-  aria-expanded="{{ if $expand }}true{{ else }}false{{ end }}">
-    <i aria-hidden="true" class="material-icons"></i>
-    <h4 class="my-4">{{ .Title }}</h4>  
-  </a>
-  </div>
-
-  <div id="resource-list-container-{{ $resourceSlug }}" class="collapse{{ if $expand }} show{{ end }}">
-  {{ partial "resource_list.html" (dict "resources" $resources "limitResources" $numberOfResources) }}
-
-  {{ if eq $limitedResourcesShown true }}
-  <div class="see-all d-flex">
-    <div class="ml-auto py-2">
-    {{ partial "see_all.html" (dict "permalink" .Permalink) }}
+      {{ if gt $numberOfResources $numberOfResourcesLimit }}
+        {{ $numberOfResources = $numberOfResourcesLimit }}
+        {{ $limitedResourcesShown = true }}
+      {{ end }}
+    {{ $resourceSlug := urlize (lower .Title) }}
+    <div class="resource-list-toggle">
+      <a href="#resource-list-container-{{ $resourceSlug }}"
+      class="{{ if not $expand }}collapsed {{ end }}py-3"
+      data-toggle="collapse"
+      aria-controls="resource-list-container-{{ $resourceSlug }}"
+      aria-expanded="{{ if $expand }}true{{ else }}false{{ end }}">
+        <i aria-hidden="true" class="material-icons"></i>
+        <h4 class="my-4">{{ .Title }}</h4>  
+      </a>
     </div>
+
+    <div id="resource-list-container-{{ $resourceSlug }}" class="collapse{{ if $expand }} show{{ end }}">
+      {{ partial "resource_list.html" (dict "resources" $resources "limitResources" $numberOfResources) }}
+
+      {{ if eq $limitedResourcesShown true }}
+        <div class="see-all d-flex">
+          <div class="ml-auto py-2">
+          {{ partial "see_all.html" (dict "permalink" .Permalink) }}
+          </div>
+        </div>
+      {{ end }}
+    </div>
+    {{ end }}
   </div>
-  {{ end }}
-  </div>
-{{ end }}
-</div>
 {{ end }}
