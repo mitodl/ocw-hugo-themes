@@ -83,7 +83,7 @@ async function subsetFont(
       break
     }
 
-    const unicodesArg = `--unicodes=5f-7a,30-39,${codepointsList.join(",")}`
+    const unicodesArg = `--unicodes=5f-7a,${codepointsList.join(",")}`
     const command = `fonttools subset ${fontPath} --output-file=${outputPath} --no-layout-closure ${unicodesArg} ${flavorArg}`
 
     const { stderr } = await execSh.promise(command)
