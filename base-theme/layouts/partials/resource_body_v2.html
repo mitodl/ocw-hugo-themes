@@ -1,3 +1,4 @@
+{{ $downloadableLink := partial "get_resource_download_link.html" .Params }}   
 <div class="resource-page-container">
   {{- if ne .Params.resourcetype "Video" }}
     {{- if .Content -}}
@@ -16,22 +17,19 @@
       <div class="row p-0 m-0">
         <div class="resource-details-container col-lg-12 d-flex flex-wrap">
           <div class="wrapper d-flex col-12 col-lg-7 col-md-8 col-sm-7">
-            <div class="resource-thumbnail">
+            <a class="resource-thumbnail"{{ if $downloadableLink }} href="{{- $downloadableLink -}}" target="_blank" aria-label="Download file" download{{ end }}>
               {{ $resourceCategory := partial "get_resource_category.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
               <div class="resource-type-thumbnail {{ $resourceCategory }}">
                 <div class="d-flex align-self-center">{{- $resourceCategory -}}</div>
               </div>  
               <div class="download-container{{ if not .Params.file_size }} pb-1{{ end }}">
-                  {{ $downloadableLink := partial "get_resource_download_link.html" .Params }}
                     <span class="download-link">
                       {{ if $downloadableLink }}
-                        <a href="{{- $downloadableLink -}}" aria-label="Download file" target="_blank" download>
                           <img
                             class="hide-offline resources-download"
                             src="/static_shared/images/resource-download.svg"
                             aria-hidden="true"
                           />
-                        </a>
                       {{ end }}
                     </span>
                     {{ if .Params.file_size }}
@@ -40,15 +38,15 @@
                     </div>
                     {{ end }}
               </div>
-            </div>
+            </a>
             <div class="resource-list-item-details">
               {{.Params.title }}
             </div>
           </div>
           <div class="download-button-container col-12 col-sm align-self-center d-flex justify-content-end p-0">
-            {{- if .Params.file -}}
+            {{- if $downloadableLink -}}
               <div class="button-wrapper">
-                <a class="download-file" href="{{ partial "resource_url.html" (dict "context" . "url" .Params.file) }}">
+                <a class="download-file" href="{{- $downloadableLink -}}">
                   Download File
                 </a>
               </div>

@@ -48,6 +48,35 @@ h4 {
   }
 }
 
+@keyframes bounce {
+  0%,
+  10%,
+  20%,
+  27%,
+  50%,
+  70%,
+  80%,
+  90%,
+  100% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    transform: translateY(-5px);
+  }
+  60% {
+    -webkit-transform: translateY(-1.5px);
+    -ms-transform: translateY(-1.5px);
+    transform: translateY(-1.5px);
+  }
+}
+
+.resource-thumbnail:hover .download-link {
+  animation: bounce 1.5s ease-in-out infinite;
+}
 .resource-item {
   border: 1px solid #dee2e6;
   border-top: none;
@@ -127,10 +156,13 @@ h4 {
   .resource-list-title {
     text-decoration: none;
   }
-
-  .resource-list-title:hover {
-    text-decoration: underline;
+  .resource-thumbnail {
+    text-decoration: none;
   }
+
+  // .resource-list-title:hover {
+  //   text-decoration: underline;
+  // }
 
   .resource-list-item-details {
     padding-top: 2px;
