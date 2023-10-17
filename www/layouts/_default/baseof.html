@@ -18,7 +18,7 @@
     {{ block "extrajs" . }}{{ end }}
     {{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
     <!-- Appzi: Capture Insightful Feedback -->
-    {{ partial "mathjax_if_necessary.html" (dict "context" .) }}
+    {{ partial "mathjax_if_necessary.html" (dict "context" . "webpackData" $webpack) }}
     <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>
 
     <!-- End Appzi -->

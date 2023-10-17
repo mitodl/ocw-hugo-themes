@@ -1,31 +1,4 @@
-{{/*  <h2>{{.Site.Data.webpack}}</h2>  */}}
-<h2>{{.webpackData}}</h2>
-{{/*  <h2>{{.context.data}}</h2>  */}}
-<h2>webpack data</h2>
-
-{{/*  {{ $flag := 0}}
-{{ $targetURL := "/static_shared/mathjax/tex-svg.fba3e88333d2ffcbf047.js" }}
-
-{{ range $entry, $files := .webpackData }}
-    {{ with index $files "js" }}
-        {{ if in . $targetURL }}
-        {{ $flag = 1}}
-        {{ end }}
-    {{ end }}
-{{ end }}  */}}
-
-{{ $flag := 0 }}
-{{ $pattern := "tex-svg\\.[a-zA-Z0-9]+\\.js" }}
-
-{{/*  {{ range $entry, $files := .webpackData }}
-    {{ with index $files "js" }}
-      {{.}} NEXT ITEM
-    {{ end }}
-{{ end }}  */}}
-
-
-<h2>flag is {{$flag}}</h2>
-
+{{ $mathjaxUrl := partial "get_js_file_webpack_url.html" (dict "context" . "webpackData" .webpackData "pattern" "tex-svg\\.[a-zA-Z0-9]+\\.js") }}
 {{ $context := .context }}
 {{ with findRE `\\\(.*?\\\)|\\[.*?\\]` .context.Page.Content 1 }}
 <script>
@@ -47,6 +20,5 @@
       }
     }
 </script>
-<script src="{{ partial "webpack_url.html" (dict "context" $context "url" "/static_shared/mathjax/tex-svg.fba3e88333d2ffcbf047.js") }}" defer></script>
-{{/*  <script src="{{ with findRE "tex-svg\\.[a-zA-Z0-9]+\\.js" (partial "webpack_url.html" (dict "context" $context "url" "/static_shared/mathjax")) }}{{ . }}{{ end }}" defer></script>  */}}
+<script src="{{ partial "webpack_url.html" (dict "context" $context "url" $mathjaxUrl) }}" defer></script>
 {{ end }}

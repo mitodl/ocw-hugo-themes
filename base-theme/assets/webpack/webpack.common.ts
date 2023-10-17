@@ -163,7 +163,12 @@ const config: webpack.Configuration = {
     }),
 
     new CopyWebpackPlugin({
-      patterns: [{ from: "./node_modules/mathjax/es5/", to: "mathjax/[name].[contenthash][ext]" }]
+      patterns: [
+        {
+          from: "./node_modules/mathjax/es5/",
+          to:   "mathjax/[name].[contenthash][ext]"
+        }
+      ]
     }),
 
     new webpack.ProvidePlugin({
