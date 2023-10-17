@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.101.0
+---------------
+
+- feat: add file size in resource list and resource pages (#1225)
+
 Version 1.100.0 (Released October 09, 2023)
 ---------------
 
