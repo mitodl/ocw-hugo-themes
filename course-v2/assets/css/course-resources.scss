@@ -155,16 +155,14 @@ h4 {
 
   .resource-list-title {
     text-decoration: none;
+    word-break: break-all;
   }
   .resource-thumbnail {
     text-decoration: none;
   }
 
-  // .resource-list-title:hover {
-  //   text-decoration: underline;
-  // }
-
   .resource-list-item-details {
+    word-break: break-all;
     padding-top: 2px;
     padding-left: 10px;
     margin-bottom: auto;
