@@ -1,7 +1,6 @@
-<h3>{{.webpackData}}</h3>
 {{ $mathjaxUrl := partial "get_js_file_webpack_url.html" (dict "context" . "webpackData" .webpackData "pattern" "tex-svg\\.[a-zA-Z0-9]+\\.js") }}
+<h3>{{$mathjaxUrl}}</h3>
 {{ $context := .context }}
-{{ with findRE `\\\(.*?\\\)|\\[.*?\\]` .context.Page.Content 1 }}
 <script>
   window.MathJax = {
       TeX: {
@@ -22,4 +21,3 @@
     }
 </script>
 <script src="{{ partial "webpack_url.html" (dict "context" $context "url" $mathjaxUrl) }}" defer></script>
-{{ end }}
