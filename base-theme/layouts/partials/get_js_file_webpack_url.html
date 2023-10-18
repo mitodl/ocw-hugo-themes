@@ -1,16 +1,16 @@
-{{ $matchingString := "" }}
+{{ $jsFileUrl := "" }}
 {{ $pattern := .pattern}}
 
-{{ range $entry, $files := .webpackData }}
+{{ range $files := .webpackData }}
   {{ with index $files "js" }}
     {{ if eq (printf "%T" .) "[]interface {}" }}
-      {{ range $file := .}}
-        {{ with findRE $pattern $file }}
-            {{ $matchingString = $file }}
+      {{ range $jsFile := . }}
+        {{ with findRE $pattern $jsFile }}
+            {{ $jsFileUrl = $jsFile }}
             {{ break }}
         {{ end }}
       {{ end }}
     {{ end }}
   {{ end }}
 {{ end }}
-{{- return $matchingString -}}
+{{- return $jsFileUrl -}}

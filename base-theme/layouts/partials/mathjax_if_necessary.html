@@ -1,3 +1,4 @@
+<h3>{{.webpackData}}</h3>
 {{ $mathjaxUrl := partial "get_js_file_webpack_url.html" (dict "context" . "webpackData" .webpackData "pattern" "tex-svg\\.[a-zA-Z0-9]+\\.js") }}
 {{ $context := .context }}
 {{ with findRE `\\\(.*?\\\)|\\[.*?\\]` .context.Page.Content 1 }}
