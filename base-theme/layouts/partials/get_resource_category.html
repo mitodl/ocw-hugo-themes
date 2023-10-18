@@ -1,0 +1,14 @@
+{{- $resourceType := .resourceType -}}
+{{- $fileType := .fileType -}}
+
+{{- $resourceCategory := "file" -}}
+
+{{ if and (eq $resourceType "Document") (eq $fileType "application/pdf") }}
+  {{- $resourceCategory = "pdf" -}}
+{{ else if eq $resourceType "Image" }}
+  {{- $resourceCategory = "file" -}}
+{{ else if eq $resourceType "Video" }}
+  {{- $resourceCategory = "video" -}}
+{{ end }}
+
+{{ return $resourceCategory }}

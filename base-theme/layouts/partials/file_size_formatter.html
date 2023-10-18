@@ -1,0 +1,52 @@
+{{ $fileSize := int . }}
+{{/*  Cap at 999 TB  */}}
+{{ if gt $fileSize 1098412116148224 }}{{ $fileSize = 1098412116148224 }}{{ end }}
+{{ $modifiedFileSize := 0 }}
+{{ $units := slice "B" "kB" "MB" "GB" "TB" }}
+{{ $unitIndex := 4 }}
+{{ $formattedSize := 0 }}
+{{ $decimalPoints := 0 }}
+{{ $nextUnitRoundFlag := 0 }}
+{{/*  
+    Round off file size for smaller units (B, KB, MB) without displaying fractional part.
+    Eg. 55.7 MB becomes 56 MB
+    For larger units (GB, TB):
+    - If integer part is less than 99
+    Show fractional part upto 1 decimals
+    Eg. 58.1 GB remains 58.1 GB 
+    - If integer part is greater than 99
+    Do not show fractional part (round it off)
+    Eg. 101.4 GB becomes 101 GB
+    - If integer part is greater than 999
+    Round off to next unit upto 2 decimals
+    Eg. 1010.1 GB becomes 0.99 TB
+    This is done because of design constraint (max. 3 digits allowed)
+*/}}
+{{ range $i, $unit := $units }}
+    {{ if lt $fileSize (pow 1024 (add $i 1)) }}
+        {{ $unitIndex = $i }}
+        {{ $modifiedFileSize = div $fileSize (pow 1024 $i) }}
+        {{ if gt $modifiedFileSize 999.5 }}
+            {{ if gt $i 2 }}
+                {{ $modifiedFileSize = float (printf "%.2f" (div $modifiedFileSize 1024)) }}
+            {{ else }}
+                {{ $modifiedFileSize = float (printf "%.0f" (div $modifiedFileSize 1024)) }}
+            {{ end }}
+            {{ $unitIndex = add $unitIndex 1 }}
+            {{ $nextUnitRoundFlag = 1}}
+        {{ end }}
+        {{ break }}
+    {{ end }}
+{{ end }}
+
+{{ if $nextUnitRoundFlag }}
+    {{ $formattedSize = printf "%s %s" (string $modifiedFileSize) (index $units $unitIndex) }}
+{{ else }}
+    {{ if and (gt $unitIndex 2) (lt $modifiedFileSize 100) }}
+        {{ $formattedSize = printf "%.1f %s" $modifiedFileSize (index $units $unitIndex) }}
+    {{ else }}
+        {{ $formattedSize = printf "%.0f %s" $modifiedFileSize (index $units $unitIndex) }}
+    {{ end }}
+{{ end }}
+
+{{- return $formattedSize -}}
