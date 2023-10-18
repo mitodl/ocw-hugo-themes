@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.101.0
+Version 1.101.0 (Released October 18, 2023)
 ---------------
 
 - perf: subset icon fonts (#1257)
