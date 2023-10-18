@@ -145,8 +145,8 @@ const config: webpack.Configuration = {
           to:          "fonts/[name][ext]",
           globOptions: {
             ignore: [
-              "./base-theme/assets/static_shared/fonts/MaterialIcons-Regular.{ttf,woff,woff2}",
-              "./base-theme/assets/static_shared/fonts/MaterialIconsRound-Regular.{ttf,woff,woff2}"
+              "./**/fonts/MaterialIcons-Regular.{ttf,woff,woff2}",
+              "./**/fonts/MaterialIconsRound-Regular.{ttf,woff,woff2}"
             ]
           }
         }
