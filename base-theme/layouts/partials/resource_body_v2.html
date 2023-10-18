@@ -27,7 +27,7 @@
                       {{ if $downloadableLink }}
                           <img
                             class="hide-offline resources-download"
-                            src="/static_shared/images/resource-download.svg"
+                            src="{{ partial "hashed_resource.html" "static_shared/images/resource-download.svg" }}"
                             aria-hidden="true"
                           />
                       {{ end }}
