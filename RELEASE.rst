@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.101.0
+---------------
+
+- perf: subset icon fonts (#1257)
+- fix long single word resource title going out of div (#1264)
+- feat: add file size in resource list and resource pages (#1225)
+
 Version 1.100.0 (Released October 09, 2023)
 ---------------
 
