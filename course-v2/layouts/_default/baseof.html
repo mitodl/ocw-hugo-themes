@@ -57,6 +57,8 @@
     {{ block "footer" . }}{{ partial "footer-v2" . }}{{end}}
   </div>
   {{ partialCached "hide_offline_links.html" . }}
+  {{ partial "external_link_modal" }}
+
   <script>
     // Script for maintaining and toggling course drawer state
     // note: This script is placed here instead of being in the bundle so it runs as soon as the HTML is rendered 

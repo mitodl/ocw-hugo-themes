@@ -1,0 +1,33 @@
+$header-icon-img-size: 1.5rem;
+$header-icon-size: 1.9rem;
+
+.modal {
+  .modal-content {
+    border-radius: 0.5rem;
+  }
+
+  .modal-title {
+    font-size: $font-lg !important;
+    font-weight: 400;
+  }
+
+  .modal-header-icon-img {
+    height: $header-icon-img-size;
+    width: $header-icon-img-size;
+    margin-bottom: 0.2rem;
+  }
+
+  .modal-header-icon {
+    font-size: $header-icon-size;
+    margin-bottom: 0.2rem;
+  }
+
+  .modal-header {
+    border: none;
+    padding-bottom: 0;
+  }
+
+  .modal-footer {
+    border: none;
+  }
+}

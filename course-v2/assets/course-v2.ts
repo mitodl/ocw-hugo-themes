@@ -14,6 +14,7 @@ import {
   showSolution
 } from "./js/quiz_multiple_choice"
 import { initVideoDownloadPopup } from "./js/video_download_popup"
+import { initExternalLinkModal } from "./js/external_link_model"
 
 export interface OCWWindow extends Window {
   initVideoJS: () => void
@@ -30,6 +31,7 @@ $(function() {
   checkAnswer()
   showSolution()
   initCourseDrawersClosingViaSwiping()
+  initExternalLinkModal()
 })
 
 let videoJSLoaded = false

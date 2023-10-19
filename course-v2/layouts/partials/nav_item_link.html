@@ -1,0 +1,19 @@
+{{ $isExternal := strings.HasPrefix .menuItem.Identifier "external" }}
+
+<a 
+  class="text-dark nav-link {{ if $isExternal }}external-link{{ end }}"
+  data-uuid="{{ .menuItem.Identifier }}"
+  href="{{- .url -}}"
+>
+  {{ .menuItem.Name }}
+  {{ if $isExternal }}
+    <img
+      class="ml-2 align-text-top"
+      src="/static_shared/images/external_link.svg"
+      alt=""
+      aria-hidden="true"
+    />
+  {{ end }}
+</a>
+
+
