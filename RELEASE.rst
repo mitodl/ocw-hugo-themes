@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.101.1
+Version 1.101.1 (Released October 19, 2023)
 ---------------
 
 - Update to Node v20.8.1 (#1265)
