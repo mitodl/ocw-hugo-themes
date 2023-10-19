@@ -11,11 +11,11 @@
       onclick="$('#mobile-course-nav-toggle').click();"
       id="close-mobile-course-menu-button"
     >
-      <img
-			  src="{{ partial "hashed_resource.html" "static_shared/images/close_small.svg" }}"
-        alt=""
-        width="12px"
-      />
+    <img
+      src="{{ partial "hashed_resource.html" "static_shared/images/close_small.svg" }}"
+      alt=""
+      width="12px"
+    />
     </button>
   </h3>
   {{ partial "nav.html" (dict "context" . "device" "mobile") }}
