@@ -48,8 +48,6 @@
   {{- $js_urls := slice $webpack.common.js $webpack.course_v2.js -}}
   {{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
   <!-- Appzi: Capture Insightful Feedback -->
-  {{/*  <h4>{{.Site.Data.webpack}}</h4>  */}}
-  {{/*  <h4>{{$js_urls}}</h4>  */}}
   {{ partial "mathjax_if_necessary.html" (dict "context" . "webpackData" $webpack) }}
   <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>
 
