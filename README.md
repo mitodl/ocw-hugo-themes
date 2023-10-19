@@ -226,4 +226,4 @@ https://medium.com/swlh/avoiding-cors-errors-on-localhost-in-2020-5a656ed8cefa
 
 ### Managing icon fonts
 
-Please refer to [these docs](./base-theme/assets/fonts/material-design-icons/README.md).
+Please refer to [these docs](./base-theme/assets/static_shared/fonts/README.md).

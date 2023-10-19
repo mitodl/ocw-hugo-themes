@@ -138,7 +138,7 @@ Supports ttf, woff, and woff2.
   .option(
     "--fonts-dir <path>",
     "Fonts directory.",
-    "base-theme/assets/fonts/material-design-icons"
+    "base-theme/assets/static_shared/fonts"
   )
   .action(main)
 
