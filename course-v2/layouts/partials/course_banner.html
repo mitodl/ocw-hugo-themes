@@ -3,7 +3,7 @@
 <div id="course-banner" class="p-0">
   <div class="max-content-width course-banner-content m-auto py-3">
     {{ $courseData := .Site.Data.course }}
-    <span class="course-number-term-detail">{{ $courseData.primary_course_number }} | {{ $courseData.term }} {{ $courseData.year }} | {{ delimit $courseData.level ", " }}</span>
+    <span class="course-number-term-detail">{{ $courseData.primary_course_number }} | {{ $courseData.term }} {{ $courseData.year }} | {{if $courseData.level }}{{ delimit $courseData.level ", " }}{{ end }}</span>
     <br>
     <h1>
       <a
