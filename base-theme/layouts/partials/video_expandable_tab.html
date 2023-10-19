@@ -20,7 +20,7 @@
     {{ if or ($videoHasTranscript) ($isEmbedVideo) (eq .tabTitle "") }}
       <div class="ml-auto">
         <button class="video-download-icons" aria-label="Show Downloads" aria-expanded="false">
-			    <img
+          <img
             class="video-download-icon"
             src="{{ partial "hashed_resource.html" "static_shared/images/videojs_download.svg" }}"
             aria-hidden="true"
