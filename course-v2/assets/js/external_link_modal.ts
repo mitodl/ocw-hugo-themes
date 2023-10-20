@@ -25,6 +25,7 @@ export function initExternalLinkModal() {
       throw Error("Continue button was not found on the modal.")
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     modal.modal("show")
   })
