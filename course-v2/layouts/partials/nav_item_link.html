@@ -3,7 +3,12 @@
 <a 
   class="text-dark nav-link {{ if $isExternal }}external-link{{ end }}"
   data-uuid="{{ .menuItem.Identifier }}"
-  href="{{- .url -}}"
+  {{ if $isExternal }}
+    href="javascript: void(0)"
+    data-target-url="{{- .url -}}"
+  {{ else }}
+    href="{{- .url -}}"
+  {{ end }}
 >
   {{ .menuItem.Name }}
   {{ if $isExternal }}
