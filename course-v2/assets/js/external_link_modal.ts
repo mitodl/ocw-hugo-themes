@@ -18,12 +18,11 @@ export function initExternalLinkModal() {
 
     // Set the modal's "continue" link to the targetUrl.
     const continueButton = modal.find("a.btn-continue")
-
-    if (continueButton) {
-      continueButton.attr("href", targetUrl)
-    } else {
+    if (!continueButton) {
       throw Error("Continue button was not found on the modal.")
     }
+
+    continueButton.attr("href", targetUrl)
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
