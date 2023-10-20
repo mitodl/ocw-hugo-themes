@@ -37,3 +37,7 @@ leftnav:
   name: Resource List
   url: /lists/a-resource-list
   weight: 80
+- identifier: external--1632447086-1696840247084
+  name: An External Link
+  url: https://www.google.com
+  weight: 90
