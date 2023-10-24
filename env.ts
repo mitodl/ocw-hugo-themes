@@ -8,10 +8,16 @@ import * as dotenv from "dotenv"
 
 import * as color from "ansi-colors"
 
+const LOCAL_OCW_PORT = 3010
+
 const envSchema = {
   /**
    * Defaults!
    */
+  PLAYWRIGHT_BASE_URL: envalid.str({
+    desc:    "The base URL to run playwright tests against",
+    default: `http://localhost:${LOCAL_OCW_PORT}`
+  }),
   WEBPACK_ANALYZE: envalid.bool({
     desc:    "Used in webpack build. If `true`, a dependency analysis of the bundle will be included in the build output.",
     default: false
