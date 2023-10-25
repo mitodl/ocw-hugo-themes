@@ -4,6 +4,7 @@ import CopyWebpackPlugin from "copy-webpack-plugin"
 import { WebpackManifestPlugin } from "webpack-manifest-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
+import Dotenv from "dotenv-webpack"
 import packageJson from "../../../package.json"
 
 /**
@@ -127,8 +128,11 @@ const config: webpack.Configuration = {
     ]
   },
   plugins: [
+    new Dotenv({
+      systemvars: true
+    }),
     new WebpackManifestPlugin({
-      fileName: path.resolve(__dirname, "../../../base-theme/data/webpack.json")
+      fileName: path.join(process.cwd(), "base-theme", "data/webpack.json")
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -157,7 +161,6 @@ const config: webpack.Configuration = {
     new CopyWebpackPlugin({
       patterns: [{ from: "./node_modules/mathjax/es5/", to: "mathjax/" }]
     }),
-
     new webpack.ProvidePlugin({
       $:               "jquery",
       jQuery:          "jquery",
