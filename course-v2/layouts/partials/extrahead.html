@@ -1,9 +1,9 @@
 {{- define "title" -}}{{ partial "title.html" . }}{{- end -}}
 {{- define "extrahead" -}}
-{{- $css_urls := slice (index .Site.Data.webpack "course_v2.css") }}
+{{- $css_urls := slice (partial "get_asset_webpack_url.html" "course_v2.css") -}}
 {{- $layout := .Params.layout -}}
 {{- if eq $layout "instructor_insights" -}}
-    {{- $css_urls = $css_urls | append (index .Site.Data.webpack "instructor_insights.css") -}}
+    {{- $css_urls = $css_urls | append (partial "get_asset_webpack_url.html" "instructor_insights.css") -}}
 {{- end -}}
 {{ partial "include_css.html" (dict "context" . "urls" $css_urls) }}
 {{- end -}}

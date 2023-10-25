@@ -1,5 +1,5 @@
 {{ define "title" }}{{ partial "title.html" . }}{{ end }}
 {{ define "extrahead" }}
-{{ $css_urls := slice (index .Site.Data.webpack "www_offline.css") }}
+{{ $css_urls := slice (partial "get_asset_webpack_url.html" "www_offline.css") }}
 {{ partial "include_css.html" (dict "context" . "urls" $css_urls ) }}
 {{ end }}
