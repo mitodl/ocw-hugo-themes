@@ -1,9 +1,9 @@
 import * as path from "path"
 import * as webpack from "webpack"
 import CopyWebpackPlugin from "copy-webpack-plugin"
-import { WebpackManifestPlugin } from "webpack-manifest-plugin"
+import WebpackManifestPlugin from "webpack-manifest-plugin"
+import BundleAnalyzerPlugin from "webpack-bundle-analyzer"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
-import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import Dotenv from "dotenv-webpack"
 import packageJson from "../../../package.json"
 

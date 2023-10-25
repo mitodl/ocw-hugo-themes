@@ -12971,7 +12971,7 @@ __metadata:
     videojs-youtube: ^2.6.1
     walk: ^2.3.14
     webpack: ^5.73.0
-    webpack-bundle-analyzer: ^4.9.1
+    webpack-bundle-analyzer: ^4.6.1
     webpack-cli: ^4.10.0
     webpack-dev-server: ^4.11.1
     webpack-manifest-plugin: ^4.1.1
@@ -18611,7 +18611,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-bundle-analyzer@npm:^4.9.1":
+"webpack-bundle-analyzer@npm:^4.6.1":
   version: 4.9.1
   resolution: "webpack-bundle-analyzer@npm:4.9.1"
   dependencies:
