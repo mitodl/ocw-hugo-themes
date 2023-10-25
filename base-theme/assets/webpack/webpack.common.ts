@@ -127,7 +127,7 @@ const config: webpack.Configuration = {
       }
     ]
   },
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore
   plugins: [
     new Dotenv({
@@ -140,7 +140,7 @@ const config: webpack.Configuration = {
       patterns: [
         {
           from:        "./base-theme/assets/fonts/**/*.{ttf,woff,woff2}",
-          to:          "fonts/[name][ext]",
+          to:          "fonts/[name].[contenthash][ext]",
           globOptions: {
             ignore: [
               "./**/MaterialIcons-Regular.{ttf,woff,woff2}",
@@ -161,7 +161,12 @@ const config: webpack.Configuration = {
     }),
 
     new CopyWebpackPlugin({
-      patterns: [{ from: "./node_modules/mathjax/es5/", to: "mathjax/[name].[contenthash][ext]" }]
+      patterns: [
+        {
+          from: "./node_modules/mathjax/es5/",
+          to:   "mathjax/[name].[contenthash][ext]"
+        }
+      ]
     }),
     new webpack.ProvidePlugin({
       $:               "jquery",
