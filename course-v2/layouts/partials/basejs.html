@@ -1,5 +1,4 @@
 {{- define "basejs" -}}
-{{- $webpack := .Site.Data.webpack -}}
 {{- $js_urls := slice (partial "get_asset_webpack_url.html" "common.js") (partial "get_asset_webpack_url.html" "course_v2.js") -}}
 {{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
 {{- $mathjax_url := slice (partial "get_asset_webpack_url.html" "mathjax/tex-svg.js") -}}

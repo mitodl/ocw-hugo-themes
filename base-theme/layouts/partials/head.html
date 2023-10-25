@@ -19,7 +19,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   {{ block "seo" . }}{{ end }}
   <title>{{ block "title" . }}{{ end }}</title>
-  {{ $webpack := .Site.Data.webpack }}
   {{ $css_urls := slice (partial "get_asset_webpack_url.html" "common.css") }}
   {{ partial "include_css.html" (dict "context" . "urls" $css_urls) }}
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">

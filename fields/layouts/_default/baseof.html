@@ -13,7 +13,6 @@
       {{ block "notification" . }}{{ partial "notification" . }}{{ end }}
       {{ block "main" . }}{{ end }}
     </div>
-    {{- $webpack := .Site.Data.webpack -}}
     {{- $js_urls := slice (partial "get_asset_webpack_url.html" "common.js") -}}
     {{ block "extrajs" . }}{{ end }}
     {{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}

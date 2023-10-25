@@ -1,5 +1,4 @@
 {{- define "extrajs" -}}
-{{- $webpack := .Site.Data.webpack -}}
 {{- $js_urls := slice (index $webpack "www.js") -}}
 {{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
 {{- end -}}
