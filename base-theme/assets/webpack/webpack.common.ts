@@ -1,6 +1,8 @@
 import * as path from "path"
 import * as webpack from "webpack"
 import CopyWebpackPlugin from "copy-webpack-plugin"
+// import WebpackManifestPlugin from "webpack-manifest-plugin"
+import { WebpackManifestPlugin } from "webpack-manifest-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import AssetsPlugin from "assets-webpack-plugin"
 import Dotenv from "dotenv-webpack"
@@ -127,17 +129,10 @@ const config: webpack.Configuration = {
       }
     ]
   },
-
   plugins: [
-    new Dotenv({
-      systemvars: true
+    new WebpackManifestPlugin({
+      fileName: path.resolve(__dirname, "../../../base-theme/data/webpack.json")
     }),
-    new AssetsPlugin({
-      filename:    "webpack.json",
-      path:        path.join(process.cwd(), "base-theme", "data"),
-      prettyPrint: true
-    }),
-
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -152,7 +147,11 @@ const config: webpack.Configuration = {
         }
       ]
     }),
-
+    // new WebpackManifestPlugin({
+    //   fileName: 'webpack.json',
+    //   publicPath:        path.join(process.cwd(), "base-theme", "data"),
+    //   writeToFileEmit: true,
+    // }),
     new CopyWebpackPlugin({
       patterns: [
         { from: "./base-theme/assets/images/", to: "images/[name][ext]" }

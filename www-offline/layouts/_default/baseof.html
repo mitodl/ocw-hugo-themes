@@ -8,7 +8,7 @@
       {{ block "main" . }}{{ end }}
     </div>
     {{- $webpack := .Site.Data.webpack -}}
-    {{- $js_urls := slice $webpack.common.js -}}
+    {{- $js_urls := slice (index $webpack "common.js") -}}
     {{ block "extrajs" . }}{{ end }}
     {{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
   </body>
