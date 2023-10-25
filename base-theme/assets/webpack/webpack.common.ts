@@ -127,6 +127,7 @@ const config: webpack.Configuration = {
       }
     ]
   },
+  //@ts-ignore
   plugins: [
     new Dotenv({
       systemvars: true
