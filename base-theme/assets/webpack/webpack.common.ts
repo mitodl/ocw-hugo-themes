@@ -1,7 +1,6 @@
 import * as path from "path"
 import * as webpack from "webpack"
 import CopyWebpackPlugin from "copy-webpack-plugin"
-// import WebpackManifestPlugin from "webpack-manifest-plugin"
 import { WebpackManifestPlugin } from "webpack-manifest-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
@@ -145,14 +144,13 @@ const config: webpack.Configuration = {
         }
       ]
     }),
-    // new WebpackManifestPlugin({
-    //   fileName: 'webpack.json',
-    //   publicPath:        path.join(process.cwd(), "base-theme", "data"),
-    //   writeToFileEmit: true,
-    // }),
+
     new CopyWebpackPlugin({
       patterns: [
-        { from: "./base-theme/assets/images/", to: "images/[name][ext]" }
+        {
+          from: "./base-theme/assets/images/",
+          to:   "images/[name].[contenthash][ext]"
+        }
       ]
     }),
 

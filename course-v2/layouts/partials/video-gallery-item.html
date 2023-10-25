@@ -5,7 +5,7 @@
         {{- if isset .Params.video_files "video_thumbnail_file" -}}
         <img class="thumbnail" src="{{ .Params.video_files.video_thumbnail_file }}" alt="" />
         {{- else -}}
-        <img class="youtube-logo-overlay" src="/static_shared/images/youtube.svg" alt="YouTube" />
+        <img class="youtube-logo-overlay" src="{{- index .Site.Data.webpack "images/youtube.svg" -}}" alt="YouTube" />
         {{- end -}}
       </div>
       <div class="right-col">
