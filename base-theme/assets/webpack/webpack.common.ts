@@ -4,8 +4,6 @@ import CopyWebpackPlugin from "copy-webpack-plugin"
 // import WebpackManifestPlugin from "webpack-manifest-plugin"
 import { WebpackManifestPlugin } from "webpack-manifest-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
-import AssetsPlugin from "assets-webpack-plugin"
-import Dotenv from "dotenv-webpack"
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import packageJson from "../../../package.json"
 
