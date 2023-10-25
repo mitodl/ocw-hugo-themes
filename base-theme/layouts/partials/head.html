@@ -20,7 +20,7 @@
   {{ block "seo" . }}{{ end }}
   <title>{{ block "title" . }}{{ end }}</title>
   {{ $webpack := .Site.Data.webpack }}
-  {{ $css_urls := slice (index $webpack "common.css") }}
+  {{ $css_urls := slice (partial "get_asset_webpack_url.html" "common.css") }}
   {{ partial "include_css.html" (dict "context" . "urls" $css_urls) }}
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
   <style>
@@ -30,16 +30,16 @@
     font-weight: 400;
     src: local('Material Icons'),
       local('MaterialIcons-Regular'),
-      url({{ partial "webpack_url.html" (dict "context" . "url" (index $webpack "fonts/MaterialIcons-Regular.subset.woff2")) }}) format('woff2'),
-      url({{ partial "webpack_url.html" (dict "context" . "url" (index $webpack "fonts/MaterialIcons-Regular.subset.woff")) }}) format('woff'),
-      url({{ partial "webpack_url.html" (dict "context" . "url" (index $webpack "fonts/MaterialIcons-Regular.subset.ttf")) }}) format('truetype');
+      url({{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "fonts/MaterialIcons-Regular.subset.woff2")) }}) format('woff2'),
+      url({{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "fonts/MaterialIcons-Regular.subset.woff")) }}) format('woff'),
+      url({{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "fonts/MaterialIcons-Regular.subset.ttf")) }}) format('truetype');
   }
   @font-face {
     font-family: 'Material Icons Round';
     font-style: normal;
     font-weight: 400;
     src: local("MaterialIcons-Round"),
-    url({{ partial "webpack_url.html" (dict "context" . "url" (index $webpack "fonts/MaterialIconsRound-Regular.subset.woff2")) }}) format('woff2');
+    url({{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "fonts/MaterialIconsRound-Regular.subset.woff2")) }}) format('woff2');
   }
   @font-face {
     font-family: 'Cardo Bold';
@@ -47,7 +47,7 @@
     font-weight: bold;
     src: local('Cardo'),
       local('Cardo-Bold'),
-      url({{ partial "webpack_url.html" (dict "context" . "url" (index $webpack "fonts/Cardo-Bold.ttf")) }}) format('truetype');
+      url({{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "fonts/Cardo-Bold.ttf")) }}) format('truetype');
   }
   @font-face {
     font-family: 'Cardo Italic';
@@ -55,7 +55,7 @@
     font-weight: 400;
     src: local('Cardo'),
       local('Cardo-Italic'),
-      url({{ partial "webpack_url.html" (dict "context" . "url" (index $webpack "fonts/Cardo-Italic.ttf")) }}) format('truetype');
+      url({{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "fonts/Cardo-Italic.ttf")) }}) format('truetype');
   }
   @font-face {
     font-family: 'Helvetica Light';
@@ -63,7 +63,7 @@
     font-weight: 400;
     src: local('Helvetica Light'),
       local('Helvetica-Light'),
-      url({{ partial "webpack_url.html" (dict "context" . "url" (index $webpack "fonts/Helvetica-Light.ttf")) }}) format('truetype');
+      url({{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "fonts/Helvetica-Light.ttf")) }}) format('truetype');
   }
   </style>
 </head>
