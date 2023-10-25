@@ -19,5 +19,5 @@
       }
     }
 </script>
-<script src="{{ partial "webpack_url.html" (dict "context" $context "url" "/static_shared/mathjax/tex-svg.js") }}" defer></script>
+<script src="{{ partial "webpack_url.html" (dict "context" $context "url" .url) }}" defer></script>
 {{ end }}

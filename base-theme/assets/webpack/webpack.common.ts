@@ -127,6 +127,7 @@ const config: webpack.Configuration = {
       }
     ]
   },
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore
   plugins: [
     new Dotenv({
@@ -160,7 +161,7 @@ const config: webpack.Configuration = {
     }),
 
     new CopyWebpackPlugin({
-      patterns: [{ from: "./node_modules/mathjax/es5/", to: "mathjax/" }]
+      patterns: [{ from: "./node_modules/mathjax/es5/", to: "mathjax/[name].[contenthash][ext]" }]
     }),
     new webpack.ProvidePlugin({
       $:               "jquery",
