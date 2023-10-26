@@ -127,8 +127,6 @@ const config: webpack.Configuration = {
       }
     ]
   },
-  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore
   plugins: [
     new Dotenv({
       systemvars: true
