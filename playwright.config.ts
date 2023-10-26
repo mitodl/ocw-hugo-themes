@@ -1,3 +1,4 @@
+import { env } from "./env"
 import { PlaywrightTestConfig } from "@playwright/test"
 import { devices } from "@playwright/test"
 import * as path from "path"
@@ -33,8 +34,11 @@ const config: PlaywrightTestConfig = {
       name: "Google Chrome",
       use:  { ...devices["Desktop Chrome"], channel: "chrome" }
     }
-  ],
-  globalSetup: path.resolve(__dirname, "./tests-e2e/global-setup.ts")
+  ]
 }
+
+config.globalSetup = env.PLAYWRIGHT_BASE_URL ?
+  "" :
+  path.resolve(__dirname, "./tests-e2e/global-setup.ts")
 
 export default config
