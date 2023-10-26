@@ -1,4 +1,5 @@
 {{ $context := .context }}
+{{ $mathjax_url := partial "get_asset_webpack_url.html" "mathjax/tex-svg.js" }}
 {{ with findRE `\\\(.*?\\\)|\\[.*?\\]` .context.Page.Content 1 }}
 <script>
   window.MathJax = {
@@ -19,5 +20,5 @@
       }
     }
 </script>
-<script src="{{ partial "webpack_url.html" (dict "context" $context "url" .url) }}" defer></script>
+<script src="{{ partial "webpack_url.html" (dict "context" $context "url" $mathjax_url) }}" defer></script>
 {{ end }}

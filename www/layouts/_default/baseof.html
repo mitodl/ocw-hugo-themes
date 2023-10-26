@@ -17,8 +17,7 @@
     {{ block "extrajs" . }}{{ end }}
     {{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
     <!-- Appzi: Capture Insightful Feedback -->
-    {{- $mathjax_url := slice (partial "get_asset_webpack_url.html" "mathjax/tex-svg.js") -}}
-    {{ partial "mathjax_if_necessary.html" (dict "context" . "url" $mathjax_url) }}
+    {{ partial "mathjax_if_necessary.html" (dict "context" .) }}
     <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>
 
     <!-- End Appzi -->
