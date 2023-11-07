@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.101.2
+---------------
+
+- Update 404 page to match deployed version (#1275)
+
 Version 1.101.1 (Released October 19, 2023)
 ---------------
 
