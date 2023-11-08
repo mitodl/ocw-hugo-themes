@@ -1,7 +1,7 @@
 {{ define "title" }}{{ partial "title.html" . }}{{ end }}
 {{ define "extrahead" }}
 {{ $webpack := .Site.Data.webpack }}
-{{ $css_urls := slice $webpack.www.css $webpack.fields.css }}
+{{ $css_urls := slice (partial "get_asset_webpack_url.html" "www.css") (partial "get_asset_webpack_url.html" "fields.css") }}
 {{ partial "include_css.html" (dict "context" . "urls" $css_urls) }}
 <link
 href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css"

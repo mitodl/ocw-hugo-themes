@@ -13,7 +13,7 @@
               {{ if $downloadableLink }}
                   <img
                     class="hide-offline resources-download"
-                    src="/static_shared/images/resource-download.svg"
+                    src="{{ partial "get_asset_webpack_url.html" "images/resource-download.svg" }}"
                     aria-hidden="true"
                   />
               {{ end }}
