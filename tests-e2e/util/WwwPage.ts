@@ -35,7 +35,7 @@ class WwwPage {
     const cardXPath = `div[${xPath.predicates.hasClass("course-card")}]`
     const courseCard = this.page
       .getByRole("link", { name: title })
-      .locator(closest(cardXPath))
+      .locator(`${closest(cardXPath)} >> visible=true`)
 
     await courseCard.count().then(count => {
       if (count !== expectedCount) {
