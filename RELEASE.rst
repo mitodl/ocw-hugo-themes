@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.102.0
+Version 1.102.0 (Released November 13, 2023)
 ---------------
 
 - Hash static assets using Webpack (#1272)
