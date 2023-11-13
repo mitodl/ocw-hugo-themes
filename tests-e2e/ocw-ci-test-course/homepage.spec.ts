@@ -79,7 +79,7 @@ test("Has expected meta tags in <head>", async ({ page }) => {
   await expect(metaTwitterSite).toHaveAttribute("content", "@mitocw")
   await expect(metaTwitterImage).toHaveAttribute(
     "content",
-    `${sitemapDomain}/courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg`
+    `https://${sitemapDomain}/courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg`
   )
   await expect(metaTwitterCard).toHaveAttribute(
     "content",
