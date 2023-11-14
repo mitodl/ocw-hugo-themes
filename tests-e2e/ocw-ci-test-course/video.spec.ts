@@ -42,7 +42,7 @@ test("Transcripts start time matches video start time", async ({ page }) => {
   const videoSection = new VideoElement(page)
   const expectedStartTime = "13"
 
-  await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
+  await course.goto("resources/ocw_test_course_mit8_01f16_l01v03_360p")
   const src = await videoSection.iframe().getAttribute("src")
 
   const urlParams = new URLSearchParams(src || "")
