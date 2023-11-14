@@ -37,8 +37,6 @@ const config: PlaywrightTestConfig = {
   ]
 }
 
-config.globalSetup = env.PLAYWRIGHT_BASE_URL ?
-  "" :
-  path.resolve(__dirname, "./tests-e2e/global-setup.ts")
+config.globalSetup = path.resolve(__dirname, "./tests-e2e/global-setup.ts")
 
 export default config

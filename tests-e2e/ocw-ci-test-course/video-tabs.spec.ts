@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
 import { VideoElement } from "../util/VideoElement"
 
-const playwrightBaseUrl = env.PLAYWRIGHT_BASE_URL ? env.PLAYWRIGHT_BASE_URL : "https://live-qa.ocw.mit.edu"
+const playwrightBaseUrl = env.PLAYWRIGHT_BASE_URL
 
 test("that the Download Button works for multiple embed videos in a page", async ({
   page
