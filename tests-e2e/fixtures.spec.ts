@@ -1,6 +1,9 @@
-import { env } from "../env"
+import { env, localPort } from "../env"
 import * as path from "node:path"
-import { promises as fs } from "node:fs"
+import { promises as fsPromises } from "node:fs"
+import fs from "fs"
+import http from "http"
+import https from "https"
 import { test, expect } from "@playwright/test"
 import recursiveReaddir from "recursive-readdir"
 
@@ -31,11 +34,31 @@ test("The fixtures are what Hugo would produce.", async () => {
       if (SKIP_DIRS.some(dir => relative.startsWith(dir))) {
         return { fixture: null, built: null }
       }
-      const fixtureText = await fs.readFile(filepath, "utf-8")
-      const builtText = await fs.readFile(
-        path.join(builtDir, relative),
-        "utf-8"
-      )
+      const fixtureText = await fsPromises.readFile(filepath, "utf-8")
+      let builtText = ""
+      if (env.PLAYWRIGHT_BASE_URL === `http://localhost:${localPort}`) {
+        builtText = await fsPromises.readFile(
+          path.join(builtDir, relative),
+          "utf-8"
+        )
+      } else {
+        const httpLibrary = env.PLAYWRIGHT_BASE_URL.includes("http://") ?
+          http :
+          https
+        const url = new URL(relative, env.PLAYWRIGHT_BASE_URL)
+        httpLibrary.get(url, res => {
+          const downloadPath = path.join(builtDir, relative)
+          const filePath = fs.createWriteStream(downloadPath)
+          res.pipe(filePath)
+          filePath.on("finish", async () => {
+            filePath.close()
+            builtText = await fsPromises.readFile(
+              path.join(builtDir, relative),
+              "utf-8"
+            )
+          })
+        })
+      }
       try {
         const fixtureJSON = JSON.parse(fixtureText)
         // The course image will be run through the resource_url.html partial
