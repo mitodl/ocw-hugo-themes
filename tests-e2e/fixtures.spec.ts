@@ -1,3 +1,4 @@
+import { env } from "../env"
 import * as path from "node:path"
 import { promises as fs } from "node:fs"
 import { test, expect } from "@playwright/test"
@@ -36,8 +37,17 @@ test("The fixtures are what Hugo would produce.", async () => {
         "utf-8"
       )
       try {
+        const fixtureJSON = JSON.parse(fixtureText)
+        // The course image will be run through the resource_url.html partial
+        // This results in the image path being prefixed with RESOURCE_BASE_URL
+        if (fixtureJSON.hasOwnProperty("image_src")) {
+          fixtureJSON["image_src"] = new URL(
+            fixtureJSON["image_src"],
+            env.RESOURCE_BASE_URL
+          ).href
+        }
         return {
-          fixture: JSON.parse(fixtureText),
+          fixture: fixtureJSON,
           built:   JSON.parse(builtText)
         }
       } catch (err) {
