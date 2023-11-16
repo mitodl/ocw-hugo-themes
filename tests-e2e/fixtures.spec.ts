@@ -52,14 +52,11 @@ test("The fixtures are what Hugo would produce.", async () => {
         console.log(url)
         httpLibrary.get(url, res => {
           const downloadPath = path.join(builtDir, relative)
-          const filePath = fs.createWriteStream(downloadPath)
-          res.pipe(filePath)
-          filePath.on("finish", async () => {
-            filePath.close()
-            builtText = await fsPromises.readFile(
-              path.join(builtDir, relative),
-              "utf-8"
-            )
+          const downloadedFilePath = fs.createWriteStream(downloadPath)
+          res.pipe(downloadedFilePath)
+          downloadedFilePath.on("finish", async () => {
+            downloadedFilePath.close()
+            builtText = await fsPromises.readFile(downloadPath, "utf-8")
           })
         })
       }
