@@ -45,7 +45,10 @@ test("The fixtures are what Hugo would produce.", async () => {
         const httpLibrary = env.PLAYWRIGHT_BASE_URL.includes("http://") ?
           http :
           https
-        const url = new URL(relative, env.PLAYWRIGHT_BASE_URL)
+        const url = new URL(
+          relative.replace("ocw-ci-test-www/", ""),
+          env.PLAYWRIGHT_BASE_URL
+        ).href
         console.log(url)
         httpLibrary.get(url, res => {
           const downloadPath = path.join(builtDir, relative)
