@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
 import { VideoElement } from "../util/VideoElement"
 
-const playwrightBaseUrl = env.PLAYWRIGHT_BASE_URL
+const resourceBaseUrl = env.RESOURCE_BASE_URL
 
 test("that the Download Button works for multiple embed videos in a page", async ({
   page
@@ -18,11 +18,11 @@ test("that the Download Button works for multiple embed videos in a page", async
     await videoElement.downloadButton().click()
     expect(videoElement.downloadVideo()).toHaveAttribute(
       "href",
-      `${playwrightBaseUrl}/courses/123-ocw-ci-test-course-fall-2022/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4`
+      new URL("/courses/123-ocw-ci-test-course-fall-2022/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4", resourceBaseUrl).href
     )
     expect(videoElement.downloadTranscript()).toHaveAttribute(
       "href",
-      `${playwrightBaseUrl}/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf`
+      new URL("/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf", resourceBaseUrl).href
     )
     await videoElement.downloadButton().click()
   }
@@ -33,8 +33,8 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
   const coursePage = new CoursePage(page, "course")
   await coursePage.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
   const downloadLinks = [
-    `${playwrightBaseUrl}/courses/123-ocw-ci-test-course-fall-2022/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4`,
-    `${playwrightBaseUrl}/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf`
+    new URL("/courses/123-ocw-ci-test-course-fall-2022/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4", resourceBaseUrl).href,
+    new URL("/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf", resourceBaseUrl).href
   ]
   const downloadButton = page.getByRole("button", {
     name: `Show Downloads`
