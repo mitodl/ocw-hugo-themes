@@ -1,4 +1,3 @@
-import { env } from "./env"
 import { PlaywrightTestConfig } from "@playwright/test"
 import { devices } from "@playwright/test"
 import * as path from "path"
