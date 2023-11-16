@@ -51,10 +51,7 @@ test("The fixtures are what Hugo would produce.", async () => {
       }
       const fixtureText = await fs.readFile(filepath, "utf-8")
       let builtText = ""
-      builtText = await fs.readFile(
-        path.join(builtDir, relative),
-        "utf-8"
-      )
+      builtText = await fs.readFile(path.join(builtDir, relative), "utf-8")
       try {
         const fixtureJSON = JSON.parse(fixtureText)
         // The course image will be run through the resource_url.html partial
