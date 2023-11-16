@@ -1,9 +1,7 @@
 import { env, localPort } from "../env"
 import * as path from "node:path"
 import { promises as fsPromises } from "node:fs"
-import fs from "fs"
-import http from "http"
-import https from "https"
+import { DownloaderHelper } from "node-downloader-helper"
 import { test, expect } from "@playwright/test"
 import recursiveReaddir from "recursive-readdir"
 
@@ -28,6 +26,23 @@ test("The fixtures are what Hugo would produce.", async () => {
     path.resolve(__dirname, "../test-sites/__fixtures__")
   )
   const jsonpaths = filepaths.filter(filepath => filepath.endsWith(".json"))
+  if (env.PLAYWRIGHT_BASE_URL !== `http://localhost:${localPort}`) {
+    await Promise.all(
+      jsonpaths.map(filepath => {
+        const relative = path.relative(fixtureDir, filepath)
+        const url = new URL(
+          relative.replace("ocw-ci-test-www/", ""),
+          env.PLAYWRIGHT_BASE_URL
+        ).href
+        const downloadPath = path.join(builtDir, relative)
+        const downloader = new DownloaderHelper(url, downloadPath)
+        downloader.on("end", () => {
+          return fsPromises.readFile(downloadPath, "utf-8")
+        })
+        downloader.start()
+      })
+    )
+  }
   const comparisons = await Promise.all(
     jsonpaths.map(async filepath => {
       const relative = path.relative(fixtureDir, filepath)
@@ -36,30 +51,10 @@ test("The fixtures are what Hugo would produce.", async () => {
       }
       const fixtureText = await fsPromises.readFile(filepath, "utf-8")
       let builtText = ""
-      if (env.PLAYWRIGHT_BASE_URL === `http://localhost:${localPort}`) {
-        builtText = await fsPromises.readFile(
-          path.join(builtDir, relative),
-          "utf-8"
-        )
-      } else {
-        const httpLibrary = env.PLAYWRIGHT_BASE_URL.includes("http://") ?
-          http :
-          https
-        const url = new URL(
-          relative.replace("ocw-ci-test-www/", ""),
-          env.PLAYWRIGHT_BASE_URL
-        ).href
-        console.log(url)
-        httpLibrary.get(url, res => {
-          const downloadPath = path.join(builtDir, relative)
-          const downloadedFilePath = fs.createWriteStream(downloadPath)
-          res.pipe(downloadedFilePath)
-          downloadedFilePath.on("finish", async () => {
-            downloadedFilePath.close()
-            builtText = await fsPromises.readFile(downloadPath, "utf-8")
-          })
-        })
-      }
+      builtText = await fsPromises.readFile(
+        path.join(builtDir, relative),
+        "utf-8"
+      )
       try {
         const fixtureJSON = JSON.parse(fixtureText)
         // The course image will be run through the resource_url.html partial
