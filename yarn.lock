@@ -12398,15 +12398,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-downloader-helper@npm:^2.1.9":
-  version: 2.1.9
-  resolution: "node-downloader-helper@npm:2.1.9"
-  bin:
-    ndh: bin/ndh
-  checksum: 9e25e4eb7014798fdb52c50aaeacd5acaed8ad3be9785d37a177dbe520057f577d51b6fce662d1ace9934559a6dca93b04843d472b092072f24418684a416bf6
-  languageName: node
-  linkType: hard
-
 "node-fetch@npm:2.6.1":
   version: 2.6.1
   resolution: "node-fetch@npm:2.6.1"
@@ -12965,7 +12956,6 @@ __metadata:
     mathjax: ^3.2.2
     mini-css-extract-plugin: ^2.6.1
     nanogallery2: ^2.4.2
-    node-downloader-helper: ^2.1.9
     npm-run-all: ^4.1.5
     offcanvas-bootstrap: ^2.5.2
     pdfobject: ^2.2.8

@@ -1,7 +1,6 @@
-import { env, localPort } from "../env"
+import { env } from "../env"
 import * as path from "node:path"
 import { promises as fs } from "node:fs"
-import { DownloaderHelper } from "node-downloader-helper"
 import { test, expect } from "@playwright/test"
 import recursiveReaddir from "recursive-readdir"
 
@@ -26,23 +25,6 @@ test("The fixtures are what Hugo would produce.", async () => {
     path.resolve(__dirname, "../test-sites/__fixtures__")
   )
   const jsonpaths = filepaths.filter(filepath => filepath.endsWith(".json"))
-  if (env.PLAYWRIGHT_BASE_URL !== `http://localhost:${localPort}`) {
-    await Promise.all(
-      jsonpaths.map(filepath => {
-        const relative = path.relative(fixtureDir, filepath)
-        const url = new URL(
-          relative.replace("ocw-ci-test-www/", ""),
-          env.PLAYWRIGHT_BASE_URL
-        ).href
-        const downloadPath = path.join(builtDir, relative)
-        const downloader = new DownloaderHelper(url, downloadPath)
-        downloader.on("end", () => {
-          return fs.readFile(downloadPath, "utf-8")
-        })
-        downloader.start()
-      })
-    )
-  }
   const comparisons = await Promise.all(
     jsonpaths.map(async filepath => {
       const relative = path.relative(fixtureDir, filepath)
