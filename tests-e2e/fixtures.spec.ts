@@ -1,6 +1,6 @@
 import { env, localPort } from "../env"
 import * as path from "node:path"
-import { promises as fsPromises } from "node:fs"
+import { promises as fs } from "node:fs"
 import { DownloaderHelper } from "node-downloader-helper"
 import { test, expect } from "@playwright/test"
 import recursiveReaddir from "recursive-readdir"
@@ -37,7 +37,7 @@ test("The fixtures are what Hugo would produce.", async () => {
         const downloadPath = path.join(builtDir, relative)
         const downloader = new DownloaderHelper(url, downloadPath)
         downloader.on("end", () => {
-          return fsPromises.readFile(downloadPath, "utf-8")
+          return fs.readFile(downloadPath, "utf-8")
         })
         downloader.start()
       })
@@ -49,9 +49,9 @@ test("The fixtures are what Hugo would produce.", async () => {
       if (SKIP_DIRS.some(dir => relative.startsWith(dir))) {
         return { fixture: null, built: null }
       }
-      const fixtureText = await fsPromises.readFile(filepath, "utf-8")
+      const fixtureText = await fs.readFile(filepath, "utf-8")
       let builtText = ""
-      builtText = await fsPromises.readFile(
+      builtText = await fs.readFile(
         path.join(builtDir, relative),
         "utf-8"
       )
