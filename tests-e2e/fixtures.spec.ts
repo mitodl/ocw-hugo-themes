@@ -46,6 +46,7 @@ test("The fixtures are what Hugo would produce.", async () => {
           http :
           https
         const url = new URL(relative, env.PLAYWRIGHT_BASE_URL)
+        console.log(url)
         httpLibrary.get(url, res => {
           const downloadPath = path.join(builtDir, relative)
           const filePath = fs.createWriteStream(downloadPath)
