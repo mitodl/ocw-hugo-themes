@@ -20,7 +20,8 @@ const config: PlaywrightTestConfig = {
   reporter:      "html",
   use:           {
     actionTimeout: 0,
-    trace:         "on-first-retry"
+    trace:         "on-first-retry",
+    video:         "on-first-retry"
   },
   projects: [
     {
