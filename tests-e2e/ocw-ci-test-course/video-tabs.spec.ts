@@ -19,7 +19,7 @@ test("that the Download Button works for multiple embed videos in a page", async
     expect(videoElement.downloadVideo()).toHaveAttribute(
       "href",
       new URL(
-        "/courses/123-ocw-ci-test-course-fall-2022/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
+        "/courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
         resourceBaseUrl
       ).href
     )
@@ -40,7 +40,7 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
   await coursePage.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
   const downloadLinks = [
     new URL(
-      "/courses/123-ocw-ci-test-course-fall-2022/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
+      "/courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
       resourceBaseUrl
     ).href,
     new URL(

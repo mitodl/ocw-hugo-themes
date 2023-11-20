@@ -2,7 +2,7 @@
 body: ''
 content_type: resource
 draft: false
-file: /courses/123-ocw-ci-test-course-fall-2022/ocw_test_course_mit8_01f16_l01v05_360p_360p_16_9.mp4
+file: /courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l01v05_360p_360p_16_9.mp4
 file_type: video/mp4
 image_metadata:
   caption: ''

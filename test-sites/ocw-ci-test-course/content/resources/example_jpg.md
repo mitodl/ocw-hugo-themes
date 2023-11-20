@@ -2,7 +2,7 @@
 body: ''
 content_type: resource
 draft: false
-file: /courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg
+file: /courses/ocw-ci-test-course/example_jpg.jpg
 file_size: 154826
 file_type: image/jpeg
 image_metadata:

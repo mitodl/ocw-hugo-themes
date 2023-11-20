@@ -76,12 +76,12 @@ test("Has expected meta tags in <head>", async ({ page }) => {
   const metaTwitterCard = page.locator('meta[name="twitter:card"]')
   await expect(metaShareImage).toHaveAttribute(
     "content",
-    `https://${sitemapDomain}/courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg`
+    `https://${sitemapDomain}/courses/ocw-ci-test-course/example_jpg.jpg`
   )
   await expect(metaTwitterSite).toHaveAttribute("content", "@mitocw")
   await expect(metaTwitterImage).toHaveAttribute(
     "content",
-    `https://${sitemapDomain}/courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg`
+    `https://${sitemapDomain}/courses/ocw-ci-test-course/example_jpg.jpg`
   )
   await expect(metaTwitterCard).toHaveAttribute(
     "content",
