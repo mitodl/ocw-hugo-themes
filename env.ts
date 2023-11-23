@@ -122,7 +122,7 @@ const envSchema = {
     devDefault: true
   }),
   MITOPEN_API_BASE_PATH: envalid.str({
-    desc: "Base path for MIT Open APIs",
+    desc:       "Base path for MIT Open APIs",
     devDefault: "https://mitopen-rc-2ea15531374d.herokuapp.com/"
   })
 }
