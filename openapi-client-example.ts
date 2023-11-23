@@ -1,6 +1,5 @@
 import {
   CoursesApi,
-  CoursesListPlatformEnum,
   Configuration
 } from "./generated-sources/openapi/dist"
 const coursesApi = new CoursesApi(
