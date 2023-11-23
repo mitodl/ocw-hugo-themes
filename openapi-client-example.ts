@@ -1,7 +1,10 @@
 import { CoursesApi, Configuration } from "./generated-sources/openapi/"
+import { env } from "./env"
+
+
 const coursesApi = new CoursesApi(
   new Configuration({
-    basePath: "https://mitopen-rc-2ea15531374d.herokuapp.com/"
+    basePath: env.MITOPEN_API_BASE_PATH
   })
 )
 
