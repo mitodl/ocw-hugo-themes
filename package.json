@@ -11,7 +11,7 @@
     "start:webpack": "yarn with-env --dev -- webpack --config ./base-theme/assets/webpack/webpack.dev.ts --stats-children",
     "start:www": "echo This command has been removed. Use `yarn start www` instead.",
     "start:course": "echo This command has been removed. Use `yarn start course` instead.",
-    "generate-api-client": "openapi-generator-cli generate -i openapi.yaml -g typescript-axios -o generated-sources/openapi --additional-properties=npmName=restClient,supportsES6=true",
+    "generate-api-client": "openapi-generator-cli generate -i openapi.yaml -g typescript-axios -o generated-sources/openapi --additional-properties=npmName=restClient,supportsES6=true && yarn fmt",
     "generate": "openapi --input https://mitopen-rc-2ea15531374d.herokuapp.com/api/v1/schema/swagger-ui/#/courses/courses_list --output generated-sources/openapi --client fetch",
     "generate2": "openapi --help",
     "start:fields": "echo This command has been removed. Use `yarn start fields` instead.",
