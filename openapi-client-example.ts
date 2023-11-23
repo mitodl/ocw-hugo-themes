@@ -1,7 +1,4 @@
-import {
-  CoursesApi,
-  Configuration
-} from "./generated-sources/openapi/dist"
+import { CoursesApi, Configuration } from "./generated-sources/openapi/dist"
 const coursesApi = new CoursesApi(
   new Configuration({
     basePath: "https://mitopen-rc-2ea15531374d.herokuapp.com/"
