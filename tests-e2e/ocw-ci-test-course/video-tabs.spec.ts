@@ -105,6 +105,7 @@ test("Video tabs content (links) are keyoard navigable", async ({ page }) => {
     })
     await tabButton.focus()
     page.keyboard.press("Enter")
+    await page.waitForSelector(".video-tab.container.show", { state: 'visible' })
     page.keyboard.press("Tab")
     page.keyboard.press("Enter")
     await coursePage.page.waitForURL(`**/${tab.url}`)
