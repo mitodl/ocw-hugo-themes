@@ -155,18 +155,20 @@ h4 {
 
   .resource-list-title {
     text-decoration: none;
-    word-break: break-all;
   }
   .resource-thumbnail {
     text-decoration: none;
   }
 
   .resource-list-item-details {
-    word-break: break-all;
     padding-top: 2px;
     padding-left: 10px;
     margin-bottom: auto;
     margin-top: auto;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
   }
 
   .row {
