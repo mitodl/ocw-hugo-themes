@@ -1,9 +1,10 @@
 {{ $isExternal := strings.HasPrefix .menuItem.Identifier "external" }}
+{{ $showLicenseWarning := and ($isExternal) (default true .menuItem.Params.includeLicenseWarning) }}
 
 <a 
-  class="text-dark nav-link {{ if $isExternal }}external-link{{ end }}"
+  class="text-dark nav-link {{ if $showLicenseWarning }}external-link{{ end }}"
   data-uuid="{{ .menuItem.Identifier }}"
-  {{ if $isExternal }}
+  {{ if $showLicenseWarning }}
     href="javascript: void(0)"
     data-target-url="{{- .url -}}"
   {{ else }}
