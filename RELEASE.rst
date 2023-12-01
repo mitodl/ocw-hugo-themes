@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.102.1
+Version 1.102.1 (Released December 01, 2023)
 ---------------
 
 - swap out chromium for google chrome and firefox in playwright tests (#1281)
