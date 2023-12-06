@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.102.2
+Version 1.102.2 (Released December 06, 2023)
 ---------------
 
 - fix: resource titles breaking (#1286)
