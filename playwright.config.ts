@@ -24,10 +24,14 @@ const config: PlaywrightTestConfig = {
   },
   projects: [
     {
-      name: "chromium",
+      name: "firefox",
       use:  {
-        ...devices["Desktop Chrome"]
+        ...devices["Desktop Firefox"]
       }
+    },
+    {
+      name: "Google Chrome",
+      use:  { ...devices["Desktop Chrome"], channel: "chrome" }
     }
   ],
   globalSetup: path.resolve(__dirname, "./tests-e2e/global-setup.ts")

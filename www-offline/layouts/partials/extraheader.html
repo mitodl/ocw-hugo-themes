@@ -2,7 +2,7 @@
   {{ $renderSearchIcon := index .Params "renderSearchIcon" | default true }}
   {{ if $renderSearchIcon }}
     <a href="/search.html" class="nav-link search-icon pr-6" aria-label="Search">
-      <img src="/static_shared/images/search.svg" class="offline-search-icon" alt="">
+      <img src="{{- index .Site.Data.webpack "images/search.svg" -}}" class="offline-search-icon" alt="">
     </a>
   {{ end }}
 {{ end }}

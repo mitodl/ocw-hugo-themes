@@ -1,10 +1,10 @@
 import * as path from "path"
 import * as webpack from "webpack"
 import CopyWebpackPlugin from "copy-webpack-plugin"
-import MiniCssExtractPlugin from "mini-css-extract-plugin"
-import AssetsPlugin from "assets-webpack-plugin"
-import Dotenv from "dotenv-webpack"
+import { WebpackManifestPlugin } from "webpack-manifest-plugin"
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
+import Dotenv from "dotenv-webpack"
 import packageJson from "../../../package.json"
 
 /**
@@ -127,22 +127,18 @@ const config: webpack.Configuration = {
       }
     ]
   },
-
   plugins: [
     new Dotenv({
       systemvars: true
     }),
-    new AssetsPlugin({
-      filename:    "webpack.json",
-      path:        path.join(process.cwd(), "base-theme", "data"),
-      prettyPrint: true
+    new WebpackManifestPlugin({
+      fileName: path.join(process.cwd(), "base-theme", "data/webpack.json")
     }),
-
     new CopyWebpackPlugin({
       patterns: [
         {
           from:        "./base-theme/assets/fonts/**/*.{ttf,woff,woff2}",
-          to:          "fonts/[name][ext]",
+          to:          "fonts/[name].[contenthash][ext]",
           globOptions: {
             ignore: [
               "./**/MaterialIcons-Regular.{ttf,woff,woff2}",
@@ -155,14 +151,21 @@ const config: webpack.Configuration = {
 
     new CopyWebpackPlugin({
       patterns: [
-        { from: "./base-theme/assets/images/", to: "images/[name][ext]" }
+        {
+          from: "./base-theme/assets/images/",
+          to:   "images/[name].[contenthash][ext]"
+        }
       ]
     }),
 
     new CopyWebpackPlugin({
-      patterns: [{ from: "./node_modules/mathjax/es5/", to: "mathjax/" }]
+      patterns: [
+        {
+          from: "./node_modules/mathjax/es5/",
+          to:   "mathjax/[name].[contenthash][ext]"
+        }
+      ]
     }),
-
     new webpack.ProvidePlugin({
       $:               "jquery",
       jQuery:          "jquery",

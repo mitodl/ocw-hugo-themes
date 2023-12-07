@@ -46,8 +46,7 @@
   {{ partialCached "navigation_js.html" . }}
   {{ partialCached "responsive_tables_js.html" . }}
 
-  {{- $webpack := .Site.Data.webpack -}}
-  {{- $js_urls := slice $webpack.common.js $webpack.course_v2.js -}}
+  {{- $js_urls := slice (partial "get_asset_webpack_url.html" "common.js") (partial "get_asset_webpack_url.html" "course_v2.js") -}}
   {{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
   <!-- Appzi: Capture Insightful Feedback -->
   {{ partial "mathjax_if_necessary.html" (dict "context" .) }}

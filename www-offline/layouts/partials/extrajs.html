@@ -1,5 +1,4 @@
 {{- define "extrajs" -}}
-{{- $webpack := .Site.Data.webpack -}}
-{{- $js_urls := slice $webpack.www_offline.js -}}
+{{- $js_urls := slice (partial "get_asset_webpack_url.html" "www_offline.js") -}}
 {{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
 {{- end -}}

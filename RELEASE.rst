@@ -1,6 +1,26 @@
 Release Notes
 =============
 
+Version 1.102.2 (Released December 06, 2023)
+---------------
+
+- fix: resource titles breaking (#1286)
+
+Version 1.102.1 (Released December 01, 2023)
+---------------
+
+- swap out chromium for google chrome and firefox in playwright tests (#1281)
+
+Version 1.102.0 (Released November 13, 2023)
+---------------
+
+- Hash static assets using Webpack (#1272)
+
+Version 1.101.2 (Released November 07, 2023)
+---------------
+
+- Update 404 page to match deployed version (#1275)
+
 Version 1.101.1 (Released October 19, 2023)
 ---------------
 
