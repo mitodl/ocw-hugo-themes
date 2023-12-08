@@ -1,0 +1,1245 @@
+{
+  "count": 2591,
+  "next": "https://mitopen-rc-2ea15531374d.herokuapp.com/api/v1/courses/?limit=10&offset=10&platform=ocw",
+  "previous": null,
+  "results": [
+    {
+      "id": 4391,
+      "topics": [
+        {
+          "id": 33,
+          "name": "Organizational Behavior"
+        },
+        {
+          "id": 6,
+          "name": "Social Science"
+        },
+        {
+          "id": 9,
+          "name": "Business"
+        },
+        {
+          "id": 174,
+          "name": "Psychology"
+        },
+        {
+          "id": 54,
+          "name": "Sociology"
+        }
+      ],
+      "offered_by": "OCW",
+      "resource_content_tags": [
+        "Written Assignments"
+      ],
+      "departments": [
+        {
+          "department_id": "15",
+          "name": "Sloan School of Management"
+        }
+      ],
+      "certification": null,
+      "prices": [],
+      "course": {
+        "course_numbers": [
+          {
+            "value": "15.341",
+            "department": {
+              "department_id": "15",
+              "name": "Sloan School of Management"
+            },
+            "listing_type": "primary"
+          }
+        ]
+      },
+      "learning_path": null,
+      "podcast": null,
+      "podcast_episode": null,
+      "runs": [
+        {
+          "id": 2045,
+          "instructors": [
+            {
+              "id": 358,
+              "first_name": "John",
+              "last_name": "Carroll",
+              "full_name": "Prof. John Carroll"
+            }
+          ],
+          "image": {
+            "id": 3310,
+            "url": "https://live-qa.ocw.mit.edu/courses/15-341-individuals-groups-and-organizations-fall-2006/606bb963ece17ca74d967a6f31c8cc94_15-341f06.jpg",
+            "description": "Photo of people meeting in a group. (Photo courtesy of Rover75 on Flickr.)",
+            "alt": "People meeting in a group."
+          },
+          "run_id": "c12d1f040e11253fb2c7b867d70dc91c",
+          "title": "Individuals, Groups, and Organizations",
+          "description": "This class develops basic concepts for understanding individual, group, and organizational behavior through the critical analysis of important works in the field. Among the areas covered are: individual affect and cognition; group process and performance; and organizational culture and adaptation. The class also emphasizes the use of behavioral science concepts for stimulating new and useful organizational behavior research.\n",
+          "full_description": null,
+          "last_modified": "2023-10-05T14:41:31Z",
+          "published": true,
+          "languages": null,
+          "url": "https://live-qa.ocw.mit.edu/courses/15-341-individuals-groups-and-organizations-fall-2006",
+          "level": "Graduate",
+          "slug": "courses/15-341-individuals-groups-and-organizations-fall-2006",
+          "availability": "Current",
+          "semester": "Fall",
+          "year": 2006,
+          "start_date": null,
+          "end_date": null,
+          "enrollment_start": null,
+          "enrollment_end": null,
+          "prices": null,
+          "checksum": null
+        }
+      ],
+      "image": {
+        "id": 3310,
+        "url": "https://live-qa.ocw.mit.edu/courses/15-341-individuals-groups-and-organizations-fall-2006/606bb963ece17ca74d967a6f31c8cc94_15-341f06.jpg",
+        "description": "Photo of people meeting in a group. (Photo courtesy of Rover75 on Flickr.)",
+        "alt": "People meeting in a group."
+      },
+      "learning_path_parents": [],
+      "user_list_parents": [],
+      "program": null,
+      "readable_id": "15.341+fall_2006",
+      "title": "Individuals, Groups, and Organizations",
+      "description": "This class develops basic concepts for understanding individual, group, and organizational behavior through the critical analysis of important works in the field. Among the areas covered are: individual affect and cognition; group process and performance; and organizational culture and adaptation. The class also emphasizes the use of behavioral science concepts for stimulating new and useful organizational behavior research.\n",
+      "full_description": null,
+      "last_modified": "2023-10-05T14:41:31Z",
+      "published": true,
+      "languages": null,
+      "url": "https://live-qa.ocw.mit.edu/courses/15-341-individuals-groups-and-organizations-fall-2006",
+      "resource_type": "course",
+      "professional": false,
+      "platform": "ocw"
+    },
+    {
+      "id": 3592,
+      "topics": [
+        {
+          "id": 288,
+          "name": "Neurobiology"
+        },
+        {
+          "id": 3,
+          "name": "Science"
+        },
+        {
+          "id": 4,
+          "name": "Biology"
+        },
+        {
+          "id": 77,
+          "name": "Neuroscience"
+        },
+        {
+          "id": 14,
+          "name": "Health and Medicine"
+        },
+        {
+          "id": 175,
+          "name": "Cognitive Science"
+        },
+        {
+          "id": 223,
+          "name": "Sensory-Neural Systems"
+        }
+      ],
+      "offered_by": "OCW",
+      "resource_content_tags": [
+        "Projects",
+        "Lecture Notes",
+        "Problem Sets with Solutions"
+      ],
+      "departments": [
+        {
+          "department_id": "HST",
+          "name": "Health Sciences and Technology"
+        }
+      ],
+      "certification": null,
+      "prices": [],
+      "course": {
+        "course_numbers": [
+          {
+            "value": "HST.725",
+            "department": {
+              "department_id": "HST",
+              "name": "Health Sciences and Technology"
+            },
+            "listing_type": "primary"
+          }
+        ]
+      },
+      "learning_path": null,
+      "podcast": null,
+      "podcast_episode": null,
+      "runs": [
+        {
+          "id": 1268,
+          "instructors": [
+            {
+              "id": 1275,
+              "first_name": "Peter",
+              "last_name": "Cariani",
+              "full_name": "Dr. Peter Cariani"
+            }
+          ],
+          "image": {
+            "id": 2539,
+            "url": "https://live-qa.ocw.mit.edu/courses/hst-725-music-perception-and-cognition-spring-2009/ff2398a41d1020f4f4587cdf9de7e8f5_hst-725s09.jpg",
+            "description": "Areas of the brain that may be involved in different aspects of music perception and performance. (Figure by MIT OpenCourseWare, adapted from Tramo, Mark J. \"Music of the Hemispheres.\" Science 291, no. 5501 (January 5, 2001): 54-56.",
+            "alt": "Figure illustrating areas of the brain that may be involved in different aspects of music perception and performance."
+          },
+          "run_id": "6232304d2c3a4ef392a1ba0ed25e4620",
+          "title": "Music Perception and Cognition",
+          "description": "This course is a survey of perceptual and cognitive aspects of the psychology of music, with special emphasis on underlying neuronal and neurocomputational representations and mechanisms. Basic perceptual dimensions of hearing (pitch, timbre, consonance/roughness, loudness, auditory grouping) form salient qualities, contrasts, patterns and streams that are used in music to convey melody, harmony, rhythm and separate voices. Perceptual, cognitive, and neurophysiological aspects of the temporal dimension of music (rhythm, timing, duration, temporal expectation) are explored. Special topics include comparative, evolutionary, and developmental psychology of music perception, biological vs. cultural influences, Gestaltist vs. associationist vs. schema-based theories, comparison of music and speech perception, parallels between music cognition and language, music and cortical action, and the neural basis of music performance.\n",
+          "full_description": null,
+          "last_modified": "2023-10-17T09:52:39Z",
+          "published": true,
+          "languages": null,
+          "url": "https://live-qa.ocw.mit.edu/courses/hst-725-music-perception-and-cognition-spring-2009",
+          "level": "Graduate",
+          "slug": "courses/hst-725-music-perception-and-cognition-spring-2009",
+          "availability": "Current",
+          "semester": "Spring",
+          "year": 2009,
+          "start_date": null,
+          "end_date": null,
+          "enrollment_start": null,
+          "enrollment_end": null,
+          "prices": null,
+          "checksum": null
+        }
+      ],
+      "image": {
+        "id": 2539,
+        "url": "https://live-qa.ocw.mit.edu/courses/hst-725-music-perception-and-cognition-spring-2009/ff2398a41d1020f4f4587cdf9de7e8f5_hst-725s09.jpg",
+        "description": "Areas of the brain that may be involved in different aspects of music perception and performance. (Figure by MIT OpenCourseWare, adapted from Tramo, Mark J. \"Music of the Hemispheres.\" Science 291, no. 5501 (January 5, 2001): 54-56.",
+        "alt": "Figure illustrating areas of the brain that may be involved in different aspects of music perception and performance."
+      },
+      "learning_path_parents": [],
+      "user_list_parents": [],
+      "program": null,
+      "readable_id": "HST.725+spring_2009",
+      "title": "Music Perception and Cognition",
+      "description": "This course is a survey of perceptual and cognitive aspects of the psychology of music, with special emphasis on underlying neuronal and neurocomputational representations and mechanisms. Basic perceptual dimensions of hearing (pitch, timbre, consonance/roughness, loudness, auditory grouping) form salient qualities, contrasts, patterns and streams that are used in music to convey melody, harmony, rhythm and separate voices. Perceptual, cognitive, and neurophysiological aspects of the temporal dimension of music (rhythm, timing, duration, temporal expectation) are explored. Special topics include comparative, evolutionary, and developmental psychology of music perception, biological vs. cultural influences, Gestaltist vs. associationist vs. schema-based theories, comparison of music and speech perception, parallels between music cognition and language, music and cortical action, and the neural basis of music performance.\n",
+      "full_description": null,
+      "last_modified": "2023-10-17T09:52:39Z",
+      "published": true,
+      "languages": null,
+      "url": "https://live-qa.ocw.mit.edu/courses/hst-725-music-perception-and-cognition-spring-2009",
+      "resource_type": "course",
+      "professional": false,
+      "platform": "ocw"
+    },
+    {
+      "id": 4036,
+      "topics": [
+        {
+          "id": 98,
+          "name": "International Literature"
+        },
+        {
+          "id": 39,
+          "name": "Humanities"
+        },
+        {
+          "id": 42,
+          "name": "Literature"
+        },
+        {
+          "id": 333,
+          "name": "Comedy"
+        },
+        {
+          "id": 116,
+          "name": "Comparative Literature"
+        }
+      ],
+      "offered_by": "OCW",
+      "resource_content_tags": [
+        "Written Assignments with Examples"
+      ],
+      "departments": [
+        {
+          "department_id": "21L",
+          "name": "Literature"
+        }
+      ],
+      "certification": null,
+      "prices": [],
+      "course": {
+        "course_numbers": [
+          {
+            "value": "21L.421",
+            "department": {
+              "department_id": "21L",
+              "name": "Literature"
+            },
+            "listing_type": "primary"
+          }
+        ]
+      },
+      "learning_path": null,
+      "podcast": null,
+      "podcast_episode": null,
+      "runs": [
+        {
+          "id": 1709,
+          "instructors": [
+            {
+              "id": 441,
+              "first_name": "Wyn",
+              "last_name": "Kelley",
+              "full_name": "Wyn Kelley"
+            }
+          ],
+          "image": {
+            "id": 2979,
+            "url": "https://live-qa.ocw.mit.edu/courses/21l-421-comedy-spring-2008/c7c0221b4795ff42360897a2665744b8_21l-421s08.jpg",
+            "description": "Artist's rendering of Mark Twain. (Image courtesy of America's Library.)",
+            "alt": "A drawing of Mark Twain on stage."
+          },
+          "run_id": "6bb3062f74cffa5ceee99b8d6fa20f27",
+          "title": "Comedy",
+          "description": "This course looks at comedy in drama, novels, and films from Classical Greece to the twentieth century. Focusing on examples from Aristophanes, Shakespeare, Cervantes, Molière, Wilde, Chaplin, and Billy Wilder, along with theoretical contexts, the class examines comedy as a transgressive mode with revolutionary social and political implications. This is a Communications Intensive (CI) class with emphasis on discussion, and frequent, short essays.\n",
+          "full_description": null,
+          "last_modified": "2023-10-17T09:16:21Z",
+          "published": true,
+          "languages": null,
+          "url": "https://live-qa.ocw.mit.edu/courses/21l-421-comedy-spring-2008",
+          "level": "Undergraduate",
+          "slug": "courses/21l-421-comedy-spring-2008",
+          "availability": "Current",
+          "semester": "Spring",
+          "year": 2008,
+          "start_date": null,
+          "end_date": null,
+          "enrollment_start": null,
+          "enrollment_end": null,
+          "prices": null,
+          "checksum": null
+        }
+      ],
+      "image": {
+        "id": 2979,
+        "url": "https://live-qa.ocw.mit.edu/courses/21l-421-comedy-spring-2008/c7c0221b4795ff42360897a2665744b8_21l-421s08.jpg",
+        "description": "Artist's rendering of Mark Twain. (Image courtesy of America's Library.)",
+        "alt": "A drawing of Mark Twain on stage."
+      },
+      "learning_path_parents": [],
+      "user_list_parents": [],
+      "program": null,
+      "readable_id": "21L.421+spring_2008",
+      "title": "Comedy",
+      "description": "This course looks at comedy in drama, novels, and films from Classical Greece to the twentieth century. Focusing on examples from Aristophanes, Shakespeare, Cervantes, Molière, Wilde, Chaplin, and Billy Wilder, along with theoretical contexts, the class examines comedy as a transgressive mode with revolutionary social and political implications. This is a Communications Intensive (CI) class with emphasis on discussion, and frequent, short essays.\n",
+      "full_description": null,
+      "last_modified": "2023-10-17T09:16:21Z",
+      "published": true,
+      "languages": null,
+      "url": "https://live-qa.ocw.mit.edu/courses/21l-421-comedy-spring-2008",
+      "resource_type": "course",
+      "professional": false,
+      "platform": "ocw"
+    },
+    {
+      "id": 3787,
+      "topics": [
+        {
+          "id": 3,
+          "name": "Science"
+        },
+        {
+          "id": 7,
+          "name": "Computer Science"
+        },
+        {
+          "id": 109,
+          "name": "Artificial Intelligence"
+        },
+        {
+          "id": 175,
+          "name": "Cognitive Science"
+        },
+        {
+          "id": 22,
+          "name": "Engineering"
+        },
+        {
+          "id": 62,
+          "name": "Algorithms and Data Structures"
+        }
+      ],
+      "offered_by": "OCW",
+      "resource_content_tags": [
+        "Lecture Notes",
+        "Programming Assignments"
+      ],
+      "departments": [
+        {
+          "department_id": "6",
+          "name": "Electrical Engineering and Computer Science"
+        }
+      ],
+      "certification": null,
+      "prices": [],
+      "course": {
+        "course_numbers": [
+          {
+            "value": "6.825",
+            "department": {
+              "department_id": "6",
+              "name": "Electrical Engineering and Computer Science"
+            },
+            "listing_type": "primary"
+          }
+        ]
+      },
+      "learning_path": null,
+      "podcast": null,
+      "podcast_episode": null,
+      "runs": [
+        {
+          "id": 1461,
+          "instructors": [
+            {
+              "id": 801,
+              "first_name": "Leslie",
+              "last_name": "Kaelbling",
+              "full_name": "Prof. Leslie Kaelbling"
+            },
+            {
+              "id": 1427,
+              "first_name": "Tomás",
+              "last_name": "Lozano-Pérez",
+              "full_name": "Prof. Tomás Lozano-Pérez"
+            }
+          ],
+          "image": {
+            "id": 2732,
+            "url": "https://live-qa.ocw.mit.edu/courses/6-825-techniques-in-artificial-intelligence-sma-5504-fall-2002/7c6c3a42dd3f83b556f5682a4d2b907a_6-825f02.jpg",
+            "description": "",
+            "alt": "A graphic showing a Mars Rover-like robot in a sandy, rocky environment. A circular path of words is overlaid, with the words Precepts - Agent - Actions - Environment (and back to Precepts again)."
+          },
+          "run_id": "650ece81b13c0da652593e9da011642b",
+          "title": "Techniques in Artificial Intelligence (SMA 5504)",
+          "description": "6.825 is a graduate-level introduction to artificial intelligence. Topics covered include: representation and inference in first-order logic, modern deterministic and decision-theoretic planning techniques, basic supervised learning methods, and Bayesian network inference and learning.\n\nThis course was also taught as part of the [Singapore-MIT Alliance](http://web.mit.edu/sma/) (SMA) programme as course number SMA 5504 (Techniques in Artificial Intelligence).\n",
+          "full_description": null,
+          "last_modified": "2023-10-17T08:59:21Z",
+          "published": true,
+          "languages": null,
+          "url": "https://live-qa.ocw.mit.edu/courses/6-825-techniques-in-artificial-intelligence-sma-5504-fall-2002",
+          "level": "Graduate",
+          "slug": "courses/6-825-techniques-in-artificial-intelligence-sma-5504-fall-2002",
+          "availability": "Current",
+          "semester": "Fall",
+          "year": 2002,
+          "start_date": null,
+          "end_date": null,
+          "enrollment_start": null,
+          "enrollment_end": null,
+          "prices": null,
+          "checksum": null
+        }
+      ],
+      "image": {
+        "id": 2732,
+        "url": "https://live-qa.ocw.mit.edu/courses/6-825-techniques-in-artificial-intelligence-sma-5504-fall-2002/7c6c3a42dd3f83b556f5682a4d2b907a_6-825f02.jpg",
+        "description": "",
+        "alt": "A graphic showing a Mars Rover-like robot in a sandy, rocky environment. A circular path of words is overlaid, with the words Precepts - Agent - Actions - Environment (and back to Precepts again)."
+      },
+      "learning_path_parents": [],
+      "user_list_parents": [],
+      "program": null,
+      "readable_id": "6.825+fall_2002",
+      "title": "Techniques in Artificial Intelligence (SMA 5504)",
+      "description": "6.825 is a graduate-level introduction to artificial intelligence. Topics covered include: representation and inference in first-order logic, modern deterministic and decision-theoretic planning techniques, basic supervised learning methods, and Bayesian network inference and learning.\n\nThis course was also taught as part of the [Singapore-MIT Alliance](http://web.mit.edu/sma/) (SMA) programme as course number SMA 5504 (Techniques in Artificial Intelligence).\n",
+      "full_description": null,
+      "last_modified": "2023-10-17T08:59:21Z",
+      "published": true,
+      "languages": null,
+      "url": "https://live-qa.ocw.mit.edu/courses/6-825-techniques-in-artificial-intelligence-sma-5504-fall-2002",
+      "resource_type": "course",
+      "professional": false,
+      "platform": "ocw"
+    },
+    {
+      "id": 4861,
+      "topics": [
+        {
+          "id": 89,
+          "name": "Chemistry"
+        },
+        {
+          "id": 3,
+          "name": "Science"
+        },
+        {
+          "id": 327,
+          "name": "Inorganic Chemistry"
+        }
+      ],
+      "offered_by": "OCW",
+      "resource_content_tags": [
+        "Lecture Notes",
+        "Exams",
+        "Problem Sets"
+      ],
+      "departments": [
+        {
+          "department_id": "5",
+          "name": "Chemistry"
+        }
+      ],
+      "certification": null,
+      "prices": [],
+      "course": {
+        "course_numbers": [
+          {
+            "value": "5.04",
+            "department": {
+              "department_id": "5",
+              "name": "Chemistry"
+            },
+            "listing_type": "primary"
+          }
+        ]
+      },
+      "learning_path": null,
+      "podcast": null,
+      "podcast_episode": null,
+      "runs": [
+        {
+          "id": 2514,
+          "instructors": [
+            {
+              "id": 1972,
+              "first_name": "Daniel",
+              "last_name": "Nocera",
+              "full_name": "Prof. Daniel Nocera"
+            }
+          ],
+          "image": {
+            "id": 3721,
+            "url": "https://live-qa.ocw.mit.edu/courses/5-04-principles-of-inorganic-chemistry-ii-fall-2008/b8b8139285ea8035be140ee9714f78f5_5-04f08.jpg",
+            "description": "Carbon monoxide (CO) is a π accepting ligand. The bonding of CO to a metal has two components: σ bonding and π backbonding. (Image by MIT OpenCourseWare.)",
+            "alt": "Diagram demonstrating that carbon monoxide is a sigma-donating and pi-accepting ligand."
+          },
+          "run_id": "d100608b58354382f1343ed29a68583d",
+          "title": "Principles of Inorganic Chemistry II",
+          "description": "This course provides a systematic presentation of the chemical applications of group theory with emphasis on the formal development of the subject and its applications to the physical methods of inorganic chemical compounds. Against the backdrop of electronic structure, the electronic, vibrational, and magnetic properties of transition metal complexes are presented and their investigation by the appropriate spectroscopy described.\n",
+          "full_description": null,
+          "last_modified": "2023-09-18T21:14:16Z",
+          "published": true,
+          "languages": null,
+          "url": "https://live-qa.ocw.mit.edu/courses/5-04-principles-of-inorganic-chemistry-ii-fall-2008",
+          "level": "Undergraduate",
+          "slug": "courses/5-04-principles-of-inorganic-chemistry-ii-fall-2008",
+          "availability": "Current",
+          "semester": "Fall",
+          "year": 2008,
+          "start_date": null,
+          "end_date": null,
+          "enrollment_start": null,
+          "enrollment_end": null,
+          "prices": null,
+          "checksum": null
+        }
+      ],
+      "image": {
+        "id": 3721,
+        "url": "https://live-qa.ocw.mit.edu/courses/5-04-principles-of-inorganic-chemistry-ii-fall-2008/b8b8139285ea8035be140ee9714f78f5_5-04f08.jpg",
+        "description": "Carbon monoxide (CO) is a π accepting ligand. The bonding of CO to a metal has two components: σ bonding and π backbonding. (Image by MIT OpenCourseWare.)",
+        "alt": "Diagram demonstrating that carbon monoxide is a sigma-donating and pi-accepting ligand."
+      },
+      "learning_path_parents": [],
+      "user_list_parents": [],
+      "program": null,
+      "readable_id": "5.04+fall_2008",
+      "title": "Principles of Inorganic Chemistry II",
+      "description": "This course provides a systematic presentation of the chemical applications of group theory with emphasis on the formal development of the subject and its applications to the physical methods of inorganic chemical compounds. Against the backdrop of electronic structure, the electronic, vibrational, and magnetic properties of transition metal complexes are presented and their investigation by the appropriate spectroscopy described.\n",
+      "full_description": null,
+      "last_modified": "2023-09-18T21:14:16Z",
+      "published": true,
+      "languages": null,
+      "url": "https://live-qa.ocw.mit.edu/courses/5-04-principles-of-inorganic-chemistry-ii-fall-2008",
+      "resource_type": "course",
+      "professional": false,
+      "platform": "ocw"
+    },
+    {
+      "id": 4836,
+      "topics": [
+        {
+          "id": 128,
+          "name": "Biomedical Instrumentation"
+        },
+        {
+          "id": 129,
+          "name": "Computational Biology"
+        },
+        {
+          "id": 166,
+          "name": "Data Mining"
+        },
+        {
+          "id": 7,
+          "name": "Computer Science"
+        },
+        {
+          "id": 9,
+          "name": "Business"
+        },
+        {
+          "id": 14,
+          "name": "Health and Medicine"
+        },
+        {
+          "id": 48,
+          "name": "Biomedicine"
+        },
+        {
+          "id": 50,
+          "name": "Biological Engineering"
+        },
+        {
+          "id": 22,
+          "name": "Engineering"
+        },
+        {
+          "id": 127,
+          "name": "Information Technology"
+        }
+      ],
+      "offered_by": "OCW",
+      "resource_content_tags": [
+        "Lecture Notes"
+      ],
+      "departments": [
+        {
+          "department_id": "6",
+          "name": "Electrical Engineering and Computer Science"
+        },
+        {
+          "department_id": "HST",
+          "name": "Health Sciences and Technology"
+        }
+      ],
+      "certification": null,
+      "prices": [],
+      "course": {
+        "course_numbers": [
+          {
+            "value": "HST.950J",
+            "department": {
+              "department_id": "HST",
+              "name": "Health Sciences and Technology"
+            },
+            "listing_type": "primary"
+          },
+          {
+            "value": "6.872J",
+            "department": {
+              "department_id": "6",
+              "name": "Electrical Engineering and Computer Science"
+            },
+            "listing_type": "cross-listed"
+          }
+        ]
+      },
+      "learning_path": null,
+      "podcast": null,
+      "podcast_episode": null,
+      "runs": [
+        {
+          "id": 2489,
+          "instructors": [
+            {
+              "id": 1002,
+              "first_name": "Isaac",
+              "last_name": "Kohane",
+              "full_name": "Prof. Isaac Kohane"
+            },
+            {
+              "id": 1238,
+              "first_name": "Lucila",
+              "last_name": "Ohno-Machado",
+              "full_name": "Prof. Lucila Ohno-Machado"
+            },
+            {
+              "id": 97,
+              "first_name": "Peter",
+              "last_name": "Szolovits",
+              "full_name": "Prof. Peter Szolovits"
+            }
+          ],
+          "image": {
+            "id": 3696,
+            "url": "https://live-qa.ocw.mit.edu/courses/hst-950j-medical-computing-spring-2003/36abf33ed3360e593e9ece30ece018e0_hst-950js03.jpg",
+            "description": "",
+            "alt": "The medical cycle: patient, observe, decide, plan."
+          },
+          "run_id": "4a1b81d04b5df2f17749fad394089326",
+          "title": "Medical Computing",
+          "description": "The focus of the course is on medical science and practice in the age of automation and the genome, both present and future.\n\nIt ncludes an analysis of the computational needs of clinical medicine, a review systems and approaches that have been used to support those needs, and an examination of new technologies.\n",
+          "full_description": null,
+          "last_modified": "2023-10-17T09:56:00Z",
+          "published": true,
+          "languages": null,
+          "url": "https://live-qa.ocw.mit.edu/courses/hst-950j-medical-computing-spring-2003",
+          "level": "Graduate",
+          "slug": "courses/hst-950j-medical-computing-spring-2003",
+          "availability": "Current",
+          "semester": "Spring",
+          "year": 2003,
+          "start_date": null,
+          "end_date": null,
+          "enrollment_start": null,
+          "enrollment_end": null,
+          "prices": null,
+          "checksum": null
+        }
+      ],
+      "image": {
+        "id": 3696,
+        "url": "https://live-qa.ocw.mit.edu/courses/hst-950j-medical-computing-spring-2003/36abf33ed3360e593e9ece30ece018e0_hst-950js03.jpg",
+        "description": "",
+        "alt": "The medical cycle: patient, observe, decide, plan."
+      },
+      "learning_path_parents": [],
+      "user_list_parents": [],
+      "program": null,
+      "readable_id": "HST.950J+spring_2003",
+      "title": "Medical Computing",
+      "description": "The focus of the course is on medical science and practice in the age of automation and the genome, both present and future.\n\nIt ncludes an analysis of the computational needs of clinical medicine, a review systems and approaches that have been used to support those needs, and an examination of new technologies.\n",
+      "full_description": null,
+      "last_modified": "2023-10-17T09:56:00Z",
+      "published": true,
+      "languages": null,
+      "url": "https://live-qa.ocw.mit.edu/courses/hst-950j-medical-computing-spring-2003",
+      "resource_type": "course",
+      "professional": false,
+      "platform": "ocw"
+    },
+    {
+      "id": 3596,
+      "topics": [
+        {
+          "id": 39,
+          "name": "Humanities"
+        },
+        {
+          "id": 202,
+          "name": "Architecture"
+        },
+        {
+          "id": 42,
+          "name": "Literature"
+        },
+        {
+          "id": 43,
+          "name": "Classics"
+        },
+        {
+          "id": 44,
+          "name": "History"
+        },
+        {
+          "id": 240,
+          "name": "Architectural Design"
+        },
+        {
+          "id": 56,
+          "name": "European History"
+        },
+        {
+          "id": 57,
+          "name": "Ancient History"
+        },
+        {
+          "id": 61,
+          "name": "Fine Arts"
+        }
+      ],
+      "offered_by": "OCW",
+      "resource_content_tags": [
+        "Lecture Notes",
+        "Written Assignments",
+        "Instructor Insights"
+      ],
+      "departments": [
+        {
+          "department_id": "21H",
+          "name": "History"
+        }
+      ],
+      "certification": null,
+      "prices": [],
+      "course": {
+        "course_numbers": [
+          {
+            "value": "21H.237",
+            "department": {
+              "department_id": "21H",
+              "name": "History"
+            },
+            "listing_type": "primary"
+          }
+        ]
+      },
+      "learning_path": null,
+      "podcast": null,
+      "podcast_episode": null,
+      "runs": [
+        {
+          "id": 1272,
+          "instructors": [
+            {
+              "id": 32,
+              "first_name": "William",
+              "last_name": "Broadhead",
+              "full_name": "Prof. William Broadhead"
+            }
+          ],
+          "image": {
+            "id": 2543,
+            "url": "https://live-qa.ocw.mit.edu/courses/21h-237-the-city-of-athens-in-the-age-of-pericles-fall-2014/c9df0fc259e85b445752cd37a023361c_21h-237f14.jpg",
+            "description": "Perikles hält die Leichenrede (Pericles' Funeral Oration), an 1852 painting by Philipp Foltz. This image is in the public domain. Source: Wikimedia Commons.",
+            "alt": "A muscular man wearing a toga and helmut speaks to a crowd gathered at the Acropolis of Athens."
+          },
+          "run_id": "48c736c31c01d6358520fd4ae47c74ef",
+          "title": "The City of Athens in the Age of Pericles",
+          "description": "This course investigates the relationship between urban architecture and political, social, and cultural history of Athens in the 5th and 4th centuries BC. It surveys and analyzes archeological and literary evidence, including the sanctuary of Athena on the Acropolis, the Agora, Greek houses, the histories of Herodotus and Thucydides, plays of Sophocles and Aristophanes, and the panhellenic sanctuaries of Delphi and Olympia.",
+          "full_description": null,
+          "last_modified": "2023-10-05T08:01:17Z",
+          "published": true,
+          "languages": null,
+          "url": "https://live-qa.ocw.mit.edu/courses/21h-237-the-city-of-athens-in-the-age-of-pericles-fall-2014",
+          "level": "Undergraduate",
+          "slug": "courses/21h-237-the-city-of-athens-in-the-age-of-pericles-fall-2014",
+          "availability": "Current",
+          "semester": "Fall",
+          "year": 2014,
+          "start_date": null,
+          "end_date": null,
+          "enrollment_start": null,
+          "enrollment_end": null,
+          "prices": null,
+          "checksum": null
+        }
+      ],
+      "image": {
+        "id": 2543,
+        "url": "https://live-qa.ocw.mit.edu/courses/21h-237-the-city-of-athens-in-the-age-of-pericles-fall-2014/c9df0fc259e85b445752cd37a023361c_21h-237f14.jpg",
+        "description": "Perikles hält die Leichenrede (Pericles' Funeral Oration), an 1852 painting by Philipp Foltz. This image is in the public domain. Source: Wikimedia Commons.",
+        "alt": "A muscular man wearing a toga and helmut speaks to a crowd gathered at the Acropolis of Athens."
+      },
+      "learning_path_parents": [],
+      "user_list_parents": [],
+      "program": null,
+      "readable_id": "21H.237+fall_2014",
+      "title": "The City of Athens in the Age of Pericles",
+      "description": "This course investigates the relationship between urban architecture and political, social, and cultural history of Athens in the 5th and 4th centuries BC. It surveys and analyzes archeological and literary evidence, including the sanctuary of Athena on the Acropolis, the Agora, Greek houses, the histories of Herodotus and Thucydides, plays of Sophocles and Aristophanes, and the panhellenic sanctuaries of Delphi and Olympia.",
+      "full_description": null,
+      "last_modified": "2023-10-05T08:01:17Z",
+      "published": true,
+      "languages": null,
+      "url": "https://live-qa.ocw.mit.edu/courses/21h-237-the-city-of-athens-in-the-age-of-pericles-fall-2014",
+      "resource_type": "course",
+      "professional": false,
+      "platform": "ocw"
+    },
+    {
+      "id": 4925,
+      "topics": [
+        {
+          "id": 1,
+          "name": "Systems Engineering"
+        },
+        {
+          "id": 22,
+          "name": "Engineering"
+        },
+        {
+          "id": 23,
+          "name": "Systems Optimization"
+        },
+        {
+          "id": 26,
+          "name": "Mathematics"
+        },
+        {
+          "id": 94,
+          "name": "Applied Mathematics"
+        }
+      ],
+      "offered_by": "OCW",
+      "resource_content_tags": [
+        "Lecture Notes",
+        "Lecture Videos"
+      ],
+      "departments": [
+        {
+          "department_id": "15",
+          "name": "Sloan School of Management"
+        },
+        {
+          "department_id": "6",
+          "name": "Electrical Engineering and Computer Science"
+        }
+      ],
+      "certification": null,
+      "prices": [],
+      "course": {
+        "course_numbers": [
+          {
+            "value": "15.084J",
+            "department": {
+              "department_id": "15",
+              "name": "Sloan School of Management"
+            },
+            "listing_type": "primary"
+          },
+          {
+            "value": "6.252J",
+            "department": {
+              "department_id": "6",
+              "name": "Electrical Engineering and Computer Science"
+            },
+            "listing_type": "cross-listed"
+          }
+        ]
+      },
+      "learning_path": null,
+      "podcast": null,
+      "podcast_episode": null,
+      "runs": [
+        {
+          "id": 2578,
+          "instructors": [
+            {
+              "id": 417,
+              "first_name": "Robert",
+              "last_name": "Freund",
+              "full_name": "Prof. Robert Freund"
+            }
+          ],
+          "image": {
+            "id": 3782,
+            "url": "https://live-qa.ocw.mit.edu/courses/15-084j-nonlinear-programming-spring-2004/ff0e11d61d4bc1f349c5671287716c25_15-084jf04.jpg",
+            "description": "",
+            "alt": "A bowl-shaped function plotted as a three-dimentional graph."
+          },
+          "run_id": "95ecb2670196c4480294831a5333c0f5",
+          "title": "Nonlinear Programming",
+          "description": "This course introduces students to the fundamentals of nonlinear optimization theory and methods. Topics include unconstrained and constrained optimization, linear and quadratic programming, Lagrange and conic duality theory, interior-point algorithms and theory, Lagrangian relaxation, generalized programming, and semi-definite programming. Algorithmic methods used in the class include steepest descent, Newton's method, conditional gradient and subgradient optimization, interior-point methods and penalty and barrier methods.\n",
+          "full_description": null,
+          "last_modified": "2023-10-17T08:31:27Z",
+          "published": true,
+          "languages": null,
+          "url": "https://live-qa.ocw.mit.edu/courses/15-084j-nonlinear-programming-spring-2004",
+          "level": "Graduate",
+          "slug": "courses/15-084j-nonlinear-programming-spring-2004",
+          "availability": "Current",
+          "semester": "Spring",
+          "year": 2004,
+          "start_date": null,
+          "end_date": null,
+          "enrollment_start": null,
+          "enrollment_end": null,
+          "prices": null,
+          "checksum": null
+        }
+      ],
+      "image": {
+        "id": 3782,
+        "url": "https://live-qa.ocw.mit.edu/courses/15-084j-nonlinear-programming-spring-2004/ff0e11d61d4bc1f349c5671287716c25_15-084jf04.jpg",
+        "description": "",
+        "alt": "A bowl-shaped function plotted as a three-dimentional graph."
+      },
+      "learning_path_parents": [],
+      "user_list_parents": [],
+      "program": null,
+      "readable_id": "15.084J+spring_2004",
+      "title": "Nonlinear Programming",
+      "description": "This course introduces students to the fundamentals of nonlinear optimization theory and methods. Topics include unconstrained and constrained optimization, linear and quadratic programming, Lagrange and conic duality theory, interior-point algorithms and theory, Lagrangian relaxation, generalized programming, and semi-definite programming. Algorithmic methods used in the class include steepest descent, Newton's method, conditional gradient and subgradient optimization, interior-point methods and penalty and barrier methods.\n",
+      "full_description": null,
+      "last_modified": "2023-10-17T08:31:27Z",
+      "published": true,
+      "languages": null,
+      "url": "https://live-qa.ocw.mit.edu/courses/15-084j-nonlinear-programming-spring-2004",
+      "resource_type": "course",
+      "professional": false,
+      "platform": "ocw"
+    },
+    {
+      "id": 3012,
+      "topics": [
+        {
+          "id": 1,
+          "name": "Systems Engineering"
+        },
+        {
+          "id": 259,
+          "name": "Transportation Planning"
+        },
+        {
+          "id": 35,
+          "name": "Urban Studies"
+        },
+        {
+          "id": 6,
+          "name": "Social Science"
+        },
+        {
+          "id": 199,
+          "name": "Civil Engineering"
+        },
+        {
+          "id": 22,
+          "name": "Engineering"
+        },
+        {
+          "id": 27,
+          "name": "Computational Modeling and Simulation"
+        },
+        {
+          "id": 317,
+          "name": "Transportation Engineering"
+        }
+      ],
+      "offered_by": "OCW",
+      "resource_content_tags": [
+        "Lecture Notes"
+      ],
+      "departments": [
+        {
+          "department_id": "1",
+          "name": "Civil and Environmental Engineering"
+        },
+        {
+          "department_id": "ESD",
+          "name": "Engineering Systems Division"
+        }
+      ],
+      "certification": null,
+      "prices": [],
+      "course": {
+        "course_numbers": [
+          {
+            "value": "1.225J",
+            "department": {
+              "department_id": "1",
+              "name": "Civil and Environmental Engineering"
+            },
+            "listing_type": "primary"
+          },
+          {
+            "value": "ESD.205J",
+            "department": {
+              "department_id": "ESD",
+              "name": "Engineering Systems Division"
+            },
+            "listing_type": "cross-listed"
+          }
+        ]
+      },
+      "learning_path": null,
+      "podcast": null,
+      "podcast_episode": null,
+      "runs": [
+        {
+          "id": 679,
+          "instructors": [
+            {
+              "id": 785,
+              "first_name": "Ismail",
+              "last_name": "Chabini",
+              "full_name": "Prof. Ismail Chabini"
+            },
+            {
+              "id": 786,
+              "first_name": "Amedeo",
+              "last_name": "Odoni",
+              "full_name": "Prof. Amedeo R. Odoni"
+            }
+          ],
+          "image": {
+            "id": 1953,
+            "url": "https://live-qa.ocw.mit.edu/courses/1-225j-transportation-flow-systems-fall-2002/b3cb1a1fa9da65088f2ab2a8456d3fd1_1-225jf02.jpg",
+            "description": "Aircraft in a queue. (Image is taken from NASA's Web site: http://www.nasa.gov.)",
+            "alt": "Aircraft in a queue."
+          },
+          "run_id": "34e7368f6af23793848203876e93f29d",
+          "title": "Transportation Flow Systems",
+          "description": "Design, operation, and management of traffic flows over complex transportation networks are the foci of this course. It covers two major topics: traffic flow modeling and traffic flow operations. Sub-topics include deterministic and probabilistic models, elements of queuing theory, and traffic assignment. Concepts are illustrated through various applications and case studies. This is a half-term subject offered during the second half of the semester.\n",
+          "full_description": null,
+          "last_modified": "2023-10-05T13:31:27Z",
+          "published": true,
+          "languages": null,
+          "url": "https://live-qa.ocw.mit.edu/courses/1-225j-transportation-flow-systems-fall-2002",
+          "level": "Graduate",
+          "slug": "courses/1-225j-transportation-flow-systems-fall-2002",
+          "availability": "Current",
+          "semester": "Fall",
+          "year": 2002,
+          "start_date": null,
+          "end_date": null,
+          "enrollment_start": null,
+          "enrollment_end": null,
+          "prices": null,
+          "checksum": null
+        }
+      ],
+      "image": {
+        "id": 1953,
+        "url": "https://live-qa.ocw.mit.edu/courses/1-225j-transportation-flow-systems-fall-2002/b3cb1a1fa9da65088f2ab2a8456d3fd1_1-225jf02.jpg",
+        "description": "Aircraft in a queue. (Image is taken from NASA's Web site: http://www.nasa.gov.)",
+        "alt": "Aircraft in a queue."
+      },
+      "learning_path_parents": [],
+      "user_list_parents": [],
+      "program": null,
+      "readable_id": "1.225J+fall_2002",
+      "title": "Transportation Flow Systems",
+      "description": "Design, operation, and management of traffic flows over complex transportation networks are the foci of this course. It covers two major topics: traffic flow modeling and traffic flow operations. Sub-topics include deterministic and probabilistic models, elements of queuing theory, and traffic assignment. Concepts are illustrated through various applications and case studies. This is a half-term subject offered during the second half of the semester.\n",
+      "full_description": null,
+      "last_modified": "2023-10-05T13:31:27Z",
+      "published": true,
+      "languages": null,
+      "url": "https://live-qa.ocw.mit.edu/courses/1-225j-transportation-flow-systems-fall-2002",
+      "resource_type": "course",
+      "professional": false,
+      "platform": "ocw"
+    },
+    {
+      "id": 3909,
+      "topics": [
+        {
+          "id": 6,
+          "name": "Social Science"
+        },
+        {
+          "id": 200,
+          "name": "Environmental Design"
+        },
+        {
+          "id": 202,
+          "name": "Architecture"
+        },
+        {
+          "id": 142,
+          "name": "Cultural Anthropology"
+        },
+        {
+          "id": 240,
+          "name": "Architectural Design"
+        },
+        {
+          "id": 52,
+          "name": "Anthropology"
+        },
+        {
+          "id": 61,
+          "name": "Fine Arts"
+        }
+      ],
+      "offered_by": "OCW",
+      "resource_content_tags": [
+        "Course Introduction",
+        "Video Materials",
+        "Image Gallery"
+      ],
+      "departments": [
+        {
+          "department_id": "4",
+          "name": "Architecture"
+        }
+      ],
+      "certification": null,
+      "prices": [],
+      "course": {
+        "course_numbers": [
+          {
+            "value": "4.196",
+            "department": {
+              "department_id": "4",
+              "name": "Architecture"
+            },
+            "listing_type": "primary"
+          },
+          {
+            "value": "4.132",
+            "department": {
+              "department_id": "4",
+              "name": "Architecture"
+            },
+            "listing_type": "cross-listed"
+          }
+        ]
+      },
+      "learning_path": null,
+      "podcast": null,
+      "podcast_episode": null,
+      "runs": [
+        {
+          "id": 1582,
+          "instructors": [
+            {
+              "id": 405,
+              "first_name": "Jan",
+              "last_name": "Wampler",
+              "full_name": "Prof. Jan Wampler"
+            }
+          ],
+          "image": {
+            "id": 2852,
+            "url": "https://live-qa.ocw.mit.edu/courses/4-196-architecture-design-level-ii-cuba-studio-spring-2004/c87eec30c64ad3f57c6c6ba75a03d7ca_4-196s04.jpg",
+            "description": "",
+            "alt": "A photo of the rooftops of Havana, Cuba with lots of clotheslines visible."
+          },
+          "run_id": "05ed768fb8db1bd095309fc27f82f354",
+          "title": "Architecture Design, Level II: Cuba Studio",
+          "description": "This architectural studio will have one main project for the semester: to explore the issues surrounding the redesign of an area in Havana, Cuba. It is a typical area about the size of a Law of Indies block that presently has a mix of housing, work, and shopping, in buildings that need to be replaced and others that need to be rehabilitated. There is also vacant land, and buildings that are unused. Part of the blocks front on the Malecon, the street next to the water. The other edge fronts onto a typical neighborhood. The intention is to study the culture through an understanding of one area of Havana and then design an \"echo\" in architectural form. The design will include public space as well as a mix of buildings: some new, some rehabilitated.\n",
+          "full_description": null,
+          "last_modified": "2023-10-17T10:00:30Z",
+          "published": true,
+          "languages": null,
+          "url": "https://live-qa.ocw.mit.edu/courses/4-196-architecture-design-level-ii-cuba-studio-spring-2004",
+          "level": "Graduate",
+          "slug": "courses/4-196-architecture-design-level-ii-cuba-studio-spring-2004",
+          "availability": "Current",
+          "semester": "Spring",
+          "year": 2004,
+          "start_date": null,
+          "end_date": null,
+          "enrollment_start": null,
+          "enrollment_end": null,
+          "prices": null,
+          "checksum": null
+        }
+      ],
+      "image": {
+        "id": 2852,
+        "url": "https://live-qa.ocw.mit.edu/courses/4-196-architecture-design-level-ii-cuba-studio-spring-2004/c87eec30c64ad3f57c6c6ba75a03d7ca_4-196s04.jpg",
+        "description": "",
+        "alt": "A photo of the rooftops of Havana, Cuba with lots of clotheslines visible."
+      },
+      "learning_path_parents": [],
+      "user_list_parents": [],
+      "program": null,
+      "readable_id": "4.196+spring_2004",
+      "title": "Architecture Design, Level II: Cuba Studio",
+      "description": "This architectural studio will have one main project for the semester: to explore the issues surrounding the redesign of an area in Havana, Cuba. It is a typical area about the size of a Law of Indies block that presently has a mix of housing, work, and shopping, in buildings that need to be replaced and others that need to be rehabilitated. There is also vacant land, and buildings that are unused. Part of the blocks front on the Malecon, the street next to the water. The other edge fronts onto a typical neighborhood. The intention is to study the culture through an understanding of one area of Havana and then design an \"echo\" in architectural form. The design will include public space as well as a mix of buildings: some new, some rehabilitated.\n",
+      "full_description": null,
+      "last_modified": "2023-10-17T10:00:30Z",
+      "published": true,
+      "languages": null,
+      "url": "https://live-qa.ocw.mit.edu/courses/4-196-architecture-design-level-ii-cuba-studio-spring-2004",
+      "resource_type": "course",
+      "professional": false,
+      "platform": "ocw"
+    }
+  ]
+}
