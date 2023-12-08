@@ -24,7 +24,7 @@ test("External link opens confirmation modal", async ({ page }) => {
 
 test("External OCW link redirects without confirmation", async ({ page }) => {
   const externalLinkUrl = "https://ocw.mit.edu/"
-  
+
   const course = new CoursePage(page, "course")
   await course.goto("/")
   const externalLink = page.getByRole("link", { name: "An External OCW Link" })
