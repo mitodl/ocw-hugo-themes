@@ -22,6 +22,21 @@ test("External link opens confirmation modal", async ({ page }) => {
   await expect(modalTitle).toBeVisible()
 })
 
+test("External OCW link redirects without confirmation", async ({ page }) => {
+  const externalLinkUrl = "https://ocw.mit.edu/"
+  
+  const course = new CoursePage(page, "course")
+  await course.goto("/")
+  const externalLink = page.getByRole("link", { name: "An External OCW Link" })
+
+  await expect(externalLink).toBeVisible()
+
+  await externalLink.click()
+  await page.waitForURL(externalLinkUrl, { waitUntil: "commit" })
+
+  await expect(page.url()).toBe(externalLinkUrl)
+})
+
 test("Modal's 'continue' button navigates to the external link", async ({
   page
 }) => {
@@ -34,7 +49,7 @@ test("Modal's 'continue' button navigates to the external link", async ({
 
   const continueButton = await page.getByRole("button", { name: "Continue" })
   await continueButton.click()
-  await page.waitForURL(externalLinkUrl)
+  await page.waitForURL(externalLinkUrl, { waitUntil: "commit" })
 
   await expect(page.url()).toBe(externalLinkUrl)
 })
