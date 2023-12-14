@@ -1338,19 +1338,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:^1.33.0":
-  version: 1.33.0
-  resolution: "@playwright/test@npm:1.33.0"
+"@playwright/test@npm:^1.40.0":
+  version: 1.40.0
+  resolution: "@playwright/test@npm:1.40.0"
   dependencies:
-    "@types/node": "*"
-    fsevents: 2.3.2
-    playwright-core: 1.33.0
-  dependenciesMeta:
-    fsevents:
-      optional: true
+    playwright: 1.40.0
   bin:
     playwright: cli.js
-  checksum: cec3215fc92c1cb9f5bfba357ea1cbe97b54979ab82f9d34a2287b1687cda5e0966b8ea7290dcd35416e18668e56d5781b6b8c4cec64baf12f3ae8dde0f68f5e
+  checksum: 128f05978f9f5a557f0b7924ec134d43cb70c78d74bc3bf7b18576f00e72399100ddf1f4a139e05ea8275407d8e27be0203ac34f514319a2cbeb01eaf0be5be4
   languageName: node
   linkType: hard
 
@@ -12881,7 +12876,7 @@ __metadata:
   dependencies:
     "@mitodl/course-search-utils": ^2.3.0
     "@mitodl/ocw-to-hugo": 1.36.0
-    "@playwright/test": ^1.33.0
+    "@playwright/test": ^1.40.0
     "@sentry/browser": ^5.19.0
     "@swc/core": ^1.3.14
     "@swc/helpers": ^0.4.12
@@ -12959,7 +12954,7 @@ __metadata:
     npm-run-all: ^4.1.5
     offcanvas-bootstrap: ^2.5.2
     pdfobject: ^2.2.8
-    playwright: ^1.33.0
+    playwright: ^1.40.0
     plugin-error: ^1.0.1
     popper.js: ^1.16.1
     postcss-import: ^12.0.1
@@ -13671,23 +13666,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.33.0":
-  version: 1.33.0
-  resolution: "playwright-core@npm:1.33.0"
+"playwright-core@npm:1.40.0":
+  version: 1.40.0
+  resolution: "playwright-core@npm:1.40.0"
   bin:
-    playwright: cli.js
-  checksum: 5fb7bda06a8b73b56b85b5a0b8f711211dde57a375d9379289e22239b2de879c6d93c8fdc9ba44b932bf100914ab1ca1a55697ad88440fdd0a39101fc020b77f
+    playwright-core: cli.js
+  checksum: 57de5c91a4c404b120ed2af8541b21cdedcbc4f27477341157666d356bbee3b3fab8e61d020f0f450708fa2e8f6dc244b9224cb1985d5426e609cebed15af095
   languageName: node
   linkType: hard
 
-"playwright@npm:^1.33.0":
-  version: 1.33.0
-  resolution: "playwright@npm:1.33.0"
+"playwright@npm:1.40.0, playwright@npm:^1.40.0":
+  version: 1.40.0
+  resolution: "playwright@npm:1.40.0"
   dependencies:
-    playwright-core: 1.33.0
+    fsevents: 2.3.2
+    playwright-core: 1.40.0
+  dependenciesMeta:
+    fsevents:
+      optional: true
   bin:
     playwright: cli.js
-  checksum: fb3934c56ed749cf412ea35b82052f013872d7f7b7747ab7042580af473dfc1b038956a31c132ee8c0098f74150c75e2073e9c737fd4c1ed54700a23fffc079f
+  checksum: 7ba49e5376a6cfd1d32048dbdb2fd38e09182aa2e4619fdb23d3e6530fa6987f2f3fd34ad1d9d906fb4ec2da69ee7536eeb881982d60750fde809183caa607fc
   languageName: node
   linkType: hard
 

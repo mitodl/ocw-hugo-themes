@@ -1,3 +1,4 @@
+import { env } from "../../env"
 import { test, expect } from "@playwright/test"
 import { getFirstAfter, CoursePage } from "../util"
 
@@ -64,6 +65,9 @@ test.describe("Course info", () => {
 })
 
 test("Has expected meta tags in <head>", async ({ page }) => {
+  const sitemapDomain = env.SITEMAP_DOMAIN ?
+    env.SITEMAP_DOMAIN :
+    "https://live-qa.ocw.mit.edu"
   const course = new CoursePage(page, "course")
   await course.goto()
   const metaShareImage = page.locator('meta[property="og:image"]')
@@ -72,12 +76,12 @@ test("Has expected meta tags in <head>", async ({ page }) => {
   const metaTwitterCard = page.locator('meta[name="twitter:card"]')
   await expect(metaShareImage).toHaveAttribute(
     "content",
-    "https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg"
+    `https://${sitemapDomain}/courses/ocw-ci-test-course/example_jpg.jpg`
   )
   await expect(metaTwitterSite).toHaveAttribute("content", "@mitocw")
   await expect(metaTwitterImage).toHaveAttribute(
     "content",
-    "https://live-qa.ocw.mit.edu/courses/123-ocw-ci-test-course-fall-2022/example_jpg.jpg"
+    `https://${sitemapDomain}/courses/ocw-ci-test-course/example_jpg.jpg`
   )
   await expect(metaTwitterCard).toHaveAttribute(
     "content",

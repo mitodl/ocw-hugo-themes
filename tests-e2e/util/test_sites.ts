@@ -32,11 +32,12 @@ const TEST_SITES: Record<TestSiteAlias, TestSite> = {
  * ```
  */
 const siteUrl = (siteAlias: TestSiteAlias, ...relPath: string[]) => {
+  const playwrightBaseUrl = env.PLAYWRIGHT_BASE_URL
   const site = TEST_SITES[siteAlias]
 
   const relDest = siteAlias === "www" ? "" : `courses/${site.name}`
   const pathname = [relDest, ...relPath].join("/")
-  return `http://localhost:${LOCAL_OCW_PORT}/${pathname}`
+  return `${playwrightBaseUrl}/${pathname}`
 }
 
 export { TEST_SITES, LOCAL_OCW_PORT, siteUrl, TestSiteAlias }

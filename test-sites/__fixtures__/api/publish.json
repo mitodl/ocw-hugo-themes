@@ -1,0 +1,20 @@
+{
+    "sites": [
+        {
+            "name": "ocw-ci-test-course",
+            "short_id": "ocw-ci-test-course",
+            "starter_slug": "ocw-course-v2",
+            "site_url": "courses/ocw-ci-test-course",
+            "base_url": "courses/ocw-ci-test-course",
+            "s3_path": "courses/ocw-ci-test-course"
+        },
+        {
+            "name": "some-new-course",
+            "short_id": "some-new-course",
+            "starter_slug": "ocw-course-v2",
+            "site_url": "courses/some-new-course",
+            "base_url": "courses/some-new-course",
+            "s3_path": "courses/some-new-course"
+        }
+    ]
+}

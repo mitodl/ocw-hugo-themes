@@ -9,7 +9,7 @@ const config: PlaywrightTestConfig = {
   testDir:    "./tests-e2e",
   testIgnore: ["**/jest/**"],
   /* Maximum time one test can run for. */
-  timeout:    30 * 1000,
+  timeout:    60 * 1000,
   expect:     {
     timeout: 5000
   },
@@ -33,8 +33,9 @@ const config: PlaywrightTestConfig = {
       name: "Google Chrome",
       use:  { ...devices["Desktop Chrome"], channel: "chrome" }
     }
-  ],
-  globalSetup: path.resolve(__dirname, "./tests-e2e/global-setup.ts")
+  ]
 }
+
+config.globalSetup = path.resolve(__dirname, "./tests-e2e/global-setup.ts")
 
 export default config

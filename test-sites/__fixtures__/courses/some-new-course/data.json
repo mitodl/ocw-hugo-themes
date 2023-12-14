@@ -16,7 +16,7 @@
     "level": [
       "Graduate"
     ],
-    "image_src": "https://draft-qa.ocw.mit.edu/courses/123-another-test-course-fall-1999/neutrino.jpg",
+    "image_src": "/courses/123-another-test-course-fall-1999/neutrino.jpg",
     "course_image_metadata": {
       "body": "",
       "content_type": "resource",

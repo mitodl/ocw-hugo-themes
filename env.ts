@@ -8,10 +8,16 @@ import * as dotenv from "dotenv"
 
 import * as color from "ansi-colors"
 
+const localPort = 3010
+
 const envSchema = {
   /**
    * Defaults!
    */
+  PLAYWRIGHT_BASE_URL: envalid.str({
+    desc:    "The base URL to run playwright tests against",
+    default: `http://localhost:${localPort}`
+  }),
   WEBPACK_ANALYZE: envalid.bool({
     desc:    "Used in webpack build. If `true`, a dependency analysis of the bundle will be included in the build output.",
     default: false
@@ -196,4 +202,4 @@ const cleanEnv = (envObj: Record<string, string | undefined>) =>
  */
 const env = cleanEnv(process.env)
 
-export { env, cleanEnv, envSchema, stringifyEnv }
+export { env, cleanEnv, envSchema, stringifyEnv, localPort }
