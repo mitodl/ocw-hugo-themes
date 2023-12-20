@@ -423,3 +423,11 @@ button:focus:not(.focus-visible) {
 button.btn:focus:not(.focus-visible) {
   outline: 0;
 }
+
+iframe {
+  overflow: hidden;
+}
+
+iframe::-webkit-scrollbar {
+  display: none;
+}

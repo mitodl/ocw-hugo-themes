@@ -16,11 +16,12 @@ import {
   showSolution
 } from "./js/quiz_multiple_choice"
 import { initVideoDownloadPopup } from "./js/video_download_popup"
-import * as zoid from "zoid/dist/zoid"
 
 export interface OCWWindow extends Window {
   initVideoJS: () => void
   initNanogallery2: () => void
+  initZoid: () => void
+  zoidComponents: () => void
 }
 
 declare let window: OCWWindow
@@ -37,6 +38,7 @@ $(function() {
 
 let videoJSLoaded = false
 let nanogallery2Loaded = false
+let zoidLoaded = false
 
 window.initVideoJS = () => {
   if (videoJSLoaded) return
@@ -53,12 +55,9 @@ window.initNanogallery2 = () => {
   nanogallery2Loaded = true
 }
 
-const userWidget = zoid.create({
-  tag:        "user-widget",
-  url:        "http://localhost:8063/widgets/user-widget/",
-  dimensions: {
-    width:  "50px",
-    height: "50px"
-  }
-})
-userWidget().render("#user-widget-container")
+window.initZoid = async () => {
+  if (zoidLoaded) return
+  await import("./zoid-imports")
+  window.zoidComponents = {}
+  zoidLoaded = true
+}

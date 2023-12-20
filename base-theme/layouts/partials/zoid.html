@@ -1,0 +1,30 @@
+<script type="text/javascript">
+window.addEventListener('load', async function() {
+  if (window.initZoid) {
+    await window.initZoid()
+  }
+  if (window.zoid) {
+    const tag = "{{ .tag }}"
+    const url = "{{ .url }}"
+    const width = "{{ .width }}"
+    const height = "{{ .height }}"
+    const target = "{{ .target }}"
+    if (!(tag in window.zoidComponents)) {
+      window.zoidComponents[tag] = zoid.create({
+        tag:        tag,
+        url:        url,
+        dimensions: {
+          width:  width,
+          height: height
+        },
+        autoResize: {
+          width: true,
+          height: true,
+          element: "#app-container"
+        }
+      })()
+    }
+    window.zoidComponents[tag].render(target)
+  }
+})
+</script>

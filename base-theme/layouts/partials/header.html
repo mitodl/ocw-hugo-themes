@@ -37,6 +37,10 @@
         <li class="nav-item">
           {{ partial "link.html" (dict "href" $contactUrl "class" "nav-link" "text" "Contact Us") }}
         </li>
+        <li class="nav-item">
+          <div id="user-widget-container-mobile"></div>
+          {{ partial "zoid.html" (dict "tag" "user-widget" "url" "http://localhost:8063/widgets/user-widget/" "width" "30px" "height" "30px" "target" "#user-widget-container-mobile") }}
+        </li>
       </ul>
     </div>
   </nav>
@@ -58,7 +62,9 @@
       {{ partial "link.html" (dict "href" $aboutUrl "class" "text-white text-decoration-none font-weight-bold pl-5 pr-3 py-2" "text" "about ocw") }}
       {{ partial "link.html" (dict "href" $zenDeskUrl "class" "text-white text-decoration-none font-weight-bold px-3 py-2" "text" "help & faqs" "target" "_blank") }}
       {{ partial "link.html" (dict "href" $contactUrl "class" "text-white text-decoration-none font-weight-bold px-3 py-2" "text" "contact us") }}
-      <div id="user-widget-container"></div>
+      <div id="user-widget-container-desktop"></div>
+      {{ partial "zoid.html" (dict "tag" "user-widget" "url" "http://localhost:8063/widgets/user-widget/" "width" "30px" "height" "30px" "target" "#user-widget-container-desktop") }}
     </div>
   </div>
 </div>
+<div id="user-widget-container"></div>
