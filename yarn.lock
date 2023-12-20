@@ -4147,6 +4147,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"belter@npm:^1.0.123, belter@npm:^1.0.41":
+  version: 1.0.190
+  resolution: "belter@npm:1.0.190"
+  dependencies:
+    cross-domain-safe-weakmap: ^1
+    cross-domain-utils: ^2
+    zalgo-promise: ^1
+  checksum: 219ba6fc44c468b69765fccf5587f36c095bc601abfc234b47f5e89cc4626daa6b358762466a8f7269271301442e4d48e431133d13552f934aaf1cbcd549a29a
+  languageName: node
+  linkType: hard
+
 "big.js@npm:^5.2.2":
   version: 5.2.2
   resolution: "big.js@npm:5.2.2"
@@ -5494,6 +5505,24 @@ __metadata:
   version: 1.1.1
   resolution: "create-require@npm:1.1.1"
   checksum: a9a1503d4390d8b59ad86f4607de7870b39cad43d929813599a23714831e81c520bddf61bcdd1f8e30f05fd3a2b71ae8538e946eb2786dc65c2bbc520f692eff
+  languageName: node
+  linkType: hard
+
+"cross-domain-safe-weakmap@npm:^1, cross-domain-safe-weakmap@npm:^1.0.1":
+  version: 1.0.29
+  resolution: "cross-domain-safe-weakmap@npm:1.0.29"
+  dependencies:
+    cross-domain-utils: ^2.0.0
+  checksum: 626c0cd15b19d607d002ba16012aa9e563ec395d9f5efcc4ff2f0e3bfc0f81503ee8ee588e04eaaf2ffabb7e9ba8412946cbd043aa0194c6aaf689593a578e25
+  languageName: node
+  linkType: hard
+
+"cross-domain-utils@npm:^2, cross-domain-utils@npm:^2.0.0, cross-domain-utils@npm:^2.0.33":
+  version: 2.0.38
+  resolution: "cross-domain-utils@npm:2.0.38"
+  dependencies:
+    zalgo-promise: ^1.0.11
+  checksum: 72475a5de31ad60d7529cbd36c993c9b0c62b549a7b3932a87146fe3e16b704d3953fc50d3aeaf5d330391328bd6c14efaf359c1826956216edcbf0fa11fe982
   languageName: node
   linkType: hard
 
@@ -13000,6 +13029,7 @@ __metadata:
     webpack-dev-server: ^4.11.1
     webpack-manifest-plugin: ^5.0.0
     webpack-merge: ^5.0.9
+    zoid: ^9.0.86
   languageName: unknown
   linkType: soft
 
@@ -13727,6 +13757,19 @@ __metadata:
   version: 0.1.1
   resolution: "posix-character-classes@npm:0.1.1"
   checksum: dedb99913c60625a16050cfed2fb5c017648fc075be41ac18474e1c6c3549ef4ada201c8bd9bd006d36827e289c571b6092e1ef6e756cdbab2fd7046b25c6442
+  languageName: node
+  linkType: hard
+
+"post-robot@npm:^10":
+  version: 10.0.46
+  resolution: "post-robot@npm:10.0.46"
+  dependencies:
+    belter: ^1.0.41
+    cross-domain-safe-weakmap: ^1.0.1
+    cross-domain-utils: ^2.0.0
+    universal-serialize: ^1.0.4
+    zalgo-promise: ^1.0.3
+  checksum: 640ab1b0daca34a5c4c734440ba939641ba75047c2e392669b175892ac0869c6493da80064177d3bfc9c72a4448765c22b933ecd73f5a0181ab2a5784e167643
   languageName: node
   linkType: hard
 
@@ -18219,6 +18262,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"universal-serialize@npm:^1.0.4":
+  version: 1.0.10
+  resolution: "universal-serialize@npm:1.0.10"
+  checksum: c9bcdeb36c3109b32ea2d5ab92574534cdb86cd981262f8cf107ac7bea2276320bae1c0c4e8b0285685d3f39c8b31f4044fe30f72abf5975c1d891c813283156
+  languageName: node
+  linkType: hard
+
 "universalify@npm:^0.1.0, universalify@npm:^0.1.2":
   version: 0.1.2
   resolution: "universalify@npm:0.1.2"
@@ -19414,6 +19464,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"zalgo-promise@npm:^1, zalgo-promise@npm:^1.0.11, zalgo-promise@npm:^1.0.3, zalgo-promise@npm:^1.0.45":
+  version: 1.0.48
+  resolution: "zalgo-promise@npm:1.0.48"
+  checksum: 9ef8c91c4e4a15769e5f2d14918237a1c51a5961d6e979d40f27013f3299052bc175d957e7772e116a83a90bff925f65a7515d99aba429ff3866b0e484529dfc
+  languageName: node
+  linkType: hard
+
 "zip-stream@npm:^4.1.0":
   version: 4.1.0
   resolution: "zip-stream@npm:4.1.0"
@@ -19422,5 +19479,17 @@ __metadata:
     compress-commons: ^4.1.0
     readable-stream: ^3.6.0
   checksum: 4a73da856738b0634700b52f4ab3fe0bf0a532bea6820ad962d0bda0163d2d5525df4859f89a7238e204a378384e12551985049790c1894c3ac191866e85887f
+  languageName: node
+  linkType: hard
+
+"zoid@npm:^9.0.86":
+  version: 9.0.86
+  resolution: "zoid@npm:9.0.86"
+  dependencies:
+    belter: ^1.0.123
+    cross-domain-utils: ^2.0.33
+    post-robot: ^10
+    zalgo-promise: ^1.0.45
+  checksum: 4d956340f3af524538f098f744630ce7ab04360c3179d01523e297e17c80187bf7a405899eeeef23c1032e5a663a6048075c3af71883740ff43dfef91fb8ef2d
   languageName: node
   linkType: hard

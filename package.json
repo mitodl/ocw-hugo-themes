@@ -162,7 +162,8 @@
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.11.1",
     "webpack-manifest-plugin": "^5.0.0",
-    "webpack-merge": "^5.0.9"
+    "webpack-merge": "^5.0.9",
+    "zoid": "^9.0.86"
   },
   "packageManager": "yarn@3.2.2",
   "devDependencies": {

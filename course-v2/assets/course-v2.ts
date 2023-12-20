@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import "video.js/dist/video-js.css"
 import "offcanvas-bootstrap/dist/js/bootstrap.offcanvas.js"
 import "promise-polyfill/src/polyfill.js"
@@ -14,6 +16,7 @@ import {
   showSolution
 } from "./js/quiz_multiple_choice"
 import { initVideoDownloadPopup } from "./js/video_download_popup"
+import * as zoid from "zoid/dist/zoid"
 
 export interface OCWWindow extends Window {
   initVideoJS: () => void
@@ -49,3 +52,13 @@ window.initNanogallery2 = () => {
   import("./nanogallery2-imports")
   nanogallery2Loaded = true
 }
+
+const userWidget = zoid.create({
+  tag:        "user-widget",
+  url:        "http://localhost:8063/widgets/user-widget/",
+  dimensions: {
+    width:  "50px",
+    height: "50px"
+  }
+})
+userWidget().render("#user-widget-container")
