@@ -39,7 +39,7 @@ const siteUrl = (siteAlias: TestSiteAlias, ...relPath: string[]) => {
 
   const relDest = siteAlias === "www" ? "" : `courses/${site.name}`
   const pathName = [relDest, ...relPath].join("/")
-  return path.join(playwrightBaseUrl, pathName)
+  return new URL(path.join(playwrightBaseUrl, pathName)).href
 }
 
 export { TEST_SITES, LOCAL_OCW_PORT, siteUrl, TestSiteAlias }
