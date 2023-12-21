@@ -1,3 +1,5 @@
+import path from "path"
+
 import { env } from "../../env"
 
 const LOCAL_OCW_PORT = 3010
@@ -36,8 +38,8 @@ const siteUrl = (siteAlias: TestSiteAlias, ...relPath: string[]) => {
   const site = TEST_SITES[siteAlias]
 
   const relDest = siteAlias === "www" ? "" : `courses/${site.name}`
-  const pathname = [relDest, ...relPath].join("/")
-  return `${playwrightBaseUrl}/${pathname}`
+  const pathName = [relDest, ...relPath].join("/")
+  return path.join(playwrightBaseUrl, pathName)
 }
 
 export { TEST_SITES, LOCAL_OCW_PORT, siteUrl, TestSiteAlias }
