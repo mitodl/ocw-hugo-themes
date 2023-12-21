@@ -36,7 +36,9 @@ const siteUrl = (siteAlias: TestSiteAlias, ...relPath: string[]) => {
   const site = TEST_SITES[siteAlias]
 
   const relDest = siteAlias === "www" ? "" : `courses/${site.name}`
-  const pathName = [relDest, ...relPath].join("/")
+  const pathName = [relDest, ...relPath]
+    .join("/")
+    .replace(/([^:])(\/\/+)/g, "$1/")
   return new URL(pathName, playwrightBaseUrl).href
 }
 
