@@ -1,5 +1,3 @@
-import path from "path"
-
 import { env } from "../../env"
 
 const LOCAL_OCW_PORT = 3010
