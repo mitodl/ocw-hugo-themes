@@ -41,7 +41,7 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
    * ALERT MAC USERS
    * =================
    * This test will only pass if MacOS System setting "Keyboard navigation" is
-   * enabled. This setting is **disablled** by default.
+   * enabled. This setting is **disabled** by default.
    *
    * See https://github.com/mitodl/ocw-hugo-themes/issues/1283#issuecomment-1833883368
    * for more context.
