@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.103.0
+Version 1.103.0 (Released January 03, 2024)
 ---------------
 
 - playwright base url override (#1280)
