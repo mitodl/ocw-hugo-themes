@@ -33,9 +33,19 @@ test("that the Download Button works for multiple embed videos in a page", async
     await videoElement.downloadButton().click()
   }
 })
+
 test("Verify that the 'Download video' and 'Download transcript' links are keyboard navigable and have the correct download URLs", async ({
   page
 }) => {
+  /**
+   * ALERT MAC USERS
+   * =================
+   * This test will only pass if MacOS System setting "Keyboard navigation" is
+   * enabled. This setting is **disabled** by default.
+   *
+   * See https://github.com/mitodl/ocw-hugo-themes/issues/1283#issuecomment-1833883368
+   * for more context.
+   */
   const coursePage = new CoursePage(page, "course")
   await coursePage.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
   const downloadLinks = [
