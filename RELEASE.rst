@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.104.0
+---------------
+
+- Fix redundant backslashes in Playwright test URLs (#1290)
+
 Version 1.103.0 (Released January 03, 2024)
 ---------------
 
