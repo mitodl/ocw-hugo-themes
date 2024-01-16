@@ -1,0 +1,10 @@
+{{ define "main" }}
+  {{ partial "external-link"
+    (dict 
+      "text" .Params.text
+      "href" .Params.external_url
+      "isImage" .Params.is_image
+      "context" .
+    )
+  }}
+{{ end }}

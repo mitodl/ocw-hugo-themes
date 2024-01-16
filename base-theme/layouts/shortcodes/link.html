@@ -1,0 +1,15 @@
+{{ with .Get "uuid" }}
+  {{ $uuid := . }}
+  {{- range where $.Site.Pages "Params.uid" $uuid -}}
+    {{ partial "external-link"
+      (dict
+        "text" .Params.text
+        "href" .Params.external_url
+        "isImage" .Params.is_image
+        "context" .
+      )
+    }}
+  {{- end -}}
+{{ else }}
+  {{ errorf "Missing value for parameter 'uuid': %s" .Position }}
+{{ end }}
