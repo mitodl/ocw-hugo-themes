@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.104.0
+Version 1.104.0 (Released January 18, 2024)
 ---------------
 
 - feat: update social links (#1295)
