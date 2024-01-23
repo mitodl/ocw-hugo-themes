@@ -1,6 +1,9 @@
 {{ $text := default "" (.text | htmlEscape | .context.RenderString) }}
 {{ $isImage := default false .isImage }}
 {{ $href := default "" .href }}
+{{ if .isDefunct }}
+    {{ $href = .backupHref }}
+{{ end }}
 
 {{ if $isImage }}
     <img src="{{- $href -}}" alt="{{- $text -}}" />
