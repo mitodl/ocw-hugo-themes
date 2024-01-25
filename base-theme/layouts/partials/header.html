@@ -54,6 +54,7 @@
     </div>
     <div class="right">
       {{ block "extraheader" . }}{{ end }}
+      <div id="login-button"></div>
       {{ partial "link.html" (dict "href" $giveNowUrl "class" "give-button-header font-weight-bold py-2 px-3" "text" "give now") }}
       {{ partial "link.html" (dict "href" $aboutUrl "class" "text-white text-decoration-none font-weight-bold pl-5 pr-3 py-2" "text" "about ocw") }}
       {{ partial "link.html" (dict "href" $zenDeskUrl "class" "text-white text-decoration-none font-weight-bold px-3 py-2" "text" "help & faqs" "target" "_blank") }}
