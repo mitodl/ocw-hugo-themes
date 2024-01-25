@@ -10882,6 +10882,7 @@ __metadata:
     lodash.uppercase: ^4.3.0
     mathjax: ^3.2.2
     mini-css-extract-plugin: ^2.6.1
+    mit-open-login-button: /home/gumaerc/Code/mit-open-login-button
     nanogallery2: ^2.4.2
     offcanvas-bootstrap: ^2.5.2
     pdfobject: ^2.2.8
