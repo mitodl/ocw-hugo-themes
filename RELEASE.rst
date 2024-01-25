@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.104.1
+Version 1.104.1 (Released January 25, 2024)
 ---------------
 
 - Add renovate.json (#1270)
