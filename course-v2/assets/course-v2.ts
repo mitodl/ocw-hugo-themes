@@ -30,7 +30,8 @@ $(function() {
   showSolution()
   initCourseDrawersClosingViaSwiping()
   initExternalLinkModal()
-  initLoginButton("login-button", "http://localhost:8063/", "btn blue-btn text-white btn-link link-button")
+  initLoginButton("login-button-mobile", "http://localhost:8063/", "Login", "btn blue-btn text-white btn-link link-button py-2 px-3 my-0", "text-white")
+  initLoginButton("login-button-desktop", "http://localhost:8063/", "Login", "btn blue-btn text-white btn-link link-button py-2 px-3 my-0", "text-white px-3")
 })
 
 let nanogallery2Loaded = false
