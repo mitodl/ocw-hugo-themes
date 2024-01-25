@@ -1,17 +1,9 @@
-{{ with .Get "uuid" }}
-  {{ $uuid := . }}
+{{- $uuid := .Get "uuid" -}}
+{{- $text := .Get "text" -}}
+{{- if $uuid -}}
   {{- range where $.Site.Pages "Params.uid" $uuid -}}
-    {{ partial "external-link"
-      (dict
-        "text" .Params.text
-        "href" .Params.external_url
-        "backupHref" .Params.backup_url
-        "isImage" .Params.is_image
-        "isDefunct" .Params.is_defunct
-        "context" .
-      )
-    }}
+    {{- partial "external-link"
+      (merge .Params (dict "context" . "text" $text))
+    -}}
   {{- end -}}
-{{ else }}
-  {{ errorf "Missing value for parameter 'uuid': %s" .Position }}
-{{ end }}
+{{- end -}}
