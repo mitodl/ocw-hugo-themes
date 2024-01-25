@@ -12146,8 +12146,8 @@ __metadata:
 
 "mit-open-login-button@file:/home/gumaerc/Code/mit-open-login-button::locator=ocw-hugo-themes%40workspace%3A.":
   version: 0.0.1
-  resolution: "mit-open-login-button@file:/home/gumaerc/Code/mit-open-login-button#/home/gumaerc/Code/mit-open-login-button::hash=e30d1f&locator=ocw-hugo-themes%40workspace%3A."
-  checksum: 65af9696181261381d3f77ffd42eb63b421fa07af30dc169bd381aea024438cbb53067dc3a342341eac1eca4fae0c76d178c3c080dfd160f12a4fe38a1b44f33
+  resolution: "mit-open-login-button@file:/home/gumaerc/Code/mit-open-login-button#/home/gumaerc/Code/mit-open-login-button::hash=c287a3&locator=ocw-hugo-themes%40workspace%3A."
+  checksum: de38a2215930f073f65daa5d4804de426c4b3e1683e28a84f7fcd0fcabd6351eaebfda9fbd2f8a7c8ec3fb3e9861af2deef51230ea8d733c15cdda4546de094c
   languageName: node
   linkType: hard
 
