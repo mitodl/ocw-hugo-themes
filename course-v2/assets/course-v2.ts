@@ -13,6 +13,7 @@ import {
   showSolution
 } from "./js/quiz_multiple_choice"
 import { initExternalLinkModal } from "./js/external_link_modal"
+import { initLoginButton } from "mit-open-login-button"
 
 export interface OCWWindow extends Window {
   initNanogallery2: () => void
@@ -29,6 +30,7 @@ $(function() {
   showSolution()
   initCourseDrawersClosingViaSwiping()
   initExternalLinkModal()
+  initLoginButton("login-button", "http://localhost:8063/", "btn blue-btn text-white btn-link link-button")
 })
 
 let nanogallery2Loaded = false
