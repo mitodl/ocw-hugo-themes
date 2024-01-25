@@ -10989,6 +10989,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mit-open-login-button@file:/home/gumaerc/Code/mit-open-login-button::locator=ocw-hugo-themes%40workspace%3A.":
+  version: 0.0.1
+  resolution: "mit-open-login-button@file:/home/gumaerc/Code/mit-open-login-button#/home/gumaerc/Code/mit-open-login-button::hash=e30d1f&locator=ocw-hugo-themes%40workspace%3A."
+  checksum: 65af9696181261381d3f77ffd42eb63b421fa07af30dc169bd381aea024438cbb53067dc3a342341eac1eca4fae0c76d178c3c080dfd160f12a4fe38a1b44f33
+  languageName: node
+  linkType: hard
+
+"mixin-deep@npm:^1.2.0":
+  version: 1.3.2
+  resolution: "mixin-deep@npm:1.3.2"
+  dependencies:
+    for-in: ^1.0.2
+    is-extendable: ^1.0.1
+  checksum: 820d5a51fcb7479f2926b97f2c3bb223546bc915e6b3a3eb5d906dda871bba569863595424a76682f2b15718252954644f3891437cb7e3f220949bed54b1750d
+  languageName: node
+  linkType: hard
+
 "mkdirp@npm:^0.5.0":
   version: 0.5.5
   resolution: "mkdirp@npm:0.5.5"
@@ -11671,6 +11688,7 @@ __metadata:
     lodash.uppercase: ^4.3.0
     mathjax: ^3.2.2
     mini-css-extract-plugin: ^2.6.1
+    mit-open-login-button: /home/gumaerc/Code/mit-open-login-button
     nanogallery2: ^2.4.2
     offcanvas-bootstrap: ^2.5.2
     pdfobject: ^2.2.8
