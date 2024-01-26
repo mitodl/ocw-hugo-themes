@@ -3,7 +3,7 @@
 {{- $anchor_id := index .Params 2 | default ""}}
 {{- range where $.Site.Pages "Params.uid" $uuid -}}
 {{- if eq .Params.content_type "link" -}}
-    {{- partial "external-link"
+    {{- partial "external_link"
       (merge .Params (dict "text" $title))
     -}}
   {{- else -}}

@@ -2,7 +2,7 @@
 {{- $text := .Get "text" -}}
 {{- if $uuid -}}
   {{- range where $.Site.Pages "Params.uid" $uuid -}}
-    {{- partial "external-link"
+    {{- partial "external_link"
       (merge .Params (dict "text" $text))
     -}}
   {{- end -}}
