@@ -1,5 +1,3 @@
 {{ define "main" }}
-  {{- partial "external-link"
-    (merge .Params (dict "context" .))
-  -}}
+  {{- partial "external-link" .Params -}}
 {{ end }}

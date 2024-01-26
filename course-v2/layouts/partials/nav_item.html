@@ -12,7 +12,6 @@
         {{- partial "external-link"
           (merge $linkedPage.Params
             (dict
-              "context" $linkedPage
               "text" .menuItem.Name
               "is_image" false
               "class" "text-dark nav-link"

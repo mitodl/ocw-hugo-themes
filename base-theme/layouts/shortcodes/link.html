@@ -3,7 +3,7 @@
 {{- if $uuid -}}
   {{- range where $.Site.Pages "Params.uid" $uuid -}}
     {{- partial "external-link"
-      (merge .Params (dict "context" . "text" $text))
+      (merge .Params (dict "text" $text))
     -}}
   {{- end -}}
 {{- end -}}

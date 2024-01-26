@@ -4,12 +4,7 @@
 {{- range where $.Site.Pages "Params.uid" $uuid -}}
 {{- if eq .Params.content_type "link" -}}
     {{- partial "external-link"
-      (merge .Params
-        (dict
-          "context" .
-          "text" $title
-        )
-      )
+      (merge .Params (dict "text" $title))
     -}}
   {{- else -}}
     [{{ $title }}]({{- .Permalink -}}{{- $anchor_id -}})
