@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.104.2
+---------------
+
+- fix non-credit filter (#1301)
+
 Version 1.104.1 (Released January 25, 2024)
 ---------------
 
