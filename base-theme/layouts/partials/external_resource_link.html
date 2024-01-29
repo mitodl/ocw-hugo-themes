@@ -1,5 +1,4 @@
 {{- $text := default .title .text | htmlEscape | page.RenderString -}}
-{{- $isImage := default false .is_image -}}
 {{- $href := default "" .external_url -}}
 {{- $isBroken := default false .is_broken -}}
 {{- $backupUrl := default "" .backup_url -}}
@@ -8,8 +7,4 @@
   {{- $href = $backupUrl -}}
 {{- end -}}
 
-{{- if $isImage -}}
-  <img src="{{- $href -}}" alt="{{- $text -}}" />
-{{- else -}}
-  {{ partial "link" (dict "href" $href "text" $text "class" .class) }}
-{{- end -}}
+{{ partial "link" (dict "href" $href "text" $text "class" .class) }}

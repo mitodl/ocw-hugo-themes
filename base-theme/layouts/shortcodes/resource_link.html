@@ -2,8 +2,8 @@
 {{- $title := index .Params 1 | safeHTML -}}
 {{- $anchor_id := index .Params 2 | default ""}}
 {{- range where $.Site.Pages "Params.uid" $uuid -}}
-{{- if eq .Params.content_type "link" -}}
-    {{- partial "external_link"
+{{- if eq .Params.content_type "external-resource" -}}
+    {{- partial "external_resource_link"
       (merge .Params (dict "text" $title))
     -}}
   {{- else -}}
