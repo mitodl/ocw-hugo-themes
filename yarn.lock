@@ -1239,28 +1239,36 @@ __metadata:
   linkType: hard
 
 "@mitodl/course-search-utils@npm:^1.1.4":
-  version: 1.1.4
-  resolution: "@mitodl/course-search-utils@npm:1.1.4"
+  version: 1.8.0
+  resolution: "@mitodl/course-search-utils@npm:1.8.0"
   dependencies:
+    bodybuilder: ^2.5.0
+    history: ^5.0.0
     query-string: ^6.13.1
     ramda: ^0.27.1
   peerDependencies:
     react: ^16.13.1
-  checksum: 4b40be31421c4aaf9bec48019c36fc278e78936ac01a50e0ae089373a3a54fee874092d6cf20c6acabb81ff1a48deaf077ace8bab420994a2e1d5f750e836670
+  checksum: f20a26dc63f5934a11ba77f30624fa7b77f4e6f9bc93fa5640117b166e0016bdc3d3eaa71fad3fde634cd02cb155ef1db81b95091cde7d6478e94905f2e2f233
   languageName: node
   linkType: hard
 
 "@mitodl/course-search-utils@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "@mitodl/course-search-utils@npm:2.3.0"
+  version: 2.3.2
+  resolution: "@mitodl/course-search-utils@npm:2.3.2"
   dependencies:
     bodybuilder: ^2.5.0
-    history: ^4.9 || ^5.0.0
     query-string: ^6.13.1
     ramda: ^0.27.1
   peerDependencies:
+    "@types/history": ^4.9
+    history: ^4.9 || ^5.0.0
     react: ^16.13.1
-  checksum: 9a4ec0c8cf27dfc10b83c131d0debb2e95a4f9ab8b179c19a0d5759f3777640336252ed692087fba0814331cf85f58334f2fa39562ff608cd76643aed4de4dc3
+  peerDependenciesMeta:
+    "@types/history":
+      optional: true
+    history:
+      optional: true
+  checksum: 9d6947520e501b31dd40f4674bec2be08d97423956e105b6334e602dd4e1eea0b075aedd43ebb1e341e6a155d761c8ca15d46722bdcfb581b948fc05b2571ba1
   languageName: node
   linkType: hard
 
@@ -8906,7 +8914,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"history@npm:^4.9 || ^5.0.0, history@npm:^5.3.0":
+"history@npm:^5.0.0, history@npm:^5.3.0":
   version: 5.3.0
   resolution: "history@npm:5.3.0"
   dependencies:
