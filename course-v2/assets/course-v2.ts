@@ -30,8 +30,8 @@ $(function() {
   showSolution()
   initCourseDrawersClosingViaSwiping()
   initExternalLinkModal()
-  initLoginButton("login-button-mobile", "http://localhost:8063/", "Login", "btn blue-btn text-white btn-link link-button py-2 px-3 my-0", "text-white")
-  initLoginButton("login-button-desktop", "http://localhost:8063/", "Login", "btn blue-btn text-white btn-link link-button py-2 px-3 my-0", "text-white px-3")
+  initLoginButton("login-button-mobile", "http://od.odl.local:8063/", "Login", "btn blue-btn text-white btn-link link-button py-2 px-3 my-0", "text-white")
+  initLoginButton("login-button-desktop", "http://od.odl.local:8063/", "Login", "btn blue-btn text-white btn-link link-button py-2 px-3 my-0", "text-white px-3")
 })
 
 let nanogallery2Loaded = false
