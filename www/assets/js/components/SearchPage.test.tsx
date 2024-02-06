@@ -49,8 +49,6 @@ jest.mock("../lib/api", () => ({
 }))
 const spySearch = jest.mocked(search)
 
-jest.mock("lodash.debounce", () => jest.fn(fn => fn))
-
 const defaultCourseFacets = {
   ...INITIAL_FACET_STATE,
   type:       [LearningResourceType.Course],
