@@ -70,6 +70,7 @@ $searchbox-height: 50px;
       }
 
       .search-box-wrapper {
+
         input,
         button,
         a {
@@ -77,6 +78,7 @@ $searchbox-height: 50px;
         }
 
         @include media-breakpoint-down(sm) {
+
           button,
           a {
             height: 40px;
@@ -200,32 +202,56 @@ $searchbox-height: 50px;
   @include media-breakpoint-up(lg) {
     padding: $spacer5 $spacer8;
 
-    > div:not(:first-child) {
+    >div:not(:first-child) {
       padding-left: $spacer6;
     }
   }
 
   .give-button {
-    width: 100%;
-    height: 50px;
-    border-radius: 5px;
-    background-color: black;
-    color: $orange;
-    text-decoration: none;
+    min-width: 100%;
 
     @include media-breakpoint-down(sm) {
       width: 100%;
       justify-content: center;
     }
-
-    div {
-      padding: $spacer3 $spacer5;
-    }
-
-    img {
-      height: 30px;
-    }
   }
+}
+
+img.heart-burgundy {
+  margin-bottom: 1px;
+}
+
+.give-button {
+  font-weight: 700;
+  font-size: 1.125rem;
+  text-wrap: nowrap;
+  // height: 59px;
+  border-radius: 7px;
+  padding: 20px 30px 15px 30px;
+  border-bottom: 5px solid #851124;
+  // box-shadow: inset 0 -4px 0 #851124; /* Inner shadow effect */
+  background-color: #A31F34;
+  color: $white;
+  text-decoration: none;
+
+  div {
+    padding: $spacer3 $spacer5;
+  }
+
+  img {
+    height: 0.875rem;
+  }
+
+}
+
+.give-button:hover {
+  color: $white;
+  text-decoration: none;
+
+}
+
+.give-button:hover>img {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7486%) hue-rotate(142deg) brightness(96%) contrast(103%);
 }
 
 .social-cards-wrapper {
@@ -254,7 +280,7 @@ $searchbox-height: 50px;
       width: 270px;
     }
 
-    > div {
+    >div {
       background-color: $white;
       border: 1px solid $medium-gray;
       border-radius: 5px;
@@ -446,6 +472,7 @@ $promo-carousel-height: 200px;
 
   a {
     cursor: pointer;
+
     .material-icons {
       font-size: 3.75rem;
       font-weight: 200;
@@ -553,6 +580,7 @@ $promo-carousel-height: 200px;
         height: 450px;
         width: 100%;
       }
+
       @include media-breakpoint-down(xs) {
         height: 215px;
       }
@@ -580,6 +608,7 @@ $promo-carousel-height: 200px;
         font-size: $featured-news-heading-font-md;
         line-height: $featured-news-line-height-md;
       }
+
       @include breakpoint(ipad) {
         font-size: $featured-news-heading-font-sm;
         line-height: $featured-news-line-height-sm;
@@ -610,24 +639,31 @@ $promo-carousel-height: 200px;
       flex-direction: column;
       justify-content: center;
       height: 100%;
+
       h3 {
         margin: 0;
       }
+
       @include media-breakpoint-up(md) {
         padding: 40px 50px;
       }
+
       @include media-breakpoint-down(md) {
         padding: 30px;
       }
+
       @include breakpoint(ipad) {
         padding: 20px;
       }
+
       @include media-breakpoint-down(xs) {
         padding: 10px 15px;
       }
     }
   }
+
   .news-card:hover {
+
     .news-card-title h3,
     .news-card-title h3:hover,
     .news-card-date {
@@ -654,9 +690,11 @@ $promo-carousel-height: 200px;
     padding-left: 15px;
     padding-right: 15px;
   }
+
   a:last-child .news-card {
     margin-bottom: 0px;
   }
+
   .news-card {
     display: flex;
     flex-direction: row;
@@ -696,6 +734,7 @@ $promo-carousel-height: 200px;
         font-weight: 700;
         line-height: 20px;
         margin: 0;
+
         @include media-breakpoint-down(md) {
           font-size: 14px;
           font-weight: 600;

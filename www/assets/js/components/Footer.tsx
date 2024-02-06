@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="search-footer px-2">
       <img
-        src="/static_shared/images/mit-ol.png"
+        src="/static_shared/images/mit_ol.svg"
         width="140px"
         alt="MIT Open Learning"
       />
