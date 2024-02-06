@@ -4,6 +4,7 @@
   "description": "A Hugo theme for building OCW websites",
   "repository": "mitodl/ocw-hugo-themes",
   "main": "base-theme/assets/index.js",
+  "packageManager": "yarn@3.2.2",
   "scripts": {
     "lint": "eslint $PROJECT_CWD/'**/*.{js,jsx,ts,tsx}'",
     "start": "NODE_ENV=development ts-node ./package_scripts/start.ts",
@@ -68,7 +69,6 @@
     "videojs-transcript-ac": "^0.8.8",
     "videojs-youtube": "^2.6.1"
   },
-  "packageManager": "yarn@3.2.2",
   "devDependencies": {
     "@mitodl/ocw-to-hugo": "1.36.0",
     "@playwright/test": "^1.40.0",
