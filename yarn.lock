@@ -7912,7 +7912,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"history@npm:^4.9 || ^5.0.0, history@npm:^5.3.0":
+"history@npm:^5.0.0, history@npm:^5.3.0":
   version: 5.3.0
   resolution: "history@npm:5.3.0"
   dependencies:
@@ -11342,7 +11342,7 @@ __metadata:
     lodash.uppercase: ^4.3.0
     mathjax: ^3.2.2
     mini-css-extract-plugin: ^2.6.1
-    mit-open-login-button: /home/gumaerc/Code/mit-open-login-button
+    mit-open-login-button: "https://github.com/mitodl/mit-open-login-button.git#cg/fix-api-path"
     nanogallery2: ^2.4.2
     offcanvas-bootstrap: ^2.5.2
     pdfobject: ^2.2.8

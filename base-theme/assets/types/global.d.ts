@@ -12,6 +12,7 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       SEARCH_API_URL: string
+      MIT_OPEN_BASEURL: string
     }
   }
 }
