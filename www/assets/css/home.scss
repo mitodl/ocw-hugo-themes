@@ -70,7 +70,6 @@ $searchbox-height: 50px;
       }
 
       .search-box-wrapper {
-
         input,
         button,
         a {
@@ -78,7 +77,6 @@ $searchbox-height: 50px;
         }
 
         @include media-breakpoint-down(sm) {
-
           button,
           a {
             height: 40px;
@@ -202,7 +200,7 @@ $searchbox-height: 50px;
   @include media-breakpoint-up(lg) {
     padding: $spacer5 $spacer8;
 
-    >div:not(:first-child) {
+    > div:not(:first-child) {
       padding-left: $spacer6;
     }
   }
@@ -230,7 +228,7 @@ img.heart-burgundy {
   padding: 20px 30px 15px 30px;
   border-bottom: 5px solid #851124;
   // box-shadow: inset 0 -4px 0 #851124; /* Inner shadow effect */
-  background-color: #A31F34;
+  background-color: #a31f34;
   color: $white;
   text-decoration: none;
 
@@ -241,17 +239,16 @@ img.heart-burgundy {
   img {
     height: 0.875rem;
   }
-
 }
 
 .give-button:hover {
   color: $white;
   text-decoration: none;
-
 }
 
-.give-button:hover>img {
-  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7486%) hue-rotate(142deg) brightness(96%) contrast(103%);
+.give-button:hover > img {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7486%)
+    hue-rotate(142deg) brightness(96%) contrast(103%);
 }
 
 .social-cards-wrapper {
@@ -280,7 +277,7 @@ img.heart-burgundy {
       width: 270px;
     }
 
-    >div {
+    > div {
       background-color: $white;
       border: 1px solid $medium-gray;
       border-radius: 5px;
@@ -663,7 +660,6 @@ $promo-carousel-height: 200px;
   }
 
   .news-card:hover {
-
     .news-card-title h3,
     .news-card-title h3:hover,
     .news-card-date {
