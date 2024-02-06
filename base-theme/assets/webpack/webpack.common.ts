@@ -173,7 +173,8 @@ const config: webpack.Configuration = {
       Popper:          "popper.js/dist/umd/popper"
     }),
     new webpack.DefinePlugin({
-      RELEASE_VERSION: JSON.stringify(packageJson.version)
+      RELEASE_VERSION:  JSON.stringify(packageJson.version),
+      MIT_OPEN_BASEURL: JSON.stringify(packageJson.version)
     })
   ].concat(
     process.env.WEBPACK_ANALYZE === "true" ?
