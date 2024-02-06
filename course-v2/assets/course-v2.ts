@@ -31,8 +31,20 @@ $(function() {
   checkAnswer()
   showSolution()
   initCourseDrawersClosingViaSwiping()
-  initLoginButton("login-button-mobile", "http://od.odl.local:8063/", "Login", "btn blue-btn text-white btn-link link-button py-2 px-3 my-0", "text-white")
-  initLoginButton("login-button-desktop", "http://od.odl.local:8063/", "Login", "btn blue-btn text-white btn-link link-button py-2 px-3 my-0", "text-white px-3")
+  initLoginButton(
+    "login-button-mobile",
+    process.env.MIT_OPEN_BASEURL,
+    "Login",
+    "btn blue-btn text-white btn-link link-button py-2 px-3 my-0",
+    "text-white"
+  )
+  initLoginButton(
+    "login-button-desktop",
+    process.env.MIT_OPEN_BASEURL,
+    "Login",
+    "btn blue-btn text-white btn-link link-button py-2 px-3 my-0",
+    "text-white px-3"
+  )
 })
 
 let videoJSLoaded = false
