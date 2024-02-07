@@ -1,7 +1,7 @@
 {{ define "extraheader" }}
   {{ $renderSearchIcon := index .Params "renderSearchIcon" | default true}}
   {{ if $renderSearchIcon}}
-    <a class="nav-link search-icon pr-6" href="/search">
+    <a class="nav-link search-icon text-white pr-6" href="/search">
       <i class="material-icons">search</i>
     </a>
   {{end}}

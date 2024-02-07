@@ -1,7 +1,7 @@
 {{ define "extraheader" }}
   {{ $renderSearchIcon := index .Params "renderSearchIcon" | default true }}
   {{ if $renderSearchIcon }}
-    <a href="/search.html" class="nav-link search-icon pr-6" aria-label="Search">
+    <a href="/search.html" class="nav-link search-icon text-white pr-6" aria-label="Search">
       <img src="{{- index .Site.Data.webpack "images/search.svg" -}}" class="offline-search-icon" alt="">
     </a>
   {{ end }}
