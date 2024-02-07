@@ -54,9 +54,9 @@
     </div>
     <div class="right">
       {{ block "extraheader" . }}{{ end }}
-      <a class="give-button small-link d-flex align-items-center" href="{{$giveNowUrl}}">
+      <a class="give-button text-white text-decoration-none font-weight-bold small-link d-flex align-items-center" aria-label="Donate to MIT OpenCourseWare" href="{{$giveNowUrl}}">
         <span class="m-0 pr-2">GIVE NOW</span>
-        <img src="/images/heart-burgundy.svg" class="heart-burgundy" alt="" />
+        <img src="{{- partial "get_asset_webpack_url.html" "images/heart_burgundy.svg" -}}" class="heart-burgundy" alt="" />
       </a>
       {{ partial "link.html" (dict "href" $aboutUrl "class" "text-white text-decoration-none font-weight-bold pl-5 pr-3 py-2" "text" "about ocw") }}
       {{ partial "link.html" (dict "href" $zenDeskUrl "class" "text-white text-decoration-none font-weight-bold px-3 py-2" "text" "help & faqs" "target" "_blank") }}
