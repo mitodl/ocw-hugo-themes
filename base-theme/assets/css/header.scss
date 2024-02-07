@@ -33,12 +33,17 @@
 
   .contents {
     display: flex;
-    justify-content: space-between;
-    max-width: $max-content-width;
-    padding: 0 3rem 0 3rem !important;
-    margin: auto;
+    // justify-content: space-between;
+    // max-width: $max-content-width;
+    // padding: 0 3rem 0 3rem !important;
+    // margin: auto;
     width: 100%;
     height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
 
     .right,
     .left {
