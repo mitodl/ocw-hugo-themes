@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.105.0
+Version 1.105.0 (Released February 07, 2024)
 ---------------
 
 - Update President's message on About OCW page (#1311)
