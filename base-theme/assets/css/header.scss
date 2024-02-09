@@ -113,6 +113,9 @@
     @include media-breakpoint-down(lg) {
       height: 90px;
     }
+    .contents {
+      max-width: $max-home-width;
+    }
   }
 }
 

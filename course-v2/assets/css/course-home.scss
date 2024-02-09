@@ -1,6 +1,10 @@
 .course-home-page {
   background-color: $light-gray;
 
+  .overflow-auto .course-header #desktop-header .contents {
+    max-width: $max-content-width;
+  }
+
   #course-main-content {
     max-width: $max-content-width;
     margin: 0 auto;
