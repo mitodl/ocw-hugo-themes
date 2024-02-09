@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.105.0 (Released February 07, 2024)
+---------------
+
+- Update President's message on About OCW page (#1311)
+- fix(deps): update dependency @mitodl/course-search-utils to v2.3.2 (#1306)
+
 Version 1.104.2 (Released January 29, 2024)
 ---------------
 
