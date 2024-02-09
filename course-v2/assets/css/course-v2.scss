@@ -196,8 +196,8 @@ pre {
 #footer-container {
   padding: 2rem 2rem !important;
 
-  .row {
-    max-width: $max-content-width !important;
+  #home-footer {
+    max-width: $max-home-width !important;
     width: 100% !important;
     margin: 0 auto !important;
   }

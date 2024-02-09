@@ -39,12 +39,13 @@ $searchbox-height: 50px;
   }
 
   .banner-contents-container {
-    max-width: $max-content-width;
+    max-width: $max-home-width;
     flex-direction: row;
     margin-top: $desktop-header-height;
 
     @include media-breakpoint-down(md) {
       margin-top: 0 !important;
+      justify-content: space-around !important;
     }
 
     @include media-breakpoint-down(lg) {

@@ -11,6 +11,12 @@
     padding-right: 2rem;
   }
 
+  #home-footer {
+    max-width: $max-home-width !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
   .row-gap-20 {
     row-gap: 20px;
   }
