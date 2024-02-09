@@ -1,12 +1,15 @@
 import React, { useState, useCallback } from "react"
 import InfiniteScroll from "react-infinite-scroller"
 import {
-  Aggregations,
   useCourseSearch,
-  serializeSort,
   LearningResourceType,
-  Facets
+  LEARNING_RESOURCE_ENDPOINT,
+  CONTENT_FILE_ENDPOINT,
+  Aggregations,
+  CourseResource,
+  ContentFile
 } from "@mitodl/course-search-utils"
+
 import { without } from "ramda"
 import { History as RouterHistory } from "history"
 
@@ -16,33 +19,31 @@ import SearchFilterDrawer from "./SearchFilterDrawer"
 import Loading, { Spinner } from "./Loading"
 
 import { search } from "../lib/api"
-import { searchResultToLearningResource } from "../lib/search"
 import {
-  COURSENUM_SORT_FIELD,
+  courseSearchResultToLearningResource,
+  resourceSearchResultToLearningResource
+} from "../lib/search"
+import {
   CONTACT_URL,
   SEARCH_COMPACT_UI,
   DEFAULT_UI_PAGE_SIZE,
   COMPACT_UI_PAGE_SIZE,
-  OCW_PLATFORM
+  OCW_OFFEROR
 } from "../lib/constants"
 import { emptyOrNil, isDoubleQuoted } from "../lib/util"
-import { FacetManifest, LearningResourceResult } from "../LearningResources"
+import { FacetManifest } from "../LearningResources"
 
 const COURSE_FACETS: FacetManifest = [
-  ["department_name", "Departments", true, true],
+  ["department", "Departments", true, true],
   ["level", "Level", false, false],
-  ["topics", "Topics", true, false],
-  ["course_feature_tags", "Features", true, false]
+  ["topic", "Topics", true, false],
+  ["course_feature", "Features", true, false]
 ]
 
 const RESOURCE_FACETS: FacetManifest = [
-  ["resource_type", "Resource Types", true, false],
-  ["topics", "Topics", true, false]
+  ["content_feature_type", "Resource Types", true, false],
+  ["topic", "Topics", true, false]
 ]
-
-interface Result {
-  _source: LearningResourceResult
-}
 
 type SearchPageProps = {
   history: RouterHistory
@@ -50,7 +51,9 @@ type SearchPageProps = {
 
 export default function SearchPage(props: SearchPageProps) {
   const { history } = props
-  const [results, setSearchResults] = useState<Result[]>([])
+  const [results, setSearchResults] = useState<
+    CourseResource[] | ContentFile[]
+  >([])
   const [aggregations, setAggregations] = useState<Aggregations>(new Map())
   const [suggestions, setSuggestions] = useState<string[]>([])
   const [total, setTotal] = useState(0)
@@ -58,32 +61,29 @@ export default function SearchPage(props: SearchPageProps) {
   const [searchApiFailed, setSearchApiFailed] = useState(false)
   const [requestInFlight, setRequestInFlight] = useState(false)
 
-  const isResourceSearch = (activeFacets: Facets) => {
-    return activeFacets.type?.includes(LearningResourceType.ResourceFile)
-  }
-
   const runSearch = useCallback(
-    async (text, activeFacets, from, sort, ui) => {
-      activeFacets["offered_by"] = [OCW_PLATFORM]
-      if (activeFacets && activeFacets.type.length > 1) {
+    async (text, activeFacets, from, sort, ui, endpoint) => {
+      activeFacets["offered_by"] = [OCW_OFFEROR]
+      if (activeFacets && activeFacets.type && activeFacets.type.length > 1) {
         // Default is LR_TYPE_ALL, don't want that here. course or resourcefile only
-        activeFacets["type"] = [LearningResourceType.Course]
+        activeFacets["resource_type"] = [LearningResourceType.Course]
       }
       const pageSize = getPageSizeFromUIParam(ui)
 
-      const relevantFacets = isResourceSearch(activeFacets) ?
-        RESOURCE_FACETS :
-        COURSE_FACETS
+      const relevantFacets =
+        endpoint === CONTENT_FILE_ENDPOINT ? RESOURCE_FACETS : COURSE_FACETS
       const allowedAggregations = relevantFacets.map(facet => facet[0])
 
       setRequestInFlight(true)
+
       const newResults = await search({
         text,
         from,
         activeFacets,
         size:         pageSize,
         sort:         sort,
-        aggregations: allowedAggregations
+        aggregations: allowedAggregations,
+        endpoint:     endpoint
       })
       setRequestInFlight(false)
 
@@ -92,7 +92,7 @@ export default function SearchPage(props: SearchPageProps) {
         return
       }
 
-      const { suggest } = newResults
+      const { suggest } = newResults.metadata
       if (!emptyOrNil(suggest) && !emptyOrNil(text)) {
         setSuggestions(
           without(
@@ -113,14 +113,14 @@ export default function SearchPage(props: SearchPageProps) {
         setSuggestions([])
       }
 
-      setAggregations(new Map(Object.entries(newResults.aggregations ?? {})))
+      setAggregations(
+        new Map(Object.entries(newResults.metadata.aggregations ?? {}))
+      )
 
       setSearchResults(results =>
-        from === 0 ?
-          newResults.hits.hits :
-          [...results, ...newResults.hits.hits]
+        from === 0 ? newResults.results : [...results, ...newResults.results]
       )
-      setTotal(newResults.hits.total)
+      setTotal(newResults.count)
       setCompletedInitialLoad(true)
     },
     [
@@ -163,7 +163,9 @@ export default function SearchPage(props: SearchPageProps) {
     clearAllFilters,
     acceptSuggestion,
     updateUI,
-    ui
+    ui,
+    endpoint,
+    updateEndpoint
   } = useCourseSearch(
     runSearch,
     clearSearch,
@@ -177,19 +179,20 @@ export default function SearchPage(props: SearchPageProps) {
 
   const toggleResourceSearch = useCallback(
     nextResourceFilterState => async () => {
-      if (isResourceSearch(activeFacets) === nextResourceFilterState) {
+      if (endpoint === nextResourceFilterState) {
         // Immediately return in case the user clicks and already active facet.
         // Github issue https://github.com/mitodl/ocw-hugo-themes/issues/105
         return
       }
       const toggledFacets: [string, string, boolean][] = [
-        ["type", LearningResourceType.ResourceFile, nextResourceFilterState],
-        ["type", LearningResourceType.Course, !nextResourceFilterState]
+        ["resource_type", LearningResourceType.Course, !nextResourceFilterState]
       ]
       // Remove any facets not relevant to the new search type
       const newFacets: Map<string, string> = new Map(
         // @ts-expect-error We should clean this up. It works because Map constructor is ignoring everything except 0th, 1st item in the entries array.
-        nextResourceFilterState ? RESOURCE_FACETS : COURSE_FACETS
+        nextResourceFilterState === CONTENT_FILE_ENDPOINT ?
+          RESOURCE_FACETS :
+          COURSE_FACETS
       )
 
       Object.entries(activeFacets).forEach(([key, list]) => {
@@ -199,14 +202,18 @@ export default function SearchPage(props: SearchPageProps) {
           })
         }
       })
+
+      if (nextResourceFilterState === CONTENT_FILE_ENDPOINT) {
+        updateSort(null)
+      }
       toggleFacets(toggledFacets)
+      updateEndpoint(nextResourceFilterState)
     },
-    [toggleFacets, activeFacets]
+    [toggleFacets, activeFacets, endpoint, updateEndpoint, updateSort]
   )
 
-  const facetMap = isResourceSearch(activeFacets) ?
-    RESOURCE_FACETS :
-    COURSE_FACETS
+  const facetMap =
+    endpoint === CONTENT_FILE_ENDPOINT ? RESOURCE_FACETS : COURSE_FACETS
   const pageSize = getPageSizeFromUIParam(ui)
   return (
     <div className="search-page w-100">
@@ -245,7 +252,7 @@ export default function SearchPage(props: SearchPageProps) {
           <div className="search-results-area col-12 col-lg-9 pb-2 pt-2">
             <div
               className={`search-toggle ${
-                isResourceSearch(activeFacets) ? "nofacet" : "facet"
+                endpoint === CONTENT_FILE_ENDPOINT ? "nofacet" : "facet"
               }`}
             >
               {!emptyOrNil(suggestions) ? (
@@ -280,10 +287,10 @@ export default function SearchPage(props: SearchPageProps) {
                 <li className="nav-item flex-grow-0">
                   <button
                     className={`nav-link search-nav ${
-                      isResourceSearch(activeFacets) ? "" : "active"
+                      endpoint === CONTENT_FILE_ENDPOINT ? "" : "active"
                     }`}
                     type="button"
-                    onClick={toggleResourceSearch(false)}
+                    onClick={toggleResourceSearch(LEARNING_RESOURCE_ENDPOINT)}
                   >
                     Courses
                   </button>
@@ -291,10 +298,10 @@ export default function SearchPage(props: SearchPageProps) {
                 <li className="nav-item flex-grow-0">
                   <button
                     className={`nav-link search-nav ${
-                      isResourceSearch(activeFacets) ? "active" : ""
+                      endpoint === CONTENT_FILE_ENDPOINT ? "active" : ""
                     }`}
                     type="button"
-                    onClick={toggleResourceSearch(true)}
+                    onClick={toggleResourceSearch(CONTENT_FILE_ENDPOINT)}
                   >
                     Resources
                   </button>
@@ -311,17 +318,17 @@ export default function SearchPage(props: SearchPageProps) {
                     </span>
                   ) : null}
                 </li>
-                {!isResourceSearch(activeFacets) ? (
+                {!(endpoint === CONTENT_FILE_ENDPOINT) ? (
                   <li className="sort-nav-item nav-item d-flex align-items-center justify-content-end">
                     Sort by{" "}
                     <select
-                      value={serializeSort(sort)}
+                      value={sort || ""}
                       onChange={updateSort}
                       className="ml-2 sort-dropdown"
                     >
                       <option value="">Relevance</option>
-                      <option value={COURSENUM_SORT_FIELD}>MIT course #</option>
-                      <option value="-runs.best_start_date">Date</option>
+                      <option value="mitcoursenumber">MIT course #</option>
+                      <option value="-start_date">Date</option>
                     </select>
                   </li>
                 ) : null}
@@ -386,10 +393,18 @@ export default function SearchPage(props: SearchPageProps) {
                   ) : (
                     results.map((hit, idx) => (
                       <SearchResult
-                        key={`${hit._source.title}_${idx}`}
+                        key={`${hit.title}_${idx}`}
                         id={`search-result-${idx}`}
                         index={idx}
-                        object={searchResultToLearningResource(hit._source)}
+                        object={
+                          endpoint === CONTENT_FILE_ENDPOINT ?
+                            resourceSearchResultToLearningResource(
+                                hit as ContentFile
+                            ) :
+                            courseSearchResultToLearningResource(
+                                hit as CourseResource
+                            )
+                        }
                         layout={ui}
                       />
                     ))

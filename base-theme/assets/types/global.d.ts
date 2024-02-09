@@ -11,7 +11,8 @@ declare global {
   declare let RELEASE_VERSION: string
   namespace NodeJS {
     interface ProcessEnv {
-      SEARCH_API_URL: string
+      COURSE_SEARCH_API_URL: string
+      CONTENT_FILE_SEARCH_API_URL: string
     }
   }
 }

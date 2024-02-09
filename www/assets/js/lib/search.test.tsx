@@ -1,4 +1,3 @@
-import { LearningResourceType } from "@mitodl/course-search-utils"
 import sinon from "sinon"
 
 import {
@@ -10,12 +9,16 @@ import {
 import {
   getCoverImageUrl,
   getResourceUrl,
-  getResultUrl,
+  getCourseUrl,
   getSectionUrl,
   courseJSONToLearningResource,
-  searchResultToLearningResource
+  courseSearchResultToLearningResource
 } from "./search"
-import { makeLearningResourceResult, makeCourseJSON } from "../factories/search"
+import {
+  makeCourseSearchResult,
+  makeContentFileSearchResult,
+  makeCourseJSON
+} from "../factories/search"
 
 describe("search library", () => {
   const sandbox = sinon.createSandbox()
@@ -45,9 +48,7 @@ describe("search library", () => {
   })
 
   it("getCoverImageUrl should return RESOURCE_BASE_URL+image_src when set", () => {
-    const lr = searchResultToLearningResource(
-      makeLearningResourceResult(LearningResourceType.Course)
-    )
+    const lr = courseSearchResultToLearningResource(makeCourseSearchResult())
     expect(getCoverImageUrl({ ...lr, image_src: "/images/foobar.jpeg" })).toBe(
       "http://resources-galore.example.com/images/foobar.jpeg"
     )
@@ -56,99 +57,69 @@ describe("search library", () => {
   //
   ;(
     [
+      ["", "/courses/18-23/mech_engineering/", null, "/courses/run-slug/"],
       [
-        CONTENT_TYPE_PAGE,
-        "/courses/18-23/mech_engineering/",
         null,
-        "/courses/run-slug/"
-      ],
-      [
-        CONTENT_TYPE_PAGE,
         "/courses/18-23/mech_engineering/",
         "https://cdn.example.com",
         "/courses/run-slug/"
       ],
       [
-        CONTENT_TYPE_PDF,
+        "application/pdf",
         "https://s3.amazonaws.com/18-23/test.pdf",
         null,
         "https://s3.amazonaws.com/18-23/test.pdf"
       ],
       [
-        CONTENT_TYPE_PDF,
+        "application/pdf",
         "https://s3.amazonaws.com/18-23/test.pdf",
         "https://cdn.example.com",
         "https://cdn.example.com/18-23/test.pdf"
       ],
       [
-        CONTENT_TYPE_VIDEO,
+        "video/mp4",
         "https://youtube.com/?s=2335",
         "",
         "https://youtube.com/?s=2335"
       ],
       [
-        CONTENT_TYPE_VIDEO,
+        "video/quicktime",
         "https://youtube.com/?s=2335",
         "/coursemedia",
         "https://youtube.com/?s=2335"
       ],
-      [CONTENT_TYPE_VIDEO, "/relative/url", false, "/relative/url"],
-      [CONTENT_TYPE_VIDEO, "/relative/url", "/coursemedia", "/relative/url"]
+      ["video/x-msvideo", "/relative/url", false, "/relative/url"],
+      ["video/x-ms-wmv", "/relative/url", "/coursemedia", "/relative/url"]
     ] as const
-  ).forEach(([contentType, url, cdnPrefix, expectedUrl]) => {
-    it(`should return correct url for content type ${contentType} if the cdn is ${
+  ).forEach(([fileType, url, cdnPrefix, expectedUrl]) => {
+    it(`should return correct url for file  type ${fileType} if the cdn is ${
       cdnPrefix ? "" : "not "
     }set`, () => {
       // @ts-expect-error See note in test-setup
       process.env["CDN_PREFIX"] = cdnPrefix
       const result = {
-        ...makeLearningResourceResult(LearningResourceType.ResourceFile),
+        ...makeContentFileSearchResult(),
         url,
-        run_slug:     "run-slug",
-        content_type: contentType
+        run_slug:  "run-slug",
+        file_type: fileType
       }
 
       expect(getResourceUrl(result)).toBe(expectedUrl)
     })
   })
 
-  //
-  ;(
-    [LearningResourceType.Course, LearningResourceType.ResourceFile] as const
-  ).forEach(objectType => {
-    it(`should return correct url for object type ${objectType}`, () => {
-      const result = makeLearningResourceResult(objectType)
-      const isCourse = result.object_type === LearningResourceType.Course
-      if (!isCourse) {
-        result.content_type = CONTENT_TYPE_PAGE
-      } else {
-        result.runs[0].best_start_date = "2001-11-11"
-        result.runs[1].published = false
-        result.runs[2].best_start_date = "2002-01-01"
-      }
-      const expected = isCourse ?
-        `/courses/${result.runs[2].slug}/` :
-        `/courses/${result.run_slug}${getSectionUrl(result)}`
-      expect(getResultUrl(result)).toBe(expected)
-    })
-  })
-
   it(`should return a null url for a course without runs`, () => {
-    const result = makeLearningResourceResult(LearningResourceType.Course)
+    const result = makeCourseSearchResult()
     result.runs = []
-    expect(getResultUrl(result)).toBe(null)
-    // @ts-expect-error TODO: Consider updating the types to include this possibility.
+    expect(getCourseUrl(result)).toBe(null)
     result.runs = null
-    expect(getResultUrl(result)).toBe(null)
-    // @ts-expect-error TODO: Consider updating the types to include this possibility.
-    delete result.runs
-    expect(getResultUrl(result)).toBe(null)
+    expect(getCourseUrl(result)).toBe(null)
   })
 
   describe("getSectionUrl", () => {
     it("returns a / for a course site", () => {
       const result = {
-        ...makeLearningResourceResult(LearningResourceType.Course),
+        ...makeContentFileSearchResult(),
         url: "/courses/course-id/other-course-part/"
       }
       expect(getSectionUrl(result)).toBe("/")
@@ -156,7 +127,7 @@ describe("search library", () => {
 
     it("handles a legacy prefix gracefully", () => {
       const result = {
-        ...makeLearningResourceResult(LearningResourceType.Course),
+        ...makeContentFileSearchResult(),
         url: "http://ocw.mit.edu/resources/a/resource"
       }
       expect(getSectionUrl(result)).toBe("/")
@@ -166,7 +137,7 @@ describe("search library", () => {
     ;["index.htm", "index.html"].forEach(suffix => {
       it(`removes a ${suffix} from the path`, () => {
         const result = {
-          ...makeLearningResourceResult(LearningResourceType.Course),
+          ...makeContentFileSearchResult(),
           url: `/courses/course-id/other-piece/${suffix}`
         }
         expect(getSectionUrl(result)).toBe("/")
@@ -175,7 +146,7 @@ describe("search library", () => {
 
     it("adds a /pages if it is pointing to a section within a course url", () => {
       const result = {
-        ...makeLearningResourceResult(LearningResourceType.Course),
+        ...makeContentFileSearchResult(),
         url: "/courses/course-id/other-part/path/to/a/pdf"
       }
       expect(getSectionUrl(result)).toBe("/pages/path/to/a/pdf")

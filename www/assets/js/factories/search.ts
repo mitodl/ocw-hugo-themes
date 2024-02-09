@@ -1,32 +1,13 @@
 /* eslint-disable camelcase */
-import { LearningResourceType } from "@mitodl/course-search-utils"
 import casual from "casual-browserify"
-import { times } from "ramda"
-import {
-  CourseResult,
-  CourseRun,
-  PodcastResult,
-  PodcastEpisodeResult,
-  ResourceFileResult,
-  VideoResult,
-  LearningResourceResult,
-  CourseJSON,
-  ResourceJSON
-} from "../LearningResources"
+import { CourseJSON, ResourceJSON } from "../LearningResources"
 
-import {
-  OCW_PLATFORM,
-  DATE_FORMAT,
-  COURSE_ARCHIVED,
-  COURSE_CURRENT,
-  OPEN_CONTENT,
-  PROFESSIONAL,
-  CERTIFICATE,
-  CONTENT_TYPE_VIDEO,
-  CONTENT_TYPE_PDF,
-  CONTENT_TYPE_PAGE,
-  RESOURCE_TYPE
-} from "../lib/constants"
+import type {
+  CourseResource as CourseSearchResult,
+  ContentFile as ContentFileSearchResult
+} from "@mitodl/course-search-utils"
+
+import { DATE_FORMAT, RESOURCE_TYPE } from "../lib/constants"
 
 export function* incrementer() {
   let int = 1
@@ -48,111 +29,168 @@ export function makeFakeCourseName(): string {
   return casual.title
 }
 
-const incrRun = incrementer()
+export const makeCourseSearchResult = (): CourseSearchResult => ({
+  id:            casual.integer(1, 1000),
+  professional:  casual.boolean,
+  certification: false,
+  departments:   [
+    {
+      department_id: casual.word,
+      name:          casual.word
+    }
+  ],
+  resource_type: "course",
+  description:   casual.description,
+  image:         {
+    id:          casual.integer(1, 1000),
+    url:         casual.url,
+    description: casual.description,
+    alt:         casual.description
+  },
+  offered_by: {
+    code: "ocw",
+    name: "OCW"
+  },
+  platform: {
+    code: "ocw",
+    name: "OCW"
+  },
+  prices:         null,
+  readable_id:    `course+${String(casual.random)}`,
+  course_feature: [casual.word, casual.word],
+  runs:           [
+    {
+      id:          casual.integer(1, 1000),
+      instructors: [...Array(4)].map(() => {
+        const first_name = casual.first_name
+        const last_name = casual.last_name
 
-export function makeLearningResourceResult(
-  objectType: LearningResourceType.Course
-): CourseResult
-export function makeLearningResourceResult(
-  objectType: LearningResourceType.Video
-): VideoResult
-export function makeLearningResourceResult(
-  objectType: LearningResourceType.Podcast
-): PodcastResult
-export function makeLearningResourceResult(
-  objectType: LearningResourceType.PodcastEpisode
-): PodcastEpisodeResult
-export function makeLearningResourceResult(
-  objectType: LearningResourceType.ResourceFile
-): ResourceFileResult
-export function makeLearningResourceResult(
-  objectType: LearningResourceType
-): LearningResourceResult
-export function makeLearningResourceResult(
-  objectType: LearningResourceType
-): LearningResourceResult {
-  switch (objectType) {
-  case LearningResourceType.Course:
-    return makeCourseResult()
-  case LearningResourceType.Video:
-    return makeVideoResult()
-  case LearningResourceType.Podcast:
-    return makePodcastResult()
-  case LearningResourceType.PodcastEpisode:
-    return makePodcastEpisodeResult()
-  default:
-    return makeResourceFileResult()
+        return {
+          id:        casual.integer(1, 1000),
+          first_name,
+          last_name,
+          full_name: `Prof. ${first_name}, ${last_name}`
+        }
+      }),
+      image: {
+        id:          casual.integer(1, 1000),
+        url:         casual.url,
+        description: casual.description,
+        alt:         casual.description
+      },
+      published:  true,
+      slug:       `courses/+${String(casual.word)}`,
+      run_id:     casual.word,
+      title:      casual.word,
+      start_date: casual.date(DATE_FORMAT),
+      end_date:   casual.date(DATE_FORMAT),
+      level:      casual.random_element([
+        [
+          {
+            code: "graduate",
+            name: "Graduate"
+          }
+        ],
+        [
+          {
+            code: "undergraduate",
+            name: "Undergraduate"
+          }
+        ],
+        [
+          {
+            code: "graduate",
+            name: "Graduate"
+          },
+          {
+            code: "undergraduate",
+            name: "Undergraduate"
+          }
+        ],
+        [],
+        null
+      ])
+    }
+  ],
+  published:             true,
+  title:                 casual.title,
+  topics:                [{ id: casual.integer(1, 1000), name: casual.word }],
+  learning_path_parents: [],
+  user_list_parents:     [],
+  course:                {
+    course_numbers: casual.random_element([
+      [
+        {
+          listing_type: "primary",
+          department:   {
+            department_id: casual.word,
+            name:          casual.word
+          },
+          value: casual.word
+        }
+      ],
+
+      [
+        {
+          listing_type: "primary",
+          department:   {
+            department_id: casual.word,
+            name:          casual.word
+          },
+          value: casual.word
+        },
+        {
+          listing_type: "cross-listed",
+          department:   {
+            department_id: casual.word,
+            name:          casual.word
+          },
+          value: casual.word
+        }
+      ]
+    ])
   }
-}
+})
 
-export const makeRun = (): CourseRun => {
-  return {
-    run_id:            `courserun_${incrRun.next().value}`,
-    id:                incrRun.next().value!,
-    url:               casual.url,
-    image_src:         "http://image.medium.url",
-    short_description: casual.description,
-    language:          casual.random_element(["en-US", "fr", null]),
-    semester:          casual.random_element(["Fall", "Spring", null]),
-    year:              casual.year,
-    level:             casual.random_element([
-      ["Graduate"],
-      ["Undergraduate"],
-      ["Graduate", "Undergraduate"],
-      [],
-      null
-    ]),
-    start_date:       casual.date(DATE_FORMAT),
-    end_date:         casual.date(DATE_FORMAT),
-    best_start_date:  casual.date(DATE_FORMAT),
-    best_end_date:    casual.date(DATE_FORMAT),
-    enrollment_start: casual.date(DATE_FORMAT),
-    enrollment_end:   casual.date(DATE_FORMAT),
-    slug:             casual.word,
-    availability:     casual.random_element([
-      COURSE_ARCHIVED,
-      COURSE_CURRENT,
-      "Upcoming"
-    ]),
-    instructors: [
-      `${casual.name} ${casual.name}`,
-      `${casual.name} ${casual.name}`
-    ],
-    prices:    [{ mode: "audit", price: casual.integer(1, 1000) }],
-    published: true,
-    // this is here to make typescript happy
-    short_url: undefined
-  }
-}
-
-export const makeCourseResult = (): CourseResult => ({
-  id:                casual.integer(1, 1000),
-  course_id:         `course+${String(casual.random)}`,
-  coursenum:         String(casual.random),
-  title:             casual.title,
-  url:               casual.url,
-  image_src:         "http://image.medium.url",
-  short_description: casual.description,
-  platform:          OCW_PLATFORM,
-  offered_by:        [OCW_PLATFORM],
-  topics:            [casual.word, casual.word],
-  object_type:       LearningResourceType.Course,
-  runs:              times(makeRun, 3),
-  audience:          casual.random_element([
-    [],
-    [OPEN_CONTENT],
-    [PROFESSIONAL],
-    [OPEN_CONTENT, PROFESSIONAL]
-  ]),
-  certification:       casual.random_element([[], [CERTIFICATE]]),
-  course_feature_tags: [casual.word, casual.word],
-  department:          casual.word,
-  // this is here to make typescript happy
-  content_title:       undefined,
-  run_title:           undefined,
-  run_slug:            undefined,
-  content_type:        undefined,
-  short_url:           undefined
+export const makeContentFileSearchResult = (): ContentFileSearchResult => ({
+  content_author:       "",
+  year:                 casual.integer(2000, 2024),
+  description:          casual.description,
+  title:                casual.title,
+  content_feature_type: [casual.word, casual.word],
+  content:              casual.description,
+  platform:             {
+    code: "ocw",
+    name: "OCW"
+  },
+  content_language:     "",
+  run_readable_id:      `course+${String(casual.random)}`,
+  content_title:        casual.title,
+  resource_readable_id: `course+${String(casual.random)}`,
+  uid:                  null,
+  content_type:         "page",
+  file_type:            null,
+  id:                   casual.integer(1, 1000),
+  departments:          [
+    {
+      department_id: casual.word,
+      name:          casual.word
+    }
+  ],
+  key:           casual.word,
+  run_id:        casual.integer(1, 1000),
+  run_title:     casual.title,
+  course_number: `course+${String(casual.random)}`,
+  topics:        [{ id: casual.integer(1, 1000), name: casual.word }],
+  offered_by:    {
+    code: "mitx",
+    name: "MITx"
+  },
+  image_src:   casual.url,
+  url:         casual.url,
+  resource_id: casual.word,
+  semester:    "",
+  run_slug:    ""
 })
 
 export const makeCourseJSON = (): CourseJSON => ({
@@ -215,120 +253,4 @@ export const makeResourceJSON = (): ResourceJSON => ({
   captions_file:   casual.string,
   transcript_file: casual.string,
   archive_url:     casual.string
-})
-
-export const makeResourceFileResult = (): ResourceFileResult => ({
-  id:            casual.integer(1, 1000),
-  course_id:     `course_${String(casual.random)}`,
-  coursenum:     String(casual.random),
-  title:         casual.title,
-  url:           casual.url,
-  image_src:     "http://image.medium.url",
-  topics:        [casual.word, casual.word],
-  object_type:   LearningResourceType.ResourceFile,
-  content_title: casual.title,
-  run_title:     casual.title,
-  run_slug:      `/slug_${String(casual.word)}`,
-  content_type:  casual.random_element([
-    CONTENT_TYPE_VIDEO,
-    CONTENT_TYPE_PDF,
-    CONTENT_TYPE_PAGE
-  ]),
-  short_url:           `/short_${String(casual.word)}`,
-  short_description:   casual.short_description,
-  // this is here to make typescript happy
-  runs:                undefined,
-  audience:            undefined,
-  certification:       undefined,
-  department:          undefined,
-  course_feature_tags: undefined
-})
-
-export const makeVideoResult = (): VideoResult => ({
-  id:                casual.integer(1, 1000),
-  video_id:          `video_${String(casual.random)}`,
-  title:             casual.title,
-  url:               casual.url,
-  image_src:         "http://image.medium.url",
-  short_description: casual.description,
-  topics:            [casual.word, casual.word],
-  object_type:       LearningResourceType.Video,
-  offered_by:        [OCW_PLATFORM],
-  runs:              [],
-  audience:          casual.random_element([
-    [],
-    [OPEN_CONTENT],
-    [PROFESSIONAL],
-    [OPEN_CONTENT, PROFESSIONAL]
-  ]),
-  certification:       casual.random_element([[], [CERTIFICATE]]),
-  // typescript!
-  department:          undefined,
-  content_title:       undefined,
-  run_title:           undefined,
-  run_slug:            undefined,
-  coursenum:           undefined,
-  course_id:           undefined,
-  content_type:        undefined,
-  course_feature_tags: undefined,
-  short_url:           undefined
-})
-
-export const makePodcastResult = (): PodcastResult => ({
-  id:                casual.integer(1, 1000),
-  podcast_id:        `podcast_${String(casual.random)}`,
-  title:             casual.title,
-  url:               casual.url,
-  image_src:         "http://image.medium.url",
-  short_description: casual.description,
-  topics:            [casual.word, casual.word],
-  object_type:       LearningResourceType.Podcast,
-  offered_by:        [OCW_PLATFORM],
-  runs:              [],
-  audience:          casual.random_element([
-    [],
-    [OPEN_CONTENT],
-    [PROFESSIONAL],
-    [OPEN_CONTENT, PROFESSIONAL]
-  ]),
-  certification:       casual.random_element([[], [CERTIFICATE]]),
-  department:          undefined,
-  content_title:       undefined,
-  run_title:           undefined,
-  run_slug:            undefined,
-  coursenum:           undefined,
-  course_id:           undefined,
-  content_type:        undefined,
-  course_feature_tags: undefined,
-  short_url:           undefined
-})
-
-export const makePodcastEpisodeResult = (): PodcastEpisodeResult => ({
-  id:                casual.integer(1, 1000),
-  podcast_id:        `podcastepisode_${String(casual.random)}`,
-  title:             casual.title,
-  url:               casual.url,
-  image_src:         "http://image.medium.url",
-  short_description: casual.description,
-  topics:            [casual.word, casual.word],
-  object_type:       LearningResourceType.PodcastEpisode,
-  offered_by:        [OCW_PLATFORM],
-  runs:              [],
-  series_title:      `podcast_${String(casual.random)}`,
-  audience:          casual.random_element([
-    [],
-    [OPEN_CONTENT],
-    [PROFESSIONAL],
-    [OPEN_CONTENT, PROFESSIONAL]
-  ]),
-  certification:       casual.random_element([[], [CERTIFICATE]]),
-  department:          undefined,
-  content_title:       undefined,
-  run_title:           undefined,
-  run_slug:            undefined,
-  coursenum:           undefined,
-  course_id:           undefined,
-  content_type:        undefined,
-  course_feature_tags: undefined,
-  short_url:           undefined
 })

@@ -2,7 +2,7 @@ import React from "react"
 
 interface Props {
   value: string
-  labelFunction?: (value: string) => string
+  labelFunction?: ((value: string) => string | null) | null
   clearFacet: () => void
 }
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react"
 import { contains } from "ramda"
-import has from "lodash.has"
 import Fuse from "fuse.js"
 
 import SearchFacetItem from "./SearchFacetItem"
@@ -19,22 +18,30 @@ interface Props {
   currentlySelected: string[]
   onUpdate: React.ChangeEventHandler<HTMLInputElement>
   expandedOnLoad: boolean
+  labelFunction?: ((value: string) => string | null) | null
 }
 
 function FilterableSearchFacet(props: Props) {
-  const { name, title, results, currentlySelected, onUpdate, expandedOnLoad } =
-    props
+  const {
+    name,
+    title,
+    results,
+    currentlySelected,
+    onUpdate,
+    expandedOnLoad,
+    labelFunction
+  } = props
   const [showFacetList, setShowFacetList] = useState(expandedOnLoad)
 
   // null is signal for no input yet or cleared input
-  const [filteredList, setFilteredList] = useState<Bucket[] | null>(null)
+  const [filteredList, setFilteredList] = useState<Aggregation | null>(null)
   const [searcher, setSearcher] = useState<Fuse<Bucket>>(new Fuse([]))
 
   const [filterText, setFilterText] = useState("")
 
   useEffect(() => {
-    if (results && results.buckets) {
-      const searcher = new Fuse(results.buckets, {
+    if (results) {
+      const searcher = new Fuse(results, {
         keys:      ["key"],
         threshold: 0.4
       })
@@ -58,9 +65,8 @@ function FilterableSearchFacet(props: Props) {
 
   const titleLineIcon = showFacetList ? "arrow_drop_down" : "arrow_right"
 
-  const facets = (filteredList || results?.buckets) ?? []
-
-  return results && results.buckets && results.buckets.length === 0 ? null : (
+  const facets = (filteredList || results) ?? []
+  return results && results.length === 0 ? null : (
     <div className="facets filterable-facet mb-3">
       <button
         className="filter-section-button pl-3 py-2 pr-0"
@@ -111,6 +117,9 @@ function FilterableSearchFacet(props: Props) {
                 isChecked={contains(facet.key, currentlySelected || [])}
                 onUpdate={onUpdate}
                 name={name}
+                displayKey={
+                  labelFunction ? labelFunction(facet.key) : facet.key
+                }
               />
             ))}
           </div>
@@ -120,11 +129,4 @@ function FilterableSearchFacet(props: Props) {
   )
 }
 
-const propsAreEqual = (_prevProps: Props, nextProps: Props) => {
-  // results.buckets is null while the search request is in-flight
-  // we want to defer rendering in that case because it will cause
-  // all the facets to briefly disappear before reappearing
-  return !has(nextProps.results, "buckets")
-}
-
-export default React.memo(FilterableSearchFacet, propsAreEqual)
+export default FilterableSearchFacet

@@ -1,5 +1,9 @@
-import { LearningResourceType, Facets } from "@mitodl/course-search-utils"
-import departments from "../../../../base-theme/data/departments.json"
+import {
+  LearningResourceType,
+  LEVELS,
+  DEPARTMENTS
+} from "@mitodl/course-search-utils"
+import type { Facets } from "@mitodl/course-search-utils"
 export const CONTENT_TYPE_PDF = "pdf"
 export const CONTENT_TYPE_PAGE = "page"
 export const CONTENT_TYPE_VIDEO = LearningResourceType.Video
@@ -14,7 +18,7 @@ export type ContentType =
   | typeof CONTENT_TYPE_PAGE
   | typeof CONTENT_TYPE_VIDEO
 
-export const OCW_PLATFORM = "OCW"
+export const OCW_OFFEROR = "ocw"
 
 export const OPEN_CONTENT = "Open Content"
 export const PROFESSIONAL = "Professional Offerings"
@@ -30,23 +34,13 @@ export const COURSE_PRIOR = "Prior"
 
 export const DATE_FORMAT = "YYYY-MM-DD[T]HH:mm:ss[Z]"
 
-const ocwPlatform = "ocw"
-
 export const SEARCH_COMPACT_UI = "compact"
 
 export const DEFAULT_UI_PAGE_SIZE = 10
 export const COMPACT_UI_PAGE_SIZE = 50
 
 export const platforms = {
-  OCW: ocwPlatform
-}
-
-export const readableLearningResources = {
-  [LearningResourceType.Course]:         "Course",
-  [LearningResourceType.Video]:          "Video",
-  [LearningResourceType.Podcast]:        "Podcast",
-  [LearningResourceType.PodcastEpisode]: "Podcast Episode",
-  [LearningResourceType.ResourceFile]:   "Course Resource"
+  OCW: OCW_OFFEROR
 }
 
 export enum RESOURCE_TYPE {
@@ -69,8 +63,6 @@ export const DESKTOP = "DESKTOP"
 export const PHONE_WIDTH = 599
 // Based on desktop-wide breakpoint
 export const TABLET_WIDTH = 999
-
-export const COURSENUM_SORT_FIELD = "department_course_numbers.sort_coursenum"
 
 export const STATUS_CODES = {
   HTTP_200_OK:               200,
@@ -129,7 +121,7 @@ const RESOURCE_TYPES = [
 ]
 
 export const FACET_OPTIONS: Facets = {
-  topics: [
+  topic: [
     "Academic Writing",
     "Accounting",
     "Aerodynamics",
@@ -464,11 +456,9 @@ export const FACET_OPTIONS: Facets = {
     "Women's Studies",
     "World History"
   ],
-  type:            ["resourcefile", "course"],
-  department_name: Object.values(departments).map(
-    department => department.title
-  ),
-  level:               ["Undergraduate", "Graduate", "Non-Credit", "High School"],
-  course_feature_tags: RESOURCE_TYPES,
-  resource_type:       RESOURCE_TYPES
+  resource_type:        ["course"],
+  department:           Object.keys(DEPARTMENTS),
+  level:                Object.keys(LEVELS),
+  course_feature:       RESOURCE_TYPES,
+  content_feature_type: RESOURCE_TYPES
 }

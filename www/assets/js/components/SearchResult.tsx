@@ -55,7 +55,7 @@ const Topics = ({
   maxTags: number
   moreUrl?: string | null
 }) => {
-  if (!emptyOrNil(object.topics)) {
+  if (object.topics && !emptyOrNil(object.topics)) {
     return (
       <div className="lr-row subtitles">
         <Subtitle
@@ -74,7 +74,7 @@ const Topics = ({
               href={`${SEARCH_URL}?${serializeSearchParams({
                 text:         undefined,
                 activeFacets: {
-                  topics: [topic.name]
+                  topic: [topic.name]
                 }
               })}`}
             >

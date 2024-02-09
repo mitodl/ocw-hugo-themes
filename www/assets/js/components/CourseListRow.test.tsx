@@ -1,15 +1,12 @@
 import { mount } from "enzyme"
 import React from "react"
-import { LearningResourceType } from "@mitodl/course-search-utils"
 
-import { makeLearningResourceResult } from "../factories/search"
-import { searchResultToLearningResource } from "../lib/search"
+import { makeCourseSearchResult } from "../factories/search"
+import { courseSearchResultToLearningResource } from "../lib/search"
 import CourseListRow from "./CourseListRow"
 
 function setup() {
-  const course = searchResultToLearningResource(
-    makeLearningResourceResult(LearningResourceType.Course)
-  )
+  const course = courseSearchResultToLearningResource(makeCourseSearchResult())
 
   const wrapper = mount(<CourseListRow course={course} />)
 

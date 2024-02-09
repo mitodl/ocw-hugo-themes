@@ -1,21 +1,23 @@
 import { isApiSuccessful } from "./util"
 import { captureException } from "@sentry/browser"
 import {
-  buildSearchQuery,
-  SearchQueryParams
+  buildSearchUrl,
+  SearchQueryParams,
+  CONTENT_FILE_ENDPOINT
 } from "@mitodl/course-search-utils"
 
 export const search = async (params: SearchQueryParams) => {
   // for now
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let results: any = {}
-
   try {
-    const body = buildSearchQuery(params)
-
-    const response = await fetch(process.env.SEARCH_API_URL, {
-      method:  "POST",
-      body:    JSON.stringify(body),
+    const baseUrl =
+      params.endpoint === CONTENT_FILE_ENDPOINT ?
+        process.env.CONTENT_FILE_SEARCH_API_URL :
+        process.env.COURSE_SEARCH_API_URL
+    const url = buildSearchUrl(baseUrl, params)
+    const response = await fetch(url, {
+      method:  "GET",
       headers: new Headers({
         "Content-Type": "application/json",
         Accept:         "application/json"
