@@ -2096,11 +2096,11 @@ __metadata:
   linkType: hard
 
 "@types/lodash.has@npm:^4.5.6":
-  version: 4.5.6
-  resolution: "@types/lodash.has@npm:4.5.6"
+  version: 4.5.9
+  resolution: "@types/lodash.has@npm:4.5.9"
   dependencies:
     "@types/lodash": "*"
-  checksum: ecda18d373fbfdeb36b06f949f8fa10f0f15ad88a356269d3d5e717a047825d9b953310b8faa408973a790fbad0e0e238e15329e6000f6c9ad62837bf4488d59
+  checksum: fb470ed1254fd7798c7f466ad37bf86e67dffcfb51b40c1dd71a40192c28a6abf51c875029e809975ea142958f603a42fe97a1f74506a57cb615381723edd427
   languageName: node
   linkType: hard
 
