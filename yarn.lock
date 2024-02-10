@@ -2165,9 +2165,9 @@ __metadata:
   linkType: hard
 
 "@types/promise-polyfill@npm:^6.0.4":
-  version: 6.0.4
-  resolution: "@types/promise-polyfill@npm:6.0.4"
-  checksum: e4f6b1146f2fa79a548c98e5bac66bfaf3ee11ca42b296253c16a6a82b37701259a43a7ed2117d82e2a12709b2a465dc5bc540bd90369944618eaae904932393
+  version: 6.0.6
+  resolution: "@types/promise-polyfill@npm:6.0.6"
+  checksum: f1a7a296eeff3fe708853321aa82768b58eeda9abc5d277e6328227fc78316f093b56ec1a082d72a276ef2f2473a4269e331468aeb397ff08d32b3d5b6e4c966
   languageName: node
   linkType: hard
 
