@@ -2105,11 +2105,11 @@ __metadata:
   linkType: hard
 
 "@types/lodash.toarray@npm:^4.4.6":
-  version: 4.4.6
-  resolution: "@types/lodash.toarray@npm:4.4.6"
+  version: 4.4.9
+  resolution: "@types/lodash.toarray@npm:4.4.9"
   dependencies:
     "@types/lodash": "*"
-  checksum: 18055e7037dd2eccf75b85c9dfc1f08bca9b0f2ca885a7897aade94e6225c0509b88a0b0a6c87b81d4053746f9294b549292c53f74936651e6586ea311f0a62d
+  checksum: 7a7bbbc142806c7f0053d214c2ef86570e34369c2255a09e33b013186fe222168496d350299fe8e8a344713c6f5973493cd15ff131607762298bb92c0f8218c2
   languageName: node
   linkType: hard
 
