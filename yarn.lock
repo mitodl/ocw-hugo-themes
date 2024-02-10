@@ -2087,11 +2087,11 @@ __metadata:
   linkType: hard
 
 "@types/lodash.flatten@npm:^4.4.6":
-  version: 4.4.6
-  resolution: "@types/lodash.flatten@npm:4.4.6"
+  version: 4.4.9
+  resolution: "@types/lodash.flatten@npm:4.4.9"
   dependencies:
     "@types/lodash": "*"
-  checksum: f37c2afb328717f8cc4d3523d0c894c2241c8f56edb0a141b0a0034ba2612eb3b5359e8604e2072ea8858f8080a0e9bdb1e4528e66ca90118f287bbc29448c50
+  checksum: d814b9c3798b4ca94d714a18786e0a914714d0b062998e652f1c92e746808a19ffe7c5b6541fe6882db1fdc788f87811ba3a8f8042d1dd19c4eb0b9cbe688ae4
   languageName: node
   linkType: hard
 
