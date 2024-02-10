@@ -2114,11 +2114,11 @@ __metadata:
   linkType: hard
 
 "@types/lodash.uppercase@npm:^4.3.6":
-  version: 4.3.6
-  resolution: "@types/lodash.uppercase@npm:4.3.6"
+  version: 4.3.9
+  resolution: "@types/lodash.uppercase@npm:4.3.9"
   dependencies:
     "@types/lodash": "*"
-  checksum: 3303e4dbb8860455bb034aed584f00c09480d172057c6123e614f36b62a6dcfab8c00a0129b71f3022b3b9253558751a5f208436aa516a3e358aacbde9d3f44a
+  checksum: c5e161059efce2dc96c50374467999ca123ed9f516276d3291f6f62a223d5fd0be960e8f791dd211934a7fb52dd786d941b72f11467c47d9726fb880b79fe0b6
   languageName: node
   linkType: hard
 
