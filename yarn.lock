@@ -14648,8 +14648,8 @@ __metadata:
   linkType: hard
 
 "postcss-preset-env@npm:^6.7.0":
-  version: 6.7.0
-  resolution: "postcss-preset-env@npm:6.7.0"
+  version: 6.7.2
+  resolution: "postcss-preset-env@npm:6.7.2"
   dependencies:
     autoprefixer: ^9.6.1
     browserslist: ^4.6.4
@@ -14688,7 +14688,7 @@ __metadata:
     postcss-replace-overflow-wrap: ^3.0.0
     postcss-selector-matches: ^4.0.0
     postcss-selector-not: ^4.0.0
-  checksum: 209cbb63443a1631aa97ccfc3b95b1ff519ddaeb672f84d6af501bd9e9ad6727680b5b1bffb8209322e47d93029a69df6064f75cd0b7633b6df943cbef33f22e
+  checksum: cf5f5f043d2ce4a663b81b9daa5e83d5f534d596bf75850ca3ced8141f6eee77516fea48225c9b7a79bce6cad177a9936bdfd6f09e9a64f205860f35db39ccc8
   languageName: node
   linkType: hard
 
