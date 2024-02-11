@@ -2212,11 +2212,11 @@ __metadata:
   linkType: hard
 
 "@types/react-infinite-scroller@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "@types/react-infinite-scroller@npm:1.2.2"
+  version: 1.2.5
+  resolution: "@types/react-infinite-scroller@npm:1.2.5"
   dependencies:
     "@types/react": "*"
-  checksum: 19ffc80fa3887b09fd6a889797c3d52c14cbec33142b5e17b25c8f258ad6f6bc8ecef7d4492b18b2bf84784cddfe2baa85fd805514c038dab234f73e29f8c36f
+  checksum: 8b56f63c35802d2593cc25b3ab03bfbeceb2a5379997364fb5cea414cc8690341fbf3902d8fc7a6db43f87c144276009cb4a7f3388f1a52091ac3a4fd7de7d33
   languageName: node
   linkType: hard
 
@@ -15449,13 +15449,13 @@ __metadata:
   linkType: hard
 
 "react-infinite-scroller@npm:^1.2.4":
-  version: 1.2.4
-  resolution: "react-infinite-scroller@npm:1.2.4"
+  version: 1.2.6
+  resolution: "react-infinite-scroller@npm:1.2.6"
   dependencies:
     prop-types: ^15.5.8
   peerDependencies:
-    react: ^0.14.9 || ^15.3.0 || ^16.0.0
-  checksum: 6021df5b0318c6f54c3e9adc830f923232b0ed35082d3abf3761b1f298041b42cfecc9a874489dbcbbe6fe8b5256c120b86123bf602061e3f8a1784bccadcf70
+    react: ^0.14.9 || ^15.3.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: 5f5aae76c484b4039bada87070d5f8c54d2786697ae600be19a68f4e85158ff550122f15dccc5997d8b01fa487da47b9ffbc3e9d9a29f2cf71c77275f72551fd
   languageName: node
   linkType: hard
 
