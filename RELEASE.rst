@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.106.0
+Version 1.106.0 (Released February 12, 2024)
 ---------------
 
 - chore(dep): reorganize dependencies (#1308)
