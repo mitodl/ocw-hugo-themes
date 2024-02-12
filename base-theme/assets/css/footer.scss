@@ -1,20 +1,16 @@
 #footer-container {
   background-color: $footer-background-color;
   display: flex;
-  padding: 35px 50px 30px 50px;
   flex-direction: column;
   border-top: 1px solid #d2d2d2;
   width: 100%;
 
-  @include media-breakpoint-down(lg) {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
 
   #home-footer {
     max-width: $max-home-width !important;
     width: 100% !important;
     margin: 0 auto !important;
+    padding: 35px 3rem 30px 3rem;
   }
 
   .row-gap-20 {
