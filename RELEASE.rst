@@ -1,6 +1,27 @@
 Release Notes
 =============
 
+Version 1.106.0
+---------------
+
+- chore(dep): reorganize dependencies (#1308)
+- fix(deps): update dependency sinon to v10.0.1 (#1333)
+- fix(deps): update dependency serve-handler to v6.1.5 (#1331)
+- fix(deps): update dependency react-infinite-scroller to v1.2.6 (#1330)
+- fix(deps): update dependency react-hot-loader to v4.13.1 (#1329)
+- fix(deps): update dependency postcss-preset-env to v6.7.2 (#1328)
+- fix(deps): update dependency pdfobject to v2.2.12 (#1327)
+- fix(deps): update dependency jest-watch-typeahead to v2.2.2 (#1326)
+- fix(deps): update dependency inquirer to v8.2.6 (#1325)
+- fix(deps): update dependency enzyme-adapter-react-16 to v1.15.8 (#1324)
+- fix(deps): update dependency bootstrap to v4.6.2 (#1323)
+- fix(deps): update dependency archiver to v5.3.2 (#1322)
+- fix(deps): update dependency @types/promise-polyfill to v6.0.6 (#1320)
+- fix(deps): update dependency @types/lodash.uppercase to v4.3.9 (#1319)
+- fix(deps): update dependency @types/lodash.toarray to v4.4.9 (#1318)
+- fix(deps): update dependency @types/lodash.has to v4.5.9 (#1317)
+- fix(deps): update dependency @types/lodash.flatten to v4.4.9 (#1316)
+
 Version 1.105.0 (Released February 07, 2024)
 ---------------
 
