@@ -86,7 +86,7 @@
       max-width: $max-content-width;
       padding: 0 3rem;
       @include breakpoint(phone) {
-      padding: 0 15px;
+        padding: 0 15px;
       }
     }
 
