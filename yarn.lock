@@ -19148,11 +19148,11 @@ __metadata:
   linkType: hard
 
 "walk@npm:^2.3.14":
-  version: 2.3.14
-  resolution: "walk@npm:2.3.14"
+  version: 2.3.15
+  resolution: "walk@npm:2.3.15"
   dependencies:
     foreachasync: ^3.0.0
-  checksum: 77b744e340e890f82eb836b197655cbe171e5b92557446a9a26b89594fbe3b7ea64337b8d93e15a12831c6bf1bf6f83511b52f7bfcc441978b605883ff33bfcb
+  checksum: d494df1924656cc4881ff8f70474f80be10d07d0c899620e02ff8627e4f339f37e74d1b30b70e7a714d0b873b0dc8b20129a619c4b407b39949c756637ebe3a6
   languageName: node
   linkType: hard
 
