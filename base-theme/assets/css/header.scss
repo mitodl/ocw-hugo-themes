@@ -41,8 +41,6 @@
     max-width: $max-content-width;
     width: 100%;
     height: 100%;
-    margin-left: auto;
-    margin-right: auto;
     width: 100%;
     padding-left: 15px;
     padding-right: 15px;
@@ -85,7 +83,7 @@
 
         &.give-button {
           padding: 13px 20px 10px 20px;
-          border-bottom: 3px solid #851124;
+          border-bottom: 3px solid $burgundy;
           border-radius: 5px;
 
           img {
@@ -99,7 +97,7 @@
 .give-button {
   color: $white;
   text-wrap: nowrap;
-  background-color: #a31f34;
+  background-color: $highlight-red;
   text-decoration: none;
 }
 .give-button:hover > img {
