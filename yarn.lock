@@ -1894,12 +1894,12 @@ __metadata:
   linkType: hard
 
 "@types/enzyme@npm:*, @types/enzyme@npm:^3.10.11":
-  version: 3.10.11
-  resolution: "@types/enzyme@npm:3.10.11"
+  version: 3.10.18
+  resolution: "@types/enzyme@npm:3.10.18"
   dependencies:
     "@types/cheerio": "*"
-    "@types/react": "*"
-  checksum: 4085899b16e691e715f374345fae2963dc89a002c55a249381e37f94d93c8d016ad7208a8d11cc0f2d8c7cdfa6fa9f5590f0bfae984e51571f5d1e9c2d6ee782
+    "@types/react": ^16
+  checksum: faccec3634e7ae5e5c19e6d9b09d0171a63c9dffb7c9464ba7ddc8f6beceb2b083d94d043fd719ab728e9b15f49b9faba62639e2c3956ac55cb526291485c139
   languageName: node
   linkType: hard
 
@@ -2266,6 +2266,17 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: 4079f4f959cd4a4bfaeda8b89fe8a1b1f8bdc9d87acfdc5f74a0b39cec9ec6a470724357c62778c0f063180b360c250e920c5a142f1dbcda67d9cc25a6d43a85
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^16":
+  version: 16.14.56
+  resolution: "@types/react@npm:16.14.56"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: df49dd96def155fb7befe2455296bf0eb569be74bd8f6af872e0abfea7f4081f8b7a6323cccc2b5c8a44fa735efe2e5b15cff7734f11469bb0db5fbf7d612341
   languageName: node
   linkType: hard
 
