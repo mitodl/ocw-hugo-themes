@@ -54,7 +54,8 @@ jobs:
         run: (cd ../ocw-www; hugo --config $GITHUB_WORKSPACE/ocw-hugo-projects/ocw-www/config.yaml --themesDir ../ocw-hugo-themes)
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
-          SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
+          COURSE_SEARCH_API_URL: ${{ secrets.COURSE_SEARCH_API_URL }}
+          CONTENT_FILE_SEARCH_API_URL: ${{ secrets.CONTENT_FILE_SEARCH_API_URL }}
           OCW_COURSE_STARTER_SLUG: ${{ secrets.OCW_COURSE_STARTER_SLUG }}
           STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
@@ -63,7 +64,8 @@ jobs:
         run: (cd ../ocw-course; hugo --config $GITHUB_WORKSPACE/ocw-hugo-projects/ocw-course-v2/config.yaml  --destination public-v2 --themesDir ../ocw-hugo-themes)
         env:
           OCW_STUDIO_BASE_URL: ${{ secrets.OCW_STUDIO_BASE_URL }}
-          SEARCH_API_URL: ${{ secrets.SEARCH_API_URL }}
+          COURSE_SEARCH_API_URL: ${{ secrets.COURSE_SEARCH_API_URL }}
+          CONTENT_FILE_SEARCH_API_URL: ${{ secrets.CONTENT_FILE_SEARCH_API_URL }}
           OCW_COURSE_STARTER_SLUG: ${{ secrets.OCW_COURSE_STARTER_SLUG }}
           STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}

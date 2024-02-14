@@ -5,8 +5,9 @@ import { search } from "../lib/api"
 import { times } from "ramda"
 import {
   INITIAL_FACET_STATE,
-  LearningResourceType,
-  serializeSearchParams
+  serializeSearchParams,
+  LEARNING_RESOURCE_ENDPOINT,
+  CONTENT_FILE_ENDPOINT
 } from "@mitodl/course-search-utils"
 import InfiniteScroll from "react-infinite-scroller"
 
@@ -14,14 +15,11 @@ import SearchPage from "./SearchPage"
 
 import { DEFAULT_UI_PAGE_SIZE, COMPACT_UI_PAGE_SIZE } from "../lib/constants"
 
-import { makeCourseResult } from "../factories/search"
+import { makeCourseSearchResult } from "../factories/search"
 import { createMemoryHistory, InitialEntry } from "history"
 import FilterableSearchFacets from "./FilterableFacet"
 
-const mockGetResults = () =>
-  times(makeCourseResult, DEFAULT_UI_PAGE_SIZE).map(result => ({
-    _source: result
-  }))
+const mockGetResults = () => times(makeCourseSearchResult, DEFAULT_UI_PAGE_SIZE)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let resolver = (_extraData?: any) => {
@@ -40,7 +38,9 @@ jest.mock("../lib/api", () => ({
       resolver = (extraData = {}) => {
         const results = mockGetResults()
         resolve({
-          hits: { hits: results, total: results.length },
+          count:    10,
+          results:  results,
+          metadata: {},
           ...extraData
         })
       }
@@ -51,14 +51,12 @@ const spySearch = jest.mocked(search)
 
 const defaultCourseFacets = {
   ...INITIAL_FACET_STATE,
-  type:       [LearningResourceType.Course],
-  offered_by: ["OCW"]
+  offered_by: ["ocw"]
 }
 
 const defaultResourceFacets = {
   ...INITIAL_FACET_STATE,
-  type:       [LearningResourceType.ResourceFile],
-  offered_by: ["OCW"]
+  offered_by: ["ocw"]
 }
 
 describe("SearchPage component", () => {
@@ -75,11 +73,11 @@ describe("SearchPage component", () => {
     { text: "amazing text!", activeFacets: {} },
     {
       text:         "great search",
-      activeFacets: { topics: ["Mathematics"] }
+      activeFacets: { topic: ["Mathematics"] }
     },
     {
       text:         "",
-      activeFacets: { topics: ["Science"] }
+      activeFacets: { topic: ["Science"] }
     }
   ].forEach(params => {
     test(`should search at startup with ${serializeSearchParams(
@@ -97,13 +95,9 @@ describe("SearchPage component", () => {
             ...defaultCourseFacets,
             ...params.activeFacets
           },
-          aggregations: [
-            "department_name",
-            "level",
-            "topics",
-            "course_feature_tags"
-          ],
-          sort: null
+          aggregations: ["department", "level", "topic", "course_feature"],
+          sort:         null,
+          endpoint:     null
         }
       ])
     })
@@ -129,12 +123,8 @@ describe("SearchPage component", () => {
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
           sort:         null,
-          aggregations: [
-            "department_name",
-            "level",
-            "topics",
-            "course_feature_tags"
-          ]
+          aggregations: ["department", "level", "topic", "course_feature"],
+          endpoint:     null
         }
       ],
       [
@@ -144,12 +134,8 @@ describe("SearchPage component", () => {
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
           sort:         null,
-          aggregations: [
-            "department_name",
-            "level",
-            "topics",
-            "course_feature_tags"
-          ]
+          aggregations: ["department", "level", "topic", "course_feature"],
+          endpoint:     null
         }
       ]
     ])
@@ -161,8 +147,8 @@ describe("SearchPage component", () => {
     const parameters = {
       text:         "Math 101",
       activeFacets: {
-        topics:              ["Mathematics"],
-        course_feature_tags: ["Exams", "Problem Sets with Solutions"]
+        topic:          ["Mathematics"],
+        course_feature: ["Exams", "Problem Sets with Solutions"]
       }
     }
     const searchString = serializeSearchParams(parameters)
@@ -180,12 +166,8 @@ describe("SearchPage component", () => {
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: { ...defaultCourseFacets, ...parameters.activeFacets },
           sort:         null,
-          aggregations: [
-            "department_name",
-            "level",
-            "topics",
-            "course_feature_tags"
-          ]
+          aggregations: ["department", "level", "topic", "course_feature"],
+          endpoint:     null
         }
       ],
       [
@@ -195,10 +177,11 @@ describe("SearchPage component", () => {
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: {
             ...defaultResourceFacets,
-            ...{ topics: ["Mathematics"] }
+            ...{ topic: ["Mathematics"] }
           },
-          sort:         null,
-          aggregations: ["resource_type", "topics"]
+          sort:         "",
+          aggregations: ["content_feature_type", "topic"],
+          endpoint:     "content_file"
         }
       ]
     ])
@@ -213,7 +196,7 @@ describe("SearchPage component", () => {
     const searchString = serializeSearchParams(parameters)
     const { wrapper } = render(searchString)
     await resolveSearch({
-      suggest: ["mathematics"]
+      metadata: { suggest: ["mathematics"] }
     })
     wrapper.update()
     expect(wrapper.find(".suggestions").text()).toEqual(
@@ -242,7 +225,7 @@ describe("SearchPage component", () => {
     const sortParam = "-sortablefieldname",
       differentSortParam = "differentsortparam"
     const parameters = {
-      sort: { field: sortParam, option: "asc" }
+      sort: sortParam
     }
     const searchString = serializeSearchParams(parameters)
     const { wrapper } = render(searchString)
@@ -252,10 +235,7 @@ describe("SearchPage component", () => {
       // @ts-expect-error Not mocking whole event
       select.prop("onChange")({ target: { value: differentSortParam } })
     })
-    expect(spySearch.mock.calls[1][0].sort).toEqual({
-      field:  differentSortParam,
-      option: "asc"
-    })
+    expect(spySearch.mock.calls[1][0].sort).toEqual(differentSortParam)
   })
 
   it("should allow the user to toggle the layout", async () => {
@@ -281,17 +261,15 @@ describe("SearchPage component", () => {
   //
   ;(
     [
-      [LearningResourceType.Course, true],
-      [LearningResourceType.ResourceFile, false]
+      [LEARNING_RESOURCE_ENDPOINT, true],
+      [CONTENT_FILE_ENDPOINT, false]
     ] as const
-  ).forEach(([type, sortExists]) => {
+  ).forEach(([endpoint, sortExists]) => {
     it(`${
       sortExists ? "should" : "shouldn't"
-    } show the sort option if the user is on the ${type} page`, async () => {
+    } show the sort option if the endpoint is ${endpoint}`, async () => {
       const parameters = {
-        activeFacets: {
-          type: [type]
-        }
+        endpoint: endpoint
       }
       const searchString = serializeSearchParams(parameters)
       const { wrapper } = render(searchString)
@@ -337,12 +315,8 @@ describe("SearchPage component", () => {
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
           sort:         null,
-          aggregations: [
-            "department_name",
-            "level",
-            "topics",
-            "course_feature_tags"
-          ]
+          aggregations: ["department", "level", "topic", "course_feature"],
+          endpoint:     null
         }
       ],
       [
@@ -352,12 +326,8 @@ describe("SearchPage component", () => {
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
           sort:         null,
-          aggregations: [
-            "department_name",
-            "level",
-            "topics",
-            "course_feature_tags"
-          ]
+          aggregations: ["department", "level", "topic", "course_feature"],
+          endpoint:     null
         }
       ],
       [
@@ -367,12 +337,8 @@ describe("SearchPage component", () => {
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
           sort:         null,
-          aggregations: [
-            "department_name",
-            "level",
-            "topics",
-            "course_feature_tags"
-          ]
+          aggregations: ["department", "level", "topic", "course_feature"],
+          endpoint:     null
         }
       ]
     ])
@@ -404,12 +370,8 @@ describe("SearchPage component", () => {
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
           sort:         null,
-          aggregations: [
-            "department_name",
-            "level",
-            "topics",
-            "course_feature_tags"
-          ]
+          aggregations: ["department", "level", "topic", "course_feature"],
+          endpoint:     null
         }
       ],
       [
@@ -419,12 +381,8 @@ describe("SearchPage component", () => {
           size:         DEFAULT_UI_PAGE_SIZE,
           activeFacets: defaultCourseFacets,
           sort:         null,
-          aggregations: [
-            "department_name",
-            "level",
-            "topics",
-            "course_feature_tags"
-          ]
+          aggregations: ["department", "level", "topic", "course_feature"],
+          endpoint:     null
         }
       ]
     ])
@@ -449,13 +407,13 @@ describe("SearchPage component", () => {
     const topic = facets.at(1)
     const features = facets.at(2)
 
-    expect(topic.props().name).toEqual("topics")
+    expect(topic.props().name).toEqual("topic")
     expect(topic.props().title).toEqual("Topics")
     expect(topic.props().currentlySelected).toEqual([])
-    expect(features.props().name).toEqual("course_feature_tags")
+    expect(features.props().name).toEqual("course_feature")
     expect(features.props().title).toEqual("Features")
     expect(features.props().currentlySelected).toEqual([])
-    expect(department.props().name).toEqual("department_name")
+    expect(department.props().name).toEqual("department")
     expect(department.props().title).toEqual("Departments")
     expect(department.props().currentlySelected).toEqual([])
   })

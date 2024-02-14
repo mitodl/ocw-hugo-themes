@@ -14,7 +14,10 @@ const config: Config.InitialOptions = {
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   testPathIgnorePatterns: ["/node_modules/", "tests-e2e/"],
   preset:                 "ts-jest",
-  testEnvironment:        "jsdom"
+  testEnvironment:        "jsdom",
+  moduleNameMapper:       {
+    axios: "axios/dist/node/axios.cjs"
+  }
 }
 
 export default config

@@ -65,9 +65,14 @@ const envSchema = {
     desc:       "Base URL with which to prefix resource paths in Hugo's output.",
     devDefault: "https://live-qa.ocw.mit.edu/"
   }),
-  SEARCH_API_URL: envalid.url({
-    desc:       "The URL of the search API.",
-    devDefault: "https://discussions-rc.odl.mit.edu/api/v0/search/"
+  COURSE_SEARCH_API_URL: envalid.url({
+    desc:       "The URL of the learning resource search API.",
+    devDefault:
+      "https://mit-open-rc.odl.mit.edu/api/v1/learning_resources_search/"
+  }),
+  CONTENT_FILE_SEARCH_API_URL: envalid.url({
+    desc:       "The URL of the contentfile search API.",
+    devDefault: "https://mit-open-rc.odl.mit.edu/api/v1/content_file_search/"
   }),
   SENTRY_ENV: envalid.str({
     desc:       "The environment for Sentry",

@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { contains } from "ramda"
-import has from "lodash.has"
 
 import SearchFacetItem from "./SearchFacetItem"
 import { Aggregation } from "@mitodl/course-search-utils"
@@ -15,18 +14,26 @@ interface Props {
   currentlySelected: string[]
   onUpdate: React.ChangeEventHandler<HTMLInputElement>
   expandedOnLoad: boolean
+  labelFunction?: ((value: string) => string | null) | null
 }
 
 function SearchFacet(props: Props) {
-  const { name, title, results, currentlySelected, onUpdate, expandedOnLoad } =
-    props
+  const {
+    name,
+    title,
+    results,
+    currentlySelected,
+    onUpdate,
+    expandedOnLoad,
+    labelFunction
+  } = props
 
   const [showFacetList, setShowFacetList] = useState(expandedOnLoad)
   const [showAllFacets, setShowAllFacets] = useState(false)
 
   const titleLineIcon = showFacetList ? "arrow_drop_down" : "arrow_right"
 
-  return results && results.buckets && results.buckets.length === 0 ? null : (
+  return results && results.length === 0 ? null : (
     <div className="facets mb-3">
       <button
         className="filter-section-button pl-3 py-2 pr-0"
@@ -41,22 +48,25 @@ function SearchFacet(props: Props) {
       </button>
       {showFacetList ? (
         <React.Fragment>
-          {results && results.buckets ?
-            results.buckets.map((facet, i) =>
+          {results ?
+            results.map((facet, i) =>
               showAllFacets ||
                 i < MAX_DISPLAY_COUNT ||
-                results.buckets.length < FACET_COLLAPSE_THRESHOLD ? (
+                results.length < FACET_COLLAPSE_THRESHOLD ? (
                   <SearchFacetItem
                     key={i}
                     facet={facet}
                     isChecked={contains(facet.key, currentlySelected || [])}
                     onUpdate={onUpdate}
                     name={name}
+                    displayKey={
+                      labelFunction ? labelFunction(facet.key) : facet.key
+                    }
                   />
                 ) : null
             ) :
             null}
-          {results && results.buckets.length >= FACET_COLLAPSE_THRESHOLD ? (
+          {results && results.length >= FACET_COLLAPSE_THRESHOLD ? (
             <button
               className="facet-more-less-button"
               onClick={() => setShowAllFacets(!showAllFacets)}
@@ -71,11 +81,4 @@ function SearchFacet(props: Props) {
   )
 }
 
-const propsAreEqual = (_prevProps: Props, nextProps: Props) => {
-  // results.buckets is null while the search request is in-flight
-  // we want to defer rendering in that case because it will cause
-  // all the facets to briefly disappear before reappearing
-  return !has(nextProps.results, "buckets")
-}
-
-export default React.memo(SearchFacet, propsAreEqual)
+export default SearchFacet

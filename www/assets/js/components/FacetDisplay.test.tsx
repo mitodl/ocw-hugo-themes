@@ -7,9 +7,10 @@ import { Facets } from "@mitodl/course-search-utils"
 
 describe("FacetDisplay component", () => {
   const facetMap: FacetManifest = [
-    ["topics", "Topics", false, false],
-    ["type", "Types", false, false],
-    ["department_name", "Departments", false, true]
+    ["topic", "Topics", false, false],
+    ["resource_type", "Types", false, false],
+    ["department", "Departments", false, true],
+    ["level", "Level", false, true]
   ]
 
   function setup() {
@@ -38,8 +39,8 @@ describe("FacetDisplay component", () => {
     const { render } = setup()
     const wrapper = render()
     const facets = wrapper.children()
-    expect(facets).toHaveLength(4)
-    facets.slice(1, 4).map((facet, key) => {
+    expect(facets).toHaveLength(5)
+    facets.slice(1, 5).map((facet, key) => {
       expect(facet.prop("name")).toBe(facetMap[key][0])
       expect(facet.prop("title")).toBe(facetMap[key][1])
       expect(facet.prop("expandedOnLoad")).toBe(facetMap[key][3])
@@ -48,7 +49,7 @@ describe("FacetDisplay component", () => {
 
   test("shows filters which are active excluding invalid facet values", () => {
     const activeFacets: Facets = {
-      topics: [
+      topic: [
         "Academic Writing",
         "Accounting",
         "Aerodynamics",
@@ -56,8 +57,8 @@ describe("FacetDisplay component", () => {
         "Bread",
         "Starch"
       ],
-      type:            [],
-      department_name: ["Mathematics", "World Grains and Cereals"]
+      resource_type: [],
+      department:    ["1", "2"]
     }
 
     const { render, clearAllFilters } = setup()
@@ -69,7 +70,29 @@ describe("FacetDisplay component", () => {
         .find(".active-search-filters")
         .find("SearchFilter")
         .map(el => el.prop("value"))
-    ).toEqual(["Academic Writing", "Accounting", "Aerodynamics", "Mathematics"])
+    ).toEqual(["Academic Writing", "Accounting", "Aerodynamics", "1", "2"])
+    wrapper.find(".clear-all-filters-button").simulate("click")
+    expect(clearAllFilters).toHaveBeenCalled()
+  })
+
+  test("accepts department and level names and converts them to codes", () => {
+    const activeFacets: Facets = {
+      topic:         [],
+      resource_type: [],
+      department:    ["1", "Literature"],
+      level:         ["graduate", "Non-Credit"]
+    }
+
+    const { render, clearAllFilters } = setup()
+    const wrapper = render({
+      activeFacets
+    })
+    expect(
+      wrapper
+        .find(".active-search-filters")
+        .find("SearchFilter")
+        .map(el => el.prop("value"))
+    ).toEqual(["1", "21L", "graduate", "noncredit"])
     wrapper.find(".clear-all-filters-button").simulate("click")
     expect(clearAllFilters).toHaveBeenCalled()
   })

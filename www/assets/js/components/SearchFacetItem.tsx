@@ -11,13 +11,13 @@ interface Props {
   isChecked: boolean
   onUpdate: React.ChangeEventHandler<HTMLInputElement>
   name: string
+  displayKey: string | null
 }
 
 export default function SearchFacetItem(props: Props) {
-  const { facet, isChecked, onUpdate, name } = props
+  const { facet, isChecked, onUpdate, name, displayKey } = props
 
   const facetId = slugify(`${name}-${facet.key}`)
-
   return (
     <div className={isChecked ? "facet-visible checked" : "facet-visible"}>
       <input
@@ -37,7 +37,7 @@ export default function SearchFacetItem(props: Props) {
               "facet-key"
           }
         >
-          <Dotdotdot clamp={1}>{facet.key}</Dotdotdot>
+          <Dotdotdot clamp={1}>{displayKey || ""}</Dotdotdot>
         </label>
         <div className="facet-count">{facet.doc_count}</div>
       </div>

@@ -1,7 +1,7 @@
 import React from "react"
 import { mount } from "enzyme"
-import { makeResourceFileResult } from "../factories/search"
-import { searchResultToLearningResource } from "../lib/search"
+import { makeContentFileSearchResult } from "../factories/search"
+import { resourceSearchResultToLearningResource } from "../lib/search"
 import * as hugoHooks from "../hooks/hugo_data"
 import ResourceCollection from "./ResourceCollection"
 import { LearningResourceDisplay } from "./SearchResult"
@@ -11,8 +11,8 @@ jest.mock("../hooks/hugo_data")
 
 function setup() {
   const data = [...Array(10)]
-    .map(makeResourceFileResult)
-    .map(searchResultToLearningResource)
+    .map(makeContentFileSearchResult)
+    .map(resourceSearchResultToLearningResource)
 
   useResourceCollectionData.mockReturnValue(data)
 

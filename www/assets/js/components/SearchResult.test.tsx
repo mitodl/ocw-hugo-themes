@@ -1,15 +1,19 @@
 import React from "react"
 import { mount } from "enzyme"
-import {
-  serializeSearchParams,
-  LearningResourceType
-} from "@mitodl/course-search-utils"
+import { serializeSearchParams } from "@mitodl/course-search-utils"
 
 import SearchResult from "./SearchResult"
 
-import { makeLearningResourceResult } from "../factories/search"
+import {
+  makeCourseSearchResult,
+  makeContentFileSearchResult
+} from "../factories/search"
 import { SEARCH_URL } from "../lib/constants"
-import { getCoverImageUrl, searchResultToLearningResource } from "../lib/search"
+import {
+  getCoverImageUrl,
+  courseSearchResultToLearningResource,
+  resourceSearchResultToLearningResource
+} from "../lib/search"
 import { LearningResource } from "../LearningResources"
 
 describe("SearchResult component", () => {
@@ -17,8 +21,8 @@ describe("SearchResult component", () => {
     mount(<SearchResult id="boop" index={0} object={object} />)
 
   it("should render the things we expect for a course", () => {
-    const object = searchResultToLearningResource(
-      makeLearningResourceResult(LearningResourceType.Course)
+    const object = courseSearchResultToLearningResource(
+      makeCourseSearchResult()
     )
     const wrapper = render(object)
     expect(wrapper.find(".course-title").text()).toBe(object.title)
@@ -35,8 +39,8 @@ describe("SearchResult component", () => {
   })
 
   it("should render the things we expect for a resource", () => {
-    const object = searchResultToLearningResource(
-      makeLearningResourceResult(LearningResourceType.ResourceFile)
+    const object = resourceSearchResultToLearningResource(
+      makeContentFileSearchResult()
     )
     const wrapper = render(object)
     expect(wrapper.find(".course-title").text()).toBe(object.content_title)
@@ -53,39 +57,38 @@ describe("SearchResult component", () => {
     expect(wrapper.find("CoverImage").exists()).toBeTruthy()
   })
 
-  //
-  ;[(LearningResourceType.ResourceFile, LearningResourceType.Course)].forEach(
-    objectType => {
-      it("should not render a course/resource with no url", () => {
-        const object = searchResultToLearningResource(
-          makeLearningResourceResult(objectType)
-        )
-        object.url = null
-        const wrapper = render(object)
-        expect(wrapper.find("Card").exists()).toBeFalsy()
-      })
-    }
-  )
+  it("should not render a course with no url", () => {
+    const object = courseSearchResultToLearningResource(
+      makeCourseSearchResult()
+    )
+    object.url = null
+    const wrapper = render(object)
+    expect(wrapper.find("Card").exists()).toBeFalsy()
+  })
+
+  it("should not render a resource with no url", () => {
+    const object = resourceSearchResultToLearningResource(
+      makeContentFileSearchResult()
+    )
+    object.url = null
+    const wrapper = render(object)
+    expect(wrapper.find("Card").exists()).toBeFalsy()
+  })
 
   //
-  ;[[], null].forEach(listValue => {
-    it(`should not render div for instructors, topics if they are ${JSON.stringify(
-      listValue
-    )}`, () => {
-      const result = makeLearningResourceResult(LearningResourceType.Course)
-      // @ts-expect-error Consider widening type of Course
-      result.runs[0].instructors = listValue
-      // @ts-expect-error Consider widening type of Course
-      result.topics = listValue
-      const object = searchResultToLearningResource(result)
-      const wrapper = render(object)
-      expect(wrapper.find(".subtitles")).toHaveLength(0)
-    })
+  it(`should not render div for instructors, topics if they are empty`, () => {
+    const result = makeCourseSearchResult()
+    // @ts-expect-error the default factory makes non-empty runs
+    result.runs[0].instructors = []
+    result.topics = []
+    const object = courseSearchResultToLearningResource(result)
+    const wrapper = render(object)
+    expect(wrapper.find(".subtitles")).toHaveLength(0)
   })
 
   it("should link to the course subjects", () => {
-    const object = searchResultToLearningResource(
-      makeLearningResourceResult(LearningResourceType.Course)
+    const object = courseSearchResultToLearningResource(
+      makeCourseSearchResult()
     )
     const wrapper = render(object)
 
@@ -95,7 +98,7 @@ describe("SearchResult component", () => {
         `${SEARCH_URL}?${serializeSearchParams({
           text:         undefined,
           activeFacets: {
-            topics: [object.topics[i].name]
+            topic: [object.topics[i].name]
           }
         })}`
       )
@@ -108,8 +111,8 @@ describe("SearchResult component with compact view", () => {
     mount(<SearchResult id="boop" index={0} object={object} layout="compact" />)
 
   it("should render the things we expect for a course", () => {
-    const object = searchResultToLearningResource(
-      makeLearningResourceResult(LearningResourceType.Course)
+    const object = courseSearchResultToLearningResource(
+      makeCourseSearchResult()
     )
     const wrapper = render(object)
     expect(wrapper.find(".course-title").text()).toBe(object.title)
@@ -122,10 +125,11 @@ describe("SearchResult component with compact view", () => {
   })
 
   it("should render the things we expect for a resource", () => {
-    const object = searchResultToLearningResource(
-      makeLearningResourceResult(LearningResourceType.ResourceFile)
+    const object = resourceSearchResultToLearningResource(
+      makeContentFileSearchResult()
     )
     const wrapper = render(object)
+
     expect(wrapper.find(".resource-title").text()).toBe(object.content_title)
     expect(wrapper.find(".resource-title").find("a").prop("href")).toBe(
       object.url
