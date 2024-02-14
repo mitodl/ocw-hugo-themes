@@ -187,4 +187,17 @@ pre {
 
 #desktop-header {
   height: $desktop-header-height-v2 !important;
+  .contents {
+    .ocw-logo {
+      img {
+        width: 217px !important;
+      }
+    }
+    .give-button {
+      padding: 13px 29px 10px 29px !important;
+    }
+    .search-icon {
+      padding-right: 2.6rem !important;
+    }
+  }
 }
