@@ -42,7 +42,10 @@ $searchbox-height: 50px;
     max-width: $max-home-width;
     flex-direction: row;
     margin-top: $desktop-header-height;
-    padding: 0 3rem;
+
+    @include media-breakpoint-up(lg) {
+      padding: 0 3rem;
+    }
 
     @include media-breakpoint-down(md) {
       margin-top: 0 !important;

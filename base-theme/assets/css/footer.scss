@@ -8,6 +8,10 @@
   #home-footer {
     max-width: $max-home-width;
     padding: 35px 3rem 30px 3rem;
+
+    @include media-breakpoint-down(md) {
+      padding: 35px 2rem 30px 2rem;
+    }
   }
 
   .row-gap-20 {
