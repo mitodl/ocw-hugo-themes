@@ -87,8 +87,13 @@
       @include breakpoint(phone) {
         padding: 0 15px;
       }
-      .row {
+      .row.search-filter-drawer {
         padding: 0 3rem;
+      }
+      .row.search-box {
+        @include breakpoint(tablet) {
+          padding: 0 3rem;
+        }
       }
     }
 
