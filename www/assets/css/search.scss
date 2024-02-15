@@ -91,7 +91,13 @@
         padding: 0 3rem;
         @include breakpoint(tablet) {
           padding: 0;
+          margin-left: -15px !important;
+          margin-right: -15px !important;
+          .search-results-area {
+            padding-right: 0;
+          }
         }
+
       }
     }
 
