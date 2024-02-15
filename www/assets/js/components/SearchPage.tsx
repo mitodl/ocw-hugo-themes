@@ -213,7 +213,7 @@ export default function SearchPage(props: SearchPageProps) {
       <div className="container">
         <div className="search-box py-sm-5 py-md-7 py-lg-5 row">
           <div className="col-lg-3" />
-          <div className="col-lg-6 search-box-inner d-flex flex-column align-items-center mb-2 mb-sm-5 mb-md-4 px-0">
+          <div className="col-lg-6 search-box-inner d-flex flex-column align-items-center mb-2 mb-sm-5 mb-md-4">
             <h1>Explore OpenCourseWare</h1>
             <div>
               <span className="align-item-center search-box-description">
@@ -232,7 +232,7 @@ export default function SearchPage(props: SearchPageProps) {
           </div>
           <div className="col-lg-3" />
         </div>
-        <div className="row search-filter-drawer">
+        <div className="row search-filter-drawer mx-auto">
           <SearchFilterDrawer
             facetMap={facetMap}
             facetOptions={facetOptions}
@@ -242,7 +242,7 @@ export default function SearchPage(props: SearchPageProps) {
             toggleFacet={toggleFacet}
             updateUI={updateUI}
           />
-          <div className="search-results-area col-12 col-lg-9 pb-2 pt-2">
+          <div className="search-results-area col-12 col-lg-9 pb-2 pt-2 pr-0">
             <div
               className={`search-toggle ${
                 isResourceSearch(activeFacets) ? "nofacet" : "facet"

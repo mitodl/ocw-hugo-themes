@@ -128,13 +128,17 @@
 }
 
 .facet-display-wrapper {
+  > * {
+    padding: 0px !important;
+    margin: 0px !important;
+  }
   @include breakpoint(desktop) {
     padding-right: 75px;
   }
 }
 
 .active-search-filters {
-  margin: 0rem 1rem 1.4rem 1rem;
+  margin-bottom: 1.4rem;
 
   .clear-all-filters-button {
     font-size: $font-normal;

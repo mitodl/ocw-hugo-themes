@@ -89,10 +89,8 @@
       }
       .row.search-filter-drawer {
         padding: 0 3rem;
-      }
-      .row.search-box {
         @include breakpoint(tablet) {
-          padding: 0 3rem;
+          padding: 0;
         }
       }
     }
