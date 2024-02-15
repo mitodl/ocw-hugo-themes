@@ -232,7 +232,7 @@ export default function SearchPage(props: SearchPageProps) {
           </div>
           <div className="col-lg-3" />
         </div>
-        <div className="row search-filter-drawer mx-auto">
+        <div className="row search-filter-drawer mx-auto px-lg-6">
           <SearchFilterDrawer
             facetMap={facetMap}
             facetOptions={facetOptions}
@@ -242,7 +242,7 @@ export default function SearchPage(props: SearchPageProps) {
             toggleFacet={toggleFacet}
             updateUI={updateUI}
           />
-          <div className="search-results-area col-12 col-lg-9 pb-2 pt-2 pr-0">
+          <div className="search-results-area col-12 col-lg-9 pb-2 pt-2 pr-lg-0">
             <div
               className={`search-toggle ${
                 isResourceSearch(activeFacets) ? "nofacet" : "facet"
