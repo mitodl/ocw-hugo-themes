@@ -179,7 +179,7 @@
     z-index: 1;
 
     .contents {
-      margin: 0 20px;
+      margin: 0 2rem;
     }
 
     .controls {
@@ -189,7 +189,7 @@
       button {
         margin-right: 18px;
         margin-top: 18px;
-        padding: 0;
+        padding: 0 0.5rem;
         span.material-icons {
           font-size: 2rem;
         }
@@ -197,7 +197,7 @@
     }
 
     .apply-filters {
-      margin: 25px;
+      margin: 25px 2rem;
 
       button {
         width: 100%;

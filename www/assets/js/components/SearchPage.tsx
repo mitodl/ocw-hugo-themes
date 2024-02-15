@@ -210,7 +210,7 @@ export default function SearchPage(props: SearchPageProps) {
   const pageSize = getPageSizeFromUIParam(ui)
   return (
     <div className="search-page w-100">
-      <div className="container">
+      <div className="container px-0">
         <div className="search-box py-sm-5 py-md-7 py-lg-5 row">
           <div className="col-lg-3" />
           <div className="col-lg-6 search-box-inner d-flex flex-column align-items-center mb-2 mb-sm-5 mb-md-4">
