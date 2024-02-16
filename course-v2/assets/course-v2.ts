@@ -14,7 +14,7 @@ import {
   showSolution
 } from "./js/quiz_multiple_choice"
 import { initVideoDownloadPopup } from "./js/video_download_popup"
-import { initLoginButton } from "mit-open-login-button"
+import { initLoginButton } from "@mitodl/mit-open-login-button"
 
 export interface OCWWindow extends Window {
   initVideoJS: () => void
@@ -34,6 +34,7 @@ $(function() {
   initLoginButton(
     "login-button-mobile",
     process.env.MIT_OPEN_BASEURL,
+    window.location,
     "Login",
     "btn blue-btn text-white btn-link link-button py-2 px-3 my-0",
     "text-white"
@@ -41,6 +42,7 @@ $(function() {
   initLoginButton(
     "login-button-desktop",
     process.env.MIT_OPEN_BASEURL,
+    window.location,
     "Login",
     "btn blue-btn text-white btn-link link-button py-2 px-3 my-0",
     "text-white px-3"
