@@ -1,1 +1,1 @@
-declare module "mit-open-login-button"
+declare module "@mitodl/mit-open-login-button"
