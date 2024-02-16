@@ -30,6 +30,7 @@
     "test:watch": "jest --watch",
     "test:verbose": "jest --verbose",
     "test:e2e": "yarn with-env --dev -- ./package_scripts/test_e2e.sh",
+    "test:e2e:percy": "yarn with-env --dev -- percy exec -- ./package_scripts/test_e2e.sh",
     "test:e2e:jest": "yarn jest --testPathIgnorePatterns='/node_modules/' --testPathPattern='/tests-e2e/jest/'",
     "typecheck": "tsc --noEmit",
     "with-env": "ts-node ./package_scripts/with-env.ts"
@@ -71,6 +72,8 @@
   },
   "devDependencies": {
     "@mitodl/ocw-to-hugo": "1.36.0",
+    "@percy/cli": "^1.28.0",
+    "@percy/playwright": "^1.0.4",
     "@playwright/test": "^1.40.0",
     "@swc/core": "^1.3.14",
     "@swc/helpers": "^0.4.12",

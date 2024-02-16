@@ -1,6 +1,21 @@
+import playwright from "playwright"
 import { test, expect } from "@playwright/test"
 import { WwwPage, siteUrl } from "../util"
 import { SOCIAL_LINKS } from "../util/constants"
+const percySnapshot = require('@percy/playwright')
+
+const browsers = {
+  "firefox": playwright.firefox,
+  "chromium": playwright.chromium
+}
+
+test("Loads the ocw-www home page", async ({ browserName }) => {
+  const browser = await browsers[browserName].launch()
+  const page = await browser.newPage()
+  await page.goto(siteUrl("www"))
+  await percySnapshot(page, `Loads the ocw-www home page in ${browserName}`)
+  await browser.close()
+})
 
 test("Home page has title in <head>", async ({ page }) => {
   await page.goto(siteUrl("www"))

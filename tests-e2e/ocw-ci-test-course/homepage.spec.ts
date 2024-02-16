@@ -1,6 +1,22 @@
+import playwright from "playwright"
 import { env } from "../../env"
 import { test, expect } from "@playwright/test"
 import { getFirstAfter, CoursePage } from "../util"
+const percySnapshot = require('@percy/playwright')
+
+const browsers = {
+  "firefox": playwright.firefox,
+  "chromium": playwright.chromium
+}
+
+test("Loads the course home page", async ({ browserName }) => {
+  const browser = await browsers[browserName].launch()
+  const page = await browser.newPage()
+  const course = new CoursePage(page, "course")
+  await course.goto()
+  await percySnapshot(page, `Loads the course home page in ${browserName}`)
+  await browser.close()
+})
 
 test("Course page has title in <head>", async ({ page }) => {
   const course = new CoursePage(page, "course")
