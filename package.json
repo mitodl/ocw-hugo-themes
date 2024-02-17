@@ -4,7 +4,7 @@
   "description": "A Hugo theme for building OCW websites",
   "repository": "mitodl/ocw-hugo-themes",
   "main": "base-theme/assets/index.js",
-  "packageManager": "yarn@3.2.2",
+  "packageManager": "yarn@3.8.0",
   "scripts": {
     "lint": "eslint $PROJECT_CWD/'**/*.{js,jsx,ts,tsx}'",
     "start": "NODE_ENV=development ts-node ./package_scripts/start.ts",
