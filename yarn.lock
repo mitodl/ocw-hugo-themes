@@ -11675,7 +11675,7 @@ __metadata:
     prettier-eslint: 13.0.0
     prettier-eslint-cli: ^7.1.0
     promise-polyfill: ^8.3.0
-    ramda: ^0.27.0
+    ramda: ^0.29.0
     react: ^16.13.1
     react-bootstrap: ^1.0.0-beta.15
     react-content-loader: ^5.1.2
@@ -13427,10 +13427,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ramda@npm:^0.27.0, ramda@npm:^0.27.1":
+"ramda@npm:^0.27.1":
   version: 0.27.1
   resolution: "ramda@npm:0.27.1"
   checksum: 31a0c0ef739b2525d7615f84cbb5d3cb89ee0c795469b711f729ea1d8df0dccc3cd75d3717a1e9742d42315ce86435680b7c87743eb7618111c60c144a5b8059
+  languageName: node
+  linkType: hard
+
+"ramda@npm:^0.29.0":
+  version: 0.29.1
+  resolution: "ramda@npm:0.29.1"
+  checksum: df7c627597a66d5f317f6ba77ad17d7ba818efc9c2c4a638440bc23f2c651e823970ea05b05a28895738c0e4b738fadbdc17b2c97b3ad922826febc09c859c44
   languageName: node
   linkType: hard
 
