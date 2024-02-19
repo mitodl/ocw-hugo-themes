@@ -218,19 +218,23 @@ $searchbox-height: 50px;
   }
 }
 
-.give-button {
-  font-weight: 700;
-  font-size: 1.125rem;
-  text-wrap: nowrap;
-  border-radius: 7px;
-  padding: 20px 30px 15px 30px;
-  border-bottom: 5px solid $burgundy;
-  background-color: $highlight-red;
-  color: $white;
-  text-decoration: none;
+.give-button-wrapper {
+  flex: none;
 
-  div {
-    padding: $spacer3 $spacer5;
+  .give-button {
+    font-weight: 700;
+    font-size: 1.125rem;
+    white-space: nowrap;
+    border-radius: 7px;
+    padding: 20px 30px 15px 30px;
+    border-bottom: 5px solid $burgundy;
+    background-color: $highlight-red;
+    color: $white;
+    text-decoration: none;
+
+    div {
+      padding: $spacer3 $spacer5;
+    }
   }
 }
 
