@@ -8,7 +8,7 @@ import {
   FacetManifest,
   FacetDisplay
 } from "@mitodl/course-search-utils"
-import { SEARCH_COMPACT_UI, FACET_OPTIONS } from "../lib/constants"
+import { SEARCH_COMPACT_UI } from "../lib/constants"
 import Footer from "./Footer"
 
 interface Props {
