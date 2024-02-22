@@ -51,7 +51,7 @@
     aria-labelledby="nav-button_{{ $device }}_{{ .menuItem.Identifier }}"
   >
     {{ range .menuItem.Children }}
-      {{ partial "nav_item.html" (dict "menuItem" . "parentId" $id "device" $device "context" .) }}
+      {{ partial "nav_item.html" (dict "menuItem" . "parentId" $id "device" $device) }}
     {{ end }}
   </ul>
 </li>
