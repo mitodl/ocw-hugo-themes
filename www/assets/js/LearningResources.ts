@@ -147,7 +147,3 @@ export interface LearningResource {
   description?: string | null
   course_feature_tags?: string[]
 }
-
-export type FacetKey = keyof Facets
-
-export type FacetManifest = [FacetKey, string, boolean, boolean][]

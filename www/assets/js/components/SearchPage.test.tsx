@@ -7,7 +7,8 @@ import {
   INITIAL_FACET_STATE,
   serializeSearchParams,
   LEARNING_RESOURCE_ENDPOINT,
-  CONTENT_FILE_ENDPOINT
+  CONTENT_FILE_ENDPOINT,
+  FilterableFacet
 } from "@mitodl/course-search-utils"
 import InfiniteScroll from "react-infinite-scroller"
 
@@ -17,7 +18,6 @@ import { DEFAULT_UI_PAGE_SIZE, COMPACT_UI_PAGE_SIZE } from "../lib/constants"
 
 import { makeCourseSearchResult } from "../factories/search"
 import { createMemoryHistory, InitialEntry } from "history"
-import FilterableSearchFacets from "./FilterableFacet"
 
 const mockGetResults = () => times(makeCourseSearchResult, DEFAULT_UI_PAGE_SIZE)
 
@@ -402,7 +402,7 @@ describe("SearchPage component", () => {
     await resolveSearch()
     wrapper.update()
 
-    const facets = wrapper.find(FilterableSearchFacets)
+    const facets = wrapper.find(FilterableFacet)
     const department = facets.at(0)
     const topic = facets.at(1)
     const features = facets.at(2)

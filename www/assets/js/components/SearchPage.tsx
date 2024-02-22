@@ -7,7 +7,11 @@ import {
   CONTENT_FILE_ENDPOINT,
   Aggregations,
   CourseResource,
-  ContentFile
+  ContentFile,
+  FacetManifest,
+  getDepartmentName,
+  getLevelName,
+  sanitizeFacets
 } from "@mitodl/course-search-utils"
 
 import { without } from "ramda"
@@ -28,21 +32,53 @@ import {
   SEARCH_COMPACT_UI,
   DEFAULT_UI_PAGE_SIZE,
   COMPACT_UI_PAGE_SIZE,
-  OCW_OFFEROR
+  OCW_OFFEROR,
+  FACET_OPTIONS
 } from "../lib/constants"
 import { emptyOrNil, isDoubleQuoted } from "../lib/util"
-import { FacetManifest } from "../LearningResources"
 
 const COURSE_FACETS: FacetManifest = [
-  ["department", "Departments", true, true],
-  ["level", "Level", false, false],
-  ["topic", "Topics", true, false],
-  ["course_feature", "Features", true, false]
+  {
+    name:               "department",
+    title:              "Departments",
+    useFilterableFacet: true,
+    expandedOnLoad:     true,
+    labelFunction:      getDepartmentName
+  },
+  {
+    name:               "level",
+    title:              "Level",
+    useFilterableFacet: false,
+    expandedOnLoad:     false,
+    labelFunction:      getLevelName
+  },
+  {
+    name:               "topic",
+    title:              "Topics",
+    useFilterableFacet: true,
+    expandedOnLoad:     false
+  },
+  {
+    name:               "course_feature",
+    title:              "Features",
+    useFilterableFacet: true,
+    expandedOnLoad:     false
+  }
 ]
 
 const RESOURCE_FACETS: FacetManifest = [
-  ["content_feature_type", "Resource Types", true, false],
-  ["topic", "Topics", true, false]
+  {
+    name:               "content_feature_type",
+    title:              "Resource Types",
+    useFilterableFacet: true,
+    expandedOnLoad:     false
+  },
+  {
+    name:               "topic",
+    title:              "Topics",
+    useFilterableFacet: true,
+    expandedOnLoad:     false
+  }
 ]
 
 type SearchPageProps = {
@@ -63,6 +99,7 @@ export default function SearchPage(props: SearchPageProps) {
 
   const runSearch = useCallback(
     async (text, activeFacets, from, sort, ui, endpoint) => {
+      sanitizeFacets(activeFacets, FACET_OPTIONS)
       activeFacets["offered_by"] = [OCW_OFFEROR]
       if (activeFacets && activeFacets.type && activeFacets.type.length > 1) {
         // Default is LR_TYPE_ALL, don't want that here. course or resourcefile only
@@ -72,7 +109,7 @@ export default function SearchPage(props: SearchPageProps) {
 
       const relevantFacets =
         endpoint === CONTENT_FILE_ENDPOINT ? RESOURCE_FACETS : COURSE_FACETS
-      const allowedAggregations = relevantFacets.map(facet => facet[0])
+      const allowedAggregations = relevantFacets.map(facet => facet.name)
 
       setRequestInFlight(true)
 
@@ -187,16 +224,13 @@ export default function SearchPage(props: SearchPageProps) {
       const toggledFacets: [string, string, boolean][] = [
         ["resource_type", LearningResourceType.Course, !nextResourceFilterState]
       ]
-      // Remove any facets not relevant to the new search type
-      const newFacets: Map<string, string> = new Map(
-        // @ts-expect-error We should clean this up. It works because Map constructor is ignoring everything except 0th, 1st item in the entries array.
+      const newFacets: string[] =
         nextResourceFilterState === CONTENT_FILE_ENDPOINT ?
-          RESOURCE_FACETS :
-          COURSE_FACETS
-      )
+          RESOURCE_FACETS.map(facet => facet.name) :
+          COURSE_FACETS.map(facet => facet.name)
 
       Object.entries(activeFacets).forEach(([key, list]) => {
-        if (!newFacets.has(key) && !emptyOrNil(list)) {
+        if (!newFacets.includes(key) && !emptyOrNil(list)) {
           list.forEach((value: string) => {
             toggledFacets.push([key, value, false])
           })

@@ -1,11 +1,14 @@
 import React, { useCallback, useState } from "react"
 
-import FacetDisplay from "./FacetDisplay"
 import { DESKTOP } from "../lib/constants"
 import { useDeviceCategory } from "../hooks/util"
-import { Aggregation, Facets } from "@mitodl/course-search-utils"
-import { FacetManifest } from "../LearningResources"
-import { SEARCH_COMPACT_UI } from "../lib/constants"
+import {
+  Aggregation,
+  Facets,
+  FacetManifest,
+  FacetDisplay
+} from "@mitodl/course-search-utils"
+import { SEARCH_COMPACT_UI, FACET_OPTIONS } from "../lib/constants"
 import Footer from "./Footer"
 
 interface Props {
