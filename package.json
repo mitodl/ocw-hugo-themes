@@ -40,7 +40,7 @@
   },
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
-    "@mitold/course-search-util": "git@github.com:mitodl/course-search-utils.git#ab/move-filters-to-course-search-util",
+    "@mitodl/course-search-utils": "git@github.com:mitodl/course-search-utils.git#ab/move-filters-to-course-search-util",
     "@sentry/browser": "^5.19.0",
     "array-flat-polyfill": "^1.0.1",
     "bootstrap": "^4.3.1",
