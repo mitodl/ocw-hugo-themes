@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react"
-import { contains } from "ramda"
+import { includes } from "ramda"
 import has from "lodash.has"
 import Fuse from "fuse.js"
 
@@ -108,7 +108,7 @@ function FilterableSearchFacet(props: Props) {
               <SearchFacetItem
                 key={i}
                 facet={facet}
-                isChecked={contains(facet.key, currentlySelected || [])}
+                isChecked={includes(facet.key, currentlySelected || [])}
                 onUpdate={onUpdate}
                 name={name}
               />
