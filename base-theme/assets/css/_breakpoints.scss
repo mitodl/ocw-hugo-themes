@@ -27,5 +27,9 @@
     @media (max-width: 820px) {
       @content;
     }
+  } @else if $name == tablet {
+    @media (max-width: 991px) {
+      @content;
+    }
   }
 }

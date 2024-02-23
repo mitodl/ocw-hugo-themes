@@ -41,7 +41,7 @@ export default function SearchFilterDrawer(props: Props) {
 
   if (deviceCategory === DESKTOP) {
     return (
-      <div className="col-12 col-lg-3 mt-3 mt-lg-0 facet-display-wrapper pt-3">
+      <div className="col-12 col-lg-3 mt-3 mt-lg-0 facet-display-wrapper pt-3 pl-0">
         <FacetDisplay {...props} />
         <div className="col-12">
           <Footer />

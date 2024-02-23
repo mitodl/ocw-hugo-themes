@@ -63,16 +63,6 @@ h2 {
     font-size: $heading-two-font-xs;
     line-height: $heading-two-line-height-xs;
   }
-
-  &.branded {
-    font-family: Helvetica, sans-serif;
-    font-weight: 300;
-
-    span {
-      color: $orange;
-      font-weight: 600;
-    }
-  }
 }
 
 h3 {
