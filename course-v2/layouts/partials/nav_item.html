@@ -3,7 +3,7 @@
 {{ $hasParent := isset . "parentId" }}
 {{ $hasChildren := .menuItem.HasChildren }}
 {{ $url := partial "nav_url.html" . }}
-{{ $linkedPage := site.GetPage (strings.TrimSuffix "/" $url) }}
+{{ $linkedPage := site.GetPage .menuItem.PageRef }}
 
 <li class="course-nav-list-item">
   <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
