@@ -39,12 +39,17 @@ $searchbox-height: 50px;
   }
 
   .banner-contents-container {
-    max-width: $max-content-width;
+    max-width: $max-home-width;
     flex-direction: row;
     margin-top: $desktop-header-height;
 
+    @include media-breakpoint-up(lg) {
+      padding: 0 3rem;
+    }
+
     @include media-breakpoint-down(md) {
       margin-top: 0 !important;
+      justify-content: space-around !important;
     }
 
     @include media-breakpoint-down(lg) {
@@ -206,26 +211,41 @@ $searchbox-height: 50px;
   }
 
   .give-button {
-    width: 100%;
-    height: 50px;
-    border-radius: 5px;
-    background-color: black;
-    color: $orange;
-    text-decoration: none;
-
     @include media-breakpoint-down(sm) {
       width: 100%;
       justify-content: center;
     }
+  }
+}
+
+.give-button-wrapper {
+  flex: none;
+
+  .give-button {
+    font-weight: 700;
+    font-size: 1.125rem;
+    white-space: nowrap;
+    border-radius: 7px;
+    padding: 20px 30px 15px 30px;
+    border-bottom: 5px solid $burgundy;
+    background-color: $highlight-red;
+    color: $white;
+    text-decoration: none;
 
     div {
       padding: $spacer3 $spacer5;
     }
-
-    img {
-      height: 30px;
-    }
   }
+}
+
+.give-button:hover {
+  color: $white;
+  text-decoration: none;
+}
+
+.give-button:hover > img {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7486%)
+    hue-rotate(142deg) brightness(96%) contrast(103%);
 }
 
 .social-cards-wrapper {
@@ -610,6 +630,7 @@ $promo-carousel-height: 200px;
       flex-direction: column;
       justify-content: center;
       height: 100%;
+
       h3 {
         margin: 0;
       }
@@ -654,6 +675,7 @@ $promo-carousel-height: 200px;
     padding-left: 15px;
     padding-right: 15px;
   }
+
   a:last-child .news-card {
     margin-bottom: 0px;
   }
@@ -696,6 +718,7 @@ $promo-carousel-height: 200px;
         font-weight: 700;
         line-height: 20px;
         margin: 0;
+
         @include media-breakpoint-down(md) {
           font-size: 14px;
           font-weight: 600;
@@ -707,7 +730,6 @@ $promo-carousel-height: 200px;
     .news-card-date {
       color: $news-card-content-color;
       transition: color 0.3s ease;
-
       @include media-breakpoint-down(md) {
         color: $news-card-content-color;
       }

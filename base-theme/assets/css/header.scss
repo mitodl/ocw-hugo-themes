@@ -11,7 +11,6 @@
   .search-icon {
     display: flex;
     text-decoration: none;
-    color: $orange;
     padding-bottom: 0;
 
     .material-icons {
@@ -34,12 +33,10 @@
 
   .contents {
     display: flex;
-    justify-content: space-between;
     max-width: $max-content-width;
-    padding: 0 3rem 0 3rem !important;
-    margin: auto;
     width: 100%;
     height: 100%;
+    padding: 0 3rem;
 
     .right,
     .left {
@@ -50,6 +47,7 @@
 
     .left {
       .ocw-logo {
+        margin-top: 4px;
         img {
           width: 260px;
         }
@@ -62,7 +60,6 @@
       .search-icon {
         display: flex;
         text-decoration: none;
-        color: $orange;
 
         .material-icons {
           font-size: $material-icon-font-lg;
@@ -78,15 +75,29 @@
         font-size: $font-sm;
         text-transform: uppercase;
 
-        &.give-button-header {
-          display: flex;
-          background-color: $orange;
-          text-decoration: none;
+        &.give-button {
+          padding: 11px 24px 8px 24px;
+          border-bottom: 3px solid $burgundy;
           border-radius: 5px;
+
+          img {
+            height: 13px;
+            margin-bottom: 1px;
+          }
         }
       }
     }
   }
+}
+.give-button {
+  color: $white;
+  white-space: nowrap;
+  background-color: $highlight-red;
+  text-decoration: none;
+}
+.give-button:hover > img {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7486%)
+    hue-rotate(142deg) brightness(96%) contrast(103%);
 }
 
 #home-header {
@@ -96,6 +107,9 @@
 
     @include media-breakpoint-down(lg) {
       height: 90px;
+    }
+    .contents {
+      max-width: $max-home-width;
     }
   }
 }

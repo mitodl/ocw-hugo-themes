@@ -19,7 +19,7 @@
     </button>
     <div class="mx-auto">
       <a href="{{ $homeUrl }}">
-        <img width="250" src="{{ partial "get_asset_webpack_url.html" "images/ocw_logo_white_v2.svg" }}" alt="MIT OpenCourseWare"/>
+        <img width="250" src="{{ partial "get_asset_webpack_url.html" "images/ocw_logo_white.svg" }}" alt="MIT OpenCourseWare"/>
       </a>
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -46,15 +46,18 @@
 <div id="desktop-header">
   <div class="contents">
     <div class="left">
-      <div class="ocw-logo mr-6">
+      <div class="ocw-logo">
         <a href="{{ $homeUrl }}">
-          <img src="{{- partial "get_asset_webpack_url.html" "images/ocw_logo_white_v2.svg" -}}" alt="MIT OpenCourseWare" />
+          <img src="{{- partial "get_asset_webpack_url.html" "images/ocw_logo_white.svg" -}}" alt="MIT OpenCourseWare" />
         </a>
       </div>
     </div>
     <div class="right">
       {{ block "extraheader" . }}{{ end }}
-      {{ partial "link.html" (dict "href" $giveNowUrl "class" "give-button-header font-weight-bold py-2 px-3" "text" "give now") }}
+      <a class="give-button text-white text-decoration-none font-weight-bold small-link d-flex align-items-center" aria-label="Donate to MIT OpenCourseWare" href="{{$giveNowUrl}}">
+        <span class="m-0 pr-2">GIVE NOW</span>
+        <img src="{{- partial "get_asset_webpack_url.html" "images/heart_burgundy.svg" -}}" class="heart-burgundy" alt="" />
+      </a>
       {{ partial "link.html" (dict "href" $aboutUrl "class" "text-white text-decoration-none font-weight-bold pl-5 pr-3 py-2" "text" "about ocw") }}
       {{ partial "link.html" (dict "href" $zenDeskUrl "class" "text-white text-decoration-none font-weight-bold px-3 py-2" "text" "help & faqs" "target" "_blank") }}
       {{ partial "link.html" (dict "href" $contactUrl "class" "text-white text-decoration-none font-weight-bold px-3 py-2" "text" "contact us") }}

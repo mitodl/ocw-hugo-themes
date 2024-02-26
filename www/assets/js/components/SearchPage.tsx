@@ -210,10 +210,10 @@ export default function SearchPage(props: SearchPageProps) {
   const pageSize = getPageSizeFromUIParam(ui)
   return (
     <div className="search-page w-100">
-      <div className="container">
+      <div className="container px-lg-0">
         <div className="search-box py-sm-5 py-md-7 py-lg-5 row">
           <div className="col-lg-3" />
-          <div className="col-lg-6 search-box-inner d-flex flex-column align-items-center mb-2 mb-sm-5 mb-md-4">
+          <div className="col-lg-6 search-box-inner d-flex flex-column align-items-center mb-2 mb-sm-5 mb-md-4 ml-lg-3">
             <h1>Explore OpenCourseWare</h1>
             <div>
               <span className="align-item-center search-box-description">
@@ -232,7 +232,7 @@ export default function SearchPage(props: SearchPageProps) {
           </div>
           <div className="col-lg-3" />
         </div>
-        <div className="row">
+        <div className="row search-filter-drawer mx-auto px-lg-6">
           <SearchFilterDrawer
             facetMap={facetMap}
             facetOptions={facetOptions}
@@ -242,7 +242,7 @@ export default function SearchPage(props: SearchPageProps) {
             toggleFacet={toggleFacet}
             updateUI={updateUI}
           />
-          <div className="search-results-area col-12 col-lg-9 pb-2 pt-2">
+          <div className="search-results-area col-12 col-lg-9 pb-2 pt-2 pr-lg-0">
             <div
               className={`search-toggle ${
                 isResourceSearch(activeFacets) ? "nofacet" : "facet"
