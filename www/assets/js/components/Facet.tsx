@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { contains } from "ramda"
+import { includes } from "ramda"
 import has from "lodash.has"
 
 import SearchFacetItem from "./SearchFacetItem"
@@ -49,7 +49,7 @@ function SearchFacet(props: Props) {
                   <SearchFacetItem
                     key={i}
                     facet={facet}
-                    isChecked={contains(facet.key, currentlySelected || [])}
+                    isChecked={includes(facet.key, currentlySelected || [])}
                     onUpdate={onUpdate}
                     name={name}
                   />
