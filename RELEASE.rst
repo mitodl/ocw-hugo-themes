@@ -1,6 +1,22 @@
 Release Notes
 =============
 
+Version 1.107.0
+---------------
+
+- fix: search page (broken by ramda upgrade) (#1360)
+- Update OCW logos and improve design alignments (#1309)
+- config(deps): exclude hugo-bin-extended from auto-merge (#1357) (#1358)
+- fix(deps): update dependency video.js to v7.21.5 (#1349)
+- fix(deps): update dependency ramda to ^0.29.0 (#1347)
+- fix(deps): update dependency pdfobject to v2.3.0 (#1346)
+- fix(deps): update dependency jquery to v3.7.1 (#1345)
+- fix(deps): update dependency core-js to v3.36.0 (#1344)
+- chore(deps): update yarn to v3.8.0 (#1343)
+- chore(deps): update nwtgck/actions-netlify action to v2.1 (#1342)
+- chore(deps): update dependency node to v20.11.1 (#1341)
+- no roboto font (#1211)
+
 Version 1.106.0 (Released February 12, 2024)
 ---------------
 
