@@ -30,9 +30,7 @@ test("External resource in page opens external link", async ({ page }) => {
   await page.waitForURL("https://www.google.com/", { waitUntil: "commit" })
 })
 
-test("Broken external resource opens backup_url", async ({
-  page
-}) => {
+test("Broken external resource opens backup_url", async ({ page }) => {
   const course = new CoursePage(page, "course")
   await course.goto("/pages/external-resources-page")
 
