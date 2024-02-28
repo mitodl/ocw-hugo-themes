@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.107.0
+Version 1.107.0 (Released February 28, 2024)
 ---------------
 
 - fix: search page (broken by ramda upgrade) (#1360)
