@@ -1,0 +1,10 @@
+{{- $text := default .title .text | htmlEscape | page.RenderString -}}
+{{- $href := default "" .external_url -}}
+{{- $isBroken := default false .is_broken -}}
+{{- $backupUrl := default "" .backup_url -}}
+
+{{- if and $isBroken $backupUrl -}}
+  {{- $href = $backupUrl -}}
+{{- end -}}
+
+{{ partial "link" (dict "href" $href "text" $text "class" .class) }}

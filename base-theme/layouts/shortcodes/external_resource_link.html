@@ -1,0 +1,9 @@
+{{- $uuid := .Get "uuid" -}}
+{{- $text := .Get "text" -}}
+{{- if $uuid -}}
+  {{- range where $.Site.Pages "Params.uid" $uuid -}}
+    {{- partial "external_resource_link"
+      (merge .Params (dict "text" $text))
+    -}}
+  {{- end -}}
+{{- end -}}

@@ -3,15 +3,27 @@
 {{ $hasParent := isset . "parentId" }}
 {{ $hasChildren := .menuItem.HasChildren }}
 {{ $url := partial "nav_url.html" . }}
+{{ $linkedPage := site.GetPage .menuItem.PageRef }}
 
 <li class="course-nav-list-item">
   <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
     <span class="course-nav-text-wrapper">
-      <a class="text-dark nav-link"
-        data-uuid="{{ .menuItem.Identifier }}"
-        href="{{ $url }}">
-        {{ .menuItem.Name }}
-      </a>
+      {{ if eq $linkedPage.Params.content_type "external-resource" }}
+        {{- partial "external_resource_link"
+          (merge $linkedPage.Params
+            (dict
+              "text" .menuItem.Name
+              "class" "text-dark nav-link"
+            )
+          )
+        -}}
+      {{ else }}
+        <a class="text-dark nav-link"
+          data-uuid="{{ .menuItem.Identifier }}"
+          href="{{ $url }}">
+          {{ .menuItem.Name }}
+        </a>
+      {{ end }}
     </span>
     {{ if .menuItem.HasChildren }}
     <button
