@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.108.0
+---------------
+
+- feat: update shortcodes and partials for external-resource content (#1298)
+
 Version 1.107.0 (Released February 28, 2024)
 ---------------
 
