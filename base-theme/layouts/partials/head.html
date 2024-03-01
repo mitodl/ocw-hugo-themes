@@ -61,5 +61,8 @@
       local('Helvetica-Light'),
       url({{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "fonts/Helvetica-Light.ttf")) }}) format('truetype');
   }
+  .external-link::after {
+    background-image: url('{{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "images/external_link.svg")) }}'); 
+  }
   </style>
 </head>

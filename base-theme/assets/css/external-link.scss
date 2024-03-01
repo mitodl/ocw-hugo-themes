@@ -1,0 +1,26 @@
+#external-link-modal {
+  .modal-footer {
+    justify-content: space-between;
+
+    .btn-primary,
+    .btn-outline-primary:hover {
+      color: white;
+    }
+
+    .btn {
+      width: 48%;
+      padding: 12px 30px;
+      font-size: $font-lg;
+      text-decoration: none;
+    }
+  }
+}
+
+.external-link::after {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-size: cover;
+  margin: 0 2px 0 4px;
+}

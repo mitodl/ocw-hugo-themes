@@ -7,6 +7,7 @@ import * as Sentry from "@sentry/browser"
 import { initSentry } from "./js/sentry"
 import PDFObject from "pdfobject"
 import "./js/polyfill"
+import { initExternalLinkModal } from "./js/external_link_modal"
 
 export interface OCWWindow extends Window {
   $: JQueryStatic
@@ -25,4 +26,5 @@ window.PDFObject = PDFObject
 
 $(function() {
   window.Sentry = initSentry()
+  initExternalLinkModal()
 })

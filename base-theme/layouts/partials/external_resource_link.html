@@ -2,9 +2,16 @@
 {{- $href := default "" .external_url -}}
 {{- $isBroken := default false .is_broken -}}
 {{- $backupUrl := default "" .backup_url -}}
-
+{{- $className := printf "%s %s" "external-link" (default "" .class) -}}
+{{/* Prevents external links from being clicked before corresponding JS is fully loaded. */}}
+{{- $onClick := "event.preventDefault()" -}}
 {{- if and $isBroken $backupUrl -}}
   {{- $href = $backupUrl -}}
 {{- end -}}
-
-{{ partial "link" (dict "href" $href "text" $text "class" .class) }}
+{{- partial "link" (dict
+      "href" $href
+      "text" $text
+      "class" $className
+      "onClick" $onClick
+  )
+-}}

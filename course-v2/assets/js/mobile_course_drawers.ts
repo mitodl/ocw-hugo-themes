@@ -1,3 +1,6 @@
+export const MOBILE_COURSE_NAV_DRAWER_ID = "mobile-course-nav"
+export const MOBILE_COURSE_INFO_DRAWER_ID = "course-info-drawer"
+
 enum SwipeDirection {
   Left = "L",
   Right = "R"
@@ -5,13 +8,13 @@ enum SwipeDirection {
 
 export const initCourseDrawersClosingViaSwiping = () => {
   enableSwiping(
-    "mobile-course-nav",
+    MOBILE_COURSE_NAV_DRAWER_ID,
     "mobile-course-nav-toggle",
     "close-mobile-course-menu-button",
     SwipeDirection.Left
   )
   enableSwiping(
-    "course-info-drawer",
+    MOBILE_COURSE_INFO_DRAWER_ID,
     "mobile-course-info-toggle",
     "close-mobile-course-info-button",
     SwipeDirection.Right
