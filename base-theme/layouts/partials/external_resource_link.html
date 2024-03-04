@@ -2,9 +2,14 @@
 {{- $href := default "" .external_url -}}
 {{- $isBroken := default false .is_broken -}}
 {{- $backupUrl := default "" .backup_url -}}
+{{- $hasWarning := default true .has_external_license_warning -}}
 {{- $className := printf "%s %s" "external-link" (default "" .class) -}}
-{{/* Prevents external links from being clicked before corresponding JS is fully loaded. */}}
-{{- $onClick := "event.preventDefault()" -}}
+{{- $onClick := "" -}}
+{{- if $hasWarning -}}
+  {{- $className = printf "%s %s" "external-link-warning" $className -}}
+  {{/* Prevents external links from being clicked before corresponding JS is fully loaded. */}}
+  {{- $onClick = "event.preventDefault()" -}}
+{{- end -}}
 {{- if and $isBroken $backupUrl -}}
   {{- $href = $backupUrl -}}
 {{- end -}}
@@ -13,5 +18,6 @@
       "text" $text
       "class" $className
       "onClick" $onClick
+      "target" "_blank"
   )
 -}}

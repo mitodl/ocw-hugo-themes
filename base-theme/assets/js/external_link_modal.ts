@@ -1,7 +1,7 @@
 export const EXTERNAL_LINK_MODAL_ID = "external-link-modal"
 
 export function initExternalLinkModal() {
-  $("a.external-link").on("click", event => {
+  $("a.external-link-warning").on("click", event => {
     event.preventDefault()
 
     const targetUrl = $(event.currentTarget).attr("href")
@@ -22,5 +22,11 @@ export function initExternalLinkModal() {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     modal.modal("show")
+  })
+
+  $(`#${EXTERNAL_LINK_MODAL_ID} .btn-continue`).on("click", _ => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    $(`#${EXTERNAL_LINK_MODAL_ID}`).modal("hide")
   })
 }

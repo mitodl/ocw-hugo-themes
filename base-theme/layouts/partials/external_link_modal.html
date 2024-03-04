@@ -1,7 +1,8 @@
 {{/*
   This is a confirmation dialog. It is shown when a user tries to leave
   the website via an external link.
-  External links, `a` tags, are identified by the class `external-link`.
+  External links, `a` tags, are identified by the class `external-link`
+  and this dialog is shown for links with `external-link-warning` class.
   We use an single modal for all links for two reasons:
     - to reduce markdown
     - to place it under the body element so that modal styles
@@ -51,6 +52,7 @@
         <a
           role="button"
           class="btn btn-primary btn-continue"
+          target="_blank"
           href="#"
         >
           Continue
