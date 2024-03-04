@@ -35,7 +35,7 @@ $(function() {
   initExternalLinkModal()
   initLoginButton(
     "login-button-mobile",
-    "https://mit-open-rc.odl.mit.edu/",
+    "https://mitopen-rc.odl.mit.edu/",
     window.location,
     "Login",
     "btn blue-btn text-white btn-link link-button py-2 px-3 my-0",
@@ -43,7 +43,7 @@ $(function() {
   )
   initLoginButton(
     "login-button-desktop",
-    "https://mit-open-rc.odl.mit.edu/",
+    "https://mitopen-rc.odl.mit.edu/",
     window.location,
     "Login",
     "btn blue-btn text-white btn-link link-button py-2 px-3 my-0",
