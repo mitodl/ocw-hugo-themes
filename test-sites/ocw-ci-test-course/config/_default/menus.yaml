@@ -46,3 +46,13 @@ leftnav:
   pageRef: /external-resources/googlecom
   parent: 2f9c424e-c9ba-4d1e-b1f6-e89de1bf682a
   weight: 10
+- identifier: 4de28921-ab79-4ac4-933f-bbc0f4c99647
+  name: OCW (no warning)
+  pageRef: /external-resources/ocw-main
+  parent: 2f9c424e-c9ba-4d1e-b1f6-e89de1bf682a
+  weight: 20
+- identifier: 3ee0856f-f641-4d3f-9cdc-79714fff907d
+  name: OCW (backed by old site)
+  pageRef: /external-resources/broken-googlecom
+  parent: 2f9c424e-c9ba-4d1e-b1f6-e89de1bf682a
+  weight: 30
