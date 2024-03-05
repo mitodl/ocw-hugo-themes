@@ -186,7 +186,6 @@ export default function SearchPage(props: SearchPageProps) {
 
   const {
     facetOptions,
-    onUpdateFacets,
     updateText,
     updateSort,
     loadMore,
