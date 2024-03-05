@@ -15,9 +15,8 @@ interface Props {
   facetMap: FacetManifest
   facetOptions: (group: string) => Aggregation | null
   activeFacets: Facets
-  onUpdateFacets: React.ChangeEventHandler<HTMLInputElement>
   clearAllFilters: () => void
-  toggleFacet: (name: string, value: string, isEnabled: boolean) => void
+  onFacetChange: (name: string, value: string, isEnabled: boolean) => void
   updateUI: (newUI: string | null) => void
 }
 

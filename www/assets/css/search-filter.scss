@@ -1,4 +1,5 @@
 .filterable-facet {
+  margin-bottom: 1rem !important;
   .input-wrapper {
     position: relative;
 
@@ -46,6 +47,10 @@
   background-color: #f6f6f6;
   width: 100%;
   border: none;
+  padding-left: 1rem !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  padding-right: 0 !important;
 }
 
 .filter-section-main-title {
@@ -96,7 +101,7 @@
       cursor: pointer;
     }
 
-    .facet-label-div {
+    .facet-label {
       display: flex;
       flex-direction: row;
       justify-content: space-between;

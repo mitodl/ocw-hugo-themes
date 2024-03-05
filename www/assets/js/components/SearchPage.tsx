@@ -278,9 +278,8 @@ export default function SearchPage(props: SearchPageProps) {
             facetMap={facetMap}
             facetOptions={facetOptions}
             activeFacets={activeFacets}
-            onUpdateFacets={onUpdateFacets}
             clearAllFilters={clearAllFilters}
-            toggleFacet={toggleFacet}
+            onFacetChange={toggleFacet}
             updateUI={updateUI}
           />
           <div className="search-results-area col-12 col-lg-9 pb-2 pt-2">
