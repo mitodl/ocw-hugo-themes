@@ -8,7 +8,8 @@
     }
 
     .btn {
-      width: 48%;
+      flex: 1;
+      white-space: nowrap;
       padding: 12px 30px;
       font-size: $font-lg;
       text-decoration: none;
