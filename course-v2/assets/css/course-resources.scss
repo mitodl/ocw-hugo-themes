@@ -193,7 +193,7 @@ h4 {
   transition: background-color 0.05s ease;
 }
 
-.resource-item:first-of-type {
+.resource-item:first-child {
   border-top: 1px solid #dee2e6;
 }
 
