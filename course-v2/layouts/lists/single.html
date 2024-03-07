@@ -9,10 +9,12 @@
     <div class="mb-3 collection-description">
       {{ $bundle.Description | .RenderString }}
     </div>
+    <span>
       {{ range $id := $uids }}
         {{ $page := where $.Site.Pages "Params.uid" $id }}
         {{ $resources = $resources |  append (index $page 0) }}
       {{ end }}
       {{- partial "resource_list.html" (dict "resources" $resources "sort" false) -}}
+    </span> 
   </div>
 {{ end }}
