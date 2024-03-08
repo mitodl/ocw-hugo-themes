@@ -10,6 +10,7 @@
       {{ $collection.Title }}
     </h1>
     <div class="mb-3 collection-description">
+      <!-- {{ $collection.Description }} -->
       {{ $collection.Description | .RenderString }}
     </div>
     {{ $collectionFeaturedList := index $collection.Params "featured-courses"}}
