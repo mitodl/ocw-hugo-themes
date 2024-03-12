@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.108.0
+---------------
+
+- feat: adjust modal styles for `xs` screens (#1368)
+- feat: add external resource link ui (#1364)
+- Fix resource list top border styling (#1366)
+- feat: update shortcodes and partials for external-resource content (#1298)
+
 Version 1.107.0 (Released February 28, 2024)
 ---------------
 
