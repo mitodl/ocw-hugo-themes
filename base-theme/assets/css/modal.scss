@@ -4,12 +4,20 @@ $header-icon-size: 1.9rem;
 .modal {
   .modal-content {
     border-radius: 0.5rem;
+
+    @include media-breakpoint-down(xs) {
+      padding: 0 !important;
+      font-size: $font-sm;
+    }
   }
 
   .modal-title {
     font-size: $font-lg !important;
     font-weight: 400;
-    text-align: center;
+
+    @include media-breakpoint-down(xs) {
+      font-size: $font-md !important;
+    }
   }
 
   .modal-header-icon-img {
