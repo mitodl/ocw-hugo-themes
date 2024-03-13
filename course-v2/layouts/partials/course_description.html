@@ -9,7 +9,7 @@
   </h4>
   {{ if $shouldCollapseDescription }}
   <div id="collapsed-description" class="description">
-    {{- .context.RenderString (truncate 320 $courseData.course_description) -}}
+    {{- truncate 320 (.context.RenderString $courseData.course_description) -}}
     {{- partial "link_button.html" (dict "text" "Show more" "id" "expand-description")  -}}
   </div>
   <div id="expanded-description" class="description d-none">
