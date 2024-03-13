@@ -1,4 +1,7 @@
-{{- $text := default .title .text | htmlEscape | page.RenderString -}}
+{{- $text := default .title .text -}}
+{{- if findRE "^(?:http|https|ftp|mailto)" $text -}}
+  {{ $text = (replace $text "/" "\\/") }}
+{{ end }}
 {{- $href := default "" .external_url -}}
 {{- $isBroken := default false .is_broken -}}
 {{- $backupUrl := default "" .backup_url -}}
