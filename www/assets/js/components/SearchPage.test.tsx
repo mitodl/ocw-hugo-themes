@@ -7,7 +7,8 @@ import {
   INITIAL_FACET_STATE,
   serializeSearchParams,
   LEARNING_RESOURCE_ENDPOINT,
-  CONTENT_FILE_ENDPOINT
+  CONTENT_FILE_ENDPOINT,
+  FilterableFacet
 } from "@mitodl/course-search-utils"
 import InfiniteScroll from "react-infinite-scroller"
 
@@ -17,7 +18,6 @@ import { DEFAULT_UI_PAGE_SIZE, COMPACT_UI_PAGE_SIZE } from "../lib/constants"
 
 import { makeCourseSearchResult } from "../factories/search"
 import { createMemoryHistory, InitialEntry } from "history"
-import FilterableSearchFacets from "./FilterableFacet"
 
 const mockGetResults = () => times(makeCourseSearchResult, DEFAULT_UI_PAGE_SIZE)
 
@@ -402,19 +402,19 @@ describe("SearchPage component", () => {
     await resolveSearch()
     wrapper.update()
 
-    const facets = wrapper.find(FilterableSearchFacets)
+    const facets = wrapper.find(FilterableFacet)
     const department = facets.at(0)
     const topic = facets.at(1)
     const features = facets.at(2)
 
     expect(topic.props().name).toEqual("topic")
     expect(topic.props().title).toEqual("Topics")
-    expect(topic.props().currentlySelected).toEqual([])
+    expect(topic.props().selected).toEqual([])
     expect(features.props().name).toEqual("course_feature")
     expect(features.props().title).toEqual("Features")
-    expect(features.props().currentlySelected).toEqual([])
+    expect(features.props().selected).toEqual([])
     expect(department.props().name).toEqual("department")
     expect(department.props().title).toEqual("Departments")
-    expect(department.props().currentlySelected).toEqual([])
+    expect(department.props().selected).toEqual([])
   })
 })

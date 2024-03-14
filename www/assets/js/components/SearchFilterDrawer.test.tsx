@@ -2,7 +2,7 @@ import React from "react"
 import { shallow } from "enzyme"
 
 import SearchFilterDrawer from "./SearchFilterDrawer"
-import FacetDisplay from "./FacetDisplay"
+import { FacetDisplay } from "@mitodl/course-search-utils"
 import * as utils from "../lib/util"
 
 jest.mock("../lib/util", () => {

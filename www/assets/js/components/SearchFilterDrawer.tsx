@@ -1,10 +1,13 @@
 import React, { useCallback, useState } from "react"
 
-import FacetDisplay from "./FacetDisplay"
 import { DESKTOP } from "../lib/constants"
 import { useDeviceCategory } from "../hooks/util"
-import { Aggregation, Facets } from "@mitodl/course-search-utils"
-import { FacetManifest } from "../LearningResources"
+import {
+  Aggregation,
+  Facets,
+  FacetManifest,
+  FacetDisplay
+} from "@mitodl/course-search-utils"
 import { SEARCH_COMPACT_UI } from "../lib/constants"
 import Footer from "./Footer"
 
@@ -12,9 +15,8 @@ interface Props {
   facetMap: FacetManifest
   facetOptions: (group: string) => Aggregation | null
   activeFacets: Facets
-  onUpdateFacets: React.ChangeEventHandler<HTMLInputElement>
   clearAllFilters: () => void
-  toggleFacet: (name: string, value: string, isEnabled: boolean) => void
+  onFacetChange: (name: string, value: string, isEnabled: boolean) => void
   updateUI: (newUI: string | null) => void
 }
 

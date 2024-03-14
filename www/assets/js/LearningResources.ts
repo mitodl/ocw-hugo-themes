@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable camelcase */
-import { Facets } from "@mitodl/course-search-utils"
 import {
   COURSE_ARCHIVED,
   COURSE_CURRENT,
@@ -147,7 +146,3 @@ export interface LearningResource {
   description?: string | null
   course_feature_tags?: string[]
 }
-
-export type FacetKey = keyof Facets
-
-export type FacetManifest = [FacetKey, string, boolean, boolean][]
