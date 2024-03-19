@@ -42,6 +42,7 @@
   "dependencies": {
     "@mitodl/course-search-utils": "^2.3.0",
     "@mitodl/mit-open-login-button": "^1.0.0",
+    "@mitodl/open-api-axios": "^2024.2.21",
     "@sentry/browser": "^5.19.0",
     "array-flat-polyfill": "^1.0.1",
     "bootstrap": "^4.3.1",
