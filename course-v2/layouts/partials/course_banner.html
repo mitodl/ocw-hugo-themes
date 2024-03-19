@@ -1,15 +1,22 @@
 {{ $bannerClass := "text-capitalize m-0 text-white" }}
 {{ $currentPage := . }}
 <div id="course-banner" class="p-0">
-  <div class="max-content-width course-banner-content m-auto py-3">
-    {{ $courseData := .Site.Data.course }}
-    <span class="course-number-term-detail">{{ $courseData.primary_course_number }} | {{ $courseData.term }} {{ $courseData.year }}{{if $courseData.level }} | {{ delimit $courseData.level ", " }}{{ end }}</span>
-    <br>
-    <h1>
-      <a
-        class="{{ $bannerClass }}"
-        href="{{ partial "course_home_page_url.html" . }}"
-      >{{ $courseData.course_title }}</a>
-    </h1>
+  <div class="row max-content-width course-banner-content m-auto py-3">
+    <div class="col-11">
+      {{ $courseData := .Site.Data.course }}
+      <span class="course-number-term-detail">{{ $courseData.primary_course_number }} | {{ $courseData.term }} {{ $courseData.year }} | {{ delimit $courseData.level ", " }}</span>
+      <br>
+      <h1>
+        <a
+          class="{{ $bannerClass }}"
+          href="{{ partial "course_home_page_url.html" . }}"
+        >{{ $courseData.course_title }}</a>
+      </h1>
+    </div>
+    <div class="col-1">
+      <button id="course-bookmark-btn" class="red-btn p-2">
+        <i class="material-icons display-4 text-white align-bottom">bookmarks</i>
+      </button>
+    </div>
   </div>
 </div>
