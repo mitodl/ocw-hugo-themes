@@ -13,10 +13,15 @@ import {
   showSolution
 } from "./js/quiz_multiple_choice"
 import { initExternalLinkModal } from "./js/external_link_modal"
+import { initUserlistModal } from "./js/userlist_modal"
 import { initLoginButton } from "@mitodl/mit-open-login-button"
+import * as openAPI from "@mitodl/open-api-axios"
 
 export interface OCWWindow extends Window {
   initNanogallery2: () => void
+  courseOpenID: number
+  coursesAPI: () => any
+  userlistAPI: () => any
 }
 
 declare let window: OCWWindow
@@ -30,9 +35,10 @@ $(function() {
   showSolution()
   initCourseDrawersClosingViaSwiping()
   initExternalLinkModal()
+  initUserlistModal()
   initLoginButton(
     "login-button-mobile",
-    "https://mitopen-rc.odl.mit.edu/",
+    "http://localhost:8063/",
     window.location,
     "Login",
     "btn blue-btn text-white btn-link link-button py-2 px-3 my-0",
@@ -40,12 +46,22 @@ $(function() {
   )
   initLoginButton(
     "login-button-desktop",
-    "https://mitopen-rc.odl.mit.edu/",
+    "http://localhost:8063/",
     window.location,
     "Login",
     "btn blue-btn text-white btn-link link-button py-2 px-3 my-0",
     "text-white px-3"
   )
+  const coursesAPI = new openAPI.v1.CoursesApi()
+  const userlistAPI = new openAPI.v1.UserlistsApi()
+  coursesAPI.axios.defaults.withCredentials = true
+  userlistAPI.axios.defaults.withCredentials = true
+  coursesAPI.basePath = "http://localhost:8063/"
+  userlistAPI.basePath = "http://localhost:8063/"
+  window.coursesAPI = coursesAPI
+  window.userlistAPI = userlistAPI
+  //TODO: Get this ID from the API using readable_id
+  window.courseOpenID = 1470
 })
 
 let nanogallery2Loaded = false
