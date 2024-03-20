@@ -1,6 +1,7 @@
 <div class="multiple-choice-div">
 	<label>
-		<input type='radio' name={{ .questionId }} class="multiple-choice-radio">{{.choiceText}}
+		<input type='radio' name={{ .questionId }} class="multiple-choice-radio">
+		{{.choiceText | markdownify}}
 	</label>
 	{{ if eq .correct "true" }}
 		<span class="toggle material-icons correctness-icon correctness-icon-correct">
