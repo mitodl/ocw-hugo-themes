@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.108.0
+Version 1.108.0 (Released March 20, 2024)
 ---------------
 
 - feat: adjust modal styles for `xs` screens (#1368)
