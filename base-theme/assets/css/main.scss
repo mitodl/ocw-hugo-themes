@@ -349,10 +349,6 @@ article.content {
   #course-title {
     border-bottom: 1px solid $medium-gray;
   }
-
-  @include media-breakpoint-down(xs) {
-    padding-right: 15px;
-  }
 }
 
 .download-file {

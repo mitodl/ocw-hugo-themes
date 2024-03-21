@@ -72,12 +72,14 @@
 }
 
 .video-embed {
-  max-width: $video-section-max-width;
   margin-bottom: 15px;
 }
 
+.video-player-wrapper {
+  max-width: $video-player-max-width;
+}
+
 .video-page {
-  max-width: $video-section-max-width;
   margin-bottom: 15px;
 
   .video-container {
