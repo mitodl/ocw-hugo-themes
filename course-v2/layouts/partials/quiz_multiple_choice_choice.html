@@ -1,16 +1,16 @@
 <div class="multiple-choice-div">
 	<label class="d-flex align-items-center">
 		<input type='radio' name={{ .questionId }} class="multiple-choice-radio">
-		{{ .choiceText | markdownify }}
-		
-		{{ if eq .correct "true" }}
-		<span class="toggle material-icons correctness-icon correctness-icon-correct">
-			check
-		</span>
-		{{ else }}
-		<span class="toggle material-icons correctness-icon correctness-icon-wrong">
-			close
-		</span>
-		{{ end }}
+			{{ .choiceText | markdownify }}
+			
+			{{ if eq .correct "true" }}
+				<span class="toggle material-icons correctness-icon correctness-icon-correct">
+					check
+				</span>
+			{{ else }}
+				<span class="toggle material-icons correctness-icon correctness-icon-wrong">
+					close
+				</span>
+			{{ end }}
 	</label>
 </div>
