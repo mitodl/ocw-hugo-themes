@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.108.1
+---------------
+
+- Add back content class in course content (#1374)
+- Video pages layout width-fix (#1369)
+
 Version 1.108.0 (Released March 20, 2024)
 ---------------
 
