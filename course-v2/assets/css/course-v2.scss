@@ -126,26 +126,32 @@ div[class^="reveal"],
 }
 
 .correctness-icon {
-  position: relative;
-  top: 6px;
+  margin-left: 4px;
 }
 
 .multiple-choice-radio {
-  margin-top: 11px;
-  margin-bottom: 11px;
+  margin-right: 5px;
 }
 
 .multiple_choice_buttons {
   margin: 10px;
 }
 
-.multiple-choice-div label {
-  margin-bottom: 0px;
+.multiple-choice-div {
+  margin: 11px 0;
+
+  label {
+    margin: 0;
+  }
 }
 
 pre {
   padding: 10px;
   border: 1px solid $medium-gray;
+}
+
+.multiple-choice-question .multiple-choice-div pre {
+  margin: 0;
 }
 
 .collapse-btn-section {
