@@ -1,4 +1,4 @@
-{{- $text := default .title .text | htmlEscape | page.RenderString -}}
+{{- $text := default .title .text -}}
 {{- $href := default "" .external_url -}}
 {{- $isBroken := default false .is_broken -}}
 {{- $backupUrl := default "" .backup_url -}}
