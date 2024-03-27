@@ -15,7 +15,7 @@
 {{ $downloadLink =  partial "resource_url.html" (dict "context" $context "url" $downloadLink) }}
 {{ end }}
 
-<div class="video-embed">
+<div class="video-embed video-player-wrapper">
   {{ partial "video_player.html" (dict "context" $context "youtubeKey" $youtubeKey "archiveUrl" $archiveUrl "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink) }}
   {{ range where site.Pages "Params.uid" $uid }}
   {{ $resourceUrl := partial "page_url.html" (dict "context" $context "url" .Permalink) }}

@@ -27,18 +27,20 @@
   	<div class="description">
     	{{ .Content }}
   	</div>
-  	{{ partial "video_player.html" (dict "context" $context "youtubeKey" $youtubeKey "archiveUrl" $archiveUrl "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation)}}
-	{{ if $transcriptPdfLocation }}
-		{{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "transcript" "tabTitle" "Transcript" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation) }}
-	{{ else }}
-		{{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "" "tabTitle" "" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation) }}
-	{{end}}
+	<div class="video-player-wrapper">
+		{{ partial "video_player.html" (dict "context" $context "youtubeKey" $youtubeKey "archiveUrl" $archiveUrl "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation)}}
+		{{ if $transcriptPdfLocation }}
+			{{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "transcript" "tabTitle" "Transcript" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation) }}
+		{{ else }}
+			{{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "" "tabTitle" "" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation) }}
+		{{end}}
 
-  	{{ if $relatedResourses }}
-	  {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
-  	{{ end }}
+		{{ if $relatedResourses }}
+		{{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
+		{{ end }}
 
-  	{{ if and $optionalTabTitle $optionalTabContent }}
-		{{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
-  	{{end}}
+		{{ if and $optionalTabTitle $optionalTabContent }}
+			{{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
+		{{end}}
+	</div>
 </div>
