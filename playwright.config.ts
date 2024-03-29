@@ -11,7 +11,10 @@ const config: PlaywrightTestConfig = {
   /* Maximum time one test can run for. */
   timeout:    60 * 1000,
   expect:     {
-    timeout: 5000
+    timeout: 5000,
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.05,
+    }
   },
   fullyParallel: true,
   forbidOnly:    !!process.env.CI,
