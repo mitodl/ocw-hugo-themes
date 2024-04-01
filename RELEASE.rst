@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.109.0
+Version 1.109.0 (Released April 01, 2024)
 ---------------
 
 - fix: expand description button style (#1379)
