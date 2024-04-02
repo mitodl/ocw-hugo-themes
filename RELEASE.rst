@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.109.1
+Version 1.109.1 (Released April 02, 2024)
 ---------------
 
 - Update Faculty Advisory Committee (#1381)
