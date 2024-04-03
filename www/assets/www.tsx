@@ -1,3 +1,4 @@
+import "video.js/dist/video-js.css"
 import "./css/www.scss"
 import "./css/search.scss"
 
@@ -12,12 +13,14 @@ import CourseList from "./js/components/CourseList"
 import { setupEmailSignupForm } from "./js/mailchimp"
 import { initNotifications } from "./js/notification"
 import { initSubNav } from "./js/subnav"
+import { initVideoDownloadPopup } from "./js/video_download_popup"
 import ResourceCollection from "./js/components/ResourceCollection"
 
 export interface OCWWindow extends Window {
   $: JQueryStatic
   jQuery: JQueryStatic
   Popper: typeof Popper
+  initVideoJS: () => void
 }
 
 declare let window: OCWWindow
@@ -27,6 +30,16 @@ window.$ = $
 window.Popper = Popper
 
 const history = createBrowserHistory()
+let videoJSLoaded = false
+
+window.initVideoJS = () => {
+  if (videoJSLoaded) return
+  initVideoDownloadPopup()
+  import("./videojs-imports").then(module => {
+    module.initVideoJS()
+  })
+  videoJSLoaded = true
+}
 
 $(function() {
   const searchPageEl = document.querySelector("#search-page")
