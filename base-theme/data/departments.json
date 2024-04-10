@@ -147,5 +147,9 @@
   "RES": {
     "title": "Supplemental Resources",
     "id": "supplemental-resources"
+  },
+  "SP": {
+    "title": "Special Programs",
+    "id": "special-programs"
   }
 }
