@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.109.3
+Version 1.109.3 (Released April 11, 2024)
 ---------------
 
 - Add SP department (#1388)
