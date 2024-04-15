@@ -1,0 +1,396 @@
+// color variables
+$control-item-color: $dark-gray;
+$control-item-bg-color: $light-gray;
+$slider-color: $pink;
+
+.vjs-ocw.video-js {
+  .ytp-chrome-top-buttons {
+    display: none;
+  }
+  .vjs-big-play-button {
+    font-size: 4em;
+  }
+
+  button {
+    font-size: 1.5em;
+  }
+
+  .vjs-control-bar {
+    display: none !important;
+  }
+
+  .vjs-control-bar-offline {
+    height: 4.4em;
+    background-color: $control-item-bg-color;
+    color: $control-item-color;
+    transition: visibility 2s, opacity 0.1s;
+    bottom: auto;
+    display: flex;
+  }
+  .vjs-menu-content {
+    background-color: $control-item-bg-color !important;
+  }
+
+  .vjs-volume-bar {
+    margin: 2.1em 0.45em;
+  }
+
+  .vjs-control {
+    min-width: 3.5em;
+  }
+
+  .vjs-volume-panel {
+    min-width: 50px;
+  }
+
+  .vjs-volume-level {
+    background-color: $control-item-color;
+  }
+
+  .vjs-progress-control {
+    position: absolute;
+    bottom: 37px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 10px;
+
+    .vjs-progress-holder {
+      color: $slider-color;
+      font-size: 1.5em;
+      margin: 0 !important;
+    }
+
+    .vjs-play-progress,
+    .vjs-slider-bar {
+      background-color: $slider-color;
+    }
+
+    .vjs-progress-holder,
+    .vjs-play-progress,
+    .vjs-load-progress,
+    .vjs-load-progress div {
+      border-radius: 6px;
+    }
+
+    .vjs-play-progress:before {
+      right: -0.9em !important;
+    }
+  }
+
+  .vjs-time-control {
+    font-size: 1.4em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+
+    @include media-breakpoint-down(xs) {
+      display: none !important;
+    }
+  }
+
+  .vjs-duration,
+  .vjs-time-divider,
+  .vjs-current-time {
+    display: block;
+  }
+
+  .vjs-time-divider {
+    min-width: 1em;
+  }
+
+  .vjs-remaining-time,
+  .vjs-picture-in-picture-control {
+    display: none;
+  }
+
+  .vjs-fullscreen-control {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+  .vjs-subs-caps-button {
+    position: absolute;
+    right: 25px;
+    bottom: 0;
+  }
+
+  .vjs-quality-selector {
+    position: absolute;
+    right: 100px;
+
+    .vjs-icon-placeholder::before {
+      font-family: "Material Icons";
+      content: "\e8b8";
+    }
+  }
+
+  .vjs-download-button {
+    .vjs-icon-placeholder::before {
+      font-family: "Material Icons";
+      content: "\e258";
+    }
+    .vjs-icon-placeholder::after {
+      font-family: "Material Icons";
+      content: "\e5c5";
+      margin-left: 15px;
+    }
+  }
+
+  .vjs-menu-button-popup {
+    .vjs-menu {
+      width: 15em;
+    }
+  }
+  .playback-button-position {
+    position: absolute;
+    right: -1rem;
+
+    .vjs-menu-content {
+      right: 100px;
+      margin: 10px;
+      box-shadow: 5px 5px 10px;
+    }
+  }
+
+  .download-button-position {
+    position: absolute;
+    right: 9rem;
+
+    .vjs-menu-content {
+      box-shadow: 5px 5px 10px;
+      margin: 10px;
+
+      li {
+        text-transform: capitalize;
+      }
+    }
+  }
+}
+.video-gallery-card {
+    a {
+      user-select: none;
+      text-decoration: none;
+  
+      .inner-container {
+        display: flex;
+        justify-content: space-between;
+        background-color: white;
+        color: black;
+        padding: 10px;
+        margin: 0;
+        text-align: left;
+        width: 100%;
+        align-items: center;
+        cursor: pointer;
+  
+        @include media-breakpoint-down(xs) {
+          padding: 0px;
+        }
+        .left-col {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+  
+          img.thumbnail {
+            border-radius: 5px;
+            width: 100%;
+            max-width: 150px;
+  
+            @include media-breakpoint-down(md) {
+              border-radius: 0px;
+            }
+          }
+  
+          img.youtube-logo-overlay {
+            position: absolute;
+            opacity: 0.3;
+            left: 0;
+            top: 0;
+            transform: scale(0.62);
+            width: 100%;
+            height: 100%;
+          }
+        }
+  
+        .right-col {
+          position: relative;
+          margin-left: 10px;
+          width: 100%;
+  
+          @include media-breakpoint-down(xs) {
+            margin: 0px;
+          }
+          .video-title {
+            margin: 5px 10px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+  
+            @include media-breakpoint-down(xs) {
+              font-size: 0.7975rem !important;
+              line-height: 1rem !important;
+              -webkit-line-clamp: 4;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .video-embed {
+    margin-bottom: 15px;
+  }
+  
+  .video-player-wrapper {
+    max-width: $video-player-max-width;
+  }
+  
+  .video-page {
+    margin-bottom: 15px;
+  
+    .video-container {
+      height: 0;
+      padding-bottom: 56% !important;
+      position: relative;
+      max-width: 100%;
+      margin-bottom: 1px;
+    }
+  
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  .video-download-container {
+    float: right;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-right: 25px;
+  }
+  
+  .video-download-button {
+    float: right;
+    font-size: $font-sm;
+    color: white;
+  }
+  
+  a.video-download-button:visited {
+    color: white;
+  }
+  
+  #course-main-content a.download-file.video-download-button:link {
+    color: white;
+  }
+  
+  #course-main-content a.download-file.video-download-button:visited {
+    color: white;
+  }
+  
+  @include media-breakpoint-down(md) {
+    .video-download-container {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      padding-right: 15px;
+    }
+    .video-download-container:first-child {
+      padding-bottom: 0px;
+    }
+  }
+  
+  .video-tab-download-popup {
+    position: absolute;
+    right: 2.5%;
+    background-color: $white;
+    border: 1px solid #ccc;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 999 !important; // Need a higher z-index than active transcript line
+  }
+  .video-tab-download-popup.hidden {
+    visibility: hidden;
+  }
+  .video-tab-download-popup ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .video-tab-download-popup a {
+    display: block;
+    padding: 5px 40px 5px 5px;
+    text-decoration: none;
+    color: $black !important;
+  }
+  
+  .video-tab-download-popup a:hover {
+    background-color: $light-gray;
+  }
+  
+  .youtube-container .vjs-poster,
+  .youtube-container .vjs-big-play-button {
+    display: none !important;
+  }
+  
+  //video element is replaced by VideoJS; set dimensions to prevent layout shift when VJS loads.
+  .youtube-container > video {
+    height: 0;
+    max-width: 100%;
+    width: 100%;
+    padding-top: 56.25%; // apply aspect ratio padding of (9,16)
+  }
+  
+  .video-tab-toggle-section {
+    position: relative;
+  }
+  .transcript {
+    width: 100%;
+    margin: auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .transcript-body {
+    width: 100%;
+    height: 200px;
+    overflow-y: scroll;
+  }
+  
+  .transcript-line {
+    position: relative;
+    padding: 5px 0px 5px 6%;
+    cursor: pointer;
+    line-height: 1.3;
+  }
+  
+  .transcript-timestamp {
+    display: inline-block;
+    position: absolute;
+  }
+  
+  .transcript-text {
+    display: block;
+    margin-left: 51px;
+    margin-right: 10px;
+  }
+  
+  .transcript-text:empty {
+    height: 20px;
+  }
+  
+  .transcript-line:hover {
+    background-color: $transcript-hover-background-color;
+  }
+  
+  .transcript-line.is-active {
+    font-weight: bold;
+    background-color: $transcript-active-line-background-color;
+    color: $black;
+    box-shadow: inset 4px 0 0 0 $transcript-active-line-border-color;
+  }
+  
