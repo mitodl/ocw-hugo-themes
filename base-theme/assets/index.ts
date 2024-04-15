@@ -38,7 +38,6 @@ window.initVideoJS = () => {
   videoJSLoaded = true
 }
 
-
 $(function() {
   window.Sentry = initSentry()
   initExternalLinkModal()
