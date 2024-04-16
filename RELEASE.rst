@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.109.4
+Version 1.109.4 (Released April 16, 2024)
 ---------------
 
 - Updating Ex-Officio FAC Committee order and heading size (#1390)
