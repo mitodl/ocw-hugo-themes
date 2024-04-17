@@ -28,9 +28,6 @@
     }
   }
 }
-.video-tab.container {
-  padding-left: 0px;
-}
 .video-tab-content-section {
   padding-top: 5px;
   padding-bottom: 7px;
@@ -42,6 +39,7 @@
 }
 .video-tab.container {
   max-width: inherit !important;
+  padding-left: 0px;
   background-color: $light-gray;
   color: $video-tab-content-color;
   a {
@@ -53,6 +51,7 @@
 }
 
 .video-tab-toggle-section {
+  position: relative;
   i.toggle:after {
     content: "keyboard_arrow_right";
   }
@@ -273,8 +272,4 @@ a.video-download-button:visited {
   max-width: 100%;
   width: 100%;
   padding-top: 56.25%; // apply aspect ratio padding of (9,16)
-}
-
-.video-tab-toggle-section {
-  position: relative;
 }
