@@ -5,6 +5,7 @@
   height: 37px;
   .tab-title {
     line-height: 1.14rem;
+    font-size: $video-tab-title-font-size;
     text-transform: uppercase;
     color: $video-tab-title-color !important;
     position: relative;
