@@ -41,6 +41,7 @@
   margin-bottom: 5px;
 }
 .video-tab.container {
+  max-width: inherit !important;
   background-color: $light-gray;
   color: $video-tab-content-color;
   a {
