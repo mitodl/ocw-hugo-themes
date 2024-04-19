@@ -1,3 +1,4 @@
+import "video.js/dist/video-js.css"
 import "./css/www.scss"
 import "./css/search.scss"
 
