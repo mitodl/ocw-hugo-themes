@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.109.5
+Version 1.109.5 (Released April 24, 2024)
 ---------------
 
 - add missing facet values (#1394)
