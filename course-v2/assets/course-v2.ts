@@ -1,4 +1,3 @@
-import "video.js/dist/video-js.css"
 import "offcanvas-bootstrap/dist/js/bootstrap.offcanvas.js"
 import "promise-polyfill/src/polyfill.js"
 import "./css/course-v2.scss"
@@ -13,11 +12,9 @@ import {
   checkAnswer,
   showSolution
 } from "./js/quiz_multiple_choice"
-import { initVideoDownloadPopup } from "./js/video_download_popup"
 import { initExternalLinkModal } from "./js/external_link_modal"
 
 export interface OCWWindow extends Window {
-  initVideoJS: () => void
   initNanogallery2: () => void
 }
 
@@ -34,17 +31,7 @@ $(function() {
   initExternalLinkModal()
 })
 
-let videoJSLoaded = false
 let nanogallery2Loaded = false
-
-window.initVideoJS = () => {
-  if (videoJSLoaded) return
-  initVideoDownloadPopup()
-  import("./videojs-imports").then(module => {
-    module.initVideoJS()
-  })
-  videoJSLoaded = true
-}
 
 window.initNanogallery2 = () => {
   if (nanogallery2Loaded) return
