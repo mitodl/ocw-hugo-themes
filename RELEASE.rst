@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.110.0
+Version 1.110.0 (Released April 30, 2024)
 ---------------
 
 - Add videojs to ocw-www theme (#1383)
