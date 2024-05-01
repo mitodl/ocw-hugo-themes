@@ -43,12 +43,13 @@
     {{ partialCached "hide_offline_links.html" . }}
   </div>
   {{ partial "external_link_modal" }}
-  {{ partial "userlist_modal" }}
   {{ partialCached "navigation_js.html" . }}
   {{ partialCached "responsive_tables_js.html" . }}
 
   {{- $js_urls := slice (partial "get_asset_webpack_url.html" "common.js") (partial "get_asset_webpack_url.html"
   "course_v2.js") -}}
+  <script src="/static_shared/js/exports.js"></script>
+  <div id="mit-open-dom"></div>
   {{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
   <!-- Appzi: Capture Insightful Feedback -->
   {{ partial "mathjax_if_necessary.html" (dict "context" .) }}
