@@ -15,7 +15,6 @@ import {
 import { initExternalLinkModal } from "./js/external_link_modal"
 import { initUserlistModal } from "./js/userlist_modal"
 import { initLoginButton } from "@mitodl/mit-open-login-button"
-import * as openAPI from "@mitodl/open-api-axios"
 
 export interface OCWWindow extends Window {
   initNanogallery2: () => void
@@ -27,6 +26,7 @@ export interface OCWWindow extends Window {
 declare let window: OCWWindow
 
 $(function() {
+  const readableId = $("meta[name='readable_id']").attr("content") as string
   initCourseDescriptionExpander(document)
   initCourseInfoExpander(document)
   initDivToggle()
@@ -35,10 +35,10 @@ $(function() {
   showSolution()
   initCourseDrawersClosingViaSwiping()
   initExternalLinkModal()
-  initUserlistModal()
+  initUserlistModal(readableId)
   initLoginButton(
     "login-button-mobile",
-    "http://localhost:8063/",
+    "https://open.c4103.com/",
     window.location,
     "Login",
     "btn blue-btn text-white btn-link link-button py-2 px-3 my-0",
@@ -46,22 +46,12 @@ $(function() {
   )
   initLoginButton(
     "login-button-desktop",
-    "http://localhost:8063/",
+    "https://open.c4103.com/",
     window.location,
     "Login",
     "btn blue-btn text-white btn-link link-button py-2 px-3 my-0",
     "text-white px-3"
   )
-  const coursesAPI = new openAPI.v1.CoursesApi()
-  const userlistAPI = new openAPI.v1.UserlistsApi()
-  coursesAPI.axios.defaults.withCredentials = true
-  userlistAPI.axios.defaults.withCredentials = true
-  coursesAPI.basePath = "http://localhost:8063/"
-  userlistAPI.basePath = "http://localhost:8063/"
-  window.coursesAPI = coursesAPI
-  window.userlistAPI = userlistAPI
-  //TODO: Get this ID from the API using readable_id
-  window.courseOpenID = 1470
 })
 
 let nanogallery2Loaded = false
