@@ -1,0 +1,5 @@
+{{- $primaryCourseNumber := site.Data.course.primary_course_number -}}
+{{- $term := lower site.Data.course.term -}}
+{{- $year := site.Data.course.year -}}
+{{- $readableId := printf "%s+%s_%s" $primaryCourseNumber $term $year -}}
+{{- return $readableId -}}
