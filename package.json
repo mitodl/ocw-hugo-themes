@@ -56,6 +56,7 @@
     "lodash.has": "^4.5.2",
     "lodash.uppercase": "^4.3.0",
     "mathjax": "^3.2.2",
+    "mit-open-components": "file:./mit-open-components",
     "nanogallery2": "^2.4.2",
     "offcanvas-bootstrap": "^2.5.2",
     "pdfobject": "^2.2.8",

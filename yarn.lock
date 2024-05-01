@@ -11535,6 +11535,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mit-open-components@file:./mit-open-components::locator=ocw-hugo-themes%40workspace%3A.":
+  version: 0.0.0
+  resolution: "mit-open-components@file:./mit-open-components#./mit-open-components::hash=2d6aea&locator=ocw-hugo-themes%40workspace%3A."
+  checksum: 506a82e0dc8dcc61566ef5d87940d5696613a7ff58730540074c5f907b7822e75274df1d88007dd1552b8c03c2be95dd292e537a3c68c22f534197ef01c102f2
+  languageName: node
+  linkType: hard
+
 "mkdirp@npm:^0.5.0":
   version: 0.5.5
   resolution: "mkdirp@npm:0.5.5"
@@ -12229,6 +12236,7 @@ __metadata:
     lodash.uppercase: ^4.3.0
     mathjax: ^3.2.2
     mini-css-extract-plugin: ^2.6.1
+    mit-open-components: "file:./mit-open-components"
     nanogallery2: ^2.4.2
     npm-run-all: ^4.1.5
     offcanvas-bootstrap: ^2.5.2
