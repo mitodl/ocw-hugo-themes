@@ -44,6 +44,7 @@ ocw-to-hugo.*.log
 .hugo_build.lock
 test-sites/tmp
 tests-e2e/jest/tmp/
+.yalc
 
 # Unit test / coverage reports
 htmlcov/
