@@ -9,8 +9,8 @@
     <h1>
       {{ $collection.Title }}
     </h1>
-    <div class="mb-3 collection-description">
-      {{ $collection.Description | .RenderString }}
+    <div class="mb-3 collection-content">
+      {{ $collection.Content }}
     </div>
     {{ $collectionFeaturedList := index $collection.Params "featured-courses"}}
     {{ if (not (isset $collectionFeaturedList -1)) }}

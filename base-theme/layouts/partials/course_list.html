@@ -3,6 +3,6 @@
   {{ $course_list.Title }}
 </h1>
 <div class="mb-3 col-12 col-lg-8 pb-2">
-  {{ $course_list.Description | $.RenderString }}
+  {{ $course_list.Content }}
 </div>
 <div class="course-collection-container" data-collectionid="{{- $course_list.Params.uid -}}"></div>
