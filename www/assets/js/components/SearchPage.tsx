@@ -66,7 +66,7 @@ export default function SearchPage(props: SearchPageProps) {
     async (
       text: string,
       activeFacets: Facets,
-      from: number, 
+      from: number,
       sort: any, // eslint-disable-line @typescript-eslint/no-explicit-any
       ui: any // eslint-disable-line @typescript-eslint/no-explicit-any
     ) => {
