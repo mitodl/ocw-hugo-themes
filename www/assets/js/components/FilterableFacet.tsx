@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react"
+import React, { useState, useEffect, useCallback, SetStateAction } from "react"
 import { includes } from "ramda"
 import has from "lodash.has"
 import Fuse from "fuse.js"
@@ -51,7 +51,7 @@ function FilterableSearchFacet(props: Props) {
   }, [searcher, filterText])
 
   const handleFilterInput = useCallback(
-    (e: { preventDefault: () => void; target: { value: any } }) => {
+    (e: { preventDefault: () => void; target: { value: SetStateAction<string> } }) => {
       e.preventDefault()
       const filterText = e.target.value
       setFilterText(filterText)
