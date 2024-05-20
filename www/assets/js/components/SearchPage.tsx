@@ -63,12 +63,13 @@ export default function SearchPage(props: SearchPageProps) {
   }
 
   const runSearch = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async (
       text: string,
       activeFacets: Facets,
       from: number,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sort: any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ui: any
     ) => {
       activeFacets["offered_by"] = [OCW_PLATFORM]
