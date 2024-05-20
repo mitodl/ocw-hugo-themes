@@ -50,11 +50,14 @@ function FilterableSearchFacet(props: Props) {
     }
   }, [searcher, filterText])
 
-  const handleFilterInput = useCallback((e: { preventDefault: () => void; target: { value: any } }) => {
-    e.preventDefault()
-    const filterText = e.target.value
-    setFilterText(filterText)
-  }, [])
+  const handleFilterInput = useCallback(
+    (e: { preventDefault: () => void; target: { value: any } }) => {
+      e.preventDefault()
+      const filterText = e.target.value
+      setFilterText(filterText)
+    },
+    []
+  )
 
   const titleLineIcon = showFacetList ? "arrow_drop_down" : "arrow_right"
 
