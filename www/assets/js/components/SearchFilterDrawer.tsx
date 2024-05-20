@@ -24,7 +24,7 @@ export default function SearchFilterDrawer(props: Props) {
   const { updateUI } = props
 
   const openDrawer = useCallback(
-    (    event: { preventDefault: () => void }) => {
+    (event: { preventDefault: () => void }) => {
       event.preventDefault()
       setDrawerOpen(true)
     },
@@ -32,7 +32,7 @@ export default function SearchFilterDrawer(props: Props) {
   )
 
   const closeDrawer = useCallback(
-    (    event: { preventDefault: () => void }) => {
+    (event: { preventDefault: () => void }) => {
       event.preventDefault()
       setDrawerOpen(false)
     },

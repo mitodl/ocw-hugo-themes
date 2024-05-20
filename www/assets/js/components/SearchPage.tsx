@@ -176,7 +176,7 @@ export default function SearchPage(props: SearchPageProps) {
   )
 
   const toggleResourceSearch = useCallback(
-    (    nextResourceFilterState: boolean ) => async () => {
+    (nextResourceFilterState: boolean) => async () => {
       if (isResourceSearch(activeFacets) === nextResourceFilterState) {
         // Immediately return in case the user clicks and already active facet.
         // Github issue https://github.com/mitodl/ocw-hugo-themes/issues/105
