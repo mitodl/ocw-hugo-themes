@@ -66,9 +66,9 @@ export default function SearchPage(props: SearchPageProps) {
     async (
       text: string,
       activeFacets: Facets,
-      from: number, // eslint-disable-line @typescript-eslint/no-explicit-any
+      from: number, 
       sort: any, // eslint-disable-line @typescript-eslint/no-explicit-any
-      ui: any
+      ui: any // eslint-disable-line @typescript-eslint/no-explicit-any
     ) => {
       activeFacets["offered_by"] = [OCW_PLATFORM]
       if (activeFacets?.type && activeFacets.type.length > 1) {
