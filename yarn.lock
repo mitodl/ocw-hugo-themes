@@ -4002,16 +4002,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"casual-browserify@npm:^1.5.19-2":
-  version: 1.5.19
-  resolution: "casual-browserify@npm:1.5.19"
-  dependencies:
-    mersenne-twister: ^1.0.1
-    moment: ^2.15.2
-  checksum: fed268b3ceeac1e4a17656491dbfe0ec0d32249c91218ee2447166d651702af761685243803544a5d41882a3273458b42e34f3015c24f491eead0346e849c880
-  languageName: node
-  linkType: hard
-
 "casual@npm:^1.6.2":
   version: 1.6.2
   resolution: "casual@npm:1.6.2"
@@ -10904,7 +10894,6 @@ __metadata:
     array-flat-polyfill: ^1.0.1
     bootstrap: ^4.3.1
     casual: ^1.6.2
-    casual-browserify: ^1.5.19-2
     clean-webpack-plugin: ^3.0.0
     cli-table3: ^0.6.3
     commander: ^9.4.1
