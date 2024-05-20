@@ -64,7 +64,13 @@ export default function SearchPage(props: SearchPageProps) {
 
   const runSearch = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    async (text: string, activeFacets: Facets, from: number, sort: any, ui: any) => {
+    async (
+      text: string,
+      activeFacets: Facets,
+      from: number,
+      sort: any,
+      ui: any
+    ) => {
       activeFacets["offered_by"] = [OCW_PLATFORM]
       if (activeFacets?.type && activeFacets.type.length > 1) {
         // Default is LR_TYPE_ALL, don't want that here. course or resourcefile only
