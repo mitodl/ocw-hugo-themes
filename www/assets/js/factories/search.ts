@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { LearningResourceType } from "@mitodl/course-search-utils"
-import casual from "casual-browserify"
+import casual from "casual"
 import { times } from "ramda"
 import {
   CourseResult,

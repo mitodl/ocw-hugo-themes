@@ -63,9 +63,15 @@ export default function SearchPage(props: SearchPageProps) {
   }
 
   const runSearch = useCallback(
-    async (text, activeFacets, from, sort, ui) => {
+    async (
+      text: string,
+      activeFacets: Facets,
+      from: number,
+      sort: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+      ui: any // eslint-disable-line @typescript-eslint/no-explicit-any
+    ) => {
       activeFacets["offered_by"] = [OCW_PLATFORM]
-      if (activeFacets && activeFacets.type.length > 1) {
+      if (activeFacets?.type && activeFacets.type.length > 1) {
         // Default is LR_TYPE_ALL, don't want that here. course or resourcefile only
         activeFacets["type"] = [LearningResourceType.Course]
       }
@@ -176,7 +182,7 @@ export default function SearchPage(props: SearchPageProps) {
   )
 
   const toggleResourceSearch = useCallback(
-    nextResourceFilterState => async () => {
+    (nextResourceFilterState: boolean) => async () => {
       if (isResourceSearch(activeFacets) === nextResourceFilterState) {
         // Immediately return in case the user clicks and already active facet.
         // Github issue https://github.com/mitodl/ocw-hugo-themes/issues/105
