@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.111.0
+---------------
+
+- Lock file maintenance (#1307)
+- Render content (body) instead of description (#1397)
+
 Version 1.110.0 (Released April 30, 2024)
 ---------------
 
