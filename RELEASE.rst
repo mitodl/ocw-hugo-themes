@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.111.0
+Version 1.111.0 (Released May 21, 2024)
 ---------------
 
 - Lock file maintenance (#1307)
