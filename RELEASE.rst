@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.112.0
+Version 1.112.0 (Released May 24, 2024)
 ---------------
 
 - Fix course publishing from studio without metadata (#1274) (#1400)
