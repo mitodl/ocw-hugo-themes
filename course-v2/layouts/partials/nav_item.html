@@ -4,12 +4,11 @@
 {{ $hasChildren := .menuItem.HasChildren }}
 {{ $url := partial "nav_url.html" . }}
 {{ $linkedPage := site.GetPage .menuItem.PageRef }}
-{{ $strings := newString }}
 
 <li class="course-nav-list-item">
   <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
     <span class="course-nav-text-wrapper">
-      {{ if and (eq $linkedPage.Params.content_type "external-resource") (not (strings.Contains $linkedPage.Params.url "ocw.mit.edu")) }}
+      {{ if and (eq $linkedPage.Params.content_type "external-resource") (not (in $linkedPage.Params.url "ocw.mit.edu")) }}
         {{- partial "external_resource_link"
           (merge $linkedPage.Params
             (dict
