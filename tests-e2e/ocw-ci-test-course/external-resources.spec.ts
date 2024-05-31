@@ -40,7 +40,6 @@ test("Nav external resource without warning directly opens a new tab", async ({
 
   const classAttribute = await link.getAttribute('class')
   expect(classAttribute).not.toContain('external-link')
-
 })
 
 test("External resource in page opens a new tab", async ({ page }) => {
@@ -67,7 +66,6 @@ test("Broken external resource opens backup_url", async ({ page }) => {
   const link = page.getByRole("link", { name: "broken external resource" })
 
   await link.click()
-  const continueButton = page.getByRole("button", { name: "Continue" })
 
   const targetAttribute = await link.getAttribute('target')
   expect(targetAttribute).toBeNull()
