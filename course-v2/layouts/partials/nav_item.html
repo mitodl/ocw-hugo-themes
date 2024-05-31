@@ -8,7 +8,7 @@
 <li class="course-nav-list-item">
   <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
     <span class="course-nav-text-wrapper">
-      {{ if and (eq $linkedPage.Params.content_type "external-resource") (not (in $url "ocw.mit.edu")) }}
+      {{ if and (eq $linkedPage.Params.content_type "external-resource") (not (in $linkedPage.Params.external_url "ocw.mit.edu")) }}
         {{- partial "external_resource_link"
           (merge $linkedPage.Params
             (dict
