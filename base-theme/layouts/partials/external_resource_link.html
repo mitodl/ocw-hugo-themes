@@ -13,7 +13,7 @@
 {{- if and $isBroken $backupUrl -}}
   {{- $href = $backupUrl -}}
 {{- end -}}
-{{- if in $href "ocw.mit.edu" -}}
+{{- if not (in $href "ocw.mit.edu") -}}
   {{- partial "link" (dict
       "href" $href
       "text" $text
@@ -26,7 +26,7 @@
   {{- partial "link" (dict
     "href" $href
     "text" $text
-    "class" $className
+    "class" "text-dark nav-link"
     "onClick" $onClick
     )
   -}}
