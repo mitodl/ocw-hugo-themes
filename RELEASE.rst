@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.112.1
+---------------
+
+- Add course_description_html field in data.json (#1408)
+- Update dependency sass to v1.77.2 (#1405)
+- Update dependency ramda to ^0.30.0 (#1404)
+- Update dependency node to v20.13.1 (#1403)
+- Update Yarn to v3.8.2 (#1402)
+
 Version 1.112.0 (Released May 24, 2024)
 ---------------
 
