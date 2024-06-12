@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.112.1
+Version 1.112.1 (Released June 12, 2024)
 ---------------
 
 - Add course_description_html field in data.json (#1408)
