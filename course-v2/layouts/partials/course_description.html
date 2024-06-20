@@ -1,6 +1,7 @@
 {{ $courseData := .context.Site.Data.course }}
 {{ $shouldCollapseDescription := false }}
 {{ with $courseData.course_description }}
+  <!-- This matches the text inside the square brackets and keeps it, removing the actual link part. -->
   {{ $plainDescription := . | replaceRE `\[(.*?)\]\(.*?\)` `$1` }}
   {{ $shouldCollapseDescription = gt (len $plainDescription) 320 }}
 {{ end }}
