@@ -1,7 +1,7 @@
 {{ $courseData := .context.Site.Data.course }}
 {{ $shouldCollapseDescription := false }}
 {{ with $courseData.course_description }}
-  {{ $plainDescription := plainify . }}
+  {{ $plainDescription := . | replaceRE `\[(.*?)\]\(.*?\)` `$1` }}
   {{ $shouldCollapseDescription = gt (len $plainDescription) 320 }}
 {{ end }}
 <div id="course-description">
