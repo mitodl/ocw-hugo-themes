@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.113.0
+Version 1.113.0 (Released June 26, 2024)
 ---------------
 
 - Revert "Presenting page links in navigation menu that are on the `ocw.mit.edu…" (#1417)
