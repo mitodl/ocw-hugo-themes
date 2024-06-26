@@ -35,11 +35,7 @@ test("Nav external resource without warning directly opens a new tab", async ({
   const link = page.getByRole("link", { name: "OCW (no warning)" })
   await expect(link).toBeVisible()
 
-  const targetAttribute = await link.getAttribute("target")
-  expect(targetAttribute).toBeNull()
-
-  const classAttribute = await link.getAttribute("class")
-  expect(classAttribute).toContain("external-link")
+  await expectTriggerToOpenANewTab(page, "https://ocw.mit.edu/", link)
 })
 
 test("External resource in page opens a new tab", async ({ page }) => {
@@ -65,13 +61,14 @@ test("Broken external resource opens backup_url", async ({ page }) => {
 
   const link = page.getByRole("link", { name: "broken external resource" })
 
-  const targetAttribute = await link.getAttribute("target")
-  expect(targetAttribute).toBeNull()
-
-  const classAttribute = await link.getAttribute("class")
-  expect(classAttribute).toContain("external-link")
-
   await link.click()
+  const continueButton = page.getByRole("button", { name: "Continue" })
+
+  await expectTriggerToOpenANewTab(
+    page,
+    "https://old.ocw.mit.edu/",
+    continueButton
+  )
 })
 
 test("External resource opens confirmation modal", async ({ page }) => {
