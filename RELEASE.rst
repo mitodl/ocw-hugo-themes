@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.113.0
+---------------
+
+- Revert "Presenting page links in navigation menu that are on the `ocw.mit.edu…" (#1417)
+- added text parsing to omit html tags in length checking (#1410)
+- Update Sarah Hansen's job title (#1413)
+- Presenting page links in navigation menu that are on the `ocw.mit.edu` domain (#1407)
+
 Version 1.112.1 (Released June 12, 2024)
 ---------------
 
