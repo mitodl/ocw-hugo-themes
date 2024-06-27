@@ -10582,8 +10582,8 @@ __metadata:
 
 "mit-open-components@file:./mit-open-components::locator=ocw-hugo-themes%40workspace%3A.":
   version: 0.0.0
-  resolution: "mit-open-components@file:./mit-open-components#./mit-open-components::hash=411840&locator=ocw-hugo-themes%40workspace%3A."
-  checksum: a00bb8e3126f43e135a734e42ab4cd25c35fdbcabdbc4d777ce86eb73b0657917ba22f3babd07bbc4804a918eead71a9cee83cc779e14a7e4aab388308de9ebc
+  resolution: "mit-open-components@file:./mit-open-components#./mit-open-components::hash=8894b4&locator=ocw-hugo-themes%40workspace%3A."
+  checksum: 901f3c2b31822b4961277255940d93012ef8454336594f97b3e7bf4293469638d6b38643574cc9fc38400106f56f0e23caf94bc56710a9fc90e568031a643c78
   languageName: node
   linkType: hard
 
