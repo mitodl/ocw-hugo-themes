@@ -38,7 +38,7 @@ $(function() {
   initUserlistModal(readableId)
   initLoginButton(
     "login-button-mobile",
-    "https://open.c4103.com/",
+    "https://open-api.c4103.com/",
     window.location,
     "Login",
     "btn blue-btn text-white btn-link link-button py-2 px-3 my-0",
@@ -46,7 +46,7 @@ $(function() {
   )
   initLoginButton(
     "login-button-desktop",
-    "https://open.c4103.com/",
+    "https://open-api.c4103.com/",
     window.location,
     "Login",
     "btn blue-btn text-white btn-link link-button py-2 px-3 my-0",
