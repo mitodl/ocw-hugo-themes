@@ -69,7 +69,7 @@ test("Broken external resource opens backup_url", async ({ page }) => {
   expect(targetAttribute).toBeNull()
 
   const classAttribute = await link.getAttribute("class")
-  expect(classAttribute).not.toContain("external-link")
+  expect(classAttribute).toBeNull()
 
   await link.click()
 })
