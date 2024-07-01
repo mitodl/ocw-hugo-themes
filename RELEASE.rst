@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.114.0
+---------------
+
+- fixed section rendering for the pages (#1419)
+- Presenting external resource with same domain (#1414)
+
 Version 1.113.0 (Released June 26, 2024)
 ---------------
 
