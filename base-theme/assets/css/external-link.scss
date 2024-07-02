@@ -17,7 +17,7 @@
   }
 }
 
-.external-link::after {
+.external-link.nav-link::after {
   content: "";
   display: inline-block;
   width: 12px;
