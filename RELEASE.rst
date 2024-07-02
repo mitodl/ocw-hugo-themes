@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.114.0
+Version 1.114.0 (Released July 02, 2024)
 ---------------
 
 - fixed section rendering for the pages (#1419)
