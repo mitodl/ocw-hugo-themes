@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.114.1
+Version 1.114.1 (Released July 03, 2024)
 ---------------
 
 - Remove external link icon from pages (#1421)
