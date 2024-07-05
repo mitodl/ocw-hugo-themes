@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.115.0
+---------------
+
+- Render external resources in www theme (#1412)
+
 Version 1.114.1 (Released July 03, 2024)
 ---------------
 
