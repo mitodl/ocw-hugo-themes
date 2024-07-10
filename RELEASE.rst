@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.115.0
+Version 1.115.0 (Released July 10, 2024)
 ---------------
 
 - Course Image Thumbnail Cleanup (#1423)
