@@ -979,23 +979,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mitodl/course-search-utils@npm:^2.3.0":
-  version: 2.3.2
-  resolution: "@mitodl/course-search-utils@npm:2.3.2"
+"@mitodl/course-search-utils@npm:^3.0.0":
+  version: 3.1.4
+  resolution: "@mitodl/course-search-utils@npm:3.1.4"
   dependencies:
-    bodybuilder: ^2.5.0
+    "@mitodl/open-api-axios": ^2024.7.2
+    axios: ^1.6.7
+    fuse.js: ^7.0.0
     query-string: ^6.13.1
     ramda: ^0.27.1
   peerDependencies:
     "@types/history": ^4.9
     history: ^4.9 || ^5.0.0
     react: ^16.13.1
+    react-router: ^6.22.2
   peerDependenciesMeta:
     "@types/history":
       optional: true
     history:
       optional: true
-  checksum: 9d6947520e501b31dd40f4674bec2be08d97423956e105b6334e602dd4e1eea0b075aedd43ebb1e341e6a155d761c8ca15d46722bdcfb581b948fc05b2571ba1
+    react-router:
+      optional: true
+  checksum: 91ad8309b527891e0f55e079bd16dae41579ee8785b9535b8074e7f4379f9502131277654d338f8df022b16ab1994dfe98799989a3b848f662d2e3c942239f59
   languageName: node
   linkType: hard
 
@@ -1023,6 +1028,16 @@ __metadata:
   bin:
     ocw-to-hugo: src/bin/index.js
   checksum: 7fab9749a2b672e84edd10e05587458f70fc00a6cdf7b71d175cc86b7760d5c95a0552811e7f7a648a635f67f00b2dfa7b519f88a5e29c3b948afd0804f6ec82
+  languageName: node
+  linkType: hard
+
+"@mitodl/open-api-axios@npm:^2024.7.2":
+  version: 2024.8.5
+  resolution: "@mitodl/open-api-axios@npm:2024.8.5"
+  dependencies:
+    "@types/node": ^20.11.19
+    axios: ^1.6.5
+  checksum: fbefc4ba587d41cc30b4186fa2f7444debb90f0f2d5dfc2bbcf64e1b373e390754b0960749257879c015c8e5026b0477c5d35d4f3644ead1ce05f611e96518b4
   languageName: node
   linkType: hard
 
@@ -1862,6 +1877,15 @@ __metadata:
   dependencies:
     undici-types: ~5.26.4
   checksum: 5373983874b9af7c216e7ca5d26b32a8d9829c703a69f1e66f2113598b5be8582c0e009ca97369f1ec9a6282b3f92812208d06eb1e9fc3bd9b939b022303d042
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^20.11.19":
+  version: 20.14.14
+  resolution: "@types/node@npm:20.14.14"
+  dependencies:
+    undici-types: ~5.26.4
+  checksum: cb2199123efca94908ee7191cc7b7abc11b26bf1fbb93c2948d5537a6594eedc35d4748d9fa998078fdc2eb5cc3a11d6d87b2fea20a05bda9d304e37d3c3282a
   languageName: node
   linkType: hard
 
@@ -3480,6 +3504,17 @@ __metadata:
   version: 1.12.0
   resolution: "aws4@npm:1.12.0"
   checksum: 68f79708ac7c335992730bf638286a3ee0a645cf12575d557860100767c500c08b30e24726b9f03265d74116417f628af78509e1333575e9f8d52a80edfe8cbc
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.6.5, axios@npm:^1.6.7":
+  version: 1.7.3
+  resolution: "axios@npm:1.7.3"
+  dependencies:
+    follow-redirects: ^1.15.6
+    form-data: ^4.0.0
+    proxy-from-env: ^1.1.0
+  checksum: bc304d6da974922342aed7c33155934354429cdc7e1ba9d399ab9ff3ac76103f3697eeedf042a634d43cdae682182bcffd942291db42d2be45b750597cdd5eef
   languageName: node
   linkType: hard
 
@@ -6907,7 +6942,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.0.0":
+"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.15.6":
   version: 1.15.6
   resolution: "follow-redirects@npm:1.15.6"
   peerDependenciesMeta:
@@ -6961,6 +6996,17 @@ __metadata:
     combined-stream: ^1.0.8
     mime-types: ^2.1.12
   checksum: b019e8d35c8afc14a2bd8a7a92fa4f525a4726b6d5a9740e8d2623c30e308fbb58dc8469f90415a856698933c8479b01646a9dff33c87cc4e76d72aedbbf860d
+  languageName: node
+  linkType: hard
+
+"form-data@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "form-data@npm:4.0.0"
+  dependencies:
+    asynckit: ^0.4.0
+    combined-stream: ^1.0.8
+    mime-types: ^2.1.12
+  checksum: 01135bf8675f9d5c61ff18e2e2932f719ca4de964e3be90ef4c36aacfc7b9cb2fceb5eca0b7e0190e3383fe51c5b37f4cb80b62ca06a99aaabfcfd6ac7c9328c
   languageName: node
   linkType: hard
 
@@ -7130,6 +7176,13 @@ __metadata:
   version: 6.6.2
   resolution: "fuse.js@npm:6.6.2"
   checksum: 17ae758ce205276ebd88bd9c9f088a100be0b4896abac9f6b09847151269d1690f41d7f98ff5813d4a58973162dbd99d0072ce807020fee6f9de60170f6b08eb
+  languageName: node
+  linkType: hard
+
+"fuse.js@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "fuse.js@npm:7.0.0"
+  checksum: d15750efec1808370c0cae92ec9473aa7261c59bca1f15f1cf60039ba6f804b8f95340b5cabd83a4ef55839c1034764856e0128e443921f072aa0d8a20e4cacf
   languageName: node
   linkType: hard
 
@@ -10868,7 +10921,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ocw-hugo-themes@workspace:."
   dependencies:
-    "@mitodl/course-search-utils": ^2.3.0
+    "@mitodl/course-search-utils": ^3.0.0
     "@mitodl/ocw-to-hugo": 1.36.0
     "@playwright/test": ^1.40.0
     "@sentry/browser": ^5.19.0
@@ -12584,6 +12637,13 @@ __metadata:
     forwarded: 0.2.0
     ipaddr.js: 1.9.1
   checksum: 29c6990ce9364648255454842f06f8c46fcd124d3e6d7c5066df44662de63cdc0bad032e9bf5a3d653ff72141cc7b6019873d685708ac8210c30458ad99f2b74
+  languageName: node
+  linkType: hard
+
+"proxy-from-env@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "proxy-from-env@npm:1.1.0"
+  checksum: ed7fcc2ba0a33404958e34d95d18638249a68c430e30fcb6c478497d72739ba64ce9810a24f53a7d921d0c065e5b78e3822759800698167256b04659366ca4d4
   languageName: node
   linkType: hard
 
