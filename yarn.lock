@@ -10617,8 +10617,8 @@ __metadata:
 
 "mit-learn-components@file:./mit-learn-components::locator=ocw-hugo-themes%40workspace%3A.":
   version: 0.0.0
-  resolution: "mit-learn-components@file:./mit-learn-components#./mit-learn-components::hash=c901c4&locator=ocw-hugo-themes%40workspace%3A."
-  checksum: b503140a91b786ad0fab4027a9b0026d04dcc783b48d92f6e19b5a60b59399c792af00130a896bbb1101fe275694754edee46531a4f3f2c61d76e88edd1a52c6
+  resolution: "mit-learn-components@file:./mit-learn-components#./mit-learn-components::hash=368120&locator=ocw-hugo-themes%40workspace%3A."
+  checksum: 471170b3178542f5b7e7b3ef24d06755f8420a2f4b78e4b158c8ff50f48808d31d14f2d0101b07f71a6c9155c222f87771d0f09fb64369a6f2583960e05ad578
   languageName: node
   linkType: hard
 
