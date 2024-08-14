@@ -1,0 +1,20 @@
+<script type="py-editor" config="/pyscript-config.toml">
+    import os
+    import duckdb
+    from pyscript import window
+    export_dir = "/testdb"
+    duckdb.sql("CREATE TABLE IF NOT EXISTS Employee (EmployeeID INT PRIMARY KEY,FirstName VARCHAR(50),LastName VARCHAR(50),Department VARCHAR(50),Salary DECIMAL(10, 2))")
+    duckdb.sql("INSERT INTO Employee (EmployeeID, FirstName, LastName, Department, Salary) VALUES (1, 'Carey', 'Gumaer', 'Programming', '0')")
+    duckdb.sql(f"EXPORT DATABASE '{export_dir}'")
+    try:
+        for filename in os.listdir(export_dir):
+            filepath = os.path.join(export_dir, filename)
+            # checking if it is a file
+            if os.path.isfile(filepath):
+                f = open(filepath, "r")
+                window.localStorage.setItem(f"pyscript_test_{filename}", f.read())
+                f.close()
+    except Exception as e:
+        print('Exception: ' + str(e))
+    print(duckdb.sql('SELECT * FROM EMPLOYEE'))
+</script>

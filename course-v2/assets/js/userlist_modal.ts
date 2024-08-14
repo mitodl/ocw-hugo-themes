@@ -1,4 +1,4 @@
-import { initMitOpenDom, openAddToUserListDialog } from "mit-open-components"
+import { initMitOpenDom, openAddToUserListDialog } from "mit-learn-components"
 
 export function initUserlistModal(readableId: string) {
   $("#course-bookmark-btn").on("click", async event => {
