@@ -214,7 +214,7 @@ at the RC instances and temporarily disable CORS in your browser.
 
 ### CORS
 
-The search page at `/search` uses the `open-discussions` search API to source
+The search page at `/search/` uses the `open-discussions` search API to source
 results. Running this locally and populating it with results can be tedious,
 so it's often easier to just point your local website at an already running
 version of the search API. In order for this to work properly, you will need
