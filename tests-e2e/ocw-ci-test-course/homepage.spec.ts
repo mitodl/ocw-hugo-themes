@@ -59,7 +59,7 @@ test.describe("Course info", () => {
       })
       const urls = hrefs.map(href => new URL(href))
       expect(urls.map(url => url.search)).toEqual(expected.searchParams)
-      expect(urls.every(url => url.pathname === "/search")).toBe(true)
+      expect(urls.every(url => url.pathname === "/search/")).toBe(true)
     })
   })
 })
