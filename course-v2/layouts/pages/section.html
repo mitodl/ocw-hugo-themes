@@ -1,6 +1,6 @@
 {{ define "main" }}
 {{ partial "course_content.html" . }}
-  {{ if not .Params.show_section_page }}
+  {{ if .Params.show_section_pages }}
     {{ range .Pages }}
       <div class="mb-2">
         <article class="content pt-3 mt-1">
