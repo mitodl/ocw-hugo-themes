@@ -7,7 +7,7 @@
   {{- $titleArray = $titleArray | append $courseData.course_title -}}
   {{- if $courseData.department_numbers -}}
     {{ $departments := partial "get_departments.html" $courseData.department_numbers }}
-    {{- if gt (len $departments) 0 -}}
+    {{- if $departments -}}
       {{- $titleArray = $titleArray | append (index $departments 0).title -}}
     {{- end -}}
   {{- end -}}
