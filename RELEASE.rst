@@ -1,6 +1,18 @@
 Release Notes
 =============
 
+Version 1.116.0
+---------------
+
+- Umar/4645 broken image galleries in legacy courses (#1438)
+- Updated course card links to have trailing "/" (#1437)
+- Update OCW open graph preview logo (use .png) (#1435)
+- Remove broken link from Educator page (#1433)
+- Update OCW open graph preview logo (#1432)
+- Update dependency node to v20.15.1 (#1430)
+- Update dependency sass to v1.77.8 (#1429)
+- Update Yarn to v3.8.3 (#1428)
+
 Version 1.115.0 (Released July 10, 2024)
 ---------------
 
