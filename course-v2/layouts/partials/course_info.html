@@ -23,18 +23,21 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
             "showCollapse" $inPanel) }}
           </div>
         </div>
-        {{ end }} {{ with $courseData.department_numbers }}
-        <div class="mt-4">
+        {{ end }}
+        {{ with $courseData.department_numbers }}
           {{ $departments := partial "get_departments.html" . }}
-          <h5 class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
-            Departments
-          </h5>
-          <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
-            {{ partial "partial_collapse_list.html" (dict "list" $departments
-            "id" "departments" "key" "title" "klass" "course-info-department"
-            "useLinks" true) }}
-          </div>
-        </div>
+          {{ if $departments }}
+            <div class="mt-4">
+              <h5 class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
+                Departments
+              </h5>
+              <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
+                {{ partial "partial_collapse_list.html" (dict "list" $departments
+                "id" "departments" "key" "title" "klass" "course-info-department"
+                "useLinks" true) }}
+              </div>
+            </div>
+          {{ end }}
         {{ end }} 
         {{ if $inPanel }}
         <div class="mt-4">
