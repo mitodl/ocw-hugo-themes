@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.116.0
+Version 1.116.0 (Released August 26, 2024)
 ---------------
 
 - Umar/4645 broken image galleries in legacy courses (#1438)
