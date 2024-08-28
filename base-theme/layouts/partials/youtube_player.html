@@ -8,6 +8,11 @@
 {{$youtubeParams = printf "%s" (delimit (slice `"end": ` .endTime `, `) "") |  printf "%s%s" $youtubeParams }}
 {{end}}
 {{$youtubeParams = printf "%s" `"ytControls":2}` | printf "%s%s" $youtubeParams |}}
+{{ if .isOffline }}
+<div class="show-offline d-none alert alert-warning" role="alert">
+  Viewing videos requires an internet connection
+</div>
+{{ end }}
 <div class="video-container embedded-video-container youtube-container">
   <video
     id="video-player-{{ .youtubeKey }}-{{ $random }}"
