@@ -29,6 +29,7 @@
   "department_numbers": {{- $courseData.department_numbers | jsonify -}},
   "learning_resource_types": {{- $courseData.learning_resource_types | jsonify -}},
   "topics": {{- $courseData.topics | jsonify -}},
+  "mit_learn_topics": {{- $courseData.mit_learn_topics | jsonify -}},
   "primary_course_number": {{- $courseData.primary_course_number | jsonify -}},
   "extra_course_numbers":  {{- $courseData.extra_course_numbers | jsonify -}},
   "term":  {{- $courseData.term | jsonify -}},
