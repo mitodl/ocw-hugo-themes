@@ -191,6 +191,7 @@ export const makeCourseJSON = (): CourseJSON => ({
   department_numbers:      [casual.word, casual.word],
   learning_resource_types: [casual.word, casual.word],
   year:                    String(casual.year),
+  hide_download:           casual.boolean,
   course_image_metadata:   {
     file:           casual.string,
     image_metadata: {

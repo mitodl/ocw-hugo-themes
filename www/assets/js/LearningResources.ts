@@ -81,6 +81,7 @@ export interface CourseJSON {
   term: string
   year: string
   level: Level[] | null
+  hide_download: boolean
   image_src: string
   course_image_metadata: CourseImageMetadata
 }
