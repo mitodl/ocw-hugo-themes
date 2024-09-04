@@ -13,7 +13,7 @@
   "instructors": [
   {{- range $index, $instructor := $instructors -}}
   {{- if $index -}}
-    ,  
+    ,
   {{- end -}}
   {
     "first_name":  {{- $instructor.first_name | jsonify -}},
@@ -34,6 +34,7 @@
   "term":  {{- $courseData.term | jsonify -}},
   "year":  {{- $courseData.year | jsonify -}},
   "level":  {{- $courseData.level | jsonify -}},
+  "hide_download": {{- $courseData.hide_download | jsonify -}},
   "image_src": {{- $courseImageUrl | jsonify -}},
   "course_image_metadata": {{- $courseImageMetadata.Params | jsonify -}}
 }
