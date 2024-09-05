@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.116.1 (Released September 05, 2024)
+---------------
+
+- Remove RES from departments.json (#1427)
+
 Version 1.116.0 (Released August 26, 2024)
 ---------------
 
