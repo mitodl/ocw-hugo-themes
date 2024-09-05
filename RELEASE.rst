@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.117.0
+---------------
+
+- Release date for 1.116.1
+- Include hide_download in data.json (#1445)
+- Update dependency webpack to v5.94.0 [SECURITY] (#1444)
+- Display no internet connection warning only in offline YouTube videos (#1442)
+
 Version 1.116.1 (Released September 05, 2024)
 ---------------
 
