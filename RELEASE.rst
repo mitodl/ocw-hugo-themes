@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.117.0
+Version 1.117.0 (Released September 09, 2024)
 ---------------
 
 - Release date for 1.116.1
