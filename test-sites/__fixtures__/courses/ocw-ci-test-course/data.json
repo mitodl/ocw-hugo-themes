@@ -48,6 +48,15 @@
       "Quantum Mechanics"
     ]
   ],
+  "mit_learn_topics": [
+    [
+      "Art, Design & Architecture"
+    ],
+    [
+      "Business & Management",
+      "Business Analytics"
+    ]
+  ],
   "primary_course_number": "123",
   "extra_course_numbers": "456",
   "term": "Fall",
