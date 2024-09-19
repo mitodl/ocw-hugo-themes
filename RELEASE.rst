@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.117.1
+Version 1.117.1 (Released September 19, 2024)
 ---------------
 
 - Add mit_learn_topics field in data.json (#1443)
