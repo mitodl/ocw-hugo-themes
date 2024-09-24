@@ -17,7 +17,7 @@
             )
           )
         -}}
-      {{ else }}
+      {{ else if $url }}
         <a class="text-dark nav-link"
           data-uuid="{{ .menuItem.Identifier }}"
           href="{{ $url }}">
