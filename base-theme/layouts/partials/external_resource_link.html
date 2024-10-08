@@ -1,7 +1,7 @@
 {{- $text := default .title .text -}}
 {{- $href := default "" .external_url -}}
-{{- $isBroken := default false .is_broken -}}
-{{- $backupUrl := default "" .backup_url -}}
+{{- $status := default "unchecked" .status -}}
+{{- $waybackUrl := default "" .wayback_url -}}
 {{- $hasWarning := default true .has_external_license_warning -}}
 {{- $className := printf "%s %s" "external-link" (default "" .class) -}}
 {{- $onClick := "" -}}
@@ -10,8 +10,8 @@
   {{/* Prevents external links from being clicked before corresponding JS is fully loaded. */}}
   {{- $onClick = "event.preventDefault()" -}}
 {{- end -}}
-{{- if and $isBroken $backupUrl -}}
-  {{- $href = $backupUrl -}}
+{{- if and (eq $status "broken") $waybackUrl -}}
+  {{- $href = $waybackUrl -}}
 {{- end -}}
 {{- if not (in $href "ocw.mit.edu") -}}
   {{- partial "link" (dict
