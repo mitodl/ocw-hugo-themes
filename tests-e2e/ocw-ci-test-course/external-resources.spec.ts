@@ -59,7 +59,7 @@ test("External resource in page opens a new tab", async ({ page }) => {
   )
 })
 
-test("Broken external resource opens backup_url", async ({ page }) => {
+test("Broken external resource opens wayback_url", async ({ page }) => {
   const course = new CoursePage(page, "course")
   await course.goto("/pages/external-resources-page")
 
@@ -70,6 +70,9 @@ test("Broken external resource opens backup_url", async ({ page }) => {
 
   const classAttribute = await link.getAttribute("class")
   expect(classAttribute).toBeNull()
+
+  const hrefAttribute = await link.getAttribute("href")
+  expect(hrefAttribute).toBe("https://old.ocw.mit.edu")
 
   await link.click()
 })
