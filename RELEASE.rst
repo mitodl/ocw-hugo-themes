@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.117.2
+---------------
+
+- Update dependency clean-webpack-plugin to v4 (#1355)
+- Update actions/checkout action to v4 (#1350)
+
 Version 1.117.1 (Released September 19, 2024)
 ---------------
 
