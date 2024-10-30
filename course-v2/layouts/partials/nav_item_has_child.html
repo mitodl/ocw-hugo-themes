@@ -1,11 +1,18 @@
-<!-- nav_item_has_child.html -->
 {{ $hasOneValidChild := false }}
 
 {{ range . }}
   {{ $url := partial "nav_url.html" (dict "menuItem" .) }}
-  {{ if $url }}
-    {{ $hasOneValidChild = true }}
-    {{ break }}
+
+  {{ if .HasChildren }}
+    {{ $hasOneValidChild = partial "nav_item_has_child.html" .Children }}
+    {{ if $hasOneValidChild }}
+      {{ break }}
+    {{ end }}
+  {{ else }}
+    {{ if $url }}
+      {{ $hasOneValidChild = true }}
+      {{ break }}
+    {{ end }}
   {{ end }}
 {{ end }}
 
