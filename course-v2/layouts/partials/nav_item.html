@@ -4,6 +4,12 @@
 {{ $hasChildren := .menuItem.HasChildren }}
 {{ $url := partial "nav_url.html" . }}
 {{ $linkedPage := site.GetPage .menuItem.PageRef }}
+{{ $hasOneValidChild := false }}
+
+{{ if $hasChildren }}
+  {{ $hasOneValidChild = partial "nav_item_has_child.html" .menuItem.Children }}
+{{ end }}
+
 
 <li class="course-nav-list-item">
   <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
@@ -17,15 +23,15 @@
             )
           )
         -}}
-      {{ else if $url }}
+      {{ else if or $url $hasOneValidChild }}
         <a class="text-dark nav-link"
           data-uuid="{{ .menuItem.Identifier }}"
-          href="{{ $url }}">
+          {{ if $url }} href="{{ $url }}" {{ end }}>
           {{ .menuItem.Name }}
         </a>
       {{ end }}
     </span>
-    {{ if .menuItem.HasChildren }}
+    {{ if $hasOneValidChild }}
     <button
       class="course-nav-section-toggle"
       type="button"
