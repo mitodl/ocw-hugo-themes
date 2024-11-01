@@ -24,14 +24,18 @@ const config: PlaywrightTestConfig = {
   },
   projects: [
     {
-      name: "firefox",
-      use:  {
-        ...devices["Desktop Firefox"]
-      }
-    },
-    {
       name: "Google Chrome",
-      use:  { ...devices["Desktop Chrome"], channel: "chrome" }
+      use:  {
+        ...devices["Desktop Chrome"],
+        channel: "chrome",
+        launchOptions: {
+          args: [
+            '--autoplay-policy=no-user-gesture-required',
+            '--start-maximized',
+            '--incognito',
+          ],
+        },
+      }    
     }
   ]
 }
