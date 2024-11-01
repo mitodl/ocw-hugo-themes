@@ -37,7 +37,9 @@ test("Start and end time exists", async ({ page }) => {
   expect(urlParams.get("end")).toEqual(expectedEndTime)
 })
 
-test.only("Transcripts start time matches video start time", async ({ page }) => {
+test.only("Transcripts start time matches video start time", async ({
+  page
+}) => {
   const course = new CoursePage(page, "course")
   const videoSection = new VideoElement(page)
   const expectedStartTime = "13"
@@ -52,9 +54,9 @@ test.only("Transcripts start time matches video start time", async ({ page }) =>
   const playButton = videoSection.playButton()
   await playButton.waitFor({ state: "visible" })
   const isPaused = await videoSection
-  .frameLocator()
-  .locator("video")
-  .evaluate((video) => (video as HTMLVideoElement).paused)
+    .frameLocator()
+    .locator("video")
+    .evaluate(video => (video as HTMLVideoElement).paused)
 
   if (isPaused) {
     await videoSection.playButton().click()
