@@ -8,10 +8,9 @@ import * as path from "path"
 const config: PlaywrightTestConfig = {
   testDir:    "./tests-e2e",
   testIgnore: ["**/jest/**"],
-  /* Maximum time one test can run for. */
   timeout:    60 * 1000,
   expect:     {
-    timeout: 5000
+    timeout: 5000,
   },
   fullyParallel: true,
   forbidOnly:    !!process.env.CI,
@@ -20,7 +19,7 @@ const config: PlaywrightTestConfig = {
   reporter:      "html",
   use:           {
     actionTimeout: 0,
-    trace:         "on-first-retry"
+    trace:         "on-first-retry",
   },
   projects: [
     {
@@ -35,9 +34,9 @@ const config: PlaywrightTestConfig = {
             '--incognito',
           ],
         },
-      }    
-    }
-  ]
+      },
+    },
+  ],
 }
 
 config.globalSetup = path.resolve(__dirname, "./tests-e2e/global-setup.ts")

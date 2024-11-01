@@ -79,7 +79,7 @@ test("Transcripts start time matches video start time", async ({ page }) => {
 
   await videoSection.expectPlayerReady()
   await videoSection.playButton().click()
-  await expect(videoSection.frameLocator().locator('video')).toHaveJSProperty('paused', false,);
+  await expect(videoSection.frameLocator().locator('video')).toHaveJSProperty('paused', false);
 
 
   const activeCaption = await videoSection.transcript
