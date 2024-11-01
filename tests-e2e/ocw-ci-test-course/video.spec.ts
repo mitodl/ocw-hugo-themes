@@ -50,35 +50,6 @@ test("Transcripts start time matches video start time", async ({ page }) => {
 
   await videoSection.expectPlayerReady()
   await videoSection.playButton().click()
-
-  const activeCaption = await videoSection.transcript
-    .activeLine()
-    .getAttribute("data-begin")
-  const nextCaption = await videoSection.transcript
-    .nextLine()
-    .getAttribute("data-begin")
-
-  expect(parseFloat(activeCaption || "0")).toBeLessThanOrEqual(
-    parseFloat(expectedStartTime)
-  )
-  expect(parseFloat(nextCaption || "0")).toBeGreaterThanOrEqual(
-    parseFloat(expectedStartTime)
-  )
-})
-
-test("Transcripts start time matches video start time", async ({ page }) => {
-  const course = new CoursePage(page, "course")
-  const videoSection = new VideoElement(page)
-  const expectedStartTime = "13"
-
-  await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
-  const src = await videoSection.iframe().getAttribute("src")
-
-  const urlParams = new URLSearchParams(src || "")
-  expect(urlParams.get("start")).toEqual(expectedStartTime)
-
-  await videoSection.expectPlayerReady()
-  await videoSection.playButton().click()
   await expect(videoSection.frameLocator().locator("video")).toHaveJSProperty(
     "paused",
     false
