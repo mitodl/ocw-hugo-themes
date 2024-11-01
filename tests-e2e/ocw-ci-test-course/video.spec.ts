@@ -37,7 +37,7 @@ test("Start and end time exists", async ({ page }) => {
   expect(urlParams.get("end")).toEqual(expectedEndTime)
 })
 
-test.only("Transcripts start time matches video start time", async ({
+test("Transcripts start time matches video start time", async ({
   page
 }) => {
   const course = new CoursePage(page, "course")
