@@ -25,7 +25,7 @@
       {{ else if or $url $hasOneValidChild }}
         <a class="text-dark nav-link"
           data-uuid="{{ .menuItem.Identifier }}"
-          {{ if $url }} href="{{ $url }}" {{ end }}>
+          {{ if $url }} href="{{ $url }}" {{ else }} href="#" {{ end }}>
           {{ .menuItem.Name }}
         </a>
       {{ end }}
@@ -46,7 +46,7 @@
     </button>
     {{ end }}
   </div>
-  {{ if or (not $hasParent) $hasChildren }}
+  {{ if or (and (not $hasParent) $url) $hasOneValidChild }}
   <span class="medium-and-below-only"><hr/></span>
   {{ end }}
   <ul
