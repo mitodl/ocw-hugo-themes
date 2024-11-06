@@ -1,6 +1,6 @@
 {{- $stories := where .Site.RegularPages "Type" "==" "stories" -}}
 {{- $storiesSection := .Site.GetPage "section" "stories" -}}
-{{- $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none") "lg" (dict "size" 3 "class" "d-none d-lg-flex d-xl-none") "xl" (dict "size" 4 "class" "d-none d-xl-flex")) -}}
+{{- $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none") "lg" (dict "size" 3 "class" "d-none d-lg-flex d-xl-none") "xl" (dict "size" 3 "class" "d-none d-xl-flex")) -}}
 <div class="home-testimonials standard-width container mx-auto my-3">
   {{ range $breakpoint, $carouselInfo := $breakdowns }}
     {{ $itemsInCarousel := index $carouselInfo "size" }}
@@ -11,24 +11,24 @@
       <div id="{{ $carouselId }}" class="carousel slide" data-interval="false" data-touch="true" data-ride="carousel">
         <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold">
           <h2>OCW Stories</h2>
-          {{ if gt (len $stories) 4 }}
-          {{ partial "carousel_controls.html" $carouselId }}
+          {{ if gt (len $stories) 3 }}
+            {{ partial "carousel_controls.html" $carouselId }}
           {{ end }}
         </div>
-        <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
+        <div class="carousel-inner">
           {{ range $index, $testimonial := $stories  }}
             {{ with $testimonial }}
               {{ $modulo := (mod $index $itemsInCarousel) }}
               {{ $group := (div $index $itemsInCarousel) }}
               {{ if eq $modulo 0 }}
-              <div class="carousel-item {{ if not $isMobile }}row{{end}} {{ if eq $group 0 }}active{{ end }}">
-              {{ end }}
-                <div class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 $itemsInCarousel) }}{{ end }} w-100 d-flex justify-content-center">
-                  <div class="item-wrapper w-100 d-flex justify-content-center">
-                    {{ partial "stories_card.html" $testimonial }}
+              <div class="carousel-item {{ if not $isMobile }}row{{end}} {{ if eq $group 0 }}active{{ end }} justify-content-around">
+                {{ end }}
+                  <div class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 $itemsInCarousel) }}{{ end }} align-items-center justify-content-center">
+                    <!-- <div class="item-wrapper w-100 d-flex justify-content-center"> -->
+                      {{ partial "stories_card.html" $testimonial }}
+                    <!-- </div> -->
                   </div>
-                </div>
-              {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $stories) 1))) }}
+                {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $stories) 1))) }}
               </div>
               {{ end }}
             {{ end }}
