@@ -1,21 +1,33 @@
 {{- $testimonial := . -}}
 <a href="{{ $testimonial.RelPermalink }}" class="testimonial-link">
   <div class="testimonial d-flex flex-column rounded">
-    <div class="testimonial-image-wrapper">
+    <div class="testimonial-image-wrapper" style="margin-bottom: 20px">
       <img 
         src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $testimonial.Params.image.content).Params.file) }}" 
         alt="{{ $testimonial.Title }}" 
         class="testimonial-image"
       >
     </div>
-    <div class="name font-weight-bold pl-3">
-      {{ $testimonial.Title }}
+    <div style="padding: 0px 20px; margin-bottom: 20px">
+      <div class="name font-weight-bold" style="font-size: 20px">
+        {{ $testimonial.Title }}
+      </div>
+      <div class="occupation-wrapper d-flex justify-content-between">
+        <div class="occupation">
+          {{ $testimonial.Params.occupation }}
+        </div>
+        <div class="occupation-location">
+          {{ $testimonial.Params.location }}
+        </div>
+      </div>
     </div>
-    <div class="occupation-location pl-3 pb-2">
-      {{ $testimonial.Params.occupation }} - {{ $testimonial.Params.location }}
-    </div>
-    <div class="story-body pl-3 pb-2">
-      {{ $testimonial.Content | plainify | replaceRE "\\s+" " " | truncate 100 }}
+    <div class="story-body" style="padding: 0px 20px 20px 20px">
+      <div style="margin-bottom: 20px">
+        {{ $testimonial.Content | plainify | replaceRE "\\s+" " " | truncate 150 }}
+      </div>
+      <div>
+        <a href="">Read Full Story</a>
+      </div>
     </div>
   </div>
 
