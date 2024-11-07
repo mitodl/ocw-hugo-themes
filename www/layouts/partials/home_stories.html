@@ -37,9 +37,20 @@
       </div>
     </div>
   {{ end }}
-  <div class="d-flex py-4">
-      <div class="ml-auto">
-          <a class="view-all-link" href="{{ $storiesSection.RelPermalink }}">View All OCW Stories</a>
-      </div>
+  <!-- <div class="d-flex py-4">
+    <div class="ml-auto">
+      <a class="view-all-link" href="{{ $storiesSection.RelPermalink }}">View All OCW Stories</a>
+    </div>
+  </div> -->
+  <div class="d-flex justify-content-center my-4">
+    <a href="#" class="btn px-4 py-3 text-decoration-none d-flex align-items-center" style="padding: 15px 20px; border-radius: 3px; border: 1px solid var(--Border-Grey, #DFE5EC); background: var(--white-mit-brand, #FFF); font-weight: 600; color:#03152D;">
+      View All OCW Stories
+      <img
+        class=""
+        src="{{ partial "get_asset_webpack_url.html" "images/ocw_stories_btn_arrow_right.svg" }}"
+        alt=""
+        style="margin-left:10px"
+      />
+    </a>
   </div>
 </div>
