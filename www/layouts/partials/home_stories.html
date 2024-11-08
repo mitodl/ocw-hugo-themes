@@ -21,9 +21,9 @@
               {{ $modulo := (mod $index $itemsInCarousel) }}
               {{ $group := (div $index $itemsInCarousel) }}
               {{ if eq $modulo 0 }}
-              <div class="carousel-item {{ if not $isMobile }}row{{end}} {{ if eq $group 0 }}active{{ end }} justify-content-between ml-0">
+              <div class="carousel-item {{ if not $isMobile }}row{{end}} {{ if eq $group 0 }}active{{ end }} flex-nowrap" style="flex: nowrap">
                 {{ end }}
-                  <div style="padding:10px;" class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 $itemsInCarousel) }}{{ end }} align-items-center justify-content-center">
+                  <div style="padding:10px; flex: 1 1; margin-left: 10px; max-width: 100%" class="item-wrapper">
                     <!-- <div class="item-wrapper w-100 d-flex justify-content-center"> -->
                       {{ partial "stories_card.html" $testimonial }}
                     <!-- </div> -->
