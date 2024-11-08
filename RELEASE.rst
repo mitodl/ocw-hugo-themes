@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.117.2
+Version 1.117.2 (Released November 08, 2024)
 ---------------
 
 - Update dependency clean-webpack-plugin to v4 (#1355)
