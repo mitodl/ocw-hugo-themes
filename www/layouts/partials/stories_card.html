@@ -1,6 +1,6 @@
 {{- $testimonial := . -}}
 <a href="{{ $testimonial.RelPermalink }}" class="testimonial-link">
-  <div class="testimonial d-flex flex-column rounded">
+  <div class="testimonial d-flex flex-column rounded h-100">
     <div class="testimonial-image-wrapper" style="margin-bottom: 20px">
       <img 
         src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $testimonial.Params.image.content).Params.file) }}" 
@@ -21,9 +21,9 @@
         </div>
       </div>
     </div>
-    <div class="story-body" style="padding: 0px 20px 20px 20px">
+    <div class="story-body d-flex flex-column justify-content-between h-100" style="padding: 0px 20px 20px 20px">
       <div style="margin-bottom: 20px">
-        {{ $testimonial.Content | plainify | replaceRE "\\s+" " " | truncate 150 }}
+        {{ $testimonial.Content | plainify | replaceRE "\\s+" " " }}
       </div>
       <div>
         <a href="" style="color:#0A3E56">Read Full Story</a>
