@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.118.0
+---------------
+
+- added condition to include nav item only if url is not empty (#1449)
+
 Version 1.117.2 (Released November 08, 2024)
 ---------------
 
