@@ -4,26 +4,56 @@
   {{ block "header" . }}
   {{ partialCached "header" . }}
   {{ end }}
-  <div class="testimonial-single container standard-width mx-auto mt-5 mb-5">
-    <h1>OCW Stories</h1>
-    <div class="testimonials">
-      <div class="testimonial d-flex flex-wrap flex-sm-nowrap">
-        <div class="img-container">
-          <img src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $story.Params.image.content).Params.file) }}" alt="" />
-        </div>
-        <div class="detail d-flex flex-column flex-nowrap justify-content-between p-0 ml-sm-5">
-          <div class="text">
-            <h2>{{ $story.Title }}</h2>
-            <p class="font-weight-bold">{{ $story.Params.occupation }} | {{ $story.Params.location }}</p>
-            <p class="summary">
-              "{{ $story.Params.leadquote }}"
-            </p>
+
+  <!-- <div class="header-bar bg-secondary py-2 mb-4">
+    <h1 class="text-white text-center">OCW Stories</h1>
+  </div> -->
+  <div class="standard-width mx-auto mt-5 mb-5">
+    <div class="row">
+      <div class="testimonial-single">
+        <div class="testimonials w-100">
+          <div class="testimonial d-flex flex-wrap flex-sm-nowrap">
+            <div class="img-container">
+              <img src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $story.Params.image.content).Params.file) }}" alt="" />
+            </div>
+            <div class="detail d-flex flex-column flex-nowrap justify-content-between p-0 ml-sm-5">
+              <div class="text">
+                <h2>{{ $story.Title }}</h2>
+                <p class="font-weight-bold">{{ $story.Params.occupation }} | {{ $story.Params.location }}</p>
+                <p class="summary">
+                  "{{ $story.Params.leadquote }}"
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <div class="full-testimonial pt-5 pb-3 col-md-8">
+        {{ .Content }}
+      </div>
+      <!-- Sidebar -->
+      <div class="col-md-4">
+      <div class="">
+        <h3 class="mb-4">More Stories</h3>
+        <div class="flex-nowrap justify-content-center">
+        {{ range first 3 (where .Site.RegularPages "Type" "==" "stories") }}
+          <div style="padding:10px; flex: 1 1; margin-left: 10px;" class="item-wrapper">
+            {{ partial "stories_card.html" . }}
+          </div>
+        {{ end }}
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+          <a href="/stories" class="btn px-4 py-3 text-decoration-none d-flex align-items-center" style="padding: 15px 20px; border-radius: 3px; border: 1px solid var(--Border-Grey, #DFE5EC); background: var(--white-mit-brand, #FFF); font-weight: 600; color:#03152D;">
+            View All OCW Stories
+            <img
+              class="ml-2"
+              src="{{ partial "get_asset_webpack_url.html" "images/ocw_stories_btn_arrow_right.svg" }}"
+              alt=""
+            />
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="full-testimonial pt-5 pb-3">
-      {{ .Content }}
     </div>
   </div>
   {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}

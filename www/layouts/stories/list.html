@@ -5,33 +5,19 @@
   {{ block "header" . }}
   {{ partialCached "header" . }}
   {{end}}
-  <div class="testimonial-section container standard-width mx-auto mt-5 mb-5">
-    <h1>OCW Stories</h1>
-    <h3>Share your OCW story.</h3>
-    <p>
-      We'd love to hear from you! Please <a href="https://forms.gle/LvmpocNJBujDafqt9" target="_blank">share your story</a> about how OCW has made an impact in your life.
-    </p>
-    <div class="testimonials">
-      {{ range $story := $stories }}
-      <div class="testimonial d-flex flex-wrap flex-sm-nowrap">
-        <div class="img-container">
-          <img src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $story.Params.image.content).Params.file) }}" alt="" />
-        </div>
-        <div class="detail d-flex flex-column flex-nowrap justify-content-between p-0 ml-sm-5">
-          <div class="text">
-            <h2>{{ $story.Title }}</h2>
-            <p>{{ $story.Params.occupation }}</p>
-            <p class="location">{{ $story.Params.location }}</p>
-            <p class="summary">
-              {{ $story.Params.leadquote }}
-            </p>
-          </div>
-          <div>
-            <a href="{{ $story.RelPermalink }}">Read Full Story</a>
-          </div>
-        </div>
-      </div>
+  <div class="">
+    <div class="row">
+    {{ range $index, $testimonial := $stories  }}
+      {{ if or (eq (mod $index 8) 0) (eq (mod $index 8) 1) }}
+        <div class="row flex-nowrap justify-content-center col-12 col-md-6 col-lg-6 mb-4">
+      {{ else }}  
+        <div class="row flex-nowrap justify-content-center col-12 col-md-6 col-lg-4 mb-4">
       {{ end }}
+          <div style="padding:10px; flex: 1 1; margin-left: 10px;" class="item-wrapper">
+            {{ partial "stories_card.html" $testimonial }}
+          </div>
+        </div>
+    {{ end }}
     </div>
   </div>
   {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}

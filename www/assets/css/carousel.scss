@@ -94,7 +94,36 @@
     }
   }
 }
+.item-wrapper {
+  padding: 0 10px;
+  // max-width: 411px;
+  border-radius: 10px;
+  border: 1px solid var(--Border-Grey, #dfe5ec);
+  background: #fff;
 
+  /* Shadow */
+  box-shadow: 0px 2px 10px 0px rgba(120, 169, 197, 0.15);
+
+  &:first-child {
+    padding-left: 0;
+  }
+
+  &:last-child {
+    padding-right: 0;
+  }
+  // // 801px - 991px (tablet)
+  // @include breakpoint(tablet) {
+  //   max-width: 470.5px;
+  // }
+  // // 768px - 800px (mobile)
+  // @include breakpoint(mobile) {
+  //   max-width: 335px;
+  // }
+  // // <= 767px (sm-mobile)
+  // @include breakpoint(sm-mobile) {
+  //   max-width: 650px;
+  // }
+}
 .testimonial-image-wrapper {
   position: relative;
   width: 100%;
