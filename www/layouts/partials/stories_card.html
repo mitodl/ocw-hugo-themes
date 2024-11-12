@@ -1,34 +1,35 @@
 {{- $testimonial := . -}}
-<a href="{{ $testimonial.RelPermalink }}" class="testimonial-link">
-  <div class="testimonial d-flex flex-column rounded h-100">
-    <div class="testimonial-image-wrapper" style="margin-bottom: 20px">
-      <img 
-        src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $testimonial.Params.image.content).Params.file) }}" 
-        alt="{{ $testimonial.Title }}" 
-        class="testimonial-image"
-      >
-    </div>
-    <div style="padding: 0px 20px; margin-bottom: 20px">
-      <div class="name font-weight-bold" style="font-size: 20px">
-        {{ $testimonial.Title }}
+<a href="{{ $testimonial.RelPermalink }}" class="item-wrapper d-block testimonial-link " style="flex: 1 1; padding:10px; margin-left: 10px;">
+  <div class="h-100">
+    <div class="testimonial d-flex flex-column rounded h-100">
+      <div class="testimonial-image-wrapper" style="margin-bottom: 20px">
+        <img 
+          src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $testimonial.Params.image.content).Params.file) }}" 
+          alt="{{ $testimonial.Title }}" 
+          class="testimonial-image"
+        >
       </div>
-      <div class="occupation-wrapper d-flex justify-content-between">
-        <div class="occupation">
-          {{ $testimonial.Params.occupation }}
+      <div style="padding: 0px 20px; margin-bottom: 20px">
+        <div class="name font-weight-bold" style="font-size: 20px">
+          {{ $testimonial.Title }}
         </div>
-        <div class="occupation-location">
-          {{ $testimonial.Params.location }}
+        <div class="occupation-wrapper d-flex justify-content-between">
+          <div class="occupation">
+            {{ $testimonial.Params.occupation }}
+          </div>
+          <div class="occupation-location">
+            {{ $testimonial.Params.location }}
+          </div>
         </div>
       </div>
-    </div>
-    <div class="story-body d-flex flex-column justify-content-between h-100" style="padding: 0px 20px 20px 20px">
-      <div style="margin-bottom: 20px">
-        {{ $testimonial.Content | plainify | replaceRE "\\s+" " " }}
-      </div>
-      <div>
-        <a href="" style="color:#0A3E56">Read Full Story</a>
+      <div class="story-body d-flex flex-column justify-content-between h-100" style="padding: 0px 20px 20px 20px">
+        <div style="margin-bottom: 20px">
+          {{ $testimonial.Content | plainify | replaceRE "\\s+" " " }}
+        </div>
+        <div>
+          <span style="color:#0A3E56">Read Full Story</span>
+        </div>
       </div>
     </div>
   </div>
-
 </a>

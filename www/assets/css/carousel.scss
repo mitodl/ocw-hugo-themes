@@ -124,6 +124,24 @@
   //   max-width: 650px;
   // }
 }
+.share-story-text {
+  @include breakpoint(desktop) {
+    margin-right: 70px;
+  }
+}
+.quotation-btn {
+  position: relative;
+  // padding: 20px 50px;
+}
+
+.quotation-btn::before {
+  content: "”";
+  font-size: 50px;
+  position: absolute;
+  right: 20px;
+  top: -10px;
+  color: var(--Primary, #03152d);
+}
 .testimonial-image-wrapper {
   position: relative;
   width: 100%;
