@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.118.0
+---------------
+
+- Update dependency commander to v12 (#1356)
+- Update dependency @sentry/browser to v7 [SECURITY] (#1450)
+- Update dependency isomorphic-fetch to v3 (#1464)
+- added condition to include nav item only if url is not empty (#1449)
+
 Version 1.117.2 (Released November 08, 2024)
 ---------------
 
