@@ -94,6 +94,9 @@
     }
   }
 }
+.item-wrapper:hover {
+  border: 1px solid #a31f34 !important;
+}
 .item-wrapper {
   padding: 0 10px;
   // max-width: 411px;
@@ -136,11 +139,34 @@
 
 .quotation-btn::before {
   content: "”";
-  font-size: 50px;
   position: absolute;
-  right: 20px;
-  top: -10px;
-  color: var(--Primary, #03152d);
+  right: -4px;
+  top: -0.64rem;
+  color: white;
+  color: var(--white, var(--white-mit-brand, #fff));
+  font-family: Arial;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px;
+}
+.testimonial-title.quote {
+  position: relative;
+  // padding: 20px 50px;
+}
+
+.testimonial-title.quote::before {
+  content: "“";
+  position: absolute;
+  // right: 1px;
+  left: 1.1rem;
+  top: -3rem;
+  font-family: Arial;
+  color: var(--Red-Brand, var(--Red, #a31f34)) !important;
+  font-size: 100px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 .testimonial-image-wrapper {
   position: relative;
@@ -165,4 +191,37 @@
   -webkit-line-clamp: 5;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.quote-body div.content {
+  // background-color: purple;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-left: 1px solid var(--DarkBorder, #9c9d9e);
+  padding-left: 20px;
+  align-self: stretch;
+  color: #000;
+  text-overflow: ellipsis;
+  font-family: Arial;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 22px; /* 137.5% */
+}
+
+.view-all-stories-btn:hover {
+  color: white !important;
+  background: #a31f34 !important;
+
+  img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7486%)
+      hue-rotate(142deg) brightness(96%) contrast(103%);
+  }
+
+  // .view-all-stories-arrow {
+  //   fill: #fff;
+  //   background:white !important;
+  // }
 }

@@ -13,18 +13,18 @@
       {{ $breakpointVisibilityClass := index $carouselInfo "class" }}
       {{ $carouselId := printf "testimonial-carousel-%v" $breakpoint }}
       <div class="{{ $breakpointVisibilityClass }}">
-        <div class="d-flex flex-direction-row align-items-sm-center justify-content-between w-100">
+        <div class="d-flex flex-direction-row align-items-center justify-content-between w-100">
           <a href="#{{ $carouselId }}" role="button" data-slide="prev" class="bg-white prev">
             <span class="material-icons" aria-hidden="true" style="font-size: 3.75rem">keyboard_arrow_left</span>
             <span class="sr-only">Previous</span>
           </a>
           <div id="{{ $carouselId }}" class="carousel slide" data-interval="false" data-touch="true" data-ride="carousel">
-            <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold">
-              <h2>OCW Stories</h2>
+            <h2>OCW Stories</h2>
+            <!-- <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold">
               {{ if gt (len $stories) 3 }}
                 {{ partial "carousel_controls.html" $carouselId }}
               {{ end }}
-            </div>
+            </div> -->
             <div class="carousel-inner standard-width container">
               {{ range $index, $testimonial := $stories }}
                 {{ with $testimonial }}
@@ -49,7 +49,17 @@
       </div>
     {{ end }}
     <div class="d-flex justify-content-center my-4">
-      // button to be re-added here
+      <div class="d-flex justify-content-center my-4">
+        <a href="#" class="btn view-all-stories-btn px-4 py-3 text-decoration-none d-flex align-items-center" style="padding: 15px 20px; border-radius: 3px; border: 1px solid var(--Border-Grey, #DFE5EC); background: var(--white-mit-brand, #FFF); font-weight: 600; color:#03152D;">
+          View All OCW Stories
+          <img
+            class="view-all-stories-arrow"
+            src="{{ partial "get_asset_webpack_url.html" "images/ocw_stories_btn_arrow_right.svg" }}"
+            alt=""
+            style="margin-left:10px; color: white;"
+          />
+        </a>
+      </div>
     </div>
   </div>
 </div>

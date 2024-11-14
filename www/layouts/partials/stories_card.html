@@ -9,7 +9,7 @@
           class="testimonial-image"
         >
       </div>
-      <div style="padding: 0px 20px; margin-bottom: 20px">
+      <div class="testimonial-title {{if $testimonial.Params.is_quote}}quote{{ end }}" style="padding: 0px 20px; margin-bottom: 20px">
         <div class="name font-weight-bold" style="font-size: 20px">
           {{ $testimonial.Title }}
         </div>
@@ -22,13 +22,19 @@
           </div>
         </div>
       </div>
-      <div class="story-body d-flex flex-column justify-content-between h-100" style="padding: 0px 20px 20px 20px">
-        <div style="margin-bottom: 20px">
+      <div class="{{ if not $testimonial.Params.is_quote}}story-body{{ else }}quote-body{{ end }} d-flex flex-column justify-content-between h-100" style="padding: 0px 20px 20px 20px">
+        <div class="content" style="margin-bottom: 20px">
           {{ $testimonial.Content | plainify | replaceRE "\\s+" " " }}
         </div>
-        <div>
-          <span style="color:#0A3E56">Read Full Story</span>
-        </div>
+        {{ if $testimonial.Params.is_quote }}
+          <div>
+            <span style="color:#0A3E56">Read Full Quote</span>
+          </div>
+        {{ else }}
+          <div>
+            <span style="color:#0A3E56">Read Full Story</span>
+          </div>
+        {{ end }}
       </div>
     </div>
   </div>
