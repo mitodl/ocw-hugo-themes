@@ -6,8 +6,15 @@
     "lg"    (dict "size" 3 "class" "d-none d-lg-flex d-xl-none")
     "xl"    (dict "size" 3 "class" "d-none d-xl-flex")
 -}}
-<div class="carousel-section">
+<div class="test-div">
+  <div class="test-div2">content goes here!</div>
+</div>
+
+<div class="test-div3">empty placeholder content</div>
+
+
   <div class="home-testimonials mx-auto my-3">
+
     {{ range $breakpoint, $carouselInfo := $breakdowns }}
       {{ $itemsInCarousel := index $carouselInfo "size" }}
       {{ $breakpointVisibilityClass := index $carouselInfo "class" }}
@@ -25,6 +32,7 @@
                 {{ partial "carousel_controls.html" $carouselId }}
               {{ end }}
             </div> -->
+
             <div class="carousel-inner standard-width container">
               {{ range $index, $testimonial := $stories }}
                 {{ with $testimonial }}
@@ -33,7 +41,14 @@
                   {{ if eq $modulo 0 }}
                   <div class="carousel-item row {{ if eq $group 0 }}active{{ end }} flex-nowrap justify-content-center">
                   {{ end }}
-                    {{ partial "stories_card.html" $testimonial }}
+                  <a data-modal-content-id="modal-content-{{ $index }}" class="item-wrapper d-block testimonial-link" style="flex: 1 1; padding:10px; margin-left: 10px;" {{if $testimonial.Params.is_quote}} onclick="updateContent(this); return false;" href="#" data-testimonial="{{ $testimonial }}" data-toggle="modal" data-target="#exampleModalCenter"{{else}}href="{{ $testimonial.RelPermalink }}"{{end}}>
+                    {{ partial "stories_card.html" (dict "testimonial" $testimonial) }}
+                  </a>
+                  {{ if $testimonial.Params.is_quote }}
+                  <div id="modal-content-{{ $index }}" style="display: none;">
+                    {{ partial "stories_card.html" (dict "testimonial" $testimonial "context" "modal") }}
+                  </div>
+                  {{ end }}
                   {{ if or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $stories) 1)) }}
                   </div>
                   {{ end }}
@@ -50,7 +65,7 @@
     {{ end }}
     <div class="d-flex justify-content-center my-4">
       <div class="d-flex justify-content-center my-4">
-        <a href="#" class="btn view-all-stories-btn px-4 py-3 text-decoration-none d-flex align-items-center" style="padding: 15px 20px; border-radius: 3px; border: 1px solid var(--Border-Grey, #DFE5EC); background: var(--white-mit-brand, #FFF); font-weight: 600; color:#03152D;">
+        <a href="/stories" class="btn view-all-stories-btn px-4 py-3 text-decoration-none d-flex align-items-center" style="padding: 15px 20px; border-radius: 3px; border: 1px solid var(--Border-Grey, #DFE5EC); background: var(--white-mit-brand, #FFF); font-weight: 600; color:#03152D;">
           View All OCW Stories
           <img
             class="view-all-stories-arrow"
@@ -63,3 +78,24 @@
     </div>
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 600px" role="document">
+    <div class="modal-content">
+      <!-- <div class="modal-header"> -->
+        <!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+      <!-- </div> -->
+      <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button> -->
+      <div class="modal-body" style="padding: 10px;">
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+<!-- {{ partialCached "quotes_card_modal_handler.html" . }} -->

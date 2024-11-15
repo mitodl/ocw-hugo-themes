@@ -1,0 +1,11 @@
+<script>
+    function updateContent(element) {
+    var modalContentId = element.getAttribute('data-modal-content-id');
+    var contentDiv = document.getElementById(modalContentId);
+    if (contentDiv) {
+      var content = contentDiv.innerHTML;
+      var modalElement = document.getElementById('exampleModalCenter');
+      modalElement.querySelector('.modal-body').innerHTML = content;
+    }
+  }
+  </script>

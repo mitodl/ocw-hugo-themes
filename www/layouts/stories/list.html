@@ -7,19 +7,54 @@
   {{end}}
   <div class="">
     <div class="row">
-    {{ range $index, $testimonial := $stories  }}
-      {{ if or (eq (mod $index 8) 0) (eq (mod $index 8) 1) }}
-        <div class="row flex-nowrap justify-content-center col-12 col-md-6 col-lg-6 mb-4">
-      {{ else }}  
-        <div class="row flex-nowrap justify-content-center col-12 col-md-6 col-lg-4 mb-4">
-      {{ end }}
-          <div style="padding:10px; flex: 1 1; margin-left: 10px;" class="item-wrapper">
-            {{ partial "stories_card.html" $testimonial }}
+      {{ range $index, $testimonial := $stories }}
+        {{ if or (eq (mod $index 8) 0) (eq (mod $index 8) 1) }}
+          <div class="row flex-nowrap justify-content-center col-12 col-md-6 col-lg-6 mb-4">
+        {{ else }}  
+          <div class="row flex-nowrap justify-content-center col-12 col-md-6 col-lg-4 mb-4">
+        {{ end }}
+            <a 
+              data-modal-content-id="modal-content-{{ $index }}" 
+              class="item-wrapper d-block testimonial-link" 
+              style="padding:10px; flex: 1 1; margin-left: 10px;" 
+              {{ if $testimonial.Params.is_quote }} 
+                onclick="updateContent(this); return false;" 
+                href="#" 
+                data-toggle="modal" 
+                data-target="#exampleModalCenter"
+              {{ else }} 
+                href="{{ $testimonial.RelPermalink }}" 
+              {{ end }}
+            >
+              {{ partial "stories_card.html" (dict "testimonial" $testimonial "index" $index) }}
+            </a>
+            {{ if $testimonial.Params.is_quote }}
+              <div id="modal-content-{{ $index }}" style="display: none;">
+                {{ partial "stories_card.html" (dict "testimonial" $testimonial "context" "modal") }}
+              </div>
+            {{ end }}
           </div>
-        </div>
-    {{ end }}
+      {{ end }}
     </div>
   </div>
   {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
-</div>
-{{ end }}
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 600px" role="document">
+      <div class="modal-content">
+        <!-- <div class="modal-header"> -->
+          <!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+        <!-- </div> -->
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> -->
+        <div class="modal-body" style="padding: 10px;">
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <!-- {{ partialCached "quotes_card_modal_handler.html" . }} -->
+  {{ end }}

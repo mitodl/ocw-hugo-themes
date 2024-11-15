@@ -65,6 +65,15 @@
 
   .item-wrapper {
     padding: 0 10px;
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+  .item-wrapper.testimonial-link {
     max-width: 411px;
     border-radius: 10px;
     border: 1px solid var(--Border-Grey, #dfe5ec);
@@ -73,13 +82,6 @@
     /* Shadow */
     box-shadow: 0px 2px 10px 0px rgba(120, 169, 197, 0.15);
 
-    &:first-child {
-      padding-left: 0;
-    }
-
-    &:last-child {
-      padding-right: 0;
-    }
     // 801px - 991px (tablet)
     @include breakpoint(tablet) {
       max-width: 470.5px;
@@ -94,10 +96,10 @@
     }
   }
 }
-.item-wrapper:hover {
+.item-wrapper.testimonial-link:hover {
   border: 1px solid #a31f34 !important;
 }
-.item-wrapper {
+.item-wrapper.testimonial-link {
   padding: 0 10px;
   // max-width: 411px;
   border-radius: 10px;
@@ -210,6 +212,15 @@
   font-weight: 400;
   line-height: 22px; /* 137.5% */
 }
+div.content {
+  margin-bottom: 20px;
+}
+.modal-body .quote-body {
+}
+.modal-body .quote-body div.content.testimonial-modal {
+  // padding: 0px 20px;
+  margin: 0px;
+}
 
 .view-all-stories-btn:hover {
   color: white !important;
@@ -224,4 +235,32 @@
   //   fill: #fff;
   //   background:white !important;
   // }
+}
+.carousel-inner::after {
+  display: block;
+  clear: both;
+  content: "";
+}
+.modal-dialog-centered::before {
+  display: block !important;
+  height: calc(100vh - 3.5rem) !important;
+  height: -webkit-min-content !important;
+  height: -moz-min-content !important;
+  height: min-content !important;
+}
+.modal {
+  display: block !important;
+  opacity: 0;
+  visibility: hidden;
+  position: fixed !important;
+  z-index: 1050 !important;
+}
+
+.modal.show {
+  opacity: 1;
+  visibility: visible;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

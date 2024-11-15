@@ -1,5 +1,6 @@
 {{ define "main" }}
 {{- $story := . -}}
+
 <div>
   {{ block "header" . }}
   {{ partialCached "header" . }}
@@ -35,29 +36,53 @@
       </div>
       <!-- Sidebar -->
       <div class="col-md-4">
-      <div class="">
-        <h3 class="mb-4">More Stories</h3>
-        <div class="flex-nowrap justify-content-center">
-        {{ range first 3 (where .Site.RegularPages "Type" "==" "stories") }}
-          <div style="padding:10px; flex: 1 1; margin-left: 10px;" class="item-wrapper">
-            {{ partial "stories_card.html" . }}
+        <div>
+          <h3 class="mb-4">More Stories</h3>
+          <div class="flex-nowrap justify-content-center">
+            {{ range $index, $testimonial := first 3 (where .Site.RegularPages "Type" "==" "stories") }}
+              <a 
+                data-modal-content-id="modal-content-{{ $index }}" 
+                class="item-wrapper d-block testimonial-link js-modal-trigger" 
+                style="flex: 1 1; padding:10px; margin-left: 10px;" 
+                {{ if $testimonial.Params.is_quote }} 
+                  href="#" 
+                  data-toggle="modal" 
+                  data-target="#exampleModalCenter"
+                {{ else }} 
+                  href="{{ $testimonial.RelPermalink }}" 
+                {{ end }}
+              >
+                {{ partial "stories_card.html" (dict "testimonial" $testimonial "index" $index) }}
+              </a>
+              <div id="modal-content-{{ $index }}" style="display: none;">
+                {{ partial "stories_card.html" (dict "testimonial" $testimonial "context" "modal") }}
+              </div>
+            {{ end }}
           </div>
-        {{ end }}
-        </div>
-        <div class="d-flex justify-content-center mt-4">
-          <a href="/stories" class="btn px-4 py-3 text-decoration-none d-flex align-items-center" style="padding: 15px 20px; border-radius: 3px; border: 1px solid var(--Border-Grey, #DFE5EC); background: var(--white-mit-brand, #FFF); font-weight: 600; color:#03152D;">
-            View All OCW Stories
-            <img
-              class="ml-2"
-              src="{{ partial "get_asset_webpack_url.html" "images/ocw_stories_btn_arrow_right.svg" }}"
-              alt=""
-            />
-          </a>
+          <div class="d-flex justify-content-center mt-4">
+            <a href="/stories" class="btn px-4 py-3 text-decoration-none d-flex align-items-center" style="padding: 15px 20px; border-radius: 3px; border: 1px solid var(--Border-Grey, #DFE5EC); background: var(--white-mit-brand, #FFF); font-weight: 600; color:#03152D;">
+              View All OCW Stories
+              <img
+                class="ml-2"
+                src="{{ partial "get_asset_webpack_url.html" "images/ocw_stories_btn_arrow_right.svg" }}"
+                alt=""
+              />
+            </a>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   </div>
   {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
 </div>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 600px" role="document">
+    <div class="modal-content">
+      <div class="modal-body" style="padding: 10px;">
+      </div>
+    </div>
+  </div>
+</div>
+
 {{ end }}
