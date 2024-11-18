@@ -6,42 +6,33 @@
     "lg"    (dict "size" 3 "class" "d-none d-lg-flex d-xl-none")
     "xl"    (dict "size" 3 "class" "d-none d-xl-flex")
 -}}
-<div class="test-div">
-  <div class="test-div2">content goes here!</div>
-</div>
 
-<div class="test-div3">empty placeholder content</div>
-
-
-  <div class="home-testimonials mx-auto my-3">
+<div class="home-testimonials mx-auto my-3">
 
     {{ range $breakpoint, $carouselInfo := $breakdowns }}
       {{ $itemsInCarousel := index $carouselInfo "size" }}
       {{ $breakpointVisibilityClass := index $carouselInfo "class" }}
       {{ $carouselId := printf "testimonial-carousel-%v" $breakpoint }}
       <div class="{{ $breakpointVisibilityClass }}">
-        <div class="d-flex flex-direction-row align-items-center justify-content-between w-100">
+        <div class="d-flex flex-direction-row align-items-center justify-content-between w-100 mx-auto carousel slide" data-interval="false" data-touch="true" data-ride="carousel" style="max-width: 1447px;">
           <a href="#{{ $carouselId }}" role="button" data-slide="prev" class="bg-white prev">
             <span class="material-icons" aria-hidden="true" style="font-size: 3.75rem">keyboard_arrow_left</span>
             <span class="sr-only">Previous</span>
           </a>
-          <div id="{{ $carouselId }}" class="carousel slide" data-interval="false" data-touch="true" data-ride="carousel">
-            <h2>OCW Stories</h2>
-            <!-- <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold">
-              {{ if gt (len $stories) 3 }}
-                {{ partial "carousel_controls.html" $carouselId }}
-              {{ end }}
-            </div> -->
-
-            <div class="carousel-inner standard-width container">
+          <div id="{{ $carouselId }}" class="carousel slide standard-width mx-auto" data-interval="false" data-touch="true" data-ride="carousel">
+            <div class="d-flex flex-column">
+            <h2 class="mx-auto">OpenCourseWare Stories</h2>
+            <p class="mx-auto" style="text-align: center">MIT students' stories reflect a relentless pursuit of knowledge and innovation. From coding breakthroughs to launching startups, their journey showcases the Institute's commitment to pushing boundaries and changing the world.</p>
+            </div>
+            <div class="carousel-inner standard-width">
               {{ range $index, $testimonial := $stories }}
                 {{ with $testimonial }}
                   {{ $modulo := mod $index $itemsInCarousel }}
                   {{ $group := div $index $itemsInCarousel }}
                   {{ if eq $modulo 0 }}
-                  <div class="carousel-item row {{ if eq $group 0 }}active{{ end }} flex-nowrap justify-content-center">
+                  <div class="carousel-item row {{ if eq $group 0 }}active{{ end }} flex-nowrap justify-content-between">
                   {{ end }}
-                  <a data-modal-content-id="modal-content-{{ $index }}" class="item-wrapper d-block testimonial-link" style="flex: 1 1; padding:10px; margin-left: 10px;" {{if $testimonial.Params.is_quote}} onclick="updateContent(this); return false;" href="#" data-testimonial="{{ $testimonial }}" data-toggle="modal" data-target="#exampleModalCenter"{{else}}href="{{ $testimonial.RelPermalink }}"{{end}}>
+                  <a data-modal-content-id="modal-content-{{ $index }}" class="item-wrapper d-block testimonial-link {{if $testimonial.Params.is_quote}}js-modal-trigger{{end}}" style="flex: 1 1; padding:10px; margin-left: 10px;" {{if $testimonial.Params.is_quote}} onclick="updateContent(this); return false;" href="#" data-testimonial="{{ $testimonial }}" data-toggle="modal" data-target="#exampleModalCenter"{{else}}href="{{ $testimonial.RelPermalink }}"{{end}}>
                     {{ partial "stories_card.html" (dict "testimonial" $testimonial) }}
                   </a>
                   {{ if $testimonial.Params.is_quote }}
@@ -56,7 +47,7 @@
               {{ end }}
             </div>
           </div>
-          <a href="#{{ $carouselId }}" role="button" data-slide="next" class="bg-white next" >
+          <a href="#{{ $carouselId }}" role="button" data-slide="next" class="bg-white next" tabindex="0">
             <span class="material-icons" aria-hidden="true" style="font-size: 3.75rem">keyboard_arrow_right</span>
             <span class="sr-only">Next</span>
           </a>
@@ -79,23 +70,27 @@
   </div>
 </div>
 
-<!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" style="max-width: 600px" role="document">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 600px; margin: 1rem auto;" role="document">
     <div class="modal-content">
-      <!-- <div class="modal-header"> -->
-        <!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
-      <!-- </div> -->
-      <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button> -->
+      <button type="button" class="close modal-close-btn" data-dismiss="modal" aria-label="Close">
+        <!-- <span aria-hidden="true">&times;</span> -->
+        <img
+        class="p-0 m-0"
+        src="{{ partial "get_asset_webpack_url.html" "images/quote_close.svg" }}"
+        alt=""
+        style="margin-left:10px; color: white;"
+      />
+      </button>
       <div class="modal-body" style="padding: 10px;">
       </div>
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div> -->
     </div>
   </div>
 </div>
-<!-- {{ partialCached "quotes_card_modal_handler.html" . }} -->
+<script>
+  window.addEventListener("load", function () {
+    if (window.initModalHandler) {
+      window.initModalHandler();
+    }
+  });
+</script>

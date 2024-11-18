@@ -10,18 +10,34 @@
     <h1 class="text-white text-center">OCW Stories</h1>
   </div>
   <div class="testimonial-single navbar navbar-light bg-light">
-    <div class="testimonials w-100">
-      <div class="testimonial standard-width mx-auto d-flex">
-        <div style="max-width:180px; width: 100%">
+    <div class="testimonials w-100 standard-width mx-auto">
+      <a href="/stories" class="view-all-stories-left-btn text-decoration-none d-inline-flex align-items-center" style="font-weight: 600;">
+        <img
+          class="view-all-stories-left-arrow"
+          src="{{ partial "get_asset_webpack_url.html" "images/ocw_story_single_arrow_left.svg" }}"
+          alt=""
+          style="margin-right:10px;"
+        />
+        <h1 style="margin: 0; font-size: 35px">OCW Stories</h1>
+      </a>
+      
+      <div class="testimonial standard-width mx-auto d-flex align-items-center">
+        <div style="max-width: 180px; width: 100%;">
           <div class="img-container single-testimonial-page">
-            <img src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $story.Params.image.content).Params.file) }}" alt="" />
+            <img
+              src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $story.Params.image.content).Params.file) }}"
+              alt=""
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+            />
           </div>
         </div>
-        <div class="detail d-flex flex-column flex-nowrap justify-content-between p-0 ml-sm-5">
+        <div class="detail d-flex flex-column flex-nowrap justify-content-center" style="margin-left: 30px;">
           <div class="text">
-            <h2>{{ $story.Title }}</h2>
-            <p class="font-weight-bold">{{ $story.Params.occupation }} | {{ $story.Params.location }}</p>
-            <p class="summary">
+            <h2 style="margin-bottom: 20px; font-size: 30px; font-weight: 700;">{{ $story.Title }}</h2>
+            <p style="margin-bottom: 20px; font-weight: 400;">
+              {{ $story.Params.occupation }} | {{ $story.Params.location }}
+            </p>
+            <p class="summarys mb-0 pb-0" style="font-size: 18px; color: var(--Primary, #03152D); font-weight: 700;">
               "{{ $story.Params.leadquote }}"
             </p>
           </div>
@@ -42,7 +58,7 @@
             {{ range $index, $testimonial := first 3 (where .Site.RegularPages "Type" "==" "stories") }}
               <a 
                 data-modal-content-id="modal-content-{{ $index }}" 
-                class="item-wrapper d-block testimonial-link js-modal-trigger" 
+                class="item-wrapper d-block testimonial-link {{if $testimonial.Params.is_quote}}js-modal-trigger{{end}}" 
                 style="flex: 1 1; padding:10px; margin-left: 10px;" 
                 {{ if $testimonial.Params.is_quote }} 
                   href="#" 
@@ -85,4 +101,11 @@
   </div>
 </div>
 
+<script>
+  window.addEventListener("load", function () {
+    if (window.initModalHandler) {
+      window.initModalHandler();
+    }
+  });
+</script>
 {{ end }}

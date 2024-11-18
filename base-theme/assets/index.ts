@@ -18,6 +18,7 @@ export interface OCWWindow extends Window {
   Sentry: typeof Sentry
   PDFObject: typeof PDFObject
   initVideoJS: () => void
+  initModalHandler: () => void
 }
 
 declare let window: OCWWindow
@@ -38,6 +39,15 @@ window.initVideoJS = () => {
   videoJSLoaded = true
 }
 
+let modalHandlerLoaded = false
+
+window.initModalHandler = () => {
+  if (modalHandlerLoaded) return
+  import("./quotes_card_modal_handler").then(module => {
+    module.initModalHandler()
+  })
+  modalHandlerLoaded = true
+}
 $(function() {
   window.Sentry = initSentry()
   initExternalLinkModal()

@@ -15,7 +15,7 @@
         {{ end }}
             <a 
               data-modal-content-id="modal-content-{{ $index }}" 
-              class="item-wrapper d-block testimonial-link" 
+              class="item-wrapper d-block testimonial-link {{if $testimonial.Params.is_quote}}js-modal-trigger{{end}}" 
               style="padding:10px; flex: 1 1; margin-left: 10px;" 
               {{ if $testimonial.Params.is_quote }} 
                 onclick="updateContent(this); return false;" 
@@ -56,5 +56,11 @@
       </div>
     </div>
   </div>
-  <!-- {{ partialCached "quotes_card_modal_handler.html" . }} -->
+  <script>
+    window.addEventListener("load", function () {
+      if (window.initModalHandler) {
+        window.initModalHandler();
+      }
+    });
+  </script>
   {{ end }}

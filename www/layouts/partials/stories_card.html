@@ -1,10 +1,6 @@
 {{$testimonial := .testimonial}}
 {{$jsurls := .jsurls}}
 {{$context := .context | default "carousel"}}
-<!-- <div>{{$testimonial.Title}}</div> -->
-<!-- <div>{{$jsurls}}</div> -->
-<!-- <div>{{$context}}</div> -->
-<!-- <div>otherwise</div> -->
 <div class="h-100">
     <div class="testimonial d-flex flex-column rounded h-100">
       <div class="testimonial-image-wrapper" style="margin-bottom: 20px">
@@ -17,7 +13,6 @@
       <div class="testimonial-title {{if $testimonial.Params.is_quote}}quote{{ end }}" style="padding: 0px 20px; margin-bottom: 20px">
         <div class="name font-weight-bold" style="font-size: 20px; margin-bottom: 10px;">
           {{ $testimonial.Title }}
-          <!-- <div>{{$context}}</div> -->
         </div>
         <div class="occupation-wrapper d-flex justify-content-between">
           <div class="occupation">
@@ -28,7 +23,7 @@
           </div>
         </div>
       </div>
-      <div class="{{ if not $testimonial.Params.is_quote}}story-body{{ else }}quote-body{{ end }} d-flex flex-column justify-content-between h-100" style="padding: 0px 20px 20px 20px">
+      <div class="{{ if not $testimonial.Params.is_quote}}story-body{{ else }}quote-body{{ end }}{{if eq $context "carousel"}} carousel{{else}}modal{{end}} d-flex flex-column justify-content-between h-100" style="padding: 0px 20px 20px 20px">
         <div class="content {{ if eq $context "carousel" }}testimonial-carousel{{ else }}testimonial-modal{{ end }}">
           {{ $testimonial.Content | plainify | replaceRE "\\s+" " " }}
         </div>
