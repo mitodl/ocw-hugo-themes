@@ -17,6 +17,7 @@ export function initQuotesModalHandler() {
       if (contentDiv.length) {
         const content = contentDiv.html()
         modalElement.find(".modal-body").html(content)
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         modalElement.modal("show")
       } else {
