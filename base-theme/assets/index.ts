@@ -9,6 +9,7 @@ import PDFObject from "pdfobject"
 import "./js/polyfill"
 import "video.js/dist/video-js.css"
 import { initExternalLinkModal } from "./js/external_link_modal"
+import { initQuotesModalHandler } from "./quotes_card_modal_handler"
 import { initVideoDownloadPopup } from "./js/video_download_popup"
 
 export interface OCWWindow extends Window {
@@ -39,16 +40,8 @@ window.initVideoJS = () => {
   videoJSLoaded = true
 }
 
-let modalHandlerLoaded = false
-
-window.initModalHandler = () => {
-  if (modalHandlerLoaded) return
-  import("./quotes_card_modal_handler").then(module => {
-    module.initModalHandler()
-  })
-  modalHandlerLoaded = true
-}
 $(function() {
   window.Sentry = initSentry()
   initExternalLinkModal()
+  initQuotesModalHandler()
 })

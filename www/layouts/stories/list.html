@@ -1,22 +1,27 @@
 {{ define "main" }}
 {{- $pages := .Site.RegularPages -}}
 {{- $stories := where $pages "Type" "==" "stories" -}}
-<div>
+<div class="list-container">
   {{ block "header" . }}
   {{ partialCached "header" . }}
   {{end}}
-  <div class="">
-    <div class="row">
+  <div class="testimonial-single navbar d-flex flex-column">
+    <div class="standard-width container">
+    <h1>OpenCourseWare Stories</h1>
+    <p>MIT students' stories reflect a relentless pursuit of knowledge and innovation. From coding breakthroughs to launching startups, their journey showcases the Institute's commitment to pushing boundaries and changing the world.</p>
+    </div>
+  </div>
+  <div class="standard-width container">
+    <div class="d-flex flex-wrap">
       {{ range $index, $testimonial := $stories }}
         {{ if or (eq (mod $index 8) 0) (eq (mod $index 8) 1) }}
-          <div class="row flex-nowrap justify-content-center col-12 col-md-6 col-lg-6 mb-4">
+          <div class="d-flex flex-nowrap justify-content-center col-12 col-md-6 col-lg-6 m-0 p-0">
         {{ else }}  
-          <div class="row flex-nowrap justify-content-center col-12 col-md-6 col-lg-4 mb-4">
+          <div class="d-flex flex-nowrap justify-content-center col-12 col-md-6 col-lg-4 m-0 p-0">
         {{ end }}
             <a 
               data-modal-content-id="modal-content-{{ $index }}" 
-              class="item-wrapper d-block testimonial-link {{if $testimonial.Params.is_quote}}js-modal-trigger{{end}}" 
-              style="padding:10px; flex: 1 1; margin-left: 10px;" 
+              class="item-wrapper d-block testimonial-link {{if $testimonial.Params.is_quote}}js-modal-trigger{{end}} text-decoration-none" 
               {{ if $testimonial.Params.is_quote }} 
                 onclick="updateContent(this); return false;" 
                 href="#" 
@@ -29,7 +34,7 @@
               {{ partial "stories_card.html" (dict "testimonial" $testimonial "index" $index) }}
             </a>
             {{ if $testimonial.Params.is_quote }}
-              <div id="modal-content-{{ $index }}" style="display: none;">
+              <div id="modal-content-{{ $index }}" class="hidden-modal-content">
                 {{ partial "stories_card.html" (dict "testimonial" $testimonial "context" "modal") }}
               </div>
             {{ end }}
@@ -38,29 +43,5 @@
     </div>
   </div>
   {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 600px" role="document">
-      <div class="modal-content">
-        <!-- <div class="modal-header"> -->
-          <!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
-        <!-- </div> -->
-        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> -->
-        <div class="modal-body" style="padding: 10px;">
-        </div>
-        <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div> -->
-      </div>
-    </div>
-  </div>
-  <script>
-    window.addEventListener("load", function () {
-      if (window.initModalHandler) {
-        window.initModalHandler();
-      }
-    });
-  </script>
+  {{ partial "quotes_modal.html" }}
   {{ end }}

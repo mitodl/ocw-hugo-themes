@@ -3,94 +3,88 @@
 {{- $breakdowns := dict
     "xs-sm" (dict "size" 1 "class" "d-flex d-md-none")
     "md"    (dict "size" 2 "class" "d-none d-md-flex d-lg-none")
-    "lg"    (dict "size" 3 "class" "d-none d-lg-flex d-xl-none")
+    "lg"    (dict "size" 2 "class" "d-none d-lg-flex d-xl-none")
     "xl"    (dict "size" 3 "class" "d-none d-xl-flex")
 -}}
-
+{{ partial "quotes_modal.html" }}
 <div class="home-testimonials mx-auto my-3">
-
-    {{ range $breakpoint, $carouselInfo := $breakdowns }}
-      {{ $itemsInCarousel := index $carouselInfo "size" }}
-      {{ $breakpointVisibilityClass := index $carouselInfo "class" }}
-      {{ $carouselId := printf "testimonial-carousel-%v" $breakpoint }}
-      <div class="{{ $breakpointVisibilityClass }}">
-        <div class="d-flex flex-direction-row align-items-center justify-content-between w-100 mx-auto carousel slide" data-interval="false" data-touch="true" data-ride="carousel" style="max-width: 1447px;">
+  {{ range $breakpoint, $carouselInfo := $breakdowns }}
+    {{ $itemsInCarousel := index $carouselInfo "size" }}
+    {{ $breakpointVisibilityClass := index $carouselInfo "class" }}
+    {{ $isMobile := (eq $itemsInCarousel 1) }}
+    {{ $carouselId := (printf "testimonial-carousel-%v" $breakpoint) }}
+    <div class="{{ $breakpointVisibilityClass }}">
+      <div id="{{ $carouselId }}" class="carousel slide" style="max-width: 1447px;" data-interval="false" data-touch="true" data-ride="carousel">
+        <div class="carousel-header d-flex flex-column mx-auto">
+          <h2 class="mx-auto">OpenCourseWare Stories</h2>
+          <p class="mx-auto text-center">
+            MIT students' stories reflect a relentless pursuit of knowledge and innovation.
+            From coding breakthroughs to launching startups, their journey showcases the Institute's
+            commitment to pushing boundaries and changing the world.
+          </p>
+        </div>
+        <div class="carousel-section d-flex align-items-center">
           <a href="#{{ $carouselId }}" role="button" data-slide="prev" class="bg-white prev">
             <span class="material-icons" aria-hidden="true" style="font-size: 3.75rem">keyboard_arrow_left</span>
             <span class="sr-only">Previous</span>
           </a>
-          <div id="{{ $carouselId }}" class="carousel slide standard-width mx-auto" data-interval="false" data-touch="true" data-ride="carousel">
-            <div class="d-flex flex-column">
-            <h2 class="mx-auto">OpenCourseWare Stories</h2>
-            <p class="mx-auto" style="text-align: center">MIT students' stories reflect a relentless pursuit of knowledge and innovation. From coding breakthroughs to launching startups, their journey showcases the Institute's commitment to pushing boundaries and changing the world.</p>
-            </div>
-            <div class="carousel-inner standard-width">
-              {{ range $index, $testimonial := $stories }}
-                {{ with $testimonial }}
-                  {{ $modulo := mod $index $itemsInCarousel }}
-                  {{ $group := div $index $itemsInCarousel }}
-                  {{ if eq $modulo 0 }}
-                  <div class="carousel-item row {{ if eq $group 0 }}active{{ end }} flex-nowrap justify-content-between">
-                  {{ end }}
-                  <a data-modal-content-id="modal-content-{{ $index }}" class="item-wrapper d-block testimonial-link {{if $testimonial.Params.is_quote}}js-modal-trigger{{end}}" style="flex: 1 1; padding:10px; margin-left: 10px;" {{if $testimonial.Params.is_quote}} onclick="updateContent(this); return false;" href="#" data-testimonial="{{ $testimonial }}" data-toggle="modal" data-target="#exampleModalCenter"{{else}}href="{{ $testimonial.RelPermalink }}"{{end}}>
-                    {{ partial "stories_card.html" (dict "testimonial" $testimonial) }}
-                  </a>
-                  {{ if $testimonial.Params.is_quote }}
-                  <div id="modal-content-{{ $index }}" style="display: none;">
-                    {{ partial "stories_card.html" (dict "testimonial" $testimonial "context" "modal") }}
+          <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
+            {{ range $index, $testimonial := $stories }}
+              {{ with $testimonial }}
+                {{ $modulo := mod $index $itemsInCarousel }}
+                {{ $group := div $index $itemsInCarousel }}
+                {{ if eq $modulo 0 }}
+                <div class="carousel-item {{ if not $isMobile }}row{{ end }} {{ if eq $group 0 }}active{{ end }}">
+                {{ end }}
+                  <div class="item-wrapper {{ if not $isMobile }}col-{{ div 12 $itemsInCarousel }}{{ end }} w-100 d-flex justify-content-center">
+                    <div class="item-wrapper w-100 d-flex justify-content-center">
+                      {{ if $testimonial.Params.is_quote }}
+                        <div id="modal-content-{{ $index }}" style="display: none;">
+                          {{ partial "stories_card.html" (dict "testimonial" $testimonial "context" "modal") }}
+                        </div>
+                      {{ end }}
+                      <a
+                        data-modal-content-id="modal-content-{{ $index }}"
+                        class="d-block w-100 item-wrapper testimonial-link {{ if $testimonial.Params.is_quote }}js-modal-trigger{{ end }}"
+                        style="padding: 10px;"
+                        {{ if $testimonial.Params.is_quote }}
+                          href="#"
+                          data-testimonial="{{ $testimonial }}"
+                          data-toggle="modal"
+                          data-target="#exampleModalCenter"
+                        {{ else }}
+                          href="{{ $testimonial.RelPermalink }}"
+                        {{ end }}
+                      >
+                        {{ partial "stories_card.html" (dict "testimonial" $testimonial) }}
+                      </a>
+                    </div>
                   </div>
-                  {{ end }}
-                  {{ if or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $stories) 1)) }}
-                  </div>
-                  {{ end }}
+                {{ if or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $stories) 1)) }}
+                </div>
                 {{ end }}
               {{ end }}
-            </div>
+            {{ end }}
           </div>
-          <a href="#{{ $carouselId }}" role="button" data-slide="next" class="bg-white next" tabindex="0">
+          <a href="#{{ $carouselId }}" role="button" data-slide="next" class="bg-white next">
             <span class="material-icons" aria-hidden="true" style="font-size: 3.75rem">keyboard_arrow_right</span>
             <span class="sr-only">Next</span>
           </a>
         </div>
       </div>
-    {{ end }}
-    <div class="d-flex justify-content-center my-4">
-      <div class="d-flex justify-content-center my-4">
-        <a href="/stories" class="btn view-all-stories-btn px-4 py-3 text-decoration-none d-flex align-items-center" style="padding: 15px 20px; border-radius: 3px; border: 1px solid var(--Border-Grey, #DFE5EC); background: var(--white-mit-brand, #FFF); font-weight: 600; color:#03152D;">
-          View All OCW Stories
-          <img
-            class="view-all-stories-arrow"
-            src="{{ partial "get_asset_webpack_url.html" "images/ocw_stories_btn_arrow_right.svg" }}"
-            alt=""
-            style="margin-left:10px; color: white;"
-          />
-        </a>
-      </div>
     </div>
-  </div>
-</div>
-
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" style="max-width: 600px; margin: 1rem auto;" role="document">
-    <div class="modal-content">
-      <button type="button" class="close modal-close-btn" data-dismiss="modal" aria-label="Close">
-        <!-- <span aria-hidden="true">&times;</span> -->
-        <img
-        class="p-0 m-0"
-        src="{{ partial "get_asset_webpack_url.html" "images/quote_close.svg" }}"
+  {{ end }}
+  <div class="d-flex justify-content-center my-4">
+    <a
+      href="{{ $storiesSection.RelPermalink }}"
+      class="btn view-all-stories-btn px-4 py-3 text-decoration-none d-flex align-items-center"
+    >
+      View All OCW Stories
+      <img
+        class="view-all-stories-arrow"
+        src="{{ partial "get_asset_webpack_url.html" "images/ocw_stories_btn_arrow_right.svg" }}"
         alt=""
-        style="margin-left:10px; color: white;"
       />
-      </button>
-      <div class="modal-body" style="padding: 10px;">
-      </div>
-    </div>
+    </a>
   </div>
 </div>
-<script>
-  window.addEventListener("load", function () {
-    if (window.initModalHandler) {
-      window.initModalHandler();
-    }
-  });
-</script>

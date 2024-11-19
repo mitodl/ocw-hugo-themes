@@ -1,33 +1,28 @@
 {{ define "main" }}
 {{- $story := . -}}
 
-<div>
+<div class="single-container">
   {{ block "header" . }}
   {{ partialCached "header" . }}
   {{ end }}
   
-  <div class="header-bar bg-secondary py-2 mb-4">
-    <h1 class="text-white text-center">OCW Stories</h1>
-  </div>
-  <div class="testimonial-single navbar navbar-light bg-light">
+  <div class="testimonial-single navbar">
     <div class="testimonials w-100 standard-width mx-auto">
-      <a href="/stories" class="view-all-stories-left-btn text-decoration-none d-inline-flex align-items-center" style="font-weight: 600;">
+      <a href="/stories" class="view-all-stories-left-btn text-decoration-none d-inline-flex align-items-center">
         <img
           class="view-all-stories-left-arrow"
           src="{{ partial "get_asset_webpack_url.html" "images/ocw_story_single_arrow_left.svg" }}"
           alt=""
-          style="margin-right:10px;"
         />
-        <h1 style="margin: 0; font-size: 35px">OCW Stories</h1>
+        <h1>OCW Stories</h1>
       </a>
       
       <div class="testimonial standard-width mx-auto d-flex align-items-center">
-        <div style="max-width: 180px; width: 100%;">
+        <div style="max-width: 200px;">
           <div class="img-container single-testimonial-page">
             <img
               src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $story.Params.image.content).Params.file) }}"
               alt=""
-              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
             />
           </div>
         </div>
@@ -45,21 +40,20 @@
       </div>
     </div>
   </div>
-  <div class="standard-width mx-auto mt-5 mb-5">
+  <div class="container standard-width mx-auto mt-5 mb-5">
     <div class="row">
       <div class="full-testimonial pt-5 pb-3 col-md-8">
         {{ .Content }}
       </div>
       <!-- Sidebar -->
       <div class="col-md-4">
-        <div>
-          <h3 class="mb-4">More Stories</h3>
+        <div class="more-stories">
+          <h3>More Stories</h3>
           <div class="flex-nowrap justify-content-center">
             {{ range $index, $testimonial := first 3 (where .Site.RegularPages "Type" "==" "stories") }}
               <a 
                 data-modal-content-id="modal-content-{{ $index }}" 
-                class="item-wrapper d-block testimonial-link {{if $testimonial.Params.is_quote}}js-modal-trigger{{end}}" 
-                style="flex: 1 1; padding:10px; margin-left: 10px;" 
+                class="item-wrapper d-block testimonial-link {{if $testimonial.Params.is_quote}}js-modal-trigger{{end}} text-decoration-none" 
                 {{ if $testimonial.Params.is_quote }} 
                   href="#" 
                   data-toggle="modal" 
@@ -70,19 +64,14 @@
               >
                 {{ partial "stories_card.html" (dict "testimonial" $testimonial "index" $index) }}
               </a>
-              <div id="modal-content-{{ $index }}" style="display: none;">
+              <div id="modal-content-{{ $index }}" class="hidden-modal-content">
                 {{ partial "stories_card.html" (dict "testimonial" $testimonial "context" "modal") }}
               </div>
             {{ end }}
           </div>
-          <div class="d-flex justify-content-center mt-4">
-            <a href="/stories" class="btn px-4 py-3 text-decoration-none d-flex align-items-center" style="padding: 15px 20px; border-radius: 3px; border: 1px solid var(--Border-Grey, #DFE5EC); background: var(--white-mit-brand, #FFF); font-weight: 600; color:#03152D;">
+          <div>
+            <a href="/stories" class="btn view-all-stories px-4 py-3 text-decoration-none d-flex justify-content-center align-items-center w-100">
               View All OCW Stories
-              <img
-                class="ml-2"
-                src="{{ partial "get_asset_webpack_url.html" "images/ocw_stories_btn_arrow_right.svg" }}"
-                alt=""
-              />
             </a>
           </div>
         </div>
@@ -92,20 +81,5 @@
   {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
 </div>
 
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" style="max-width: 600px" role="document">
-    <div class="modal-content">
-      <div class="modal-body" style="padding: 10px;">
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  window.addEventListener("load", function () {
-    if (window.initModalHandler) {
-      window.initModalHandler();
-    }
-  });
-</script>
+{{ partial "quotes_modal.html" }}
 {{ end }}

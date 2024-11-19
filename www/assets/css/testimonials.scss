@@ -9,14 +9,8 @@ $row-max-height: 200px;
   }
 
   .testimonial {
-    border-bottom: $border-style;
+    // border-bottom: $border-style;
     padding: $row-padding 0;
-
-    img {
-      width: $row-max-height;
-      height: $row-max-height;
-      object-fit: cover;
-    }
 
     .detail {
       h2,
