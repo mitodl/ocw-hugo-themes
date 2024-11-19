@@ -49,7 +49,7 @@ test("Transcripts start time matches video start time", async ({ page }) => {
   expect(urlParams.get("start")).toEqual(expectedStartTime)
 
   await videoSection.expectPlayerReady()
-  await page.waitForLoadState('networkidle')
+  await page.waitForLoadState("networkidle")
   await videoSection.playButton().click({ force: true })
 
   const activeCaption = await videoSection.transcript
