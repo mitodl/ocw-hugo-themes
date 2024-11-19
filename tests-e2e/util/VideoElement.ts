@@ -59,13 +59,12 @@ export class VideoElement {
   }
 
   async expectPlayerReady(): Promise<void> {
-    await expect(async () => {
-      const readyState = await this.frameLocator()
-        .locator("*")
-        .first()
-        .evaluate(() => window.document.readyState)
-      expect(readyState).toEqual("complete")
-    }).toPass()
+    await this.page
+      .frameLocator("iframe")
+      .first()
+      .locator("[aria-label=Play]")
+      .first()
+      .waitFor()
   }
 
   playButton(): Locator {
