@@ -1,4 +1,4 @@
-import { Locator, Page, FrameLocator, expect } from "@playwright/test"
+import { Locator, Page, FrameLocator } from "@playwright/test"
 
 type ByRoleOptions = Parameters<Page["getByRole"]>[1]
 export class VideoElement {
