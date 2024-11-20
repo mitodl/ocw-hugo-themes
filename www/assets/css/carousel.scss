@@ -19,7 +19,9 @@
   }
 
   .carousel-header {
-    max-width: $max-home-width;
+    &:not(.stories-carousel-header) {
+      max-width: $max-home-width;
+    }
     margin: 0;
     align-items: center;
 
@@ -296,6 +298,14 @@ body {
 .home-testimonials {
   max-width: 1447px !important;
   margin: auto !important;
+  padding-top: 60px;
+
+  @include media-breakpoint-down(md) {
+    padding-top: 40px;
+  }
+  @include media-breakpoint-down(sm) {
+    padding-top: 30px;
+  }
 
   .carousel {
     &.slide {
@@ -303,18 +313,25 @@ body {
     }
 
     .carousel-header {
+      margin-bottom: 40px;
+      @include media-breakpoint-down(xs) {
+        margin-bottom: 20px;
+      }
       h2 {
         text-align: center;
         font-size: 32px;
         font-weight: 700;
         line-height: 25px;
         margin-bottom: 20px;
+        @include media-breakpoint-down(xs) {
+          line-height: 40px;
+        }
       }
       p {
         font-size: 18px;
         font-weight: 400;
         line-height: 25px; /* 138.889% */
-        margin-bottom: 30px;
+        margin: 0;
       }
 
       p {
@@ -323,6 +340,7 @@ body {
     }
 
     .carousel-section {
+      // padding-top: 10px;
       .prev,
       .next {
         font-size: 3.75rem !important;
@@ -330,7 +348,6 @@ body {
     }
 
     .carousel-inner {
-      margin-top: 2rem;
       padding: 0;
     }
   }
@@ -461,6 +478,57 @@ body {
       font-weight: 400;
       line-height: 25px;
       text-align: center;
+      margin: 0;
+    }
+  }
+}
+
+.view-all-stories {
+  margin-top: 40px;
+  padding-bottom: 30px;
+  @include media-breakpoint-down(xs) {
+    margin-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+.home-stories-banner {
+  margin-top: 30px;
+  padding-bottom: 60px;
+
+  @include media-breakpoint-down(md) {
+    margin-top: 10px;
+  }
+
+  @include media-breakpoint-down(xs) {
+    margin-top: 0;
+    padding-bottom: 30px;
+  }
+
+  .home-stories-banner-content {
+    background: var(--Primary, #03152d);
+    border-radius: 10px;
+    padding: 40px;
+    color: white;
+
+    @include media-breakpoint-down(md) {
+      padding: 30px;
+    }
+
+    a.share-story-btn {
+      padding: 20px 30px;
+      @include media-breakpoint-down(md) {
+        padding: 16px 20px;
+      }
+    }
+
+    .share-story-title {
+      margin: 0;
+      font-weight: bold;
+      color: white;
+    }
+
+    .share-story-description {
       margin: 0;
     }
   }

@@ -7,7 +7,7 @@
     "xl"    (dict "size" 3 "class" "d-none d-xl-flex")
 -}}
 {{ partial "quotes_modal.html" }}
-<div class="home-testimonials mx-auto my-3">
+<div class="home-testimonials mx-auto">
   {{ range $breakpoint, $carouselInfo := $breakdowns }}
     {{ $itemsInCarousel := index $carouselInfo "size" }}
     {{ $breakpointVisibilityClass := index $carouselInfo "class" }}
@@ -15,7 +15,7 @@
     {{ $carouselId := (printf "testimonial-carousel-%v" $breakpoint) }}
     <div class="{{ $breakpointVisibilityClass }}">
       <div id="{{ $carouselId }}" class="carousel slide" style="max-width: 1447px;" data-interval="false" data-touch="true" data-ride="carousel">
-        <div class="carousel-header d-flex flex-column mx-auto">
+        <div class="carousel-header d-flex flex-column mx-auto container stories-carousel-header">
           <h2 class="mx-auto">OpenCourseWare Stories</h2>
           <p class="mx-auto text-center">
             MIT students' stories reflect a relentless pursuit of knowledge and innovation.
@@ -28,7 +28,7 @@
             <span class="material-icons" aria-hidden="true" style="font-size: 3.75rem">keyboard_arrow_left</span>
             <span class="sr-only">Previous</span>
           </a>
-          <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
+          <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} px-0">
             {{ range $index, $testimonial := $stories }}
               {{ with $testimonial }}
                 {{ $modulo := mod $index $itemsInCarousel }}
@@ -74,7 +74,7 @@
       </div>
     </div>
   {{ end }}
-  <div class="d-flex justify-content-center my-4">
+  <div class="d-flex justify-content-center view-all-stories">
     <a
       href="{{ $storiesSection.RelPermalink }}"
       class="btn view-all-stories-btn px-4 py-3 text-decoration-none d-flex align-items-center"
