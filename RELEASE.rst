@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.118.0
+Version 1.118.0 (Released November 20, 2024)
 ---------------
 
 - Fix issues with Mailchimp newsletter signup (#1469)
