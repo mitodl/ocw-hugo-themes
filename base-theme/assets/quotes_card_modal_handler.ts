@@ -2,7 +2,7 @@ export function initQuotesModalHandler() {
   $(document).ready(() => {
     const modalElement = $(".js-quotes-modal")
 
-    let carouselId: string | undefined
+    // let carouselId: string | undefined
 
     $(".js-modal-trigger").on("click", event => {
       event.preventDefault()
@@ -12,7 +12,7 @@ export function initQuotesModalHandler() {
       const contentDiv = $(`#${modalContentId}`)
 
       const carouselElement = target.closest(".carousel")
-      carouselId = carouselElement.attr("id")
+      // carouselId = carouselElement.attr("id")
 
       if (contentDiv.length) {
         const content = contentDiv.html()
