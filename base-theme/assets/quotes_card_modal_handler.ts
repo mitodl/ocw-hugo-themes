@@ -11,7 +11,7 @@ export function initQuotesModalHandler() {
       const modalContentId = target.data("modal-content-id")
       const contentDiv = $(`#${modalContentId}`)
 
-      const carouselElement = target.closest(".carousel")
+      // const carouselElement = target.closest(".carousel")
       // carouselId = carouselElement.attr("id")
 
       if (contentDiv.length) {
