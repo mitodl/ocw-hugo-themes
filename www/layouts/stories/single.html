@@ -5,7 +5,7 @@
   {{ block "header" . }}
   {{ partialCached "header" . }}
   {{ end }}
-  
+
   <div class="testimonial-single navbar">
     <div class="testimonials w-100 standard-width mx-auto">
       <a href="/stories" class="view-all-stories-left-btn text-decoration-none d-inline-flex align-items-center">
@@ -28,11 +28,11 @@
         </div>
         <div class="detail d-flex flex-column flex-nowrap justify-content-center" style="margin-left: 30px;">
           <div class="text">
-            <h2 style="margin-bottom: 20px; font-size: 30px; font-weight: 700;">{{ $story.Title }}</h2>
-            <p style="margin-bottom: 20px; font-weight: 400;">
+            <h2>{{ $story.Title }}</h2>
+            <p class="occupation">
               {{ $story.Params.occupation }} | {{ $story.Params.location }}
             </p>
-            <p class="summarys mb-0 pb-0" style="font-size: 18px; color: var(--Primary, #03152D); font-weight: 700;">
+            <p class="summary mb-0 pb-0">
               "{{ $story.Params.leadquote }}"
             </p>
           </div>
@@ -40,17 +40,18 @@
       </div>
     </div>
   </div>
-  <div class="container standard-width mx-auto mt-5 mb-5">
+  <div class="container standard-width mx-auto testimonial-content-container">
     <div class="row">
-      <div class="full-testimonial pt-5 pb-3 col-md-8">
+      <div class="full-testimonial col-lg-8">
         {{ .Content }}
       </div>
       <!-- Sidebar -->
-      <div class="col-md-4">
+      <div class="col-12 col-lg-4">
         <div class="more-stories">
           <h3>More Stories</h3>
-          <div class="flex-nowrap justify-content-center">
-            {{ range $index, $testimonial := first 3 (where .Site.RegularPages "Type" "==" "stories") }}
+          <div class="d-flex flex-wrap">
+            {{ range $index, $testimonial := first 4 (where .Site.RegularPages "Type" "==" "stories") }}
+              <div class="d-flex flex-nowrap justify-content-center col-12 col-md-6 col-lg-12 m-0 p-0">
               <a 
                 data-modal-content-id="modal-content-{{ $index }}" 
                 class="item-wrapper d-block testimonial-link {{if $testimonial.Params.is_quote}}js-modal-trigger{{end}} text-decoration-none" 
@@ -67,6 +68,7 @@
               <div id="modal-content-{{ $index }}" class="hidden-modal-content">
                 {{ partial "stories_card.html" (dict "testimonial" $testimonial "context" "modal") }}
               </div>
+            </div>
             {{ end }}
           </div>
           <div>

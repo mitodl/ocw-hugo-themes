@@ -42,6 +42,8 @@
       {{ end }}
     </div>
   </div>
-  {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
-  {{ partial "quotes_modal.html" }}
-  {{ end }}
+</div>
+{{ partial "home_stories_banner.html" }}
+{{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
+{{ partial "quotes_modal.html" }}
+{{ end }}

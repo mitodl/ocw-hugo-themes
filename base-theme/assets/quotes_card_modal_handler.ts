@@ -1,6 +1,6 @@
 export function initQuotesModalHandler() {
   $(document).ready(() => {
-    const modalElement = $("#exampleModalCenter")
+    const modalElement = $(".js-quotes-modal")
 
     let carouselId: string | undefined
 
@@ -25,14 +25,14 @@ export function initQuotesModalHandler() {
       }
     })
 
-    modalElement.on("shown.bs.modal", () => {
-      modalElement.focus()
-    })
+    // modalElement.on("shown.bs.modal", () => {
+    //   modalElement.focus()
+    // })
 
-    modalElement.on("hidden.bs.modal", () => {
-      if (carouselId) {
-        $(`#${carouselId}`).focus()
-      }
-    })
+    // modalElement.on("hidden.bs.modal", () => {
+    //   if (carouselId) {
+    //     $(`#${carouselId}`).focus()
+    //   }
+    // })
   })
 }

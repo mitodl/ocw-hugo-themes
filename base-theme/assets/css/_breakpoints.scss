@@ -15,10 +15,6 @@
     @media (max-width: 800px) {
       @content;
     }
-  } @else if $name == sm-mobile {
-    @media (max-width: 767px) {
-      @content;
-    }
   } @else if $name == phone {
     @media (max-width: 580px) {
       @content;

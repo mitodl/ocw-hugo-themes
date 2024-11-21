@@ -179,6 +179,7 @@
     height: 100%;
     object-fit: cover;
     border-radius: 5px;
+    object-position: 50% 25%;
   }
 }
 .story-body div {
@@ -424,13 +425,16 @@ body {
       font-size: 22px;
       font-weight: 700;
       line-height: 28px;
-      padding: 0 0 20px 0;
+      @include media-breakpoint-down(md) {
+        padding: 30px 0 10px 0;
+      }
       margin: 0;
     }
     .item-wrapper.testimonial-link {
       flex: 1 1;
       padding: 10px;
       margin-top: 16px;
+      margin-right: 16px;
     }
     .hidden-modal-content {
       display: none;
@@ -532,4 +536,7 @@ body {
       margin: 0;
     }
   }
+}
+.home-testimonials .carousel-item {
+  padding: 0 8px;
 }
