@@ -17,8 +17,12 @@
       </div>
       <div class="col-12 col-md-9">
         This package contains the same content as the online version of the course
-        {{- if $containsVideos }}, <em>except for the audio/video materials</em>. These can be downloaded below{{ end }}.
-        For help downloading and using course materials, read our {{ partial "link.html" (dict "href" $zenDeskUrl "text" "FAQs" "target" "_blank") }}.
+        {{- if $containsVideos }}, <em>except for the audio/video materials</em>, which can be downloaded using the links below{{ end }}. Once downloaded, follow the steps below.
+        For more help using these materials, read our {{ partial "link.html" (dict "href" $zenDeskUrl "text" "FAQs" "target" "_blank") }}.
+        <ol>
+          <li>To open the homepage, click on the <strong>index.html</strong> file.</li>
+          <li>To find the course resource files such as PDFs, open the <strong>static_resources</strong> folder.</li>
+        </ol>
       </div>
     </div>
   </div>
