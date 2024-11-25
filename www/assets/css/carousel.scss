@@ -134,6 +134,9 @@
   @include breakpoint(desktop) {
     margin-right: 70px;
   }
+  @media (min-width: 768px) and (max-width: 800px) {
+    margin-right: 30px;
+  }
 }
 .quotation-btn {
   position: relative;
@@ -182,13 +185,14 @@
     object-position: 50% 25%;
   }
 }
-.story-body div {
+.story-body .content {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 5;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .quote-body div.content {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -207,6 +211,15 @@
 }
 div.content {
   margin-bottom: 20px;
+}
+.occupation-wrapper {
+  font-weight: 400;
+  color: var(--Dark, #0f0f0f);
+}
+div.content.testimonial-modal {
+  font-style: italic;
+  padding-left: 20px;
+  border-left: 1px solid var(--DarkBorder, #9c9d9e);
 }
 .modal-body .quote-body {
 }
@@ -305,7 +318,7 @@ body {
     padding-top: 40px;
   }
   @include media-breakpoint-down(sm) {
-    padding-top: 30px;
+    padding-top: 20px;
   }
 
   .carousel {
@@ -371,7 +384,7 @@ body {
   padding: 15px 20px;
   border-radius: 3px;
   border: 1px solid var(--Border-Grey, #dfe5ec) !important;
-  background: var(--white-mit-brand, #fff);
+  background: var(--white-mit-brand, #fff) !important;
   font-weight: 600 !important;
   color: #03152d !important;
 
@@ -395,7 +408,7 @@ body {
 }
 //  Single styling
 .single-container {
-  .testimonial-single.navbar {
+  .testimonial-banner {
     border-bottom: 1px solid var(--Border-Grey, #dfe5ec);
     background: var(--Background-Grey, #f0f5f7);
     box-shadow: 0px 2px 10px 0px rgba(120, 169, 197, 0.15);
@@ -459,18 +472,18 @@ body {
   }
   .item-wrapper {
     margin-top: 1rem;
-    margin-right: 1rem;
+    // margin-right: 1rem;
     // margin-right: 1rem;
     // &:nth-child(1),
     // &:nth-child(2) {
     //   margin-top: 0;
     // }
   }
-  .testimonial-single.navbar {
+  .testimonial-banner {
     border-bottom: 1px solid var(--Border-Grey, #dfe5ec);
     background: var(--Background-Grey, #f0f5f7);
     box-shadow: 0px 2px 10px 0px rgba(120, 169, 197, 0.15);
-    padding: 50px 100px;
+    // padding: 50px 100px;
     h1 {
       font-size: 35px;
       font-weight: 700;
@@ -539,4 +552,17 @@ body {
 }
 .home-testimonials .carousel-item {
   padding: 0 8px;
+}
+.story-body.carousel,
+.quote-body.carousel {
+  min-height: 196px;
+}
+
+.list-container {
+  .standard-width.container {
+    padding-top: 34px;
+    @include media-breakpoint-down(xs) {
+      padding-top: 4px;
+    }
+  }
 }

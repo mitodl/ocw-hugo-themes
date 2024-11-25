@@ -1,12 +1,7 @@
-$border-style: 1px solid $medium-gray;
 $row-padding: 20px;
 $row-max-height: 200px;
 
-.testimonial-single {
-  .full-testimonial {
-    border-bottom: $border-style;
-  }
-
+.testimonial-banner {
   .testimonial {
     padding: $row-padding 0;
 
@@ -27,12 +22,32 @@ $row-max-height: 200px;
     padding-bottom: 20px;
   }
 }
-.testimonial-single.navbar {
+.testimonial-banner {
   .testimonials {
     padding: 30px 15px;
   }
 }
-
+.testimonial-banner.list {
+  .standard-width.container {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    @include media-breakpoint-down(xs) {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+  h1 {
+    margin-bottom: 20px !important;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 20px;
+    @include media-breakpoint-down(xs) {
+      line-height: 40px;
+      margin-bottom: 20px !important;
+    }
+  }
+}
 .testimonial {
   .detail {
     .text {

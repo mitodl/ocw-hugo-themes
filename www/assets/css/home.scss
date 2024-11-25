@@ -795,3 +795,12 @@ a.share-story-btn {
   background: var(--white, #fff);
   border-radius: 3px;
 }
+.list-container {
+  .stories-list-item-container {
+    margin-right: -16px !important;
+  }
+}
+
+.stories-list-item > a {
+  margin-right: 16px !important;
+}

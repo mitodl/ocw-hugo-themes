@@ -5,19 +5,19 @@
   {{ block "header" . }}
   {{ partialCached "header" . }}
   {{end}}
-  <div class="testimonial-single navbar d-flex flex-column">
-    <div class="standard-width container">
+  <div class="testimonial-banner list d-flex flex-column">
+    <div class="standard-width container text-center">
     <h1>OpenCourseWare Stories</h1>
     <p>MIT students' stories reflect a relentless pursuit of knowledge and innovation. From coding breakthroughs to launching startups, their journey showcases the Institute's commitment to pushing boundaries and changing the world.</p>
     </div>
   </div>
   <div class="standard-width container">
-    <div class="d-flex flex-wrap">
+    <div class="d-flex flex-wrap stories-list-item-container">
       {{ range $index, $testimonial := $stories }}
         {{ if or (eq (mod $index 8) 0) (eq (mod $index 8) 1) }}
-          <div class="d-flex flex-nowrap justify-content-center col-12 col-md-6 col-lg-6 m-0 p-0">
+          <div class="d-flex flex-nowrap justify-content-center col-12 col-md-6 col-lg-6 p-0 stories-list-item">
         {{ else }}  
-          <div class="d-flex flex-nowrap justify-content-center col-12 col-md-6 col-lg-4 m-0 p-0">
+          <div class="d-flex flex-nowrap justify-content-center col-12 col-md-6 col-lg-4 p-0 stories-list-item">
         {{ end }}
             <a 
               data-modal-content-id="modal-content-{{ $index }}" 
