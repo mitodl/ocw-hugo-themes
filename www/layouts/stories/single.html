@@ -49,7 +49,7 @@
       <div class="col-12 col-lg-4">
         <div class="more-stories">
           <h3>More Stories</h3>
-          <div class="d-flex flex-wrap">
+          <div class="d-flex flex-wrap more-stories-item-cards-wrapper">
             {{ range $index, $testimonial := first 4 (where .Site.RegularPages "Type" "==" "stories") }}
               <div class="d-flex flex-nowrap justify-content-center col-12 col-md-6 col-lg-12 m-0 p-0">
               <a 
