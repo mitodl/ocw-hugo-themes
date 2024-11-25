@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.118.1
+Version 1.118.1 (Released November 25, 2024)
 ---------------
 
 - Update text on Download Course page (#1471)
