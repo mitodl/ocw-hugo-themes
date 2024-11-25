@@ -17,6 +17,10 @@ $row-max-height: 200px;
   .row {
     padding-top: 40px;
     padding-bottom: 40px;
+    @include media-breakpoint-down(xs) {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
   }
   .more-stories h3 {
     padding-bottom: 20px;
@@ -25,6 +29,10 @@ $row-max-height: 200px;
 .testimonial-banner {
   .testimonials {
     padding: 30px 15px;
+    @include media-breakpoint-down(xs) {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
   }
 }
 .testimonial-banner.list {
