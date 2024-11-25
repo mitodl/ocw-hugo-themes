@@ -31,11 +31,11 @@
                 href="{{ $testimonial.RelPermalink }}" 
               {{ end }}
             >
-              {{ partial "stories_card.html" (dict "testimonial" $testimonial "index" $index) }}
+              {{ partial "stories_card.html" (dict "testimonial" $testimonial "index" $index "source" "list") }}
             </a>
             {{ if $testimonial.Params.is_quote }}
               <div id="modal-content-{{ $index }}" class="hidden-modal-content">
-                {{ partial "stories_card.html" (dict "testimonial" $testimonial "context" "modal") }}
+                {{ partial "stories_card.html" (dict "testimonial" $testimonial "context" "modal" "source" "list") }}
               </div>
             {{ end }}
           </div>
@@ -43,7 +43,7 @@
     </div>
   </div>
 </div>
-{{ partial "home_stories_banner.html" }}
+{{ partial "home_stories_banner.html" (dict "source" "list")}}
 {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
 {{ partial "quotes_modal.html" }}
 {{ end }}

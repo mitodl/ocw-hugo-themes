@@ -11,9 +11,15 @@
         >
       </div>
       <div class="testimonial-title {{if $testimonial.Params.is_quote}}quote{{ end }}" style="padding: 0px 20px; margin-bottom: 20px">
+        {{if eq .source "list"}}
+        <h2 class="name" style="font-size: 20px; margin-bottom: 10px;">
+          {{ $testimonial.Title }}
+        </h2>
+        {{else}}
         <div class="name font-weight-bold" style="font-size: 20px; margin-bottom: 10px;">
           {{ $testimonial.Title }}
         </div>
+        {{end}}
         <div class="occupation-wrapper d-flex justify-content-between">
           <div class="occupation">
             {{ $testimonial.Params.occupation }}
