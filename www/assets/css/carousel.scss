@@ -92,8 +92,8 @@
     @include breakpoint(mobile) {
       max-width: 335px;
     }
-    // <= 767px (sm-mobile)
-    @include breakpoint(sm-mobile) {
+    // <= 767px (mobile-sm)
+    @include breakpoint(mobile-sm) {
       max-width: 650px;
     }
   }
@@ -514,11 +514,11 @@ body {
   padding-bottom: 60px;
 
   @include media-breakpoint-down(md) {
-    margin-top: 10px;
+    margin-top: 20px;
   }
 
   @include media-breakpoint-down(xs) {
-    margin-top: 0;
+    // margin-top: 0;
     padding-bottom: 30px;
   }
 
@@ -540,9 +540,11 @@ body {
     }
 
     .share-story-title {
-      margin: 0;
+      margin-bottom: 0.25rem;
       font-weight: bold;
       color: white;
+      font-size: 22px;
+      text-transform: none;
     }
 
     .share-story-description {
