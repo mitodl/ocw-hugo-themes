@@ -196,21 +196,46 @@
   text-overflow: ellipsis;
 }
 
+// .quote-body div.content {
+//   display: -webkit-box;
+//   -webkit-box-orient: vertical;
+//   -webkit-line-clamp: 6;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   border-left: 1px solid var(--DarkBorder, #9c9d9e);
+//   padding-left: 20px;
+//   align-self: stretch;
+//   color: hsl(0, 0%, 0%);
+//   text-overflow: ellipsis;
+//   font-size: 16px;
+//   font-style: italic;
+//   font-weight: 400;
+//   line-height: 22px; /* 137.5% */
+// }
+
 .quote-body div.content {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 6;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-left: 1px solid var(--DarkBorder, #9c9d9e);
+  position: relative; /* Required for pseudo-element positioning */
   padding-left: 20px;
   align-self: stretch;
   color: hsl(0, 0%, 0%);
-  text-overflow: ellipsis;
   font-size: 16px;
   font-style: italic;
   font-weight: 400;
-  line-height: 22px; /* 137.5% */
+  line-height: 22px;
+}
+.quote-body div.content::before {
+  content: ""; /* Creates the pseudo-element */
+  position: absolute;
+  left: 0; /* Place the border at the left edge */
+  top: 5px; /* Start the border slightly below the top */
+  height: 93%; /* Adjust height for the border */
+  width: 1px; /* Thickness of the border */
+  background-color: var(--DarkBorder, #9c9d9e); /* Border color */
 }
 div.content {
   margin-bottom: 18px;
@@ -590,10 +615,15 @@ body {
 .single-container .testimonial-banner .detail {
   margin-left: 30px;
 }
-.story-body {
-  padding: 0px 20px 18px 20px;
+.story-body,
+.quote-body {
+  padding: 0px 20px 10px 20px;
 }
 
-.quote-body {
-  padding: 0px 20px 14px 20px;
-}
+// .story-body {
+//   padding: 0px 20px 10px 20px;
+// }
+
+// .quote-body {
+//   padding: 0px 20px 6px 20px;
+// }
