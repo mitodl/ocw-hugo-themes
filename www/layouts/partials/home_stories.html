@@ -41,7 +41,7 @@
                   <div class="item-wrapper {{ if not $isMobile }}col-{{ div 12 $itemsInCarousel }}{{ end }} w-100 d-flex justify-content-center">
                     <div class="item-wrapper w-100 d-flex justify-content-center">
                       {{ if $testimonial.Params.is_quote }}
-                        <div id="modal-content-{{ $index }}" style="display: none;">
+                        <div id="modal-content-{{ $index }}" class="hidden-modal-content">
                           {{ partial "testimonial_card.html" (dict "testimonial" $testimonial "context" "modal") }}
                         </div>
                       {{ end }}

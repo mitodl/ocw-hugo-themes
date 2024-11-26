@@ -1,6 +1,6 @@
 export function initQuotesModalHandler() {
   $(document).ready(() => {
-    const modalElement = $(".js-quotes-modal")
+    const modalElement = $(".js-quote-modal")
 
     $(".js-modal-trigger").on("click", event => {
       event.preventDefault()
