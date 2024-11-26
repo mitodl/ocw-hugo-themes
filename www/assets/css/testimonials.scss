@@ -32,27 +32,7 @@ $row-max-height: 200px;
     }
   }
 }
-.testimonial-banner.list {
-  .standard-width.container {
-    padding-top: 50px;
-    padding-bottom: 50px;
-    @include media-breakpoint-down(xs) {
-      padding-top: 20px;
-      padding-bottom: 20px;
-    }
-  }
-  h1 {
-    margin-bottom: 20px !important;
-    text-align: center;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 20px;
-    @include media-breakpoint-down(xs) {
-      line-height: 40px;
-      margin-bottom: 20px !important;
-    }
-  }
-}
+
 .testimonial {
   .detail {
     .text {
@@ -211,6 +191,23 @@ $row-max-height: 200px;
     padding-bottom: 30px;
   }
 
+  .quotation-btn {
+    position: relative;
+  }
+
+  .quotation-btn::before {
+    content: "”";
+    position: absolute;
+    right: -4px;
+    top: -0.64rem;
+    color: white;
+    color: var(--white, var(--white-mit-brand, #fff));
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30px;
+  }
+
   .home-stories-banner-content {
     background: var(--Primary, #03152d);
     border-radius: 10px;
@@ -242,6 +239,7 @@ $row-max-height: 200px;
     }
   }
 }
+
 .home-testimonials .carousel-item {
   padding: 0 8px;
 }
@@ -273,6 +271,27 @@ $row-max-height: 200px;
 
 // List styling
 .testimonial-list-container {
+  .testimonial-banner.list {
+    .standard-width.container {
+      padding-top: 50px;
+      padding-bottom: 50px;
+      @include media-breakpoint-down(xs) {
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+    }
+    h1 {
+      margin-bottom: 20px !important;
+      text-align: center;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 20px;
+      @include media-breakpoint-down(xs) {
+        line-height: 40px;
+        margin-bottom: 20px !important;
+      }
+    }
+  }
   .standard-width.container > * {
     margin: 0 auto;
   }

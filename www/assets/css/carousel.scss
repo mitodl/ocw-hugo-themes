@@ -121,22 +121,7 @@
     margin-right: 30px;
   }
 }
-.quotation-btn {
-  position: relative;
-}
 
-.quotation-btn::before {
-  content: "”";
-  position: absolute;
-  right: -4px;
-  top: -0.64rem;
-  color: white;
-  color: var(--white, var(--white-mit-brand, #fff));
-  font-size: 50px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 30px;
-}
 .testimonial-title.quote {
   position: relative;
 }
