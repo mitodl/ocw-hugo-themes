@@ -79,9 +79,10 @@ $row-max-height: 200px;
   }
 }
 
+// Override bootstrap's .modal-dialog properties using !important
 .quote-modal-dialog {
-  max-width: 600px;
-  margin: 1rem auto;
+  max-width: 600px !important;
+  margin: 1rem auto !important;
 }
 
 .modal-close-icon {
@@ -91,10 +92,6 @@ $row-max-height: 200px;
 
 .quote-modal-body {
   padding: 10px !important;
-}
-.quote-modal-close-img {
-  margin-left: 10px;
-  color: white;
 }
 
 .testimonial-card {
