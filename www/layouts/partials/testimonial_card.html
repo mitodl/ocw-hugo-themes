@@ -31,12 +31,12 @@
     <div class="{{ if not $testimonial.Params.is_quote }}story-body carousel{{ else if eq $context "carousel" }}quote-body carousel{{ else }}quote-body-dialog{{ end }} d-flex flex-column justify-content-between h-100">
       <div class="content {{ if eq $context "carousel" }}testimonial-carousel{{ else }}testimonial-modal{{ end }}">
         <span>
-          {{ $testimonial.Content | plainify | replaceRE "\\s+" " " }}
+          {{ if $testimonial.Params.is_quote }} {{ $testimonial.Params.leadquote }}{{ else }}{{ $testimonial.Content | plainify | replaceRE "\\s+" " " }}{{ end }}
         </span>
       </div>
       <div>
         <span class="read-full-testimonial">
-        {{ if and (eq $testimonial.Params.is_quote true) (eq $context "carousel") }}Read Full Quote{{ else if not $testimonial.Params.is_quote }}Read Full Story{{ end }}
+          {{ if and (eq $testimonial.Params.is_quote true) (eq $context "carousel") }}Read Full Quote{{ else if not $testimonial.Params.is_quote }}Read Full Story{{ end }}
         </span>
       </div>
     </div>

@@ -6,7 +6,6 @@
   "lg"    (dict "size" 2 "class" "d-none d-lg-flex d-xl-none")
   "xl"    (dict "size" 3 "class" "d-none d-xl-flex")
 -}}
-{{ partial "testimonial_quote_modal.html" }}
 <div class="home-testimonials mx-auto">
   {{ range $breakpoint, $carouselInfo := $breakdowns }}
     {{ $itemsInCarousel := index $carouselInfo "size" }}
@@ -90,3 +89,4 @@
     </a>
   </div>
 </div>
+{{ partial "testimonial_quote_modal.html" }}
