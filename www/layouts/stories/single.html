@@ -1,6 +1,5 @@
 {{ define "main" }}
 {{- $story := . -}}
-
 <div class="testimonial-single-container">
   {{ block "header" . }}
   {{ partialCached "header" . }}
@@ -79,5 +78,5 @@
   </div>
   {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
 </div>
-{{ partial "quotes_modal.html" }}
+{{ partial "testimonial_quote_modal.html" }}
 {{ end }}
