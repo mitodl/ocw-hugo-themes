@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="{{ if not $testimonial.Params.is_quote}}story-body{{ else }}quote-body{{ end }}{{if eq $context "carousel"}} carousel{{else}}modal{{end}} d-flex flex-column justify-content-between h-100">
+      <div class="{{ if not $testimonial.Params.is_quote }}story-body{{ else if eq $context "carousel" }}quote-body carousel{{ else }}quote-body-dialog{{ end }} d-flex flex-column justify-content-between h-100">
         <div class="content {{ if eq $context "carousel" }}testimonial-carousel{{ else }}testimonial-modal{{ end }}">
           <span>
             {{ $testimonial.Content | plainify | replaceRE "\\s+" " " }}

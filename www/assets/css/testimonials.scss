@@ -78,3 +78,17 @@ $row-max-height: 200px;
     }
   }
 }
+
+.quotes-modal-dialog {
+  max-width: 600px;
+  margin: 1rem auto;
+}
+
+.modal-close-icon {
+  margin-left: 10px;
+  color: white;
+}
+
+.quotes-modal-body {
+  padding: 10px;
+}
