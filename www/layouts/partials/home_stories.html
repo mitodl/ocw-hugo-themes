@@ -42,7 +42,7 @@
                     <div class="item-wrapper w-100 d-flex justify-content-center">
                       {{ if $testimonial.Params.is_quote }}
                         <div id="modal-content-{{ $index }}" style="display: none;">
-                          {{ partial "stories_card.html" (dict "testimonial" $testimonial "context" "modal") }}
+                          {{ partial "testimonial_card.html" (dict "testimonial" $testimonial "context" "modal") }}
                         </div>
                       {{ end }}
                       <a
@@ -57,7 +57,7 @@
                           href="{{ $testimonial.RelPermalink }}"
                         {{ end }}
                       >
-                        {{ partial "stories_card.html" (dict "testimonial" $testimonial) }}
+                        {{ partial "testimonial_card.html" (dict "testimonial" $testimonial) }}
                       </a>
                     </div>
                   </div>

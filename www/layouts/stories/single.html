@@ -60,10 +60,10 @@
                   href="{{ $testimonial.RelPermalink }}" 
                 {{ end }}
               >
-                {{ partial "stories_card.html" (dict "testimonial" $testimonial "index" $index) }}
+                {{ partial "testimonial_card.html" (dict "testimonial" $testimonial "index" $index) }}
               </a>
               <div id="modal-content-{{ $index }}" class="hidden-modal-content">
-                {{ partial "stories_card.html" (dict "testimonial" $testimonial "context" "modal") }}
+                {{ partial "testimonial_card.html" (dict "testimonial" $testimonial "context" "modal") }}
               </div>
             </div>
             {{ end }}

@@ -1,14 +1,48 @@
-{{- $testimonial := . -}}
-<a href="{{ $testimonial.RelPermalink }}" class="testimonial-link">
-  <div
-    class="testimonial d-flex flex-column justify-content-end rounded"
-    style="background-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000000 100%), url({{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $testimonial.Params.image.content).Params.file) }});"
-  >
-    <div class="name font-weight-bold pl-3">
-      {{ $testimonial.Title }}
+{{ $testimonial := .testimonial}}
+{{ $context := .context | default "carousel" }}
+<div class="h-100 testimonial-card">
+  <div class="testimonial d-flex flex-column rounded h-100">
+    <div class="testimonial-image-wrapper" style="margin-bottom: 20px">
+      <img 
+        src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $testimonial.Params.image.content).Params.file) }}" 
+        alt="{{ $testimonial.Title }}" 
+        class="testimonial-image"
+      >
     </div>
-    <div class="occupation-location pl-3 pb-2">
-      {{ $testimonial.Params.occupation }} - {{ $testimonial.Params.location }}
+    <div class="testimonial-title {{if $testimonial.Params.is_quote}}quote{{ end }}" style="padding: 0px 20px; margin-bottom: 16px">
+      {{ if eq .source "list" }}
+      <h2 class="name" style="font-size: 20px; margin-bottom: 5px;">
+        {{ $testimonial.Title }}
+      </h2>
+      {{ else }}
+      <div class="name font-weight-bold" style="font-size: 20px; margin-bottom: 5px;">
+        {{ $testimonial.Title }}
+      </div>
+      {{ end }}
+      <div class="occupation-wrapper d-flex justify-content-between">
+        <div class="occupation">
+          {{ $testimonial.Params.occupation }}
+        </div>
+        <div class="occupation-location">
+          {{ $testimonial.Params.location }}
+        </div>
+      </div>
+    </div>
+    <div class="{{ if not $testimonial.Params.is_quote }}story-body{{ else if eq $context "carousel" }}quote-body carousel{{ else }}quote-body-dialog{{ end }} d-flex flex-column justify-content-between h-100">
+      <div class="content {{ if eq $context "carousel" }}testimonial-carousel{{ else }}testimonial-modal{{ end }}">
+        <span>
+          {{ $testimonial.Content | plainify | replaceRE "\\s+" " " }}
+        </span>
+      </div>
+      {{ if and (eq $testimonial.Params.is_quote true) (eq $context "carousel") }}
+        <div>
+          <span class="read-full-testimonial">Read Full Quote</span>
+        </div>
+      {{ else if not $testimonial.Params.is_quote }}
+        <div>
+          <span class="read-full-testimonial">Read Full Story</span>
+        </div>
+      {{ end }}
     </div>
   </div>
-</a>
+</div>

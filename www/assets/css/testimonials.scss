@@ -92,3 +92,24 @@ $row-max-height: 200px;
 .quotes-modal-body {
   padding: 10px;
 }
+
+.testimonial-card {
+  .testimonial-image-wrapper {
+    margin-bottom: 20px;
+  }
+
+  .testimonial-title {
+    padding: 0px 20px;
+    margin-bottom: 16px;
+  }
+
+  .testimonial-title .name {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+
+  .testimonial-title .name.font-weight-bold {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+}
