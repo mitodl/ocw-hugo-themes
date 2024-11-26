@@ -1,7 +1,7 @@
 {{ define "main" }}
 {{- $pages := .Site.RegularPages -}}
 {{- $stories := where $pages "Type" "==" "stories" -}}
-<div class="list-container">
+<div class="testimonial-list-container">
   {{ block "header" . }}
   {{ partialCached "header" . }}
   {{end}}

@@ -95,6 +95,12 @@ $row-max-height: 200px;
 }
 
 .testimonial-card {
+  .content.testimonial-modal {
+    margin-bottom: 18px;
+  }
+  .content {
+    margin-bottom: 10px;
+  }
   .testimonial-image-wrapper {
     margin-bottom: 20px;
   }
