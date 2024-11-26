@@ -5,7 +5,6 @@
   {{ block "header" . }}
   {{ partialCached "header" . }}
   {{ end }}
-
   <div class="testimonial-banner">
     <div class="testimonials w-100 standard-width mx-auto">
       <a href="/stories" class="view-all-stories-left-btn text-decoration-none d-inline-flex align-items-center">
@@ -16,9 +15,8 @@
         />
         <h1>OCW Stories</h1>
       </a>
-      
       <div class="testimonial standard-width mx-auto d-flex align-items-center">
-        <div style="max-width: 200px;">
+        <div class="single-testimonial-image-wrapper">
           <div class="img-container single-testimonial-page">
             <img
               src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $story.Params.image.content).Params.file) }}"
@@ -26,7 +24,7 @@
             />
           </div>
         </div>
-        <div class="detail d-flex flex-column flex-nowrap justify-content-center" style="margin-left: 30px;">
+        <div class="detail d-flex flex-column flex-nowrap justify-content-center">
           <div class="text">
             <h2>{{ $story.Title }}</h2>
             <p class="occupation">
@@ -58,7 +56,6 @@
                 {{ if $testimonial.Params.is_quote }} 
                   href="#" 
                   data-toggle="modal" 
-                  data-target="#exampleModalCenter"
                 {{ else }} 
                   href="{{ $testimonial.RelPermalink }}" 
                 {{ end }}
