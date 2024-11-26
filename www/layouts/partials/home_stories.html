@@ -1,10 +1,10 @@
 {{- $stories := where .Site.RegularPages "Type" "==" "stories" -}}
 {{- $storiesSection := .Site.GetPage "section" "stories" -}}
 {{- $breakdowns := dict
-    "xs-sm" (dict "size" 1 "class" "d-flex d-md-none")
-    "md"    (dict "size" 2 "class" "d-none d-md-flex d-lg-none")
-    "lg"    (dict "size" 2 "class" "d-none d-lg-flex d-xl-none")
-    "xl"    (dict "size" 3 "class" "d-none d-xl-flex")
+  "xs-sm" (dict "size" 1 "class" "d-flex d-md-none")
+  "md"    (dict "size" 2 "class" "d-none d-md-flex d-lg-none")
+  "lg"    (dict "size" 2 "class" "d-none d-lg-flex d-xl-none")
+  "xl"    (dict "size" 3 "class" "d-none d-xl-flex")
 -}}
 {{ partial "quotes_modal.html" }}
 <div class="home-testimonials mx-auto">
@@ -14,7 +14,7 @@
     {{ $isMobile := (eq $itemsInCarousel 1) }}
     {{ $carouselId := (printf "testimonial-carousel-%v" $breakpoint) }}
     <div class="{{ $breakpointVisibilityClass }}">
-      <div id="{{ $carouselId }}" class="carousel slide" style="max-width: 1447px;" data-interval="false" data-touch="true" data-ride="carousel">
+      <div id="{{ $carouselId }}" class="carousel slide home-stories-carousel" data-interval="false" data-touch="true" data-ride="carousel">
         <div class="carousel-header d-flex flex-column mx-auto container stories-carousel-header">
           <h2 class="mx-auto">OpenCourseWare Stories</h2>
           <p class="mx-auto text-center">
@@ -26,7 +26,7 @@
         <div class="carousel-section d-flex align-items-center">
           {{ if gt (len $stories) 3 }}
             <a href="#{{ $carouselId }}" role="button" data-slide="prev" class="bg-white prev">
-              <span class="material-icons" aria-hidden="true" style="font-size: 3.75rem">keyboard_arrow_left</span>
+              <span class="material-icons carousel-arrow-left" aria-hidden="true">keyboard_arrow_left</span>
               <span class="sr-only">Previous</span>
             </a>
           {{ end }}
@@ -48,7 +48,6 @@
                       <a
                         data-modal-content-id="modal-content-{{ $index }}"
                         class="d-block w-100 item-wrapper testimonial-link {{ if $testimonial.Params.is_quote }}js-modal-trigger{{ end }}"
-                        style="padding: 10px;"
                         {{ if $testimonial.Params.is_quote }}
                           href="#"
                           data-testimonial="{{ $testimonial }}"
@@ -69,7 +68,7 @@
           </div>
           {{ if gt (len $stories) 3 }}
             <a href="#{{ $carouselId }}" role="button" data-slide="next" class="bg-white next">
-              <span class="material-icons" aria-hidden="true" style="font-size: 3.75rem">keyboard_arrow_right</span>
+              <span class="material-icons carousel-arrow-right" aria-hidden="true">keyboard_arrow_right</span>
               <span class="sr-only">Next</span>
             </a>
           {{ end }}

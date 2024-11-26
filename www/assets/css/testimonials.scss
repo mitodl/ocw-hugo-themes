@@ -113,3 +113,15 @@ $row-max-height: 200px;
     margin-bottom: 5px;
   }
 }
+
+.home-testimonials {
+  .testimonial-link {
+    padding: 10px !important;
+  }
+  .home-stories-carousel {
+    max-width: 1447px !important;
+  }
+  .carousel-arrow-left, .carousel-arrow-right {
+    font-size: 3.75rem
+  }
+}
