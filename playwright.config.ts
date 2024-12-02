@@ -8,6 +8,7 @@ import * as path from "path"
 const config: PlaywrightTestConfig = {
   testDir:    "./tests-e2e",
   testIgnore: ["**/jest/**"],
+  /* Maximum time one test can run for. */
   timeout:    60 * 1000,
   expect:     {
     timeout: 5000
@@ -30,17 +31,7 @@ const config: PlaywrightTestConfig = {
     },
     {
       name: "Google Chrome",
-      use:  {
-        ...devices["Desktop Chrome"],
-        channel:       "chrome",
-        launchOptions: {
-          args: [
-            "--autoplay-policy=no-user-gesture-required",
-            "--start-maximized",
-            "--incognito"
-          ]
-        }
-      }
+      use:  { ...devices["Desktop Chrome"], channel: "chrome" }
     }
   ]
 }
