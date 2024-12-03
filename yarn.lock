@@ -979,23 +979,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mitodl/course-search-utils@npm:^2.3.0":
-  version: 2.3.2
-  resolution: "@mitodl/course-search-utils@npm:2.3.2"
+"@mitodl/course-search-utils@npm:^3.0.0":
+  version: 3.3.2
+  resolution: "@mitodl/course-search-utils@npm:3.3.2"
   dependencies:
-    bodybuilder: ^2.5.0
-    query-string: ^6.13.1
-    ramda: ^0.27.1
+    "@mitodl/open-api-axios": 2024.9.16
+    "@remixicon/react": ^4.2.0
+    axios: ^1.6.7
+    fuse.js: ^7.0.0
   peerDependencies:
     "@types/history": ^4.9
-    history: ^4.9 || ^5.0.0
+    next: ^14.2.7
     react: ^16.13.1
+    react-router: ^6.22.2
   peerDependenciesMeta:
     "@types/history":
       optional: true
     history:
       optional: true
-  checksum: 9d6947520e501b31dd40f4674bec2be08d97423956e105b6334e602dd4e1eea0b075aedd43ebb1e341e6a155d761c8ca15d46722bdcfb581b948fc05b2571ba1
+    next:
+      optional: true
+    react-router:
+      optional: true
+  checksum: 1fe5fbabbbe1f1c287a7f6682d8f023c502bf365f12580ca9e6395a17ca29755471b4324861454be6ee3205f52cd3cf4114a15454935bd1433a7afa90544b33c
   languageName: node
   linkType: hard
 
@@ -1023,6 +1029,16 @@ __metadata:
   bin:
     ocw-to-hugo: src/bin/index.js
   checksum: 7fab9749a2b672e84edd10e05587458f70fc00a6cdf7b71d175cc86b7760d5c95a0552811e7f7a648a635f67f00b2dfa7b519f88a5e29c3b948afd0804f6ec82
+  languageName: node
+  linkType: hard
+
+"@mitodl/open-api-axios@npm:2024.9.16":
+  version: 2024.9.16
+  resolution: "@mitodl/open-api-axios@npm:2024.9.16"
+  dependencies:
+    "@types/node": ^20.11.19
+    axios: ^1.6.5
+  checksum: 1d83652d50100dc3e384d698f28786b511e15c390de787d5cff9c95736312ea0a1d037d9b3b51062ac7abef4c6f898d1146a48aa59e4cbba93df41ec871cf8ab
   languageName: node
   linkType: hard
 
@@ -1133,6 +1149,15 @@ __metadata:
     typescript: ^4.5.4
     vue-eslint-parser: ^8.0.1
   checksum: fad92d666ab92f6c773faf507ee15f2c0de8c8ac2b692a57a7c0621202f90d9e577f2664d8a701ec3b96bec3ecba586e49c3d9170de9392c0ee7c3362fdddcae
+  languageName: node
+  linkType: hard
+
+"@remixicon/react@npm:^4.2.0":
+  version: 4.5.0
+  resolution: "@remixicon/react@npm:4.5.0"
+  peerDependencies:
+    react: ">=18.2.0"
+  checksum: e37b61090954954601d35367a740b7be30c105a49f67eaa5a697db16d4668d71d9fd94b339da6d449a254736d5af3b567d3694021b79d3c82fe28afb818830bc
   languageName: node
   linkType: hard
 
@@ -1888,6 +1913,15 @@ __metadata:
   dependencies:
     undici-types: ~5.26.4
   checksum: 5373983874b9af7c216e7ca5d26b32a8d9829c703a69f1e66f2113598b5be8582c0e009ca97369f1ec9a6282b3f92812208d06eb1e9fc3bd9b939b022303d042
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^20.11.19":
+  version: 20.17.9
+  resolution: "@types/node@npm:20.17.9"
+  dependencies:
+    undici-types: ~6.19.2
+  checksum: 2fc67ba937d2c4e7a52f0ccf71b8b4c616dcfa1ad6cd5a726582fd3cbf4f409c2eb44595592580f782c2ade05f8130df072dd04ac064fe150cfcd7849e643500
   languageName: node
   linkType: hard
 
@@ -3458,6 +3492,17 @@ __metadata:
   version: 1.12.0
   resolution: "aws4@npm:1.12.0"
   checksum: 68f79708ac7c335992730bf638286a3ee0a645cf12575d557860100767c500c08b30e24726b9f03265d74116417f628af78509e1333575e9f8d52a80edfe8cbc
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.6.5, axios@npm:^1.6.7":
+  version: 1.7.8
+  resolution: "axios@npm:1.7.8"
+  dependencies:
+    follow-redirects: ^1.15.6
+    form-data: ^4.0.0
+    proxy-from-env: ^1.1.0
+  checksum: 3d21652faf8e29fb36c47517d2872bb5e2285127a24f5c53ce23082c4eac7f5a88de84dd49d4a1a83068e5301dcfd9067b41e5fbd00b0d20ab7b0a843559273d
   languageName: node
   linkType: hard
 
@@ -6904,6 +6949,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"follow-redirects@npm:^1.15.6":
+  version: 1.15.9
+  resolution: "follow-redirects@npm:1.15.9"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 859e2bacc7a54506f2bf9aacb10d165df78c8c1b0ceb8023f966621b233717dab56e8d08baadc3ad3b9db58af290413d585c999694b7c146aaf2616340c3d2a6
+  languageName: node
+  linkType: hard
+
 "for-each@npm:^0.3.3":
   version: 0.3.3
   resolution: "for-each@npm:0.3.3"
@@ -6948,6 +7003,17 @@ __metadata:
     combined-stream: ^1.0.8
     mime-types: ^2.1.12
   checksum: b019e8d35c8afc14a2bd8a7a92fa4f525a4726b6d5a9740e8d2623c30e308fbb58dc8469f90415a856698933c8479b01646a9dff33c87cc4e76d72aedbbf860d
+  languageName: node
+  linkType: hard
+
+"form-data@npm:^4.0.0":
+  version: 4.0.1
+  resolution: "form-data@npm:4.0.1"
+  dependencies:
+    asynckit: ^0.4.0
+    combined-stream: ^1.0.8
+    mime-types: ^2.1.12
+  checksum: ccee458cd5baf234d6b57f349fe9cc5f9a2ea8fd1af5ecda501a18fd1572a6dd3bf08a49f00568afd995b6a65af34cb8dec083cf9d582c4e621836499498dd84
   languageName: node
   linkType: hard
 
@@ -7117,6 +7183,13 @@ __metadata:
   version: 6.6.2
   resolution: "fuse.js@npm:6.6.2"
   checksum: 17ae758ce205276ebd88bd9c9f088a100be0b4896abac9f6b09847151269d1690f41d7f98ff5813d4a58973162dbd99d0072ce807020fee6f9de60170f6b08eb
+  languageName: node
+  linkType: hard
+
+"fuse.js@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "fuse.js@npm:7.0.0"
+  checksum: d15750efec1808370c0cae92ec9473aa7261c59bca1f15f1cf60039ba6f804b8f95340b5cabd83a4ef55839c1034764856e0128e443921f072aa0d8a20e4cacf
   languageName: node
   linkType: hard
 
@@ -10863,7 +10936,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ocw-hugo-themes@workspace:."
   dependencies:
-    "@mitodl/course-search-utils": ^2.3.0
+    "@mitodl/course-search-utils": ^3.0.0
     "@mitodl/ocw-to-hugo": 1.36.0
     "@playwright/test": ^1.40.0
     "@sentry/browser": ^7.0.0
@@ -12579,6 +12652,13 @@ __metadata:
     forwarded: 0.2.0
     ipaddr.js: 1.9.1
   checksum: 29c6990ce9364648255454842f06f8c46fcd124d3e6d7c5066df44662de63cdc0bad032e9bf5a3d653ff72141cc7b6019873d685708ac8210c30458ad99f2b74
+  languageName: node
+  linkType: hard
+
+"proxy-from-env@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "proxy-from-env@npm:1.1.0"
+  checksum: ed7fcc2ba0a33404958e34d95d18638249a68c430e30fcb6c478497d72739ba64ce9810a24f53a7d921d0c065e5b78e3822759800698167256b04659366ca4d4
   languageName: node
   linkType: hard
 
@@ -15302,6 +15382,13 @@ __metadata:
   version: 5.26.5
   resolution: "undici-types@npm:5.26.5"
   checksum: 3192ef6f3fd5df652f2dc1cd782b49d6ff14dc98e5dced492aa8a8c65425227da5da6aafe22523c67f035a272c599bb89cfe803c1db6311e44bed3042fc25487
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~6.19.2":
+  version: 6.19.8
+  resolution: "undici-types@npm:6.19.8"
+  checksum: de51f1b447d22571cf155dfe14ff6d12c5bdaec237c765085b439c38ca8518fc360e88c70f99469162bf2e14188a7b0bcb06e1ed2dc031042b984b0bb9544017
   languageName: node
   linkType: hard
 
