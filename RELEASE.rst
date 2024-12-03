@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.119.0
+Version 1.119.0 (Released December 03, 2024)
 ---------------
 
 - Fix external links on mobile (#1473)
