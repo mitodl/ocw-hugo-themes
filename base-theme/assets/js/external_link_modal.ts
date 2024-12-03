@@ -1,8 +1,12 @@
+import { MOBILE_COURSE_NAV_DRAWER_ID } from "../../../course-v2/assets/js/mobile_course_drawers"
+
 export const EXTERNAL_LINK_MODAL_ID = "external-link-modal"
 
 export function initExternalLinkModal() {
   $("a.external-link-warning").on("click", event => {
     event.preventDefault()
+
+    $(`#${MOBILE_COURSE_NAV_DRAWER_ID}`).trigger("offcanvas.close")
 
     const targetUrl = $(event.currentTarget).attr("href")
     if (!targetUrl) {
