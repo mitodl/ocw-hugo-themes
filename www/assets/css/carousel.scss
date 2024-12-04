@@ -19,7 +19,9 @@
   }
 
   .carousel-header {
-    max-width: $max-home-width;
+    &:not(.stories-carousel-header) {
+      max-width: $max-home-width;
+    }
     margin: 0;
     align-items: center;
 
@@ -64,14 +66,141 @@
   }
 
   .item-wrapper {
-    padding: 0 10px;
-
+    padding: 0 8px;
     &:first-child {
       padding-left: 0;
     }
 
     &:last-child {
       padding-right: 0;
+    }
+  }
+  .item-wrapper.testimonial-link {
+    border-radius: 10px;
+    border: 1px solid $border-gray-testimonial;
+    background: #fff;
+    box-shadow: 0px 2px 10px 0px rgba(120, 169, 197, 0.15);
+
+    // 801px - 991px (tablet)
+    @include breakpoint(tablet) {
+      max-width: 470.5px;
+    }
+    // 768px - 800px (mobile)
+    @include breakpoint(mobile) {
+      max-width: 335px;
+    }
+    // <= 767px (mobile-sm)
+    @include breakpoint(mobile-sm) {
+      max-width: 650px;
+    }
+  }
+}
+.item-wrapper.testimonial-link:hover {
+  border: 1px solid #a31f34 !important;
+}
+.item-wrapper.testimonial-link {
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid $border-gray-testimonial;
+  background: #fff;
+  box-shadow: 0px 2px 10px 0px rgba(120, 169, 197, 0.15);
+
+  &:first-child {
+    padding-left: 0;
+  }
+
+  &:last-child {
+    padding-right: 0;
+  }
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: auto;
+  background: none;
+  opacity: 1;
+}
+
+.carousel-control-prev .material-icons,
+.carousel-control-next .material-icons {
+  font-size: 3.75rem;
+  color: inherit;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  display: none;
+}
+
+.carousel-control-prev {
+  left: auto;
+}
+
+.carousel-control-next {
+  right: auto;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hidden-modal-content {
+  display: none;
+}
+
+.modal-dialog {
+  max-width: 600px;
+  margin: 1rem auto;
+}
+
+.modal-body {
+  padding: 10px;
+}
+
+.home-testimonials {
+  .carousel {
+    &.slide {
+      max-width: 1447px !important;
+    }
+
+    .carousel-header {
+      margin-bottom: 40px;
+      @include media-breakpoint-down(xs) {
+        margin-bottom: 20px;
+      }
+      h2 {
+        text-align: center;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 25px;
+        margin-bottom: 20px;
+        @include media-breakpoint-down(xs) {
+          line-height: 40px;
+        }
+      }
+      p {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 25px;
+        margin: 0;
+      }
+
+      p {
+        text-align: center;
+      }
+    }
+
+    .carousel-section {
+      .prev,
+      .next {
+        font-size: 3.75rem !important;
+      }
+    }
+
+    .carousel-inner {
+      padding: 0;
     }
   }
 }
