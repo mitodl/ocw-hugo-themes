@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.119.1
+---------------
+
+- Update Node.js to v20.18.1 (#1455)
+- Update failing E2E test: Replace activeLine validation with transcript validation (#1459)
+- Remove the fallback logic of backup_url (#1451)
+
 Version 1.119.0 (Released December 03, 2024)
 ---------------
 
