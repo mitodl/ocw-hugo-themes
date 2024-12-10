@@ -362,40 +362,6 @@ $searchbox-height: 50px;
   }
 }
 
-.home-testimonials {
-  a.testimonial-link {
-    text-decoration: none;
-  }
-
-  .testimonial {
-    height: 280px;
-    width: 280px;
-    color: white;
-    background-size: cover;
-
-    .name {
-      font-size: $font-lg;
-    }
-
-    .on-hover {
-      display: none;
-    }
-
-    .name-occ {
-      .occupation-location {
-        font-size: $font-sm;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
-
-      .name,
-      .occupation-location {
-        white-space: nowrap;
-      }
-    }
-  }
-}
-
 .ocw-news {
   .item {
     width: 100%;

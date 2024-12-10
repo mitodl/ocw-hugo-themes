@@ -1,45 +1,92 @@
 {{- $stories := where .Site.RegularPages "Type" "==" "stories" -}}
 {{- $storiesSection := .Site.GetPage "section" "stories" -}}
-{{- $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none") "lg" (dict "size" 3 "class" "d-none d-lg-flex d-xl-none") "xl" (dict "size" 4 "class" "d-none d-xl-flex")) -}}
-<div class="home-testimonials standard-width container mx-auto my-3">
+{{- $breakdowns := dict
+  "xs-sm" (dict "size" 1 "class" "d-flex d-md-none")
+  "md"    (dict "size" 2 "class" "d-none d-md-flex d-lg-none")
+  "lg"    (dict "size" 2 "class" "d-none d-lg-flex d-xl-none")
+  "xl"    (dict "size" 3 "class" "d-none d-xl-flex")
+-}}
+<div class="home-testimonials mx-auto">
   {{ range $breakpoint, $carouselInfo := $breakdowns }}
     {{ $itemsInCarousel := index $carouselInfo "size" }}
     {{ $breakpointVisibilityClass := index $carouselInfo "class" }}
     {{ $isMobile := (eq $itemsInCarousel 1) }}
     {{ $carouselId := (printf "testimonial-carousel-%v" $breakpoint) }}
     <div class="{{ $breakpointVisibilityClass }}">
-      <div id="{{ $carouselId }}" class="carousel slide" data-interval="false" data-touch="true" data-ride="carousel">
-        <div class="carousel-header d-flex flex-row justify-content-between font-weight-bold">
-          <h2>OCW Stories</h2>
-          {{ if gt (len $stories) 4 }}
-          {{ partial "carousel_controls.html" $carouselId }}
-          {{ end }}
+      <div id="{{ $carouselId }}" class="carousel slide home-stories-carousel" data-interval="false" data-touch="true" data-ride="carousel">
+        <div class="carousel-header d-flex flex-column mx-auto container stories-carousel-header">
+          <h2 class="mx-auto">OpenCourseWare Stories</h2>
+          <p class="mx-auto text-center">
+            MIT students' stories reflect a relentless pursuit of knowledge and innovation.
+            From coding breakthroughs to launching startups, their journey showcases the Institute's
+            commitment to pushing boundaries and changing the world.
+          </p>
         </div>
-        <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} mt-2 px-0">
-          {{ range $index, $testimonial := $stories  }}
-            {{ with $testimonial }}
-              {{ $modulo := (mod $index $itemsInCarousel) }}
-              {{ $group := (div $index $itemsInCarousel) }}
-              {{ if eq $modulo 0 }}
-              <div class="carousel-item {{ if not $isMobile }}row{{end}} {{ if eq $group 0 }}active{{ end }}">
-              {{ end }}
-                <div class="item-wrapper {{ if not $isMobile }}col-{{ (div 12 $itemsInCarousel) }}{{ end }} w-100 d-flex justify-content-center">
-                  <div class="item-wrapper w-100 d-flex justify-content-center">
-                    {{ partial "stories_card.html" $testimonial }}
+        <div class="carousel-section d-flex align-items-center">
+          {{ if gt (len $stories) 3 }}
+            <a href="#{{ $carouselId }}" role="button" data-slide="prev" class="bg-white prev">
+              <span class="material-icons carousel-arrow-left" aria-hidden="true">keyboard_arrow_left</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          {{ end }}
+          <div class="carousel-inner d-flex {{ if not $isMobile }}container{{ end }} px-0">
+            {{ range $index, $testimonial := $stories }}
+              {{ with $testimonial }}
+                {{ $modulo := mod $index $itemsInCarousel }}
+                {{ $group := div $index $itemsInCarousel }}
+                {{ if eq $modulo 0 }}
+                <div class="carousel-item {{ if not $isMobile }}row{{ end }} {{ if eq $group 0 }}active{{ end }}">
+                {{ end }}
+                  <div class="item-wrapper {{ if not $isMobile }}col-{{ div 12 $itemsInCarousel }}{{ end }} w-100 d-flex justify-content-center">
+                    <div class="item-wrapper w-100 d-flex justify-content-center">
+                      {{ if $testimonial.Params.is_quote }}
+                        <div id="modal-content-{{ $index }}" class="hidden-modal-content">
+                          {{ partial "testimonial_card.html" (dict "testimonial" $testimonial "context" "modal") }}
+                        </div>
+                      {{ end }}
+                      <a
+                        data-modal-content-id="modal-content-{{ $index }}"
+                        class="d-block w-100 item-wrapper testimonial-link {{ if $testimonial.Params.is_quote }}js-modal-trigger{{ end }}"
+                        {{ if $testimonial.Params.is_quote }}
+                          href="#"
+                          data-testimonial="{{ $testimonial }}"
+                          data-toggle="modal"
+                        {{ else }}
+                          href="{{ $testimonial.RelPermalink }}"
+                        {{ end }}
+                      >
+                        {{ partial "testimonial_card.html" (dict "testimonial" $testimonial) }}
+                      </a>
+                    </div>
                   </div>
+                {{ if or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $stories) 1)) }}
                 </div>
-              {{ if (or (eq $modulo (sub $itemsInCarousel 1)) (eq $index (sub (len $stories) 1))) }}
-              </div>
+                {{ end }}
               {{ end }}
             {{ end }}
+          </div>
+          {{ if gt (len $stories) 3 }}
+            <a href="#{{ $carouselId }}" role="button" data-slide="next" class="bg-white next">
+              <span class="material-icons carousel-arrow-right" aria-hidden="true">keyboard_arrow_right</span>
+              <span class="sr-only">Next</span>
+            </a>
           {{ end }}
         </div>
       </div>
     </div>
   {{ end }}
-  <div class="d-flex py-4">
-      <div class="ml-auto">
-          <a class="view-all-link" href="{{ $storiesSection.RelPermalink }}">View All OCW Stories</a>
-      </div>
+  <div class="d-flex justify-content-center view-all-stories">
+    <a
+      href="{{ $storiesSection.RelPermalink }}"
+      class="btn view-all-stories-btn px-4 py-3 text-decoration-none d-flex align-items-center"
+    >
+      View All OCW Stories
+      <img
+        class="view-all-stories-arrow"
+        src="{{ partial "get_asset_webpack_url.html" "images/ocw_stories_home_btn_arrow_right.svg" }}"
+        alt=""
+      />
+    </a>
   </div>
 </div>
+{{ partial "testimonial_quote_modal.html" }}

@@ -1,31 +1,82 @@
 {{ define "main" }}
 {{- $story := . -}}
-<div>
+<div class="testimonial-single-container">
   {{ block "header" . }}
   {{ partialCached "header" . }}
   {{ end }}
-  <div class="testimonial-single container standard-width mx-auto mt-5 mb-5">
-    <h1>OCW Stories</h1>
-    <div class="testimonials">
-      <div class="testimonial d-flex flex-wrap flex-sm-nowrap">
-        <div class="img-container">
-          <img src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $story.Params.image.content).Params.file) }}" alt="" />
+  <div class="testimonial-banner">
+    <div class="testimonials w-100 standard-width mx-auto">
+      <a href="/stories" class="view-all-stories-left-btn text-decoration-none d-inline-flex align-items-center">
+        <img
+          class="view-all-stories-left-arrow"
+          src="{{ partial "get_asset_webpack_url.html" "images/ocw_story_single_arrow_left.svg" }}"
+          alt=""
+        />
+        <h1>OCW Stories</h1>
+      </a>
+      <div class="testimonial standard-width mx-auto d-flex align-items-center">
+        <div class="single-testimonial-image-wrapper">
+          <div class="img-container single-testimonial-page">
+            <img
+              src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $story.Params.image.content).Params.file) }}"
+              alt=""
+            />
+          </div>
         </div>
-        <div class="detail d-flex flex-column flex-nowrap justify-content-between p-0 ml-sm-5">
+        <div class="detail d-flex flex-column flex-nowrap justify-content-center">
           <div class="text">
             <h2>{{ $story.Title }}</h2>
-            <p class="font-weight-bold">{{ $story.Params.occupation }} | {{ $story.Params.location }}</p>
-            <p class="summary">
+            <p class="occupation">
+              {{ $story.Params.occupation }} | {{ $story.Params.location }}
+            </p>
+            <p class="summary mb-0 pb-0">
               "{{ $story.Params.leadquote }}"
             </p>
           </div>
         </div>
       </div>
     </div>
-    <div class="full-testimonial pt-5 pb-3">
-      {{ .Content }}
+  </div>
+  <div class="container standard-width mx-auto testimonial-content-container">
+    <div class="row">
+      <div class="full-testimonial col-lg-8">
+        {{ .Content }}
+      </div>
+      <!-- Sidebar -->
+      <div class="col-12 col-lg-4">
+        <div class="more-stories">
+          <h3>More Stories</h3>
+          <div class="d-flex flex-wrap more-stories-item-cards-wrapper">
+            {{ range $index, $testimonial := first 4 (where .Site.RegularPages "Type" "==" "stories") }}
+              <div class="d-flex flex-nowrap justify-content-center col-12 col-md-6 col-lg-12 m-0 p-0">
+              <a 
+                data-modal-content-id="modal-content-{{ $index }}" 
+                class="item-wrapper d-block testimonial-link {{if $testimonial.Params.is_quote}}js-modal-trigger{{end}} text-decoration-none" 
+                {{ if $testimonial.Params.is_quote }} 
+                  href="#" 
+                  data-toggle="modal" 
+                {{ else }} 
+                  href="{{ $testimonial.RelPermalink }}" 
+                {{ end }}
+              >
+                {{ partial "testimonial_card.html" (dict "testimonial" $testimonial "index" $index) }}
+              </a>
+              <div id="modal-content-{{ $index }}" class="hidden-modal-content">
+                {{ partial "testimonial_card.html" (dict "testimonial" $testimonial "context" "modal") }}
+              </div>
+            </div>
+            {{ end }}
+          </div>
+          <div>
+            <a href="/stories" class="btn view-all-stories px-4 py-3 text-decoration-none d-flex justify-content-center align-items-center w-100">
+              View All OCW Stories
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
 </div>
+{{ partial "testimonial_quote_modal.html" }}
 {{ end }}
