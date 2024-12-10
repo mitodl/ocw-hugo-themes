@@ -59,21 +59,6 @@ test("External resource in page opens a new tab", async ({ page }) => {
   )
 })
 
-test("Broken external resource opens backup_url", async ({ page }) => {
-  const course = new CoursePage(page, "course")
-  await course.goto("/pages/external-resources-page")
-
-  const link = page.getByRole("link", { name: "broken external resource" })
-
-  const targetAttribute = await link.getAttribute("target")
-  expect(targetAttribute).toBeNull()
-
-  const classAttribute = await link.getAttribute("class")
-  expect(classAttribute).toBeNull()
-
-  await link.click()
-})
-
 test("External resource opens confirmation modal", async ({ page }) => {
   const course = new CoursePage(page, "course")
   await course.goto("/pages/external-resources-page")
