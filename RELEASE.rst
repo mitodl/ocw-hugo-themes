@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.120.0
+Version 1.120.0 (Released December 12, 2024)
 ---------------
 
 - OCW Stories & Quotes New Design Implementation (#1460)
