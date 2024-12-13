@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.121.0
+---------------
+
+- Update download page text when no resources found (#1475)
+
 Version 1.120.0 (Released December 12, 2024)
 ---------------
 
