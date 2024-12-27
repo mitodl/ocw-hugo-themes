@@ -67,9 +67,9 @@
                   {{ partial "testimonial_card.html" (dict "testimonial" $testimonial "index" $index) }}
                 </a>
                 {{ if $testimonial.Params.is_quote }}
-                <div id="modal-content-{{ $index }}" class="hidden-modal-content">
-                  {{ partial "testimonial_card.html" (dict "testimonial" $testimonial "context" "modal") }}
-                </div>
+                  <div id="modal-content-{{ $index }}" class="hidden-modal-content">
+                    {{ partial "testimonial_card.html" (dict "testimonial" $testimonial "context" "modal") }}
+                  </div>
                 {{ end }}
               </div>
             {{ end }}
