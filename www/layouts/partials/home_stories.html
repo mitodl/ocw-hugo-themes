@@ -1,4 +1,5 @@
-{{- $stories := where .Site.RegularPages "Type" "==" "stories" -}}
+{{- $featuredStories := .Site.Data.homepage.featured_stories.content | default slice -}}
+{{- $stories := partial "filtered_pages" (dict "context" . "featuredPagesUid" $featuredStories) | default (where .Site.RegularPages "Type" "==" "stories") -}}
 {{- $storiesSection := .Site.GetPage "section" "stories" -}}
 {{- $breakdowns := dict
   "xs-sm" (dict "size" 1 "class" "d-flex d-md-none")

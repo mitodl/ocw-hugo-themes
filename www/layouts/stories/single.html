@@ -47,24 +47,31 @@
         <div class="more-stories">
           <h3>More Stories</h3>
           <div class="d-flex flex-wrap more-stories-item-cards-wrapper">
-            {{ range $index, $testimonial := first 4 (where .Site.RegularPages "Type" "==" "stories") }}
+            {{- $featuredStories := .Site.Data.homepage.featured_stories.content | default slice -}}
+            {{- $stories := partial "filtered_pages" (dict "context" . "featuredPagesUid" $featuredStories) | default (where .Site.RegularPages "Type" "==" "stories") -}}
+            {{- $limitedStories := first 5 $stories -}}
+            {{- $filteredStories := where $limitedStories "Permalink" "!=" $story.Permalink -}}
+
+            {{ range $index, $testimonial := first 4 $filteredStories }}
               <div class="d-flex flex-nowrap justify-content-center col-12 col-md-6 col-lg-12 m-0 p-0">
-              <a 
-                data-modal-content-id="modal-content-{{ $index }}" 
-                class="item-wrapper d-block testimonial-link {{if $testimonial.Params.is_quote}}js-modal-trigger{{end}} text-decoration-none" 
-                {{ if $testimonial.Params.is_quote }} 
-                  href="#" 
-                  data-toggle="modal" 
-                {{ else }} 
-                  href="{{ $testimonial.RelPermalink }}" 
+                <a 
+                  data-modal-content-id="modal-content-{{ $index }}" 
+                  class="item-wrapper d-block testimonial-link {{if $testimonial.Params.is_quote}}js-modal-trigger{{end}} text-decoration-none" 
+                  {{ if $testimonial.Params.is_quote }} 
+                    href="#" 
+                    data-toggle="modal" 
+                  {{ else }} 
+                    href="{{ $testimonial.RelPermalink }}" 
+                  {{ end }}
+                >
+                  {{ partial "testimonial_card.html" (dict "testimonial" $testimonial "index" $index) }}
+                </a>
+                {{ if $testimonial.Params.is_quote }}
+                  <div id="modal-content-{{ $index }}" class="hidden-modal-content">
+                    {{ partial "testimonial_card.html" (dict "testimonial" $testimonial "context" "modal") }}
+                  </div>
                 {{ end }}
-              >
-                {{ partial "testimonial_card.html" (dict "testimonial" $testimonial "index" $index) }}
-              </a>
-              <div id="modal-content-{{ $index }}" class="hidden-modal-content">
-                {{ partial "testimonial_card.html" (dict "testimonial" $testimonial "context" "modal") }}
               </div>
-            </div>
             {{ end }}
           </div>
           <div>
@@ -76,7 +83,7 @@
       </div>
     </div>
   </div>
-  {{ block "footer" . }} {{ partialCached "footer" . }} {{end}}
+  {{ block "footer" . }} {{ partialCached "footer" . }} {{ end }}
 </div>
 {{ partial "testimonial_quote_modal.html" }}
 {{ end }}

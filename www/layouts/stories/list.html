@@ -1,14 +1,15 @@
 {{ define "main" }}
 {{- $pages := .Site.RegularPages -}}
-{{- $stories := where $pages "Type" "==" "stories" -}}
+{{- $featuredStories := .Site.Data.homepage.featured_stories.content | default slice -}}
+{{- $stories := partial "filtered_pages" (dict "context" . "featuredPagesUid" $featuredStories) | default (where $pages "Type" "==" "stories") -}}
 <div class="testimonial-list-container">
   {{ block "header" . }}
   {{ partialCached "header" . }}
-  {{end}}
+  {{ end }}
   <div class="testimonial-banner list d-flex flex-column">
     <div class="standard-width container text-center">
-    <h1>OpenCourseWare Stories</h1>
-    <p>MIT students' stories reflect a relentless pursuit of knowledge and innovation. From coding breakthroughs to launching startups, their journey showcases the Institute's commitment to pushing boundaries and changing the world.</p>
+      <h1>OpenCourseWare Stories</h1>
+      <p>MIT students' stories reflect a relentless pursuit of knowledge and innovation. From coding breakthroughs to launching startups, their journey showcases the Institute's commitment to pushing boundaries and changing the world.</p>
     </div>
   </div>
   <div class="standard-width container">
@@ -37,7 +38,7 @@
     </div>
   </div>
 </div>
-{{ partial "home_stories_banner.html" (dict "source" "list")}}
+{{ partial "home_stories_banner.html" (dict "source" "list") }}
 {{ block "footer" . }} {{ partialCached "footer" . }} {{ end }}
 {{ partial "testimonial_quote_modal.html" }}
 {{ end }}
