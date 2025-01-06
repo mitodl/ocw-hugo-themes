@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.121.1
+---------------
+
+- Display Featured Stories (#1479)
+
 Version 1.121.0 (Released January 02, 2025)
 ---------------
 
