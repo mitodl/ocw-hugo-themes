@@ -1,4 +1,4 @@
-{{ $downloadableLink := partial "get_resource_download_link.html" .Params }}   
+{{ $downloadableLink := partial "get_resource_download_link.html" . }}   
 <div class="resource-page-container">
   {{- if ne .Params.resourcetype "Video" }}
     {{- if .Content -}}
