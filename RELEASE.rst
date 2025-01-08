@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.122.0
+---------------
+
+- fixed context for the resource_url partial (#1486)
+
 Version 1.121.1 (Released January 07, 2025)
 ---------------
 
