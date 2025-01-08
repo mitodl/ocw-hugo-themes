@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test"
-import { CoursePage, VideoElement } from "../util"
+import { CoursePage } from "../util"
 
 test("Start and end times does not exist", async ({ page }) => {
   const course = new CoursePage(page, "course")
