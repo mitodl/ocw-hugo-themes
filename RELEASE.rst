@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.123.0
+---------------
+
+- Update Faculty Advisory Committee membership (#1489)
+- Resolve failing e2e check: Upgrade Playwright to Version 1.45.0 (#1487)
+
 Version 1.122.0 (Released January 14, 2025)
 ---------------
 
