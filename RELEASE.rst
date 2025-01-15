@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.123.1
+---------------
+
+- Update Faculty Advisory Committee membership (#1491)
+
 Version 1.123.0 (Released January 15, 2025)
 ---------------
 
