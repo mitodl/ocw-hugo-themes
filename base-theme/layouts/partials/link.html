@@ -4,6 +4,7 @@
 {{- $text := .text | default "" -}}
 {{- $target := .target | default "" -}}
 {{- $onClick := .onClick | default "" -}}
+{{- $ariaLabel := .ariaLabel | default "" -}}
 {{- $stripLinkOffline := .stripLinkOffline | default false -}}
 {{- $hideLinkOffline := .hideLinkOffline | default false -}}
 {{- if $stripLinkOffline -}}
@@ -13,7 +14,7 @@
   {{- $class = print $class " hide-offline" -}}
 {{- end -}}
 {{- if or $href $name -}}
-<a {{ if $name }} name="{{ $name }}"{{ end }} {{ if $class }} class="{{ $class }}" {{ end }} {{ if $target }} target="{{ $target }}" {{ end }} {{ if $href }} href="{{ $href }}"{{ end }} {{ if $onClick }} onclick="{{ $onClick | safeJS }}" {{ end }} >{{ $text }}</a>
+<a {{ if $name }} name="{{ $name }}"{{ end }} {{ if $class }} class="{{ $class }}" {{ end }} {{ if $target }} target="{{ $target }}" {{ end }} {{ if $href }} href="{{ $href }}"{{ end }} {{ if $onClick }} onclick="{{ $onClick | safeJS }}" {{ end }} {{ if $ariaLabel }} aria-label="{{ $ariaLabel }}"{{ end }} >{{ $text }}</a>
 {{- else -}}
 <span>{{ $text }}</span>
 {{- end -}}
