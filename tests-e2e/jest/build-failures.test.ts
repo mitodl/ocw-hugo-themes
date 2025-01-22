@@ -1,11 +1,11 @@
-import * as path from "node:path";
-import { IncomingMessage } from "node:http";
-import LocalOCW from "../LocalOcw";
-import { TestSiteAlias } from "../util/test_sites";
+import * as path from "node:path"
+import { IncomingMessage } from "node:http"
+import LocalOCW from "../LocalOcw"
+import { TestSiteAlias } from "../util/test_sites"
 
 interface ExecError extends Error {
-  stdout: string;
-  stderr: string;
+  stdout: string
+  stderr: string
 }
 
 const expectBuildError = async (
@@ -13,144 +13,120 @@ const expectBuildError = async (
   alias: TestSiteAlias,
   messages: (string | RegExp)[]
 ) => {
-  let error: ExecError | undefined;
+  let error: ExecError
 
-  console.time(`Build site for ${alias}`);
   try {
-    await ocw.buildSite(alias, { execOptions: { stdio: undefined } });
+    await ocw.buildSite(alias, { execOptions: { stdio: undefined } })
   } catch (err) {
-    error = err as ExecError;
-  }
-  console.timeEnd(`Build site for ${alias}`);
-
-  if (!error) {
-    throw new Error(`Expected build error, but build completed successfully.`);
+    error = err as ExecError
   }
 
-  messages.forEach((msg) => {
-    expect(error.stdout).toMatch(msg);
-  });
-};
+  messages.forEach(msg => {
+    expect(error!.stdout).toMatch(msg)
+  })
+}
 
 describe("OCW Build Failures", () => {
   const ocw = new LocalOCW({
     rootDestinationDir: path.join(__dirname, "tmp"),
-    fixturesPort: 4322,
-  });
+    fixturesPort:       4322
+  })
 
   beforeEach(async () => {
-    console.log("Cleaning up temporary directory...");
-    await ocw.rmrfTmp();
-  });
-
+    await ocw.rmrfTmp()
+  })
   beforeAll(() => {
-    console.log("Starting fixtures server...");
-    ocw.fixturesServer.listen();
-  });
-
+    ocw.fixturesServer.listen()
+  })
   afterAll(() => {
-    console.log("Stopping fixtures server...");
-    ocw.fixturesServer.close();
-  });
+    ocw.fixturesServer.close()
+  })
 
   afterEach(() => {
-    console.log("Resetting fixtures server handlers...");
-    ocw.fixturesServer.resetHandler();
-  });
+    ocw.fixturesServer.resetHandler()
+  })
 
   test.each([
     {
       statusCode: 404,
-      match: [/Failed to fetch instructors/, /from .*4322\/instructors/],
+      match:      [/Failed to fetch instructors/, /from .*4322\/instructors/]
     },
     {
       statusCode: 504,
-      match: [
+      match:      [
         /Failed to fetch instructors/,
         /from .*4322\/instructors/,
-        /with error.* Gateway Timeout/,
-      ],
-    },
+        /with error.* Gateway Timeout/
+      ]
+    }
   ])(
     "Instructor static API errors crash build",
     async ({ statusCode, match }) => {
       const shouldPatch = (req: IncomingMessage) =>
-        req.url?.includes("3caa0884-4fdd-4f3c-ba39-67a64c27d877");
+        req.url?.includes("3caa0884-4fdd-4f3c-ba39-67a64c27d877")
       ocw.fixturesServer.patchHandler((req, res) => {
         if (shouldPatch(req)) {
-          console.log(`Patching response for: ${req.url}`);
-          res.writeHead(statusCode);
-          res.end();
+          res.writeHead(statusCode)
+          res.end()
         }
-      });
+      })
 
-      await expectBuildError(ocw, "course", match);
-    },
-    10000
-  );
+      await expectBuildError(ocw, "course", match)
+    }
+  )
 
   test.each([
     {
       statusCode: 404,
-      match: [
+      match:      [
         /Failed to fetch featured course info/,
-        /from .*4322\/courses\/some-featured-course/,
-      ],
+        /from .*4322\/courses\/some-featured-course/
+      ]
     },
     {
       statusCode: 504,
-      match: [
+      match:      [
         /Failed to fetch featured course info/,
         /from .*4322\/courses\/some-featured-course.*/,
-        /with error.* Gateway Timeout/,
-      ],
-    },
-  ])(
-    "Featured course static API failures",
-    async ({ statusCode, match }) => {
-      const shouldPatch = (req: IncomingMessage) =>
-        req.url?.includes("some-featured-course");
-      ocw.fixturesServer.patchHandler((req, res) => {
-        if (shouldPatch(req)) {
-          console.log(`Patching response for: ${req.url}`);
-          res.writeHead(statusCode);
-          res.end();
-        }
-      });
+        /with error.* Gateway Timeout/
+      ]
+    }
+  ])("Featured course static API failures", async ({ statusCode, match }) => {
+    const shouldPatch = (req: IncomingMessage) =>
+      req.url?.includes("some-featured-course")
+    ocw.fixturesServer.patchHandler((req, res) => {
+      if (shouldPatch(req)) {
+        res.writeHead(statusCode)
+        res.end()
+      }
+    })
 
-      await expectBuildError(ocw, "www", match);
-    },
-    10000
-  );
+    await expectBuildError(ocw, "www", match)
+  })
 
   test.each([
     {
       statusCode: 404,
-      match: [/Failed to fetch new course info/],
+      match:      [/Failed to fetch new course info/]
     },
     {
       statusCode: 504,
-      match: [
+      match:      [
         /Failed to fetch new course info/,
         /from .*4322\/courses\/some-new-course.*/,
-        /with error.* Gateway Timeout/,
-      ],
-    },
-  ])(
-    "Featured course static API failures",
-    async ({ statusCode, match }) => {
-      const shouldPatch = (req: IncomingMessage) =>
-        req.url?.includes("some-new-course");
-      ocw.fixturesServer.patchHandler((req, res) => {
-        if (shouldPatch(req)) {
-          console.log(`Patching response for: ${req.url}`);
-          res.writeHead(statusCode);
-          res.end();
-        }
-      });
+        /with error.* Gateway Timeout/
+      ]
+    }
+  ])("Featured course static API failures", async ({ statusCode, match }) => {
+    const shouldPatch = (req: IncomingMessage) =>
+      req.url?.includes("some-new-course")
+    ocw.fixturesServer.patchHandler((req, res) => {
+      if (shouldPatch(req)) {
+        res.writeHead(statusCode)
+        res.end()
+      }
+    })
 
-      await expectBuildError(ocw, "www", match);
-    },
-    10000
-  );
-});
+    await expectBuildError(ocw, "www", match)
+  })
+})
