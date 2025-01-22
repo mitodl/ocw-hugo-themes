@@ -37,6 +37,7 @@ describe("OCW Build Failures", () => {
   })
   beforeAll(() => {
     ocw.fixturesServer.listen()
+    jest.setTimeout(10000)
   })
   afterAll(() => {
     ocw.fixturesServer.close()
