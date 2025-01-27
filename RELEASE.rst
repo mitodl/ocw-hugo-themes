@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.123.2
+Version 1.123.2 (Released January 27, 2025)
 ---------------
 
 - Remove invisible download link for PDF files (#1492)
