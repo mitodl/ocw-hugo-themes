@@ -3,10 +3,14 @@
 {{- $hasWarning := default true .has_external_license_warning -}}
 {{- $className := printf "%s %s" "external-link" (default "" .class) -}}
 {{- $onClick := "" -}}
+{{- $ariaLabel := "" -}}
 {{- if $hasWarning -}}
   {{- $className = printf "%s %s" "external-link-warning" $className -}}
+  {{- $ariaLabel = printf "%s (opens warning dialog)" $text -}}
   {{/* Prevents external links from being clicked before corresponding JS is fully loaded. */}}
   {{- $onClick = "event.preventDefault()" -}}
+{{- else -}}
+  {{- $ariaLabel = printf "%s (opens in a new tab)" $text -}}
 {{- end -}}
 {{- if not (in $href "ocw.mit.edu") -}}
   {{- partial "link" (dict
@@ -15,14 +19,15 @@
       "class" $className
       "onClick" $onClick
       "target" "_blank"
+      "ariaLabel" $ariaLabel
     )
   -}}
 {{- else -}}
   {{- partial "link" (dict
-    "href" $href
-    "text" $text
-    "class" .class
-    "onClick" ""
+      "href" $href
+      "text" $text
+      "class" .class
+      "onClick" ""
     )
   -}}
 {{- end -}}
