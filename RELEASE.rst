@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.123.3
+---------------
+
+- Fix PR Build Failures Due to Hugo Version Mismatch (#1495)
+- Improve accessibility for external links by adding aria-label (#1494)
+- Update actions/checkout digest to 11bd719 (#1480)
+- Pin dependencies (#1393)
+
 Version 1.123.2 (Released January 27, 2025)
 ---------------
 
