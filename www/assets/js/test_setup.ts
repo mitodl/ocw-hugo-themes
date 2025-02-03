@@ -2,7 +2,7 @@ import { enableFetchMocks } from "jest-fetch-mock"
 enableFetchMocks()
 import Enzyme from "enzyme"
 import Adapter from "enzyme-adapter-react-16"
-import { TextEncoder, TextDecoder } from 'util'
+import { TextEncoder, TextDecoder } from "util"
 
 global.TextEncoder = TextEncoder
 global.TextDecoder = TextDecoder as any
