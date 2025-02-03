@@ -3,11 +3,11 @@
   <div class="row">
     <div class="d-inline-flex">
       <a class="resource-thumbnail"{{ if and $downloadableLink (not .hideDownloadIcon) }} href="{{- $downloadableLink -}}" target="_blank" aria-label="Download file" download{{ end }}>
-        {{ $resourceCategory := partial "get_resource_category.html" (dict "resourceType" .params.resourcetype "fileType" .params.file_type) }}
+        {{ $resourceCategory := partial "get_resource_category.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
         <div class="resource-type-thumbnail {{ $resourceCategory }}">
           <div class="d-flex align-self-center">{{- $resourceCategory -}}</div>
         </div>  
-        <div class="download-container{{if not .params.file_size}} pb-1{{end}}">
+        <div class="download-container{{if not .Params.file_size}} pb-1{{end}}">
           {{ if not .hideDownloadIcon }}
             <span class="download-link">
               {{ if $downloadableLink }}
@@ -18,16 +18,16 @@
                   />
               {{ end }}
             </span>
-            {{ if .params.file_size }}
+            {{ if .Params.file_size }}
               <div class="resource-list-file-size">
-                {{ partial "file_size_formatter.html" .params.file_size }}
+                {{ partial "file_size_formatter.html" .Params.file_size }}
               </div>
             {{ end }}
           {{ end }}
         </div>
       </a>
       <div class="resource-list-item-details">
-        {{ partial "resource_list_item_title.html" (dict "permalink" .permalink "title" .params.title) }}
+        {{ partial "resource_list_item_title.html" (dict "permalink" .permalink "title" .Params.title) }}
       </div>
     </div>
   </div>
