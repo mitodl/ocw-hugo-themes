@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.123.3
+Version 1.123.3 (Released February 03, 2025)
 ---------------
 
 - Update dependency cross-env to v6 (#1467)
