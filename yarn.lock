@@ -7389,6 +7389,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"glob@npm:^11.0.0":
+  version: 11.0.1
+  resolution: "glob@npm:11.0.1"
+  dependencies:
+    foreground-child: ^3.1.0
+    jackspeak: ^4.0.1
+    minimatch: ^10.0.0
+    minipass: ^7.1.2
+    package-json-from-dist: ^1.0.0
+    path-scurry: ^2.0.0
+  bin:
+    glob: dist/esm/bin.mjs
+  checksum: ffbbafe1d2dae2fa68f190ac76df7254e840b27f59df34129fd658bd9da0c50b538d144eb0962dc7fa71cdaccf3fe108f045d4a15b3f5815e465749a6bf00965
+  languageName: node
+  linkType: hard
+
 "glob@npm:^7.0.0, glob@npm:^7.0.3, glob@npm:^7.1.1, glob@npm:^7.1.2, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.6, glob@npm:^7.2.3":
   version: 7.2.3
   resolution: "glob@npm:7.2.3"
@@ -8832,6 +8848,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jackspeak@npm:^4.0.1":
+  version: 4.0.2
+  resolution: "jackspeak@npm:4.0.2"
+  dependencies:
+    "@isaacs/cliui": ^8.0.2
+  checksum: 210030029edfa1658328799ad88c3d0fc057c4cb8a069fc4137cc8d2cc4b65c9721c6e749e890f9ca77a954bb54f200f715b8896e50d330e5f3e902e72b40974
+  languageName: node
+  linkType: hard
+
 "jest-changed-files@npm:^27.5.1":
   version: 27.5.1
   resolution: "jest-changed-files@npm:27.5.1"
@@ -10092,6 +10117,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lru-cache@npm:^11.0.0":
+  version: 11.0.2
+  resolution: "lru-cache@npm:11.0.2"
+  checksum: f9c27c58919a30f42834de9444de9f75bcbbb802c459239f96dd449ad880d8f9a42f51556d13659864dc94ab2dbded9c4a4f42a3e25a45b6da01bb86111224df
+  languageName: node
+  linkType: hard
+
 "lru-cache@npm:^5.1.1":
   version: 5.1.1
   resolution: "lru-cache@npm:5.1.1"
@@ -10379,6 +10411,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimatch@npm:^10.0.0":
+  version: 10.0.1
+  resolution: "minimatch@npm:10.0.1"
+  dependencies:
+    brace-expansion: ^2.0.1
+  checksum: f5b63c2f30606091a057c5f679b067f84a2cd0ffbd2dbc9143bda850afd353c7be81949ff11ae0c86988f07390eeca64efd7143ee05a0dab37f6c6b38a2ebb6c
+  languageName: node
+  linkType: hard
+
 "minimatch@npm:^9.0.1":
   version: 9.0.4
   resolution: "minimatch@npm:9.0.4"
@@ -10482,6 +10523,13 @@ __metadata:
   version: 7.1.1
   resolution: "minipass@npm:7.1.1"
   checksum: d2c461947a7530f93de4162aa3ca0a1bed1f121626906f6ec63a5ba05fd7b1d9bee4fe89a37a43db7241c2416be98a799c1796abae583c7180be37be5c392ef6
+  languageName: node
+  linkType: hard
+
+"minipass@npm:^7.1.2":
+  version: 7.1.2
+  resolution: "minipass@npm:7.1.2"
+  checksum: 2bfd325b95c555f2b4d2814d49325691c7bee937d753814861b0b49d5edcda55cbbf22b6b6a60bb91eddac8668771f03c5ff647dcd9d0f798e9548b9cdc46ee3
   languageName: node
   linkType: hard
 
@@ -11068,7 +11116,7 @@ __metadata:
     react-dotdotdot: 1.3.1
     react-infinite-scroller: ^1.2.4
     recursive-readdir: ^2.2.3
-    rimraf: ^3.0.2
+    rimraf: ^6.0.0
     sass: 1.77.8
     sass-lint: ^1.13.1
     sass-loader: ^8.0.0
@@ -11359,6 +11407,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"package-json-from-dist@npm:^1.0.0":
+  version: 1.0.1
+  resolution: "package-json-from-dist@npm:1.0.1"
+  checksum: 58ee9538f2f762988433da00e26acc788036914d57c71c246bf0be1b60cdbd77dd60b6a3e1a30465f0b248aeb80079e0b34cb6050b1dfa18c06953bb1cbc7602
+  languageName: node
+  linkType: hard
+
 "parent-module@npm:^1.0.0":
   version: 1.0.1
   resolution: "parent-module@npm:1.0.1"
@@ -11486,6 +11541,16 @@ __metadata:
     lru-cache: ^10.2.0
     minipass: ^5.0.0 || ^6.0.2 || ^7.0.0
   checksum: 890d5abcd593a7912dcce7cf7c6bf7a0b5648e3dee6caf0712c126ca0a65c7f3d7b9d769072a4d1baf370f61ce493ab5b038d59988688e0c5f3f646ee3c69023
+  languageName: node
+  linkType: hard
+
+"path-scurry@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "path-scurry@npm:2.0.0"
+  dependencies:
+    lru-cache: ^11.0.0
+    minipass: ^7.1.2
+  checksum: 9953ce3857f7e0796b187a7066eede63864b7e1dfc14bf0484249801a5ab9afb90d9a58fc533ebb1b552d23767df8aa6a2c6c62caf3f8a65f6ce336a97bbb484
   languageName: node
   linkType: hard
 
@@ -13468,6 +13533,18 @@ __metadata:
   bin:
     rimraf: bin.js
   checksum: 87f4164e396f0171b0a3386cc1877a817f572148ee13a7e113b238e48e8a9f2f31d009a92ec38a591ff1567d9662c6b67fd8818a2dbbaed74bc26a87a2a4a9a0
+  languageName: node
+  linkType: hard
+
+"rimraf@npm:^6.0.0":
+  version: 6.0.1
+  resolution: "rimraf@npm:6.0.1"
+  dependencies:
+    glob: ^11.0.0
+    package-json-from-dist: ^1.0.0
+  bin:
+    rimraf: dist/esm/bin.mjs
+  checksum: 8ba5b84131c1344e9417cb7e8c05d8368bb73cbe5dd4c1d5eb49fc0b558209781658d18c450460e30607d0b7865bb067482839a2f343b186b07ae87715837e66
   languageName: node
   linkType: hard
 
