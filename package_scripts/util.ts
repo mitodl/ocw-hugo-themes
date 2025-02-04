@@ -8,8 +8,7 @@ const dirHasContent = async (dirpath: string): Promise<boolean> => {
   try {
     const files = await fs.promises.readdir(dirpath)
     return files.length > 0
-  } catch (err) {
-    // @typescript-eslint/no-unused-vars
+  } catch (err) { // @typescript-eslint/no-unused-vars
     return false
   }
 }
@@ -21,8 +20,7 @@ const exists = async (filepath: string): Promise<boolean> => {
   try {
     await fs.promises.access(filepath)
     return true
-  } catch (err) {
-    // @typescript-eslint/no-unused-vars
+  } catch (err) { // @typescript-eslint/no-unused-vars
     return false
   }
 }
