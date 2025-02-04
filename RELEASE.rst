@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.124.0 (Released February 04, 2025)
+---------------
+
+- Update dependency rimraf to v6 (#1452)
+- Update dependency inquirer to v12 (#1463)
+- Update dependency sinon to v19 (#1454)
+- Update actions/upload-artifact action to v4 (#1352)
+
 Version 1.123.3 (Released February 03, 2025)
 ---------------
 
