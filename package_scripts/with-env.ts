@@ -55,7 +55,7 @@ const runCommand = async () => {
 
   try {
     await execShCb.promise(command, { env: envCopy, stdio: "inherit" })
-  } catch (err) {
+  } catch (_err) {
     process.exit(1)
   }
 }
