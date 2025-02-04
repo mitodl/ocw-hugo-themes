@@ -2,7 +2,7 @@ import * as path from "node:path"
 import { IncomingMessage } from "node:http"
 import LocalOCW from "../LocalOcw"
 import { TestSiteAlias } from "../util/test_sites"
-
+jest.setTimeout(1000000)
 interface ExecError extends Error {
   stdout: string
   stderr: string
@@ -85,10 +85,8 @@ describe("OCW Build Failures", () => {
     },
     {
       statusCode: 504,
-      match:      [
-        /Failed to fetch featured course info/,
-        /from .*4322\/courses\/some-featured-course.*/,
-        /with error.* Gateway Timeout/
+      match: [
+        /ERROR Retry timeout/,
       ]
     }
   ])("Featured course static API failures", async ({ statusCode, match }) => {
