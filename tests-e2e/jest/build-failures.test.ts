@@ -85,9 +85,7 @@ describe("OCW Build Failures", () => {
     },
     {
       statusCode: 504,
-      match:      [
-        /ERROR Retry timeout/,
-      ]
+      match:      [/ERROR Retry timeout/]
     }
   ])("Featured course static API failures", async ({ statusCode, match }) => {
     const shouldPatch = (req: IncomingMessage) =>
