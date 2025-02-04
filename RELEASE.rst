@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.124.0
+Version 1.124.0 (Released February 04, 2025)
 ---------------
 
 - Update dependency rimraf to v6 (#1452)
