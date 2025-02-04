@@ -69,7 +69,7 @@
     "sass": "1.77.8",
     "video.js": "^7.11.8",
     "videojs-transcript-ac": "^0.8.8",
-    "videojs-youtube": "^2.6.1"
+    "videojs-youtube": "^3.0.0"
   },
   "devDependencies": {
     "@mitodl/ocw-to-hugo": "1.36.0",
