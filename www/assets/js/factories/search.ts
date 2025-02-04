@@ -30,7 +30,6 @@ import {
 
 export function* incrementer() {
   let int = 1
-  // eslint-disable-next-line
   while (true) {
     yield int++
   }
