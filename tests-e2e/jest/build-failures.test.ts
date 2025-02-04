@@ -85,7 +85,7 @@ describe("OCW Build Failures", () => {
     },
     {
       statusCode: 504,
-      match: [
+      match:      [
         /ERROR Retry timeout/,
       ]
     }
