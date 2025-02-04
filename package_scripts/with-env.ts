@@ -55,7 +55,8 @@ const runCommand = async () => {
 
   try {
     await execShCb.promise(command, { env: envCopy, stdio: "inherit" })
-  } catch (err) {
+  } catch (err) { 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     process.exit(1)
   }
 }
