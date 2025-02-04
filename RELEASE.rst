@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.124.1
+Version 1.124.1 (Released February 04, 2025)
 ---------------
 
 - Replace params with Params so it is consistent across all partials (#1505)
