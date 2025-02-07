@@ -29,7 +29,7 @@ const expectBuildError = async (
 describe("OCW Build Failures", () => {
   const ocw = new LocalOCW({
     rootDestinationDir: path.join(__dirname, "tmp"),
-    fixturesPort: 4322
+    fixturesPort:       4322
   })
 
   beforeEach(async () => {
@@ -74,7 +74,9 @@ describe("OCW Build Failures", () => {
   })
 
   describe("Featured course static API failures for featured course", () => {
-    const patchFeaturedCourseRequest = (responder: (attempt: number) => number) => {
+    const patchFeaturedCourseRequest = (
+      responder: (attempt: number) => number
+    ) => {
       let attempt = 0
       const shouldPatch = (req: IncomingMessage) =>
         req.url?.includes("some-featured-course")
