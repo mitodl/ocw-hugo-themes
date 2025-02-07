@@ -104,7 +104,6 @@ describe("OCW Build Failures", () => {
     })
   })
 
-  // ─── Featured Course API Failure Tests (New Course) ──────────────────────────
   describe("Featured course static API failures for new course", () => {
     const patchNewCourseRequest = (responder: (attempt: number) => number) => {
       let attempt = 0
