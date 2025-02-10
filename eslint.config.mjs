@@ -1,0 +1,36 @@
+import globals from "globals";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import js from "@eslint/js";
+import { FlatCompat } from "@eslint/eslintrc";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const compat = new FlatCompat({
+    baseDirectory: __dirname,
+    recommendedConfig: js.configs.recommended,
+    allConfig: js.configs.all
+});
+
+export default [{
+    ignores: ["**/dist"],
+}, ...compat.extends("eslint-config-mitodl"), {
+    languageOptions: {
+        globals: {
+            ...globals.browser,
+            ...globals.jquery,
+            ...globals.jest,
+            RELEASE_VERSION: true,
+        },
+    },
+
+    settings: {
+        react: {
+            version: "16.4.0",
+        },
+    },
+
+    rules: {
+        "@typescript-eslint/no-non-null-assertion": "off",
+    },
+}];
