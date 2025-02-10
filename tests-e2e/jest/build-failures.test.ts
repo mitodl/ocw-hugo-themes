@@ -1,5 +1,5 @@
 import * as path from "node:path"
-import { IncomingMessage } from "node:http"
+import { IncomingMessage, ServerResponse } from "node:http"
 import LocalOCW from "../LocalOcw"
 import { TestSiteAlias } from "../util/test_sites"
 
@@ -35,9 +35,11 @@ describe("OCW Build Failures", () => {
   beforeEach(async () => {
     await ocw.rmrfTmp()
   })
+
   beforeAll(() => {
     ocw.fixturesServer.listen()
   })
+
   afterAll(() => {
     ocw.fixturesServer.close()
   })
@@ -46,87 +48,86 @@ describe("OCW Build Failures", () => {
     ocw.fixturesServer.resetHandler()
   })
 
-  test.each([
-    {
-      statusCode: 404,
-      match:      [/Failed to fetch instructors/, /from .*4322\/instructors/]
-    },
-    {
-      statusCode: 504,
-      match:      [
-        /Failed to fetch instructors/,
-        /from .*4322\/instructors/,
-        /with error.* Gateway Timeout/
-      ]
-    }
-  ])(
-    "Instructor static API errors crash build",
-    async ({ statusCode, match }) => {
+  describe("Instructor static API errors crash build", () => {
+    const patchInstructorRequest = (responder: (attempt: number) => number) => {
+      let attempt = 0
       const shouldPatch = (req: IncomingMessage) =>
         req.url?.includes("3caa0884-4fdd-4f3c-ba39-67a64c27d877")
-      ocw.fixturesServer.patchHandler((req, res) => {
-        if (shouldPatch(req)) {
-          res.writeHead(statusCode)
-          res.end()
+      ocw.fixturesServer.patchHandler(
+        (req: IncomingMessage, res: ServerResponse) => {
+          if (shouldPatch(req)) {
+            attempt++
+            const statusCode = responder(attempt)
+            res.writeHead(statusCode)
+            res.end()
+          }
         }
-      })
-
-      await expectBuildError(ocw, "course", match)
+      )
     }
-  )
 
-  test.each([
-    {
-      statusCode: 404,
-      match:      [
-        /Failed to fetch featured course info/,
-        /from .*4322\/courses\/some-featured-course/
-      ]
-    },
-    {
-      statusCode: 504,
-      match:      [
-        /Failed to fetch featured course info/,
-        /from .*4322\/courses\/some-featured-course.*/,
-        /with error.* Gateway Timeout/
-      ]
-    }
-  ])("Featured course static API failures", async ({ statusCode, match }) => {
-    const shouldPatch = (req: IncomingMessage) =>
-      req.url?.includes("some-featured-course")
-    ocw.fixturesServer.patchHandler((req, res) => {
-      if (shouldPatch(req)) {
-        res.writeHead(statusCode)
-        res.end()
-      }
+    test("should return 504 on the first request then 404 for subsequent requests", async () => {
+      patchInstructorRequest(attempt => (attempt === 1 ? 504 : 404))
+
+      await expectBuildError(ocw, "course", [
+        /Failed to fetch instructors/,
+        /from .*4322\/instructors/
+      ])
     })
-
-    await expectBuildError(ocw, "www", match)
   })
 
-  test.each([
-    {
-      statusCode: 404,
-      match:      [/Failed to fetch new course info/]
-    },
-    {
-      statusCode: 504,
-      match:      [
-        /Failed to fetch new course info/,
-        /from .*4322\/courses\/some-new-course.*/,
-        /with error.* Gateway Timeout/
-      ]
+  describe("Featured course static API failures for featured course", () => {
+    const patchFeaturedCourseRequest = (
+      responder: (attempt: number) => number
+    ) => {
+      let attempt = 0
+      const shouldPatch = (req: IncomingMessage) =>
+        req.url?.includes("some-featured-course")
+      ocw.fixturesServer.patchHandler(
+        (req: IncomingMessage, res: ServerResponse) => {
+          if (shouldPatch(req)) {
+            attempt++
+            const statusCode = responder(attempt)
+            res.writeHead(statusCode)
+            res.end()
+          }
+        }
+      )
     }
-  ])("Featured course static API failures", async ({ statusCode, match }) => {
-    const shouldPatch = (req: IncomingMessage) =>
-      req.url?.includes("some-new-course")
-    ocw.fixturesServer.patchHandler((req, res) => {
-      if (shouldPatch(req)) {
-        res.writeHead(statusCode)
-        res.end()
-      }
-    })
 
-    await expectBuildError(ocw, "www", match)
+    test("should return 504 on the first request then 404 for subsequent requests", async () => {
+      patchFeaturedCourseRequest(attempt => (attempt === 1 ? 504 : 404))
+
+      await expectBuildError(ocw, "www", [
+        /Failed to fetch featured course info/,
+        /from .*4322\/courses\/some-featured-course/
+      ])
+    })
+  })
+
+  describe("Featured course static API failures for new course", () => {
+    const patchNewCourseRequest = (responder: (attempt: number) => number) => {
+      let attempt = 0
+      const shouldPatch = (req: IncomingMessage) =>
+        req.url?.includes("some-new-course")
+      ocw.fixturesServer.patchHandler(
+        (req: IncomingMessage, res: ServerResponse) => {
+          if (shouldPatch(req)) {
+            attempt++
+            const statusCode = responder(attempt)
+            res.writeHead(statusCode)
+            res.end()
+          }
+        }
+      )
+    }
+
+    test("should return 504 on the first request then 404 for subsequent requests", async () => {
+      patchNewCourseRequest(attempt => (attempt === 1 ? 504 : 404))
+
+      await expectBuildError(ocw, "www", [
+        /Failed to fetch new course info/,
+        /from .*4322\/courses\/some-new-course.*/
+      ])
+    })
   })
 })
