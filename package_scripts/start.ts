@@ -14,7 +14,7 @@ type HugoServerOptions = {
   bind: string
   config: string
   themesDir: string
-  renderToDisk: boolean
+  renderToMemory: boolean
 }
 
 const hugoServer = (
@@ -24,7 +24,7 @@ const hugoServer = (
     port:         3000,
     bind:         "0.0.0.0",
     themesDir:    process.cwd(),
-    renderToDisk: true,
+    renderToMemory: true,
     ...opts
   }
   return `hugo server ${u.getOptions(allOpts)}`

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { User as UserApi, UsersApi } from "@mitodl/open-api-axios/v0"
+import { Configuration, User as UserApi, UsersApi } from "@mitodl/open-api-axios/dist/esm/v0"
 
 interface User extends Partial<UserApi> {
   is_authenticated: boolean
@@ -10,8 +10,12 @@ const useUserMe = () =>
     queryKey: ["userMe"],
     queryFn: async (): Promise<User> => {
       try {
-        const usersApi = new UsersApi(undefined, "https://api.learn.dev.c4103.com/".replace(/\/+$/, ""), )
-        usersApi.axios.defaults.withCredentials = true
+        const config = { basePath: "https://api.learn.dev.c4103.com/".replace(/\/+$/, ""), baseOptions: { withCredentials: true } }
+        const configuration = new Configuration({
+          basePath: config.basePath,
+          baseOptions: config.baseOptions,
+        })
+        const usersApi = new UsersApi(configuration)
         const response = await usersApi.usersMeRetrieve()
         return {
           is_authenticated: true,

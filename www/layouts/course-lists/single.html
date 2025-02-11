@@ -14,11 +14,11 @@
     {{- range $courselist.Params.courses -}}
       {{- $id := .id -}}
       {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $id "/data.json") "" -}}
-      {{ with resources.GetRemote $url }}
+      {{ with try (resources.GetRemote $url) }}
         {{ with .Err }}
           {{- $errorMessage := printf "Something went wrong while fetching course list on %v via %v with error: %v" site.BaseURL $url . -}}
           {{- partial "sentry_capture_message.html" $errorMessage -}}
-        {{ else }}
+        {{ else with .Value }}
           {{- $data := . | unmarshal -}}
           {{- $data = merge $data (dict "url_path" $id) -}}
           {{- $courseListData = $courseListData | append (dict $id $data) -}}
