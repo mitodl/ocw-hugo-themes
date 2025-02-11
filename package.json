@@ -38,6 +38,10 @@
   "resolutions": {
     "natives": "1.1.6"
   },
+  "hugo-bin": {
+    "buildTags": "extended",
+    "version": "^0.140.1"
+  },
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
     "@mitodl/course-search-utils": "^2.3.0",
@@ -119,7 +123,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "exec-sh": "^0.4.0",
     "file-loader": "^5.0.2",
-    "hugo-bin-extended": "^0.142.0",
+    "hugo-bin": "^0.140.1",
     "imports-loader": "^0.8.0",
     "inquirer": "^12.0.0",
     "jest": "^27.4.7",
