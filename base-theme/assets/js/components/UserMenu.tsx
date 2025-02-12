@@ -4,7 +4,7 @@ import {
   RiAccountCircleFill,
 } from "@remixicon/react"
 
-import { useUserMe } from "../hooks/user"
+import { useUserMe } from "../../../../www/assets/js/hooks/user"
 
 export default function UserMenu() {
   const { data: user } = useUserMe()
