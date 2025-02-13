@@ -139,7 +139,7 @@ class LocalOCW {
         destination: path.join(this.rootDestinationDir, destInTmp),
         ignoreCache: true,
         config:      site.configPath,
-        baseURL:     destInTmp,
+        baseURL:     destInTmp
       },
       {
         cwd: fromRoot(`./test-sites/${site.name}`),
