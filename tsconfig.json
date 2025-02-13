@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "target": "es5",
+    "target": "es6",
     "lib": [
       "es2020",
       "dom"
     ],
     "jsx": "react",
-    "module": "ES2020",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
     "typeRoots": [
       "node_modules/@types",
       "base-theme/assets/types"

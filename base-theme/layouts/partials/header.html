@@ -37,6 +37,9 @@
         <li class="nav-item">
           {{ partial "link.html" (dict "href" $contactUrl "class" "nav-link" "text" "Contact Us") }}
         </li>
+        <li>
+          <div id="user-menu-conatiner"></div>
+        </li>
       </ul>
     </div>
   </nav>
@@ -61,6 +64,7 @@
       {{ partial "link.html" (dict "href" $aboutUrl "class" "text-white text-decoration-none font-weight-bold pl-5 pr-3 py-2" "text" "about ocw") }}
       {{ partial "link.html" (dict "href" $zenDeskUrl "class" "text-white text-decoration-none font-weight-bold px-3 py-2" "text" "help & faqs" "target" "_blank") }}
       {{ partial "link.html" (dict "href" $contactUrl "class" "text-white text-decoration-none font-weight-bold px-3 py-2" "text" "contact us") }}
+      <div id="user-menu-container"></div>
     </div>
   </div>
 </div>

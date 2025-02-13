@@ -14,6 +14,11 @@ import {
 } from "./js/quiz_multiple_choice"
 import posthog from "posthog-js"
 import { initPostHog } from "../../base-theme/assets/js/posthog"
+import { QueryClientProvider } from "@tanstack/react-query"
+import React from "react"
+import ReactDOM from "react-dom"
+import { makeQueryClient } from "../../base-theme/assets/js/clients"
+import UserMenu from "../../base-theme/assets/js/components/UserMenu"
 
 export interface OCWWindow extends Window {
   initNanogallery2: () => void
@@ -31,12 +36,17 @@ $(function() {
   checkAnswer()
   showSolution()
   initCourseDrawersClosingViaSwiping()
+  const userMenuContainer = document.querySelector("#user-menu-container")
+  if (userMenuContainer) {
+    const queryClient = makeQueryClient()
+    ReactDOM.render(<QueryClientProvider client={queryClient}><UserMenu /></QueryClientProvider>, userMenuContainer)
+  }
 })
 
 let nanogallery2Loaded = false
 
 window.initNanogallery2 = () => {
   if (nanogallery2Loaded) return
-  import("./nanogallery2-imports")
+  import("./nanogallery2-imports.js")
   nanogallery2Loaded = true
 }
