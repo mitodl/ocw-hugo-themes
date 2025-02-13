@@ -11,5 +11,5 @@ repos:
           - --exclude-files
           - README.md
           - --exclude-files
-          - .yarn/releases/yarn-3.1.0.cjs
+          - .yarn/releases/yarn-3.8.3.cjs
         exclude: .*_test.*|yarn\.lock
