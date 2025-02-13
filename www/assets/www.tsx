@@ -35,7 +35,12 @@ $(function() {
   const userMenuContainer = document.querySelector("#user-menu-container")
   if (userMenuContainer) {
     const queryClient = makeQueryClient()
-    ReactDOM.render(<QueryClientProvider client={queryClient}><UserMenu /></QueryClientProvider>, userMenuContainer)
+    ReactDOM.render(
+      <QueryClientProvider client={queryClient}>
+        <UserMenu />
+      </QueryClientProvider>,
+      userMenuContainer
+    )
   }
 
   const searchPageEl = document.querySelector("#search-page")

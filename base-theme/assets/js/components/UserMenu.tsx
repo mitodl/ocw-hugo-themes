@@ -1,8 +1,6 @@
 import React from "react"
 
-import {
-  RiAccountCircleFill,
-} from "@remixicon/react"
+import { RiAccountCircleFill } from "@remixicon/react"
 
 import { useUserMe } from "../user"
 
@@ -26,25 +24,40 @@ export default function UserMenu() {
         <RiAccountCircleFill size={24} />
       </button>
       <ul className="dropdown-menu" aria-labelledby="userMenu">
-        {user?.is_authenticated ? (
+        {user?.isAuthenticated ? (
           <>
             <li>
               {user.first_name} {user.last_name}
             </li>
             <li>
-              <a className="dropdown-item" href={dashboardUrl} target="_blank">
+              <a
+                className="dropdown-item"
+                href={dashboardUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
                 Dashboard
               </a>
             </li>
             <li>
-              <a className="dropdown-item" href={logoutUrl} target="_blank">
+              <a
+                className="dropdown-item"
+                href={logoutUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
                 Logout
               </a>
             </li>
           </>
         ) : (
           <li>
-            <a className="dropdown-item" href={loginUrl} target="_blank">
+            <a
+              className="dropdown-item"
+              href={loginUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
               Login
             </a>
           </li>
