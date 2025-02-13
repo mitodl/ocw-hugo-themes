@@ -140,7 +140,6 @@ class LocalOCW {
         ignoreCache: true,
         config:      site.configPath,
         baseURL:     destInTmp,
-        verbose:     true
       },
       {
         cwd: fromRoot(`./test-sites/${site.name}`),
