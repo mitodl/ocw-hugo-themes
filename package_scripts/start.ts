@@ -20,9 +20,9 @@ const hugoServer = (
   opts: Partial<HugoServerOptions> & Pick<HugoServerOptions, "config">
 ) => {
   const allOpts: HugoServerOptions = {
-    port:         3000,
-    bind:         "0.0.0.0",
-    themesDir:    process.cwd(),
+    port:      3000,
+    bind:      "0.0.0.0",
+    themesDir: process.cwd(),
     ...opts
   }
   return `hugo server ${u.getOptions(allOpts)}`
