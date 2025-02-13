@@ -8088,15 +8088,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hugo-bin-extended@npm:^0.130.0":
-  version: 0.130.0
-  resolution: "hugo-bin-extended@npm:0.130.0"
+"hugo-bin-extended@npm:^0.136.0":
+  version: 0.136.5
+  resolution: "hugo-bin-extended@npm:0.136.5"
   dependencies:
     "@xhmikosr/bin-wrapper": ^13.0.5
     package-config: ^5.0.0
   bin:
     hugo: bin/cli.js
-  checksum: 375ae80aa6d5730737f56b60cb1bf02579eb0fb3181f57b0ff188d72d8bcfd38bf8e4a66c93e62640be9e005a996bef328cb2bd95709452b86df34239dd8741c
+  checksum: f3601897a77c23a9d89cd6b9500d91f2f9f5cba5710f7df0088624cdfca7a79fa3a0fca0edf6287d077f0b3e04921c555d5e42dcb5592e4890c94f256251a88b
   languageName: node
   linkType: hard
 
@@ -11262,7 +11262,7 @@ __metadata:
     file-loader: ^5.0.2
     fuse.js: ^6.6.2
     history: ^5.3.0
-    hugo-bin-extended: ^0.130.0
+    hugo-bin-extended: ^0.136.0
     imports-loader: ^0.8.0
     inquirer: ^12.0.0
     isomorphic-fetch: ^3.0.0
