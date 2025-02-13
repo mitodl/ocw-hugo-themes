@@ -15,8 +15,8 @@ const makeQueryClient = (): QueryClient => {
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
-        staleTime: Infinity,
-        onError: (error) => {
+        staleTime:            Infinity,
+        onError:              error => {
           const status = (error as MaybeHasStatus)?.response?.status
           if (THROW_ERROR_CODES.includes(status)) {
             throw error
@@ -33,9 +33,9 @@ const makeQueryClient = (): QueryClient => {
             return failureCount < MAX_RETRIES
           }
           return false
-        },
-      },
-    },
+        }
+      }
+    }
   })
 }
 

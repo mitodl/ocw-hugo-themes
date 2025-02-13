@@ -6,7 +6,7 @@
   "main": "base-theme/assets/index.js",
   "packageManager": "yarn@4.6.0",
   "scripts": {
-    "lint": "eslint $PROJECT_CWD/'**/*.{js,jsx,ts,tsx}'",
+    "lint": "eslint $PROJECT_CWD/'**/*.{js,jsx,ts,tsx}' --fix",
     "start": "NODE_ENV=development ts-node ./package_scripts/start.ts",
     "start:webpack": "yarn with-env --dev -- webpack --config ./base-theme/assets/webpack/webpack.dev.ts --stats-children",
     "start:www": "echo This command has been removed. Use `yarn start www` instead.",

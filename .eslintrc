@@ -17,6 +17,7 @@
     "@typescript-eslint/no-non-null-assertion": "off"
   },
   "ignorePatterns": [
-    "**/dist"
+    "**/dist",
+    "**/static_shared"
   ]
 }
