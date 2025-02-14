@@ -18,7 +18,7 @@ else
   npm run build:webpack --  --output-path=$STATIC_PATH
   cd $CONTENT_PATH
   # Run Hugo build
-  hugo --config $CONFIG_PATH --themesDir $THEMES_PATH -d dist -v
+  hugo --config $CONFIG_PATH --themesDir $THEMES_PATH -d dist --logLevel info
   GIT_HASH=`git rev-parse HEAD`
   printf $GIT_HASH >> $STATIC_PATH/hash.txt
 fi
