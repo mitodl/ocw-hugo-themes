@@ -1938,6 +1938,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/dotenv@npm:^8.2.3":
+  version: 8.2.3
+  resolution: "@types/dotenv@npm:8.2.3"
+  dependencies:
+    dotenv: "*"
+  checksum: 3075371abbcaf231593c57297338c9b731a45b3dd519ab96c1708a2f7fa345fcf885daf1ba3e39d84942873706fb1aa656b560cde9ccb62ce598ceb563502470
+  languageName: node
+  linkType: hard
+
 "@types/enzyme-adapter-react-16@npm:^1.0.6":
   version: 1.0.9
   resolution: "@types/enzyme-adapter-react-16@npm:1.0.9"
@@ -5746,6 +5755,13 @@ __metadata:
   peerDependencies:
     webpack: ^4 || ^5
   checksum: 9bb53318941b9ea39da7caf4dddd473f0e6bd3b97679fb4b853324e38841d848f8428af784e76d8efeb659f325b9cbcf420422458d635ca6fe72b9057c7c1abe
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:*":
+  version: 16.4.7
+  resolution: "dotenv@npm:16.4.7"
+  checksum: c27419b5875a44addcc56cc69b7dc5b0e6587826ca85d5b355da9303c6fc317fc9989f1f18366a16378c9fdd9532d14117a1abe6029cc719cdbbef6eaef2cea4
   languageName: node
   linkType: hard
 
@@ -11314,6 +11330,7 @@ __metadata:
     "@swc/helpers": ^0.4.12
     "@tanstack/react-query": 4.36.1
     "@testing-library/react-hooks": ^7.0.2
+    "@types/dotenv": ^8.2.3
     "@types/enzyme": ^3.10.11
     "@types/enzyme-adapter-react-16": ^1.0.6
     "@types/inquirer": ^8.2.5
