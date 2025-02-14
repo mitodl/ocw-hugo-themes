@@ -14,17 +14,17 @@ type HugoServerOptions = {
   bind: string
   config: string
   themesDir: string
-  renderToDisk: boolean
+  logLevel?: string
 }
 
 const hugoServer = (
   opts: Partial<HugoServerOptions> & Pick<HugoServerOptions, "config">
 ) => {
   const allOpts: HugoServerOptions = {
-    port:         3000,
-    bind:         "0.0.0.0",
-    themesDir:    process.cwd(),
-    renderToDisk: true,
+    port:      3000,
+    bind:      "0.0.0.0",
+    themesDir: process.cwd(),
+    logLevel:  opts.logLevel || "info",
     ...opts
   }
   return `hugo server ${u.getOptions(allOpts)}`
@@ -162,7 +162,13 @@ const makeEnvOpt = (
   ]
 }
 
-const start = program.description("Start ocw-hugo-themes development servers.")
+const start = program
+  .description("Start ocw-hugo-themes development servers.")
+  .option(
+    "--logLevel [value]",
+    "Set the log level for Hugo (options: debug, info, warn, error).",
+    "info"
+  )
 
 type StartOptions = {
   gitContentSource: string
@@ -194,10 +200,13 @@ const startSiteAction = async (opts: StartOptions, cliOptNames: string[]) => {
 
   await ensureHugoConfig("COURSE_HUGO_CONFIG_PATH")
 
+  const globalOpts = program.opts() as { logLevel: string }
+  const logLevel = globalOpts.logLevel || "info"
+
   startWebpackAnd({
     name:    "hugo",
     cwd:     opts.contentDir,
-    command: hugoServer({ config: opts.config })
+    command: hugoServer({ config: opts.config, logLevel })
   })
 }
 
