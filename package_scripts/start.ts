@@ -165,7 +165,7 @@ const makeEnvOpt = (
 const start = program
   .description("Start ocw-hugo-themes development servers.")
   .option(
-    "--logLevel <value>",
+    "--logLevel [value]",
     "Set the log level for Hugo (options: debug, info, warn, error).",
     "info"
   )
