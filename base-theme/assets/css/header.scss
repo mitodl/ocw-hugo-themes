@@ -86,6 +86,13 @@
           }
         }
       }
+
+      div#user-menu-container {
+        width: 40px;
+        img#user-menu-placeholder {
+          padding: 7px 13px;
+        }
+      }
     }
   }
 }
