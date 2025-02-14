@@ -67,7 +67,7 @@ type HugoOptions = {
  * for more.
  */
 const hugo = (hugoOptions: HugoOptions, execOptions: SpawnOptions) => {
-  const opts = { ...hugoOptions, logLevel: hugoOptions.logLevel || "info" }
+  const opts = { ...hugoOptions, logLevel: hugoOptions.logLevel || "error" }
   const flags = getOptions(opts)
   return execSh(`yarn hugo ${flags}`, execOptions)
 }

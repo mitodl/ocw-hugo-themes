@@ -10,19 +10,25 @@
 {{- if and $studioBaseUrl (ne $apiBearerToken "") -}}
   {{- $apiUrl := printf "%v/api/publish?%v" (strings.TrimSuffix "/" $studioBaseUrl) $queryString -}}
   {{- $apiHeaders := dict "headers" (dict "Authorization" (printf "Bearer %v" $apiBearerToken)) -}}
-  {{- $coursesJson := resources.GetRemote $apiUrl $apiHeaders -}}
-  {{- with transform.Unmarshal $coursesJson -}}
-    {{- $sites := .sites -}}
-    {{- if $sites -}}
-      {{ range $index, $courseItem := $sites }}
-        {{- $path := strings.TrimPrefix "/" (strings.TrimSuffix "/" $courseItem.base_url) -}}
-        {{- if not (eq $path "") -}}
-          {{- $url :=  printf "https://%v/%v/sitemap.xml" $sitemapDomain $path -}}
-  <sitemap>
-    <loc>{{ $url }}</loc>
-  </sitemap>
+  {{- with try (resources.GetRemote $apiUrl $apiHeaders) -}}
+    {{- with .Err -}}
+      {{ errorf "Failed to fetch sitemap from studio: %v" . }}
+    {{- end -}}
+    {{- with .Value -}}
+      {{- with transform.Unmarshal . -}}
+        {{- $sites := .sites -}}
+        {{- if $sites -}}
+          {{ range $index, $courseItem := $sites }}
+            {{- $path := strings.TrimPrefix "/" (strings.TrimSuffix "/" $courseItem.base_url) -}}
+            {{- if not (eq $path "") -}}
+              {{- $url :=  printf "https://%v/%v/sitemap.xml" $sitemapDomain $path -}}
+      <sitemap>
+        <loc>{{ $url }}</loc>
+      </sitemap>
+            {{- end -}}
+          {{ end }}
         {{- end -}}
-      {{ end }}
+      {{- end -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
