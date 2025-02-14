@@ -24,7 +24,7 @@ const hugoServer = (
     port:      3000,
     bind:      "0.0.0.0",
     themesDir: process.cwd(),
-    logLevel:  opts.logLevel || "error",
+    logLevel:  opts.logLevel || "info",
     ...opts
   }
   return `hugo server ${u.getOptions(allOpts)}`
@@ -167,7 +167,7 @@ const start = program
   .option(
     "--logLevel <value>",
     "Set the log level for Hugo (options: debug, info, warn, error).",
-    "error"
+    "info"
   )
 
 type StartOptions = {
@@ -201,7 +201,7 @@ const startSiteAction = async (opts: StartOptions, cliOptNames: string[]) => {
   await ensureHugoConfig("COURSE_HUGO_CONFIG_PATH")
 
   const globalOpts = program.opts() as { logLevel: string }
-  const logLevel = globalOpts.logLevel || "error"
+  const logLevel = globalOpts.logLevel || "info"
 
   startWebpackAnd({
     name:    "hugo",
