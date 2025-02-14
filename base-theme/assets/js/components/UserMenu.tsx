@@ -5,12 +5,13 @@ import { RiAccountCircleFill } from "@remixicon/react"
 import { useUserMe } from "../user"
 
 export default function UserMenu() {
-  const { data: user } = useUserMe()
+  const { data: user, isLoading } = useUserMe()
   const learnBaseUrl = process.env.MIT_LEARN_BASEURL
   const apiBaseUrl = process.env.MIT_LEARN_API_BASEURL
+  const encodedLocation = encodeURI(window.location.href)
   const dashboardUrl = new URL("/dashboard", learnBaseUrl).toString()
-  const logoutUrl = new URL("/logout", apiBaseUrl).toString()
-  const loginUrl = new URL("/login/ol-oidc", apiBaseUrl).toString()
+  const logoutUrl = new URL(`/logout?redirect_uri=${encodedLocation}`, apiBaseUrl).toString()
+  const loginUrl = new URL(`/login/ol-oidc?redirect_uri=${encodedLocation}`, apiBaseUrl).toString()
 
   return (
     <div className="dropdown">
@@ -23,46 +24,41 @@ export default function UserMenu() {
       >
         <RiAccountCircleFill size={24} />
       </button>
-      <ul className="dropdown-menu" aria-labelledby="userMenu">
-        {user?.isAuthenticated ? (
+      <div className="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+        {!isLoading ? (
+          user?.isAuthenticated ? (
           <>
-            <li>
+            <div className="px-3 py-2">
               {user.first_name} {user.last_name}
-            </li>
-            <li>
-              <a
-                className="dropdown-item"
-                href={dashboardUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Dashboard
-              </a>
-            </li>
-            <li>
-              <a
-                className="dropdown-item"
-                href={logoutUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Logout
-              </a>
-            </li>
-          </>
-        ) : (
-          <li>
+            </div>
             <a
-              className="dropdown-item"
-              href={loginUrl}
-              target="_blank"
+              className="dropdown-item text-capitalize"
+              href={dashboardUrl}
               rel="noreferrer"
             >
-              Login
+              Dashboard
             </a>
-          </li>
-        )}
-      </ul>
+            <a
+              className="dropdown-item text-capitalize"
+              href={logoutUrl}
+              rel="noreferrer"
+            >
+              Logout
+            </a>
+          </>
+        ) : (
+          <a
+            className="dropdown-item text-capitalize"
+            href={loginUrl}
+            rel="noreferrer"
+          >
+            Login
+          </a>
+        )
+      ) : (
+        <div className="dropdown-item text-capitalize">Loading...</div>
+      )}
+      </div>
     </div>
   )
 }
