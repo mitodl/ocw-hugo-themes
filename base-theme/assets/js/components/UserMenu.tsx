@@ -10,8 +10,8 @@ export default function UserMenu() {
   const apiBaseUrl = process.env.MIT_LEARN_API_BASEURL
   const encodedLocation = encodeURI(window.location.href)
   const dashboardUrl = new URL("/dashboard", learnBaseUrl).toString()
-  const logoutUrl = new URL(`/logout?redirect_uri=${encodedLocation}`, apiBaseUrl).toString()
-  const loginUrl = new URL(`/login/ol-oidc?redirect_uri=${encodedLocation}`, apiBaseUrl).toString()
+  const logoutUrl = new URL(`/logout?next=${encodedLocation}`, apiBaseUrl).toString()
+  const loginUrl = new URL(`/login/ol-oidc?next=${encodedLocation}`, apiBaseUrl).toString()
 
   return (
     <div className="dropdown">
