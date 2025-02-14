@@ -34,14 +34,12 @@ export default function UserMenu() {
             <a
               className="dropdown-item text-capitalize"
               href={dashboardUrl}
-              rel="noreferrer"
             >
               Dashboard
             </a>
             <a
               className="dropdown-item text-capitalize"
               href={logoutUrl}
-              rel="noreferrer"
             >
               Logout
             </a>
@@ -50,7 +48,6 @@ export default function UserMenu() {
           <a
             className="dropdown-item text-capitalize"
             href={loginUrl}
-            rel="noreferrer"
           >
             Login
           </a>
