@@ -22,7 +22,7 @@ const expectBuildError = async (
   }
 
   messages.forEach(msg => {
-    expect(error!.stdout).toMatch(msg)
+    expect(error!.stderr).toMatch(msg)
   })
 }
 
