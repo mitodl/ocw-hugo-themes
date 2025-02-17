@@ -24,7 +24,6 @@ const hugoServer = (
     port:      3000,
     bind:      "0.0.0.0",
     themesDir: process.cwd(),
-    logLevel:  opts.logLevel,
     ...opts
   }
   return `hugo server ${u.getOptions(allOpts)}`
