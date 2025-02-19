@@ -15,7 +15,7 @@ describe("API module", () => {
   })
 
   it("should run a search", () => {
-    mockFetch.mockResponse(JSON.stringify({}))
+    mockFetch.doMock().mockResponse(JSON.stringify({}))
     search({ text: "my text!" })
     expect(mockFetch.mock.calls[0]).toEqual([
       process.env.SEARCH_API_URL,
