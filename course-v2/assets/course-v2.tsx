@@ -17,6 +17,7 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { makeQueryClient } from "../../base-theme/assets/js/clients"
 import UserMenu from "../../base-theme/assets/js/components/UserMenu"
+import UserListModal from "../../base-theme/assets/js/components/UserListModal"
 
 export interface OCWWindow extends Window {
   initNanogallery2: () => void
@@ -40,6 +41,16 @@ $(function() {
         <UserMenu />
       </QueryClientProvider>,
       userMenuContainer
+    )
+  }
+  const userListModalContainer = document.querySelector("#user-list-modal-container")
+  if (userListModalContainer) {
+    const queryClient = makeQueryClient()
+    ReactDOM.render(
+      <QueryClientProvider client={queryClient}>
+        <UserListModal />
+      </QueryClientProvider>,
+      userListModalContainer
     )
   }
 })
