@@ -2,7 +2,7 @@ import React from "react"
 
 import { RiAccountCircleFill } from "@remixicon/react"
 
-import { useUserMe } from "../user"
+import { useUserMe } from "../hooks/user"
 
 export default function UserMenu() {
   const { data: user, isLoading } = useUserMe()
@@ -15,7 +15,7 @@ export default function UserMenu() {
     apiBaseUrl
   ).toString()
   const loginUrl = new URL(
-    `/login/ol-oidc?next=${encodedLocation}`,
+    `/login/ol-oidc?skip_onboarding=true&next=${encodedLocation}`,
     apiBaseUrl
   ).toString()
 
@@ -38,7 +38,7 @@ export default function UserMenu() {
           user?.isAuthenticated ? (
             <>
               <div className="px-3 py-2">
-                {user.first_name} {user.last_name}
+                {user.profile?.name}
               </div>
               <a className="dropdown-item text-capitalize" href={myListsUrl}>
                 My Lists
