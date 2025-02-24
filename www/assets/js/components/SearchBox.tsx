@@ -1,5 +1,3 @@
-import React from "react"
-
 export interface SearchBoxProps {
   value: string
   onChange: React.ChangeEventHandler<HTMLInputElement>

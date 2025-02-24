@@ -6,7 +6,7 @@
       "es2020",
       "dom"
     ],
-    "jsx": "react",
+    "jsx": "react-jsx",
     "module": "ES2020",
     "moduleResolution": "node",
     "typeRoots": [
