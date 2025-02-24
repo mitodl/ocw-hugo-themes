@@ -48,4 +48,5 @@ const devOverrides: Configuration = {
   ]
 }
 
-export default merge(common, devOverrides)
+const mergedConfig = merge(common, devOverrides)
+export default mergedConfig
