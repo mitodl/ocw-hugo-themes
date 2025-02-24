@@ -1,6 +1,17 @@
 Release Notes
 =============
 
+Version 1.125.0 (Released February 24, 2025)
+---------------
+
+- Revert "Update dependency copy-webpack-plugin to v12" (#1514)
+- Update dependency prettier-eslint to v16 (#1484)
+- Update dependency eslint-plugin-jest to v28 (#1483)
+- Upgrade Hugo version from 0.115.4 to 0.119.0 (#1507)
+- Update dependency eslint-config-mitodl to v2 (#1482)
+- Update dependency copy-webpack-plugin to v12 (#1466)
+- Update dependency concurrently to v9 (#1465)
+
 Version 1.124.1 (Released February 04, 2025)
 ---------------
 
