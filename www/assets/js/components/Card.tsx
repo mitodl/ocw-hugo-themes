@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react"
+import { MouseEventHandler } from "react"
 
 const getClassName = (className: string | undefined): string => {
   const classes = ["card", className || ""]

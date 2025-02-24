@@ -1,4 +1,3 @@
-import React from "react"
 import { useCourseListData } from "../hooks/hugo_data"
 import CourseListRow from "./CourseListRow"
 
