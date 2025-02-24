@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.125.0
+Version 1.125.0 (Released February 24, 2025)
 ---------------
 
 - Revert "Update dependency copy-webpack-plugin to v12" (#1514)
