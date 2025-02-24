@@ -1,5 +1,6 @@
 {
   "extends": "eslint-config-mitodl",
+  "plugins": ["import"],
   "settings": {
     "react": {
       "version": "17.0.0"
