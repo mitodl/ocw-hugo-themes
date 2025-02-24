@@ -69,7 +69,7 @@ jobs:
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
 
       - name: Deploy www Preview to Netlify
-        uses: nwtgck/actions-netlify@7a92f00dde8c92a5a9e8385ec2919775f7647352 # v2.1
+        uses: nwtgck/actions-netlify@4cbaf4c08f1a7bfa537d6113472ef4424e4eb654 # v3.0
         if: ${{ github.event_name == 'pull_request' }}
         with:
           publish-dir: "../ocw-www/public"
@@ -84,7 +84,7 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
       - name: Deploy v2 Course Preview to Netlify
-        uses: nwtgck/actions-netlify@7a92f00dde8c92a5a9e8385ec2919775f7647352 # v2.1
+        uses: nwtgck/actions-netlify@4cbaf4c08f1a7bfa537d6113472ef4424e4eb654 # v3.0
         if: ${{ github.event_name == 'pull_request' }}
         with:
           publish-dir: "../ocw-course/public-v2"
@@ -130,7 +130,7 @@ jobs:
           body: ${{ steps.set-comment-body.outputs.body }}
 
       - name: Deploy CI build to Netlify
-        uses: nwtgck/actions-netlify@7a92f00dde8c92a5a9e8385ec2919775f7647352 # v2.1
+        uses: nwtgck/actions-netlify@4cbaf4c08f1a7bfa537d6113472ef4424e4eb654 # v3.0
         if: ${{ github.event_name == 'push' }}
         with:
           publish-dir: "../ocw-www/public"
