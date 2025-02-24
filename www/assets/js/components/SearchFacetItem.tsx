@@ -1,4 +1,3 @@
-import React from "react"
 import Dotdotdot from "react-dotdotdot"
 import { Bucket } from "@mitodl/course-search-utils"
 

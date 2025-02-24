@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 
 import FacetDisplay from "./FacetDisplay"
 import { DESKTOP } from "../lib/constants"

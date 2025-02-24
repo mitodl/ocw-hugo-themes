@@ -1,6 +1,4 @@
 import { LearningResourceType } from "@mitodl/course-search-utils"
-import React from "react"
-
 import { LearningResource } from "../LearningResources"
 import { CAROUSEL_IMG_HEIGHT } from "../lib/constants"
 import { getCoverImageUrl } from "../lib/search"

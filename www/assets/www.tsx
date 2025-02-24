@@ -3,7 +3,6 @@ import "./css/search.scss"
 
 import Popper from "popper.js"
 import ReactDOM from "react-dom"
-import React from "react"
 import { createBrowserHistory } from "history"
 
 import SearchPage from "./js/components/SearchPage"
