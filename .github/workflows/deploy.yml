@@ -104,7 +104,7 @@ jobs:
           body=$(echo 'Netlify Deployments:<br>www: https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/ <br> Course v2: https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/')
           echo "body=$body" >> $GITHUB_OUTPUT
       - name: Find Comment
-        uses: peter-evans/find-comment@a54c31d7fa095754bfef525c0c8e5e5674c4b4b1 # v2
+        uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e # v3
         id: fc
         continue-on-error: true
         with:
