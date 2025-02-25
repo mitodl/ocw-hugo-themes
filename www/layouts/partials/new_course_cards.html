@@ -4,8 +4,10 @@
 {{ $courseStarterSlug := getenv "OCW_COURSE_STARTER_SLUG" }}
 {{ $coursesQuery := querify "type" $courseStarterSlug "limit" 12 }}
 {{ $coursesURL := (print (strings.TrimSuffix "/" $studioBaseUrl) "/api/websites/?" $coursesQuery) }}
-{{ with resources.GetRemote $coursesURL }}
-  {{ if not .Err }}
+{{ with try (resources.GetRemote $coursesURL) }}
+  {{ with .Err }}
+    {{ errorf "Failed to fetch new courses list from %v with error %v" $coursesURL . }}
+  {{ else with .Value }}
     {{ $results := (. | unmarshal).results }}
     {{ if $results }}
       {{ $breakdowns := (dict "xs-sm" (dict "size" 1 "class" "d-flex d-md-none") "md" (dict "size" 2 "class" "d-none d-md-flex d-lg-none") "lg" (dict "size" 3 "class" "d-none d-lg-flex d-xl-none") "xl" (dict "size" 4 "class" "d-none d-xl-flex")) }}
@@ -26,15 +28,15 @@
               {{ range $index, $courseItem := $resultsSlice  }}
                 {{- if $courseItem.url_path -}}
                   {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $courseItem.url_path "/data.json") "" -}}
-                  {{ with resources.GetRemote $url }}
+                  {{ with try (resources.GetRemote $url) }}
                     {{ with .Err }}
                       {{ errorf "Failed to fetch new course info from %v with error %v" $url . }}
-                    {{ else }}
+                    {{ else with .Value }}
                       {{- $courseData := . | unmarshal -}}
                       {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $courseItem.url_path "numCourses" (len $resultsSlice))}}
+                    {{ else }}
+                      {{ errorf "Failed to fetch new course info from %v" $url }}
                     {{ end }}
-                  {{ else }}
-                    {{ errorf "Failed to fetch new course info from %v" $url }}
                   {{ end }}
                 {{- end -}}
               {{ end }}
@@ -45,8 +47,8 @@
     {{ else }}
     No new courses found
     {{ end }}
+  {{ else }}
+    {{ errorf "Failed to fetch new courses list from %v" $coursesURL }}
   {{ end }}
-{{ else }}
-  {{ errorf "Failed to fetch new courses list from %v" $coursesURL }}
 {{ end }}
 </div>

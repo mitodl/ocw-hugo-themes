@@ -23,15 +23,15 @@
             {{ range $index, $courseItem := $courses }}
               {{- $urlPath := partial "site_root_url.html" $courseItem.id -}}
               {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) $urlPath "/data.json") "" -}}
-              {{ with resources.GetRemote $url }}
+              {{ with try (resources.GetRemote $url) }}
                 {{ with .Err }}
                   {{ errorf "Failed to fetch featured course info from %v with error %v" $url . }}
-                {{ else }}
+                {{ else with .Value }}
                   {{- $courseData := . | unmarshal -}}
                   {{ partial "course_carousel_card.html" (dict "itemsInCarousel" $itemsInCarousel "courseData" $courseData "index" $index "urlPath" $urlPath "numCourses" (len $courses))}}
+                {{ else }}
+                  {{ errorf "Failed to fetch featured course info from %v" $url }}
                 {{ end }}
-              {{ else }}
-                {{ errorf "Failed to fetch featured course info from %v" $url }}
               {{ end }}
             {{ end }}
           </div>

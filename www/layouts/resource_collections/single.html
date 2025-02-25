@@ -24,50 +24,50 @@
       {{- $urlPath := index . 1 -}}
       {{- if not (isset $contentMap $urlPath) -}}
         {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $urlPath "/content_map.json") "" -}}
-          {{- with resources.GetRemote $url -}}
+          {{- with try (resources.GetRemote $url) -}}
             {{ with .Err }}
               {{- $errorMessage := printf "Failed to fetch resource collections on %v via %v with error: %v" site.BaseURL $url . -}}
               {{- partial "sentry_capture_message.html" $errorMessage -}}
-            {{ else }}
+            {{ else with .Value }}
               {{- $mapData := . | unmarshal -}}
               {{- $mapData = merge $mapData (dict "url_path" $urlPath) -}}
               {{- $contentMap = dict $urlPath $mapData | merge $contentMap -}}
+            {{ else }}
+              {{ $errorMessage := printf "Failed to fetch resource collections through %v on %v" $url site.BaseURL }}
+              {{ partial "sentry_capture_message.html" $errorMessage }}
             {{ end }}
-          {{ else }}
-            {{ $errorMessage := printf "Failed to fetch resource collections through %v on %v" $url site.BaseURL }}
-            {{ partial "sentry_capture_message.html" $errorMessage }}
           {{ end }}
       {{- end -}}
       {{- if not (isset $courseJSONMap $urlPath) -}}
         {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" $urlPath "/data.json") "" -}}
-        {{- with resources.GetRemote $url -}}
+        {{- with try (resources.GetRemote $url) -}}
           {{ with .Err }}
             {{- $errorMessage := printf "Failed to fetch resource collections on %v via %v with error: %v" site.BaseURL $url . -}}
             {{- partial "sentry_capture_message.html" $errorMessage -}}
-          {{ else }}
+          {{ else with .Value }}
             {{- $data := . | unmarshal -}}
             {{- $data = merge $data (dict "url_path" $urlPath) -}}
             {{- $courseJSONMap = merge $courseJSONMap (dict $urlPath $data) -}}
+          {{ else }}
+            {{ $errorMessage := printf "Failed to fetch resource collections through %v on %v" $url site.BaseURL }}
+            {{ partial "sentry_capture_message.html" $errorMessage }}
           {{ end }}
-        {{ else }}
-          {{ $errorMessage := printf "Failed to fetch resource collections through %v on %v" $url site.BaseURL }}
-          {{ partial "sentry_capture_message.html" $errorMessage }}
         {{ end }}
       {{- end -}}
       {{- $courseJSONRelpath := index (index $contentMap $urlPath) $itemUUID -}}
       {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) $courseJSONRelpath) "" -}}
-      {{- with resources.GetRemote $url -}}
+      {{- with try (resources.GetRemote $url) -}}
         {{ with .Err }}
           {{- $errorMessage := printf "Failed to fetch resource collections on %v via %v with error: %v" site.BaseURL $url . -}}
           {{- partial "sentry_capture_message.html" $errorMessage -}}
-        {{ else }}
+        {{ else with .Value }}
           {{- $resourceJSON := . | unmarshal -}}
           {{- $resourceJSONMap = dict $itemUUID $resourceJSON | merge $resourceJSONMap -}}
           {{- $resourceURLMap = dict $itemUUID $url | merge $resourceURLMap -}}
+        {{ else }}
+          {{ $errorMessage := printf "Failed to fetch resource collections through %v on %v" $url site.BaseURL }}
+          {{ partial "sentry_capture_message.html" $errorMessage }}
         {{ end }}
-      {{ else }}
-        {{ $errorMessage := printf "Failed to fetch resource collections through %v on %v" $url site.BaseURL }}
-        {{ partial "sentry_capture_message.html" $errorMessage }}
       {{ end }}
     {{- end -}}
     {{- $resourceCollectionData := dict "courseJSONMap" $courseJSONMap "resourceJSONMap" $resourceJSONMap "resourceURLMap" $resourceURLMap "collection" $collection.Params.resources.content -}}
