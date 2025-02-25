@@ -57,8 +57,8 @@ type HugoOptions = {
   themesDir: string
   config: string
   destination: string
-  verbose?: boolean
   environment?: "development" | "production"
+  logLevel?: string
   cacheDir?: string
   ignoreCache?: boolean
 }
@@ -67,8 +67,9 @@ type HugoOptions = {
  * for more.
  */
 const hugo = (hugoOptions: HugoOptions, execOptions: SpawnOptions) => {
-  const flags = getOptions(hugoOptions)
-  return execSh(`yarn hugo ${flags} --verbose`, execOptions)
+  const opts = { ...hugoOptions, logLevel: hugoOptions.logLevel || "info" }
+  const flags = getOptions(opts)
+  return execSh(`yarn hugo ${flags}`, execOptions)
 }
 
 export type { HugoOptions }

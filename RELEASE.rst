@@ -1,6 +1,19 @@
 Release Notes
 =============
 
+Version 1.126.0
+---------------
+
+- Upgrade Hugo version to latest (0.142.0) (#1512)
+- Update peter-evans/create-or-update-comment action to v4 (#1528)
+- Update peaceiris/actions-hugo action to v3 (#1527)
+- Update dependency sass-loader to v16 (#1453)
+- Update dependency envalid to v8 (#1525)
+- Update dependency @types/sinon to v17 (#1523)
+- Update dependency cross-env to v7 (#1524)
+- Update nwtgck/actions-netlify action to v3 (#1526)
+- Update actions/setup-node action to v4 (#1351)
+
 Version 1.125.0 (Released February 24, 2025)
 ---------------
 
