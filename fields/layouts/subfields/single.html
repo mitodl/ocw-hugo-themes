@@ -14,18 +14,18 @@
     {{- range $courselist.Params.courses -}}
       {{- $id := .id -}}
       {{- $url := delimit (slice (strings.TrimSuffix "/" $staticApiBaseUrl) "/" .id "/data.json") "" -}}
-      {{ with resources.GetRemote $url }}
+      {{ with try (resources.GetRemote $url) }}
         {{ with .Err }}
           {{- $errorMessage := printf "Failed to fetch sub-field on %v via %v with error: %v" site.BaseURL $url . -}}
           {{- partial "sentry_capture_message.html" $errorMessage -}}
-        {{ else }}
+        {{ else with .Value }}
           {{- $data := . | unmarshal -}}
           {{- $data = merge $data (dict "url_path" $id) -}}
           {{- $courseListData = $courseListData | append (dict $id $data) -}}
+        {{ else }}
+          {{ $errorMessage := printf "Failed to fetch sub-field through %v on %v" $url site.BaseURL }}
+          {{ partial "sentry_capture_message.html" $errorMessage }}
         {{ end }}
-      {{ else }}
-        {{ $errorMessage := printf "Failed to fetch sub-field through %v on %v" $url site.BaseURL }}
-        {{ partial "sentry_capture_message.html" $errorMessage }}
       {{ end }}
     {{- end -}}
   {{ end }}
