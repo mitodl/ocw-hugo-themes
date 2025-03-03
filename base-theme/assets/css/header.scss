@@ -88,9 +88,22 @@
       }
 
       div#user-menu-container {
-        width: 40px;
-        img#user-menu-placeholder {
-          padding: 7px 13px;
+        #user-menu-placeholder {
+          padding: 0.375rem 0.75rem;
+        }
+        #login-button, #user-menu-placeholder {
+          height: 100%;
+        }
+        #user-menu-button, #user-menu-placeholder {
+          border: 1px solid $white;
+          border-radius: 4px;
+        }
+        .dropdown-item {
+          text-decoration: none;
+        }
+        .dropdown-item:hover {
+          background-color: $white;
+          text-decoration: underline;
         }
       }
     }

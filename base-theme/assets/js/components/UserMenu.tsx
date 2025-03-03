@@ -20,42 +20,40 @@ export default function UserMenu() {
   ).toString()
 
   return (
-    <div className="dropdown">
-      <button
-        className="btn btn-link dropdown-toggle"
-        type="button"
-        id="userMenu"
-        data-toggle="dropdown"
-        aria-expanded="false"
-      >
-        <RiAccountCircleFill size={24} />
-      </button>
+    user?.isAuthenticated ? (
+      <div className="dropdown">
+        <button
+          className="btn btn-link text-white text-decoration-none dropdown-toggle"
+          type="button"
+          id="user-menu-button"
+          data-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <RiAccountCircleFill size={24} />
+          <span className="pl-2">{user.profile?.name}</span>
+        </button>
       <div
         className="dropdown-menu dropdown-menu-right"
-        aria-labelledby="userMenu"
+        aria-labelledby="user-menu-button"
       >
         {!isLoading ? (
-          user?.isAuthenticated ? (
-            <>
-              <div className="px-3 py-2">
-                {user.profile?.name}
-              </div>
-              <a className="dropdown-item text-capitalize" href={myListsUrl}>
-                My Lists
-              </a>
-              <a className="dropdown-item text-capitalize" href={logoutUrl}>
-                Logout
-              </a>
-            </>
-          ) : (
-            <a className="dropdown-item text-capitalize" href={loginUrl}>
-              Login
+          <>
+            <a className="dropdown-item text-capitalize" href={myListsUrl}>
+              My Lists
             </a>
-          )
+            <a className="dropdown-item text-capitalize" href={logoutUrl}>
+              Logout
+            </a>
+          </>
         ) : (
           <div className="dropdown-item text-capitalize">Loading...</div>
         )}
       </div>
-    </div>
+      </div>
+    ) : (
+      <a id="login-button" className="btn btn-light text-capitalize text-decoration-none font-weight-bold" href={loginUrl}>
+        Log In
+      </a>
+    )
   )
 }
