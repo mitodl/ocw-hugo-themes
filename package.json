@@ -58,6 +58,7 @@
     "offcanvas-bootstrap": "^2.5.2",
     "pdfobject": "^2.2.8",
     "popper.js": "^1.16.1",
+    "posthog-js": "^1.225.0",
     "promise-polyfill": "^8.3.0",
     "ramda": "^0.30.0",
     "react": "^16.13.1",
