@@ -67,7 +67,10 @@
       {{ partial "link.html" (dict "href" $zenDeskUrl "class" "text-white text-decoration-none font-weight-bold px-3 py-2" "text" "help & faqs" "target" "_blank") }}
       {{ partial "link.html" (dict "href" $contactUrl "class" "text-white text-decoration-none font-weight-bold px-3 py-2" "text" "contact us") }}
       <div id="user-menu-container">
-        <img id="user-menu-placeholder" src="{{- partial "get_asset_webpack_url.html" "images/user.svg" -}}" alt="User Menu Loading..." />
+        <div id="user-menu-placeholder" class="text-white">
+          <img src="{{- partial "get_asset_webpack_url.html" "images/user.svg" -}}" />
+          <span class="pl-2">Loading...</span>
+        </div>
       </div>
     </div>
   </div>
