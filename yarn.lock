@@ -1033,9 +1033,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mitodl/ocw-to-hugo@npm:1.36.0":
-  version: 1.36.0
-  resolution: "@mitodl/ocw-to-hugo@npm:1.36.0"
+"@mitodl/ocw-to-hugo@npm:1.47.0":
+  version: 1.47.0
+  resolution: "@mitodl/ocw-to-hugo@npm:1.47.0"
   dependencies:
     "@mitodl/course-search-utils": "npm:^1.1.4"
     acorn: "npm:^8.6.0"
@@ -1056,7 +1056,7 @@ __metadata:
     yargs: "npm:^15.0.2"
   bin:
     ocw-to-hugo: src/bin/index.js
-  checksum: 10c0/da258f1a1ca25e6d711763877db6fdb51219f616c127b43b930d0e30e0a8b7abbedbe551faefa66614769906797492a91d73929e06ed5e6ff053f69c578e9db4
+  checksum: 10c0/9a54b60263cd20b22e3b83c5284c6e40c4788c200800b9e7f25dbf52bee7670c56893cdedd414ab658eaeb0a58a355a96a03997da1d9cd79c18c2de680ca9eab
   languageName: node
   linkType: hard
 
@@ -1497,13 +1497,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/helpers@npm:^0.4.12":
-  version: 0.4.36
-  resolution: "@swc/helpers@npm:0.4.36"
+"@swc/helpers@npm:^0.5.0":
+  version: 0.5.15
+  resolution: "@swc/helpers@npm:0.5.15"
   dependencies:
-    legacy-swc-helpers: "npm:@swc/helpers@=0.4.14"
-    tslib: "npm:^2.4.0"
-  checksum: 10c0/b3b12d0305d49474546952db398435d89ce305b8ffe9c73c90c18ba43ccb16cc90b043c199c813190826316835d590b87c2c3779aacc55382c6e959eca458d2d
+    tslib: "npm:^2.8.0"
+  checksum: 10c0/33002f74f6f885f04c132960835fdfc474186983ea567606db62e86acd0680ca82f34647e8e610f4e1e422d1c16fce729dde22cd3b797ab1fd9061a825dabca4
   languageName: node
   linkType: hard
 
@@ -1939,12 +1938,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ramda@npm:^0.27.62":
-  version: 0.27.66
-  resolution: "@types/ramda@npm:0.27.66"
+"@types/ramda@npm:^0.30.0":
+  version: 0.30.2
+  resolution: "@types/ramda@npm:0.30.2"
   dependencies:
-    ts-toolbelt: "npm:^6.15.1"
-  checksum: 10c0/7103bd11642a906c75eaed516f9e48d3d5c6d7861b3e8c01fedb04acec25ebdbbe7912c539892c39e02fc1dfd9d7261fd917b18deebef8bbd4eb85642211465e
+    types-ramda: "npm:^0.30.1"
+  checksum: 10c0/dda95008860f594eb7b4fd9819adeb2dcd4d4e2baca6cb33f692f6f8ea76d04a7fd81f9a057c5c67555612769e5592cb15f91de6c9f8b619b8b1d806d19dc9ea
   languageName: node
   linkType: hard
 
@@ -7933,15 +7932,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hugo-bin-extended@npm:^0.142.0":
-  version: 0.142.0
-  resolution: "hugo-bin-extended@npm:0.142.0"
+"hugo-bin-extended@npm:^0.144.0":
+  version: 0.144.2
+  resolution: "hugo-bin-extended@npm:0.144.2"
   dependencies:
     "@xhmikosr/bin-wrapper": "npm:^13.0.5"
     package-config: "npm:^5.0.0"
   bin:
     hugo: bin/cli.js
-  checksum: 10c0/fd79393cc5f6229f8161945dc7a8641d44c75920c742e78542f2589bc998c77a24fcbb780571056cfe5bba51b83fd97892b1c511ad5a6fbe66917c647767a5a4
+  checksum: 10c0/8a6a16851788b93e9f406d5d4a4e59dab0232fa8ae0db86a16c0f224ae64ab00908bdae447dcbcdcaa44df06036c2c9a1a7acdc931ab41c800abff292dd0e988
   languageName: node
   linkType: hard
 
@@ -9821,15 +9820,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"legacy-swc-helpers@npm:@swc/helpers@=0.4.14":
-  version: 0.4.14
-  resolution: "@swc/helpers@npm:0.4.14"
-  dependencies:
-    tslib: "npm:^2.4.0"
-  checksum: 10c0/a8bd2e291fca73aa35ff316fb1aa9fb9554856518c8bf64ab5a355fb587d79d04d67f95033012fcdc94f507d22484871d95dc72efdd9ff13cc5d0ac68dfba999
-  languageName: node
-  linkType: hard
-
 "leven@npm:^3.1.0":
   version: 3.1.0
   resolution: "leven@npm:3.1.0"
@@ -11085,11 +11075,11 @@ __metadata:
   resolution: "ocw-hugo-themes@workspace:."
   dependencies:
     "@mitodl/course-search-utils": "npm:^2.3.0"
-    "@mitodl/ocw-to-hugo": "npm:1.36.0"
+    "@mitodl/ocw-to-hugo": "npm:1.47.0"
     "@playwright/test": "npm:^1.45.0"
     "@sentry/browser": "npm:^7.0.0"
     "@swc/core": "npm:^1.3.14"
-    "@swc/helpers": "npm:^0.4.12"
+    "@swc/helpers": "npm:^0.5.0"
     "@testing-library/react-hooks": "npm:^7.0.2"
     "@types/enzyme": "npm:^3.10.11"
     "@types/enzyme-adapter-react-16": "npm:^1.0.6"
@@ -11099,7 +11089,7 @@ __metadata:
     "@types/lodash.has": "npm:^4.5.6"
     "@types/lodash.uppercase": "npm:^4.3.6"
     "@types/promise-polyfill": "npm:^6.0.4"
-    "@types/ramda": "npm:^0.27.62"
+    "@types/ramda": "npm:^0.30.0"
     "@types/react-dom": "npm:^17.0.11"
     "@types/react-infinite-scroller": "npm:^1.2.2"
     "@types/serve-handler": "npm:^6.1.1"
@@ -11134,7 +11124,7 @@ __metadata:
     file-loader: "npm:^5.0.2"
     fuse.js: "npm:^6.6.2"
     history: "npm:^5.3.0"
-    hugo-bin-extended: "npm:^0.142.0"
+    hugo-bin-extended: "npm:^0.144.0"
     imports-loader: "npm:^0.8.0"
     inquirer: "npm:^8.2.5"
     isomorphic-fetch: "npm:^3.0.0"
@@ -11174,7 +11164,7 @@ __metadata:
     sinon: "npm:^19.0.0"
     terser-webpack-plugin: "npm:^5.3.3"
     ts-jest: "npm:^27.1.2"
-    ts-loader: "npm:9.3.1"
+    ts-loader: "npm:9.5.2"
     ts-node: "npm:^10.9.1"
     typescript: "npm:^4.5.4"
     video.js: "npm:^7.11.8"
@@ -14316,7 +14306,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map@npm:^0.7.3":
+"source-map@npm:^0.7.3, source-map@npm:^0.7.4":
   version: 0.7.4
   resolution: "source-map@npm:0.7.4"
   checksum: 10c0/dc0cf3768fe23c345ea8760487f8c97ef6fca8a73c83cd7c9bf2fde8bc2c34adb9c0824d6feb14bc4f9e37fb522e18af621543f1289038a66ac7586da29aa7dc
@@ -15212,18 +15202,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-loader@npm:9.3.1":
-  version: 9.3.1
-  resolution: "ts-loader@npm:9.3.1"
+"ts-loader@npm:9.5.2":
+  version: 9.5.2
+  resolution: "ts-loader@npm:9.5.2"
   dependencies:
     chalk: "npm:^4.1.0"
     enhanced-resolve: "npm:^5.0.0"
     micromatch: "npm:^4.0.0"
     semver: "npm:^7.3.4"
+    source-map: "npm:^0.7.4"
   peerDependencies:
     typescript: "*"
     webpack: ^5.0.0
-  checksum: 10c0/af981c98393a76ebf4182b49de0cd8fcbe09eb51677e64c34664ddd082c88c81b8eded5e097278d18c6abd75c7df68dda8443a76a3d98e4c2e46a0b16d04591b
+  checksum: 10c0/d4f4e67f1365a8c4a929d26148611b6a82a9241bd988863386c9cc0c034eec8b14562206e09540fae38154595e0b3b9520b701b5c83c0e5d743c4016cd91d9f1
   languageName: node
   linkType: hard
 
@@ -15265,14 +15256,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-toolbelt@npm:^6.15.1":
-  version: 6.15.5
-  resolution: "ts-toolbelt@npm:6.15.5"
-  checksum: 10c0/c2c5cf77b006cbedb836abb260e9544aef268b0fc718e52db44600308ac6836c8c1824f57373ed72f920b92eb1daa78d1a9cec4c12368230a208e0723de9c2f0
+"ts-toolbelt@npm:^9.6.0":
+  version: 9.6.0
+  resolution: "ts-toolbelt@npm:9.6.0"
+  checksum: 10c0/838f9a2f0fe881d5065257a23b402c41315b33ff987b73db3e2b39fcb70640c4c7220e1ef118ed5676763543724fdbf4eda7b0e2c17acb667ed1401336af9f8c
   languageName: node
   linkType: hard
 
-"tslib@npm:2.6.2, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.4.0":
+"tslib@npm:2.6.2, tslib@npm:^2.0.3, tslib@npm:^2.1.0":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
   checksum: 10c0/e03a8a4271152c8b26604ed45535954c0a45296e32445b4b87f8a5abdb2421f40b59b4ca437c4346af0f28179780d604094eb64546bee2019d903d01c6c19bdb
@@ -15283,6 +15274,13 @@ __metadata:
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: 10c0/69ae09c49eea644bc5ebe1bca4fa4cc2c82b7b3e02f43b84bd891504edf66dbc6b2ec0eef31a957042de2269139e4acff911e6d186a258fb14069cd7f6febce2
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.8.0":
+  version: 2.8.1
+  resolution: "tslib@npm:2.8.1"
+  checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62
   languageName: node
   linkType: hard
 
@@ -15471,6 +15469,15 @@ __metadata:
   version: 0.0.6
   resolution: "typedarray@npm:0.0.6"
   checksum: 10c0/6005cb31df50eef8b1f3c780eb71a17925f3038a100d82f9406ac2ad1de5eb59f8e6decbdc145b3a1f8e5836e17b0c0002fb698b9fe2516b8f9f9ff602d36412
+  languageName: node
+  linkType: hard
+
+"types-ramda@npm:^0.30.1":
+  version: 0.30.1
+  resolution: "types-ramda@npm:0.30.1"
+  dependencies:
+    ts-toolbelt: "npm:^9.6.0"
+  checksum: 10c0/4a8b230ae9772e6534f65b1a154dd5604bcd1d74e27b49686337a215e83aa8fc93e49f8c49af395418d2950cb9fb9b900662077c1d4b73ff6fe4f4bcb83ab2d6
   languageName: node
   linkType: hard
 
