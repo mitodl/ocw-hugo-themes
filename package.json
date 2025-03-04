@@ -41,7 +41,7 @@
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
     "@mitodl/course-search-utils": "^2.3.0",
-    "@mitodl/open-api-axios": "^2024.11.14",
+    "@mitodl/open-api-axios": "^2025.3.4",
     "@remixicon/react": "^4.6.0",
     "@sentry/browser": "^7.0.0",
     "@tanstack/react-query": "4.36.1",

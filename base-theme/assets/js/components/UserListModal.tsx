@@ -15,7 +15,7 @@ export default function UserListModal() {
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">User Menu</h5>
+            <h5 className="modal-title">Add to User List</h5>
             <button
               type="button"
               className="btn-close"

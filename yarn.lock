@@ -1036,13 +1036,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mitodl/open-api-axios@npm:^2024.11.14":
-  version: 2024.11.14
-  resolution: "@mitodl/open-api-axios@npm:2024.11.14"
+"@mitodl/open-api-axios@npm:^2025.3.4":
+  version: 2025.3.4
+  resolution: "@mitodl/open-api-axios@npm:2025.3.4"
   dependencies:
     "@types/node": "npm:^22.0.0"
     axios: "npm:^1.6.5"
-  checksum: 10c0/fec3f13d2efe5a5cc2cf4d780d0501c13d16becbfeeb22e11ee322d8458cef1e9d6e5e5c4fd57968a5a4f16c5b20210e7213df2456a675b11f5cc5d80e991689
+  checksum: 10c0/c537ad877b07ea247a9f0f742e1a402eb7327e55d59613612b0c3cceb05156cc79e6a4e647915be15d32d58226b6a77258da23ec8c8476243ef15b9e29694748
   languageName: node
   linkType: hard
 
@@ -11182,7 +11182,7 @@ __metadata:
   dependencies:
     "@mitodl/course-search-utils": "npm:^2.3.0"
     "@mitodl/ocw-to-hugo": "npm:1.36.0"
-    "@mitodl/open-api-axios": "npm:^2024.11.14"
+    "@mitodl/open-api-axios": "npm:^2025.3.4"
     "@playwright/test": "npm:^1.45.0"
     "@remixicon/react": "npm:^4.6.0"
     "@sentry/browser": "npm:^7.0.0"

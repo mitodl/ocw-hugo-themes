@@ -1,3 +1,5 @@
+import { UsersApi } from "@mitodl/open-api-axios/v0"
+import { Configuration, UserlistsApi } from "@mitodl/open-api-axios/v1"
 import { QueryClient } from "@tanstack/react-query"
 
 type MaybeHasStatus = {
@@ -39,4 +41,17 @@ const makeQueryClient = (): QueryClient => {
   })
 }
 
-export { makeQueryClient }
+const config = {
+  basePath:    process.env.MIT_LEARN_API_BASEURL,
+  baseOptions: { withCredentials: true }
+}
+const configuration = new Configuration({
+  basePath:    config.basePath,
+  baseOptions: config.baseOptions
+})
+
+const usersApi = new UsersApi(configuration)
+
+const userListsApi = new UserlistsApi(configuration)
+
+export { makeQueryClient, usersApi, userListsApi }

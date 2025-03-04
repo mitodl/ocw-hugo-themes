@@ -1,9 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import {
-  Configuration,
-  User as UserApi,
-  UsersApi
-} from "@mitodl/open-api-axios/v0"
+import { User as UserApi} from "@mitodl/open-api-axios/v0"
+import { usersApi } from "../../clients"
 
 interface User extends Partial<UserApi> {
   isAuthenticated: boolean
@@ -14,15 +11,6 @@ const useUserMe = () =>
     queryKey: ["userMe"],
     queryFn:  async (): Promise<User> => {
       try {
-        const config = {
-          basePath:    process.env.MIT_LEARN_API_BASEURL,
-          baseOptions: { withCredentials: true }
-        }
-        const configuration = new Configuration({
-          basePath:    config.basePath,
-          baseOptions: config.baseOptions
-        })
-        const usersApi = new UsersApi(configuration)
         const response = await usersApi.usersMeRetrieve()
         return {
           isAuthenticated: true,
@@ -40,4 +28,9 @@ const useUserMe = () =>
     }
   })
 
-export { useUserMe }
+const useUserIsAuthenticated = () => {
+  const { data: user } = useUserMe()
+  return !!user?.isAuthenticated
+}
+
+export { useUserMe, useUserIsAuthenticated }
