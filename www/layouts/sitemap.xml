@@ -8,8 +8,11 @@
     <loc>https://{{ $sitemapDomain }}/sitemap-www.xml</loc>
   </sitemap>
 {{- if and $studioBaseUrl (ne $apiBearerToken "") -}}
-  {{- $apiUrl := printf "%v/api/publish?%v" (strings.TrimSuffix "/" $studioBaseUrl) $queryString -}}
-  {{- $apiHeaders := dict "headers" (dict "Authorization" (printf "Bearer %v" $apiBearerToken)) -}}
+  {{- $apiUrl := printf "%v/api/publish/?%v" (strings.TrimSuffix "/" $studioBaseUrl) $queryString -}}
+  {{- $apiHeaders := dict -}}
+  {{- if ne $apiBearerToken "" -}}
+    {{- $apiHeaders = dict "headers" (dict "Authorization" (printf "Bearer %v" $apiBearerToken)) -}}
+  {{- end -}}
   {{- with try (resources.GetRemote $apiUrl $apiHeaders) -}}
     {{- with .Err -}}
       {{ errorf "Failed to fetch sitemap from studio: %v" . }}
@@ -21,7 +24,7 @@
           {{ range $index, $courseItem := $sites }}
             {{- $path := strings.TrimPrefix "/" (strings.TrimSuffix "/" $courseItem.base_url) -}}
             {{- if not (eq $path "") -}}
-              {{- $url :=  printf "https://%v/%v/sitemap.xml" $sitemapDomain $path -}}
+              {{- $url := printf "https://%v/%v/sitemap.xml" $sitemapDomain $path -}}
       <sitemap>
         <loc>{{ $url }}</loc>
       </sitemap>
