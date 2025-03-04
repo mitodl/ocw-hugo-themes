@@ -2,8 +2,9 @@ import "./css/www.scss"
 import "./css/search.scss"
 
 import Popper from "popper.js"
-import ReactDOM from "react-dom"
 import React from "react"
+import ReactDOM from "react-dom"
+import { QueryClientProvider } from "@tanstack/react-query"
 import { createBrowserHistory } from "history"
 
 import SearchPage from "./js/components/SearchPage"
@@ -13,6 +14,8 @@ import { setupEmailSignupForm } from "./js/mailchimp"
 import { initNotifications } from "./js/notification"
 import { initSubNav } from "./js/subnav"
 import ResourceCollection from "./js/components/ResourceCollection"
+import UserMenu from "../../base-theme/assets/js/components/UserMenu"
+import { makeQueryClient } from "../../base-theme/assets/js/clients"
 
 export interface OCWWindow extends Window {
   $: JQueryStatic
@@ -29,6 +32,17 @@ window.Popper = Popper
 const history = createBrowserHistory()
 
 $(function() {
+  const userMenuContainer = document.querySelector("#user-menu-container")
+  if (userMenuContainer) {
+    const queryClient = makeQueryClient()
+    ReactDOM.render(
+      <QueryClientProvider client={queryClient}>
+        <UserMenu />
+      </QueryClientProvider>,
+      userMenuContainer
+    )
+  }
+
   const searchPageEl = document.querySelector("#search-page")
   if (searchPageEl) {
     ReactDOM.render(<SearchPage history={history} />, searchPageEl)
