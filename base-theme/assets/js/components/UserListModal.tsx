@@ -1,8 +1,10 @@
 import React from "react"
 import { useUserMe } from "../hooks/user"
+import { useUserListList } from "../hooks/userLists"
 
 export default function UserListModal() {
   const { data: user, isLoading } = useUserMe()
+  const { data: userLists, isLoading: isUserListsLoading } = useUserListList()
   const apiBaseUrl = process.env.MIT_LEARN_API_BASEURL
   const encodedLocation = encodeURI(window.location.href)
   const loginUrl = new URL(
@@ -15,18 +17,36 @@ export default function UserListModal() {
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Add to User List</h5>
+            <h5 className="modal-title text-capitalize">Add to User List</h5>
             <button
               type="button"
-              className="btn-close"
+              className="btn-close btn-light"
               data-bs-dismiss="modal"
               aria-label="Close"
-            ></button>
+            >
+              <i className="material-icons display-4 text-black align-bottom">close</i>
+            </button>
           </div>
           <div className="modal-body">
             {!isLoading ? (
               user?.isAuthenticated ? (
-                <div>Coming Soon</div>
+                <div>
+                  <ul className="list-group">
+                    {isUserListsLoading ? (
+                      <li className="list-group-item">Loading...</li>
+                    ) : (
+                      userLists?.results.map((list) => (
+                        <li
+                          key={list.id}
+                          className="list-group-item d-flex justify-content-between align-items-center"
+                        >
+                          {list.title}
+                          <button className="btn btn-primary">Add</button>
+                        </li>
+                      ))
+                    )}
+                  </ul>
+                </div>
               ) : (
                 <a className="dropdown-item text-capitalize" href={loginUrl}>
                   Login
