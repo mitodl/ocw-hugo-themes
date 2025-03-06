@@ -1,5 +1,11 @@
 import posthog from "posthog-js"
 
+declare global {
+  interface Window {
+    posthog?: typeof posthog
+  }
+}
+
 export function initPostHog(): typeof posthog {
   const posthogEnv = process.env.POSTHOG_ENV
   const posthogEnabled = process.env.POSTHOG_ENABLED === "true"
@@ -14,6 +20,7 @@ export function initPostHog(): typeof posthog {
       persistence:      "localStorage+cookie",
       person_profiles:  "always",
       loaded:           function() {
+        posthog.reloadFeatureFlags()
         console.log("PostHog loaded successfully")
       }
     })
@@ -25,4 +32,11 @@ export function initPostHog(): typeof posthog {
   }
 
   return posthog
+}
+
+export function isFeatureEnabled(flagKey: string, defaultValue = false): boolean {
+  if (window.posthog && typeof window.posthog.isFeatureEnabled === 'function') {
+    return window.posthog.isFeatureEnabled(flagKey) ?? defaultValue
+  }
+  return defaultValue
 }
