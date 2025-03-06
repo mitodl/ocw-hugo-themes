@@ -12,7 +12,6 @@ import { initExternalLinkModal } from "./js/external_link_modal"
 import { initQuotesModalHandler } from "./quote_card_modal_handler"
 import { initVideoDownloadPopup } from "./js/video_download_popup"
 import posthog from "posthog-js"
-import { initPostHog } from "./js/posthog"
 
 export interface OCWWindow extends Window {
   $: JQueryStatic
@@ -45,7 +44,6 @@ window.initVideoJS = () => {
 
 $(function() {
   window.Sentry = initSentry()
-  window.posthog = initPostHog()
   initExternalLinkModal()
   initQuotesModalHandler()
 })

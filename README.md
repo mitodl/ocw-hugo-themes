@@ -192,6 +192,11 @@ To further explain the various environment variables and what they do:
 | `WEBPACK_HOST`            | N/A                           | `localhost`                                         | Host used by Hugo when querying the Webpack Dev Server. Can be set to your local IP to enable testing OCW on other devices (e.g., phones) within your network.                               |
 | `WEBPACK_PORT`            | N/A                           | `3001`                                              | Port used by Webpack Dev Server                                                                                                                                                              |
 | `NOINDEX`                 | `base-theme`                  | `true`                                              | Whether a noindex tag should be added to prevent indexing by web crawlers                                                                                                                    |
+| `POSTHOG_API_HOST` | `www`, `course` | `https://app.posthog.com` | PostHog API URL
+| `POSTHOG_ENABLED` | `www`, `course` | `true` | Whether PostHog analytics are enabled
+| `POSTHOG_ENV` | `www`, `course` | `production` | Environment for PostHog
+| `POSTHOG_PROJECT_API_KEY` | `www`, `course` | `api-key` | API key for PostHog |
+
 
 ### Writing Tests
 
