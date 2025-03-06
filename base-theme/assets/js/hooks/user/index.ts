@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { User as UserApi} from "@mitodl/open-api-axios/v0"
+import { User as UserApi } from "@mitodl/open-api-axios/v0"
 import { usersApi } from "../../clients"
 
 interface User extends Partial<UserApi> {

@@ -19,19 +19,18 @@ export default function UserMenu() {
     apiBaseUrl
   ).toString()
 
-  return (
-    user?.isAuthenticated ? (
-      <div className="dropdown">
-        <button
-          className="btn btn-link text-white text-decoration-none dropdown-toggle"
-          type="button"
-          id="user-menu-button"
-          data-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <RiAccountCircleFill size={24} />
-          <span className="pl-2">{user.profile?.name}</span>
-        </button>
+  return user?.isAuthenticated ? (
+    <div className="dropdown">
+      <button
+        className="btn btn-link text-white text-decoration-none dropdown-toggle"
+        type="button"
+        id="user-menu-button"
+        data-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <RiAccountCircleFill size={24} />
+        <span className="pl-2">{user.profile?.name}</span>
+      </button>
       <div
         className="dropdown-menu dropdown-menu-right"
         aria-labelledby="user-menu-button"
@@ -49,11 +48,14 @@ export default function UserMenu() {
           <div className="dropdown-item text-capitalize">Loading...</div>
         )}
       </div>
-      </div>
-    ) : (
-      <a id="login-button" className="btn btn-light text-capitalize text-decoration-none font-weight-bold" href={loginUrl}>
-        Log In
-      </a>
-    )
+    </div>
+  ) : (
+    <a
+      id="login-button"
+      className="btn btn-light text-capitalize text-decoration-none font-weight-bold"
+      href={loginUrl}
+    >
+      Log In
+    </a>
   )
 }

@@ -7,8 +7,11 @@ interface UserListModalProps {
   resourceReadableId: string
 }
 
-const UserListModal: React.FC<UserListModalProps> = ({ resourceReadableId }) => {
-  const { data: resource, isLoading: isResourceLoading } = useLearningResourceByReadableId({ readable_id: [resourceReadableId] })
+const UserListModal: React.FC<UserListModalProps> = ({
+  resourceReadableId
+}) => {
+  const { data: resource, isLoading: isResourceLoading } =
+    useLearningResourceByReadableId({ readable_id: [resourceReadableId] })
   const { data: user, isLoading: isUserLoading } = useUserMe()
   const { data: userLists, isLoading: isUserListsLoading } = useUserListList()
   const isLoading = isResourceLoading || isUserLoading || isUserListsLoading
@@ -31,20 +34,29 @@ const UserListModal: React.FC<UserListModalProps> = ({ resourceReadableId }) => 
               data-dismiss="modal"
               aria-label="Close"
             >
-              <i className="material-icons display-4 text-black align-bottom">close</i>
+              <i className="material-icons display-4 text-black align-bottom">
+                close
+              </i>
             </button>
           </div>
           {!isLoading ? (
             user?.isAuthenticated ? (
               <div className="modal-body">
-                <div>
-                  {resource?.title}
-                </div>
+                <div>{resource?.title}</div>
                 <div className="user-list-modal-checkboxes">
-                  {userLists?.results.map((list) => (
+                  {userLists?.results.map(list => (
                     <div key={list.id}>
-                      <input type="checkbox" className="form-check-input" id={`list-${list.id}`} />
-                      <label className="form-check-label" htmlFor={`list-${list.id}`}>{list.title}</label>
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id={`list-${list.id}`}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor={`list-${list.id}`}
+                      >
+                        {list.title}
+                      </label>
                     </div>
                   ))}
                 </div>

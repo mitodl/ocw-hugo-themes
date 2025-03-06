@@ -4,12 +4,12 @@ import { learningResourceQueries } from "./queries"
 
 const useLearningResourceByReadableId = (
   params: LRListRequest = {},
-  opts?: { enabled?: boolean },
+  opts?: { enabled?: boolean }
 ) => {
   const readableId = params.readable_id ? params.readable_id[0] : ""
   return useQuery({
     ...learningResourceQueries.detailByReadableId(readableId),
-    ...opts,
+    ...opts
   })
 }
 

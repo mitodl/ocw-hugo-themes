@@ -2,7 +2,7 @@ import {
   useInfiniteQuery,
   useMutation,
   useQuery,
-  useQueryClient,
+  useQueryClient
 } from "@tanstack/react-query"
 import { userListsApi } from "../../clients"
 import type {
@@ -10,18 +10,18 @@ import type {
   UserlistsApiUserlistsCreateRequest as CreateRequest,
   UserlistsApiUserlistsDestroyRequest as DestroyRequest,
   UserlistsApiUserlistsItemsListRequest as ItemsListRequest,
-  UserList,
+  UserList
 } from "@mitodl/open-api-axios/v1"
 import { userlistKeys, userlistQueries } from "./queries"
 import { useUserIsAuthenticated } from "../user"
 
 const useUserListList = (
   params: ListRequest = {},
-  opts?: { enabled?: boolean },
+  opts?: { enabled?: boolean }
 ) => {
   return useQuery({
     ...userlistQueries.list(params),
-    ...opts,
+    ...opts
   })
 }
 
@@ -34,11 +34,11 @@ const useUserListCreate = () => {
   return useMutation({
     mutationFn: (params: CreateRequest["UserListRequest"]) =>
       userListsApi.userlistsCreate({
-        UserListRequest: params,
+        UserListRequest: params
       }),
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: userlistKeys.listRoot() })
-    },
+    }
   })
 }
 const useUserListUpdate = () => {
@@ -46,13 +46,13 @@ const useUserListUpdate = () => {
   return useMutation({
     mutationFn: (params: Pick<UserList, "id"> & Partial<UserList>) =>
       userListsApi.userlistsPartialUpdate({
-        id: params.id,
-        PatchedUserListRequest: params,
+        id:                     params.id,
+        PatchedUserListRequest: params
       }),
     onSettled: (_data, _err, vars) => {
       queryClient.invalidateQueries({ queryKey: userlistKeys.listRoot() })
       queryClient.invalidateQueries({ queryKey: userlistKeys.detail(vars.id) })
-    },
+    }
   })
 }
 
@@ -64,17 +64,17 @@ const useUserListDestroy = () => {
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: userlistKeys.listRoot() })
       queryClient.invalidateQueries({ queryKey: userlistKeys.membershipList() })
-    },
+    }
   })
 }
 
 const useInfiniteUserListItems = (
   params: ItemsListRequest,
-  opts?: { enabled?: boolean },
+  opts?: { enabled?: boolean }
 ) => {
   return useInfiniteQuery({
     ...userlistQueries.infiniteItems(params.userlist_id, params),
-    ...opts,
+    ...opts
   })
 }
 
@@ -88,38 +88,38 @@ const useUserListListItemMove = () => {
   return useMutation({
     mutationFn: async ({ parent, id, position }: ListItemMoveRequest) => {
       await userListsApi.userlistsItemsPartialUpdate({
-        userlist_id: parent,
+        userlist_id:                        parent,
         id,
-        PatchedUserListRelationshipRequest: { position },
+        PatchedUserListRelationshipRequest: { position }
       })
     },
     onSettled: (_data, _err, vars) => {
       queryClient.invalidateQueries({
-        queryKey: userlistKeys.infiniteItemsRoot(vars.parent),
+        queryKey: userlistKeys.infiniteItemsRoot(vars.parent)
       })
-    },
+    }
   })
 }
 
 const useIsUserListMember = (resourceId?: number) => {
   return useQuery({
     ...userlistQueries.membershipList(),
-    select: (data) => {
-      return !!data.find((relationship) => relationship.child === resourceId)
+    select: data => {
+      return !!data.find(relationship => relationship.child === resourceId)
     },
-    enabled: useUserIsAuthenticated() && !!resourceId,
+    enabled: useUserIsAuthenticated() && !!resourceId
   })
 }
 
 const useUserListMemberList = (resourceId?: number) => {
   return useQuery({
     ...userlistQueries.membershipList(),
-    select: (data) => {
+    select: data => {
       return data
-        .filter((relationship) => relationship.child === resourceId)
-        .map((relationship) => relationship.parent.toString())
+        .filter(relationship => relationship.child === resourceId)
+        .map(relationship => relationship.parent.toString())
     },
-    enabled: useUserIsAuthenticated() && !!resourceId,
+    enabled: useUserIsAuthenticated() && !!resourceId
   })
 }
 
@@ -132,5 +132,5 @@ export {
   useInfiniteUserListItems,
   useUserListListItemMove,
   useIsUserListMember,
-  useUserListMemberList,
+  useUserListMemberList
 }

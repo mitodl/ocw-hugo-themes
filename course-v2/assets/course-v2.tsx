@@ -24,20 +24,22 @@ import useLocalStorage from "../../base-theme/assets/js/hooks/util"
 
 export interface OCWWindow extends Window {
   initNanogallery2: () => void
-  posthog: typeof posthog
-  setReadableResourceId: ((value: string) => void)
+  setReadableResourceId: (value: string) => void
 }
 
 declare let window: OCWWindow
 
 function ModalWrapper() {
-  const userListModalContainer = document.querySelector("#user-list-modal-container")
+  const userListModalContainer = document.querySelector(
+    "#user-list-modal-container"
+  )
   if (userListModalContainer) {
-    const [resourceReadableId, setResourceReadableId] = useLocalStorage("resourceReadableId", "")
-    window.setReadableResourceId = setResourceReadableId
-    return (
-      <UserListModal resourceReadableId={resourceReadableId} />
+    const [resourceReadableId, setResourceReadableId] = useLocalStorage(
+      "resourceReadableId",
+      ""
     )
+    window.setReadableResourceId = setResourceReadableId
+    return <UserListModal resourceReadableId={resourceReadableId} />
   }
 }
 
@@ -60,7 +62,9 @@ $(function() {
       userMenuContainer
     )
   }
-  const userListModalContainer = document.querySelector("#user-list-modal-container")
+  const userListModalContainer = document.querySelector(
+    "#user-list-modal-container"
+  )
   if (userListModalContainer) {
     const queryClient = makeQueryClient()
     ReactDOM.render(
