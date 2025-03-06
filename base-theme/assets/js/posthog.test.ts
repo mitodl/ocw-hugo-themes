@@ -2,8 +2,9 @@ import { initPostHog } from './posthog'
 import posthog from 'posthog-js'
 
 jest.mock('posthog-js', () => ({
-  init:     jest.fn(),
-  register: jest.fn(),
+  init:               jest.fn(),
+  register:           jest.fn(),
+  reloadFeatureFlags: jest.fn()
 }))
 
 describe('initPostHog', () => {
