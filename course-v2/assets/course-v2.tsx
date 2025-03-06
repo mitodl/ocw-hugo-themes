@@ -30,14 +30,14 @@ export interface OCWWindow extends Window {
 declare let window: OCWWindow
 
 function ModalWrapper() {
+  const [resourceReadableId, setResourceReadableId] = useLocalStorage(
+    "resourceReadableId",
+    ""
+  )
   const userListModalContainer = document.querySelector(
     "#user-list-modal-container"
   )
   if (userListModalContainer) {
-    const [resourceReadableId, setResourceReadableId] = useLocalStorage(
-      "resourceReadableId",
-      ""
-    )
     window.setReadableResourceId = setResourceReadableId
     return <UserListModal resourceReadableId={resourceReadableId} />
   }
