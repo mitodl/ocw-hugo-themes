@@ -34,8 +34,11 @@ export function initPostHog(): typeof posthog {
   return posthog
 }
 
-export function isFeatureEnabled(flagKey: string, defaultValue = false): boolean {
-  if (window.posthog && typeof window.posthog.isFeatureEnabled === 'function') {
+export function isFeatureEnabled(
+  flagKey: string,
+  defaultValue = false
+): boolean {
+  if (window.posthog && typeof window.posthog.isFeatureEnabled === "function") {
     return window.posthog.isFeatureEnabled(flagKey) ?? defaultValue
   }
   return defaultValue
