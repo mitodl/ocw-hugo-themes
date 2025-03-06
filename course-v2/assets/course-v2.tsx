@@ -20,13 +20,26 @@ import ReactDOM from "react-dom"
 import { makeQueryClient } from "../../base-theme/assets/js/clients"
 import UserMenu from "../../base-theme/assets/js/components/UserMenu"
 import UserListModal from "../../base-theme/assets/js/components/UserListModal"
+import useLocalStorage from "../../base-theme/assets/js/hooks/util"
 
 export interface OCWWindow extends Window {
   initNanogallery2: () => void
   posthog: typeof posthog
+  setReadableResourceId: ((value: string) => void)
 }
 
 declare let window: OCWWindow
+
+function ModalWrapper() {
+  const userListModalContainer = document.querySelector("#user-list-modal-container")
+  if (userListModalContainer) {
+    const [resourceReadableId, setResourceReadableId] = useLocalStorage("resourceReadableId", "")
+    window.setReadableResourceId = setResourceReadableId
+    return (
+      <UserListModal resourceReadableId={resourceReadableId} />
+    )
+  }
+}
 
 $(function() {
   window.posthog = initPostHog()
@@ -52,7 +65,7 @@ $(function() {
     const queryClient = makeQueryClient()
     ReactDOM.render(
       <QueryClientProvider client={queryClient}>
-        <UserListModal />
+        <ModalWrapper />
       </QueryClientProvider>,
       userListModalContainer
     )

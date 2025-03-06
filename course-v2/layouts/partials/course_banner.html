@@ -16,7 +16,9 @@
       </h1>
     </div>
     <div class="col-1">
-      <button id="course-bookmark-btn" class="red-btn p-2" data-toggle="modal" data-target="#user-list-modal">
+      {{- $readableId := printf "%s+%s_%s" $courseData.primary_course_number (lower $courseData.term) $courseData.year -}}
+      {{- $onClick := printf "window.setReadableResourceId('%s')" $readableId -}}
+      <button id="course-bookmark-btn" class="red-btn p-2" data-toggle="modal" data-target="#user-list-modal" {{ $onClick | printf "onclick=\"%s\"" | safeHTMLAttr }}>
         <i class="material-icons display-4 text-white align-bottom">bookmarks</i>
       </button>
     </div>

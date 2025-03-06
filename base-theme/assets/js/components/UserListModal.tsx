@@ -1,10 +1,17 @@
 import React from "react"
 import { useUserMe } from "../hooks/user"
 import { useUserListList } from "../hooks/userLists"
+import { useLearningResourceByReadableId } from "../hooks/learningResources"
 
-export default function UserListModal() {
-  const { data: user, isLoading } = useUserMe()
+interface UserListModalProps {
+  resourceReadableId: string
+}
+
+const UserListModal: React.FC<UserListModalProps> = ({ resourceReadableId }) => {
+  const { data: resource, isLoading: isResourceLoading } = useLearningResourceByReadableId({ readable_id: [resourceReadableId] })
+  const { data: user, isLoading: isUserLoading } = useUserMe()
   const { data: userLists, isLoading: isUserListsLoading } = useUserListList()
+  const isLoading = isResourceLoading || isUserLoading || isUserListsLoading
   const apiBaseUrl = process.env.MIT_LEARN_API_BASEURL
   const encodedLocation = encodeURI(window.location.href)
   const loginUrl = new URL(
@@ -21,43 +28,39 @@ export default function UserListModal() {
             <button
               type="button"
               className="btn-close btn-light"
-              data-bs-dismiss="modal"
+              data-dismiss="modal"
               aria-label="Close"
             >
               <i className="material-icons display-4 text-black align-bottom">close</i>
             </button>
           </div>
-          <div className="modal-body">
-            {!isLoading ? (
-              user?.isAuthenticated ? (
+          {!isLoading ? (
+            user?.isAuthenticated ? (
+              <div className="modal-body">
                 <div>
-                  <ul className="list-group">
-                    {isUserListsLoading ? (
-                      <li className="list-group-item">Loading...</li>
-                    ) : (
-                      userLists?.results.map((list) => (
-                        <li
-                          key={list.id}
-                          className="list-group-item d-flex justify-content-between align-items-center"
-                        >
-                          {list.title}
-                          <button className="btn btn-primary">Add</button>
-                        </li>
-                      ))
-                    )}
-                  </ul>
+                  {resource?.title}
                 </div>
-              ) : (
-                <a className="dropdown-item text-capitalize" href={loginUrl}>
-                  Login
-                </a>
-              )
+                <div className="user-list-modal-checkboxes">
+                  {userLists?.results.map((list) => (
+                    <div key={list.id}>
+                      <input type="checkbox" className="form-check-input" id={`list-${list.id}`} />
+                      <label className="form-check-label" htmlFor={`list-${list.id}`}>{list.title}</label>
+                    </div>
+                  ))}
+                </div>
+              </div>
             ) : (
-              <div className="dropdown-item text-capitalize">Loading...</div>
-            )}
-          </div>
+              <a className="dropdown-item text-capitalize" href={loginUrl}>
+                Login
+              </a>
+            )
+          ) : (
+            <div className="dropdown-item text-capitalize">Loading...</div>
+          )}
         </div>
       </div>
     </div>
   )
 }
+
+export default UserListModal

@@ -1,5 +1,5 @@
 import { UsersApi } from "@mitodl/open-api-axios/v0"
-import { Configuration, UserlistsApi } from "@mitodl/open-api-axios/v1"
+import { Configuration, LearningResourcesApi, UserlistsApi } from "@mitodl/open-api-axios/v1"
 import { QueryClient } from "@tanstack/react-query"
 
 type MaybeHasStatus = {
@@ -52,6 +52,8 @@ const configuration = new Configuration({
 
 const usersApi = new UsersApi(configuration)
 
+const learningResourcesApi = new LearningResourcesApi(configuration)
+
 const userListsApi = new UserlistsApi(configuration)
 
-export { makeQueryClient, usersApi, userListsApi }
+export { makeQueryClient, usersApi, learningResourcesApi, userListsApi }

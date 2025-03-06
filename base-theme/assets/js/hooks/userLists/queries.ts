@@ -7,14 +7,7 @@ import type {
 } from "@mitodl/open-api-axios/v1"
 import { userListsApi } from "../../clients"
 import { UseInfiniteQueryOptions, QueryOptions } from "@tanstack/react-query"
-
-const clearListMemberships = (
-  resource: LearningResource,
-): LearningResource => ({
-  ...resource,
-  user_list_parents: [],
-  learning_path_parents: [],
-})
+import { clearListMemberships } from "../util/queries"
 
 const queryOptions = <T>(options: QueryOptions<T>) => options
 const infiniteQueryOptions = <T>(options: UseInfiniteQueryOptions<T>) => options

@@ -105,6 +105,16 @@ h5 {
         background-color: rgba(64, 70, 76, 0.06);
       }
     }
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .user-list-modal-checkboxes {
+        padding-left: 1.25rem;
+      }
+    }
   }
 }
 
