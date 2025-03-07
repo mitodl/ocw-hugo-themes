@@ -29,6 +29,7 @@
     }]
   },
   "ignorePatterns": [
-    "**/dist"
+    "**/dist",
+    "**/static_shared/**"
   ]
 }
