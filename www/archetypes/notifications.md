@@ -3,5 +3,7 @@
 uid: "{{ now.UnixNano }}"
 title: "{{ $name }}"
 date: {{ .Date }}
-headless: true
+_build:
+  list: always
+  render: never
 ---
