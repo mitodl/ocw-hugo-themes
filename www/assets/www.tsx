@@ -13,11 +13,13 @@ import { setupEmailSignupForm } from "./js/mailchimp"
 import { initNotifications } from "./js/notification"
 import { initSubNav } from "./js/subnav"
 import ResourceCollection from "./js/components/ResourceCollection"
-
+import posthog from "posthog-js"
+import { initPostHog } from "../../base-theme/assets/js/posthog"
 export interface OCWWindow extends Window {
   $: JQueryStatic
   jQuery: JQueryStatic
   Popper: typeof Popper
+  posthog: typeof posthog
 }
 
 declare let window: OCWWindow
@@ -29,6 +31,7 @@ window.Popper = Popper
 const history = createBrowserHistory()
 
 $(function() {
+  window.posthog = initPostHog()
   const searchPageEl = document.querySelector("#search-page")
   if (searchPageEl) {
     ReactDOM.render(<SearchPage history={history} />, searchPageEl)

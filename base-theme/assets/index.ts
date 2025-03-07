@@ -11,7 +11,6 @@ import "video.js/dist/video-js.css"
 import { initExternalLinkModal } from "./js/external_link_modal"
 import { initQuotesModalHandler } from "./quote_card_modal_handler"
 import { initVideoDownloadPopup } from "./js/video_download_popup"
-
 export interface OCWWindow extends Window {
   $: JQueryStatic
   jQuery: JQueryStatic
