@@ -14,7 +14,13 @@ import { initNotifications } from "./js/notification"
 import { initSubNav } from "./js/subnav"
 import ResourceCollection from "./js/components/ResourceCollection"
 import posthog from "posthog-js"
-import { initPostHog } from "../../base-theme/assets/js/posthog"
+import {
+  initPostHog,
+  isFeatureEnabled
+} from "../../base-theme/assets/js/posthog"
+import { makeQueryClient } from "../../base-theme/assets/js/clients"
+import { QueryClientProvider } from "@tanstack/react-query"
+import UserMenu from "../../base-theme/assets/js/components/UserMenu"
 export interface OCWWindow extends Window {
   $: JQueryStatic
   jQuery: JQueryStatic
@@ -32,6 +38,20 @@ const history = createBrowserHistory()
 
 $(function() {
   window.posthog = initPostHog()
+
+  const userMenuContainers = document.querySelectorAll(".user-menu-container")
+  if (userMenuContainers && isFeatureEnabled("ocw-learn-integration")) {
+    for (const userMenuContainer of Array.from(userMenuContainers)) {
+      const queryClient = makeQueryClient()
+      ReactDOM.render(
+        <QueryClientProvider client={queryClient}>
+          <UserMenu />
+        </QueryClientProvider>,
+        userMenuContainer
+      )
+    }
+  }
+
   const searchPageEl = document.querySelector("#search-page")
   if (searchPageEl) {
     const root = createRoot(searchPageEl)
