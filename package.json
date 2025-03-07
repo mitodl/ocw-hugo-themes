@@ -63,7 +63,7 @@
     "ramda": "^0.30.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0-beta.15",
-    "react-content-loader": "^5.1.2",
+    "react-content-loader": "^7.0.0",
     "react-dom": "^16.13.1",
     "react-dotdotdot": "1.3.1",
     "react-infinite-scroller": "^1.2.4",
