@@ -17,6 +17,12 @@
       font-size: $material-icon-font-lg;
     }
   }
+
+  div.user-menu-container {
+    .user-menu-display-name {
+      display: none;
+    }
+  }
 }
 
 #desktop-header {
@@ -84,6 +90,25 @@
             height: 13px;
             margin-bottom: 1px;
           }
+        }
+      }
+
+      div.user-menu-container {
+        #login-button {
+          height: 100%;
+        }
+        #user-menu-button {
+          border: 1px solid $white;
+          border-radius: 4px;
+        }
+        .dropdown-item {
+          text-decoration: none;
+        }
+        .dropdown-item:hover,
+        .dropdown-item:focus {
+          color: $black;
+          background-color: $white;
+          text-decoration: underline;
         }
       }
     }
