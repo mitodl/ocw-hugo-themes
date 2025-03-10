@@ -359,6 +359,7 @@ export default function SearchPage(props: SearchPageProps) {
                 </div>
               </ul>
             </div>
+            {/* @ts-expect-error */}
             <InfiniteScroll
               hasMore={from + pageSize < total}
               loadMore={loadMore}
