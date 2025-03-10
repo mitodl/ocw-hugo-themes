@@ -133,4 +133,8 @@ const propsAreEqual = (_prevProps: Props, nextProps: Props) => {
   return !has(nextProps.results, "buckets")
 }
 
-export default React.memo(FilterableSearchFacet, propsAreEqual)
+const MemoizedFilterableSearchFacet = React.memo(
+  FilterableSearchFacet,
+  propsAreEqual
+)
+export default MemoizedFilterableSearchFacet

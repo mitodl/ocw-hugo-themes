@@ -2,8 +2,8 @@ import "./css/www.scss"
 import "./css/search.scss"
 
 import Popper from "popper.js"
-import ReactDOM from "react-dom"
-import React from "react"
+import { createRoot } from "react-dom/client"
+
 import { createBrowserHistory } from "history"
 
 import SearchPage from "./js/components/SearchPage"
@@ -34,7 +34,8 @@ $(function() {
   window.posthog = initPostHog()
   const searchPageEl = document.querySelector("#search-page")
   if (searchPageEl) {
-    ReactDOM.render(<SearchPage history={history} />, searchPageEl)
+    const root = createRoot(searchPageEl)
+    root.render(<SearchPage history={history} />)
   }
 
   const courseCollectionEls = document.querySelectorAll(
@@ -47,7 +48,8 @@ $(function() {
     if (el) {
       const collectionUid = el.getAttribute("data-collectionid")
       if (collectionUid) {
-        ReactDOM.render(<CourseList uid={collectionUid} />, el)
+        const root = createRoot(el)
+        root.render(<CourseList uid={collectionUid} />)
       }
     }
   })
@@ -56,7 +58,8 @@ $(function() {
     "#resource-collection-container"
   )
   if (resourceCollectionEl) {
-    ReactDOM.render(<ResourceCollection />, resourceCollectionEl)
+    const root = createRoot(resourceCollectionEl)
+    root.render(<ResourceCollection />)
   }
 
   initNotifications()
