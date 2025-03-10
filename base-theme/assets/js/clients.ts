@@ -42,7 +42,7 @@ const makeQueryClient = (): QueryClient => {
 }
 
 const config = {
-  basePath:    process.env.MIT_LEARN_API_BASEURL,
+  basePath:    process.env.MIT_LEARN_API_BASE_URL,
   baseOptions: { withCredentials: true }
 }
 const configuration = new Configuration({
