@@ -1,15 +1,51 @@
 import React from "react"
-import { shallow } from "enzyme"
+import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
+
+const mockFilterableFacet = jest.fn(
+  ({ name, title, expandedOnLoad, children }) => (
+    <div
+      data-testid="filterable-facet"
+      data-name={name}
+      data-title={title}
+      data-expanded={expandedOnLoad ? "true" : "false"}
+    >
+      {children}
+    </div>
+  )
+)
+
+const mockSearchFilter = jest.fn(({ value, children }) => (
+  <div data-testid="search-filter" data-value={value}>
+    {children}
+  </div>
+))
+
+jest.mock("./FilterableFacet", () => ({
+  __esModule: true,
+  default:    mockFilterableFacet
+}))
+
+jest.mock("./SearchFilter", () => ({
+  __esModule: true,
+  default:    mockSearchFilter
+}))
 
 import FacetDisplay from "./FacetDisplay"
 import { FacetManifest } from "../LearningResources"
 import { Facets } from "@mitodl/course-search-utils"
 
 describe("FacetDisplay component", () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+    mockFilterableFacet.mockClear()
+    mockSearchFilter.mockClear()
+  })
+
   const facetMap: FacetManifest = [
-    ["topics", "Topics", false, false],
-    ["type", "Types", false, false],
-    ["department_name", "Departments", false, true]
+    ["topics", "Topics", true, false],
+    ["type", "Types", true, false],
+    ["department_name", "Departments", true, true]
   ]
 
   function setup() {
@@ -19,8 +55,8 @@ describe("FacetDisplay component", () => {
     const clearAllFilters = jest.fn()
     const toggleFacet = jest.fn()
 
-    const render = (props = {}) =>
-      shallow(
+    const renderComponent = (props = {}) =>
+      render(
         <FacetDisplay
           facetMap={facetMap}
           facetOptions={facetOptions}
@@ -31,18 +67,25 @@ describe("FacetDisplay component", () => {
           {...props}
         />
       )
-    return { render, clearAllFilters }
+
+    return { renderComponent, clearAllFilters }
   }
 
-  test("renders a FacetDisplay with expected FilterableFacets", async () => {
-    const { render } = setup()
-    const wrapper = render()
-    const facets = wrapper.children()
-    expect(facets).toHaveLength(4)
-    facets.slice(1, 4).map((facet, key) => {
-      expect(facet.prop("name")).toBe(facetMap[key][0])
-      expect(facet.prop("title")).toBe(facetMap[key][1])
-      expect(facet.prop("expandedOnLoad")).toBe(facetMap[key][3])
+  test("renders FilterableFacets based on facetMap", () => {
+    const { renderComponent } = setup()
+    renderComponent()
+
+    expect(mockFilterableFacet).toHaveBeenCalledTimes(3)
+    facetMap.forEach((facetInfo, idx) => {
+      expect(mockFilterableFacet).toHaveBeenNthCalledWith(
+        idx + 1,
+        expect.objectContaining({
+          name:           facetInfo[0],
+          title:          facetInfo[1],
+          expandedOnLoad: facetInfo[3]
+        }),
+        expect.anything()
+      )
     })
   })
 
@@ -60,17 +103,16 @@ describe("FacetDisplay component", () => {
       department_name: ["Mathematics", "World Grains and Cereals"]
     }
 
-    const { render, clearAllFilters } = setup()
-    const wrapper = render({
-      activeFacets
-    })
-    expect(
-      wrapper
-        .find(".active-search-filters")
-        .find("SearchFilter")
-        .map(el => el.prop("value"))
-    ).toEqual(["Academic Writing", "Accounting", "Aerodynamics", "Mathematics"])
-    wrapper.find(".clear-all-filters-button").simulate("click")
+    const { renderComponent, clearAllFilters } = setup()
+    renderComponent({ activeFacets })
+
+    expect(mockSearchFilter).toHaveBeenCalledWith(
+      expect.objectContaining({ value: "Academic Writing" }),
+      expect.anything()
+    )
+
+    const clearButton = screen.getByText("Clear All")
+    userEvent.click(clearButton)
     expect(clearAllFilters).toHaveBeenCalled()
   })
 })

@@ -1,20 +1,22 @@
 import React from "react"
-import { shallow } from "enzyme"
+import { render } from "@testing-library/react"
 
 import Card from "./Card"
 
 describe("Card component", () => {
   test("should render children", () => {
-    const wrapper = shallow(
+    const { getByTestId } = render(
       <Card>
-        <div className="test-div" />
+        <div data-testid="test-div" className="test-div">
+          Test Content
+        </div>
       </Card>
     )
-    expect(wrapper.find(".test-div").exists()).toBeTruthy()
+    expect(getByTestId("test-div")).toBeInTheDocument()
   })
 
   test("should have a className", () => {
-    const wrapper = shallow(<Card className="extra-class-name" />)
-    expect(wrapper.prop("className")).toBe("card extra-class-name")
+    const { container } = render(<Card className="extra-class-name" />)
+    expect(container.firstChild).toHaveClass("card", "extra-class-name")
   })
 })

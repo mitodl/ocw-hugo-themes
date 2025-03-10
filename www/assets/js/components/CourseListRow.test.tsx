@@ -1,4 +1,4 @@
-import { mount } from "enzyme"
+import { render, screen } from "@testing-library/react"
 import React from "react"
 import { LearningResourceType } from "@mitodl/course-search-utils"
 
@@ -11,26 +11,30 @@ function setup() {
     makeLearningResourceResult(LearningResourceType.Course)
   )
 
-  const wrapper = mount(<CourseListRow course={course} />)
+  const utils = render(<CourseListRow course={course} />)
 
-  return { course, wrapper }
+  return { course, ...utils }
 }
 
 test("should have a link with the course URL", () => {
-  const { wrapper, course } = setup()
-  expect(wrapper.find("a").prop("href")).toBe(course.url)
+  const { course } = setup()
+  const link = screen.getByRole("link")
+  expect(link).toHaveAttribute("href", course.url)
 })
 
 test("should show the cover image", () => {
-  const { wrapper, course } = setup()
-  expect(wrapper.find("img").prop("src")).toBe(course.image_src)
+  const { course } = setup()
+  const image = screen.getByRole("img")
+  expect(image).toHaveAttribute("src", course.image_src)
 })
 
 test("should show the title, coursenum, level", () => {
-  const { wrapper, course } = setup()
-  expect(wrapper.find("h4").text()).toBe(course.title)
-  expect(wrapper.find(".coursenum").text()).toBe(course.coursenum)
-  expect(wrapper.find(".level").text()).toBe(
-    course.level ? course.level.join(", ") : ""
+  const { course } = setup()
+  expect(screen.getByRole("heading", { level: 4 })).toHaveTextContent(
+    course.title
   )
+  expect(screen.getByText(course.coursenum ?? "")).toBeInTheDocument()
+
+  const expectedLevel = course.level ? course.level.join(", ") : ""
+  expect(screen.getByText(expectedLevel)).toBeInTheDocument()
 })
