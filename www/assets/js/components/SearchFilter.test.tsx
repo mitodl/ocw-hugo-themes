@@ -1,34 +1,49 @@
 import React from "react"
 import upperCase from "lodash.uppercase"
-import { shallow } from "enzyme"
+import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 
 import SearchFilter from "./SearchFilter"
 
 describe("SearchFilter", () => {
   function setup() {
-    const onClickStub = jest.fn()
+    const clearFacet = jest.fn()
 
-    const render = (props = {}) =>
-      shallow(<SearchFilter clearFacet={onClickStub} value="" {...props} />)
+    const renderComponent = (props = {}) =>
+      render(<SearchFilter clearFacet={clearFacet} value="" {...props} />)
 
-    return { render, onClickStub }
+    return { renderComponent, clearFacet }
   }
 
   it("should render a search filter correctly", () => {
     const value = "Upcoming"
-    const { render } = setup()
-    const wrapper = render({
+    const { renderComponent } = setup()
+
+    renderComponent({
       value,
       labelFunction: upperCase
     })
-    const label = wrapper.text()
-    expect(label.includes(upperCase(value))).toBeTruthy()
+
+    expect(screen.getByText(upperCase(value))).toBeInTheDocument()
+  })
+
+  it("should render a value without transformation", () => {
+    const value = "Upcoming"
+    const { renderComponent } = setup()
+
+    renderComponent({ value })
+
+    expect(screen.getByText(value)).toBeInTheDocument()
   })
 
   it("should trigger clearFacet function on click", async () => {
-    const { render, onClickStub } = setup()
-    const wrapper = render({ value: "ocw" })
-    wrapper.find(".remove-filter-button").simulate("click")
-    expect(onClickStub).toHaveBeenCalledTimes(1)
+    const { renderComponent, clearFacet } = setup()
+    renderComponent({ value: "ocw" })
+
+    const removeButton = screen.getByRole("button", { name: /clear filter/i })
+
+    userEvent.click(removeButton)
+
+    expect(clearFacet).toHaveBeenCalledTimes(1)
   })
 })
