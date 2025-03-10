@@ -16,7 +16,7 @@ test("The fixtures are what Hugo would produce.", async () => {
      * the test homepage.
      */
     "courses/some-featured-course",
-    "courses/some-new-course",
+    "courses/some-new-course"
   ]
 
   const fixtureDir = path.resolve(__dirname, "../test-sites/__fixtures__")
