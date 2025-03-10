@@ -6,8 +6,8 @@ import { useUserMe } from "../hooks/user"
 
 export default function UserMenu() {
   const { data: user, isLoading } = useUserMe()
-  const learnBaseUrl = process.env.MIT_LEARN_BASEURL
-  const apiBaseUrl = process.env.MIT_LEARN_API_BASEURL
+  const learnBaseUrl = process.env.MIT_LEARN_BASE_URL
+  const apiBaseUrl = process.env.MIT_LEARN_API_BASE_URL
   const encodedLocation = encodeURI(window.location.href)
   const myListsUrl = new URL("/dashboard/my-lists", learnBaseUrl).toString()
   const logoutUrl = new URL(
