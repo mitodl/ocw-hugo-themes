@@ -4861,17 +4861,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.24.1, core-js@npm:^3.36.0":
+"core-js@npm:^3.24.1, core-js@npm:^3.36.0, core-js@npm:^3.38.1":
   version: 3.41.0
   resolution: "core-js@npm:3.41.0"
   checksum: 10/a06ebae2264dd24c8e4b331a68412f7d0730557c41901f80fa910a9398dbef4670482d9ef5a41fef7efd41307c612d3d4051df7640ac4c01ff6feda45f8b92be
-  languageName: node
-  linkType: hard
-
-"core-js@npm:^3.38.1":
-  version: 3.41.0
-  resolution: "core-js@npm:3.41.0"
-  checksum: 10c0/a29ed0b7fe81acf49d04ce5c17a1947166b1c15197327a5d12f95bbe84b46d60c3c13de701d808f41da06fa316285f3f55ce5903abc8d5642afc1eac4457afc8
   languageName: node
   linkType: hard
 
@@ -7022,7 +7015,7 @@ __metadata:
 "fflate@npm:^0.4.8":
   version: 0.4.8
   resolution: "fflate@npm:0.4.8"
-  checksum: 10c0/29d1eddaaa5deab61b1c6b0d21282adacadbc4d2c01e94d8b1ee784398151673b9c563e53f97a801bc410a1ae55e8de5378114a743430e643e7a0644ba8e5a42
+  checksum: 10/c0c75029bcbefd0b47cede4ad2a3698f571e38d3d93dfbb96d744c655ec3bf5e31111044c2c01fa3965109874f5be8b5a6b3686b958392693689665cbabf3ece
   languageName: node
   linkType: hard
 
@@ -11358,6 +11351,7 @@ __metadata:
     postcss-import: "npm:^12.0.1"
     postcss-loader: "npm:^3.0.0"
     postcss-preset-env: "npm:^6.7.0"
+    posthog-js: "npm:^1.225.0"
     prettier-eslint: "npm:16.3.0"
     prettier-eslint-cli: "npm:^7.1.0"
     promise-polyfill: "npm:^8.3.0"
@@ -12771,14 +12765,14 @@ __metadata:
     web-vitals: "npm:^4.2.0"
   peerDependencies:
     "@rrweb/types": 2.0.0-alpha.17
-  checksum: 10c0/5a0bc66a16d3f9f0827fcaf896c76c10268a511a5a57bf01b4b8573dd13541674dfebd016368186682a6e7a7c3ca6896fd38105daad9d9c913dc0bf63752038f
+  checksum: 10/810a0a742f25faec19c8c085072ef654752186de4cf4478a51bb608f4b639c78474c8c198eae19f4e40d9d3114a441282c54fcb58d07750215cfcbc158a09ce8
   languageName: node
   linkType: hard
 
 "preact@npm:^10.19.3":
   version: 10.26.4
   resolution: "preact@npm:10.26.4"
-  checksum: 10c0/8abf64ec6f9773f0c4fb3746b7caa3d83e2de4d464928e7f64fc779c96ef9e135d23c1ade8d0923c9191f6d203d9f22bb92d8a50dc0f4f310073dfaa51a56922
+  checksum: 10/c356b0c5d0a37ff9030df7226ccd2f5e6c6c1b82ec6ce7574a49d43e2c2c21aae8be6928be23ae81f6fe237ea61f8df3fd12a9b45aa7cb77cd706d3909595050
   languageName: node
   linkType: hard
 
@@ -16199,7 +16193,7 @@ __metadata:
 "web-vitals@npm:^4.2.0":
   version: 4.2.4
   resolution: "web-vitals@npm:4.2.4"
-  checksum: 10c0/383c9281d5b556bcd190fde3c823aeb005bb8cf82e62c75b47beb411014a4ed13fa5c5e0489ed0f1b8d501cd66b0bebcb8624c1a75750bd5df13e2a3b1b2d194
+  checksum: 10/68cd1c2625a04b26e7eab67110623396afc6c9ef8c3a76f4e780aefe5b7d4ca1691737a0b99119e1d1ca9a463c4d468c0f0090b1875b6d784589d3a4a8503313
   languageName: node
   linkType: hard
 
