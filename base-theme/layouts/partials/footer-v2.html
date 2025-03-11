@@ -65,5 +65,7 @@ we want to use this new footer in other themes (www, course-offline etc)
 		<div class="col-12 mt-4 px-0 d-lg-none">
 			{{ partial "footer-v2-copyrights.html" . }}
 		</div>
+    {{ block "basejs" . }}{{ end }}
+    {{ block "extrajs" . }}{{ end }}
 	</div>
 </div>
