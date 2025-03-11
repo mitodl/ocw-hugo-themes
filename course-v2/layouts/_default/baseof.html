@@ -167,8 +167,7 @@
 
   {{ partialCached "navigation_js.html" . }}
   {{ partialCached "responsive_tables_js.html" . }}
-  {{ block "basejs" . }}{{ end }}
-  {{ block "extrajs" . }}{{ end }}
+  {{ partial "course_v2_js.html" . }}
 </body>
 
 </html>
