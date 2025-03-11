@@ -46,9 +46,6 @@
   {{ partialCached "navigation_js.html" . }}
   {{ partialCached "responsive_tables_js.html" . }}
 
-  {{- $js_urls := slice (partial "get_asset_webpack_url.html" "common.js") (partial "get_asset_webpack_url.html"
-  "course_v2.js") -}}
-  {{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
   <!-- Appzi: Capture Insightful Feedback -->
   {{ partial "mathjax_if_necessary.html" (dict "context" .) }}
   <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>
