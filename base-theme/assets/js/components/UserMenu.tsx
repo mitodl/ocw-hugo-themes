@@ -15,7 +15,7 @@ export default function UserMenu() {
     apiBaseUrl
   ).toString()
   const loginUrl = new URL(
-    `/login/ol-oidc?skip_onboarding=true&next=${encodedLocation}`,
+    `/login/ol-oidc?next=${encodedLocation}`,
     apiBaseUrl
   ).toString()
 
