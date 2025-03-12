@@ -3,5 +3,7 @@ first_name: Shira
 last_name: Segal
 job_title: Collaborations and Engagement Manager
 image: /images/about/staff/shira-segal.jpg
-headless: true
+_build:
+    render: "never"
+    list: "always"
 ---

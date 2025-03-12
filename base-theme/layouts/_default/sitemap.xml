@@ -4,7 +4,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {{ range .Data.Pages }}
-    {{- if and .RelPermalink (not .Params.headless) -}}
+    {{- $build := .Params._build | default (dict "render" "always") -}}
+    {{- if and .RelPermalink (not (eq $build.render "never")) -}}
       {{- $path := strings.TrimPrefix "/" (partial "site_root_url.html" .RelPermalink) -}}
       {{- $trimmedBaseUrl := strings.TrimPrefix "/" site.BaseURL -}}
       {{- $trimmedPath := strings.TrimPrefix "/" (replace $path $trimmedBaseUrl "") -}}
