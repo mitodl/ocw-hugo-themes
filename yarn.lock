@@ -11176,7 +11176,7 @@ __metadata:
     ramda: "npm:^0.30.0"
     react: "npm:^16.13.1"
     react-bootstrap: "npm:^1.0.0-beta.15"
-    react-content-loader: "npm:^5.1.2"
+    react-content-loader: "npm:^7.0.0"
     react-dom: "npm:^16.13.1"
     react-dotdotdot: "npm:1.3.1"
     react-infinite-scroller: "npm:^1.2.4"
@@ -13053,12 +13053,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-content-loader@npm:^5.1.2":
-  version: 5.1.4
-  resolution: "react-content-loader@npm:5.1.4"
+"react-content-loader@npm:^7.0.0":
+  version: 7.0.2
+  resolution: "react-content-loader@npm:7.0.2"
   peerDependencies:
     react: ">=16.0.0"
-  checksum: 10c0/f9bf65a3a4213df96b6e1dd048ccd618c8371f396a0f6bb444033ff2a4d1b0bec811f6f4086046e49ad97c22b272005e272461fb543678fd1e278173ccb30ad6
+  checksum: 10c0/77e5976dedd91c793d9c4dd529ce81b89afedfc09c373547aac370e786fce0ed7220887b672ec4252a88e53ef1db1130b668b78f833276a53d0c6e1b040bcd1c
   languageName: node
   linkType: hard
 
