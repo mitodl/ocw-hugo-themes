@@ -51,13 +51,9 @@ function FilterableSearchFacet(props: Props) {
   }, [searcher, filterText])
 
   const handleFilterInput = useCallback(
-    (e: {
-      preventDefault: () => void
-      target: { value: SetStateAction<string> }
-    }) => {
+    (e: React.ChangeEvent<HTMLInputElement>) => {
       e.preventDefault()
-      const filterText = e.target.value
-      setFilterText(filterText)
+      setFilterText(e.target.value)
     },
     []
   )
