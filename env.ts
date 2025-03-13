@@ -126,6 +126,22 @@ const envSchema = {
   WEBPACK_WATCH_MODE: envalid.bool({
     desc:       "Turns webpack watch mode on",
     devDefault: true
+  }),
+  POSTHOG_API_HOST: envalid.url({
+    desc:    "PostHog API URL",
+    default: "https://app.posthog.com"
+  }),
+  POSTHOG_ENABLED: envalid.bool({
+    desc:    "Whether PostHog analytics are enabled",
+    default: true
+  }),
+  POSTHOG_ENV: envalid.str({
+    desc:       "The environment for PostHog",
+    devDefault: "development"
+  }),
+  POSTHOG_PROJECT_API_KEY: envalid.str({
+    desc:    "PostHog project API key",
+    default: ""
   })
 }
 

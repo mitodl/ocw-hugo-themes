@@ -1,6 +1,31 @@
 Release Notes
 =============
 
+Version 1.126.0
+---------------
+
+- remove course v2 bundle from the offline theme (#1546)
+- Replace headless:true with never render (#1543)
+- Improve accessibility for external links (#1520)
+- Add PostHog to the OCW public site (#1540)
+- Fix: Conditionally Include Authorization Header in sitemap.xml to Prevent Empty Bearer Token (#1539)
+- Update peter-evans/find-comment action to v3 (#1529)
+- Update OCW Stories copy (#1536)
+- Upgrade yarn from 3.8.7 to 4.6.0. (#1532)
+- Update Yarn to v3.8.7 (#1535)
+- Update Node.js to v22 (#1534)
+- Fix milestone links being unclickable due to carousel overlay (#1521)
+- Update Node.js to v20.18.3 (#1533)
+- Upgrade Hugo version to latest (0.142.0) (#1512)
+- Update peter-evans/create-or-update-comment action to v4 (#1528)
+- Update peaceiris/actions-hugo action to v3 (#1527)
+- Update dependency sass-loader to v16 (#1453)
+- Update dependency envalid to v8 (#1525)
+- Update dependency @types/sinon to v17 (#1523)
+- Update dependency cross-env to v7 (#1524)
+- Update nwtgck/actions-netlify action to v3 (#1526)
+- Update actions/setup-node action to v4 (#1351)
+
 Version 1.125.0 (Released February 24, 2025)
 ---------------
 
