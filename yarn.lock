@@ -1124,9 +1124,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mitodl/course-search-utils@npm:^2.3.0":
-  version: 2.3.2
-  resolution: "@mitodl/course-search-utils@npm:2.3.2"
+"@mitodl/course-search-utils@npm:^2.3.3":
+  version: 2.3.3
+  resolution: "@mitodl/course-search-utils@npm:2.3.3"
   dependencies:
     bodybuilder: "npm:^2.5.0"
     query-string: "npm:^6.13.1"
@@ -1134,13 +1134,13 @@ __metadata:
   peerDependencies:
     "@types/history": ^4.9
     history: ^4.9 || ^5.0.0
-    react: ^16.13.1
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
   peerDependenciesMeta:
     "@types/history":
       optional: true
     history:
       optional: true
-  checksum: 10c0/61abab0c86461287dfda69fe77e8bf6f78379bab040971fef218cbcdf2f69a4559c269b63cedff115b2fdb21b8a6dbac9fdbd80ab8f2d98efe35b08e916fb2e5
+  checksum: 10c0/639fd06a5ca66cabc330b012ac2cdb5e10266fab1726e7a3a5972611747d4e1fe76bcb3c8d9baa1449f43c48febbd9e9ddddb83e86f8496b7e85b54c3a251f3b
   languageName: node
   linkType: hard
 
@@ -11281,7 +11281,7 @@ __metadata:
   dependencies:
     "@babel/plugin-proposal-private-property-in-object": "npm:^7.21.11"
     "@babel/preset-typescript": "npm:^7.25.7"
-    "@mitodl/course-search-utils": "npm:^2.3.0"
+    "@mitodl/course-search-utils": "npm:^2.3.3"
     "@mitodl/ocw-to-hugo": "npm:1.36.0"
     "@playwright/test": "npm:^1.45.0"
     "@sentry/browser": "npm:^7.0.0"
