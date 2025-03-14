@@ -37,4 +37,5 @@ const prodOverrides: Configuration = {
   }
 }
 
-export default merge(common, prodOverrides)
+const mergedConfig = merge(common, prodOverrides)
+export default mergedConfig

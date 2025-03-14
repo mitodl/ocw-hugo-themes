@@ -1,9 +1,5 @@
 import { enableFetchMocks } from "jest-fetch-mock"
 enableFetchMocks()
-import Enzyme from "enzyme"
-import Adapter from "enzyme-adapter-react-16"
-
-Enzyme.configure({ adapter: new Adapter() })
 
 process.env = {
   ...process.env,

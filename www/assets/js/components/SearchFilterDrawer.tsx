@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 
 import FacetDisplay from "./FacetDisplay"
 import { DESKTOP } from "../lib/constants"
@@ -24,7 +24,7 @@ export default function SearchFilterDrawer(props: Props) {
   const { updateUI } = props
 
   const openDrawer = useCallback(
-    (event: { preventDefault: () => void }) => {
+    (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault()
       setDrawerOpen(true)
     },
@@ -32,7 +32,7 @@ export default function SearchFilterDrawer(props: Props) {
   )
 
   const closeDrawer = useCallback(
-    (event: { preventDefault: () => void }) => {
+    (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault()
       setDrawerOpen(false)
     },
