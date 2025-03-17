@@ -117,7 +117,7 @@
     "file-loader": "^5.0.2",
     "hugo-bin-extended": "^0.142.0",
     "imports-loader": "^0.8.0",
-    "inquirer": "^8.2.5",
+    "inquirer": "^12.0.0",
     "jest": "^27.4.7",
     "jest-fetch-mock": "^3.0.3",
     "jest-watch-typeahead": "^2.2.0",
