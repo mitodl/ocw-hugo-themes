@@ -15,7 +15,7 @@ export default function UserMenu() {
     apiBaseUrl
   ).toString()
   const loginUrl = new URL(
-    `/login/ol-oidc?next=${encodedLocation}`,
+    `/login?next=${encodedLocation}`,
     apiBaseUrl
   ).toString()
 
