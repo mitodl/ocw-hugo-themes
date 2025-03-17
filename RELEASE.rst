@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.126.0
+Version 1.126.0 (Released March 17, 2025)
 ---------------
 
 - remove course v2 bundle from the offline theme (#1546)
