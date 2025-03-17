@@ -43,11 +43,11 @@ $(function() {
   if (userMenuContainers && isFeatureEnabled("ocw-learn-integration")) {
     for (const userMenuContainer of Array.from(userMenuContainers)) {
       const queryClient = makeQueryClient()
-      ReactDOM.render(
+      const root = createRoot(userMenuContainer)
+      root.render(
         <QueryClientProvider client={queryClient}>
           <UserMenu />
-        </QueryClientProvider>,
-        userMenuContainer
+        </QueryClientProvider>
       )
     }
   }

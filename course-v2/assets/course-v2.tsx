@@ -18,10 +18,9 @@ import {
   isFeatureEnabled
 } from "../../base-theme/assets/js/posthog"
 import { QueryClientProvider } from "@tanstack/react-query"
-import React from "react"
-import ReactDOM from "react-dom"
 import { makeQueryClient } from "../../base-theme/assets/js/clients"
 import UserMenu from "../../base-theme/assets/js/components/UserMenu"
+import { createRoot } from "react-dom/client"
 
 export interface OCWWindow extends Window {
   initNanogallery2: () => void
@@ -43,11 +42,11 @@ $(function() {
   if (userMenuContainers && isFeatureEnabled("ocw-learn-integration")) {
     for (const userMenuContainer of Array.from(userMenuContainers)) {
       const queryClient = makeQueryClient()
-      ReactDOM.render(
+      const root = createRoot(userMenuContainer)
+      root.render(
         <QueryClientProvider client={queryClient}>
           <UserMenu />
-        </QueryClientProvider>,
-        userMenuContainer
+        </QueryClientProvider>
       )
     }
   }
