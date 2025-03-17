@@ -1,6 +1,20 @@
 Release Notes
 =============
 
+Version 1.127.0
+---------------
+
+- Update dependency concurrently to v9 (#1555)
+- Update actions/upload-artifact digest to 4cec3d8 (#1541)
+- Update dependency inquirer to v12 (#1556)
+- Update dependency commander to v13 (#1554)
+- Update dependency @types/inquirer to v9 (#1553)
+- Update dependency sass to v1.85.1 (#1551)
+- Update dependency node to v20.19.0 (#1550)
+- Update Yarn to v4.7.0 (#1549)
+- Lock file maintenance (#1504)
+- Upgrade React to v18 (#1522)
+
 Version 1.126.0 (Released March 17, 2025)
 ---------------
 
