@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.127.0
+Version 1.127.0 (Released March 19, 2025)
 ---------------
 
 - Update dependency concurrently to v9 (#1555)
