@@ -227,8 +227,8 @@ There are two environment variables you can set related to this functionality;
 URLs to the login / logout pages, and the latter is used to construct calls to the API.
 In the following examples, we will assume you are running `mit-learn` locally with:
 
-- `MIT_LEARN_BASE_URL=http://learn.odl.local:8062`
-- `MIT_LEARN_API_BASE_URL=http://learn.odl.local:8065`
+- `MIT_LEARN_BASE_URL=http://open.odl.local:8062`
+- `MIT_LEARN_API_BASE_URL=http://api.open.odl.local:8065`
 
 We also assume that you have configured `mit-learn` to run on this domain, and that you
 have set up a `hosts` DNS record to point it at the local IP address of your development
@@ -236,7 +236,9 @@ machine. It is recommended to set a static IP address, but not necessary. Assumi
 IP is 192.168.1.123, you would add the following to your `hosts` file:
 
 ```
-192.168.1.123 learn.odl.local
+192.168.1.123 open.odl.local
+192.168.1.123 api.open.odl.local
+192.168.1.123 kc.ol.local
 192.168.1.123 ocw.odl.local
 ```
 
@@ -244,6 +246,7 @@ On the `mit-learn` side, in your `.env` file you will want to set the following 
 bare minimum:
 
 ```
+COMPOSE_PROFILES=backend,frontend,apisix,keycloak
 CSRF_COOKIE_DOMAIN=.odl.local
 ALLOWED_REDIRECT_HOSTS=["localhost:3000", "ocw.odl.local:3000"]
 CORS_ALLOWED_ORIGINS=["http://localhost:3000", "http://ocw.odl.local:3000"]
