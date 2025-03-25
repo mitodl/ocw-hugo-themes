@@ -196,6 +196,8 @@ To further explain the various environment variables and what they do:
 | `POSTHOG_ENABLED` | `www`, `course` | `true` | Whether PostHog analytics are enabled
 | `POSTHOG_ENV` | `www`, `course` | `production` | Environment for PostHog
 | `POSTHOG_PROJECT_API_KEY` | `www`, `course` | `api-key` | API key for PostHog |
+| `MIT_LEARN_BASE_URL` | N/A | `http://learn.odl.local:8062` | The base URL for the frontend of an instance of [`mit-learn`](https://github.com/mitodl/mit-learn) |
+| `MIT_LEARN_API_BASE_URL` | N/A | `http://learn.odl.local:8065` | The base URL for the API gateway (APISIX) of an instance of [`mit-learn`](https://github.com/mitodl/mit-learn) |
 
 
 ### Writing Tests
@@ -216,6 +218,44 @@ functionality. Search results are provided by `open-discusisons` and
 courses and news items. If you need to work with this functionality you can
 either run a local instance of either of these projects, or alternatively point
 at the RC instances and temporarily disable CORS in your browser.
+
+#### MIT Learn integration
+
+One of the external API's that can be integrated into OCW sites is based on [MIT Learn](https://github.com/mitodl/mit-learn).
+There are two environment variables you can set related to this functionality;
+`MIT_LEARN_BASE_URL` and `MIT_LEARN_API_BASE_URL`. The former is used to construct 
+URLs to the login / logout pages, and the latter is used to construct calls to the API.
+In the following examples, we will assume you are running `mit-learn` locally with:
+
+- `MIT_LEARN_BASE_URL=http://open.odl.local:8062`
+- `MIT_LEARN_API_BASE_URL=http://api.open.odl.local:8065`
+
+We also assume that you have configured `mit-learn` to run on this domain, and that you
+have set up a `hosts` DNS record to point it at the local IP address of your development
+machine. It is recommended to set a static IP address, but not necessary. Assuming your
+IP is 192.168.1.123, you would add the following to your `hosts` file:
+
+```
+192.168.1.123 open.odl.local
+192.168.1.123 api.open.odl.local
+192.168.1.123 kc.ol.local
+192.168.1.123 ocw.odl.local
+```
+
+On the `mit-learn` side, in your `.env` file you will want to set the following values as a
+bare minimum:
+
+```
+COMPOSE_PROFILES=backend,frontend,apisix,keycloak
+CSRF_COOKIE_DOMAIN=.odl.local
+ALLOWED_REDIRECT_HOSTS=["localhost:3000", "ocw.odl.local:3000"]
+CORS_ALLOWED_ORIGINS=["http://localhost:3000", "http://ocw.odl.local:3000"]
+CSRF_TRUSTED_ORIGINS=["http://localhost:3000", "http://ocw.odl.local:3000"]
+```
+
+After setting these values and spinning up both `mit-learn` and `ocw-hugo-themes` locally,
+you should be able to hit your OCW dev page at http://ocw.odl.local:3000/ and see a "Log In"
+button in the upper right.
 
 ### CORS
 
