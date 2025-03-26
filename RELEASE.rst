@@ -1,6 +1,18 @@
 Release Notes
 =============
 
+Version 1.128.0
+---------------
+
+- Update dependency sass to v1.86.0 (#1567)
+- Lock file maintenance (#1566)
+- Update dependency @testing-library/react to v16 (#1563)
+- Update dependency node to v22 (#1565)
+- Update actions/setup-node digest to cdca736 (#1558)
+- add login button (#1544)
+- Update actions/upload-artifact digest to ea165f8 (#1559)
+- Update dependency @sentry/browser to v9 (#1552)
+
 Version 1.127.0 (Released March 19, 2025)
 ---------------
 
