@@ -11196,12 +11196,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanogallery2@npm:^2.4.2":
-  version: 2.4.2
-  resolution: "nanogallery2@npm:2.4.2"
+"nanogallery2@npm:^3.0.0":
+  version: 3.0.5
+  resolution: "nanogallery2@npm:3.0.5"
   dependencies:
     jquery: "npm:>=1.12.4"
-  checksum: 10c0/b6d7a1dc4a9a630956ed654906f94fe1ebfd76c98505881a787c31dac38dc9240d5b8c037c8dc943581f92abb04b48aaa9d8e100cf747cfb5af3575a6735a8ad
+  checksum: 10c0/c74c1cf5acd5c0759bdcbdaf15c2784151d3040a625bce17f77ea1dc3701bd04ccb3112dfcef9ccea83197372f5afaecfa5287809a76644597846d2388f4a588
   languageName: node
   linkType: hard
 
@@ -11666,7 +11666,7 @@ __metadata:
     lodash.uppercase: "npm:^4.3.0"
     mathjax: "npm:^3.2.2"
     mini-css-extract-plugin: "npm:^2.6.1"
-    nanogallery2: "npm:^2.4.2"
+    nanogallery2: "npm:^3.0.0"
     offcanvas-bootstrap: "npm:^2.5.2"
     pdfobject: "npm:^2.2.8"
     playwright: "npm:^1.45.0"
