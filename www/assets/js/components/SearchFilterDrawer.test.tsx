@@ -2,7 +2,6 @@ import React from "react"
 import { render, screen, within, waitForElementToBeRemoved } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import SearchFilterDrawer from "./SearchFilterDrawer"
-import * as utils from "../lib/util"
 import * as hooks from "../hooks/util"
 
 jest.mock("./FacetDisplay", () => {
