@@ -1,5 +1,10 @@
 import React from "react"
-import { render, screen, within, waitForElementToBeRemoved } from "@testing-library/react"
+import {
+  render,
+  screen,
+  within,
+  waitForElementToBeRemoved
+} from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import SearchFilterDrawer from "./SearchFilterDrawer"
 import * as hooks from "../hooks/util"
@@ -53,7 +58,9 @@ describe("SearchFilterDrawer component", () => {
     expect(facetDisplay).toBeInTheDocument()
 
     expect(screen.queryByText(/filter/i)).not.toBeInTheDocument()
-    expect(screen.queryByTestId("layout-buttons-mobile")).not.toBeInTheDocument()
+    expect(
+      screen.queryByTestId("layout-buttons-mobile")
+    ).not.toBeInTheDocument()
   })
 
   test("phone mode renders a filter control and layout buttons", async () => {
@@ -81,9 +88,13 @@ describe("SearchFilterDrawer component", () => {
     expect(screen.queryByTestId("facet-display")).not.toBeInTheDocument()
     expect(screen.getByText(/filter/i)).toBeInTheDocument()
 
-    const layoutButtons = screen.getByRole("button", { name: /show detailed results/i })
+    const layoutButtons = screen.getByRole("button", {
+      name: /show detailed results/i
+    })
     expect(layoutButtons).toBeInTheDocument()
-    const compactButton = screen.getByRole("button", { name: /show compact results/i })
+    const compactButton = screen.getByRole("button", {
+      name: /show compact results/i
+    })
     expect(compactButton).toBeInTheDocument()
   })
 })
