@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.128.0
+Version 1.128.0 (Released March 27, 2025)
 ---------------
 
 - Update dependency sass to v1.86.0 (#1567)
