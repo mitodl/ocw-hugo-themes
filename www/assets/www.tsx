@@ -2,8 +2,8 @@ import "./css/www.scss"
 import "./css/search.scss"
 
 import Popper from "popper.js"
-import ReactDOM from "react-dom"
-import React from "react"
+import { createRoot } from "react-dom/client"
+
 import { createBrowserHistory } from "history"
 
 import SearchPage from "./js/components/SearchPage"
@@ -14,7 +14,13 @@ import { initNotifications } from "./js/notification"
 import { initSubNav } from "./js/subnav"
 import ResourceCollection from "./js/components/ResourceCollection"
 import posthog from "posthog-js"
-import { initPostHog } from "../../base-theme/assets/js/posthog"
+import {
+  initPostHog,
+  isFeatureEnabled
+} from "../../base-theme/assets/js/posthog"
+import { makeQueryClient } from "../../base-theme/assets/js/clients"
+import { QueryClientProvider } from "@tanstack/react-query"
+import UserMenu from "../../base-theme/assets/js/components/UserMenu"
 export interface OCWWindow extends Window {
   $: JQueryStatic
   jQuery: JQueryStatic
@@ -32,9 +38,24 @@ const history = createBrowserHistory()
 
 $(function() {
   window.posthog = initPostHog()
+
+  const userMenuContainers = document.querySelectorAll(".user-menu-container")
+  if (userMenuContainers && isFeatureEnabled("ocw-learn-integration")) {
+    for (const userMenuContainer of Array.from(userMenuContainers)) {
+      const queryClient = makeQueryClient()
+      const root = createRoot(userMenuContainer)
+      root.render(
+        <QueryClientProvider client={queryClient}>
+          <UserMenu />
+        </QueryClientProvider>
+      )
+    }
+  }
+
   const searchPageEl = document.querySelector("#search-page")
   if (searchPageEl) {
-    ReactDOM.render(<SearchPage history={history} />, searchPageEl)
+    const root = createRoot(searchPageEl)
+    root.render(<SearchPage history={history} />)
   }
 
   const courseCollectionEls = document.querySelectorAll(
@@ -47,7 +68,8 @@ $(function() {
     if (el) {
       const collectionUid = el.getAttribute("data-collectionid")
       if (collectionUid) {
-        ReactDOM.render(<CourseList uid={collectionUid} />, el)
+        const root = createRoot(el)
+        root.render(<CourseList uid={collectionUid} />)
       }
     }
   })
@@ -56,7 +78,8 @@ $(function() {
     "#resource-collection-container"
   )
   if (resourceCollectionEl) {
-    ReactDOM.render(<ResourceCollection />, resourceCollectionEl)
+    const root = createRoot(resourceCollectionEl)
+    root.render(<ResourceCollection />)
   }
 
   initNotifications()

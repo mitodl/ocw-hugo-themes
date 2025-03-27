@@ -1,8 +1,9 @@
 {
   "extends": "eslint-config-mitodl",
+  "plugins": ["import"],
   "settings": {
     "react": {
-      "version": "16.4.0"
+      "version": "18.2.14"
     }
   },
   "env": {
@@ -14,9 +15,21 @@
     "RELEASE_VERSION": true
   },
   "rules": {
-    "@typescript-eslint/no-non-null-assertion": "off"
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "react/react-in-jsx-scope": "off",
+    "import/no-anonymous-default-export": ["error", {
+      "allowArray": false,
+      "allowArrowFunction": false,
+      "allowAnonymousClass": false,
+      "allowAnonymousFunction": false,
+      "allowCallExpression": false,
+      "allowNew": false,
+      "allowLiteral": false,
+      "allowObject": true
+    }]
   },
   "ignorePatterns": [
-    "**/dist"
+    "**/dist",
+    "**/static_shared/**"
   ]
 }

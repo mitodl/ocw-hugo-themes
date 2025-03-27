@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react"
+import { useState, useCallback } from "react"
 import InfiniteScroll from "react-infinite-scroller"
 import {
   Aggregations,
@@ -359,6 +359,7 @@ export default function SearchPage(props: SearchPageProps) {
                 </div>
               </ul>
             </div>
+            {/* @ts-expect-error: react-infinite-scroller types are outdated for React 18; runtime is correct */}
             <InfiniteScroll
               hasMore={from + pageSize < total}
               loadMore={loadMore}

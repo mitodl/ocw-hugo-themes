@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, SetStateAction } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import { includes } from "ramda"
 import has from "lodash.has"
 import Fuse from "fuse.js"
@@ -51,13 +51,9 @@ function FilterableSearchFacet(props: Props) {
   }, [searcher, filterText])
 
   const handleFilterInput = useCallback(
-    (e: {
-      preventDefault: () => void
-      target: { value: SetStateAction<string> }
-    }) => {
+    (e: React.ChangeEvent<HTMLInputElement>) => {
       e.preventDefault()
-      const filterText = e.target.value
-      setFilterText(filterText)
+      setFilterText(e.target.value)
     },
     []
   )
@@ -133,4 +129,8 @@ const propsAreEqual = (_prevProps: Props, nextProps: Props) => {
   return !has(nextProps.results, "buckets")
 }
 
-export default React.memo(FilterableSearchFacet, propsAreEqual)
+const MemoizedFilterableSearchFacet = React.memo(
+  FilterableSearchFacet,
+  propsAreEqual
+)
+export default MemoizedFilterableSearchFacet

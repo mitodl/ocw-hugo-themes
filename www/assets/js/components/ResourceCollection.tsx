@@ -1,4 +1,3 @@
-import React from "react"
 import { useResourceCollectionData } from "../hooks/hugo_data"
 import { LearningResourceDisplay } from "./SearchResult"
 

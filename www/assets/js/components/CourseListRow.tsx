@@ -1,5 +1,3 @@
-import React from "react"
-
 import { LearningResource } from "../LearningResources"
 import { getCoverImageUrl } from "../lib/search"
 import Card from "./Card"
