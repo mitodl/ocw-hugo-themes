@@ -1,8 +1,9 @@
 import React from "react"
-import { render, screen, within } from "@testing-library/react"
+import { render, screen, within, waitForElementToBeRemoved } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import SearchFilterDrawer from "./SearchFilterDrawer"
 import * as utils from "../lib/util"
+import * as hooks from "../hooks/util"
 
 jest.mock("./FacetDisplay", () => {
   return {
@@ -19,7 +20,15 @@ jest.mock("../lib/util", () => {
   }
 })
 
-const getViewportWidthMock = jest.mocked(utils.getViewportWidth)
+jest.mock("../hooks/util", () => {
+  const actual = jest.requireActual("../hooks/util")
+  return {
+    ...actual,
+    useDeviceCategory: jest.fn()
+  }
+})
+
+const useDeviceCategoryMock = jest.mocked(hooks.useDeviceCategory)
 
 describe("SearchFilterDrawer component", () => {
   const defaultProps = {
@@ -37,7 +46,7 @@ describe("SearchFilterDrawer component", () => {
   }
 
   test("desktop mode renders a FacetDisplay", async () => {
-    getViewportWidthMock.mockImplementation(() => 1000)
+    useDeviceCategoryMock.mockReturnValue("DESKTOP")
 
     setup()
 
@@ -49,7 +58,7 @@ describe("SearchFilterDrawer component", () => {
   })
 
   test("phone mode renders a filter control and layout buttons", async () => {
-    getViewportWidthMock.mockImplementation(() => 500)
+    useDeviceCategoryMock.mockReturnValue("PHONE")
 
     setup()
 
@@ -62,12 +71,14 @@ describe("SearchFilterDrawer component", () => {
 
     userEvent.click(filterButton)
 
-    const drawer = screen.getByTestId("facet-display").closest(".search-filter-drawer-open")
+    const facetDisplay = await screen.findByTestId("facet-display")
+    const drawer = facetDisplay.closest(".search-filter-drawer-open")
     expect(drawer).toBeInTheDocument()
 
     const applyButton = screen.getByRole("button", { name: /apply filters/i })
     userEvent.click(applyButton)
 
+    await waitForElementToBeRemoved(() => screen.queryByTestId("facet-display"))
     expect(screen.queryByTestId("facet-display")).not.toBeInTheDocument()
     expect(screen.getByText(/filter/i)).toBeInTheDocument()
 

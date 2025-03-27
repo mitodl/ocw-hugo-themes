@@ -89,7 +89,7 @@ describe("FacetDisplay component", () => {
     })
   })
 
-  test("shows filters which are active excluding invalid facet values", () => {
+  test("shows filters which are active excluding invalid facet values", async () => {
     const activeFacets: Facets = {
       topics: [
         "Academic Writing",
@@ -112,7 +112,7 @@ describe("FacetDisplay component", () => {
     )
 
     const clearButton = screen.getByText("Clear All")
-    userEvent.click(clearButton)
+    await userEvent.click(clearButton)
     expect(clearAllFilters).toHaveBeenCalled()
   })
 })

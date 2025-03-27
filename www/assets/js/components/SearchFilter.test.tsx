@@ -42,7 +42,7 @@ describe("SearchFilter", () => {
 
     const removeButton = screen.getByRole("button", { name: /clear filter/i })
 
-    userEvent.click(removeButton)
+    await userEvent.click(removeButton)
 
     expect(clearFacet).toHaveBeenCalledTimes(1)
   })
