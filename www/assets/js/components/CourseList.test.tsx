@@ -3,7 +3,6 @@ import { makeCourseJSON } from "../factories/search"
 import { LearningResource } from "../LearningResources"
 import { courseJSONToLearningResource } from "../lib/search"
 import * as hugoHooks from "../hooks/hugo_data"
-import React from "react"
 import CourseList from "./CourseList"
 import CourseListRow from "./CourseListRow"
 
@@ -11,17 +10,14 @@ const { useCourseListData } = hugoHooks as jest.Mocked<typeof hugoHooks>
 jest.mock("../hooks/hugo_data")
 
 jest.mock("./CourseListRow", () => {
+  const actual = jest.requireActual("./CourseListRow")
   return {
     __esModule: true,
-    default:    jest.fn(({ course }) => {
-      return (
-        <div data-testid="course-list-row" data-course-id={course.id}>
-          {course.title}
-        </div>
-      )
-    })
+    default:    jest.fn(actual.default)
   }
 })
+
+const mockCourseListRow = jest.mocked(CourseListRow)
 
 describe("CourseList component", () => {
   let data: LearningResource[]
@@ -47,6 +43,6 @@ describe("CourseList component", () => {
     expect(CourseListRow).toHaveBeenCalledTimes(data.length)
 
     const expectedCalls = data.map(course => [{ course }, expect.anything()])
-    expect((CourseListRow as jest.Mock).mock.calls).toEqual(expectedCalls)
+    expect(mockCourseListRow.mock.calls).toEqual(expectedCalls)
   })
 })
