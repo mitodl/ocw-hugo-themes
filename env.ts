@@ -142,7 +142,18 @@ const envSchema = {
   POSTHOG_PROJECT_API_KEY: envalid.str({
     desc:    "PostHog project API key",
     default: ""
-  })
+  }),
+  /**
+   * The following are URLs to the MIT Learn API.
+   */
+  MIT_LEARN_BASE_URL: envalid.url({
+    desc:       "The base URL of the MIT Learn API.",
+    devDefault: ""
+  }),
+  MIT_LEARN_API_BASE_URL: envalid.url({
+    desc:       "The base URL of the MIT Learn API.",
+    devDefault: ""
+  }),
 }
 
 /**

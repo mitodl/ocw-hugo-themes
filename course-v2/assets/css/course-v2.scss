@@ -85,6 +85,39 @@ h5 {
   }
 }
 
+#user-list-modal-container {
+  .modal-content {
+    border-radius: 8px;
+    .modal-header {
+      align-items: center;
+      border-radius: 8px;
+      border-bottom: 1px solid #dde1e6;
+      background-color: #f3f4f8;
+      padding: 20px 28px;
+
+      .btn-close {
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        border: none;
+      }
+      .btn-close:hover {
+        background-color: rgba(64, 70, 76, 0.06);
+      }
+    }
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .user-list-modal-checkboxes {
+        padding-left: 1.25rem;
+      }
+    }
+  }
+}
+
 .font-black {
   color: black !important;
 }
