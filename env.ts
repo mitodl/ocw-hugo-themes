@@ -148,11 +148,11 @@ const envSchema = {
    */
   MIT_LEARN_BASE_URL: envalid.url({
     desc:       "The base URL of the MIT Learn API.",
-    devDefault: ""
+    devDefault: "https://rc.learn.mit.edu"
   }),
   MIT_LEARN_API_BASE_URL: envalid.url({
     desc:       "The base URL of the MIT Learn API.",
-    devDefault: ""
+    devDefault: "https://api.rc.learn.mit.edu"
   })
 }
 
