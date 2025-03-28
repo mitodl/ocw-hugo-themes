@@ -153,7 +153,7 @@ const envSchema = {
   MIT_LEARN_API_BASE_URL: envalid.url({
     desc:       "The base URL of the MIT Learn API.",
     devDefault: ""
-  }),
+  })
 }
 
 /**
