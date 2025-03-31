@@ -14,16 +14,16 @@ export function initPostHog(): typeof posthog {
 
   if (posthogEnabled && posthogApiKey) {
     posthog.init(posthogApiKey, {
-      api_host:         posthogApiHost,
+      api_host: posthogApiHost,
       capture_pageview: true,
-      autocapture:      true,
+      autocapture: true,
       opt_out_capturing_by_default: true,
-      persistence:      "localStorage+cookie",
-      person_profiles:  "always",
-      loaded:           function() {
+      persistence: "localStorage+cookie",
+      person_profiles: "always",
+      loaded: function () {
         posthog.reloadFeatureFlags()
         console.log("PostHog loaded successfully")
-      }
+      },
     })
     posthog.register({ environment: posthogEnv })
   } else if (posthogEnabled) {
