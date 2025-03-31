@@ -17,6 +17,7 @@ export function initPostHog(): typeof posthog {
       api_host:         posthogApiHost,
       capture_pageview: true,
       autocapture:      true,
+      opt_out_capturing_by_default: true,
       persistence:      "localStorage+cookie",
       person_profiles:  "always",
       loaded:           function() {
