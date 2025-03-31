@@ -23,7 +23,7 @@ export function initPostHog(): typeof posthog {
       loaded:                       function() {
         posthog.reloadFeatureFlags()
         console.log("PostHog loaded successfully")
-      },
+      }
     })
     posthog.register({ environment: posthogEnv })
   } else if (posthogEnabled) {
