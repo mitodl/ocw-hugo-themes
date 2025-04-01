@@ -57,8 +57,8 @@ const userlistQueries = {
           results: data.results.map(
             (relation: {
               id: number
-              parent: any
-              child: any
+              parent: number
+              child: number
               resource: LearningResource
             }) => ({
               ...relation,

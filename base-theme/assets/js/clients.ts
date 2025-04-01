@@ -14,7 +14,6 @@ type MaybeHasStatus = {
 
 const RETRY_STATUS_CODES = [408, 429, 502, 503, 504]
 const MAX_RETRIES = 3
-const THROW_ERROR_CODES: (number | undefined)[] = [404, 403, 401]
 
 const makeQueryClient = (): QueryClient => {
   return new QueryClient({
