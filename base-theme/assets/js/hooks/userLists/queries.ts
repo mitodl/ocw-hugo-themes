@@ -48,7 +48,7 @@ const userlistQueries = {
         const request = pageParam ?
           instance.request<PaginatedUserListRelationshipList>({
             method: "get",
-            url:    pageParam
+            url:    String(pageParam)
           }) :
           userListsApi.userlistsItemsList(listingParams)
         const { data } = await request
@@ -69,7 +69,8 @@ const userlistQueries = {
       },
       getNextPageParam: lastPage => {
         return lastPage.next ?? undefined
-      }
+      },
+      initialPageParam: undefined
     }),
   membershipList: () => ({
     queryKey: userlistKeys.membershipList(),
