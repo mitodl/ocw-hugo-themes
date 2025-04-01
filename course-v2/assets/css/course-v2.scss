@@ -109,10 +109,16 @@ h5 {
     .modal-body {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      padding: 28px;
 
       .user-list-modal-checkboxes {
         padding-left: 1.25rem;
+      }
+
+      .btn-create-new-list {
+        border-radius: 4px;
+        border: 1px solid $burgundy;
+        color: $burgundy;
       }
     }
   }

@@ -6,6 +6,7 @@ import {
   useLearningResourceSetUserListRelationships
 } from "../hooks/learningResources"
 import { useFormik } from "formik"
+import { RiAddLine } from "@remixicon/react"
 
 interface UserListModalProps {
   resourceReadableId: string
@@ -74,10 +75,12 @@ const UserListModal: React.FC<UserListModalProps> = ({
             user?.isAuthenticated ? (
               <div className="modal-body">
                 <form onSubmit={formik.handleSubmit}>
-                  <div>{resource?.title}</div>
+                  <div className="font-weight-bold pb-3">
+                    Adding <span className="font-italic">{resource?.title}</span>
+                  </div>
                   <div className="user-list-modal-checkboxes">
                     {userLists?.results?.map(list => (
-                      <div key={list.id}>
+                      <div key={list.id} className="pb-3">
                         <input
                           type="checkbox"
                           name="user_lists"
@@ -99,22 +102,36 @@ const UserListModal: React.FC<UserListModalProps> = ({
                     ))}
                   </div>
                   <div id="user-list-modal-actions">
-                    <input
-                      type="submit"
-                      className="btn btn-primary"
-                      data-dismiss="modal"
-                      aria-label="Save"
-                      value="Save"
-                      disabled={
-                        !formik.dirty ||
-                        isLoading ||
-                        isSavingUserListRelationships
-                      }
-                      onClick={e => {
-                        e.preventDefault()
-                        formik.handleSubmit()
-                      }}
-                    />
+                    <div className="row">
+                      <div className="col-6">
+                        <input
+                          type="submit"
+                          className="btn btn-primary w-100 h-100"
+                          data-dismiss="modal"
+                          aria-label="Save"
+                          value="Save"
+                          disabled={
+                            !formik.dirty ||
+                            isLoading ||
+                            isSavingUserListRelationships
+                          }
+                          onClick={e => {
+                            e.preventDefault()
+                            formik.handleSubmit()
+                          }}
+                        />
+                      </div>
+                      <div className="col-6">
+                        <button
+                          type="button"
+                          className="btn btn-create-new-list font-weight-bold w-100 h-100"
+                          data-dismiss="modal"
+                          aria-label="Create New List"
+                        >
+                          <RiAddLine /> Create New List
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </form>
               </div>
