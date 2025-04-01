@@ -19,14 +19,20 @@ const useUserListList = (
   params: ListRequest = {},
   opts?: { enabled?: boolean }
 ) => {
+  const queryOptions = userlistQueries.list(params)
   return useQuery({
-    ...userlistQueries.list(params),
+    ...queryOptions,
+    queryKey: queryOptions.queryKey ?? [`userlist-list`, params],
     ...opts
   })
 }
 
 const useUserListsDetail = (id: number) => {
-  return useQuery(userlistQueries.detail(id))
+  const queryOptions = userlistQueries.detail(id)
+  return useQuery({
+    ...queryOptions,
+    queryKey: queryOptions.queryKey ?? [`userlist-detail`, id]
+  })
 }
 
 const useUserListCreate = () => {
