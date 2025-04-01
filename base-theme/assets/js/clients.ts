@@ -22,13 +22,7 @@ const makeQueryClient = (): QueryClient => {
       queries: {
         refetchOnWindowFocus: false,
         staleTime:            Infinity,
-        onError:              error => {
-          const status = (error as MaybeHasStatus)?.response?.status
-          if (THROW_ERROR_CODES.includes(status)) {
-            throw error
-          }
-        },
-        retry: (failureCount, error) => {
+        retry:                (failureCount, error) => {
           const status = (error as MaybeHasStatus)?.response?.status
           /**
            * React Query's default behavior is to retry all failed queries 3
@@ -47,7 +41,12 @@ const makeQueryClient = (): QueryClient => {
 
 const config = {
   basePath:    process.env.MIT_LEARN_API_BASE_URL,
-  baseOptions: { withCredentials: true }
+  baseOptions: {
+    xsrfCookieName:  process.env.CSRF_COOKIE_NAME,
+    xsrfHeaderName:  "X-CSRFToken",
+    withXSRFToken:   true,
+    withCredentials: true
+  }
 }
 const configuration = new Configuration({
   basePath:    config.basePath,
