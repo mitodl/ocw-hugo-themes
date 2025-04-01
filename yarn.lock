@@ -2065,29 +2065,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:4.36.1":
-  version: 4.36.1
-  resolution: "@tanstack/query-core@npm:4.36.1"
-  checksum: 10c0/f286529dbd4c9cdb237ef0bfa72d785c74b5d0958290e8d85c343043ba7be4bbc6cb771167d8c13ca12bd4f37412a3d8b69331f57daa375b2071fd4752aed66a
+"@tanstack/query-core@npm:5.71.1":
+  version: 5.71.1
+  resolution: "@tanstack/query-core@npm:5.71.1"
+  checksum: 10c0/cc26032439fa1f4f249a56505a51b251440e08312c65b2dcf6b6970c751a3a1c9b3dba4a03e7a64a5b9be5634b6d86c3f93d95e91d73d3875a86e4d50da7e9ae
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^4.36.1":
-  version: 4.36.1
-  resolution: "@tanstack/react-query@npm:4.36.1"
+"@tanstack/react-query@npm:^5.66.0":
+  version: 5.71.1
+  resolution: "@tanstack/react-query@npm:5.71.1"
   dependencies:
-    "@tanstack/query-core": "npm:4.36.1"
-    use-sync-external-store: "npm:^1.2.0"
+    "@tanstack/query-core": "npm:5.71.1"
   peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-native: "*"
-  peerDependenciesMeta:
-    react-dom:
-      optional: true
-    react-native:
-      optional: true
-  checksum: 10c0/15d9c98269d52fbdd49f4eb4b077b5d70346f904ea2ae51fd0400949d731afde658919a1143dd849fb50d4c5b6d0ab072e7b313a098ef316dd1c24089653f626
+    react: ^18 || ^19
+  checksum: 10c0/10b852ff99839069282ff2262817672a1243c781469e71643007a5610a579557a0f50cc0cc39bf3bb59d79c09d16e367952bce6b889117b461bbb548dc2f464e
   languageName: node
   linkType: hard
 
@@ -2420,6 +2412,16 @@ __metadata:
   dependencies:
     "@types/node": "npm:*"
   checksum: 10c0/235d2fc69741448e853333b7c3d1180a966dd2b8972c8cbcd6b2a0c6cd7f8d582ab2b8e58219dbc62cce8f1b40aa317ff78ea2201cdd8249da5025adebed6f0b
+  languageName: node
+  linkType: hard
+
+"@types/hoist-non-react-statics@npm:^3.3.1":
+  version: 3.3.6
+  resolution: "@types/hoist-non-react-statics@npm:3.3.6"
+  dependencies:
+    "@types/react": "npm:*"
+    hoist-non-react-statics: "npm:^3.3.0"
+  checksum: 10c0/149a4c217d81f21f8a1e152160a59d5b99b6a9aa6d354385d5f5bc02760cbf1e170a8442ba92eb653befff44b0c5bc2234bb77ce33e0d11a65f779e8bab5c321
   languageName: node
   linkType: hard
 
@@ -5841,6 +5843,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"deepmerge@npm:^2.1.1":
+  version: 2.2.1
+  resolution: "deepmerge@npm:2.2.1"
+  checksum: 10c0/4379288cabd817587cee92a095ea65d18317b45e48010a2e0d87982b5f432239a144f9c8ebd4ab090cc21f0cb47e51ebfe32921f329b3b3084a2711d5d63e450
+  languageName: node
+  linkType: hard
+
 "deepmerge@npm:^4.2.2":
   version: 4.3.1
   resolution: "deepmerge@npm:4.3.1"
@@ -7744,6 +7753,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"formik@npm:^2.4.6":
+  version: 2.4.6
+  resolution: "formik@npm:2.4.6"
+  dependencies:
+    "@types/hoist-non-react-statics": "npm:^3.3.1"
+    deepmerge: "npm:^2.1.1"
+    hoist-non-react-statics: "npm:^3.3.0"
+    lodash: "npm:^4.17.21"
+    lodash-es: "npm:^4.17.21"
+    react-fast-compare: "npm:^2.0.1"
+    tiny-warning: "npm:^1.0.2"
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 10c0/e2853fc7833649386ff183eac9cb6a69a999c4b05aabe5636152e1cec1eb35ac0d9f511425624f0d7a88c6e19d4fd2aa259399a6683f0475c30170a5a3ea4f79
+  languageName: node
+  linkType: hard
+
 "forwarded@npm:0.2.0":
   version: 0.2.0
   resolution: "forwarded@npm:0.2.0"
@@ -8351,6 +8378,15 @@ __metadata:
   dependencies:
     "@babel/runtime": "npm:^7.7.6"
   checksum: 10c0/812ec839386222d6437bd78d9f05db32e47d105ada0ad8834b32626919dd2fee7a10001bc489510f93a8069d02f118214bd8d42a82f7cf9daf8e84fbcbbb2016
+  languageName: node
+  linkType: hard
+
+"hoist-non-react-statics@npm:^3.3.0":
+  version: 3.3.2
+  resolution: "hoist-non-react-statics@npm:3.3.2"
+  dependencies:
+    react-is: "npm:^16.7.0"
+  checksum: 10c0/fe0889169e845d738b59b64badf5e55fa3cf20454f9203d1eb088df322d49d4318df774828e789898dcb280e8a5521bb59b3203385662ca5e9218a6ca5820e74
   languageName: node
   linkType: hard
 
@@ -10522,6 +10558,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash-es@npm:^4.17.21":
+  version: 4.17.21
+  resolution: "lodash-es@npm:4.17.21"
+  checksum: 10c0/fb407355f7e6cd523a9383e76e6b455321f0f153a6c9625e21a8827d10c54c2a2341bd2ae8d034358b60e07325e1330c14c224ff582d04612a46a4f0479ff2f2
+  languageName: node
+  linkType: hard
+
 "lodash.capitalize@npm:^4.1.0":
   version: 4.2.1
   resolution: "lodash.capitalize@npm:4.2.1"
@@ -11649,12 +11692,9 @@ __metadata:
     "@sentry/browser": "npm:^9.0.0"
     "@swc/core": "npm:^1.3.14"
     "@swc/helpers": "npm:^0.4.12"
-    "@tanstack/react-query": "npm:^4.36.1"
-    "@testing-library/dom": "npm:^10.4.0"
-    "@testing-library/jest-dom": "npm:^5.16.5"
-    "@testing-library/react": "npm:^14.0.0"
-    "@testing-library/react-hooks": "npm:^7.0.2"
-    "@testing-library/user-event": "npm:^14.4.3"
+    "@tanstack/react-query": "npm:^5.66.0"
+    "@testing-library/dom": "npm:^10.0.0"
+    "@testing-library/react": "npm:16"
     "@types/inquirer": "npm:^9.0.0"
     "@types/jest": "npm:^27.4.0"
     "@types/jquery": "npm:^3.5.11"
@@ -11694,6 +11734,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:^4.6.0"
     exec-sh: "npm:^0.4.0"
     file-loader: "npm:^5.0.2"
+    formik: "npm:^2.4.6"
     fuse.js: "npm:^7.0.0"
     history: "npm:^5.3.0"
     hugo-bin-extended: "npm:^0.142.0"
@@ -13580,14 +13621,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-error-boundary@npm:^3.1.0":
-  version: 3.1.4
-  resolution: "react-error-boundary@npm:3.1.4"
-  dependencies:
-    "@babel/runtime": "npm:^7.12.5"
-  peerDependencies:
-    react: ">=16.13.1"
-  checksum: 10c0/f977ca61823e43de2381d53dd7aa8b4d79ff6a984c9afdc88dc44f9973b99de7fd382d2f0f91f2688e24bb987c0185bf45d0b004f22afaaab0f990a830253bfb
+"react-fast-compare@npm:^2.0.1":
+  version: 2.0.4
+  resolution: "react-fast-compare@npm:2.0.4"
+  checksum: 10c0/f0300c677e95198b5f993cbb8a983dab09586157dc678f9e2b5b29ff941b6677a8776fbbdc425ce102fad86937e36bb45cfcfd797f006270b97ccf287ebfb885
   languageName: node
   linkType: hard
 
@@ -13602,7 +13639,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.13.1, react-is@npm:^16.3.2":
+"react-is@npm:^16.13.1, react-is@npm:^16.3.2, react-is@npm:^16.7.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 10c0/33977da7a5f1a287936a0c85639fec6ca74f4f15ef1e59a6bc20338fc73dc69555381e211f7a3529b8150a1f71e4225525b41b60b52965bda53ce7d47377ada1
@@ -15557,20 +15594,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-invariant@npm:^1.3.3":
-  version: 1.3.3
-  resolution: "tiny-invariant@npm:1.3.3"
-  checksum: 10c0/65af4a07324b591a059b35269cd696aba21bef2107f29b9f5894d83cc143159a204b299553435b03874ebb5b94d019afa8b8eff241c8a4cfee95872c2e1c1c4a
-  languageName: node
-  linkType: hard
-
-"tinyglobby@npm:^0.2.12":
-  version: 0.2.13
-  resolution: "tinyglobby@npm:0.2.13"
-  dependencies:
-    fdir: "npm:^6.4.4"
-    picomatch: "npm:^4.0.2"
-  checksum: 10c0/ef07dfaa7b26936601d3f6d999f7928a4d1c6234c5eb36896bb88681947c0d459b7ebe797022400e555fe4b894db06e922b95d0ce60cb05fd827a0a66326b18c
+"tiny-warning@npm:^1.0.2":
+  version: 1.0.3
+  resolution: "tiny-warning@npm:1.0.3"
+  checksum: 10c0/ef8531f581b30342f29670cb41ca248001c6fd7975ce22122bd59b8d62b4fc84ad4207ee7faa95cde982fa3357cd8f4be650142abc22805538c3b1392d7084fa
   languageName: node
   linkType: hard
 
@@ -15850,7 +15877,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.8.0":
+"tslib@npm:^2.0.0, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.8.0":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62
@@ -16238,15 +16265,6 @@ __metadata:
     punycode: "npm:1.3.2"
     querystring: "npm:0.2.0"
   checksum: 10c0/f0a1c7d99ac35dd68a8962bc7b3dd38f08d457387fc686f0669ff881b00a68eabd9cb3aded09dfbe25401d7b632fc4a9c074cb373f6a4bd1d8b5324d1d442a0d
-  languageName: node
-  linkType: hard
-
-"use-sync-external-store@npm:^1.2.0":
-  version: 1.5.0
-  resolution: "use-sync-external-store@npm:1.5.0"
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10c0/1b8663515c0be34fa653feb724fdcce3984037c78dd4a18f68b2c8be55cc1a1084c578d5b75f158d41b5ddffc2bf5600766d1af3c19c8e329bb20af2ec6f52f4
   languageName: node
   linkType: hard
 
