@@ -22,7 +22,9 @@ import { makeQueryClient } from "../../base-theme/assets/js/clients"
 import UserMenu from "../../base-theme/assets/js/components/UserMenu"
 import { createRoot } from "react-dom/client"
 import useLocalStorage from "../../base-theme/assets/js/hooks/util"
-import UserListModal from "../../base-theme/assets/js/components/UserListModal"
+import AddToUserListModal from "../../base-theme/assets/js/components/UserListModal"
+import CreateUserListModal from "../../base-theme/assets/js/components/CreateUserListModal"
+import { ThemeProvider } from "@mitodl/smoot-design"
 
 export interface OCWWindow extends Window {
   initNanogallery2: () => void
@@ -32,7 +34,7 @@ export interface OCWWindow extends Window {
 
 declare let window: OCWWindow
 
-function ModalWrapper() {
+function AddToUserListModalWrapper() {
   const [resourceReadableId, setResourceReadableId] = useLocalStorage(
     "resourceReadableId",
     ""
@@ -42,7 +44,7 @@ function ModalWrapper() {
   )
   if (userListModalContainer) {
     window.setReadableResourceId = setResourceReadableId
-    return <UserListModal resourceReadableId={resourceReadableId} />
+    return <AddToUserListModal resourceReadableId={resourceReadableId} />
   }
 }
 
@@ -74,7 +76,22 @@ $(function() {
     const root = createRoot(userListModalContainer)
     root.render(
       <QueryClientProvider client={queryClient}>
-        <ModalWrapper />
+        <ThemeProvider>
+          <AddToUserListModalWrapper />
+        </ThemeProvider>
+      </QueryClientProvider>
+    )
+  }
+  const createUserListModalContainer = document.querySelector(
+    "#create-user-list-modal-container"
+  )
+  if (createUserListModalContainer) {
+    const root = createRoot(createUserListModalContainer)
+    root.render(
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <CreateUserListModal />
+        </ThemeProvider>
       </QueryClientProvider>
     )
   }
