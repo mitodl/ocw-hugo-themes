@@ -40,8 +40,12 @@
   },
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@mitodl/course-search-utils": "^2.3.3",
     "@mitodl/open-api-axios": "^2025.4.8",
+    "@mitodl/smoot-design": "^6.0.1",
+    "@mui/material": "^7.0.1",
     "@remixicon/react": "^4.6.0",
     "@sentry/browser": "^9.0.0",
     "@tanstack/react-query": "^5.66.0",
@@ -75,7 +79,8 @@
     "tiny-invariant": "^1.3.3",
     "video.js": "^7.11.8",
     "videojs-transcript-ac": "^0.8.8",
-    "videojs-youtube": "^2.6.1"
+    "videojs-youtube": "^2.6.1",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",

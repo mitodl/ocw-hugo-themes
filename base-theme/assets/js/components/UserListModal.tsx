@@ -7,12 +7,13 @@ import {
 } from "../hooks/learningResources"
 import { useFormik } from "formik"
 import { RiAddLine } from "@remixicon/react"
+import { Button } from "@mitodl/smoot-design"
 
 interface UserListModalProps {
   resourceReadableId: string
 }
 
-const UserListModal: React.FC<UserListModalProps> = ({
+const AddToUserListModal: React.FC<UserListModalProps> = ({
   resourceReadableId
 }) => {
   const { data: resource, isLoading: isResourceLoading } =
@@ -55,7 +56,11 @@ const UserListModal: React.FC<UserListModalProps> = ({
   })
 
   return (
-    <div className="modal fade" id="user-list-modal" tabIndex={-1}>
+    <div
+      className="modal fade user-list-modal"
+      id="add-to-user-list-modal"
+      tabIndex={-1}
+    >
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
@@ -76,7 +81,8 @@ const UserListModal: React.FC<UserListModalProps> = ({
               <div className="modal-body">
                 <form onSubmit={formik.handleSubmit}>
                   <div className="font-weight-bold pb-3">
-                    Adding <span className="font-italic">{resource?.title}</span>
+                    Adding{" "}
+                    <span className="font-italic">{resource?.title}</span>
                   </div>
                   <div className="user-list-modal-checkboxes">
                     {userLists?.results?.map(list => (
@@ -104,12 +110,11 @@ const UserListModal: React.FC<UserListModalProps> = ({
                   <div id="user-list-modal-actions">
                     <div className="row">
                       <div className="col-6">
-                        <input
+                        <Button
+                          variant="primary"
+                          className="w-100 h-100"
                           type="submit"
-                          className="btn btn-primary w-100 h-100"
                           data-dismiss="modal"
-                          aria-label="Save"
-                          value="Save"
                           disabled={
                             !formik.dirty ||
                             isLoading ||
@@ -119,17 +124,21 @@ const UserListModal: React.FC<UserListModalProps> = ({
                             e.preventDefault()
                             formik.handleSubmit()
                           }}
-                        />
+                        >
+                          Save
+                        </Button>
                       </div>
                       <div className="col-6">
-                        <button
-                          type="button"
-                          className="btn btn-create-new-list font-weight-bold w-100 h-100"
-                          data-dismiss="modal"
-                          aria-label="Create New List"
+                        <Button
+                          variant="secondary"
+                          className="w-100 h-100"
+                          startIcon={<RiAddLine />}
+                          disabled={isSavingUserListRelationships}
+                          data-toggle="modal"
+                          data-target="#create-user-list-modal"
                         >
-                          <RiAddLine /> Create New List
-                        </button>
+                          Create New List
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -149,4 +158,4 @@ const UserListModal: React.FC<UserListModalProps> = ({
   )
 }
 
-export default UserListModal
+export default AddToUserListModal
