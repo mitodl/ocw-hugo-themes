@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.129.0
+Version 1.129.0 (Released April 03, 2025)
 ---------------
 
 - set opt_out_capturing_by_default to true in Posthog (#1573)
