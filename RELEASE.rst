@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.129.0
+---------------
+
+- set opt_out_capturing_by_default to true in Posthog (#1573)
+- adjust logout URL so redirect works (#1571)
+
 Version 1.128.0 (Released March 27, 2025)
 ---------------
 
