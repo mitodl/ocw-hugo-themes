@@ -19,7 +19,7 @@ export default function UserMenu() {
     apiBaseUrl
   ).toString()
 
-  return isLoading ? null : user?.isAuthenticated ? (
+  return isLoading ? null : user?.is_authenticated ? (
     <div className="dropdown">
       <button
         className="btn btn-link text-white text-decoration-none dropdown-toggle"
