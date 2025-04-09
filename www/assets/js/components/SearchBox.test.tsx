@@ -1,5 +1,4 @@
-import React from "react"
-import { render, screen, fireEvent } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import SearchBox, { SearchBoxProps } from "./SearchBox"
 
@@ -27,7 +26,7 @@ describe("SearchBox component", () => {
     const button = screen.getByRole("button")
     expect(button).toHaveAttribute("type", "submit")
 
-    fireEvent.submit(form)
+    await userEvent.click(button)
     expect(onSubmit).toHaveBeenCalled()
   })
 })

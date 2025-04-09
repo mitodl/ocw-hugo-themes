@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react"
-import React from "react"
 import { LearningResourceType } from "@mitodl/course-search-utils"
 import invariant from "tiny-invariant"
 
