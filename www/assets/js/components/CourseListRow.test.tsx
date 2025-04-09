@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import React from "react"
 import { LearningResourceType } from "@mitodl/course-search-utils"
+import invariant from "tiny-invariant"
 
 import { makeLearningResourceResult } from "../factories/search"
 import { searchResultToLearningResource } from "../lib/search"
@@ -33,7 +34,7 @@ test("should show the title, coursenum, level", () => {
   expect(screen.getByRole("heading", { level: 4 })).toHaveTextContent(
     course.title
   )
-  expect(screen.getByText(course.coursenum ?? "")).toBeInTheDocument()
+  invariant(course.coursenum, "coursenum should not be missing")
 
   const expectedLevel = course.level ? course.level.join(", ") : ""
   expect(screen.getByText(expectedLevel)).toBeInTheDocument()
