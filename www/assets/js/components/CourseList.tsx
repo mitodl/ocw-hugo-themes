@@ -13,7 +13,9 @@ export default function CourseList(props: Props) {
   return (
     <div className="col-12 col-lg-8 pb-2">
       {data.map((learningResource, index) => (
-        <CourseListRow course={learningResource} key={index} />
+        <div data-testid="course-list-row" key={index}>
+          <CourseListRow course={learningResource} />
+        </div>
       ))}
     </div>
   )
