@@ -21,13 +21,32 @@ import { QueryClientProvider } from "@tanstack/react-query"
 import { makeQueryClient } from "../../base-theme/assets/js/clients"
 import UserMenu from "../../base-theme/assets/js/components/UserMenu"
 import { createRoot } from "react-dom/client"
+import useLocalStorage from "../../base-theme/assets/js/hooks/util"
+import AddToUserListModal from "../../base-theme/assets/js/components/UserListModal"
+import CreateUserListModal from "../../base-theme/assets/js/components/CreateUserListModal"
+import { ThemeProvider } from "@mitodl/smoot-design"
 
 export interface OCWWindow extends Window {
   initNanogallery2: () => void
+  setReadableResourceId: (value: string) => void
   posthog: typeof posthog
 }
 
 declare let window: OCWWindow
+
+function AddToUserListModalWrapper() {
+  const [resourceReadableId, setResourceReadableId] = useLocalStorage(
+    "resourceReadableId",
+    ""
+  )
+  const userListModalContainer = document.querySelector(
+    "#user-list-modal-container"
+  )
+  if (userListModalContainer) {
+    window.setReadableResourceId = setResourceReadableId
+    return <AddToUserListModal resourceReadableId={resourceReadableId} />
+  }
+}
 
 $(function() {
   window.posthog = initPostHog()
@@ -38,10 +57,10 @@ $(function() {
   checkAnswer()
   showSolution()
   initCourseDrawersClosingViaSwiping()
+  const queryClient = makeQueryClient()
   const userMenuContainers = document.querySelectorAll(".user-menu-container")
   if (userMenuContainers && isFeatureEnabled("ocw-learn-integration")) {
     for (const userMenuContainer of Array.from(userMenuContainers)) {
-      const queryClient = makeQueryClient()
       const root = createRoot(userMenuContainer)
       root.render(
         <QueryClientProvider client={queryClient}>
@@ -49,6 +68,32 @@ $(function() {
         </QueryClientProvider>
       )
     }
+  }
+  const userListModalContainer = document.querySelector(
+    "#user-list-modal-container"
+  )
+  if (userListModalContainer) {
+    const root = createRoot(userListModalContainer)
+    root.render(
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <AddToUserListModalWrapper />
+        </ThemeProvider>
+      </QueryClientProvider>
+    )
+  }
+  const createUserListModalContainer = document.querySelector(
+    "#create-user-list-modal-container"
+  )
+  if (createUserListModalContainer) {
+    const root = createRoot(createUserListModalContainer)
+    root.render(
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <CreateUserListModal />
+        </ThemeProvider>
+      </QueryClientProvider>
+    )
   }
 })
 
