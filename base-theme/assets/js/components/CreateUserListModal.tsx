@@ -20,6 +20,10 @@ const UpsertUserListDialog: React.FC = () => {
     useCallback(
       async values => {
         await createList.mutateAsync(values)
+        const cancelButton = document.querySelector(
+          "#create-user-list-modal-cancel-button"
+        ) as HTMLButtonElement | null
+        cancelButton?.click()
       },
       [createList]
     )
@@ -98,7 +102,11 @@ const UpsertUserListDialog: React.FC = () => {
                 </Alert>
               )}
               <div className="d-flex justify-content-end mt-3">
-                <Button variant="secondary" data-dismiss="modal">
+                <Button
+                  id="create-user-list-modal-cancel-button"
+                  variant="secondary"
+                  data-dismiss="modal"
+                >
                   Cancel
                 </Button>
                 <Button variant="primary" type="submit">
