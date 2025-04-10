@@ -101,7 +101,10 @@ const UpsertUserListDialog: React.FC = () => {
                   There was a problem saving your list. Please try again later.
                 </Alert>
               )}
-              <div id="create-user-list-modal-buttons" className="d-flex justify-content-end mt-3">
+              <div
+                id="create-user-list-modal-buttons"
+                className="d-flex justify-content-end mt-3"
+              >
                 <Button
                   id="create-user-list-modal-cancel-button"
                   variant="secondary"
