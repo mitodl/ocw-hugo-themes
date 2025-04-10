@@ -124,6 +124,7 @@ const AddToUserListModal: React.FC<UserListModalProps> = ({
                             e.preventDefault()
                             formik.handleSubmit()
                           }}
+                          aria-label="Close and Save"
                         >
                           Save
                         </Button>
@@ -136,6 +137,7 @@ const AddToUserListModal: React.FC<UserListModalProps> = ({
                           disabled={isSavingUserListRelationships}
                           data-toggle="modal"
                           data-target="#create-user-list-modal"
+                          aria-label="Create New List"
                         >
                           Create New List
                         </Button>

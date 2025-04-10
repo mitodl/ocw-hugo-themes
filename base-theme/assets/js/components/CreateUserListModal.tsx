@@ -106,10 +106,15 @@ const UpsertUserListDialog: React.FC = () => {
                   id="create-user-list-modal-cancel-button"
                   variant="secondary"
                   data-dismiss="modal"
+                  aria-label="Close Create User List Dialog"
                 >
                   Cancel
                 </Button>
-                <Button variant="primary" type="submit">
+                <Button
+                  variant="primary"
+                  type="submit"
+                  aria-label="Create User List"
+                >
                   Create
                 </Button>
               </div>
