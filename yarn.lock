@@ -12844,7 +12844,7 @@ __metadata:
     "@emotion/styled": "npm:^11.14.0"
     "@mitodl/course-search-utils": "npm:^2.3.3"
     "@mitodl/ocw-to-hugo": "npm:1.36.0"
-    "@mitodl/open-api-axios": "npm:^2025.3.6"
+    "@mitodl/open-api-axios": "npm:^2025.4.8"
     "@mitodl/smoot-design": "npm:^6.0.1"
     "@mui/material": "npm:^7.0.1"
     "@playwright/test": "npm:^1.45.0"
