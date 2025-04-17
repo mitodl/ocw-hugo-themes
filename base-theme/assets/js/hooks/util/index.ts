@@ -23,7 +23,7 @@ const useLocalStorage = <T>(key: string, defaultValue: T) => {
     }
   })
 
-  // this method update our localStorage and our state
+  // this method updates our localStorage and our state
   const setLocalStorageStateValue = (value: T) => {
     localStorage.setItem(key, JSON.stringify(value))
     setLocalStorageValue(value)
