@@ -70,9 +70,7 @@ $(function() {
       )
     }
   }
-  const courseBookmarkButton = document.querySelector(
-    "#course-bookmark-btn"
-  )
+  const courseBookmarkButton = document.querySelector("#course-bookmark-btn")
   if (courseBookmarkButton && learnIntegrationEnabled) {
     courseBookmarkButton.classList.remove("d-none")
   }
