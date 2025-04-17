@@ -151,7 +151,7 @@ export const makeCourseResult: Factory<CourseResult> = (overrides = {}) => {
     offered_by:        [OCW_PLATFORM] as ["OCW"],
     topics:            [casual.word, casual.word],
     object_type:       LearningResourceType.Course as LearningResourceType.Course,
-    runs:              times(i => makeRun(), 3),
+    runs:              times(() => makeRun(), 3),
     audience:          casual.random_element([
       [],
       [OPEN_CONTENT],
