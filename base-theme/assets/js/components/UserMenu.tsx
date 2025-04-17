@@ -11,7 +11,7 @@ export default function UserMenu() {
   const encodedLocation = encodeURI(window.location.href)
   const myListsUrl = new URL("/dashboard/my-lists", learnBaseUrl).toString()
   const logoutUrl = new URL(
-    `/logout/oidc?next=${encodedLocation}`,
+    `/logout?next=${encodedLocation}`,
     apiBaseUrl
   ).toString()
   const loginUrl = new URL(
@@ -19,7 +19,7 @@ export default function UserMenu() {
     apiBaseUrl
   ).toString()
 
-  return isLoading ? null : user?.isAuthenticated ? (
+  return isLoading ? null : user?.is_authenticated ? (
     <div className="dropdown">
       <button
         className="btn btn-link text-white text-decoration-none dropdown-toggle"

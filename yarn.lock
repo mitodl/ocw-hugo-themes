@@ -1412,13 +1412,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mitodl/open-api-axios@npm:^2025.3.6":
-  version: 2025.3.6
-  resolution: "@mitodl/open-api-axios@npm:2025.3.6"
+"@mitodl/open-api-axios@npm:^2025.4.8":
+  version: 2025.4.8
+  resolution: "@mitodl/open-api-axios@npm:2025.4.8"
   dependencies:
     "@types/node": "npm:^22.0.0"
     axios: "npm:^1.6.5"
-  checksum: 10c0/cfe7b76de39a1e1e927ac9f81611dc732b66311101beec883d3bffc70bdf6b856f208e1f57ce3e6c1bd4050bcb14e818d64d5c399080e0d396dcbdcb35e87e1a
+  checksum: 10c0/f35475d40381af218500c53875d9e63a78426ac0c71d4024377248311578648aafad30615b3f91cd73718467a7a3f2557b06ec777735a45ef9c95a7840c6dfe2
   languageName: node
   linkType: hard
 
@@ -11631,7 +11631,7 @@ __metadata:
     "@babel/preset-typescript": "npm:^7.25.7"
     "@mitodl/course-search-utils": "npm:^2.3.3"
     "@mitodl/ocw-to-hugo": "npm:1.36.0"
-    "@mitodl/open-api-axios": "npm:^2025.3.6"
+    "@mitodl/open-api-axios": "npm:^2025.4.8"
     "@playwright/test": "npm:^1.45.0"
     "@remixicon/react": "npm:^4.6.0"
     "@rrweb/types": "npm:2.0.0-alpha.17"
