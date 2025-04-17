@@ -20,7 +20,7 @@ type Audience =
 type Certification = [] | [typeof CERTIFICATE]
 
 export interface CourseResult {
-  level: any
+  level: Level[] | null
   id: number
   course_id: string
   coursenum: string

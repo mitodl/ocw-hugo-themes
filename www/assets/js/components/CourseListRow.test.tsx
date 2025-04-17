@@ -4,8 +4,9 @@ import invariant from "tiny-invariant"
 import { makeCourseResult } from "../factories/search"
 import { searchResultToLearningResource } from "../lib/search"
 import CourseListRow from "./CourseListRow"
+import { Level } from "../LearningResources"
 
-function setup(overrides: { level?: string[] | null } = {}) {
+function setup(overrides: { level?: Level[] | null } = {}) {
   const courseResult = makeCourseResult(overrides)
 
   const course = {
@@ -38,14 +39,14 @@ test("should show the title and coursenum", () => {
 })
 
 test("should show the level when it has values", () => {
-  const { course } = setup({ level: ["Graduate", "Undergraduate"] })
+  const { course } = setup({ level: ["Graduate", "Undergraduate"] as Level[] })
 
   expect(course.level).toEqual(["Graduate", "Undergraduate"])
   expect(screen.getByText("Graduate, Undergraduate")).toBeInTheDocument()
 })
 
 test("should not display level text when level is empty", () => {
-  const { course } = setup({ level: [] })
+  const { course } = setup({ level: [] as Level[] })
 
   expect(course.level).toEqual([])
   const levelDiv = document.querySelector(".level")
