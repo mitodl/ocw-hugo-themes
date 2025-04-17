@@ -59,7 +59,8 @@ $(function() {
   initCourseDrawersClosingViaSwiping()
   const queryClient = makeQueryClient()
   const userMenuContainers = document.querySelectorAll(".user-menu-container")
-  if (userMenuContainers && isFeatureEnabled("ocw-learn-integration")) {
+  const learnIntegrationEnabled = isFeatureEnabled("ocw-learn-integration")
+  if (userMenuContainers && learnIntegrationEnabled) {
     for (const userMenuContainer of Array.from(userMenuContainers)) {
       const root = createRoot(userMenuContainer)
       root.render(
@@ -69,10 +70,16 @@ $(function() {
       )
     }
   }
+  const courseBookmarkButton = document.querySelector(
+    "#course-bookmark-btn"
+  )
+  if (courseBookmarkButton && learnIntegrationEnabled) {
+    courseBookmarkButton.classList.remove("d-none")
+  }
   const userListModalContainer = document.querySelector(
     "#user-list-modal-container"
   )
-  if (userListModalContainer) {
+  if (userListModalContainer && learnIntegrationEnabled) {
     const root = createRoot(userListModalContainer)
     root.render(
       <QueryClientProvider client={queryClient}>
@@ -85,7 +92,7 @@ $(function() {
   const createUserListModalContainer = document.querySelector(
     "#create-user-list-modal-container"
   )
-  if (createUserListModalContainer) {
+  if (createUserListModalContainer && learnIntegrationEnabled) {
     const root = createRoot(createUserListModalContainer)
     root.render(
       <QueryClientProvider client={queryClient}>
