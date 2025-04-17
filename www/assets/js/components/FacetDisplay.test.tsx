@@ -76,18 +76,40 @@ describe("FacetDisplay component", () => {
     renderComponent()
 
     expect(mockFilterableFacet).toHaveBeenCalledTimes(3)
-    facetMap.forEach((facetInfo, idx) => {
-      expect(mockFilterableFacet).toHaveBeenNthCalledWith(
-        idx + 1,
-        expect.objectContaining({
-          name:           facetInfo[0],
-          title:          facetInfo[1],
-          expandedOnLoad: facetInfo[3]
-        }),
-        expect.anything()
+
+    const facetElements = screen.getAllByTestId("filterable-facet")
+    expect(facetElements).toHaveLength(facetMap.length)
+
+    facetMap.forEach((facetInfo, index) => {
+      const [name, title, _, expandedOnLoad] = facetInfo
+
+      expect(facetElements[index]).toHaveAttribute("data-name", name)
+      expect(facetElements[index]).toHaveAttribute("data-title", title)
+      expect(facetElements[index]).toHaveAttribute(
+        "data-expanded",
+        expandedOnLoad ? "true" : "false"
       )
     })
   })
+
+  test.each([
+    [0, "Topics", false],
+    [2, "Departments", true]
+  ])(
+    "FilterableFacet #%i with title '%s' should have expandedOnLoad=%s",
+    (index, title, expandedOnLoad) => {
+      const { renderComponent } = setup()
+      renderComponent()
+
+      const facetElements = screen.getAllByTestId("filterable-facet")
+
+      expect(facetElements[index]).toHaveAttribute("data-title", title)
+      expect(facetElements[index]).toHaveAttribute(
+        "data-expanded",
+        expandedOnLoad ? "true" : "false"
+      )
+    }
+  )
 
   test("shows filters which are active excluding invalid facet values", async () => {
     const activeFacets: Facets = {
