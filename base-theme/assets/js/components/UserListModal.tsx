@@ -77,7 +77,7 @@ const AddToUserListModal: React.FC<UserListModalProps> = ({
             </button>
           </div>
           {!isLoading ? (
-            user?.isAuthenticated ? (
+            user?.is_authenticated ? (
               <div className="modal-body">
                 <form onSubmit={formik.handleSubmit}>
                   <div className="font-weight-bold pb-3">
