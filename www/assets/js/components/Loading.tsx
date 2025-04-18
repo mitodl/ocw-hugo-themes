@@ -6,7 +6,7 @@ import Card from "./Card"
 export const contentLoaderSpeed = 2
 
 export const AnimatedEmptyCard = () => (
-  <div className="post-content-loader">
+  <div className="post-content-loader" data-testid="animated-card">
     <Card className="compact-post-summary">
       <ContentLoader
         speed={contentLoaderSpeed}
@@ -46,11 +46,11 @@ export function Spinner(props: Props) {
   const { className } = props
 
   return (
-    <div className={`loading ${className || ""}`}>
+    <div className={`loading ${className || ""}`} data-testid="spinner">
       <div className="spinner">
-        <div className="bounce1"></div>
-        <div className="bounce2"></div>
-        <div className="bounce3"></div>
+        <div className="bounce1" data-testid="bounce"></div>
+        <div className="bounce2" data-testid="bounce"></div>
+        <div className="bounce3" data-testid="bounce"></div>
       </div>
     </div>
   )

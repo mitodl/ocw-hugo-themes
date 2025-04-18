@@ -28,6 +28,8 @@ import {
   RESOURCE_TYPE
 } from "../lib/constants"
 
+export type Factory<T> = (overrides?: Partial<T>) => T
+
 export function* incrementer() {
   let int = 1
   // eslint-disable-next-line no-constant-condition
@@ -51,41 +53,50 @@ export function makeFakeCourseName(): string {
 const incrRun = incrementer()
 
 export function makeLearningResourceResult(
-  objectType: LearningResourceType.Course
+  objectType: LearningResourceType.Course,
+  overrides?: Partial<CourseResult>
 ): CourseResult
 export function makeLearningResourceResult(
-  objectType: LearningResourceType.Video
+  objectType: LearningResourceType.Video,
+  overrides?: Partial<VideoResult>
 ): VideoResult
 export function makeLearningResourceResult(
-  objectType: LearningResourceType.Podcast
+  objectType: LearningResourceType.Podcast,
+  overrides?: Partial<PodcastResult>
 ): PodcastResult
 export function makeLearningResourceResult(
-  objectType: LearningResourceType.PodcastEpisode
+  objectType: LearningResourceType.PodcastEpisode,
+  overrides?: Partial<PodcastEpisodeResult>
 ): PodcastEpisodeResult
 export function makeLearningResourceResult(
-  objectType: LearningResourceType.ResourceFile
+  objectType: LearningResourceType.ResourceFile,
+  overrides?: Partial<ResourceFileResult>
 ): ResourceFileResult
 export function makeLearningResourceResult(
-  objectType: LearningResourceType
+  objectType: LearningResourceType,
+  overrides?: Partial<LearningResourceResult>
 ): LearningResourceResult
 export function makeLearningResourceResult(
-  objectType: LearningResourceType
+  objectType: LearningResourceType,
+  overrides?: Partial<LearningResourceResult>
 ): LearningResourceResult {
   switch (objectType) {
   case LearningResourceType.Course:
-    return makeCourseResult()
+    return makeCourseResult(overrides as Partial<CourseResult>)
   case LearningResourceType.Video:
-    return makeVideoResult()
+    return makeVideoResult(overrides as Partial<VideoResult>)
   case LearningResourceType.Podcast:
-    return makePodcastResult()
+    return makePodcastResult(overrides as Partial<PodcastResult>)
   case LearningResourceType.PodcastEpisode:
-    return makePodcastEpisodeResult()
+    return makePodcastEpisodeResult(
+        overrides as Partial<PodcastEpisodeResult>
+    )
   default:
-    return makeResourceFileResult()
+    return makeResourceFileResult(overrides as Partial<ResourceFileResult>)
   }
 }
 
-export const makeRun = (): CourseRun => {
+export const makeRun: Factory<CourseRun> = (overrides = {}) => {
   return {
     run_id:            `courserun_${incrRun.next().value}`,
     id:                incrRun.next().value!,
@@ -121,41 +132,55 @@ export const makeRun = (): CourseRun => {
     prices:    [{ mode: "audit", price: casual.integer(1, 1000) }],
     published: true,
     // this is here to make typescript happy
-    short_url: undefined
+    short_url: undefined,
+    ...overrides
   }
 }
 
-export const makeCourseResult = (): CourseResult => ({
-  id:                casual.integer(1, 1000),
-  course_id:         `course+${String(casual.random)}`,
-  coursenum:         String(casual.random),
-  title:             casual.title,
-  url:               casual.url,
-  image_src:         "http://image.medium.url",
-  short_description: casual.description,
-  platform:          OCW_PLATFORM,
-  offered_by:        [OCW_PLATFORM],
-  topics:            [casual.word, casual.word],
-  object_type:       LearningResourceType.Course,
-  runs:              times(makeRun, 3),
-  audience:          casual.random_element([
-    [],
-    [OPEN_CONTENT],
-    [PROFESSIONAL],
-    [OPEN_CONTENT, PROFESSIONAL]
-  ]),
-  certification:       casual.random_element([[], [CERTIFICATE]]),
-  course_feature_tags: [casual.word, casual.word],
-  department:          casual.word,
-  // this is here to make typescript happy
-  content_title:       undefined,
-  run_title:           undefined,
-  run_slug:            undefined,
-  content_type:        undefined,
-  short_url:           undefined
-})
+export const makeCourseResult: Factory<CourseResult> = (overrides = {}) => {
+  // Create base object with default values
+  const result = {
+    id:                casual.integer(1, 1000),
+    course_id:         `course+${String(casual.random)}`,
+    coursenum:         String(casual.random),
+    title:             casual.title,
+    url:               casual.url,
+    image_src:         "http://image.medium.url",
+    short_description: casual.description,
+    platform:          OCW_PLATFORM as "OCW",
+    offered_by:        [OCW_PLATFORM] as ["OCW"],
+    topics:            [casual.word, casual.word],
+    object_type:       LearningResourceType.Course as LearningResourceType.Course,
+    runs:              times(() => makeRun(), 3),
+    audience:          casual.random_element([
+      [],
+      [OPEN_CONTENT],
+      [PROFESSIONAL],
+      [OPEN_CONTENT, PROFESSIONAL]
+    ]),
+    certification:       casual.random_element([[], [CERTIFICATE]]),
+    course_feature_tags: [casual.word, casual.word],
+    department:          casual.word,
+    // this is here to make typescript happy
+    content_title:       undefined,
+    run_title:           undefined,
+    run_slug:            undefined,
+    content_type:        undefined,
+    short_url:           undefined,
+    level:               casual.random_element([
+      ["Graduate"],
+      ["Undergraduate"],
+      ["Graduate", "Undergraduate"],
+      [],
+      null
+    ])
+  }
 
-export const makeCourseJSON = (): CourseJSON => ({
+  // Apply overrides to the base object
+  return { ...result, ...overrides }
+}
+
+export const makeCourseJSON: Factory<CourseJSON> = (overrides = {}) => ({
   site_uid:              casual.uuid,
   legacy_uid:            casual.uuid,
   primary_course_number: casual.word,
@@ -198,10 +223,11 @@ export const makeCourseJSON = (): CourseJSON => ({
       "image-alt": casual.short_description,
       caption:     casual.short_description
     }
-  }
+  },
+  ...overrides
 })
 
-export const makeResourceJSON = (): ResourceJSON => ({
+export const makeResourceJSON: Factory<ResourceJSON> = (overrides = {}) => ({
   title:                   casual.title,
   description:             casual.description,
   file:                    casual.string,
@@ -215,10 +241,13 @@ export const makeResourceJSON = (): ResourceJSON => ({
   youtube_key:     casual.string,
   captions_file:   casual.string,
   transcript_file: casual.string,
-  archive_url:     casual.string
+  archive_url:     casual.string,
+  ...overrides
 })
 
-export const makeResourceFileResult = (): ResourceFileResult => ({
+export const makeResourceFileResult: Factory<ResourceFileResult> = (
+  overrides = {}
+) => ({
   id:            casual.integer(1, 1000),
   course_id:     `course_${String(casual.random)}`,
   coursenum:     String(casual.random),
@@ -242,10 +271,11 @@ export const makeResourceFileResult = (): ResourceFileResult => ({
   audience:            undefined,
   certification:       undefined,
   department:          undefined,
-  course_feature_tags: undefined
+  course_feature_tags: undefined,
+  ...overrides
 })
 
-export const makeVideoResult = (): VideoResult => ({
+export const makeVideoResult: Factory<VideoResult> = (overrides = {}) => ({
   id:                casual.integer(1, 1000),
   video_id:          `video_${String(casual.random)}`,
   title:             casual.title,
@@ -263,7 +293,6 @@ export const makeVideoResult = (): VideoResult => ({
     [OPEN_CONTENT, PROFESSIONAL]
   ]),
   certification:       casual.random_element([[], [CERTIFICATE]]),
-  // typescript!
   department:          undefined,
   content_title:       undefined,
   run_title:           undefined,
@@ -272,10 +301,11 @@ export const makeVideoResult = (): VideoResult => ({
   course_id:           undefined,
   content_type:        undefined,
   course_feature_tags: undefined,
-  short_url:           undefined
+  short_url:           undefined,
+  ...overrides
 })
 
-export const makePodcastResult = (): PodcastResult => ({
+export const makePodcastResult: Factory<PodcastResult> = (overrides = {}) => ({
   id:                casual.integer(1, 1000),
   podcast_id:        `podcast_${String(casual.random)}`,
   title:             casual.title,
@@ -301,10 +331,13 @@ export const makePodcastResult = (): PodcastResult => ({
   course_id:           undefined,
   content_type:        undefined,
   course_feature_tags: undefined,
-  short_url:           undefined
+  short_url:           undefined,
+  ...overrides
 })
 
-export const makePodcastEpisodeResult = (): PodcastEpisodeResult => ({
+export const makePodcastEpisodeResult: Factory<PodcastEpisodeResult> = (
+  overrides = {}
+) => ({
   id:                casual.integer(1, 1000),
   podcast_id:        `podcastepisode_${String(casual.random)}`,
   title:             casual.title,
@@ -331,5 +364,6 @@ export const makePodcastEpisodeResult = (): PodcastEpisodeResult => ({
   course_id:           undefined,
   content_type:        undefined,
   course_feature_tags: undefined,
-  short_url:           undefined
+  short_url:           undefined,
+  ...overrides
 })
