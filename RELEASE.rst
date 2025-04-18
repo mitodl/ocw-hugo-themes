@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.130.0
+---------------
+
+- fix authentication (#1575)
+
 Version 1.129.0 (Released April 03, 2025)
 ---------------
 
