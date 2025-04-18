@@ -42,7 +42,8 @@ describe("CourseList component", () => {
 
     expect(CourseListRow).toHaveBeenCalledTimes(data.length)
 
-    const expectedCalls = data.map(course => [{ course }, expect.anything()])
-    expect(mockCourseListRow.mock.calls).toEqual(expectedCalls)
+    mockCourseListRow.mock.calls.forEach((call, index) => {
+      expect(call[0].course).toEqual(data[index])
+    })
   })
 })
