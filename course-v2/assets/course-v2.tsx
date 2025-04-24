@@ -56,7 +56,9 @@ $(function() {
       )
     }
   }
-  const bookmarkButtonContainers = document.querySelectorAll(".bookmark-button-container")
+  const bookmarkButtonContainers = document.querySelectorAll(
+    ".bookmark-button-container"
+  )
   if (bookmarkButtonContainers.length > 0 && learnIntegrationEnabled) {
     for (const bookmarkButton of Array.from(bookmarkButtonContainers)) {
       const resourceReadableId =

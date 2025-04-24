@@ -25,12 +25,13 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
       color={inUserList ? undefined : "secondary"}
       data-toggle="modal"
       data-target="#add-to-user-list-modal"
-      data-resourcereadableid={resourceReadableId}>
-        {inUserList ? (
-          <RiBookmarkFill aria-hidden />
-        ) : (
-          <RiBookmarkLine aria-hidden />
-        )}
+      data-resourcereadableid={resourceReadableId}
+    >
+      {inUserList ? (
+        <RiBookmarkFill aria-hidden />
+      ) : (
+        <RiBookmarkLine aria-hidden />
+      )}
     </ActionButton>
   )
 }
