@@ -16,7 +16,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
   const { data: userListMemberships, isLoading: isUserListMembershipsLoading } =
     useUserListMemberList(resource?.id)
   const inUserList = userListMemberships?.length || 0 > 0
-  return (
+  return !isResourceLoading && !isUserListMembershipsLoading ? (
     <ActionButton
       className="bookmark-button"
       edge="circular"
@@ -33,7 +33,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
         <RiBookmarkLine aria-hidden />
       )}
     </ActionButton>
-  )
+  ) : null
 }
 
 export default BookmarkButton
