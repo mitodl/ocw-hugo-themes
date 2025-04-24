@@ -24,6 +24,7 @@ import { createRoot } from "react-dom/client"
 import AddToUserListModal from "../../base-theme/assets/js/components/UserListModal"
 import CreateUserListModal from "../../base-theme/assets/js/components/CreateUserListModal"
 import { ThemeProvider } from "@mitodl/smoot-design"
+import BookmarkButton from "../../base-theme/assets/js/components/BookmarkButton"
 
 export interface OCWWindow extends Window {
   initNanogallery2: () => void
@@ -55,11 +56,20 @@ $(function() {
       )
     }
   }
-  const chpBookmarkButton = document.querySelector(
-    "#course-bookmark-btn"
-  ) as HTMLElement
-  if (chpBookmarkButton && learnIntegrationEnabled) {
-    chpBookmarkButton.classList.remove("d-none")
+  const bookmarkButtons = document.querySelectorAll(".bookmark-button")
+  if (bookmarkButtons.length > 0 && learnIntegrationEnabled) {
+    for (const bookmarkButton of Array.from(bookmarkButtons)) {
+      const resourceReadableId =
+        (bookmarkButton as HTMLButtonElement).dataset.resourcereadableid || ""
+      const root = createRoot(bookmarkButton)
+      root.render(
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider>
+            <BookmarkButton resourceReadableId={resourceReadableId} />
+          </ThemeProvider>
+        </QueryClientProvider>
+      )
+    }
     const userListModalContainer = document.querySelector(
       "#user-list-modal-container"
     )
@@ -68,7 +78,7 @@ $(function() {
       root.render(
         <QueryClientProvider client={queryClient}>
           <ThemeProvider>
-            <AddToUserListModal bookmarkButton={chpBookmarkButton} />
+            <AddToUserListModal bookmarkButtons={bookmarkButtons} />
           </ThemeProvider>
         </QueryClientProvider>
       )
