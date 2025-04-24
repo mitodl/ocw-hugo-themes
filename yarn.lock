@@ -2510,7 +2510,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/json-schema@npm:*, @types/json-schema@npm:^7.0.5, @types/json-schema@npm:^7.0.9":
+"@types/json-schema@npm:*, @types/json-schema@npm:^7.0.5, @types/json-schema@npm:^7.0.8, @types/json-schema@npm:^7.0.9":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
   checksum: 10c0/a996a745e6c5d60292f36731dd41341339d4eeed8180bb09226e5c8d23759067692b1d88e5d91d72ee83dfc00d3aca8e7bd43ea120516c17922cbcb7c3e252db
@@ -3763,7 +3763,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^6.1.0, ajv@npm:^6.10.0, ajv@npm:^6.12.3, ajv@npm:^6.12.4":
+"ajv@npm:^6.1.0, ajv@npm:^6.10.0, ajv@npm:^6.12.3, ajv@npm:^6.12.4, ajv@npm:^6.12.5":
   version: 6.12.6
   resolution: "ajv@npm:6.12.6"
   dependencies:
@@ -8673,16 +8673,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"imports-loader@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "imports-loader@npm:2.0.0"
+"imports-loader@npm:^1.0.0":
+  version: 1.2.0
+  resolution: "imports-loader@npm:1.2.0"
   dependencies:
     loader-utils: "npm:^2.0.0"
+    schema-utils: "npm:^3.0.0"
     source-map: "npm:^0.6.1"
     strip-comments: "npm:^2.0.1"
   peerDependencies:
-    webpack: ^5.0.0
-  checksum: 10c0/fac50ef326ab20a838b2e83235cb0d89e528616fbfe07b8864a67e4426519ce3e758d4e1f553e41140d1dcb6e862656dc3cb7519411dec3eb125df82d97af5bc
+    webpack: ^4.0.0 || ^5.0.0
+  checksum: 10c0/b77a0016808ebe6e5eec083a3afb94879b03653922dd4bc2b9c9aae13093e804d4089f7da171d1395f78d357de581ca3a4aea9100293dcbe02cf6c1e861085bf
   languageName: node
   linkType: hard
 
@@ -11711,7 +11712,7 @@ __metadata:
     fuse.js: "npm:^7.0.0"
     history: "npm:^5.3.0"
     hugo-bin-extended: "npm:^0.142.0"
-    imports-loader: "npm:^2.0.0"
+    imports-loader: "npm:^1.0.0"
     inquirer: "npm:^12.0.0"
     isomorphic-fetch: "npm:^3.0.0"
     jest: "npm:^27.4.7"
@@ -14360,6 +14361,17 @@ __metadata:
     ajv: "npm:^6.12.4"
     ajv-keywords: "npm:^3.5.2"
   checksum: 10c0/f484f34464edd8758712d5d3ba25a306e367dac988aecaf4ce112e99baae73f33a807b5cf869240bb6648c80720b36af2d7d72be3a27faa49a2d4fc63fa3f85f
+  languageName: node
+  linkType: hard
+
+"schema-utils@npm:^3.0.0":
+  version: 3.3.0
+  resolution: "schema-utils@npm:3.3.0"
+  dependencies:
+    "@types/json-schema": "npm:^7.0.8"
+    ajv: "npm:^6.12.5"
+    ajv-keywords: "npm:^3.5.2"
+  checksum: 10c0/fafdbde91ad8aa1316bc543d4b61e65ea86970aebbfb750bfb6d8a6c287a23e415e0e926c2498696b242f63af1aab8e585252637fabe811fd37b604351da6500
   languageName: node
   linkType: hard
 
