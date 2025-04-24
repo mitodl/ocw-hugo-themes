@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useUserMe } from "../hooks/user"
 import { useUserListList, useUserListMemberList } from "../hooks/userLists"
 import {
@@ -9,11 +9,11 @@ import { useFormik } from "formik"
 import { RiAddLine } from "@remixicon/react"
 import { Button } from "@mitodl/smoot-design"
 
-interface UserListModalProps {
+interface UserListModalInternalProps {
   resourceReadableId: string
 }
 
-const AddToUserListModal: React.FC<UserListModalProps> = ({
+const AddToUserListModalInternal: React.FC<UserListModalInternalProps> = ({
   resourceReadableId
 }) => {
   const { data: resource, isLoading: isResourceLoading } =
@@ -158,6 +158,30 @@ const AddToUserListModal: React.FC<UserListModalProps> = ({
       </div>
     </div>
   )
+}
+
+interface AddToUserListModalProps {
+  bookmarkButton: HTMLElement
+}
+
+const AddToUserListModal: React.FC<AddToUserListModalProps> = ({
+  bookmarkButton
+}) => {
+  const [resourceReadableId, setResourceReadableId] = useState(
+    bookmarkButton.dataset.resourcereadableid || ""
+  )
+  bookmarkButton.addEventListener("click", () => {
+    const resourceReadableId = bookmarkButton.dataset.resourcereadableid || ""
+    setResourceReadableId(resourceReadableId)
+  })
+  const userListModalContainer = document.querySelector(
+    "#user-list-modal-container"
+  )
+  if (userListModalContainer) {
+    return (
+      <AddToUserListModalInternal resourceReadableId={resourceReadableId} />
+    )
+  }
 }
 
 export default AddToUserListModal

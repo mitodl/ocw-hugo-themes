@@ -24,7 +24,6 @@ import { createRoot } from "react-dom/client"
 import AddToUserListModal from "../../base-theme/assets/js/components/UserListModal"
 import CreateUserListModal from "../../base-theme/assets/js/components/CreateUserListModal"
 import { ThemeProvider } from "@mitodl/smoot-design"
-import React, { useState } from "react"
 
 export interface OCWWindow extends Window {
   initNanogallery2: () => void
@@ -33,21 +32,6 @@ export interface OCWWindow extends Window {
 }
 
 declare let window: OCWWindow
-
-interface AddToUserListModalWrapperProps {
-  resourceReadableId: string
-}
-
-const AddToUserListModalWrapper: React.FC<AddToUserListModalWrapperProps> = ({
-  resourceReadableId
-}) => {
-  const userListModalContainer = document.querySelector(
-    "#user-list-modal-container"
-  )
-  if (userListModalContainer) {
-    return <AddToUserListModal resourceReadableId={resourceReadableId} />
-  }
-}
 
 $(function() {
   window.posthog = initPostHog()
@@ -71,11 +55,11 @@ $(function() {
       )
     }
   }
-  const courseBookmarkButton = document.querySelector(
+  const chpBookmarkButton = document.querySelector(
     "#course-bookmark-btn"
   ) as HTMLElement
-  if (courseBookmarkButton && learnIntegrationEnabled) {
-    courseBookmarkButton.classList.remove("d-none")
+  if (chpBookmarkButton && learnIntegrationEnabled) {
+    chpBookmarkButton.classList.remove("d-none")
     const userListModalContainer = document.querySelector(
       "#user-list-modal-container"
     )
@@ -84,11 +68,7 @@ $(function() {
       root.render(
         <QueryClientProvider client={queryClient}>
           <ThemeProvider>
-            <AddToUserListModalWrapper
-              resourceReadableId={
-                courseBookmarkButton.dataset.resourcereadableid || ""
-              }
-            />
+            <AddToUserListModal bookmarkButton={chpBookmarkButton} />
           </ThemeProvider>
         </QueryClientProvider>
       )
