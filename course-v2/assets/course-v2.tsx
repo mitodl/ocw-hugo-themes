@@ -21,10 +21,10 @@ import { QueryClientProvider } from "@tanstack/react-query"
 import { makeQueryClient } from "../../base-theme/assets/js/clients"
 import UserMenu from "../../base-theme/assets/js/components/UserMenu"
 import { createRoot } from "react-dom/client"
-import useLocalStorage from "../../base-theme/assets/js/hooks/util"
 import AddToUserListModal from "../../base-theme/assets/js/components/UserListModal"
 import CreateUserListModal from "../../base-theme/assets/js/components/CreateUserListModal"
 import { ThemeProvider } from "@mitodl/smoot-design"
+import React, { useState } from "react"
 
 export interface OCWWindow extends Window {
   initNanogallery2: () => void
@@ -34,16 +34,17 @@ export interface OCWWindow extends Window {
 
 declare let window: OCWWindow
 
-function AddToUserListModalWrapper() {
-  const [resourceReadableId, setResourceReadableId] = useLocalStorage(
-    "resourceReadableId",
-    ""
-  )
+interface AddToUserListModalWrapperProps {
+  resourceReadableId: string
+}
+
+const AddToUserListModalWrapper: React.FC<AddToUserListModalWrapperProps> = ({
+  resourceReadableId
+}) => {
   const userListModalContainer = document.querySelector(
     "#user-list-modal-container"
   )
   if (userListModalContainer) {
-    window.setReadableResourceId = setResourceReadableId
     return <AddToUserListModal resourceReadableId={resourceReadableId} />
   }
 }
@@ -70,35 +71,41 @@ $(function() {
       )
     }
   }
-  const courseBookmarkButton = document.querySelector("#course-bookmark-btn")
+  const courseBookmarkButton = document.querySelector(
+    "#course-bookmark-btn"
+  ) as HTMLElement
   if (courseBookmarkButton && learnIntegrationEnabled) {
     courseBookmarkButton.classList.remove("d-none")
-  }
-  const userListModalContainer = document.querySelector(
-    "#user-list-modal-container"
-  )
-  if (userListModalContainer && learnIntegrationEnabled) {
-    const root = createRoot(userListModalContainer)
-    root.render(
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <AddToUserListModalWrapper />
-        </ThemeProvider>
-      </QueryClientProvider>
+    const userListModalContainer = document.querySelector(
+      "#user-list-modal-container"
     )
-  }
-  const createUserListModalContainer = document.querySelector(
-    "#create-user-list-modal-container"
-  )
-  if (createUserListModalContainer && learnIntegrationEnabled) {
-    const root = createRoot(createUserListModalContainer)
-    root.render(
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <CreateUserListModal />
-        </ThemeProvider>
-      </QueryClientProvider>
+    if (userListModalContainer && learnIntegrationEnabled) {
+      const root = createRoot(userListModalContainer)
+      root.render(
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider>
+            <AddToUserListModalWrapper
+              resourceReadableId={
+                courseBookmarkButton.dataset.resourcereadableid || ""
+              }
+            />
+          </ThemeProvider>
+        </QueryClientProvider>
+      )
+    }
+    const createUserListModalContainer = document.querySelector(
+      "#create-user-list-modal-container"
     )
+    if (createUserListModalContainer && learnIntegrationEnabled) {
+      const root = createRoot(createUserListModalContainer)
+      root.render(
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider>
+            <CreateUserListModal />
+          </ThemeProvider>
+        </QueryClientProvider>
+      )
+    }
   }
 })
 
