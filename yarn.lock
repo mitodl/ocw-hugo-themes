@@ -8673,15 +8673,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"imports-loader@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "imports-loader@npm:5.0.0"
+"imports-loader@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "imports-loader@npm:2.0.0"
   dependencies:
-    source-map-js: "npm:^1.0.2"
+    loader-utils: "npm:^2.0.0"
+    source-map: "npm:^0.6.1"
     strip-comments: "npm:^2.0.1"
   peerDependencies:
     webpack: ^5.0.0
-  checksum: 10c0/909fba40b8ebcf56933d19343874373ca87dd1a1d7c73a3068c04aaea791f787219d90820c3ed6f0637f1b7a865a586b8e02c588915ce34a236f73e143683569
+  checksum: 10c0/fac50ef326ab20a838b2e83235cb0d89e528616fbfe07b8864a67e4426519ce3e758d4e1f553e41140d1dcb6e862656dc3cb7519411dec3eb125df82d97af5bc
   languageName: node
   linkType: hard
 
@@ -10299,7 +10300,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json5@npm:2.x, json5@npm:^2.2.3":
+"json5@npm:2.x, json5@npm:^2.1.2, json5@npm:^2.2.3":
   version: 2.2.3
   resolution: "json5@npm:2.2.3"
   bin:
@@ -10493,6 +10494,17 @@ __metadata:
     emojis-list: "npm:^3.0.0"
     json5: "npm:^1.0.1"
   checksum: 10c0/2b726088b5526f7605615e3e28043ae9bbd2453f4a85898e1151f3c39dbf7a2b65d09f3996bc588d92ac7e717ded529d3e1ea3ea42c433393be84a58234a2f53
+  languageName: node
+  linkType: hard
+
+"loader-utils@npm:^2.0.0":
+  version: 2.0.4
+  resolution: "loader-utils@npm:2.0.4"
+  dependencies:
+    big.js: "npm:^5.2.2"
+    emojis-list: "npm:^3.0.0"
+    json5: "npm:^2.1.2"
+  checksum: 10c0/d5654a77f9d339ec2a03d88221a5a695f337bf71eb8dea031b3223420bb818964ba8ed0069145c19b095f6c8b8fd386e602a3fc7ca987042bd8bb1dcc90d7100
   languageName: node
   linkType: hard
 
@@ -11699,7 +11711,7 @@ __metadata:
     fuse.js: "npm:^7.0.0"
     history: "npm:^5.3.0"
     hugo-bin-extended: "npm:^0.142.0"
-    imports-loader: "npm:^5.0.0"
+    imports-loader: "npm:^2.0.0"
     inquirer: "npm:^12.0.0"
     isomorphic-fetch: "npm:^3.0.0"
     jest: "npm:^27.4.7"
@@ -14803,7 +14815,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-js@npm:>=0.6.2 <2.0.0, source-map-js@npm:^1.0.2, source-map-js@npm:^1.2.1":
+"source-map-js@npm:>=0.6.2 <2.0.0, source-map-js@npm:^1.2.1":
   version: 1.2.1
   resolution: "source-map-js@npm:1.2.1"
   checksum: 10c0/7bda1fc4c197e3c6ff17de1b8b2c20e60af81b63a52cb32ec5a5d67a20a7d42651e2cb34ebe93833c5a2a084377e17455854fee3e21e7925c64a51b6a52b0faf
