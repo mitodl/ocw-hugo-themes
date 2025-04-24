@@ -56,9 +56,9 @@ $(function() {
       )
     }
   }
-  const bookmarkButtons = document.querySelectorAll(".bookmark-button")
-  if (bookmarkButtons.length > 0 && learnIntegrationEnabled) {
-    for (const bookmarkButton of Array.from(bookmarkButtons)) {
+  const bookmarkButtonContainers = document.querySelectorAll(".bookmark-button-container")
+  if (bookmarkButtonContainers.length > 0 && learnIntegrationEnabled) {
+    for (const bookmarkButton of Array.from(bookmarkButtonContainers)) {
       const resourceReadableId =
         (bookmarkButton as HTMLButtonElement).dataset.resourcereadableid || ""
       const root = createRoot(bookmarkButton)
@@ -78,7 +78,7 @@ $(function() {
       root.render(
         <QueryClientProvider client={queryClient}>
           <ThemeProvider>
-            <AddToUserListModal bookmarkButtons={bookmarkButtons} />
+            <AddToUserListModal />
           </ThemeProvider>
         </QueryClientProvider>
       )

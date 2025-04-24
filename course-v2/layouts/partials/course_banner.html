@@ -17,7 +17,7 @@
     </div>
     <div class="col-1">
       {{- $readableId := printf "%s+%s_%s" $courseData.primary_course_number (lower $courseData.term) $courseData.year -}}
-      <div class="bookmark-button" data-resourcereadableid="{{- $readableId -}}"></div>
+      <div class="bookmark-button-container" data-resourcereadableid="{{- $readableId -}}"></div>
     </div>
     </div>
   </div>

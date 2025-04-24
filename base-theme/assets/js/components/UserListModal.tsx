@@ -160,14 +160,9 @@ const AddToUserListModalInternal: React.FC<UserListModalInternalProps> = ({
   )
 }
 
-interface AddToUserListModalProps {
-  bookmarkButtons: NodeListOf<Element>
-}
-
-const AddToUserListModal: React.FC<AddToUserListModalProps> = ({
-  bookmarkButtons
-}) => {
+const AddToUserListModal: React.FC = () => {
   const [resourceReadableId, setResourceReadableId] = useState("")
+  const bookmarkButtons = document.querySelectorAll(".bookmark-button")
   for (const bookmarkButton of Array.from(bookmarkButtons)) {
     bookmarkButton.addEventListener("click", () => {
       const resourceReadableId =
