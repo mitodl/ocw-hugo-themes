@@ -1,4 +1,3 @@
-import { QueryOptions } from "@tanstack/react-query"
 import { learningResourcesApi } from "../../clients"
 import { clearListMemberships } from "../util/queries"
 import { queryOptions } from "@tanstack/react-query"
