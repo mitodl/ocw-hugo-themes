@@ -166,15 +166,17 @@ const AddToUserListModal: React.FC = () => {
     const buttons = Array.from(
       document.querySelectorAll<HTMLElement>(".bookmark-button")
     )
-    const handler = (event: MouseEvent) => {/** etc */}
-    buttons.forEach((button) => button.addEventListener("click", handler))
+    const handler = (event: MouseEvent) => {
+      const resourceReadableId =
+        (event.currentTarget as HTMLElement).dataset.resourcereadableid || ""
+      setResourceReadableId(resourceReadableId)
+    }
+    buttons.forEach(button => button.addEventListener("click", handler))
     return () => {
-      buttons.forEach((button) => button.removeEventListener("click", handler))
+      buttons.forEach(button => button.removeEventListener("click", handler))
     }
   }, [])
-  return (
-    <AddToUserListModalInternal resourceReadableId={resourceReadableId} />
-  )
+  return <AddToUserListModalInternal resourceReadableId={resourceReadableId} />
 }
 
 export default AddToUserListModal
