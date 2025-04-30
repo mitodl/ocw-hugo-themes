@@ -22,7 +22,6 @@ const useUserListList = (
   const queryOptions = userlistQueries.list(params)
   return useQuery({
     ...queryOptions,
-    queryKey: queryOptions.queryKey ?? [`userlist-list`, params],
     ...opts
   })
 }
@@ -31,7 +30,6 @@ const useUserListsDetail = (id: number) => {
   const queryOptions = userlistQueries.detail(id)
   return useQuery({
     ...queryOptions,
-    queryKey: queryOptions.queryKey ?? [`userlist-detail`, id]
   })
 }
 
