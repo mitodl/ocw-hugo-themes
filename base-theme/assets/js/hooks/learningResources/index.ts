@@ -17,7 +17,6 @@ const useLearningResourceByReadableId = (
   }
   const queryDetails = learningResourceQueries.detailByReadableId(readableId)
   return useQuery({
-    queryKey: queryDetails.queryKey || [],
     ...queryDetails,
     ...opts
   })
