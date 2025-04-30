@@ -6,7 +6,7 @@ import type {
   PaginatedUserListRelationshipList
 } from "@mitodl/open-api-axios/v1"
 import { userListsApi } from "../../clients"
-import { UseInfiniteQueryOptions, QueryOptions } from "@tanstack/react-query"
+import { UseInfiniteQueryOptions } from "@tanstack/react-query"
 import { clearListMemberships } from "../util/queries"
 import { queryOptions } from "@tanstack/react-query"
 
