@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useUserMe } from "../hooks/user"
 import { useUserListList, useUserListMemberList } from "../hooks/userLists"
 import {
@@ -162,22 +162,19 @@ const AddToUserListModalInternal: React.FC<UserListModalInternalProps> = ({
 
 const AddToUserListModal: React.FC = () => {
   const [resourceReadableId, setResourceReadableId] = useState("")
-  const bookmarkButtons = document.querySelectorAll(".bookmark-button")
-  for (const bookmarkButton of Array.from(bookmarkButtons)) {
-    bookmarkButton.addEventListener("click", () => {
-      const resourceReadableId =
-        (bookmarkButton as HTMLElement).dataset.resourcereadableid || ""
-      setResourceReadableId(resourceReadableId)
-    })
-  }
-  const userListModalContainer = document.querySelector(
-    "#user-list-modal-container"
-  )
-  if (userListModalContainer) {
-    return (
-      <AddToUserListModalInternal resourceReadableId={resourceReadableId} />
+  useEffect(() => {
+    const buttons = Array.from(
+      document.querySelectorAll<HTMLElement>(".bookmark-button")
     )
-  }
+    const handler = (event: MouseEvent) => {/** etc */}
+    buttons.forEach((button) => button.addEventListener("click", handler))
+    return () => {
+      buttons.forEach((button) => button.removeEventListener("click", handler))
+    }
+  }, [])
+  return (
+    <AddToUserListModalInternal resourceReadableId={resourceReadableId} />
+  )
 }
 
 export default AddToUserListModal
