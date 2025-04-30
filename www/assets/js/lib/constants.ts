@@ -119,7 +119,7 @@ const RESOURCE_TYPES = [
   "Recitation Videos",
   "Recitations",
   "Simulation Videos",
-  "Source files",
+  "Editable files",
   "Simulations",
   "Student work",
   "Tools",
