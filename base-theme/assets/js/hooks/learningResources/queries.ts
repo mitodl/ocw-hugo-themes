@@ -1,8 +1,7 @@
 import { QueryOptions } from "@tanstack/react-query"
 import { learningResourcesApi } from "../../clients"
 import { clearListMemberships } from "../util/queries"
-
-const queryOptions = <T>(options: QueryOptions<T>) => options
+import { queryOptions } from "@tanstack/react-query"
 
 const learningResourceKeys = {
   root:        ["learning_resources"],

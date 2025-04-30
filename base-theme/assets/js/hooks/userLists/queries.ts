@@ -8,8 +8,8 @@ import type {
 import { userListsApi } from "../../clients"
 import { UseInfiniteQueryOptions, QueryOptions } from "@tanstack/react-query"
 import { clearListMemberships } from "../util/queries"
+import { queryOptions } from "@tanstack/react-query"
 
-const queryOptions = <T>(options: QueryOptions<T>) => options
 const infiniteQueryOptions = <T>(options: UseInfiniteQueryOptions<T>) => options
 
 const userlistKeys = {
