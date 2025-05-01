@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.130.0
+Version 1.130.0 (Released May 01, 2025)
 ---------------
 
 - Update Node.js to v22.15.0 (#1577)
