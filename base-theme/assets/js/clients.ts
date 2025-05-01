@@ -1,5 +1,9 @@
 import { UsersApi } from "@mitodl/open-api-axios/v0"
-import { Configuration } from "@mitodl/open-api-axios/v1"
+import {
+  Configuration,
+  LearningResourcesApi,
+  UserlistsApi
+} from "@mitodl/open-api-axios/v1"
 import { QueryClient } from "@tanstack/react-query"
 
 type MaybeHasStatus = {
@@ -10,7 +14,6 @@ type MaybeHasStatus = {
 
 const RETRY_STATUS_CODES = [408, 429, 502, 503, 504]
 const MAX_RETRIES = 3
-const THROW_ERROR_CODES: (number | undefined)[] = [404, 403, 401]
 
 const makeQueryClient = (): QueryClient => {
   return new QueryClient({
@@ -18,13 +21,7 @@ const makeQueryClient = (): QueryClient => {
       queries: {
         refetchOnWindowFocus: false,
         staleTime:            Infinity,
-        onError:              error => {
-          const status = (error as MaybeHasStatus)?.response?.status
-          if (THROW_ERROR_CODES.includes(status)) {
-            throw error
-          }
-        },
-        retry: (failureCount, error) => {
+        retry:                (failureCount, error) => {
           const status = (error as MaybeHasStatus)?.response?.status
           /**
            * React Query's default behavior is to retry all failed queries 3
@@ -43,7 +40,12 @@ const makeQueryClient = (): QueryClient => {
 
 const config = {
   basePath:    process.env.MIT_LEARN_API_BASE_URL,
-  baseOptions: { withCredentials: true }
+  baseOptions: {
+    xsrfCookieName:  process.env.CSRF_COOKIE_NAME,
+    xsrfHeaderName:  "X-CSRFToken",
+    withXSRFToken:   true,
+    withCredentials: true
+  }
 }
 const configuration = new Configuration({
   basePath:    config.basePath,
@@ -52,4 +54,8 @@ const configuration = new Configuration({
 
 const usersApi = new UsersApi(configuration)
 
-export { makeQueryClient, usersApi }
+const learningResourcesApi = new LearningResourcesApi(configuration)
+
+const userListsApi = new UserlistsApi(configuration)
+
+export { makeQueryClient, usersApi, learningResourcesApi, userListsApi }

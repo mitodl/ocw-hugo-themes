@@ -2,14 +2,23 @@
 {{ $currentPage := . }}
 <div id="course-banner" class="p-0">
   <div class="max-content-width course-banner-content m-auto py-3">
-    {{ $courseData := .Site.Data.course }}
-    <span class="course-number-term-detail">{{ $courseData.primary_course_number }} | {{ $courseData.term }} {{ $courseData.year }}{{if $courseData.level }} | {{ delimit $courseData.level ", " }}{{ end }}</span>
-    <br>
-    <h1>
-      <a
-        class="{{ $bannerClass }}"
-        href="{{ partial "course_home_page_url.html" . }}"
-      >{{ $courseData.course_title }}</a>
-    </h1>
+    <div class="row">
+    <div class="col-11">
+      {{ $courseData := .Site.Data.course }}
+      <span class="course-number-term-detail">{{ $courseData.primary_course_number }} | {{ $courseData.term }} {{ $courseData.year }}{{if $courseData.level }} | {{ delimit $courseData.level ", " }}{{ end }}</span>
+      <br>
+      <br>
+      <h1>
+        <a
+          class="{{ $bannerClass }}"
+          href="{{ partial "course_home_page_url.html" . }}"
+        >{{ $courseData.course_title }}</a>
+      </h1>
+    </div>
+    <div class="col-1">
+      {{- $readableId := printf "%s+%s_%s" $courseData.primary_course_number (lower $courseData.term) $courseData.year -}}
+      <div class="bookmark-button-container" data-resourcereadableid="{{- $readableId -}}"></div>
+    </div>
+    </div>
   </div>
 </div>
