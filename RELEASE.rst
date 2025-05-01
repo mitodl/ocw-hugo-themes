@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.130.0 (Released May 01, 2025)
+---------------
+
+- Update Node.js to v22.15.0 (#1577)
+- Update Yarn to v4.9.1 (#1578)
+- Lock file maintenance (#1582)
+- Migrating Enzyme tests to RTL (#1545)
+- fix authentication (#1575)
+
 Version 1.129.0 (Released April 03, 2025)
 ---------------
 
