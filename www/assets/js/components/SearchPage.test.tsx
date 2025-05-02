@@ -217,7 +217,9 @@ describe("SearchPage component", () => {
       suggest: ["mathematics"]
     })
 
-    const suggestionContainer = screen.getByText(content => content.includes("Did you mean"))
+    const suggestionContainer = screen.getByText(content =>
+      content.includes("Did you mean")
+    )
     expect(suggestionContainer).toBeInTheDocument()
 
     const mathLink = screen.getByText(/mathematics/i)
@@ -226,7 +228,9 @@ describe("SearchPage component", () => {
     fireEvent.click(mathLink)
 
     expect(screen.getByRole("searchbox")).toHaveValue("mathematics")
-    expect(screen.queryByText(content => content.includes("Did you mean"))).not.toBeInTheDocument()
+    expect(
+      screen.queryByText(content => content.includes("Did you mean"))
+    ).not.toBeInTheDocument()
   })
 
   test("should not show suggestion if it is the same as query minus quotes, case", async () => {
@@ -239,7 +243,9 @@ describe("SearchPage component", () => {
       suggest: ["mathematics basic principles"]
     })
 
-    expect(screen.queryByText(content => content.includes("Did you mean"))).not.toBeInTheDocument()
+    expect(
+      screen.queryByText(content => content.includes("Did you mean"))
+    ).not.toBeInTheDocument()
   })
 
   it("should allow the user to toggle sort", async () => {
@@ -264,7 +270,9 @@ describe("SearchPage component", () => {
     renderComponent(serializeSearchParams({}))
     await resolveSearch()
 
-    const compactViewButton = screen.getByRole("button", { name: "show compact results" })
+    const compactViewButton = screen.getByRole("button", {
+      name: "show compact results"
+    })
     fireEvent.click(compactViewButton)
 
     expect(spySearch.mock.calls[0][0].size).toEqual(DEFAULT_UI_PAGE_SIZE)
@@ -278,7 +286,9 @@ describe("SearchPage component", () => {
     const resultsElement = screen.getByText(/results$/i)
     expect(resultsElement).toBeInTheDocument()
 
-    const resultsContainer = screen.getByText(/results$/i).closest('.results-total')
+    const resultsContainer = screen
+      .getByText(/results$/i)
+      .closest(".results-total")
     expect(resultsContainer).toHaveAttribute("aria-live", "polite")
     expect(resultsContainer).toHaveAttribute("aria-atomic", "true")
   })
@@ -350,9 +360,13 @@ describe("SearchPage component", () => {
 
     expect(screen.getByText("Filters")).toBeInTheDocument()
 
-    expect(screen.getByRole("button", { name: "Clear All" })).toBeInTheDocument()
+    expect(
+      screen.getByRole("button", { name: "Clear All" })
+    ).toBeInTheDocument()
 
-    const filterSection = screen.getByText("Filters").closest(".active-search-filters")
+    const filterSection = screen
+      .getByText("Filters")
+      .closest(".active-search-filters")
     expect(filterSection).toBeInTheDocument()
   })
 })
