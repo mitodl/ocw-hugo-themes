@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react"
-import { act } from "react-dom/test-utils"
+import { act } from "react"
 import { search } from "../lib/api"
 import { times } from "ramda"
 import {
