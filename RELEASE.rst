@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.131.0
+---------------
+
+- Adds new Learning Resource Types to Search (#1584)
+- add bookmark button to course home page (#1572)
+
 Version 1.130.0 (Released May 01, 2025)
 ---------------
 
