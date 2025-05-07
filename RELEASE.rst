@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.131.0
+Version 1.131.0 (Released May 07, 2025)
 ---------------
 
 - Adds new Learning Resource Types to Search (#1584)
