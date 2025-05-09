@@ -16,7 +16,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
   const { data: userListMemberships, isLoading: isUserListMembershipsLoading } =
     useUserListMemberList(resource?.id)
   const inUserList = userListMemberships?.length || 0 > 0
-  return !isResourceLoading && !isUserListMembershipsLoading ? (
+  return (
     <ActionButton
       className="bookmark-button"
       edge="circular"
@@ -26,6 +26,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
       data-toggle="modal"
       data-target="#add-to-user-list-modal"
       data-resourcereadableid={resourceReadableId}
+      disabled={isResourceLoading || isUserListMembershipsLoading}
     >
       {inUserList ? (
         <RiBookmarkFill aria-hidden />
@@ -33,7 +34,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
         <RiBookmarkLine aria-hidden />
       )}
     </ActionButton>
-  ) : null
+  )
 }
 
 export default BookmarkButton
