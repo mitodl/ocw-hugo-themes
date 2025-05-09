@@ -10,6 +10,7 @@ import { makeLearningResourceResult } from "../factories/search"
 import { SEARCH_URL } from "../lib/constants"
 import { getCoverImageUrl, searchResultToLearningResource } from "../lib/search"
 import { LearningResource } from "../LearningResources"
+import invariant from "tiny-invariant"
 
 describe("SearchResult component", () => {
   const renderComponent = (object: LearningResource) =>
@@ -29,7 +30,9 @@ describe("SearchResult component", () => {
       screen.getByText(object.instructors[0], { exact: false })
     ).toBeInTheDocument()
 
-    const coverImage = screen.getByRole("img")
+    const coverImageRoot = screen.getByTestId("cover-image")
+    const coverImage = coverImageRoot.querySelector("img")
+    invariant(coverImage) // assert that coverImage is found
     expect(coverImage).toHaveAttribute("src", getCoverImageUrl(object))
   })
 
