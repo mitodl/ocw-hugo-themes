@@ -411,7 +411,7 @@ export default function SearchPage(props: SearchPageProps) {
                     ))
                   )
                 ) : (
-                  <Loading data-testid="loading-indicator" />
+                  <Loading />
                 )}
               </section>
             </InfiniteScroll>

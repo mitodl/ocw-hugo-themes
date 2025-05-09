@@ -324,6 +324,8 @@ describe("SearchPage component", () => {
 
     const feedContainer = screen.getByRole("feed")
     expect(feedContainer).toHaveAttribute("aria-busy", "true")
+    await resolveSearch()
+    expect(feedContainer).toHaveAttribute("aria-busy", "false")
   })
 
   test("should support InfiniteScroll-ing", async () => {
