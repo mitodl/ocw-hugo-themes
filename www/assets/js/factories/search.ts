@@ -196,9 +196,9 @@ export const makeCourseJSON: Factory<CourseJSON> = (overrides = {}) => ({
   course_description:    casual.description,
   image_src:             casual.url,
   topics:                [
-    [casual.word],
-    [casual.word, casual.word],
-    [casual.word, casual.word]
+    makeDistinctiveTopics(1, "topic"),
+    makeDistinctiveTopics(2, "topic"),
+    makeDistinctiveTopics(2, "topic")
   ],
   level: casual.random_element([
     ["Graduate"],
@@ -260,7 +260,7 @@ export const makeResourceFileResult: Factory<ResourceFileResult> = (
   title:         casual.title,
   url:           casual.url,
   image_src:     "http://image.medium.url",
-  topics:        [casual.word, casual.word],
+  topics:        makeDistinctiveTopics(2, "topic"),
   object_type:   LearningResourceType.ResourceFile,
   content_title: casual.title,
   run_title:     casual.title,
@@ -288,7 +288,7 @@ export const makeVideoResult: Factory<VideoResult> = (overrides = {}) => ({
   url:               casual.url,
   image_src:         "http://image.medium.url",
   short_description: casual.description,
-  topics:            [casual.word, casual.word],
+  topics:            makeDistinctiveTopics(2, "topic"),
   object_type:       LearningResourceType.Video,
   offered_by:        [OCW_PLATFORM],
   runs:              [],
@@ -318,7 +318,7 @@ export const makePodcastResult: Factory<PodcastResult> = (overrides = {}) => ({
   url:               casual.url,
   image_src:         "http://image.medium.url",
   short_description: casual.description,
-  topics:            [casual.word, casual.word],
+  topics:            makeDistinctiveTopics(2, "topic"),
   object_type:       LearningResourceType.Podcast,
   offered_by:        [OCW_PLATFORM],
   runs:              [],
@@ -350,7 +350,7 @@ export const makePodcastEpisodeResult: Factory<PodcastEpisodeResult> = (
   url:               casual.url,
   image_src:         "http://image.medium.url",
   short_description: casual.description,
-  topics:            [casual.word, casual.word],
+  topics:            makeDistinctiveTopics(2, "topic"),
   object_type:       LearningResourceType.PodcastEpisode,
   offered_by:        [OCW_PLATFORM],
   runs:              [],
