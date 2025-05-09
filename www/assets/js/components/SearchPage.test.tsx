@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
+import user from "@testing-library/user-event"
 import { act } from "react"
 import { search } from "../lib/api"
 import { times } from "ramda"
@@ -111,10 +112,9 @@ describe("SearchPage component", () => {
     await resolveSearch()
 
     const searchInput = screen.getByRole("searchbox")
-    fireEvent.change(searchInput, { target: { value: "New Search Text" } })
 
-    const form = searchInput.closest("form")
-    fireEvent.submit(form!)
+    await user.type(searchInput, "New Search Text")
+    await user.click(screen.getByRole("button", { name: "Search" }))
 
     await resolveSearch()
 
@@ -167,8 +167,7 @@ describe("SearchPage component", () => {
     renderComponent(searchString)
     await resolveSearch()
 
-    const resourcesButton = screen.getByRole("button", { name: "Resources" })
-    fireEvent.click(resourcesButton)
+    await user.click(screen.getByRole("button", { name: "Resources" }))
 
     await resolveSearch()
 
@@ -217,15 +216,10 @@ describe("SearchPage component", () => {
       suggest: ["mathematics"]
     })
 
-    const suggestionContainer = screen.getByText(content =>
-      content.includes("Did you mean")
-    )
+    const suggestionContainer = screen.getByText(/Did you mean/)
     expect(suggestionContainer).toBeInTheDocument()
 
-    const mathLink = screen.getByText(/mathematics/i)
-    expect(mathLink).toBeInTheDocument()
-
-    fireEvent.click(mathLink)
+    await user.click(screen.getByRole("link", { name: "mathematics" }))
 
     expect(screen.getByRole("searchbox")).toHaveValue("mathematics")
     expect(
@@ -249,8 +243,7 @@ describe("SearchPage component", () => {
   })
 
   it("should allow the user to toggle sort", async () => {
-    const sortParam = "-sortablefieldname",
-      differentSortParam = "differentsortparam"
+    const sortParam = "-sortablefieldname"
     const parameters = {
       sort: { field: sortParam, option: "asc" }
     }
@@ -260,7 +253,10 @@ describe("SearchPage component", () => {
 
     const sortSelect = screen.getByRole("combobox")
 
-    fireEvent.change(sortSelect, { target: { value: differentSortParam } })
+    const sortOptions = Array.from(sortSelect.querySelectorAll("option")).map(
+      opt => opt.value
+    )
+    await user.selectOptions(sortSelect, sortOptions[1])
 
     expect(spySearch).toHaveBeenCalledTimes(2)
     expect(spySearch.mock.calls[1][0].text).toBe("")
@@ -273,7 +269,7 @@ describe("SearchPage component", () => {
     const compactViewButton = screen.getByRole("button", {
       name: "show compact results"
     })
-    fireEvent.click(compactViewButton)
+    await user.click(compactViewButton)
 
     expect(spySearch.mock.calls[0][0].size).toEqual(DEFAULT_UI_PAGE_SIZE)
     expect(spySearch.mock.calls[1][0].size).toEqual(COMPACT_UI_PAGE_SIZE)
@@ -322,10 +318,9 @@ describe("SearchPage component", () => {
     await resolveSearch()
 
     const searchInput = screen.getByRole("searchbox")
-    fireEvent.change(searchInput, { target: { value: "New Search Text" } })
+    await user.type(searchInput, "New Search Text")
 
-    const form = searchInput.closest("form")
-    fireEvent.submit(form!)
+    await user.click(screen.getByRole("button", { name: "Search" }))
 
     const feedContainer = screen.getByRole("feed")
     expect(feedContainer).toHaveAttribute("aria-busy", "true")
