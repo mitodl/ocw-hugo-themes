@@ -21,10 +21,7 @@ describe("SearchResult component", () => {
     )
     renderComponent(object)
 
-    const titleElement = screen.getByText(object.title)
-    expect(titleElement).toBeInTheDocument()
-
-    const titleLink = titleElement.closest("a")
+    const titleLink = screen.getByRole("link", { name: object.title })
     expect(titleLink).toHaveAttribute("href", object.url)
     expect(titleLink).toHaveClass("w-100")
 
