@@ -251,7 +251,7 @@ describe("SearchPage component", () => {
     renderComponent(searchString)
     await resolveSearch()
 
-    const sortSelect = screen.getByRole("combobox")
+    const sortSelect = screen.getByRole("combobox", { name: "Sort by" })
 
     const sortOptions = Array.from(sortSelect.querySelectorAll("option")).map(
       opt => opt.value
