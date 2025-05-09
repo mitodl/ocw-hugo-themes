@@ -103,7 +103,7 @@ describe("SearchResult component", () => {
     renderComponent(object)
 
     object.topics.forEach(topic => {
-      const topicLink = screen.getByText(topic.name).closest("a")
+      const topicLink = screen.getByRole("link", { name: topic.name })
       expect(topicLink).toHaveAttribute(
         "href",
         `${SEARCH_URL}?${serializeSearchParams({
@@ -129,10 +129,7 @@ describe("SearchResult component with compact view", () => {
     )
     renderComponent(object)
 
-    const titleElement = screen.getByText(object.title)
-    expect(titleElement).toBeInTheDocument()
-
-    const titleLink = titleElement.closest("a")
+    const titleLink = screen.getByRole("link", { name: object.title })
     expect(titleLink).toHaveAttribute("href", object.url)
 
     if (object.coursenum) {
