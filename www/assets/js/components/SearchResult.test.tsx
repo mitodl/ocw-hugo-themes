@@ -52,7 +52,8 @@ describe("SearchResult component", () => {
       expect(screen.getByText(object.description)).toBeInTheDocument()
     }
 
-    const coverImage = screen.getByRole("img")
+    const images = screen.getAllByRole("img")
+    const coverImage = images[0]
     expect(coverImage).toHaveAttribute("src", getCoverImageUrl(object))
 
     expect(
@@ -139,7 +140,7 @@ describe("SearchResult component with compact view", () => {
       expect(screen.getByText(object.coursenum)).toBeInTheDocument()
     }
 
-    if (object.level) {
+    if (object.level?.length) {
       expect(screen.getByText(object.level.join(", "))).toBeInTheDocument()
     }
   })
@@ -156,7 +157,8 @@ describe("SearchResult component with compact view", () => {
     const titleLink = titleElement.closest("a")
     expect(titleLink).toHaveAttribute("href", object.url)
 
-    const coverImage = screen.getByRole("img")
+    const images = screen.getAllByRole("img")
+    const coverImage = images[0]
     expect(coverImage).toHaveAttribute("src", getCoverImageUrl(object))
 
     if (object.run_title) {

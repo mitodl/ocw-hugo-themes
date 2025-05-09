@@ -137,6 +137,12 @@ export const makeRun: Factory<CourseRun> = (overrides = {}) => {
   }
 }
 
+export function makeDistinctiveTopics(count: number, prefix: string): string[] {
+  return Array(count)
+    .fill(null)
+    .map((_, index) => `${prefix}-${casual.word}-${index + 1}`)
+}
+
 export const makeCourseResult: Factory<CourseResult> = (overrides = {}) => {
   // Create base object with default values
   const result = {
@@ -149,7 +155,7 @@ export const makeCourseResult: Factory<CourseResult> = (overrides = {}) => {
     short_description: casual.description,
     platform:          OCW_PLATFORM as "OCW",
     offered_by:        [OCW_PLATFORM] as ["OCW"],
-    topics:            [casual.word, casual.word],
+    topics:            makeDistinctiveTopics(2, "topic"),
     object_type:       LearningResourceType.Course as LearningResourceType.Course,
     runs:              times(() => makeRun(), 3),
     audience:          casual.random_element([
