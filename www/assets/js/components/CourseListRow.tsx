@@ -17,7 +17,7 @@ export default function CourseListRow(props: Props): JSX.Element {
         href={course.url ?? ""}
         className="d-flex align-items-center text-decoration-none"
       >
-        <img src={course.image_src} alt="" />
+        <img src={course.image_src} alt="" data-testid="courselistrow-image" />
         <div className="ml-3 course-title flex-grow-1">
           <h4 className="mb-0">{course.title}</h4>
           <div className="coursenum">{course.coursenum}</div>
