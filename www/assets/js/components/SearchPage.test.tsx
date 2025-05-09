@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react"
+import { render, screen, within } from "@testing-library/react"
 import user from "@testing-library/user-event"
 import { act } from "react"
 import { search } from "../lib/api"
@@ -330,11 +330,9 @@ describe("SearchPage component", () => {
     renderComponent()
     await resolveSearch()
 
-    const searchResults = screen.getAllByRole("article")
+    const feed = screen.getByRole("feed")
+    const searchResults = within(feed).getAllByRole("article")
     expect(searchResults.length).toBe(DEFAULT_UI_PAGE_SIZE)
-
-    const feedContainer = screen.getByRole("feed")
-    expect(feedContainer).toBeInTheDocument()
   })
 
   test("should show spinner during initial load", async () => {
