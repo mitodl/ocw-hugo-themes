@@ -26,7 +26,7 @@ export default function CoverImage({ object }: Props) {
   }
 
   return (
-    <div className={className}>
+    <div className={className} data-testid="cover-image">
       {[object.object_type, object.content_type].includes(
         LearningResourceType.Video
       ) ? (

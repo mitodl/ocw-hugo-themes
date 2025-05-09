@@ -260,6 +260,12 @@ export default function SearchPage(props: SearchPageProps) {
                   {suggestions.map((suggestion, i) => (
                     <span className="pl-1" key={i}>
                       <a
+                        /**
+                         * NOTE: Because this anchor tag does not have an href,
+                         * we explicitly add role="link", tabindex, and handle
+                         * keypress events to make it keyboard accessible.
+                         */
+                        role="link"
                         className="suggestion"
                         onClick={e => {
                           e.preventDefault()
@@ -319,8 +325,11 @@ export default function SearchPage(props: SearchPageProps) {
                 </li>
                 {!isResourceSearch(activeFacets) ? (
                   <li className="sort-nav-item nav-item d-flex align-items-center justify-content-end">
-                    Sort by{" "}
+                    <label className="mb-0" htmlFor="sort-dropdown">
+                      Sort by
+                    </label>
                     <select
+                      id="sort-dropdown"
                       value={serializeSort(sort)}
                       onChange={updateSort}
                       className="ml-2 sort-dropdown"

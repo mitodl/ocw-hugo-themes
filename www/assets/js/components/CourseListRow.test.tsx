@@ -26,7 +26,7 @@ test("should have a link with the course URL", () => {
 
 test("should show the cover image", () => {
   const { course } = setup()
-  const image = screen.getByRole("img")
+  const image = screen.getByTestId("courselistrow-image")
   expect(image).toHaveAttribute("src", course.image_src)
 })
 

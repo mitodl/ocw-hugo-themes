@@ -137,6 +137,12 @@ export const makeRun: Factory<CourseRun> = (overrides = {}) => {
   }
 }
 
+export function makeDistinctiveTopics(count: number, prefix: string): string[] {
+  return Array(count)
+    .fill(null)
+    .map((_, index) => `${prefix}-${casual.word}-${index + 1}`)
+}
+
 export const makeCourseResult: Factory<CourseResult> = (overrides = {}) => {
   // Create base object with default values
   const result = {
@@ -149,7 +155,7 @@ export const makeCourseResult: Factory<CourseResult> = (overrides = {}) => {
     short_description: casual.description,
     platform:          OCW_PLATFORM as "OCW",
     offered_by:        [OCW_PLATFORM] as ["OCW"],
-    topics:            [casual.word, casual.word],
+    topics:            makeDistinctiveTopics(2, "topic"),
     object_type:       LearningResourceType.Course as LearningResourceType.Course,
     runs:              times(() => makeRun(), 3),
     audience:          casual.random_element([
@@ -190,9 +196,9 @@ export const makeCourseJSON: Factory<CourseJSON> = (overrides = {}) => ({
   course_description:    casual.description,
   image_src:             casual.url,
   topics:                [
-    [casual.word],
-    [casual.word, casual.word],
-    [casual.word, casual.word]
+    makeDistinctiveTopics(1, "topic"),
+    makeDistinctiveTopics(2, "topic"),
+    makeDistinctiveTopics(2, "topic")
   ],
   level: casual.random_element([
     ["Graduate"],
@@ -254,7 +260,7 @@ export const makeResourceFileResult: Factory<ResourceFileResult> = (
   title:         casual.title,
   url:           casual.url,
   image_src:     "http://image.medium.url",
-  topics:        [casual.word, casual.word],
+  topics:        makeDistinctiveTopics(2, "topic"),
   object_type:   LearningResourceType.ResourceFile,
   content_title: casual.title,
   run_title:     casual.title,
@@ -282,7 +288,7 @@ export const makeVideoResult: Factory<VideoResult> = (overrides = {}) => ({
   url:               casual.url,
   image_src:         "http://image.medium.url",
   short_description: casual.description,
-  topics:            [casual.word, casual.word],
+  topics:            makeDistinctiveTopics(2, "topic"),
   object_type:       LearningResourceType.Video,
   offered_by:        [OCW_PLATFORM],
   runs:              [],
@@ -312,7 +318,7 @@ export const makePodcastResult: Factory<PodcastResult> = (overrides = {}) => ({
   url:               casual.url,
   image_src:         "http://image.medium.url",
   short_description: casual.description,
-  topics:            [casual.word, casual.word],
+  topics:            makeDistinctiveTopics(2, "topic"),
   object_type:       LearningResourceType.Podcast,
   offered_by:        [OCW_PLATFORM],
   runs:              [],
@@ -344,7 +350,7 @@ export const makePodcastEpisodeResult: Factory<PodcastEpisodeResult> = (
   url:               casual.url,
   image_src:         "http://image.medium.url",
   short_description: casual.description,
-  topics:            [casual.word, casual.word],
+  topics:            makeDistinctiveTopics(2, "topic"),
   object_type:       LearningResourceType.PodcastEpisode,
   offered_by:        [OCW_PLATFORM],
   runs:              [],
