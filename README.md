@@ -196,6 +196,7 @@ To further explain the various environment variables and what they do:
 | `POSTHOG_ENABLED` | `www`, `course` | `true` | Whether PostHog analytics are enabled
 | `POSTHOG_ENV` | `www`, `course` | `production` | Environment for PostHog
 | `POSTHOG_PROJECT_API_KEY` | `www`, `course` | `api-key` | API key for PostHog |
+| `CSRF_COOKIE_DOMAIN` | N/A | N/A | The cookie domain to use in Axios when communicating with the `mit-learn` API |
 | `MIT_LEARN_BASE_URL` | N/A | `http://learn.odl.local:8062` | The base URL for the frontend of an instance of [`mit-learn`](https://github.com/mitodl/mit-learn) |
 | `MIT_LEARN_API_BASE_URL` | N/A | `http://learn.odl.local:8065` | The base URL for the API gateway (APISIX) of an instance of [`mit-learn`](https://github.com/mitodl/mit-learn) |
 
@@ -222,11 +223,12 @@ at the RC instances and temporarily disable CORS in your browser.
 #### MIT Learn integration
 
 One of the external API's that can be integrated into OCW sites is based on [MIT Learn](https://github.com/mitodl/mit-learn).
-There are two environment variables you can set related to this functionality;
-`MIT_LEARN_BASE_URL` and `MIT_LEARN_API_BASE_URL`. The former is used to construct 
-URLs to the login / logout pages, and the latter is used to construct calls to the API.
-In the following examples, we will assume you are running `mit-learn` locally with:
+There are three environment variables you can set related to this functionality;
+`CSRF_COOKIE_DOMAIN`, `MIT_LEARN_BASE_URL` and `MIT_LEARN_API_BASE_URL`. With the base URLs, the former is used to construct 
+URLs to the login / logout pages, and the latter is used to construct calls to the API. The cookie domain setting is what 
+allows CSRF to work between the sites. In the following examples, we will assume you are running `mit-learn` locally with:
 
+- `CSRF_COOKIE_DOMAIN=.odl.local`
 - `MIT_LEARN_BASE_URL=http://open.odl.local:8062`
 - `MIT_LEARN_API_BASE_URL=http://api.open.odl.local:8065`
 
@@ -248,14 +250,37 @@ bare minimum:
 ```
 COMPOSE_PROFILES=backend,frontend,apisix,keycloak
 CSRF_COOKIE_DOMAIN=.odl.local
-ALLOWED_REDIRECT_HOSTS=["localhost:3000", "ocw.odl.local:3000"]
-CORS_ALLOWED_ORIGINS=["http://localhost:3000", "http://ocw.odl.local:3000"]
-CSRF_TRUSTED_ORIGINS=["http://localhost:3000", "http://ocw.odl.local:3000"]
+ALLOWED_REDIRECT_HOSTS=['localhost:3000', 'ocw.odl.local:3000', 'open.odl.local:8062', 'api.open.odl.local:8063', 'api.open.odl.local:8065']
+CORS_ALLOWED_ORIGINS=['http://localhost:3000', 'http://ocw.odl.local:3000', 'http://open.odl.local:8062', 'http://api.open.odl.local:8063', 'http://api.open.odl.local:8065']
+CSRF_TRUSTED_ORIGINS=['http://localhost:3000', 'http://ocw.odl.local:3000', 'http://open.odl.local:8062', 'http://api.open.odl.local:8063', 'http://api.open.odl.local:8065']
+```
+
+In the `env` folder, you will see some `.local.example.env` files. Create the following files and put the described contents in them:
+
+`backend.local.env`
+
+```
+MAILGUN_SENDER_DOMAIN=open.odl.local
+MAILGUN_KEY=fake
+SKIP_TIKA=True
+```
+
+`shared.local.env` should be blank
+
+`frontend.local.env`
+
+```
+NEXT_PUBLIC_EMBEDLY_KEY=""
 ```
 
 After setting these values and spinning up both `mit-learn` and `ocw-hugo-themes` locally,
 you should be able to hit your OCW dev page at http://ocw.odl.local:3000/ and see a "Log In"
 button in the upper right.
+
+In order for the bookmark functionality to work, the instance of `mit-learn` needs to contain
+the OCW courses that you are trying to bookmark. Read the `mit-learn` Readme about importing data
+and make sure that you backpopulate sufficient OCW data for your purposes using the `backpopulate_ocw_data`
+management command.
 
 ### CORS
 
