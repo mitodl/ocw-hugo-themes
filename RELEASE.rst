@@ -1,6 +1,18 @@
 Release Notes
 =============
 
+Version 1.132.0 (Released June 03, 2025)
+---------------
+
+- Update dependency sass to v1.89.0 (#1590)
+- Update actions/setup-node digest to 49933ea (#1589)
+- Update dependency css-loader to v7 (#1564)
+- Update dependency sinon to v20 (#1560)
+- disable the bookmark button when loading instead of not rendering it (#1588)
+- Finish Migrating Enzyme Tests to RTL (#1587)
+- Update dependency webpack-merge to v6 (#1581)
+- Update dependency webpack-cli to v5 (#1580)
+
 Version 1.131.0 (Released May 07, 2025)
 ---------------
 
