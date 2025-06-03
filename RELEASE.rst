@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.132.1
+---------------
+
+- OCW Team page update - Brett Paci (#1593)
+- Update dependency sass to v1.89.1 (#1594)
+- Upgrade hugo-bin-extended to ^0.144.0 (#1592)
+- Update dependency postcss-loader to v8 (#1579)
+
 Version 1.132.0 (Released June 03, 2025)
 ---------------
 
