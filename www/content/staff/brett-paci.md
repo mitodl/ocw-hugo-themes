@@ -1,7 +1,7 @@
 ---
 first_name: Brett
 last_name: Paci
-job_title: Video Publication Manager
+job_title: Assistant Director, OCW Media Production
 image: /images/about/staff/brett-paci.jpeg
 _build:
     render: "never"
