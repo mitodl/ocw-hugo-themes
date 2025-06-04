@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.132.1
+Version 1.132.1 (Released June 04, 2025)
 ---------------
 
 - OCW Team page update - Brett Paci (#1593)
