@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.132.2
+---------------
+
+- OCW Team page update - Cheryl Siegel (#1598)
+- Update dependency commander to v14 (#1595)
+
 Version 1.132.1 (Released June 04, 2025)
 ---------------
 
