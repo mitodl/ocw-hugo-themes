@@ -128,7 +128,7 @@
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
     "exec-sh": "^0.4.0",
-    "file-loader": "^5.0.2",
+    "file-loader": "^6.0.0",
     "hugo-bin-extended": "^0.144.0",
     "imports-loader": "^0.8.0",
     "inquirer": "^12.0.0",
