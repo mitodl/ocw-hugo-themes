@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.132.2
+Version 1.132.2 (Released June 10, 2025)
 ---------------
 
 - OCW Team page update - Cheryl Siegel (#1598)
