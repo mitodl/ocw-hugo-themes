@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.132.3
+Version 1.132.3 (Released June 10, 2025)
 ---------------
 
 - OCW Team page updates (#1600)
