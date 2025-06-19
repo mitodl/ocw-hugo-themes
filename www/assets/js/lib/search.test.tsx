@@ -36,7 +36,7 @@ describe("search library", () => {
         it(`should return correct image for result w/content type ${contentType}, image_src ${result.image_src}`, () => {
           const expectedSrc = hasImageSrc ?
             result.image_src :
-            `/images/${result.content_type}_thumbnail.png`
+            `/static_shared/images/${result.content_type}_thumbnail.png`
           // @ts-expect-error We should loosen the function type or mock the result more
           expect(getCoverImageUrl(result)).toBe(expectedSrc)
         })

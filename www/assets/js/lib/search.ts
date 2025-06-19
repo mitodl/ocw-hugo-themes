@@ -152,7 +152,7 @@ export const getCoverImageUrl = (result: LearningResource) => {
       )}`
     }
   } else {
-    return `/images/${result.content_type}_thumbnail.png`
+    return `/static_shared/images/${result.content_type}_thumbnail.png`
   }
 }
 
