@@ -478,3 +478,5 @@ export const FACET_OPTIONS: Facets = {
   course_feature_tags: RESOURCE_TYPES,
   resource_type:       RESOURCE_TYPES
 }
+
+export const STATIC_THUMBNAIL_PATH_PREFIX = "/static_shared/images/"
