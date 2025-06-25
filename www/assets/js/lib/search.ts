@@ -6,7 +6,8 @@ import {
   CONTENT_TYPE_PAGE,
   CONTENT_TYPE_PDF,
   CONTENT_TYPE_VIDEO,
-  ContentType
+  ContentType,
+  STATIC_THUMBNAIL_PATH_PREFIX
 } from "./constants"
 import { LearningResourceType } from "@mitodl/course-search-utils"
 import {
@@ -152,7 +153,7 @@ export const getCoverImageUrl = (result: LearningResource) => {
       )}`
     }
   } else {
-    return `/images/${result.content_type}_thumbnail.png`
+    return `${STATIC_THUMBNAIL_PATH_PREFIX}/${result.content_type}_thumbnail.png`
   }
 }
 
