@@ -479,4 +479,4 @@ export const FACET_OPTIONS: Facets = {
   resource_type:       RESOURCE_TYPES
 }
 
-export const STATIC_THUMBNAIL_PATH_PREFIX = "/static_shared/images/"
+export const STATIC_THUMBNAIL_PATH_PREFIX = "/static_shared/images"
