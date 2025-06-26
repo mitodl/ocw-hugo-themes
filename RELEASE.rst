@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.132.4
+---------------
+
+- Add Amy Taber to OCW Team listing (#1603)
+- fix: updated thumbnail url with content type (#1602)
+
 Version 1.132.3 (Released June 10, 2025)
 ---------------
 
