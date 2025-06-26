@@ -4,7 +4,8 @@ import sinon from "sinon"
 import {
   CONTENT_TYPE_PAGE,
   CONTENT_TYPE_PDF,
-  CONTENT_TYPE_VIDEO
+  CONTENT_TYPE_VIDEO,
+  STATIC_THUMBNAIL_PATH_PREFIX
 } from "./constants"
 
 import {
@@ -36,7 +37,7 @@ describe("search library", () => {
         it(`should return correct image for result w/content type ${contentType}, image_src ${result.image_src}`, () => {
           const expectedSrc = hasImageSrc ?
             result.image_src :
-            `/images/${result.content_type}_thumbnail.png`
+            `${STATIC_THUMBNAIL_PATH_PREFIX}/${result.content_type}_thumbnail.png`
           // @ts-expect-error We should loosen the function type or mock the result more
           expect(getCoverImageUrl(result)).toBe(expectedSrc)
         })
