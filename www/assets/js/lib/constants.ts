@@ -92,7 +92,7 @@ const RESOURCE_TYPES = [
   "Exams with Solutions",
   "Image Gallery",
   "Instructor Insights",
-  " Laboratory Assignments",
+  "Laboratory Assignments",
   "Lecture Audio",
   "Lecture Notes",
   "Lecture Videos",
