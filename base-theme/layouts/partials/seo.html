@@ -19,13 +19,13 @@
   {{/*  Facebook Open Graph  */}}
   <meta property="og:site_name" content="MIT OpenCourseWare">
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://{{ strings.TrimSuffix "/" $sitemapDomain }}/{{- strings.TrimPrefix "/" $path -}}" />
+  <meta property="og:url" content="https://{{ strings.TrimSuffix "/" $sitemapDomain }}{{ .RelPermalink }}" />
   <meta property="og:title" content="{{- $title -}}" />
   <meta property="og:description" content="{{- $metaDataDescription -}}" />
 
   {{ partial "extra_metadata.html" (dict "context" . ) }}
-  
-  <link rel="canonical" href="https://{{ strings.TrimSuffix "/" $sitemapDomain }}/{{- strings.TrimPrefix "/" $path -}}" />
+
+  <link rel="canonical" href="https://{{ strings.TrimSuffix "/" $sitemapDomain }}{{ .RelPermalink }}" />
 
   <script type="application/ld+json">
       {
@@ -33,7 +33,7 @@
         "@type" : "WebPage",
         "name": "MIT OpenCourseWare",
         "description": "{{- $metaDataDescription -}}",
-        "license": "http://creativecommons.org/licenses/by-nc-sa/4.0/", 
+        "license": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
         "publisher": {
           "@type": "CollegeOrUniversity",
           "name": "MIT OpenCourseWare"
