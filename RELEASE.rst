@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.132.5
+---------------
+
+- Fix URLs for SEO (#1606)
+
 Version 1.132.4 (Released June 30, 2025)
 ---------------
 
