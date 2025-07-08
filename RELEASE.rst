@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.132.5
+Version 1.132.5 (Released July 08, 2025)
 ---------------
 
 - Fix URLs for SEO (#1606)
