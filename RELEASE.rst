@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.133.0
+---------------
+
+- replaced remaining tags (#1611)
+- chore: change existing lrt names (#1605)
+- chore(deps): update yarn to v4.9.2 (#1609)
+- fix(deps): update dependency sass to v1.89.2 (#1610)
+
 Version 1.132.5 (Released July 08, 2025)
 ---------------
 
