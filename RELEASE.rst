@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.133.0
+Version 1.133.0 (Released July 15, 2025)
 ---------------
 
 - chore: added youtube player for chalk radio on `about us` page (#1607)
