@@ -1,7 +1,14 @@
 import "./css/main.scss"
 
-import "bootstrap"
-import Popper from "popper.js"
+// Import only Bootstrap components that don't require Popper.js
+import "bootstrap/js/dist/alert"
+import "bootstrap/js/dist/button"
+import "bootstrap/js/dist/carousel"
+import "bootstrap/js/dist/collapse"
+import "bootstrap/js/dist/modal"
+import "bootstrap/js/dist/scrollspy"
+import "bootstrap/js/dist/tab"
+// Note: Not importing dropdown, popover, or tooltip as they require Popper.js
 import "./js/utils"
 import * as Sentry from "@sentry/browser"
 import { initSentry } from "./js/sentry"
@@ -14,7 +21,6 @@ import { initVideoDownloadPopup } from "./js/video_download_popup"
 export interface OCWWindow extends Window {
   $: JQueryStatic
   jQuery: JQueryStatic
-  Popper: typeof Popper
   Sentry: typeof Sentry
   PDFObject: typeof PDFObject
   initVideoJS: () => void
@@ -25,7 +31,6 @@ declare let window: OCWWindow
 
 window.jQuery = $
 window.$ = $
-window.Popper = Popper
 window.PDFObject = PDFObject
 
 let videoJSLoaded = false

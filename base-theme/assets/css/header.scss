@@ -110,6 +110,22 @@
           background-color: $white;
           text-decoration: underline;
         }
+        
+        // CSS-only dropdown functionality
+        .dropdown {
+          position: relative;
+          
+          .dropdown-menu {
+            display: none;
+            position: absolute;
+            z-index: 1000;
+          }
+          
+          &:hover .dropdown-menu,
+          &:focus-within .dropdown-menu {
+            display: block;
+          }
+        }
       }
     }
   }
