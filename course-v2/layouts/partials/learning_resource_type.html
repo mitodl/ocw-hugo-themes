@@ -4,9 +4,7 @@
 <div class="{{ if not $inPanel }}learning-resource-type-item{{ end }}">
   <div class="d-flex">
     <i aria-hidden="true" class="material-icons pr-1">
-      {{- if eq $context "Course Introduction" -}}
-      groups
-      {{- else if in $context "Audio" -}}
+      {{- if in $context "Audio" -}}
       equalizer
       {{- else if in $context "Video" -}}
       theaters
@@ -31,7 +29,7 @@
       {{- else if in $context "Instructor Insights" -}}
       <span class="material-icons-round">
         co_present
-      </span> 
+      </span>
       {{- end -}}
     </i>
     <span>
