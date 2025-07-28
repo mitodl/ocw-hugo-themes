@@ -82,7 +82,6 @@ const RESOURCE_TYPES = [
   "Activity Assignments with Examples",
   "Assignments",
   "Competition Videos",
-  "Course Introduction",
   "Demonstration Audio",
   "Demonstration Videos",
   "Design Assignments",

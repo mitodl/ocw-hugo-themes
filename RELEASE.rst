@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.133.1
+---------------
+
+- Update Cathleen Nalezyty's title (#1617)
+- Remove Course Introduction learning resource type (#1616)
+
 Version 1.133.0 (Released July 15, 2025)
 ---------------
 
