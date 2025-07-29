@@ -68,7 +68,7 @@
     "popper.js": "^1.16.1",
     "posthog-js": "^1.225.0",
     "promise-polyfill": "^8.3.0",
-    "ramda": "^0.30.0",
+    "ramda": "^0.31.0",
     "react": "^18.2.14",
     "react-bootstrap": "^2.0.0",
     "react-content-loader": "^7.0.0",
