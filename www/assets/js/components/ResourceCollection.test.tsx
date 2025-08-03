@@ -19,10 +19,12 @@ jest.mock("./SearchResult", () => ({
 
 function setup() {
   const data = [...Array(10)]
-    .map((_, index) => makeResourceFileResult({
-      id:    index + 1,
-      title: `Test Resource ${index + 1}`
-    }))
+    .map((_, index) =>
+      makeResourceFileResult({
+        id:    index + 1,
+        title: `Test Resource ${index + 1}`
+      })
+    )
     .map(searchResultToLearningResource)
 
   useResourceCollectionData.mockReturnValue(data)
