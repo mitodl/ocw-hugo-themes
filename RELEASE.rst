@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.133.1
+Version 1.133.1 (Released August 06, 2025)
 ---------------
 
 - Update Cathleen Nalezyty's title (#1617)
