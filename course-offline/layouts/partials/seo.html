@@ -1,7 +1,7 @@
 {{ define "seo" }}
 
   {{- $sitemapDomain := partial "sitemap_domain.html" -}}
-  {{- $fullURL = printf "https://%s/courses/%s%s" (strings.TrimSuffix "/" $sitemapDomain) .Site.Data.course.course_id .RelPermalink -}}
+  {{- $fullURL := printf "https://%s/courses/%s%s" (strings.TrimSuffix "/" $sitemapDomain) .Site.Data.course.course_id .RelPermalink -}}
 
   <!-- default value for the meta description -->
   {{- $defaultMetadataDescription := "MIT OpenCourseWare is a web based publication of virtually all MIT course content. OCW is open and available to the world and is a permanent MIT activity" -}}
