@@ -3612,6 +3612,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@videojs/http-streaming@npm:^3.17.2":
+  version: 3.17.2
+  resolution: "@videojs/http-streaming@npm:3.17.2"
+  dependencies:
+    "@babel/runtime": "npm:^7.12.5"
+    "@videojs/vhs-utils": "npm:^4.1.1"
+    aes-decrypter: "npm:^4.0.2"
+    global: "npm:^4.4.0"
+    m3u8-parser: "npm:^7.2.0"
+    mpd-parser: "npm:^1.3.1"
+    mux.js: "npm:7.1.0"
+    video.js: "npm:^7 || ^8"
+  peerDependencies:
+    video.js: ^8.19.0
+  checksum: 10c0/2acbecca1cafc7ce60368b2adb05e7824843c510d7f26cbbe21c88d587946e4ce50c3aa0fb82c1ea0d3e449d68793a802b7337381cf36d52b8af64bc9973e2ef
+  languageName: node
+  linkType: hard
+
 "@videojs/vhs-utils@npm:3.0.5, @videojs/vhs-utils@npm:^3.0.4, @videojs/vhs-utils@npm:^3.0.5":
   version: 3.0.5
   resolution: "@videojs/vhs-utils@npm:3.0.5"
@@ -3623,6 +3641,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@videojs/vhs-utils@npm:^4.0.0, @videojs/vhs-utils@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "@videojs/vhs-utils@npm:4.1.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.12.5"
+    global: "npm:^4.4.0"
+  checksum: 10c0/3b874ee5f66b54b5b158b85c27c86aef859ff90eb0da37cdf2e95b3757413c397a3680ddb37fcf5c33ea967d121b56a0f845ac311e0192fb4ef8e1a2936573c4
+  languageName: node
+  linkType: hard
+
 "@videojs/xhr@npm:2.6.0":
   version: 2.6.0
   resolution: "@videojs/xhr@npm:2.6.0"
@@ -3631,6 +3659,17 @@ __metadata:
     global: "npm:~4.4.0"
     is-function: "npm:^1.0.1"
   checksum: 10c0/ee285b27b962287e6961bf6b00bf83d44d6ece6a0787ba70237da9db429e5889096b50f4ce9abb9bc47ac0552c56a483435cb27cc2d726b6c0e01e6fcdc272c4
+  languageName: node
+  linkType: hard
+
+"@videojs/xhr@npm:2.7.0":
+  version: 2.7.0
+  resolution: "@videojs/xhr@npm:2.7.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.5.5"
+    global: "npm:~4.4.0"
+    is-function: "npm:^1.0.1"
+  checksum: 10c0/5dc0dd97bd8e4d5ef05bfd46ced6a9e26cad93335d3e4804ad1d8621d521c943712ad47ebc1968ed153b8cfad6702eafe400e659e724b8c1d005a5ad5f601d8a
   languageName: node
   linkType: hard
 
@@ -4096,6 +4135,18 @@ __metadata:
     global: "npm:^4.4.0"
     pkcs7: "npm:^1.0.4"
   checksum: 10c0/fef51566835feb5c6ccfc75d6fb285c67d8730bbb60d9b6b179b4afb985781459e98bb556243f27a7da6a25ddf0a903d4641315656a4869d186ab54824662281
+  languageName: node
+  linkType: hard
+
+"aes-decrypter@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "aes-decrypter@npm:4.0.2"
+  dependencies:
+    "@babel/runtime": "npm:^7.12.5"
+    "@videojs/vhs-utils": "npm:^4.1.1"
+    global: "npm:^4.4.0"
+    pkcs7: "npm:^1.0.4"
+  checksum: 10c0/fee05bd1e5bfc501c6446e2b6dd1811e33c045f7f408e7fb42697a2e8282235d5719b6b8547e96cdf86c826e4ed0e27ca98c0c5ddd34e3b9b3adf5b2f84fd99b
   languageName: node
   linkType: hard
 
@@ -8593,7 +8644,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"global@npm:^4.3.1, global@npm:^4.4.0, global@npm:~4.4.0":
+"global@npm:4.4.0, global@npm:^4.3.1, global@npm:^4.4.0, global@npm:~4.4.0":
   version: 4.4.0
   resolution: "global@npm:4.4.0"
   dependencies:
@@ -11377,6 +11428,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"m3u8-parser@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "m3u8-parser@npm:7.2.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.12.5"
+    "@videojs/vhs-utils": "npm:^4.1.1"
+    global: "npm:^4.4.0"
+  checksum: 10c0/059571722e842a125f380c1eabb1897bfcda02732525fae73fd404bc18dcf6c8f2383a3102f3f1de45ecdb5774e0312f4558ad178e6fcbd10718f239925f7d83
+  languageName: node
+  linkType: hard
+
 "make-dir@npm:^3.0.0, make-dir@npm:^3.0.2":
   version: 3.1.0
   resolution: "make-dir@npm:3.1.0"
@@ -12186,6 +12248,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mpd-parser@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "mpd-parser@npm:1.3.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.12.5"
+    "@videojs/vhs-utils": "npm:^4.0.0"
+    "@xmldom/xmldom": "npm:^0.8.3"
+    global: "npm:^4.4.0"
+  bin:
+    mpd-to-m3u8-json: bin/parse.js
+  checksum: 10c0/aee95695d18e91262c442e03bb71cdccd1023156b34f5521fa96ba6c0b456a823ed6d7bfe506493ba3119d294f185ee3514ac306ba392add9b7b200c354d8ede
+  languageName: node
+  linkType: hard
+
 "mrmime@npm:^2.0.0":
   version: 2.0.1
   resolution: "mrmime@npm:2.0.1"
@@ -12242,6 +12318,18 @@ __metadata:
   bin:
     muxjs-transmux: bin/transmux.js
   checksum: 10c0/c77f8bc501302d68b3bc5846b80bfdfa387a07118757598b4e6a38b42c7ff2d2dd8b9f24142326b5ed9fe65dfb7d8a6616dc477f4503b070919b365a26a6c5d5
+  languageName: node
+  linkType: hard
+
+"mux.js@npm:7.1.0, mux.js@npm:^7.0.1":
+  version: 7.1.0
+  resolution: "mux.js@npm:7.1.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.11.2"
+    global: "npm:^4.4.0"
+  bin:
+    muxjs-transmux: bin/transmux.js
+  checksum: 10c0/7e57de7087511ab8c0e8dae2ce0221c9f8e2dc53d484635a588ba1e6ed3638c4a8bf10f06b8a517bd8ebab25b303bc3069d3277f31387f7822418a162bbceb6a
   languageName: node
   linkType: hard
 
@@ -12719,7 +12807,7 @@ __metadata:
     typescript: "npm:^5.4"
     video.js: "npm:^7.11.8"
     videojs-transcript-ac: "npm:^0.8.8"
-    videojs-youtube: "npm:^2.6.1"
+    videojs-youtube: "npm:^3.0.0"
     webpack: "npm:^5.73.0"
     webpack-bundle-analyzer: "npm:^4.6.1"
     webpack-cli: "npm:^5.0.0"
@@ -17627,7 +17715,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"video.js@npm:^5.6.0 || ^6.2.8 || ^7.0.2, video.js@npm:^6 || ^7, video.js@npm:^7.11.8":
+"video.js@npm:5.x || 6.x || 7.x || 8.x, video.js@npm:^7 || ^8":
+  version: 8.23.4
+  resolution: "video.js@npm:8.23.4"
+  dependencies:
+    "@babel/runtime": "npm:^7.12.5"
+    "@videojs/http-streaming": "npm:^3.17.2"
+    "@videojs/vhs-utils": "npm:^4.1.1"
+    "@videojs/xhr": "npm:2.7.0"
+    aes-decrypter: "npm:^4.0.2"
+    global: "npm:4.4.0"
+    m3u8-parser: "npm:^7.2.0"
+    mpd-parser: "npm:^1.3.1"
+    mux.js: "npm:^7.0.1"
+    videojs-contrib-quality-levels: "npm:4.1.0"
+    videojs-font: "npm:4.2.0"
+    videojs-vtt.js: "npm:0.15.5"
+  checksum: 10c0/3f6f0ce1b2f62cc91a9872ef33c46dcd28b88a445ea7182bbeae94e3c5e11036018e3cc665f2e810d0b0f5d141fb9e4d834b3d86406559da73e5db86bcc9204e
+  languageName: node
+  linkType: hard
+
+"video.js@npm:^6 || ^7, video.js@npm:^7.11.8":
   version: 7.21.7
   resolution: "video.js@npm:7.21.7"
   dependencies:
@@ -17648,10 +17756,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"videojs-contrib-quality-levels@npm:4.1.0":
+  version: 4.1.0
+  resolution: "videojs-contrib-quality-levels@npm:4.1.0"
+  dependencies:
+    global: "npm:^4.4.0"
+  peerDependencies:
+    video.js: ^8
+  checksum: 10c0/5ab25b0d93dfe97dcabd6b3008afd5d7faf2602de5d4953f79f0eedce346aec670bb6eb833c3225d7deac101ba8d97d13121a3a470f3584bae8b63eb3dc03148
+  languageName: node
+  linkType: hard
+
 "videojs-font@npm:3.2.0":
   version: 3.2.0
   resolution: "videojs-font@npm:3.2.0"
   checksum: 10c0/0e63a564fe84478a50e23ce4865f09560c34f03c09475c8c3dddae6e41267b94b4a9293e8ec9afa3d1260c12d0631e9c6eb4b60752c2db4e37978dbf3e38245e
+  languageName: node
+  linkType: hard
+
+"videojs-font@npm:4.2.0":
+  version: 4.2.0
+  resolution: "videojs-font@npm:4.2.0"
+  checksum: 10c0/c7960e13e70bd2dbf6940fa00ccd49547537bd0f56aed420d8049bcb908a4f0fabcb0d4693c43068c163b9ed09bfb641f205313ec3fec3143dffcff8c6d3ac6c
   languageName: node
   linkType: hard
 
@@ -17664,7 +17790,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"videojs-vtt.js@npm:^0.15.5":
+"videojs-vtt.js@npm:0.15.5, videojs-vtt.js@npm:^0.15.5":
   version: 0.15.5
   resolution: "videojs-vtt.js@npm:0.15.5"
   dependencies:
@@ -17673,14 +17799,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"videojs-youtube@npm:^2.6.1":
-  version: 2.6.1
-  resolution: "videojs-youtube@npm:2.6.1"
+"videojs-youtube@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "videojs-youtube@npm:3.0.1"
   dependencies:
-    video.js: "npm:^5.6.0 || ^6.2.8 || ^7.0.2"
+    video.js: "npm:5.x || 6.x || 7.x || 8.x"
   peerDependencies:
-    video.js: 5.x || 6.x || 7.x
-  checksum: 10c0/74ed086aaaea65148a0488e060a361d0268e4acc98de7b096b1911b291e6d869d9f38eb07cfe0bf45a55d86f8986a218cabf49ad58365f5f768cbc799c373b11
+    video.js: 5.x || 6.x || 7.x || 8.x
+  checksum: 10c0/0d3005cf738b31a491a5ff859d4f3cbe0a95e7915da1dc3ba0f9ce133f30e43c568f3623640cefd300a13e981794aa9dbc03aa6cc7ed2a0f05e3b67ce668675f
   languageName: node
   linkType: hard
 
