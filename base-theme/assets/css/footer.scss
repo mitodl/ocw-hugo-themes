@@ -72,6 +72,9 @@
         display: inline-block;
         padding-right: 28px;
         margin-bottom: 5px;
+        @include media-breakpoint-down(sm) {
+          margin-bottom: 10px;
+        }
 
         &:last-child {
           padding-right: 0px;
