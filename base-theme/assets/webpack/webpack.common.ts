@@ -169,8 +169,7 @@ const config: webpack.Configuration = {
     new webpack.ProvidePlugin({
       $:               "jquery",
       jQuery:          "jquery",
-      "window.jQuery": "jquery",
-      Popper:          "popper.js/dist/umd/popper"
+      "window.jQuery": "jquery"
     }),
     new webpack.DefinePlugin({
       RELEASE_VERSION: JSON.stringify(packageJson.version)

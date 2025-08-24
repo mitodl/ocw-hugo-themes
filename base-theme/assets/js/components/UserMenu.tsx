@@ -25,7 +25,6 @@ export default function UserMenu() {
         className="btn btn-link text-white text-decoration-none dropdown-toggle"
         type="button"
         id="user-menu-button"
-        data-toggle="dropdown"
         aria-expanded="false"
       >
         <RiAccountCircleFill size={24} />
