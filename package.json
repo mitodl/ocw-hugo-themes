@@ -79,7 +79,7 @@
     "tiny-invariant": "^1.3.3",
     "video.js": "^7.11.8",
     "videojs-transcript-ac": "^0.8.8",
-    "videojs-youtube": "^2.6.1",
+    "videojs-youtube": "^3.0.0",
     "yup": "^1.6.1"
   },
   "devDependencies": {
