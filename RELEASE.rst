@@ -1,6 +1,22 @@
 Release Notes
 =============
 
+Version 1.134.0
+---------------
+
+- Remove Eliz DeRienzo from About OCW page (#1635)
+- fix: broken images in offline build for nested pages (pages/pageA/pageB) (#1634)
+- fix(deps): update dependency videojs-youtube to v3 (#1503)
+- chore(deps): update node.js to v22.18.0 (#1632)
+- chore(deps): update yarn to v4.9.3 (#1633)
+- chore(deps): update actions/checkout action to v5 (#1631)
+- Update SEO URLs for offline build to include complete URL (#1628)
+- chore(deps): update dependency copy-webpack-plugin to v13 (#1626)
+- chore(deps): update dependency cross-env to v10 (#1622)
+- chore(deps): update dependency file-loader to v6 (#1568)
+- fix(deps): update dependency ramda to ^0.31.0 (#1619)
+- chore(deps): update dependency sinon to v21 (#1620)
+
 Version 1.133.1 (Released August 06, 2025)
 ---------------
 

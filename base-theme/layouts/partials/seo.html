@@ -1,7 +1,6 @@
 {{ define "seo" }}
 
   {{- $sitemapDomain := partial "sitemap_domain.html" -}}
-  {{- $path := partial "site_root_url.html" .RelPermalink -}}
 
   <!-- default value for the meta description -->
   {{- $defaultMetadataDescription := "MIT OpenCourseWare is a web based publication of virtually all MIT course content. OCW is open and available to the world and is a permanent MIT activity" -}}
@@ -13,19 +12,20 @@
   {{- end -}}
 
   {{ $title := partial "title.html" . }}
+  {{- $canonicalURL := partial "get_canonical_url.html" . -}}
 
   <meta name="description" content="{{- $metaDataDescription -}}">
   <meta name="keywords" content="opencourseware,MIT OCW,courseware,MIT opencourseware,Free Courses,class notes,class syllabus,class materials,tutorials,online courses,MIT courses">
   {{/*  Facebook Open Graph  */}}
   <meta property="og:site_name" content="MIT OpenCourseWare">
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://{{ strings.TrimSuffix "/" $sitemapDomain }}{{ .RelPermalink }}" />
+  <meta property="og:url" content="{{- $canonicalURL -}}" />
   <meta property="og:title" content="{{- $title -}}" />
   <meta property="og:description" content="{{- $metaDataDescription -}}" />
 
   {{ partial "extra_metadata.html" (dict "context" . ) }}
 
-  <link rel="canonical" href="https://{{ strings.TrimSuffix "/" $sitemapDomain }}{{ .RelPermalink }}" />
+  <link rel="canonical" href="{{- $canonicalURL -}}" />
 
   <script type="application/ld+json">
       {
