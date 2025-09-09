@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.134.0
+Version 1.134.0 (Released September 09, 2025)
 ---------------
 
 - Remove Eliz DeRienzo from About OCW page (#1635)
