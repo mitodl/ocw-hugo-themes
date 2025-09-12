@@ -43,8 +43,8 @@ test("Subscripts and superscripts in markdown should render in HTML.", async ({
     "Example, Italic: <em>Lorem ipsum dolor sit<sub>abc 123</sub> amet consectetur. Lorem ipsum dolor sit<sup>abc 123</sup> amet consectetur.</em>",
     "Example, Interior Bold: Lorem ipsum dolor sit<sub>abc <strong>123</strong></sub> amet consectetur. Lorem ipsum dolor sit<sup>abc <strong>123</strong></sup> amet consectetur.",
     "Example, Interior italic: Lorem ipsum dolor sit<sub>abc <em>123</em></sub> amet consectetur. Lorem ipsum dolor sit<sup>abc <em>123</em></sup> amet consectetur.",
-    'Example, Links in scripts: Lorem ipsum dolor sit<sub><a href="https://mit.edu" target="_blank" rel="noopener">abc 123</a></sub> amet consectetur. Lorem ipsum dolor sit<sup><a href="https://mit.edu" target="_blank" rel="noopener">abc 123</a></sup> amet consectetur.',
-    'Example, Scripts in Links: Lorem ipsum dolor <a href="https://mit.edu" target="_blank" rel="noopener">sit<sub>abc 123</sub> amet</a> consectetur. Lorem ipsum dolor <a href="https://mit.edu" target="_blank" rel="noopener">sit<sup>abc 123</sup> amet</a> amet consectetur.',
+    'Example, Links in scripts: Lorem ipsum dolor sit<sub><a href=\"https://mit.edu\" target=\"_blank\" rel=\"noopener\">abc 123</a></sub> amet consectetur. Lorem ipsum dolor sit<sup><a href=\"https://mit.edu\" target=\"_blank\" rel=\"noopener\">abc 123</a></sup> amet consectetur.',
+    'Example, Scripts in Links: Lorem ipsum dolor <a href=\"https://mit.edu\" target=\"_blank\" rel=\"noopener\">sit<sub>abc 123</sub> amet</a> consectetur. Lorem ipsum dolor <a href=\"https://mit.edu\" target=\"_blank\" rel=\"noopener\">sit<sup>abc 123</sup> amet</a> amet consectetur.',
     'Example, Resource Links in scripts: Lorem ipsum dolor sit<sub><a href="/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/">abc 123</a></sub> amet consectetur. Lorem ipsum dolor sit<sup><a href="/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/">abc 123</a></sup> amet consectetur.',
     'Example, Scripts in Resource Links: Lorem ipsum dolor <a href="/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/">sit<sub>abc 123</sub> amet</a> consectetur. Lorem ipsum dolor <a href="/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/">sit<sup>abc 123</sup> amet</a> consectetur.'
   ]
@@ -68,6 +68,6 @@ test("Subscripts and superscripts render in tables", async ({ page }) => {
    */
   expect(actuals[0]).toBe("\n\nlorem<sub>abc 123</sub> ipsum\n")
   expect(actuals[1]).toBe(
-    '\n\nlorem<a href="https://mit.edu" target="_blank" rel="noopener"><sup>†</sup></a> ipsum\n'
+    '\n\nlorem<a class="external-link " target="_blank" href="https://mit.edu" aria-label="† (opens in a new tab)"><sup>†</sup></a> ipsum\n'
   )
 })
