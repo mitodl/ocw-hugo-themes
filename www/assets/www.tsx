@@ -1,7 +1,6 @@
 import "./css/www.scss"
 import "./css/search.scss"
 
-import Popper from "popper.js"
 import { createRoot } from "react-dom/client"
 
 import { createBrowserHistory } from "history"
@@ -24,7 +23,6 @@ import UserMenu from "../../base-theme/assets/js/components/UserMenu"
 export interface OCWWindow extends Window {
   $: JQueryStatic
   jQuery: JQueryStatic
-  Popper: typeof Popper
   posthog: typeof posthog
 }
 
@@ -32,7 +30,6 @@ declare let window: OCWWindow
 
 window.jQuery = $
 window.$ = $
-window.Popper = Popper
 
 const history = createBrowserHistory()
 
