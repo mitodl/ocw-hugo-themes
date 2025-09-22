@@ -248,6 +248,11 @@ $searchbox-height: 50px;
     hue-rotate(142deg) brightness(96%) contrast(103%);
 }
 
+.home-search-box button.submit:focus,
+.btn.explore:focus {
+  box-shadow: 0 0 0 0.2rem #B8B8B8 !important;
+}
+
 .social-cards-wrapper {
   background-color: $blue;
 }
