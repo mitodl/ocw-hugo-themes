@@ -12815,6 +12815,9 @@ __metadata:
     webpack-manifest-plugin: "npm:^5.0.0"
     webpack-merge: "npm:^6.0.0"
     yup: "npm:^1.6.1"
+  dependenciesMeta:
+    hugo-bin-extended:
+      built: true
   languageName: unknown
   linkType: soft
 
