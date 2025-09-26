@@ -160,5 +160,10 @@
     "webpack-dev-server": "^4.11.1",
     "webpack-manifest-plugin": "^5.0.0",
     "webpack-merge": "^6.0.0"
+  },
+  "dependenciesMeta": {
+    "hugo-bin-extended": {
+      "built": true
+    }
   }
 }
