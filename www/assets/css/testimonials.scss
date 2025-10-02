@@ -384,6 +384,13 @@ $row-max-height: 200px;
   color: white !important;
   background: #a31f34 !important;
 }
+
+.share-story-btn:focus {
+  box-shadow: none !important;
+  outline: 0.2rem solid #b8b8b8 !important;
+  outline-offset: 0.1rem;
+}
+
 .stories-list-item > a {
   margin-right: 16px !important;
 }
