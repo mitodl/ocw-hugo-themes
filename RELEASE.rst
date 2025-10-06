@@ -1,6 +1,19 @@
 Release Notes
 =============
 
+Version 1.134.1
+---------------
+
+- fix: accessibility issues (#1644)
+- chore(deps): update node.js to v22.20.0 (#1648)
+- Security: Disable yarn postinstall scripts (#1645)
+- fix(deps): update dependency sass to v1.93.0 (#1643)
+- chore(deps): update actions/setup-node action to v5 (#1641)
+- chore(deps): update yarn to v4.10.0 (#1642)
+- fix(deps): update dependency sass to v1.92.1 (#1640)
+- chore(deps): update node.js to v22.19.0 (#1639)
+- chore(deps): update yarn to v4.9.4 (#1638)
+
 Version 1.134.0 (Released September 09, 2025)
 ---------------
 
