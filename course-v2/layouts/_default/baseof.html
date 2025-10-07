@@ -12,7 +12,7 @@
   <div class="overflow-auto">
     <span class="course-header">
     {{ partialCached "mobile_course_nav.html" . }}
-    {{ partialCached "mobile_course_info.html" . }}
+    {{ partial "mobile_course_info.html" . }}
     {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
     </span>
     {{ $isCourseHomePage := (eq .Params.layout "course_home") }}
@@ -47,7 +47,7 @@
                   </div>
                 </div>
                 {{ if not $isCourseHomePage }}
-                  {{ partialCached "desktop_course_info.html" . }}
+                  {{ partial "desktop_course_info.html" . }}
                 {{ end }}
               </div>
             </div>
