@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.134.1
+Version 1.134.1 (Released October 09, 2025)
 ---------------
 
 - fix: accessibility issues (#1644)
