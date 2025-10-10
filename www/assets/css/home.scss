@@ -271,7 +271,11 @@ $searchbox-height: 50px;
     }
 
     .social-icon-row {
-      gap: 10px;
+      gap: 16px;
+
+      @include media-breakpoint-down(lg) {
+        gap: 12px;
+      }
     }
 
     > div {
@@ -297,6 +301,10 @@ $searchbox-height: 50px;
 
       @include media-breakpoint-up(xl) {
         flex-direction: row;
+      }
+
+      img {
+        width: 48px;
       }
     }
   }
