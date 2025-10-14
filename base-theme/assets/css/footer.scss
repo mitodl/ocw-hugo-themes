@@ -54,7 +54,12 @@
   }
 
   .footer-social-icon {
-    height: 24px;
+    height: 26px;
+  }
+
+  .footer-social-icon.nudge-up {
+    position: relative;
+    top: -1px;
   }
 
   .oeg-logo {
@@ -70,8 +75,11 @@
 
       li {
         display: inline-block;
-        padding-right: 28px;
-        margin-bottom: 5px;
+        padding-right: 24px;
+        margin-bottom: 2px;
+        @include media-breakpoint-down(sm) {
+          margin-bottom: 10px;
+        }
 
         &:last-child {
           padding-right: 0px;

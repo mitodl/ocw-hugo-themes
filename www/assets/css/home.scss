@@ -276,7 +276,11 @@ $searchbox-height: 50px;
     }
 
     .social-icon-row {
-      width: 270px;
+      gap: 16px;
+
+      @include media-breakpoint-down(lg) {
+        gap: 12px;
+      }
     }
 
     > div {
@@ -303,13 +307,21 @@ $searchbox-height: 50px;
       @include media-breakpoint-up(xl) {
         flex-direction: row;
       }
+
+      img {
+        width: 48px;
+      }
     }
   }
 }
 
-.social-icon {
+.stay-connected-icon {
   width: 40px;
   height: 40px;
+  border-radius: 100px;
+  background-color: #126f9a;
+  text-align: center;
+  padding: 5px;
 }
 
 .course-cards {

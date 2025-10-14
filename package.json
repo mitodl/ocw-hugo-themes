@@ -1,10 +1,10 @@
 {
   "name": "ocw-hugo-themes",
-  "version": "1.134.1",
+  "version": "1.135.0",
   "description": "A Hugo theme for building OCW websites",
   "repository": "mitodl/ocw-hugo-themes",
   "main": "base-theme/assets/index.js",
-  "packageManager": "yarn@4.10.0",
+  "packageManager": "yarn@4.10.3",
   "scripts": {
     "lint": "eslint $PROJECT_CWD/'**/*.{js,jsx,ts,tsx}'",
     "start": "NODE_ENV=development ts-node ./package_scripts/start.ts",
@@ -75,7 +75,7 @@
     "react-dom": "^18.2.14",
     "react-dotdotdot": "1.3.1",
     "react-infinite-scroller": "^1.2.6",
-    "sass": "1.93.0",
+    "sass": "1.93.2",
     "tiny-invariant": "^1.3.3",
     "video.js": "^7.11.8",
     "videojs-transcript-ac": "^0.8.8",
