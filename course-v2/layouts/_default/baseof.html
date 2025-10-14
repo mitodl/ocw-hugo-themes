@@ -2,6 +2,7 @@
 <!doctype html>
 <html lang="{{ $.Site.Language.Lang }}">
 {{ partial "head.html" . }}
+{{ $pageDepth := strings.Count "/" .RelPermalink }}
 <body class="course-home-page">
   {{ if $gtmId }}
     <!-- Google Tag Manager (noscript) -->
@@ -12,7 +13,7 @@
   <div class="overflow-auto">
     <span class="course-header">
     {{ partialCached "mobile_course_nav.html" . }}
-    {{ partialCached "mobile_course_info.html" . }}
+    {{ partialCached "mobile_course_info.html" . $pageDepth }}
     {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
     </span>
     {{ $isCourseHomePage := (eq .Params.layout "course_home") }}
@@ -47,7 +48,7 @@
                   </div>
                 </div>
                 {{ if not $isCourseHomePage }}
-                  {{ partialCached "desktop_course_info.html" . }}
+                  {{ partialCached "desktop_course_info.html" . $pageDepth }}
                 {{ end }}
               </div>
             </div>

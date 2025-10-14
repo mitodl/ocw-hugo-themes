@@ -4,7 +4,7 @@
     {{- $imageHref = .href -}}
 {{- else if .href_uuid -}}
     {{- range where .resource.Site.Pages "Params.uid" .href_uuid -}}
-        {{- $imageHref = .Permalink -}}
+        {{- $imageHref = partial "page_url.html" (dict "context" $.context "url" .RelPermalink) -}}
     {{- end -}}
 {{- end -}}
 
