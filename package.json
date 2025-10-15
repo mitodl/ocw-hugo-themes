@@ -117,7 +117,7 @@
     "copy-webpack-plugin": "^13.0.0",
     "cross-env": "^10.0.0",
     "css-loader": "^7.0.0",
-    "css-minimizer-webpack-plugin": "^4.0.0",
+    "css-minimizer-webpack-plugin": "^7.0.0",
     "dotenv-webpack": "^8.0.0",
     "envalid": "^8.0.0",
     "eslint": "^7.32.0",
