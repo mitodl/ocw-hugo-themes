@@ -29,6 +29,7 @@ const config: webpack.Configuration = {
   },
   entry: {
     [entryNames.courseV2]: [
+      // fromRoot("./base-theme/assets/loadjq.ts"),
       fromRoot("./course-v2/assets/course-v2.tsx"),
       fromRoot("./base-theme/assets/index.ts")
     ],
@@ -66,40 +67,27 @@ const config: webpack.Configuration = {
       },
       {
         test: /\.(jpg)|(png)|(svg)|(gif)$/,
-        use:  [
-          {
-            loader:  "file-loader",
-            options: {
-              name: "images/[fullhash].[ext]"
-            }
-          }
-        ]
+        type: "asset/resource",
+        generator: {
+          filename: "images/[fullhash][ext]"
+        }
       },
       {
         test:  /\.(woff|ttf|woff2|eot)$/,
         oneOf: [
           {
             test: /nanogallery2/,
-            use:  [
-              {
-                loader:  "file-loader",
-                options: {
-                  publicPath: "./",
-                  outputPath: "css",
-                  name:       "fonts/[contenthash].[ext]"
-                }
-              }
-            ]
+            type: "asset/resource",
+            generator: {
+              filename: "fonts/[contenthash][ext]",
+              outputPath: "css"
+            },
           },
           {
-            use: [
-              {
-                loader:  "file-loader",
-                options: {
-                  name: "fonts/[contenthash].[ext]"
-                }
-              }
-            ]
+            type: "asset/resource",
+            generator: {
+              filename: "fonts/[contenthash][ext]"
+            },
           }
         ]
       },
