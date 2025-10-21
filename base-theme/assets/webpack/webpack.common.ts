@@ -29,11 +29,12 @@ const config: webpack.Configuration = {
   },
   entry: {
     [entryNames.courseV2]: [
-      // fromRoot("./base-theme/assets/loadjq.ts"),
+      fromRoot("./base-theme/assets/expose-jQuery.js"),
       fromRoot("./course-v2/assets/course-v2.tsx"),
       fromRoot("./base-theme/assets/index.ts")
     ],
     [entryNames.courseOffline]: [
+      fromRoot("./base-theme/assets/expose-jQuery.js"),
       fromRoot("./course-offline/assets/course-offline.ts"),
       fromRoot("./base-theme/assets/index.ts")
     ],
@@ -41,10 +42,12 @@ const config: webpack.Configuration = {
       fromRoot("./course-v2/assets/css/instructor-insights.scss")
     ],
     [entryNames.www]: [
+      fromRoot("./base-theme/assets/expose-jQuery.js"),
       fromRoot("./www/assets/www.tsx"),
       fromRoot("./base-theme/assets/index.ts")
     ],
     [entryNames.wwwOffline]: [
+      fromRoot("./base-theme/assets/expose-jQuery.js"),
       fromRoot("./www-offline/assets/www-offline.tsx"),
       fromRoot("./base-theme/assets/index.ts")
     ],
@@ -157,7 +160,7 @@ const config: webpack.Configuration = {
     new webpack.ProvidePlugin({
       $:               "jquery",
       jQuery:          "jquery",
-      "window.jQuery": "jquery",
+      // "window.jQuery": "jquery",
       Popper:          "popper.js/dist/umd/popper"
     }),
     new webpack.DefinePlugin({
