@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.135.0 (Released October 21, 2025)
+---------------
+
+- Fix some issues with the offline theme (#1650)
+- feat: add icons for bluesky and mastodon and fix: button text being cut off in newsletter subscription section (#1629)
+- chore(deps): update yarn to v4.10.3 (#1646)
+- fix(deps): update dependency sass to v1.93.2 (#1647)
+
 Version 1.134.1 (Released October 09, 2025)
 ---------------
 
