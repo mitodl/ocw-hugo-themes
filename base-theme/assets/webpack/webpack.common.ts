@@ -29,12 +29,12 @@ const config: webpack.Configuration = {
   },
   entry: {
     [entryNames.courseV2]: [
-      fromRoot("./base-theme/assets/expose-jQuery.js"),
+      fromRoot("./base-theme/assets/expose-jQuery.ts"),
       fromRoot("./course-v2/assets/course-v2.tsx"),
       fromRoot("./base-theme/assets/index.ts")
     ],
     [entryNames.courseOffline]: [
-      fromRoot("./base-theme/assets/expose-jQuery.js"),
+      fromRoot("./base-theme/assets/expose-jQuery.ts"),
       fromRoot("./course-offline/assets/course-offline.ts"),
       fromRoot("./base-theme/assets/index.ts")
     ],
@@ -42,12 +42,12 @@ const config: webpack.Configuration = {
       fromRoot("./course-v2/assets/css/instructor-insights.scss")
     ],
     [entryNames.www]: [
-      fromRoot("./base-theme/assets/expose-jQuery.js"),
+      fromRoot("./base-theme/assets/expose-jQuery.ts"),
       fromRoot("./www/assets/www.tsx"),
       fromRoot("./base-theme/assets/index.ts")
     ],
     [entryNames.wwwOffline]: [
-      fromRoot("./base-theme/assets/expose-jQuery.js"),
+      fromRoot("./base-theme/assets/expose-jQuery.ts"),
       fromRoot("./www-offline/assets/www-offline.tsx"),
       fromRoot("./base-theme/assets/index.ts")
     ],

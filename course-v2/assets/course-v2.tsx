@@ -120,7 +120,7 @@ window.initNanogallery2 = () => {
       const links = gallery.querySelectorAll('a[href][data-ngdsc]')
       const items = Array.from(links).map(link => {
         const src = link.getAttribute('href')
-        const description = link.getAttribute('data-ngdsc')?.substring(link.textContent.length)
+        // const description = link.getAttribute('data-ngdsc')?.substring(link.textContent.length)
         const title = link.innerHTML
         
         return {
