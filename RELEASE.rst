@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.135.0
+Version 1.135.0 (Released October 21, 2025)
 ---------------
 
 - Fix some issues with the offline theme (#1650)
