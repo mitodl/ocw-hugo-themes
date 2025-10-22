@@ -1,9 +1,5 @@
 {{ $baseUrl := .Get "baseUrl" }}
-<div 
-  id="{{ .Get "id" }}" 
-  class="image-gallery" 
-  data-base-url="{{ partial "resource_url.html" (dict "context" .Page "url" "/") }}"
->
+<div id="{{ .Get "id" }}" class="image-gallery" data-base-url='{{ partial "resource_url.html" (dict "context" .Page "url" "/") }}'>
   {{ .Inner }}
 </div>
 
