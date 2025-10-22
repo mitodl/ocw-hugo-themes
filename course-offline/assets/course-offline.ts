@@ -14,7 +14,7 @@ import {
   checkAnswer,
   showSolution
 } from "../../course-v2/assets/js/quiz_multiple_choice"
-import {initImageGalleriesFromMarkup} from "../../course-v2/assets/js/init_image_galleries_from_markup"
+import { initImageGalleriesFromMarkup } from "../../course-v2/assets/js/init_image_galleries_from_markup"
 import "nanogallery2/src/jquery.nanogallery2.core.js"
 import "nanogallery2/src/css/nanogallery2.css"
 import "videojs-youtube"

@@ -1,11 +1,11 @@
 export function initImageGalleriesFromMarkup() {
-  const galleries = document.querySelectorAll('.image-gallery')
+  const galleries = document.querySelectorAll(".image-gallery")
   galleries.forEach(gallery => {
-    const baseUrl = gallery.getAttribute('data-base-url')
+    const baseUrl = gallery.getAttribute("data-base-url")
 
-    const links = gallery.querySelectorAll('a[href]')
+    const links = gallery.querySelectorAll("a[href]")
     const items = Array.from(links).map(link => ({
-      src:   link.getAttribute('href'),
+      src:   link.getAttribute("href"),
       title: link.innerHTML
     }))
 
@@ -14,7 +14,7 @@ export function initImageGalleriesFromMarkup() {
     window.jQuery(gallery).nanogallery2({
       itemsBaseURL:    baseUrl,
       items:           items,
-      allowHTMLinData: true,
+      allowHTMLinData: true
     })
   })
 }

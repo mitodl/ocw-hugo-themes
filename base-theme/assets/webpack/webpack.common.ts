@@ -84,13 +84,13 @@ const config: webpack.Configuration = {
             generator: {
               filename:   "fonts/[contenthash][ext]",
               outputPath: "css"
-            },
+            }
           },
           {
             type:      "asset/resource",
             generator: {
               filename: "fonts/[contenthash][ext]"
-            },
+            }
           }
         ]
       },
@@ -158,9 +158,9 @@ const config: webpack.Configuration = {
       ]
     }),
     new webpack.ProvidePlugin({
-      $:               "jquery",
-      jQuery:          "jquery",
-      Popper:          "popper.js/dist/umd/popper"
+      $:      "jquery",
+      jQuery: "jquery",
+      Popper: "popper.js/dist/umd/popper"
     }),
     new webpack.DefinePlugin({
       RELEASE_VERSION: JSON.stringify(packageJson.version)

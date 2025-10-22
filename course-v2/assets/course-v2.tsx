@@ -7,7 +7,7 @@ import {
   initCourseDescriptionExpander
 } from "./js/course_expander"
 import { initCourseDrawersClosingViaSwiping } from "./js/mobile_course_drawers"
-import {initImageGalleriesFromMarkup} from "./js/init_image_galleries_from_markup"
+import { initImageGalleriesFromMarkup } from "./js/init_image_galleries_from_markup"
 import {
   clearSolution,
   checkAnswer,
