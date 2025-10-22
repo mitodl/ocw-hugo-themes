@@ -40,7 +40,7 @@ $(function() {
   window.videojs = videojs
 })
 
-let nanogallery2Loaded = false;
+let nanogallery2Loaded = false
 
 window.initNanogallery2 = () => {
   if (nanogallery2Loaded) return

@@ -69,8 +69,8 @@ const config: webpack.Configuration = {
         use:  "imports-loader?module.exports=>undefined&exports=>undefined"
       },
       {
-        test: /\.(jpg)|(png)|(svg)|(gif)$/,
-        type: "asset/resource",
+        test:      /\.(jpg)|(png)|(svg)|(gif)$/,
+        type:      "asset/resource",
         generator: {
           filename: "images/[fullhash][ext]"
         }
@@ -79,15 +79,15 @@ const config: webpack.Configuration = {
         test:  /\.(woff|ttf|woff2|eot)$/,
         oneOf: [
           {
-            test: /nanogallery2/,
-            type: "asset/resource",
+            test:      /nanogallery2/,
+            type:      "asset/resource",
             generator: {
-              filename: "fonts/[contenthash][ext]",
+              filename:   "fonts/[contenthash][ext]",
               outputPath: "css"
             },
           },
           {
-            type: "asset/resource",
+            type:      "asset/resource",
             generator: {
               filename: "fonts/[contenthash][ext]"
             },

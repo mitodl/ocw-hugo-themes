@@ -3,4 +3,4 @@ export interface OCWWindow extends Window {
 }
 
 declare let window: OCWWindow
-window.jQuery = $;
+window.jQuery = $
