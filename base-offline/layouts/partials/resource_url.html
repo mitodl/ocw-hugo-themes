@@ -3,6 +3,6 @@
   {{ $pathToRoot := partial "path_to_root.html" .context.RelPermalink }}
   {{ $resourcePath := (urls.Parse .url).Path }}
   {{ $resourceFileName := path.Base $resourcePath }}
-  {{ $url = (printf "%s/static_resources/%s" (strings.TrimSuffix "/" $pathToRoot) $resourceFileName) }}
+  {{ $url = printf "/static_resources/%s" $resourceFileName }}
 {{ end }}
 {{ return $url }}
