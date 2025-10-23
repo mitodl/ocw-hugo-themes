@@ -1,6 +1,6 @@
 {{ $baseUrl := .Get "baseUrl" }}
-<div id="{{ .Get "id" }}" class="image-gallery" data-nanogallery2='{ "itemsBaseURL": "{{ partial "resource_url.html" (dict "context" .Page "url" "/") }}" }'>
-{{ .Inner }}
+<div id="{{ .Get "id" }}" class="image-gallery" data-base-url='{{ partial "resource_url.html" (dict "context" .Page "url" "/") }}'>
+  {{ .Inner }}
 </div>
 
 <script>
