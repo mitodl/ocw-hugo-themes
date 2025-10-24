@@ -7,6 +7,7 @@ import {
   initCourseDescriptionExpander
 } from "./js/course_expander"
 import { initCourseDrawersClosingViaSwiping } from "./js/mobile_course_drawers"
+import { initImageGalleriesFromMarkup } from "./js/init_image_galleries_from_markup"
 import {
   clearSolution,
   checkAnswer,
@@ -105,6 +106,6 @@ let nanogallery2Loaded = false
 
 window.initNanogallery2 = () => {
   if (nanogallery2Loaded) return
-  import("./nanogallery2-imports.js")
+  import("./nanogallery2-imports.js").then(initImageGalleriesFromMarkup)
   nanogallery2Loaded = true
 }

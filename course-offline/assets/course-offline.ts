@@ -14,6 +14,7 @@ import {
   checkAnswer,
   showSolution
 } from "../../course-v2/assets/js/quiz_multiple_choice"
+import { initImageGalleriesFromMarkup } from "../../course-v2/assets/js/init_image_galleries_from_markup"
 import "nanogallery2/src/jquery.nanogallery2.core.js"
 import "nanogallery2/src/css/nanogallery2.css"
 import "videojs-youtube"
@@ -23,6 +24,7 @@ export interface OCWWindow extends Window {
   $: JQueryStatic
   jQuery: JQueryStatic
   videojs: typeof videojs
+  initNanogallery2: () => void
 }
 
 declare let window: OCWWindow
@@ -37,3 +39,11 @@ $(function() {
   initCourseDrawersClosingViaSwiping()
   window.videojs = videojs
 })
+
+let nanogallery2Loaded = false
+
+window.initNanogallery2 = () => {
+  if (nanogallery2Loaded) return
+  initImageGalleriesFromMarkup()
+  nanogallery2Loaded = true
+}

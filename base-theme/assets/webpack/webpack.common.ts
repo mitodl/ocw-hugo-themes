@@ -29,10 +29,12 @@ const config: webpack.Configuration = {
   },
   entry: {
     [entryNames.courseV2]: [
+      fromRoot("./base-theme/assets/expose-jQuery.ts"),
       fromRoot("./course-v2/assets/course-v2.tsx"),
       fromRoot("./base-theme/assets/index.ts")
     ],
     [entryNames.courseOffline]: [
+      fromRoot("./base-theme/assets/expose-jQuery.ts"),
       fromRoot("./course-offline/assets/course-offline.ts"),
       fromRoot("./base-theme/assets/index.ts")
     ],
@@ -40,10 +42,12 @@ const config: webpack.Configuration = {
       fromRoot("./course-v2/assets/css/instructor-insights.scss")
     ],
     [entryNames.www]: [
+      fromRoot("./base-theme/assets/expose-jQuery.ts"),
       fromRoot("./www/assets/www.tsx"),
       fromRoot("./base-theme/assets/index.ts")
     ],
     [entryNames.wwwOffline]: [
+      fromRoot("./base-theme/assets/expose-jQuery.ts"),
       fromRoot("./www-offline/assets/www-offline.tsx"),
       fromRoot("./base-theme/assets/index.ts")
     ],
@@ -65,41 +69,28 @@ const config: webpack.Configuration = {
         use:  "imports-loader?module.exports=>undefined&exports=>undefined"
       },
       {
-        test: /\.(jpg)|(png)|(svg)|(gif)$/,
-        use:  [
-          {
-            loader:  "file-loader",
-            options: {
-              name: "images/[fullhash].[ext]"
-            }
-          }
-        ]
+        test:      /\.(jpg)|(png)|(svg)|(gif)$/,
+        type:      "asset/resource",
+        generator: {
+          filename: "images/[fullhash][ext]"
+        }
       },
       {
         test:  /\.(woff|ttf|woff2|eot)$/,
         oneOf: [
           {
-            test: /nanogallery2/,
-            use:  [
-              {
-                loader:  "file-loader",
-                options: {
-                  publicPath: "./",
-                  outputPath: "css",
-                  name:       "fonts/[contenthash].[ext]"
-                }
-              }
-            ]
+            test:      /nanogallery2/,
+            type:      "asset/resource",
+            generator: {
+              filename:   "fonts/[contenthash][ext]",
+              outputPath: "css"
+            }
           },
           {
-            use: [
-              {
-                loader:  "file-loader",
-                options: {
-                  name: "fonts/[contenthash].[ext]"
-                }
-              }
-            ]
+            type:      "asset/resource",
+            generator: {
+              filename: "fonts/[contenthash][ext]"
+            }
           }
         ]
       },
@@ -167,10 +158,9 @@ const config: webpack.Configuration = {
       ]
     }),
     new webpack.ProvidePlugin({
-      $:               "jquery",
-      jQuery:          "jquery",
-      "window.jQuery": "jquery",
-      Popper:          "popper.js/dist/umd/popper"
+      $:      "jquery",
+      jQuery: "jquery",
+      Popper: "popper.js/dist/umd/popper"
     }),
     new webpack.DefinePlugin({
       RELEASE_VERSION: JSON.stringify(packageJson.version)
