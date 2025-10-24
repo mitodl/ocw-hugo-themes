@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.135.1
+---------------
+
+- fix: a bunch of issues with image galleries (#1655)
+- chore(deps): update dependency postcss-import to v16 (#1623)
+- chore(deps): update dependency postcss-preset-env to v10 (#1624)
+- chore(deps): update dependency css-minimizer-webpack-plugin to v7 (#1627)
+- chore(deps): update dependency webpack-dev-server to v5 [security] (#1597)
+
 Version 1.135.0 (Released October 21, 2025)
 ---------------
 
