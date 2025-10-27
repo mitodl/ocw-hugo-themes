@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.135.1
+Version 1.135.1 (Released October 27, 2025)
 ---------------
 
 - fix: a bunch of issues with image galleries (#1655)
