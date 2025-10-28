@@ -1,0 +1,16 @@
+{{- $resourceParams := .Params -}}
+{{- $downloadLink := $resourceParams.file | default nil -}}
+
+{{ if and (eq $downloadLink nil) (eq $resourceParams.resourcetype "Video") }}
+  {{ $downloadLink = $resourceParams.video_files.archive_url }}
+{{ else if and $downloadLink (ne $resourceParams.resourcetype "Video") }}
+  {{ $resourcePath := (urls.Parse $downloadLink).Path }}
+  {{- if and $resourcePath (ne $resourcePath "") -}}
+    {{ $resourceFileName := path.Base $resourcePath }}
+    {{- if and $resourceFileName (ne $resourceFileName "") (ne $resourceFileName ".") -}}
+      {{ $downloadLink = printf "/static_resources/%s" $resourceFileName }}
+    {{- end -}}
+  {{- end -}}
+{{ end }}
+
+{{ return $downloadLink }}
