@@ -2657,14 +2657,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:^1.45.0":
-  version: 1.52.0
-  resolution: "@playwright/test@npm:1.52.0"
+"@playwright/test@npm:^1.56.0":
+  version: 1.56.1
+  resolution: "@playwright/test@npm:1.56.1"
   dependencies:
-    playwright: "npm:1.52.0"
+    playwright: "npm:1.56.1"
   bin:
     playwright: cli.js
-  checksum: 10c0/1c428b421593eb4f79b7c99783a389c3ab3526c9051ec772749f4fca61414dfa9f2344eba846faac5f238084aa96c836364a91d81d3034ac54924f239a93e247
+  checksum: 10c0/2b5b0e1f2e6a18f6e5ce6897c7440ca78f64e0b004834e9808e93ad2b78b96366b562ae4366602669cf8ad793a43d85481b58541e74be71e905e732d833dd691
   languageName: node
   linkType: hard
 
@@ -13434,7 +13434,7 @@ __metadata:
     "@mitodl/open-api-axios": "npm:^2025.4.8"
     "@mitodl/smoot-design": "npm:^6.0.1"
     "@mui/material": "npm:^7.0.1"
-    "@playwright/test": "npm:^1.45.0"
+    "@playwright/test": "npm:^1.56.0"
     "@remixicon/react": "npm:^4.6.0"
     "@rrweb/types": "npm:2.0.0-alpha.17"
     "@sentry/browser": "npm:^9.0.0"
@@ -13504,7 +13504,6 @@ __metadata:
     nanogallery2: "npm:^2.4.2"
     offcanvas-bootstrap: "npm:^2.5.2"
     pdfobject: "npm:^2.2.8"
-    playwright: "npm:^1.45.0"
     popper.js: "npm:^1.16.1"
     postcss-import: "npm:^16.0.0"
     postcss-loader: "npm:^8.0.0"
@@ -14057,15 +14056,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.52.0":
-  version: 1.52.0
-  resolution: "playwright-core@npm:1.52.0"
-  bin:
-    playwright-core: cli.js
-  checksum: 10c0/640945507e6ca2144e9f596b2a6ecac042c2fd3683ff99e6271e9a7b38f3602d415f282609d569456f66680aab8b3c5bb1b257d8fb63a7fc0ed648261110421f
-  languageName: node
-  linkType: hard
-
 "playwright-core@npm:1.56.1":
   version: 1.56.1
   resolution: "playwright-core@npm:1.56.1"
@@ -14075,22 +14065,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright@npm:1.52.0":
-  version: 1.52.0
-  resolution: "playwright@npm:1.52.0"
-  dependencies:
-    fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.52.0"
-  dependenciesMeta:
-    fsevents:
-      optional: true
-  bin:
-    playwright: cli.js
-  checksum: 10c0/2c6edf1e15e59bbaf77f3fa0fe0ac975793c17cff835d9c8b8bc6395a3b6f1c01898b3058ab37891b2e4d424bcc8f1b4844fe70d943e0143d239d7451408c579
-  languageName: node
-  linkType: hard
-
-"playwright@npm:^1.45.0":
+"playwright@npm:1.56.1":
   version: 1.56.1
   resolution: "playwright@npm:1.56.1"
   dependencies:
