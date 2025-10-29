@@ -66,10 +66,11 @@ const config: webpack.Configuration = {
     rules: [
       {
         test: /nanogallery2(?!.*\.(woff|woff2)$)/,
-        use: {
-          loader: "imports-loader",
+        use:  {
+          loader:  "imports-loader",
           options: {
-            additionalCode: "var module = (module || {}); module.exports = undefined; var exports = undefined;"
+            additionalCode:
+              "var module = (module || {}); module.exports = undefined; var exports = undefined;"
           }
         }
       },
