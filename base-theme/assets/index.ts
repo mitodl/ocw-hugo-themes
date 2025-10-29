@@ -43,4 +43,5 @@ $(function() {
   window.Sentry = initSentry()
   initExternalLinkModal()
   initQuotesModalHandler()
+  initVideoDownloadPopup()
 })
