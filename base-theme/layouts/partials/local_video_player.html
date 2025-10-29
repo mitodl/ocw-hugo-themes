@@ -3,8 +3,10 @@
 <div class="video-container embedded-video-container">
   <video
     id="{{ $playerId }}"
-    class="video-js vjs-default-skin vjs-big-play-centered vjs-16-9"
+    class="video-js vjs-default-skin vjs-big-play-centered vjs-16-9 vjs-ocw"
     controls
+    data-transcriptlink="{{ .transcriptLink }}"
+    data-captionslocation="{{ .captionsLocation }}"
     data-setup='{
     "fluid": true,
     "inactivityTimeout": 0}'
@@ -12,8 +14,19 @@
       {{ if .archiveUrl }}
         <source src="{{ partial "resource_url.html" (dict "context" .context "url" .archiveUrl) }}" type="video/mp4" />
       {{ end }}
+      {{ if .captionsLocation }}
+        <track kind="captions" src="{{ .captionsLocation }}" srclang="en" label="English" default mode="showing">
+      {{ end }}
   </video>
 </div>
+
+<script>
+  window.addEventListener('load', function() {
+    if (window.initVideoJS) {
+      window.initVideoJS()
+    }
+  })
+</script>
 
 {{ if or .startTime .endTime }}
 <script>
