@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.135.2
+---------------
+
+- fix: image galleries using section pages (offline theme) (#1659)
+- chore(deps): update actions/setup-node action to v6 (#1654)
+- chore(deps): update dependency playwright to v1.55.1 [security] (#1656)
+- fix(deps): update dependency ramda to ^0.32.0 (#1653)
+- Fix download path in offline theme (#1657)
+
 Version 1.135.1 (Released October 27, 2025)
 ---------------
 
