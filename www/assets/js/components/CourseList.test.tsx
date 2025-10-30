@@ -38,7 +38,7 @@ describe("CourseList component", () => {
     const courseRows = screen.getAllByTestId("course-list-row")
     expect(courseRows.length).toBe(data.length)
 
-    expect(useCourseListData).toBeCalledWith("test-uid")
+    expect(useCourseListData).toHaveBeenCalledWith("test-uid")
 
     expect(CourseListRow).toHaveBeenCalledTimes(data.length)
 
