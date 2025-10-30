@@ -8,7 +8,7 @@
 {{ $archiveVideoSearchResuts := $staticResourcesBundle.Resources.Match $archiveFile }}
 {{ $archiveVideoFound = gt (len $archiveVideoSearchResuts) 0 }}
 {{ if not $archiveVideoFound }}
-{{ partial "youtube_player.html" (dict "context" .context "youtubeKey" .youtubeKey "archiveUrl" $archiveUrl "startTime" .startTime "endTime" .endTime "isOffline" true)}}
+{{ partial "youtube_player.html" (dict "context" .context "youtubeKey" .youtubeKey "archiveUrl" $archiveUrl "captionsLocation" .captionsLocation "startTime" .startTime "endTime" .endTime "downloadLink" .downloadLink "transcriptLink" .transcriptLink "isOffline" true)}}
 {{ else }}
-{{ partial "local_video_player.html" (dict "context" .context "youtubeKey" .youtubeKey "archiveUrl" $archiveUrl "startTime" .startTime "endTime" .endTime)}}
+{{ partial "local_video_player.html" (dict "context" .context "youtubeKey" .youtubeKey "archiveUrl" $archiveUrl "captionsLocation" .captionsLocation "startTime" .startTime "endTime" .endTime "transcriptLink" .transcriptLink)}}
 {{ end }}
