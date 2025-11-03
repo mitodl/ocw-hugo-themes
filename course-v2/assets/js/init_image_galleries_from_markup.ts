@@ -6,7 +6,8 @@ export function initImageGalleriesFromMarkup() {
     const links = gallery.querySelectorAll("a[href]")
     const items = Array.from(links).map(link => ({
       src:   link.getAttribute("href"),
-      title: link.innerHTML
+      title: link.innerHTML,
+      description: link.getAttribute("data-credit") || ""
     }))
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
