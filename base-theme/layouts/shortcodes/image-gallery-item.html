@@ -1,12 +1,7 @@
 {{ $href := .Get "href" }}
 {{ $credit := "" }}
 
-{{/* Extract uuid of the image resource from the href. */}}
-{{/* The href is expected to follow the format <uuid>_<filename>.<extension> */}}
-{{ $uuid := index (findRE "^[^_]+" $href 1) 0 }}
-{{ $uuid = printf "%s-%s-%s-%s-%s" (substr $uuid 0 8) (substr $uuid 8 4) (substr $uuid 12 4) (substr $uuid 16 4) (substr $uuid 20) }}
-
-{{- range where $.Site.Pages "Params.uid" $uuid -}}
+{{- range where $.Site.Pages "Params.file" "like" (printf "%s$" $href) -}}
   {{ $credit = .Params.image_metadata.credit | .Page.RenderString | safeHTMLAttr }}
 {{- end -}}
 
