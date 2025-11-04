@@ -2,7 +2,7 @@ import videojs from "video.js"
 
 export const initVideoTranscriptTrack = () => {
   if (document.querySelector(".video-container")) {
-    const videoPlayers = document.querySelectorAll(".video-js")
+    const videoPlayers = document.querySelectorAll('[data-transcript-enabled="true"]')
 
     for (const videoPlayer of Array.from(videoPlayers)) {
       videojs(videoPlayer.id).ready(function() {

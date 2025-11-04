@@ -18,6 +18,7 @@
     id="video-player-{{ .youtubeKey }}-{{ $random }}"
     class="video-js vjs-default-skin vjs-big-play-centered"
     controls
+    data-transcript-enabled="true"
     data-downloadlink = "{{ .downloadLink }}"
     data-transcriptlink = "{{ .transcriptLink }}" 
     data-setup='{
