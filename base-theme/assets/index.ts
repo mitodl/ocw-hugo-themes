@@ -32,7 +32,6 @@ let videoJSLoaded = false
 
 window.initVideoJS = () => {
   if (videoJSLoaded) return
-  initVideoDownloadPopup()
   import("./videojs-imports").then(module => {
     module.initVideoJS()
   })
