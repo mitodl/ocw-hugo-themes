@@ -15,7 +15,7 @@ const config: Config.InitialOptions = {
   testPathIgnorePatterns: ["/node_modules/", "tests-e2e/"],
   preset:                 "ts-jest",
   testEnvironment:        "jsdom",
-  moduleNameMapper:       {"^sinon$": "sinon/lib/sinon.js"}
+  moduleNameMapper:       { "^sinon$": "sinon/lib/sinon.js" }
 }
 
 export default config
