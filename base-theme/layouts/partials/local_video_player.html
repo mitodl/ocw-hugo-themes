@@ -15,7 +15,7 @@
         <source src="{{ partial "resource_url.html" (dict "context" .context "url" .archiveUrl) }}" type="video/mp4" />
       {{ end }}
       {{ if .captionsLocation }}
-        <track kind="captions" src="{{ .captionsLocation }}" srclang="en" label="English" default mode="showing">
+        <track kind="captions" src="{{ .captionsLocation }}" srclang="en" label="English" default mode="showing" />
       {{ end }}
   </video>
 </div>
@@ -25,12 +25,7 @@
     if (window.initVideoJS) {
       window.initVideoJS()
     }
-  })
-</script>
-
-{{ if or .startTime .endTime }}
-<script>
-  window.addEventListener('load', function() {
+    {{ if or .startTime .endTime }}
     if (window.videojs) {
       const player = window.videojs("{{ $playerId }}")
       const startTime = {{ .startTime }}
@@ -48,6 +43,7 @@
         player.on("timeupdate", stopper)
       }
     }
+    {{ end }}
   })
 </script>
-{{ end }}
+
