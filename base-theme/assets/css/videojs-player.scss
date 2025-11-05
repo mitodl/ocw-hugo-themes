@@ -17,6 +17,14 @@ $slider-color: $pink;
 
   // Control bar styles for offline theme with custom controls
   // Default controls are visible in base theme
+  .vjs-control-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3.5em;
+  }
+
   .vjs-control-bar-offline {
     height: 4.4em;
     background-color: $control-item-bg-color;
