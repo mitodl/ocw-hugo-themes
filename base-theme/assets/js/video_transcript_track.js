@@ -2,10 +2,9 @@ import videojs from "video.js"
 
 export const initVideoTranscriptTrack = () => {
   if (document.querySelector(".video-container")) {
-    const videoPlayers = document.querySelectorAll(".video-js")
-
-    for (const videoPlayer of Array.from(videoPlayers)) {
-      videojs(videoPlayer.id).ready(function() {
+    // Wait for Video.js auto-setup to complete
+    videojs.hook('setup', function(player) {
+      player.ready(function() {
         // @ts-expect-error TODO
         window.videojs = videojs
         require("videojs-transcript-ac")
@@ -23,6 +22,7 @@ export const initVideoTranscriptTrack = () => {
           transcript = this.transcript(options)
         }
 
+        const videoPlayer = this.el()
         if (videoPlayer.closest(".video-page")) {
           // @ts-expect-error TODO
           const transcriptContainer = videoPlayer
@@ -35,6 +35,6 @@ export const initVideoTranscriptTrack = () => {
           }
         }
       })
-    }
+    })
   }
 }
