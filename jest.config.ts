@@ -14,7 +14,8 @@ const config: Config.InitialOptions = {
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   testPathIgnorePatterns: ["/node_modules/", "tests-e2e/"],
   preset:                 "ts-jest",
-  testEnvironment:        "jsdom"
+  testEnvironment:        "jsdom",
+  moduleNameMapper: {"^sinon$": "sinon/lib/sinon.js"}
 }
 
 export default config
