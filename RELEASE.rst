@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.135.2
+Version 1.135.2 (Released November 06, 2025)
 ---------------
 
 - fix: image galleries using section pages (offline theme) (#1659)
