@@ -15,13 +15,18 @@ $slider-color: $pink;
     font-size: 1.5em;
   }
 
-  // Default control bar positioning for both base and offline themes
+  // Hide Video.js controls for YouTube videos
+  &.vjs-youtube .vjs-control-bar {
+    display: none !important;
+  }
+
+  // Default control bar positioning for local videos
   .vjs-control-bar {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 3.5em;
+    height: 4em;
   }
 
   // Offline-specific control bar styles with custom controls
