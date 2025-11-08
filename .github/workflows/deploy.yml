@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6
         with:
-          node-version: 22.20.0
+          node-version: 22.21.1
           cache: "yarn"
 
       - name: Setup Hugo
@@ -152,7 +152,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6
         with:
-          node-version: 22.20.0
+          node-version: 22.21.1
           cache: "yarn"
 
       - run: mkdir -p ${{ github.workspace }}/tmp/artifacts
