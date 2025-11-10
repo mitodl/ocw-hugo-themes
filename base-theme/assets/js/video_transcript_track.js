@@ -5,13 +5,15 @@ export const initVideoTranscriptTrack = () => {
     const videoPlayers = document.querySelectorAll(".vjs-ocw")
 
     for (const videoPlayer of Array.from(videoPlayers)) {
-      videojs(videoPlayer.id).ready(function() {
+      const player = videojs(videoPlayer.id)
+      player.ready(function() {
         // @ts-expect-error TODO
         window.videojs = videojs
         require("videojs-transcript-ac")
 
         let transcript = null
-        const hasTextTracks = this.textTracks().length !== 0
+        // @ts-ignore - TextTrackList has length property in video.js v8
+        const hasTextTracks = player.textTracks().length !== 0
 
         if (hasTextTracks) {
           const options = {
@@ -20,7 +22,7 @@ export const initVideoTranscriptTrack = () => {
           }
 
           // @ts-expect-error TODO
-          transcript = this.transcript(options)
+          transcript = player.transcript(options)
         }
 
         if (videoPlayer.closest(".video-page")) {
