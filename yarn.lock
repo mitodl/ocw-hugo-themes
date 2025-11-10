@@ -13859,7 +13859,7 @@ __metadata:
     ts-node: "npm:^10.9.1"
     typescript: "npm:^5.4"
     video.js: "npm:^8.0.0"
-    videojs-transcript-ac: "npm:^0.8.8"
+    videojs-vjstranscribe: "npm:^1.0.3"
     videojs-youtube: "npm:^3.0.0"
     webpack: "npm:^5.73.0"
     webpack-bundle-analyzer: "npm:^4.6.1"
@@ -18841,7 +18841,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"video.js@npm:5.x || 6.x || 7.x || 8.x, video.js@npm:^7 || ^8, video.js@npm:^8.0.0":
+"video.js@npm:5.x || 6.x || 7.x || 8.x, video.js@npm:^7 || ^8, video.js@npm:^8.0.0, video.js@npm:^8.5":
   version: 8.23.4
   resolution: "video.js@npm:8.23.4"
   dependencies:
@@ -18879,12 +18879,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"videojs-transcript-ac@npm:^0.8.8":
-  version: 0.8.8
-  resolution: "videojs-transcript-ac@npm:0.8.8"
-  peerDependencies:
-    video.js: ^5.6.0
-  checksum: 10c0/d5e9ff0007522288cbaba776fdfd7971692bf55d93586a3620a00142fa6a778c3a5fcfe8a52e60c981b089e5a3b5559adf6ba14c96ed65f3341c6de91fa2ae37
+"videojs-vjstranscribe@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "videojs-vjstranscribe@npm:1.0.3"
+  dependencies:
+    video.js: "npm:^8.5"
+  checksum: 10c0/24c22b32af8ba02e7a517f27f6e6e08228a87881bdf8ad46207ff606772f8e410522165b0434ab635649f5c62339548e755b4685e4fac143e0c19dabf05180ee
   languageName: node
   linkType: hard
 

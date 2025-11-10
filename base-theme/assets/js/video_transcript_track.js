@@ -1,4 +1,5 @@
 import videojs from "video.js"
+import "videojs-vjstranscribe"
 
 export const initVideoTranscriptTrack = () => {
   if (document.querySelector(".video-container")) {
@@ -7,33 +8,44 @@ export const initVideoTranscriptTrack = () => {
     for (const videoPlayer of Array.from(videoPlayers)) {
       const player = videojs(videoPlayer.id)
       player.ready(function() {
-        // @ts-expect-error TODO
-        window.videojs = videojs
-        require("videojs-transcript-ac")
-
-        let transcript = null
         // @ts-ignore - TextTrackList has length property in video.js v8
         const hasTextTracks = player.textTracks().length !== 0
 
         if (hasTextTracks) {
-          const options = {
-            showTitle:         false,
-            showTrackSelector: false
-          }
+          // Find or create the transcript container
+          const videoPage = videoPlayer.closest(".video-page")
+          if (videoPage) {
+            const transcriptContainer = videoPage
+              .querySelector(".transcript")
+              ?.querySelector(".video-tab-content-section")
 
-          // @ts-expect-error TODO
-          transcript = player.transcript(options)
-        }
+            if (transcriptContainer) {
+              // Create a unique ID for the transcript widget
+              const widgetId = `transcript-widget-${videoPlayer.id}`
 
-        if (videoPlayer.closest(".video-page")) {
-          // @ts-expect-error TODO
-          const transcriptContainer = videoPlayer
-            .closest(".video-page")
-            .querySelector(".transcript")
-            ?.querySelector(".video-tab-content-section")
+              // Create the widget container if it doesn't exist
+              if (!document.getElementById(widgetId)) {
+                const widgetElement = document.createElement("div")
+                widgetElement.id = widgetId
+                transcriptContainer.appendChild(widgetElement)
+              }
 
-          if (transcript && transcriptContainer) {
-            transcriptContainer.appendChild(transcript.el())
+              // Initialize the vjstranscribe plugin
+              const options = {
+                widgetId:   widgetId,
+                showTitle:  false,
+                selector:   false,
+                download:   false,
+                copy:       false,
+                search:     false,
+                pip:        false,
+                mode:       "line",
+                disablecc:  false
+              }
+
+              // @ts-expect-error - Plugin types not fully defined
+              player.vjstranscribe(options)
+            }
           }
         }
       })
