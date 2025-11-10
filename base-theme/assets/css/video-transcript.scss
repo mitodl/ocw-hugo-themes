@@ -42,3 +42,23 @@
   color: $black;
   box-shadow: inset 4px 0 0 0 $transcript-active-line-border-color;
 }
+
+// Compatibility for videojs-vjstranscribe plugin
+// Map new plugin classes to old expected classes for e2e tests
+.vjs-transcribe-cueline {
+  position: relative;
+  padding: 5px 0px 5px 6%;
+  cursor: pointer;
+  line-height: 1.3;
+}
+
+.vjs-transcribe-cueline:hover {
+  background-color: $transcript-hover-background-color;
+}
+
+.vjs-transcribe-cueline.cue-active {
+  font-weight: bold;
+  background-color: $transcript-active-line-background-color;
+  color: $black;
+  box-shadow: inset 4px 0 0 0 $transcript-active-line-border-color;
+}
