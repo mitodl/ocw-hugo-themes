@@ -2,6 +2,7 @@ $desktop-nav-max-width: 470px;
 $max-content-width: 1447px;
 $desktop-header-height: 116px;
 $desktop-header-height-v2: 80px;
+$desktop-header-height-v3: 80px;
 $desktop-header-max-width: 1664px;
 $extra-small-screen-width: 400px;
 $enable-responsive-font-sizes: true;
@@ -85,6 +86,8 @@ $about-red: #a92d41;
 $footer-background-color: #f6f7f9;
 $footer-v2-text-color: #595959;
 $footer-v2-background-color: $white;
+$footer-v3-text-color: #595959;
+$footer-v3-background-color: $white;
 
 // font sizes rem value = element font size / 16px (root font size)
 // Changing values of these variables is not recommended as it will have a quite widespread/large impact.
