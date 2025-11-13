@@ -1,0 +1,50 @@
+{{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
+{{- $courseData := .Site.Data.course -}}
+<!doctype html>
+<html lang="{{ $.Site.Language.Lang }}">
+{{ partial "head.html" . }}
+
+<body class="course-home-page">
+  {{ if $gtmId }}
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId }}" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  {{ end }}
+
+  <div class="overflow-auto">
+    <span class="course-header">
+      {{ partialCached "mobile_course_nav.html" . }}
+      {{ partialCached "mobile_course_info.html" . }}
+      {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
+      {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
+    </span>
+    <div id="course-main-content">
+      <div class="row">
+        <div class="col-12 course-home-grid">
+          <div class="medium-and-below-only mb-3">
+            {{ partial "mobile_nav_toggle.html" . }}
+          </div>
+        </div>
+      </div>
+      <div class="row course-cards">
+        <div class="col-2 course-home-grid large-and-above-only">
+          {{ partialCached "desktop_nav.html" . }}
+        </div>
+        <div class="col-12 col-md-8 col-lg-7 course-home-grid">
+          {{ partialCached "course_detail.html" . }}
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 mb-3 mb-md-0 course-home-grid">
+          {{ partialCached "course_image_section.html" . }}
+        </div>
+      </div>
+    </div>
+    {{ block "footer" . }}{{ partial "footer-v3" . }}{{end}}
+    {{ partialCached "hide_offline_links.html" . }}
+  </div>
+  {{ partial "external_link_modal" }}
+  {{ partialCached "navigation_js.html" . }}
+  {{ partialCached "responsive_tables_js.html" . }}
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+h4 {
+  color: $highlight-red !important;
+}
+
+.download-course-container {
+  border-radius: 3px;
+
+  .download-course-button {
+    display: inline-flex;
+    height: fit-content;
+    padding: 10px 22px;
+    border-radius: 4px;
+    background-color: $blue;
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.resource-list-toggle {
+  .collapsed {
+    border-bottom: 1px solid $border-gray;
+  }
+
+  a {
+    display: block;
+  }
+
+  a,
+  a:hover {
+    text-decoration: none;
+  }
+
+  a.collapsed i:before {
+    content: "keyboard_arrow_right";
+  }
+
+  a:not(.collapsed) i:before {
+    content: "keyboard_arrow_down";
+  }
+
+  i {
+    font-size: 2rem;
+    vertical-align: middle;
+  }
+
+  h4 {
+    display: inline;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  10%,
+  20%,
+  27%,
+  50%,
+  70%,
+  80%,
+  90%,
+  100% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    transform: translateY(-5px);
+  }
+  60% {
+    -webkit-transform: translateY(-1.5px);
+    -ms-transform: translateY(-1.5px);
+    transform: translateY(-1.5px);
+  }
+}
+
+.resource-thumbnail:hover .download-link {
+  animation: bounce 1.5s ease-in-out 1;
+}
+.resource-item {
+  border: 1px solid #dee2e6;
+  border-top: none;
+  border-radius: 1px;
+  padding: 8px 15px;
+
+  .resource-list-file-size {
+    font-size: 10px;
+    line-height: 1.2;
+  }
+  .resource-thumbnail {
+    min-width: 40px;
+    max-width: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+
+    .resource-type-thumbnail {
+      background-color: $resource-file-thumbnail-color;
+      text-transform: uppercase;
+      height: 11.5px;
+      color: $white;
+      font-size: 9px;
+      display: flex;
+      justify-content: center;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      padding-top: 1px;
+    }
+    .resource-type-thumbnail.video {
+      background-color: $resource-video-thumbnail-color;
+    }
+    .resource-type-thumbnail.pdf {
+      background-color: $resource-pdf-thumbnail-color;
+    }
+
+    .download-container {
+      background-color: #ededed;
+      height: 33.5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border-bottom: 1px solid #cfcfcf;
+      padding-bottom: 2px;
+    }
+  }
+
+  .wrapper {
+    align-items: center;
+
+    @include media-breakpoint-down(xs) {
+      margin-bottom: 10px;
+    }
+  }
+
+  .see-all-resources-icon {
+    display: inline-flex;
+    vertical-align: top;
+    margin-left: 5px;
+  }
+
+  .resource-download {
+    padding: 3px;
+    border: solid 0.5px $medium-gray;
+    border-radius: 20px;
+    margin-left: -12px;
+    margin-top: 14px;
+    background-color: $white;
+  }
+
+  .resource-download:hover {
+    background-color: $light-gray;
+  }
+
+  .resource-list-title {
+    text-decoration: none;
+  }
+  .resource-thumbnail {
+    text-decoration: none;
+  }
+
+  .resource-list-item-details {
+    padding-top: 2px;
+    padding-left: 10px;
+    margin-bottom: auto;
+    margin-top: auto;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  .row {
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .wrapper {
+      padding: 0px;
+    }
+
+    .resource-details-container {
+      padding: 10px;
+    }
+  }
+}
+
+.resource-item.resource-list-page:hover {
+  background-color: #fefbf5;
+}
+
+.resource-item.resource-list-page {
+  transition: background-color 0.05s ease;
+}
+
+.resource-item:first-child {
+  border-top: 1px solid #dee2e6;
+}
+
+.resource-item.resource-body {
+  border: 1px solid #dee2e6;
+}

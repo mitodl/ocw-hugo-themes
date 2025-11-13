@@ -1,0 +1,30 @@
+<button 
+  type="button" 
+  class="btn course-info-button large-and-above-only"
+  id="desktop-course-drawer-button"
+  data-target="#desktop-course-drawer"
+  data-toggle="collapse"
+  aria-label="Course Info"
+  aria-controls="desktop-course-drawer"
+  aria-expanded="false"
+>
+  <img
+    class="expand-drawer-img drawer-icon-img"
+    src="{{ partial "get_asset_webpack_url.html" "images/left_arrow.svg" }}"
+    alt=""
+  />
+  <img
+    class="collapse-drawer-img drawer-icon-img"
+    src="{{ partial "get_asset_webpack_url.html" "images/close_small.svg" }}"
+    alt=""
+  />
+</button>
+
+<div class="collapse border-left p-0 large-and-above-only col-3" id="desktop-course-drawer">
+  {{ partial "course_info.html" (dict "context" . "inPanel" true "isDesktopCourseDrawer" true) }}
+  <div class="px-3">
+    {{ partial "topics.html" (dict "context" . "inPanel" true "device" "desktop") }}
+    {{ partial "learning_resource_types.html" (dict "context" . "inPanel" true) }}
+    {{ partial "download_course_link_button.html" (dict "context" . "inPanel" true) }}
+  </div>
+</div>

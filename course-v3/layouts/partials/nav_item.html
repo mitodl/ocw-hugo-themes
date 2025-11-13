@@ -1,0 +1,61 @@
+{{ $id := .menuItem.Identifier }}
+{{ $device := .device }}
+{{ $hasParent := isset . "parentId" }}
+{{ $hasChildren := .menuItem.HasChildren }}
+{{ $url := partial "nav_url.html" . }}
+{{ $linkedPage := site.GetPage .menuItem.PageRef }}
+{{ $hasOneValidChild := false }}
+
+{{ if $hasChildren }}
+  {{ $hasOneValidChild = partial "nav_item_has_child.html" .menuItem.Children }}
+{{ end }}
+
+<li class="course-nav-list-item">
+  <div class="course-nav-parent d-flex flex-direction-row align-items-center justify-content-between">
+    <span class="course-nav-text-wrapper">
+      {{ if eq $linkedPage.Params.content_type "external-resource" }}
+        {{- partial "external_resource_link"
+          (merge $linkedPage.Params
+            (dict
+              "text" .menuItem.Name
+              "class" "text-dark nav-link"
+            )
+          )
+        -}}
+      {{ else if or $url $hasOneValidChild }}
+        <a class="text-dark nav-link"
+          data-uuid="{{ .menuItem.Identifier }}"
+          {{ if $url }} href="{{ $url }}" {{ else }} href="#" {{ end }}>
+          {{ .menuItem.Name }}
+        </a>
+      {{ end }}
+    </span>
+    {{ if $hasOneValidChild }}
+    <button
+      class="course-nav-section-toggle"
+      type="button"
+      id="nav-button_{{ $device }}_{{ .menuItem.Identifier }}"
+      data-toggle="collapse"
+      data-target="#nav-container_{{ $device }}_{{ .menuItem.Identifier }}"
+      data-uuid="{{ .menuItem.Identifier }}"
+      aria-controls="nav-container_{{ $device }}_{{ .menuItem.Identifier }}"
+      aria-expanded="false"
+      aria-label="Subsections for {{.menuItem.Name}}"
+    >
+      <i class="material-icons md-18" aria-hidden="true"></i>
+    </button>
+    {{ end }}
+  </div>
+  {{ if or (and (not $hasParent) $url) $hasOneValidChild }}
+  <span class="medium-and-below-only"><hr/></span>
+  {{ end }}
+  <ul
+    class="course-nav-child-nav m-auto collapse"
+    id="nav-container_{{ $device }}_{{ .menuItem.Identifier }}"
+    aria-labelledby="nav-button_{{ $device }}_{{ .menuItem.Identifier }}"
+  >
+    {{ range .menuItem.Children }}
+      {{ partial "nav_item.html" (dict "menuItem" . "parentId" $id "device" $device) }}
+    {{ end }}
+  </ul>
+</li>

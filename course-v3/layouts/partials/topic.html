@@ -1,0 +1,77 @@
+{{ $index := .index }}
+{{ $device := .device | default "desktop" }}
+{{ $context := .context }}
+{{ $subtopics := slice }}
+{{ $topicTitle := title .topic }}
+{{ if not (eq .subtopics nil) }}
+{{ $subtopics = .subtopics }}
+{{ end }}
+{{ $scratch := newScratch }}
+<div class="position-relative pt-1 pb-1{{ if gt (len $subtopics) 0 }} pl-4 ml-n2 {{ end }}">
+  {{ if gt (len $subtopics) 0 }}
+  <button
+    type="button"
+    class="topic-toggle border-0 bg-transparent pl-0"
+    data-target="#subtopic-container_{{ $device }}_{{ $index }}"
+    data-toggle="collapse"
+    aria-controls="subtopic-container_{{ $device }}_{{ $index }}"
+    aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}"
+    aria-label="{{ $topicTitle }} subtopics"
+  >
+    <i aria-hidden="true" class="material-icons"></i>
+  </button>
+  {{ end }}
+  <span class="topic-text-wrapper">
+    {{ $topicUrl := partial "get_search_url.html" (dict "key" "topic" "value" $topicTitle) }}
+    {{- partial "link.html" (dict "href" $topicUrl "class" "text-black course-info-topic" "text" $topicTitle "stripLinkOffline" true) -}}
+  </span>
+</div>
+{{ if gt (len $subtopics) 0 }}
+<ul
+  class="pl-4 subtopic-container collapse{{if eq $index 0 }} show{{ end }} list-unstyled"
+  id="subtopic-container_{{ $device }}_{{ $index }}"
+  aria-label="Subtopics"
+>
+  {{ $scratch.Set "index" 0 }}
+  {{ range $subtopic, $specialities := $subtopics }}
+  {{ $subtopicIndex := $scratch.Get "index" }}
+  <li>
+    <div class="position-relative pt-1 pb-1 {{ if gt (len ($specialities | default slice)) 0 }} pl-4 {{ else }} pl-2 {{ end }}">
+      {{ if gt (len ($specialities | default slice)) 0 }}
+      <button
+        class="topic-toggle border-0 bg-transparent pl-0"
+        data-target="#speciality-container_{{ $device }}_{{ $index }}_{{ $subtopicIndex }}"
+        data-toggle="collapse"
+        aria-controls="speciality-container_{{ $device }}_{{ $index }}_{{ $subtopicIndex }}"
+        aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}"
+        aria-label="{{ $subtopic }} specialties"
+      >
+        <i aria-hidden="true" class="material-icons"></i>
+      </button>
+      {{ end }}
+      <span class="topic-text-wrapper">
+        {{ $subTopicTitle := title $subtopic }}
+        {{ $subTopicUrl := partial "get_search_url.html" (dict "key" "topic" "value" $subTopicTitle) }}
+        {{- partial "link.html" (dict "href" $subTopicUrl "class" "text-black course-info-topic" "text" $subTopicTitle "stripLinkOffline" true) -}}
+      </span>
+    </div>
+    <ul
+      class="collapse{{if eq $index 0 }} show{{ end }} list-unstyled"
+      id="speciality-container_{{ $device }}_{{ $index }}_{{ $subtopicIndex }}"
+      aria-label="Specialties"
+    >
+      {{ range $speciality, $ignore := $specialities }}
+      <li class="pt-1 pb-1 pl-5">
+        <span class="topic-text-wrapper">
+          {{ $specialityTitle := title $speciality }}
+          {{ $specialityUrl := partial "get_search_url.html" (dict "key" "topic" "value" $specialityTitle) }}
+          {{- partial "link.html" (dict "href" $specialityUrl "class" "text-black course-info-topic" "text" $specialityTitle "stripLinkOffline" true) -}}
+        </span>
+      </li>
+      {{ end }}
+    </ul>
+    {{ $scratch.Set "index" (add 1 ($scratch.Get "index")) }}
+  </li>
+  {{ end }}
+</ul>
+{{ end }}

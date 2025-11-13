@@ -1,0 +1,46 @@
+$panel-course-info-text-color: #464646;
+
+.course-info {
+  .course-info-content {
+    margin-top: 5px;
+  }
+}
+
+.panel-course-info-title {
+  text-transform: uppercase;
+  color: $panel-course-info-text-color !important;
+}
+
+.panel-course-info-text {
+  font-size: $font-sm;
+  color: $panel-course-info-text-color !important;
+  a {
+    color: $panel-course-info-text-color !important;
+  }
+}
+
+.course-info-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: $course-info-btn-color !important;
+  border-radius: 0px !important;
+}
+
+.course-info-button:hover {
+  background-color: $course-info-btn-hover-color !important;
+}
+
+.close-mobile-course-info {
+  position: absolute;
+  right: 0;
+}
+
+.download-course-link-button {
+  border-color: $blue !important;
+  color: $blue !important;
+}
+
+.download-course-link-button:hover {
+  color: $white !important;
+}

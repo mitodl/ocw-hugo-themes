@@ -1,0 +1,25 @@
+{{ $courseData := .context.Site.Data.course }}
+{{ $scratch := newScratch }}
+{{ $scratch.Set "index" 0 }}
+{{ $inPanel := .inPanel }}
+{{ $device := .device }}
+{{ $renderMarginTop := .renderMarginTop | default true}}
+<div class=" {{ if $renderMarginTop }}mt-4{{ end }}">
+  <h5 class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
+    Topics
+  </h5>
+  <ul class="list-unstyled pb-2 m-0 {{ if $inPanel }}panel-course-info-text{{ end }}">
+    {{- $topics := (slice (slice "Social Science" "Political Science" "American Politics") (slice "Social Science" "Public Administration" "Public Policy")) -}}
+
+    {{ with $courseData.topics }}
+      {{ $topics := partial "hierarchical_select_as_map.html" . }}
+
+      {{- range $topic, $subtopics := $topics -}}
+      <li>
+        {{- partial "topic.html" (dict "index" ($scratch.Get "index") "topic" $topic "subtopics" $subtopics "device" $device) -}}
+      </li>
+      {{ $scratch.Set "index" (add 1 ($scratch.Get "index")) }}
+      {{- end -}}
+    {{ end }}
+  </ul>
+</div>

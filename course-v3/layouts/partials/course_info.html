@@ -1,0 +1,83 @@
+{{ $courseData := .context.Site.Data.course }} {{ $inPanel := .inPanel }} {{
+$isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
+
+<div class="course-info">
+  <div class="course-detail-title {{ if $inPanel }}bg-light-gray{{ end }}">
+    <h2 class="font-black {{ if $inPanel }}py-1 pl-3 m-0{{ end }}">
+      Course Info
+    </h2>
+  </div>
+  <div class="{{ if $inPanel }}px-3 mt-4{{ end }}">
+    <div class="row">
+      <div class="col-12 {{ if not $inPanel }}col-sm-6{{ end }}">
+        {{ with $courseData.instructors.content }}
+        <div class="">
+          {{ $instructors := partial "get_instructors.html" . }}
+          <h5 class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
+            {{ if eq (len $instructors) 1 }}Instructor{{ else }}Instructors{{
+            end }}
+            </h5>
+          <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
+            {{ partial "partial_collapse_list.html" (dict "list" $instructors
+            "id" "instructors" "key" "title" "klass" "course-info-instructor"
+            "showCollapse" $inPanel) }}
+          </div>
+        </div>
+        {{ end }}
+        {{ with $courseData.department_numbers }}
+          {{ $departments := partial "get_departments.html" . }}
+          {{ if $departments }}
+            <div class="mt-4">
+              <h5 class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
+                Departments
+              </h5>
+              <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
+                {{ partial "partial_collapse_list.html" (dict "list" $departments
+                "id" "departments" "key" "title" "klass" "course-info-department"
+                "useLinks" true) }}
+              </div>
+            </div>
+          {{ end }}
+        {{ end }} 
+        {{ if $inPanel }}
+        <div class="mt-4">
+          <h5 class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
+            As Taught In
+          </h5>
+          <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
+            {{ $courseData.term }}
+            {{ if isset $courseData "year" }}
+              {{ $courseData.year }}
+            {{ end }}
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <h5 class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
+            Level
+          </h5>
+          <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
+            {{ if eq (printf "%T" $courseData.level) "string" }} {{
+            $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
+            {{- partial "link.html" (dict "href" $levelSearchUrl "text" $courseData.level "stripLinkOffline" true) -}}
+            {{ else }}
+              {{ range $courseData.level }}
+                {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) }}
+                {{- partial "link.html" (dict "href" $levelSearchUrl "text" . "stripLinkOffline" true) -}}<br />
+              {{ end }}
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+
+      {{ if not $inPanel }}
+      <div class="col-12 col-sm-6">
+        <div class="mt-4 mt-sm-0">
+          {{ partial "topics.html" (merge . (dict "renderMarginTop" false)) }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>
