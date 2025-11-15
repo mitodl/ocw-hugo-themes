@@ -227,9 +227,6 @@ pre {
   }
 }
 
-// TODO: overriding some css of header and footer in this new theme
-// when we roll out this theme completely then we can move this css to thier respective files in base-theme
-
 #desktop-header {
   height: $desktop-header-height-v3 !important;
   .contents {
