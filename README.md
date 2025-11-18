@@ -22,7 +22,7 @@ base-theme/
 │   └── robots.txt
 └── static/
     └── images (images inherited by every theme)
-course-v3/
+course-v2/
 ├── assets/
 │   ├── css/
 │   ├── js/
@@ -185,7 +185,7 @@ To further explain the various environment variables and what they do:
 | `WWW_CONTENT_PATH`        | `www`                         | `/path/to/ocw-content-rc/ocw-www`                   | A path to a Hugo site that will be rendered when running `yarn start www`                                                                                                                    |
 | `COURSE_CONTENT_PATH`     | `course`                      | `/path/to/ocw-content-rc/`                          | A path to a base folder containing `ocw-course` type Hugo sites                                                                                                                              |
 | `OCW_TEST_COURSE`         | `course`                      | `18.06-spring-2010`                                 | The name of a folder in `COURSE_CONTENT_PATH` containing a Hugo site that will be rendered when running `yarn start course`                                                                  |
-| `OCW_COURSE_STARTER_SLUG` | `www`                         | `ocw-course-v3`                                        | When generating "New Courses" cards on the home page, the `ocw-studio` API is queried using `OCW_STUDIO_BASE_URL`. This value determines the `type` used in the query string against the API |
+| `OCW_COURSE_STARTER_SLUG` | `www`                         | `ocw-course-v2`                                        | When generating "New Courses" cards on the home page, the `ocw-studio` API is queried using `OCW_STUDIO_BASE_URL`. This value determines the `type` used in the query string against the API |
 | `FIELDS_HUGO_CONFIG_PATH` | `fields`                      | `/path/to/ocw-hugo-projects/mit-fields/config.yaml` | A path to the `mit-fields` Hugo configuration file                                                                                                                                           |
 | `FIELDS_CONTENT_PATH`     | `fields`                      | `/path/to/ocw-content-rc/philosophy`                | A path to a Hugo site that will be rendered when running `yarn start fields`                                                                                                                 |
 | `WEBPACK_ANALYZE`         | N/A                           | `true`                                              | Used in webpack build. If set to `true`, a dependency analysis of the bundle will be included in the build output.                                                                           |
