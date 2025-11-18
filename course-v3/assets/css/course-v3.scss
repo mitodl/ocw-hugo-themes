@@ -1,0 +1,245 @@
+@import "../../../base-theme/assets/css/imports/reset";
+@import "../../../base-theme/assets/css/bootstrap-overrides";
+@import "../../../base-theme/assets/css/breakpoints";
+@import "../../../base-theme/assets/css/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~offcanvas-bootstrap/src/sass/bootstrap.offcanvas";
+
+@import "course-nav";
+@import "course-info";
+@import "course-home";
+@import "drawer";
+@import "tables";
+@import "course-content";
+@import "course-resources";
+@import "partial-collapse-list";
+@import "topic";
+@import "learning-resource-types";
+@import "course-image-section";
+
+html {
+  font-size: $course-font-root !important;
+}
+
+// overriding default heading values with course heading values
+h1 {
+  font-size: $course-heading-one-font-lg !important;
+  line-height: $course-heading-one-line-height-lg !important;
+
+  @include media-breakpoint-down(xs) {
+    font-size: $course-heading-one-font-xs !important;
+    line-height: $course-heading-one-line-height-xs !important;
+  }
+}
+
+h2 {
+  font-size: $course-heading-two-font-lg !important;
+  line-height: $course-heading-two-line-height-lg !important;
+
+  @include media-breakpoint-down(xs) {
+    font-size: $course-heading-two-font-xs !important;
+    line-height: $course-heading-two-line-height-xs !important;
+  }
+}
+
+h3 {
+  font-size: $course-heading-three-font !important;
+  line-height: $course-heading-three-line-height !important;
+}
+
+a + h3 {
+  margin-top: 1.14rem !important;
+}
+
+h4 {
+  font-size: $course-heading-four-font !important;
+  line-height: $course-heading-four-line-height !important;
+}
+
+h5 {
+  font-size: $course-heading-five-font !important;
+  line-height: $course-heading-five-line-height !important;
+}
+
+#course-banner {
+  color: $white;
+  background-color: $blue;
+
+  .course-banner-content {
+    max-width: $max-content-width;
+    padding: 1.5rem 3rem !important;
+  }
+
+  .course-number-term-detail {
+    font-size: $font-sm;
+    color: $white;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  h1 {
+    font-weight: 400;
+    margin-bottom: 0px;
+  }
+}
+
+.user-list-modal {
+  .modal-content {
+    border-radius: 8px;
+    .modal-header {
+      align-items: center;
+      border-radius: 8px;
+      border-bottom: 1px solid #dde1e6;
+      background-color: #f3f4f8;
+      padding: 20px 28px;
+
+      .btn-close {
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        border: none;
+      }
+      .btn-close:hover {
+        background-color: rgba(64, 70, 76, 0.06);
+      }
+    }
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      padding: 28px;
+
+      .user-list-modal-checkboxes {
+        padding-left: 1.25rem;
+      }
+
+      .btn-create-new-list {
+        border-radius: 4px;
+        border: 1px solid $burgundy;
+        color: $burgundy;
+      }
+    }
+  }
+}
+
+.font-black {
+  color: black !important;
+}
+
+#course-main-content article.content {
+  a:link {
+    color: $course-content-link-unclicked;
+  }
+
+  a:visited,
+  a:hover,
+  a:active {
+    color: $course-content-link-hover-clicked;
+  }
+}
+
+div[class^="toggle"]:not(.toggle-visible),
+span[class^="toggle"]:not(.toggle-visible) {
+  display: none;
+}
+
+div[class^="reveal"],
+.multiple-choice-check-button,
+.multiple-choice-show-button {
+  color: #115f83;
+  cursor: pointer;
+}
+
+.correctness-icon-correct {
+  color: green;
+}
+
+.correctness-icon-wrong {
+  color: red;
+}
+
+.correctness-icon {
+  margin-left: 4px;
+}
+
+.multiple-choice-radio {
+  margin-right: 5px;
+}
+
+.multiple_choice_buttons {
+  margin: 10px;
+}
+
+.multiple-choice-div {
+  margin: 11px 0;
+
+  label {
+    margin: 0;
+  }
+}
+
+pre {
+  padding: 10px;
+  border: 1px solid $medium-gray;
+}
+
+.multiple-choice-question .multiple-choice-div pre {
+  margin: 0;
+}
+
+.collapse-btn-section {
+  a.collapsed span:after {
+    content: "keyboard_arrow_down";
+  }
+
+  a:not(.collapsed) span:after {
+    content: "keyboard_arrow_up";
+  }
+}
+
+.course-detail-section {
+  margin-bottom: 24px;
+}
+
+.course-detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.course-detail-title {
+  margin-bottom: 10px;
+  min-height: 35px;
+  display: flex;
+  align-items: center;
+
+  h2 {
+    font-size: $course-heading-four-font !important;
+    line-height: $course-heading-four-line-height !important;
+  }
+}
+
+.limited-pointer-only {
+  display: none;
+
+  @media (pointer: coarse), (pointer: none) {
+    display: block;
+  }
+}
+
+#desktop-header {
+  height: $desktop-header-height-v3 !important;
+  .contents {
+    .ocw-logo {
+      img {
+        width: 180px !important;
+      }
+    }
+    .give-button {
+      padding: 12px 29px 9px 29px !important;
+    }
+    .search-icon {
+      padding-right: 2.6rem !important;
+    }
+  }
+}

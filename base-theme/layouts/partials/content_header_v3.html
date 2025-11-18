@@ -1,0 +1,10 @@
+<header>
+  <div class="course-section-title-container">
+    <div id="course-title">
+      {{ with .Params.parent_title }}
+      <div class="course-content-parent-title">{{ . }}</div>
+      {{ end }}
+      <h2 class="pb-1 mb-1">{{ .Title }}</h2>
+    </div>
+  </div>
+</header>

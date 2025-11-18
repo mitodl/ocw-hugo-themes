@@ -1,0 +1,9 @@
+{{- define "title" -}}{{ partial "title.html" . }}{{- end -}}
+{{- define "extrahead" -}}
+{{- $css_urls := slice (partial "get_asset_webpack_url.html" "course_v3.css") (partial "get_asset_webpack_url.html" "common.css") -}}
+{{- $layout := .Params.layout -}}
+{{- if eq $layout "instructor_insights" -}}
+    {{- $css_urls = $css_urls | append (partial "get_asset_webpack_url.html" "instructor_insights.css") -}}
+{{- end -}}
+{{ partial "include_css.html" (dict "context" . "urls" $css_urls) }}
+{{- end -}}

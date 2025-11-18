@@ -1,0 +1,66 @@
+{{ $downloadableLink := partial "get_resource_download_link.html" . }}   
+<div class="resource-page-container">
+  {{- if ne .Params.resourcetype "Video" }}
+    {{- if .Content -}}
+      <div class="row">
+        <div class="label col-12">Description:</div>
+        <div class="content col-12">{{ .Content }}</div>
+      </div>
+    {{- end -}}
+    {{- if .Params.learning_resource_types -}}
+        <div class="row resource-type">
+          <div class="label resource-type">Resource Type:</div>
+          <div class="content">{{ delimit (.Params.learning_resource_types | default slice) ", " }}</div>
+        </div>
+    {{- end -}}
+    <div class="resource-item resource-body p-0">
+      <div class="row p-0 m-0">
+        <div class="resource-details-container col-lg-12 d-flex flex-wrap">
+          <div class="wrapper d-flex col-12 col-lg-7 col-md-8 col-sm-7">
+            <a class="resource-thumbnail"{{ if $downloadableLink }} href="{{- $downloadableLink -}}" target="_blank" aria-label="Download file" download{{ end }}>
+              {{ $resourceCategory := partial "get_resource_category.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
+              <div class="resource-type-thumbnail {{ $resourceCategory }}">
+                <div class="d-flex align-self-center">{{- $resourceCategory -}}</div>
+              </div>  
+              <div class="download-container{{ if not .Params.file_size }} pb-1{{ end }}">
+                    <span class="download-link">
+                      {{ if $downloadableLink }}
+                          <img
+                            class="hide-offline resources-download"
+                            src="{{ partial "get_asset_webpack_url.html" "images/resource-download.svg" }}"
+                            aria-hidden="true"
+                          />
+                      {{ end }}
+                    </span>
+                    {{ if .Params.file_size }}
+                    <div class="resource-list-file-size">
+                      {{ partial "file_size_formatter.html" .Params.file_size }}
+                    </div>
+                    {{ end }}
+              </div>
+            </a>
+            <div class="resource-list-item-details">
+              {{.Params.title }}
+            </div>
+          </div>
+          <div class="download-button-container col-12 col-sm align-self-center d-flex justify-content-end p-0">
+            {{- if $downloadableLink -}}
+              <div class="button-wrapper">
+                <a class="download-file" href="{{- $downloadableLink -}}">
+                  Download File
+                </a>
+              </div>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {{- else -}}
+      {{ partial "video.html" . }}
+  {{- end -}}
+  {{ if eq .Params.file_type "application/pdf" }}
+    {{ partial "pdf_viewer.html" . }}
+  {{ else if eq .Params.resourcetype "Image" }}
+    {{ partial "image_page.html" . }}
+  {{ end }}
+</div>

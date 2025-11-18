@@ -1,0 +1,18 @@
+<div class="multiple_choice_buttons">
+<button btn-link class="btn btn-outline-primary multiple-choice-check-button">
+		Check
+  </button>
+  {{if .solution }}
+  	&emsp;
+  	<button class="btn btn-outline-primary multiple-choice-show-button">
+  		Show Solution
+    </button>
+  {{end}}
+</div>
+{{if .solution }}
+  <div class="toggle multiple-choice-solution">
+    <p>
+      {{.solution}}
+    </p>
+  </div>
+{{end}}
