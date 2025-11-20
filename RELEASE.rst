@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.136.0
+Version 1.136.0 (Released November 20, 2025)
 ---------------
 
 - fix(deps): update dependency sass to v1.94.1 (#1671)
