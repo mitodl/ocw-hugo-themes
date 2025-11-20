@@ -1,6 +1,20 @@
 Release Notes
 =============
 
+Version 1.136.0 (Released November 20, 2025)
+---------------
+
+- fix(deps): update dependency sass to v1.94.1 (#1671)
+- Initial course-v3 Setup (#1674)
+- chore(deps): update peter-evans/find-comment action to v4 (#1669)
+- chore(deps): update peter-evans/create-or-update-comment action to v5 (#1668)
+- chore(deps): update yarn to v4.11.0 (#1665)
+- fix(deps): update dependency sass to v1.93.3 (#1661)
+- chore(deps): update actions/upload-artifact action to v5 (#1662)
+- chore(deps): update node.js to v22.21.1 (#1664)
+- chore(deps): update jest monorepo (major) (#1561)
+- chore(deps): update dependency imports-loader to v5 (#1569)
+
 Version 1.135.2 (Released November 06, 2025)
 ---------------
 
