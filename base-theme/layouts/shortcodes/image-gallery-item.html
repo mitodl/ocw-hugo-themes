@@ -1,1 +1,8 @@
-<a href="{{ .Get "href" }}" data-ngdsc="{{ .Get "data-ngdesc" }}">{{ .Get "text" | .Page.RenderString }}</a>
+{{ $href := .Get "href" }}
+{{ $credit := "" }}
+
+{{- range where $.Site.Pages "Params.file" "like" (printf "%s$" $href) -}}
+  {{ $credit = .Params.image_metadata.credit | .RenderString | safeHTMLAttr }}
+{{- end -}}
+
+<a href="{{ $href }}" data-credit="{{ $credit }}" data-ngdsc="{{ .Get "data-ngdesc" }}">{{ .Get "text" | .Page.RenderString }}</a>
