@@ -2,70 +2,178 @@
 This file has been created in base-theme in-case
 we want to use this new footer in other themes (www, course-offline etc)
 */}}
-<div class="footer">
-    <div class="footer-main-content mx-auto">
-    	<div class="col-12 px-0">
-        	<div class="row align-items-center mx-0">
-            	<div class="col-12 col-md-8 px-0">
-					<div class="d-md-flex align-items-center">
-						<a href="https://openlearning.mit.edu/" target="_blank">
-							<img width="117px" src="{{ partial "get_asset_webpack_url.html" "images/mit_ol.svg" }}" alt="MIT Open Learning" />
-						</a>
-						<div class="ml-md-3 mt-4 mt-md-0">
-							<div class="font-weight-bold">
-								Over 2,500 courses & materials
-							</div>
-							<div>
-								Freely sharing knowledge with learners and educators around the world. <a href='{{ partial "site_root_url.html" "/about" }}'>Learn more</a>
-							</div>
-						</div>
-					</div>
-            	</div>
-				<div class="col-12 col-md-4 px-0 d-none d-md-block">
-					{{ partial "footer-v3-social-icons.html" . }}
-				</div>
-        	</div>
-    	</div>
-
-		<div class="col-12 mt-3 mt-md-4 px-0">
-			<div class="row align-items-center mx-0">
-            	<div class="col-12 col-md-8 px-0">
-					<div class="d-lg-flex">
-						<div class="pr-md-2 mt-2 mt-lg-0 d-none d-lg-block">
-							{{ partial "footer-v3-copyrights.html" . }}
-						</div>
-						<div class="px-lg-2 mt-2 mt-lg-0">
-							<a href="https://accessibility.mit.edu" target="_blank">Accessibility</a>
-						</div>
-						<div class="px-lg-2 mt-2 mt-lg-0">
-							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons License</a>
-						</div>
-						<div class="px-lg-2 mt-2 mt-lg-0">
-							<a class="hide-offline" href='{{ partial "site_root_url.html" "/pages/privacy-and-terms-of-use/" }}'>Terms and Conditions</a>
-						</div>
-					</div>
-            	</div>
-				<div class="col-12 col-md-4 px-0">
-					<div class="d-flex justify-content-md-end mt-4 mt-lg-0">
-						<div>
-						Proud member of:
-						<a href="https://www.oeglobal.org/" target="_blank">
-							<img class="oeg-logo" src="{{ partial "get_asset_webpack_url.html" "images/oeg_logo.png" }}" alt="Open Education Global"/>
-						</a>
-						</div>
-					</div>
-				</div>
-        	</div>
-		</div>
-
-		<div class="col-12 mt-5 px-0 d-md-none">
-			{{ partial "footer-v3-social-icons.html" . }}
-		</div>
-
-		<div class="col-12 mt-4 px-0 d-lg-none">
-			{{ partial "footer-v3-copyrights.html" . }}
-		</div>
-    {{ block "basejs" . }}{{ end }}
-    {{ block "extrajs" . }}{{ end }}
-	</div>
+<div style="
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  background-color: #ffffff;
+  border-top: 1px solid #8c8c8c;
+  flex-grow: 0;
+" role="contentinfo">
+  <div style="max-width: 1280px; width: 100%; margin: 0 auto; padding: 0 24px;">
+    <div style="
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 0;
+    ">
+      <div style="
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        align-self: stretch;
+      ">
+        <!-- Left Container -->
+        <div style="
+          display: flex;
+          align-items: center;
+          gap: 30px;
+        ">
+          <!-- MIT Logo -->
+          <a href="https://mit.edu" target="_blank" rel="noopener noreferrer">
+            <img src="https://learn.mit.edu/_next/static/media/mit-logo-black.64b85756.svg" alt="MIT" style="height: 48px;" />
+          </a>
+          
+          <!-- Address -->
+          <address style="
+            color: #000000;
+            font-size: 0.875rem;
+            line-height: 1.125rem;
+            font-weight: 400;
+            font-style: normal;
+			margin-bottom: 0;
+          " data-testid="footer-address">
+            Massachusetts Institute of Technology<br />
+            77 Massachusetts Avenue<br />
+            Cambridge, MA 02139
+          </address>
+        </div>
+        
+        <!-- Right Container -->
+        <div style="
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          justify-content: center;
+          gap: 32px;
+        ">
+          <!-- Links Container -->
+          <div style="
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+          ">
+            <!-- Home Link -->
+            <div style="
+              display: flex;
+              padding: 0 16px;
+              align-items: flex-start;
+            ">
+              <a href="/" style="
+                color: #000000;
+                text-decoration: none;
+                text-align: center;
+                font-size: 0.875rem;
+                line-height: 1.125rem;
+                font-weight: 400;
+              " onmouseover="this.style.color='#cc0000'" onmouseout="this.style.color='#000000'">
+                Home
+              </a>
+            </div>
+            
+            <!-- About Us Link -->
+            <div style="
+              display: flex;
+              padding: 0 16px;
+              align-items: flex-start;
+            ">
+              <a href="/about" style="
+                color: #000000;
+                text-decoration: none;
+                text-align: center;
+                font-size: 0.875rem;
+                line-height: 1.125rem;
+                font-weight: 400;
+              " onmouseover="this.style. color='#cc0000'" onmouseout="this.style. color='#000000'">
+                About Us
+              </a>
+            </div>
+            
+            <!-- Accessibility Link -->
+            <div style="
+              display: flex;
+              padding: 0 16px;
+              align-items: flex-start;
+            ">
+              <a href="/accessibility" style="
+                color: #000000;
+                text-decoration: none;
+                text-align: center;
+                font-size: 0.875rem;
+                line-height: 1.125rem;
+                font-weight: 400;
+              " onmouseover="this.style. color='#cc0000'" onmouseout="this.style. color='#000000'">
+                Accessibility
+              </a>
+            </div>
+            
+            <!-- Terms of Service Link -->
+            <div style="
+              display: flex;
+              padding: 0 16px;
+              align-items: flex-start;
+            ">
+              <a href="/terms" style="
+                color: #000000;
+                text-decoration: none;
+                text-align: center;
+                font-size: 0.875rem;
+                line-height: 1.125rem;
+                font-weight: 400;
+              " onmouseover="this.style.color='#cc0000'" onmouseout="this.style.color='#000000'">
+                Terms of Service
+              </a>
+            </div>
+            
+            <!-- Contact Us Link -->
+            <div style="
+              display: flex;
+              padding: 0 16px;
+              align-items: flex-start;
+            ">
+              <a href="/contact" style="
+                color: #000000;
+                text-decoration: none;
+                text-align: center;
+                font-size: 0.875rem;
+                line-height: 1.125rem;
+                font-weight: 400;
+              " onmouseover="this. style.color='#cc0000'" onmouseout="this. style.color='#000000'">
+                Contact Us
+              </a>
+            </div>
+          </div>
+          
+          <!-- Copyright Container -->
+          <div style="
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 0 16px;
+            gap: 10px;
+          ">
+            <span style="
+              color: #8c8c8c;
+              font-size: 0.875rem;
+              line-height: 1.125rem;
+              font-weight: 400;
+            ">
+              &copy; 2025 Massachusetts Institute of Technology
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
