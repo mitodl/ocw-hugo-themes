@@ -2,70 +2,83 @@
 This file has been created in base-theme in-case
 we want to use this new footer in other themes (www, course-offline etc)
 */}}
-<div class="footer">
-    <div class="footer-main-content mx-auto">
-    	<div class="col-12 px-0">
-        	<div class="row align-items-center mx-0">
-            	<div class="col-12 col-md-8 px-0">
-					<div class="d-md-flex align-items-center">
-						<a href="https://openlearning.mit.edu/" target="_blank">
-							<img width="117px" src="{{ partial "get_asset_webpack_url.html" "images/mit_ol.svg" }}" alt="MIT Open Learning" />
-						</a>
-						<div class="ml-md-3 mt-4 mt-md-0">
-							<div class="font-weight-bold">
-								Over 2,500 courses & materials
-							</div>
-							<div>
-								Freely sharing knowledge with learners and educators around the world. <a href='{{ partial "site_root_url.html" "/about" }}'>Learn more</a>
-							</div>
-						</div>
-					</div>
-            	</div>
-				<div class="col-12 col-md-4 px-0 d-none d-md-block">
-					{{ partial "footer-v3-social-icons.html" . }}
-				</div>
-        	</div>
-    	</div>
 
-		<div class="col-12 mt-3 mt-md-4 px-0">
-			<div class="row align-items-center mx-0">
-            	<div class="col-12 col-md-8 px-0">
-					<div class="d-lg-flex">
-						<div class="pr-md-2 mt-2 mt-lg-0 d-none d-lg-block">
-							{{ partial "footer-v3-copyrights.html" . }}
-						</div>
-						<div class="px-lg-2 mt-2 mt-lg-0">
-							<a href="https://accessibility.mit.edu" target="_blank">Accessibility</a>
-						</div>
-						<div class="px-lg-2 mt-2 mt-lg-0">
-							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons License</a>
-						</div>
-						<div class="px-lg-2 mt-2 mt-lg-0">
-							<a class="hide-offline" href='{{ partial "site_root_url.html" "/pages/privacy-and-terms-of-use/" }}'>Terms and Conditions</a>
-						</div>
-					</div>
-            	</div>
-				<div class="col-12 col-md-4 px-0">
-					<div class="d-flex justify-content-md-end mt-4 mt-lg-0">
-						<div>
-						Proud member of:
-						<a href="https://www.oeglobal.org/" target="_blank">
-							<img class="oeg-logo" src="{{ partial "get_asset_webpack_url.html" "images/oeg_logo.png" }}" alt="Open Education Global"/>
-						</a>
-						</div>
-					</div>
-				</div>
-        	</div>
-		</div>
+{{ define "footer-v3-left-container" }}
+<div class="d-flex align-items-center left-container">
+  <!-- MIT Logo -->
+  <a href="https://mit.edu" target="_blank" rel="noopener noreferrer">
+    <img src="https://learn.mit.edu/_next/static/media/mit-logo-black.64b85756.svg" alt="MIT" />
+  </a>
+  
+  <!-- Address -->
+  <address class="text-black fw-normal mb-0" style="font-style: normal;" data-testid="footer-address">
+    Massachusetts Institute of Technology<br />
+    77 Massachusetts Avenue<br />
+    Cambridge, MA 02139
+  </address>
+</div>
+{{ end }}
 
-		<div class="col-12 mt-5 px-0 d-md-none">
-			{{ partial "footer-v3-social-icons.html" . }}
-		</div>
+{{/* Define Right Container Block */}}
+{{ define "footer-v3-right-container" }}
+<div class="d-flex flex-column justify-content-center right-container">
+  <!-- Links Container -->
+  <div class="d-flex align-items-start footer-links">
+    <!-- Home Link -->
+    <div class="d-flex align-items-start footer-link">
+      <a href="/" class="fw-normal text-center text-decoration-none">
+        Home
+      </a>
+    </div>
+    
+    <!-- About Us Link -->
+    <div class="d-flex align-items-start footer-link">
+      <a href="/about" class="fw-normal text-center text-decoration-none">
+        About Us
+      </a>
+    </div>
+    
+    <!-- Accessibility Link -->
+    <div class="d-flex align-items-start footer-link">
+      <a href="/accessibility" class="fw-normal text-center text-decoration-none">
+        Accessibility
+      </a>
+    </div>
+    
+    <!-- Terms of Service Link -->
+    <div class="d-flex align-items-start footer-link">
+      <a href="/terms" class="fw-normal text-center text-decoration-none">
+        Terms of Service
+      </a>
+    </div>
+    
+    <!-- Contact Us Link -->
+    <div class="d-flex align-items-start footer-link">
+      <a href="/contact" class="fw-normal text-center text-decoration-none">
+        Contact Us
+      </a>
+    </div>
+  </div>
+  
+  <!-- Copyright Container -->
+  <div class="d-flex align-items-end justify-content-center copyright-container">
+    <span>
+      &copy; 2025 Massachusetts Institute of Technology
+    </span>
+  </div>
+</div>
+{{ end }}
 
-		<div class="col-12 mt-4 px-0 d-lg-none">
-			{{ partial "footer-v3-copyrights.html" . }}
-		</div>
-    {{ block "basejs" . }}{{ end }}
-    {{ block "extrajs" . }}{{ end }}
-	</div>
+<div class="footer-v3 d-flex flex-column align-items-center align-self-stretch bg-white flex-grow-0" role="contentinfo">
+  <div class="sized-container">
+    <div class="d-flex flex-column align-items-center container-inner">
+      <div class="d-flex justify-content-between align-items-start align-self-stretch footer-content">
+        <!-- Left Container -->
+        {{ template "footer-v3-left-container" . }}
+        
+        <!-- Right Container -->
+        {{ template "footer-v3-right-container" . }}
+      </div>
+    </div>
+  </div>
 </div>
