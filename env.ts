@@ -109,6 +109,13 @@ const envSchema = {
       "../ocw-hugo-projects/ocw-course-v2/config.yaml"
     )
   }),
+  COURSE_V3_HUGO_CONFIG_PATH: envalid.str({
+    desc:       "Path to the ocw-course-v3 Hugo configuration file",
+    devDefault: path.resolve(
+      __dirname,
+      "../ocw-hugo-projects/ocw-course-v3/config.yaml"
+    )
+  }),
   FIELDS_HUGO_CONFIG_PATH: envalid.str({
     desc:       "A path to the mit-fields Hugo configuration file",
     devDefault: path.resolve(
