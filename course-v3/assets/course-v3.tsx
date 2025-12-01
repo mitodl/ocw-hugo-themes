@@ -2,6 +2,7 @@ import "offcanvas-bootstrap/dist/js/bootstrap.offcanvas.js"
 import "promise-polyfill/src/polyfill.js"
 import "./css/course-v3.scss"
 import { initDivToggle } from "./js/div_toggle"
+import { initMITLearnHeader } from "./js/mit_learn_header"
 import {
   initCourseInfoExpander,
   initCourseDescriptionExpander
@@ -37,6 +38,7 @@ declare let window: OCWWindow
 
 $(function() {
   window.posthog = initPostHog()
+  initMITLearnHeader()
   initCourseDescriptionExpander(document)
   initCourseInfoExpander(document)
   initDivToggle()
@@ -45,7 +47,7 @@ $(function() {
   showSolution()
   initCourseDrawersClosingViaSwiping()
   const queryClient = makeQueryClient()
-  const userMenuContainers = document.querySelectorAll(".user-menu-container")
+  const userMenuContainers = document.querySelectorAll(".user-menu-container, .mit-learn-user-menu-container")
   const learnIntegrationEnabled = isFeatureEnabled("ocw-learn-integration")
   if (userMenuContainers && learnIntegrationEnabled) {
     for (const userMenuContainer of Array.from(userMenuContainers)) {

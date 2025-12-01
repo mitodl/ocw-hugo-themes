@@ -1,0 +1,470 @@
+// MIT Learn Header Styles
+// Exact replication of MIT Learn design system from @mitodl/smoot-design
+
+// =============================================================================
+// MIT Learn Design System Variables (from smoot-design)
+// =============================================================================
+
+// Dimensions (from custom.dimensions)
+$mit-learn-header-height: 72px;
+$mit-learn-header-height-mobile: 60px;
+$mit-learn-drawer-width: 366px;
+
+// Colors (from smoot-design/colors.ts)
+$mit-learn-nav-gray: #303337;        // navGray
+$mit-learn-dark-gray-1: #40464C;     // darkGray1
+$mit-learn-dark-gray-2: #212326;     // darkGray2
+$mit-learn-silver-gray-dark: #626A73;// silverGrayDark
+$mit-learn-light-gray-2: #DDE1E6;    // lightGray2
+$mit-learn-red: #a31f34;             // red (MIT red variant)
+$mit-learn-white: #FFFFFF;           // white
+
+// Typography (from smoot-design/typography.ts)
+// Font family: "neue-haas-grotesk-text, sans-serif"
+// Font weights: roman=400, medium=500, bold=700
+$mit-learn-font-family: "neue-haas-grotesk-text", sans-serif;
+$mit-learn-font-weight-roman: 400;
+$mit-learn-font-weight-medium: 500;
+$mit-learn-font-weight-bold: 700;
+
+// Typography mixins matching smoot-design exactly
+@mixin mit-learn-subtitle2 {
+  font-family: $mit-learn-font-family;
+  font-weight: $mit-learn-font-weight-medium;
+  font-style: normal;
+  font-size: 0.875rem; // 14px
+  line-height: 1.125rem; // 18px
+}
+
+@mixin mit-learn-subtitle3 {
+  font-family: $mit-learn-font-family;
+  font-weight: $mit-learn-font-weight-medium;
+  font-style: normal;
+  font-size: 0.75rem; // 12px
+  line-height: 1rem; // 16px
+}
+
+@mixin mit-learn-body2 {
+  font-family: $mit-learn-font-family;
+  font-weight: $mit-learn-font-weight-roman;
+  font-style: normal;
+  font-size: 0.875rem; // 14px
+  line-height: 1.125rem; // 18px
+}
+
+@mixin mit-learn-body3 {
+  font-family: $mit-learn-font-family;
+  font-weight: $mit-learn-font-weight-roman;
+  font-style: normal;
+  font-size: 0.75rem; // 12px
+  line-height: 1rem; // 16px
+}
+
+// =============================================================================
+// Header Component
+// =============================================================================
+
+.mit-learn-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+}
+
+.mit-learn-header-bar {
+  height: $mit-learn-header-height;
+  background-color: $mit-learn-nav-gray;
+  display: flex;
+  justify-content: center;
+  padding: 16px 8px;
+
+  @include media-breakpoint-down(md) {
+    height: $mit-learn-header-height-mobile;
+    padding: 0;
+  }
+}
+
+.mit-learn-header-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: $max-content-width;
+  padding: 0 24px;
+
+  @include media-breakpoint-down(md) {
+    padding: 0 16px;
+  }
+}
+
+// Desktop Layout
+.mit-learn-header-desktop {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+// Mobile Layout
+.mit-learn-header-mobile {
+  display: none;
+  align-items: center;
+  width: 100%;
+
+  @include media-breakpoint-down(md) {
+    display: flex;
+  }
+}
+
+.mit-learn-header-spacer {
+  flex: 1;
+}
+
+.mit-learn-header-spacer-left {
+  width: 24px;
+
+  @include media-breakpoint-down(md) {
+    width: 16px;
+  }
+}
+
+// =============================================================================
+// Logo Components
+// =============================================================================
+
+.mit-learn-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.mit-learn-logo {
+  height: 24px;
+  width: auto;
+
+  &.mit-learn-logo-mobile {
+    height: 16px;
+  }
+}
+
+.mit-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  margin-left: 16px;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.mit-logo {
+  height: 32px;
+  width: 64px;
+
+  &.mit-logo-mobile {
+    height: 24px;
+    width: 48px;
+    margin-left: 0;
+  }
+}
+
+// =============================================================================
+// Menu Button (matching MenuButton.tsx exactly)
+// =============================================================================
+
+.mit-learn-menu-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  color: $mit-learn-white;
+  cursor: pointer;
+  touch-action: none;
+  text-align: center;
+  transition: background 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: transparent;
+  }
+
+  svg,
+  .remixicon {
+    color: $mit-learn-white;
+    width: 24px;
+    height: 24px;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding: 4px 0;
+  }
+}
+
+.mit-learn-menu-button-inner {
+  display: flex;
+  align-items: flex-start;
+}
+
+.mit-learn-menu-button-text {
+  align-self: center;
+  padding-left: 16px;
+  text-transform: none;
+  @include mit-learn-subtitle2;
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+// =============================================================================
+// Search Button
+// =============================================================================
+
+.mit-learn-search-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 16px;
+  color: $mit-learn-white;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+    color: $mit-learn-white;
+  }
+
+  svg,
+  .remixicon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.5;
+    margin: 4px 0;
+
+    @include media-breakpoint-down(md) {
+      opacity: 1;
+    }
+  }
+
+  &:hover svg,
+  &:hover .remixicon {
+    opacity: 1;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding: 0;
+  }
+}
+
+// =============================================================================
+// User Menu Container
+// =============================================================================
+
+.mit-learn-user-menu-container {
+  display: flex;
+  align-items: center;
+}
+
+// =============================================================================
+// Navigation Drawer (matching NavDrawer.tsx exactly)
+// =============================================================================
+
+.mit-learn-nav-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: $mit-learn-drawer-width;
+  height: 100%;
+  background: $mit-learn-white;
+  border-right: 1px solid $mit-learn-light-gray-2;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1040;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  // Box shadow from NavDrawer.tsx
+  box-shadow: 0px 6px 24px 0px rgba(37, 38, 43, 0.10);
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  @include media-breakpoint-down(sm) {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+.mit-learn-nav-drawer-content {
+  padding-top: $mit-learn-header-height;
+
+  @include media-breakpoint-down(md) {
+    padding-top: $mit-learn-header-height-mobile;
+  }
+}
+
+// =============================================================================
+// Navigation Sections (matching NavDrawer.tsx exactly)
+// =============================================================================
+
+.mit-learn-nav-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  padding: 24px 32px 8px 32px;
+  gap: 12px;
+}
+
+.mit-learn-nav-section-header {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  color: $mit-learn-dark-gray-1;
+  @include mit-learn-subtitle3;
+
+  &.has-button {
+    justify-content: space-between;
+    height: 16px;
+  }
+}
+
+.mit-learn-nav-close-button {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: $mit-learn-dark-gray-1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(12px);
+
+  &:hover {
+    background: rgba(64, 70, 76, 0.06);
+    border-radius: 4px;
+  }
+
+  svg,
+  .remixicon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.mit-learn-nav-items {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  gap: 12px;
+  color: $mit-learn-silver-gray-dark;
+}
+
+.mit-learn-nav-item {
+  display: flex;
+  padding: 4px 0;
+  align-items: flex-start;
+  align-self: stretch;
+  gap: 16px;
+  text-decoration: none !important;
+  color: inherit;
+
+  &:hover {
+    color: $mit-learn-dark-gray-2;
+
+    .mit-learn-nav-link-icon {
+      opacity: 1;
+    }
+
+    .mit-learn-nav-item-title {
+      color: $mit-learn-red;
+      text-decoration-line: underline;
+      text-decoration-color: $mit-learn-red;
+    }
+  }
+}
+
+.mit-learn-nav-icon-container {
+  display: flex;
+  align-items: flex-start;
+
+  &.with-description {
+    padding-top: 4px;
+  }
+
+  svg,
+  .remixicon {
+    width: 24px;
+    height: 24px;
+    color: $mit-learn-silver-gray-dark;
+  }
+}
+
+.mit-learn-nav-item-content {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: center;
+  gap: 4px;
+}
+
+.mit-learn-nav-item-title {
+  color: $mit-learn-dark-gray-2;
+  @include mit-learn-subtitle3;
+}
+
+.mit-learn-nav-item-description {
+  align-self: stretch;
+  @include mit-learn-body3;
+}
+
+// =============================================================================
+// Backdrop
+// =============================================================================
+
+.mit-learn-nav-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  z-index: 1035;
+  display: none;
+  pointer-events: none;
+
+  &.visible {
+    display: block;
+    pointer-events: auto;
+  }
+}
+
+// =============================================================================
+// Body Adjustments
+// =============================================================================
+
+body.has-mit-learn-header {
+  padding-top: $mit-learn-header-height;
+
+  @include media-breakpoint-down(md) {
+    padding-top: $mit-learn-header-height-mobile;
+  }
+}
+
+// Hide original headers when MIT Learn header is active
+body.has-mit-learn-header {
+  #mobile-header,
+  #desktop-header {
+    display: none !important;
+  }
+}
