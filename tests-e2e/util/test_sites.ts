@@ -2,18 +2,26 @@ import { env } from "../../env"
 
 const LOCAL_OCW_PORT = 3010
 
-type TestSiteAlias = "course" | "www"
+type TestSiteAlias = "course" | "course-v3" | "www"
 type TestSite = {
   name: string
+  contentDir: string
   configPath: string
 }
 const TEST_SITES: Record<TestSiteAlias, TestSite> = {
   course: {
     name:       "ocw-ci-test-course",
+    contentDir: "ocw-ci-test-course",
     configPath: env.COURSE_HUGO_CONFIG_PATH
+  },
+  "course-v3": {
+    name:       "ocw-ci-test-course-v3",
+    contentDir: "ocw-ci-test-course", // Reuses v2 content
+    configPath: env.COURSE_V3_HUGO_CONFIG_PATH
   },
   www: {
     name:       "ocw-ci-test-www",
+    contentDir: "ocw-ci-test-www",
     configPath: env.WWW_HUGO_CONFIG_PATH
   }
 }
