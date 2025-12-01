@@ -47,7 +47,9 @@ $(function() {
   showSolution()
   initCourseDrawersClosingViaSwiping()
   const queryClient = makeQueryClient()
-  const userMenuContainers = document.querySelectorAll(".user-menu-container, .mit-learn-user-menu-container")
+  const userMenuContainers = document.querySelectorAll(
+    ".user-menu-container, .mit-learn-user-menu-container"
+  )
   const learnIntegrationEnabled = isFeatureEnabled("ocw-learn-integration")
   if (userMenuContainers && learnIntegrationEnabled) {
     for (const userMenuContainer of Array.from(userMenuContainers)) {

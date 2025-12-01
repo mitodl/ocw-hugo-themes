@@ -11,13 +11,13 @@ $mit-learn-header-height-mobile: 60px;
 $mit-learn-drawer-width: 366px;
 
 // Colors (from smoot-design/colors.ts)
-$mit-learn-nav-gray: #303337;        // navGray
-$mit-learn-dark-gray-1: #40464C;     // darkGray1
-$mit-learn-dark-gray-2: #212326;     // darkGray2
-$mit-learn-silver-gray-dark: #626A73;// silverGrayDark
-$mit-learn-light-gray-2: #DDE1E6;    // lightGray2
-$mit-learn-red: #a31f34;             // red (MIT red variant)
-$mit-learn-white: #FFFFFF;           // white
+$mit-learn-nav-gray: #303337; // navGray
+$mit-learn-dark-gray-1: #40464c; // darkGray1
+$mit-learn-dark-gray-2: #212326; // darkGray2
+$mit-learn-silver-gray-dark: #626a73; // silverGrayDark
+$mit-learn-light-gray-2: #dde1e6; // lightGray2
+$mit-learn-red: #a31f34; // red (MIT red variant)
+$mit-learn-white: #ffffff; // white
 
 // Typography (from smoot-design/typography.ts)
 // Font family: "neue-haas-grotesk-text, sans-serif"
@@ -291,7 +291,7 @@ $mit-learn-font-weight-bold: 700;
   overflow-y: auto;
   overscroll-behavior: contain;
   // Box shadow from NavDrawer.tsx
-  box-shadow: 0px 6px 24px 0px rgba(37, 38, 43, 0.10);
+  box-shadow: 0px 6px 24px 0px rgba(37, 38, 43, 0.1);
 
   &.open {
     transform: translateX(0);

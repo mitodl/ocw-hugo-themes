@@ -5,8 +5,12 @@
  */
 
 export function initMITLearnHeader(): void {
-  const desktopMenuButton = document.getElementById("mit-learn-menu-button-desktop")
-  const mobileMenuButton = document.getElementById("mit-learn-menu-button-mobile")
+  const desktopMenuButton = document.getElementById(
+    "mit-learn-menu-button-desktop"
+  )
+  const mobileMenuButton = document.getElementById(
+    "mit-learn-menu-button-mobile"
+  )
   const navDrawer = document.getElementById("mit-learn-nav-drawer")
   const navCloseButton = document.getElementById("mit-learn-nav-close")
   const backdrop = document.getElementById("mit-learn-nav-backdrop")
@@ -48,7 +52,8 @@ export function initMITLearnHeader(): void {
     document.body.style.overflow = ""
 
     // Return focus to the trigger button
-    const visibleButton = window.innerWidth >= 768 ? desktopMenuButton : mobileMenuButton
+    const visibleButton =
+      window.innerWidth >= 768 ? desktopMenuButton : mobileMenuButton
     visibleButton?.focus()
   }
 
@@ -107,7 +112,11 @@ export function initMITLearnHeader(): void {
     const isClickOnDesktopButton = desktopMenuButton?.contains(target)
     const isClickOnMobileButton = mobileMenuButton?.contains(target)
 
-    if (!isClickInsideDrawer && !isClickOnDesktopButton && !isClickOnMobileButton) {
+    if (
+      !isClickInsideDrawer &&
+      !isClickOnDesktopButton &&
+      !isClickOnMobileButton
+    ) {
       closeDrawer()
     }
   })
