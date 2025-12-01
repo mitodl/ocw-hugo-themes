@@ -69,10 +69,12 @@ $mit-learn-font-weight-bold: 700;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1030;
+  z-index: 1100;
 }
 
 .mit-learn-header-bar {
+  position: relative;
+  z-index: 2; // Higher than drawer within the header context
   height: $mit-learn-header-height;
   background-color: $mit-learn-nav-gray;
   display: flex;
@@ -89,8 +91,8 @@ $mit-learn-font-weight-bold: 700;
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: $max-content-width;
-  padding: 0 24px;
+  height: 100%;
+  padding: 0 8px;
 
   @include media-breakpoint-down(md) {
     padding: 0 16px;
@@ -287,7 +289,7 @@ $mit-learn-font-weight-bold: 700;
   border-right: 1px solid $mit-learn-light-gray-2;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
-  z-index: 1040;
+  z-index: 1; // Below header-bar (z-index: 2) within header context
   overflow-y: auto;
   overscroll-behavior: contain;
   // Box shadow from NavDrawer.tsx
@@ -439,7 +441,7 @@ $mit-learn-font-weight-bold: 700;
   right: 0;
   bottom: 0;
   background: transparent;
-  z-index: 1035;
+  z-index: 0; // Lowest within header context
   display: none;
   pointer-events: none;
 
