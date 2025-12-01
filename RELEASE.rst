@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.137.0 (Released December 01, 2025)
+---------------
+
+- chore(deps): update yarn to v4.12.0 (#1678)
+- chore(deps): update actions/checkout action to v6 (#1679)
+- fix(deps): update dependency sass to v1.94.2 (#1677)
+- chore(deps): update actions/checkout digest to 93cb6ef (#1676)
+- chore: added mathjax in offline theme basejs (#1670)
+- fix: added transcript/captions download for offline course (#1652)
+
 Version 1.136.0 (Released November 20, 2025)
 ---------------
 
