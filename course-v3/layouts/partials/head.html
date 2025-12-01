@@ -1,0 +1,72 @@
+{{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
+{{- $noindex := getenv "NOINDEX" -}}
+
+<head>
+  {{ if $gtmId }}
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','{{ $gtmId }}');</script>
+    <!-- End Google Tag Manager -->
+  {{ end }}
+  {{ block "extrahead" . }}{{ end }}
+  {{ if eq $noindex "true" }}
+  <meta name="robots" content="noindex">
+  {{ end }}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  {{ block "seo" . }}{{ end }}
+  <title>{{ block "title" . }}{{ end }}</title>
+  
+  <!-- Adobe Fonts (neue-haas-grotesk-text) for MIT Learn header -->
+  <link rel="stylesheet" href="https://use.typekit.net/lbk1xay.css">
+  
+  <style>
+  @font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Material Icons'),
+      local('MaterialIcons-Regular'),
+      url({{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "fonts/MaterialIcons-Regular.subset.woff2")) }}) format('woff2'),
+      url({{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "fonts/MaterialIcons-Regular.subset.woff")) }}) format('woff'),
+      url({{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "fonts/MaterialIcons-Regular.subset.ttf")) }}) format('truetype');
+  }
+  @font-face {
+    font-family: 'Material Icons Round';
+    font-style: normal;
+    font-weight: 400;
+    src: local("MaterialIcons-Round"),
+    url({{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "fonts/MaterialIconsRound-Regular.subset.woff2")) }}) format('woff2');
+  }
+  @font-face {
+    font-family: 'Cardo Bold';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Cardo'),
+      local('Cardo-Bold'),
+      url({{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "fonts/Cardo-Bold.ttf")) }}) format('truetype');
+  }
+  @font-face {
+    font-family: 'Cardo Italic';
+    font-style: italic;
+    font-weight: 400;
+    src: local('Cardo'),
+      local('Cardo-Italic'),
+      url({{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "fonts/Cardo-Italic.ttf")) }}) format('truetype');
+  }
+  @font-face {
+    font-family: 'Helvetica Light';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Helvetica Light'),
+      local('Helvetica-Light'),
+      url({{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "fonts/Helvetica-Light.ttf")) }}) format('truetype');
+  }
+  .external-link.nav-link::after {
+    background-image: url('{{ partial "webpack_url.html" (dict "context" . "url" (partial "get_asset_webpack_url.html" "images/external_link.svg")) }}'); 
+  }
+  </style>
+</head>
