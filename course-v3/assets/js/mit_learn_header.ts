@@ -1,6 +1,6 @@
 /**
  * MIT Learn Header - Navigation Drawer functionality
- * 
+ *
  * Initializes the header menu button and navigation drawer interactions.
  */
 
@@ -22,14 +22,14 @@ export function initMITLearnHeader(): void {
     navDrawer.classList.add("open")
     navDrawer.setAttribute("aria-hidden", "false")
     backdrop?.classList.add("visible")
-    
+
     // Update button states
     desktopMenuButton?.setAttribute("aria-expanded", "true")
     mobileMenuButton?.setAttribute("aria-expanded", "true")
-    
+
     // Trap focus in drawer
     navCloseButton?.focus()
-    
+
     // Prevent body scroll when drawer is open
     document.body.style.overflow = "hidden"
   }
@@ -39,14 +39,14 @@ export function initMITLearnHeader(): void {
     navDrawer.classList.remove("open")
     navDrawer.setAttribute("aria-hidden", "true")
     backdrop?.classList.remove("visible")
-    
+
     // Update button states
     desktopMenuButton?.setAttribute("aria-expanded", "false")
     mobileMenuButton?.setAttribute("aria-expanded", "false")
-    
+
     // Restore body scroll
     document.body.style.overflow = ""
-    
+
     // Return focus to the trigger button
     const visibleButton = window.innerWidth >= 768 ? desktopMenuButton : mobileMenuButton
     visibleButton?.focus()
@@ -61,20 +61,20 @@ export function initMITLearnHeader(): void {
   }
 
   // Menu button click handlers
-  desktopMenuButton?.addEventListener("click", (e) => {
+  desktopMenuButton?.addEventListener("click", e => {
     e.preventDefault()
     e.stopPropagation()
     toggleDrawer()
   })
 
-  mobileMenuButton?.addEventListener("click", (e) => {
+  mobileMenuButton?.addEventListener("click", e => {
     e.preventDefault()
     e.stopPropagation()
     toggleDrawer()
   })
 
   // Close button handler
-  navCloseButton?.addEventListener("click", (e) => {
+  navCloseButton?.addEventListener("click", e => {
     e.preventDefault()
     closeDrawer()
   })
@@ -85,28 +85,28 @@ export function initMITLearnHeader(): void {
   })
 
   // Close drawer when clicking on a nav link
-  navDrawer.querySelectorAll(".mit-learn-nav-item").forEach((link) => {
+  navDrawer.querySelectorAll(".mit-learn-nav-item").forEach(link => {
     link.addEventListener("click", () => {
       closeDrawer()
     })
   })
 
   // Handle Escape key
-  document.addEventListener("keydown", (e) => {
+  document.addEventListener("keydown", e => {
     if (e.key === "Escape" && isOpen) {
       closeDrawer()
     }
   })
 
   // Handle click outside drawer (but not on menu buttons)
-  document.addEventListener("click", (e) => {
+  document.addEventListener("click", e => {
     if (!isOpen) return
-    
+
     const target = e.target as Node
     const isClickInsideDrawer = navDrawer.contains(target)
     const isClickOnDesktopButton = desktopMenuButton?.contains(target)
     const isClickOnMobileButton = mobileMenuButton?.contains(target)
-    
+
     if (!isClickInsideDrawer && !isClickOnDesktopButton && !isClickOnMobileButton) {
       closeDrawer()
     }
