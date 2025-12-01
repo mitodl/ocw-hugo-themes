@@ -107,7 +107,7 @@
     "@types/react-dom": "^18.2.14",
     "@types/react-infinite-scroller": "^1.2.5",
     "@types/serve-handler": "^6.1.1",
-    "@types/sinon": "^17.0.0",
+    "@types/sinon": "^21.0.0",
     "@types/video.js": "^7.3.29",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "ansi-colors": "^4.1.3",
