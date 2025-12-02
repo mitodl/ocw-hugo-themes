@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.137.1
+---------------
+
+- feat: display credit text in image galleries (#1663)
+- chore(deps): update dependency jest-watch-typeahead to v3 (#1673)
+
 Version 1.137.0 (Released December 01, 2025)
 ---------------
 
