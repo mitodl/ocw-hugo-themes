@@ -1,12 +1,25 @@
-.learning-resource-type-item {
-  border: 1px solid #bcbcbc;
-  border-radius: 15px;
-  box-sizing: border-box;
-  font-size: $font-sm;
-  padding: 3px 8px 3px 8px;
-  cursor: default;
+// Learning Resource Types - Inline text with pipe separators (Figma v3 design)
+.learning-resource-types-section {
+  .learning-resource-types-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
 
-  .material-icons {
-    font-size: 20px;
+  .learning-resource-type-text {
+    font-family: "Neue Haas Grotesk Text Pro", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #212326;
+  }
+
+  .learning-resource-divider {
+    font-family: "Neue Haas Grotesk Text Pro", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #b8c2cc; // light-silver-gray
   }
 }

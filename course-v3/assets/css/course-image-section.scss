@@ -1,17 +1,105 @@
-.course-image-section-container {
+// Course Image Section - Figma Design
+.course-image-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
   .course-image-container {
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 
     .course-image {
-      object-fit: contain;
-      border: 1px solid $medium-gray;
       width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border: 1px solid #dde1e6;
+      border-radius: 4px;
+
+      @include media-breakpoint-down(md) {
+        height: 230px;
+        border-radius: 8px 8px 0 0;
+      }
     }
 
     .course-image-caption {
-      font-size: $font-sm;
-      margin-top: 10px;
-      line-height: 1.2;
+      font-family: "Neue Haas Grotesk Text Pro", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 18px;
+      color: #000000;
+    }
+  }
+
+  .course-download-section {
+    width: 100%;
+  }
+}
+
+// Download Course Link Button - Figma Design
+.download-button-container {
+  width: 100%;
+}
+
+.download-course-link-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 48px;
+  padding: 12px 24px 12px 20px;
+  background-color: #750014; // MIT red
+  color: #ffffff !important;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px 0px rgba(37, 38, 43, 0.1), 0px 3px 8px 0px rgba(37, 38, 43, 0.12);
+  font-family: "Neue Haas Grotesk Text Pro", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #5a0010;
+    color: #ffffff !important;
+    text-decoration: none !important;
+  }
+
+  .download-icon {
+    font-size: 24px;
+  }
+}
+
+// Mobile: Image section wrapped in card
+@include media-breakpoint-down(md) {
+  .course-sidebar-column.medium-and-below-only {
+    .course-image-section {
+      background: #ffffff;
+      border: 1px solid #dde1e6;
+      border-radius: 4px;
+      box-shadow: 0px 8px 20px 0px rgba(120, 147, 172, 0.1);
+      overflow: hidden;
+
+      .course-image-container {
+        gap: 0;
+
+        .course-image {
+          border: none;
+          border-radius: 8px 8px 0 0;
+        }
+
+        .course-image-caption {
+          padding: 16px;
+          padding-bottom: 0;
+        }
+      }
+
+      .course-download-section {
+        padding: 16px;
+        padding-top: 24px;
+      }
     }
   }
 }

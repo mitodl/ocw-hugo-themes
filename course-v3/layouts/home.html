@@ -20,22 +20,36 @@
       {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
     </span>
     <div id="course-main-content">
-      <div class="row">
-        <div class="col-12 course-home-grid">
-          <div class="medium-and-below-only mb-3">
-            {{ partial "mobile_nav_toggle.html" . }}
-          </div>
-        </div>
-      </div>
-      <div class="row course-cards">
-        <div class="col-2 course-home-grid large-and-above-only">
+      <div class="course-content-wrapper">
+        <!-- Desktop Left Nav (positioned outside white card) -->
+        <div class="course-nav-column large-and-above-only">
           {{ partialCached "desktop_nav.html" . }}
         </div>
-        <div class="col-12 col-md-8 col-lg-7 course-home-grid">
-          {{ partialCached "course_detail.html" . }}
-        </div>
-        <div class="col-12 col-md-4 col-lg-3 mb-3 mb-md-0 course-home-grid">
-          {{ partialCached "course_image_section.html" . }}
+        
+        <!-- Main Content Card -->
+        <div class="course-main-card">
+          <!-- Mobile: Image section at top -->
+          <div class="course-sidebar-column medium-and-below-only">
+            {{ partialCached "course_image_section.html" . }}
+          </div>
+          
+          <!-- Mobile: Navigation buttons -->
+          <div class="mobile-nav-buttons medium-and-below-only">
+            <a href="/" class="nav-button active">Home</a>
+            {{ range .Site.Menus.leftnav }}
+              <a href="{{ .URL }}" class="nav-button">{{ .Name }}</a>
+            {{ end }}
+          </div>
+          
+          <!-- Course details column -->
+          <div class="course-detail-column">
+            {{ partialCached "course_detail.html" . }}
+          </div>
+          
+          <!-- Desktop: Image and download sidebar -->
+          <div class="course-sidebar-column large-and-above-only">
+            {{ partialCached "course_image_section.html" . }}
+          </div>
         </div>
       </div>
     </div>

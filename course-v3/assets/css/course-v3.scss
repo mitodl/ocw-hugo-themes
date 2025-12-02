@@ -261,6 +261,25 @@ pre {
   margin-bottom: 0;
 }
 
+// Course Description - Show more/Show less button styling
+#course-description {
+  .link-button {
+    color: #a31f34 !important; // MIT red
+    text-decoration: underline;
+    font-family: "Neue Haas Grotesk Text Pro", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      color: #750014 !important; // Darker red on hover
+    }
+  }
+}
+
 .course-detail-title {
   margin-bottom: 10px;
   min-height: 35px;
