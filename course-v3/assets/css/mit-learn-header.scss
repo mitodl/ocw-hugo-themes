@@ -145,7 +145,7 @@ $mit-learn-font-weight-bold: 700;
     width: 24px;
     height: 24px;
     color: $mit-learn-white;
-    opacity: 0.5; // From Figma: opacity: 0.5
+    fill: $mit-learn-white;
   }
 
   @include media-breakpoint-down(md) {
@@ -164,7 +164,6 @@ $mit-learn-font-weight-bold: 700;
 .mit-learn-menu-button-text {
   @include mit-learn-subtitle2; // From Figma: Subtitle/S2 (14)
   color: $mit-learn-white;
-  opacity: 0.75; // From Figma: opacity: 0.75
 
   @include media-breakpoint-down(md) {
     display: none;
@@ -200,6 +199,10 @@ $mit-learn-font-weight-bold: 700;
   color: $mit-learn-white;
   text-decoration: none;
 
+  &:visited {
+    color: $mit-learn-white;
+  }
+
   &:hover {
     text-decoration: none;
     color: $mit-learn-white;
@@ -216,6 +219,7 @@ $mit-learn-font-weight-bold: 700;
     width: 24px;
     height: 24px;
     opacity: 0.5; // From Figma: opacity: 0.5
+    fill: $mit-learn-white;
   }
 
   @include media-breakpoint-down(md) {
@@ -473,10 +477,10 @@ $mit-learn-font-weight-bold: 700;
 
 .mit-learn-nav-drawer {
   position: fixed;
-  top: 0;
+  top: $mit-learn-header-height; // Start below header bar
   left: 0;
   width: $mit-learn-drawer-width;
-  height: 100%;
+  height: calc(100% - #{$mit-learn-header-height}); // Subtract header height
   background: $mit-learn-white;
   border-right: 1px solid $mit-learn-light-gray-2;
   transform: translateX(-100%);
@@ -490,17 +494,11 @@ $mit-learn-font-weight-bold: 700;
     transform: translateX(0);
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
+    top: $mit-learn-header-height-mobile;
+    height: calc(100% - #{$mit-learn-header-height-mobile});
     width: 100%;
     max-width: 320px;
-  }
-}
-
-.mit-learn-nav-drawer-content {
-  padding-top: $mit-learn-header-height;
-
-  @include media-breakpoint-down(md) {
-    padding-top: $mit-learn-header-height-mobile;
   }
 }
 
