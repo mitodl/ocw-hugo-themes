@@ -21,7 +21,7 @@ import {
 } from "../../base-theme/assets/js/posthog"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { makeQueryClient } from "../../base-theme/assets/js/clients"
-import UserMenu from "../../base-theme/assets/js/components/UserMenu"
+import UserMenu from "./js/components/UserMenu"
 import { createRoot } from "react-dom/client"
 import AddToUserListModal from "../../base-theme/assets/js/components/UserListModal"
 import CreateUserListModal from "../../base-theme/assets/js/components/CreateUserListModal"

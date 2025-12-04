@@ -233,6 +233,172 @@ $mit-learn-font-weight-bold: 700;
 }
 
 // =============================================================================
+// User Menu Component - Matches MIT Learn's UserMenu
+// =============================================================================
+
+.mit-learn-user-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.mit-learn-user-menu-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background: none;
+  color: $mit-learn-white;
+  height: 40px;
+  border: 1px solid $mit-learn-silver-gray-dark;
+  border-radius: 4px;
+  padding: 2px 8px;
+  gap: 8px;
+  font: inherit;
+  margin: 0 16px;
+  opacity: 0.75;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  @include media-breakpoint-down(md) {
+    border: none;
+    opacity: 1;
+    gap: 2px;
+    padding: 4px 0;
+    margin: 0 24px;
+  }
+}
+
+.mit-learn-user-icon {
+  width: 24px;
+  height: 24px;
+  color: $mit-learn-white;
+}
+
+.mit-learn-user-name {
+  color: $mit-learn-white;
+  font-size: 14px;
+  line-height: 20px;
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.mit-learn-user-chevron {
+  width: 24px;
+  height: 24px;
+  color: $mit-learn-white;
+}
+
+.mit-learn-user-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 16px;
+  background: $mit-learn-dark-gray-1;
+  border-radius: 0 0 5px 5px;
+  padding: 8px 16px;
+  min-width: 120px;
+  z-index: 1200;
+  box-shadow: 0px 6px 24px 0px rgba(37, 38, 43, 0.1);
+
+  @include media-breakpoint-down(md) {
+    left: 0;
+  }
+}
+
+.mit-learn-user-dropdown-item {
+  display: block;
+  padding: 8px 0;
+  color: $mit-learn-white;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+
+  &:hover {
+    color: $mit-learn-white;
+    text-decoration: underline;
+  }
+}
+
+// =============================================================================
+// Login Button - Matches MIT Learn's logged out state (tertiary variant)
+// =============================================================================
+
+.mit-learn-login-container {
+  display: flex;
+  align-items: center;
+}
+
+.mit-learn-login-button-desktop {
+  // From Figma specs
+  display: flex;
+  width: 100px;
+  height: 40px;
+  padding: 18px 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  // Tertiary variant styling
+  border-radius: 4px;
+  border: 1px solid $mit-learn-light-gray-2; // #DDE1E6
+  background: $mit-learn-light-gray-2; // #DDE1E6
+  color: $mit-learn-dark-gray-2; // #212326
+  font-family: $mit-learn-font-family;
+  font-size: 12px;
+  font-weight: $mit-learn-font-weight-medium;
+  line-height: 16px;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: $mit-learn-white;
+    border-color: $mit-learn-white;
+    color: $mit-learn-dark-gray-2;
+    text-decoration: none;
+  }
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.mit-learn-login-button-mobile {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  // Matches MIT Learn MobileLoginButton styling (ActionButtonLink)
+  // edge="circular", variant="text"
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%; // circular edge
+  color: $mit-learn-white;
+  text-decoration: none;
+  cursor: pointer;
+
+  .mit-learn-user-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  &:hover {
+    // text variant hover: rgba(64, 70, 76, 0.06) but we use opacity for white icon
+    opacity: 0.8;
+  }
+
+  @include media-breakpoint-down(md) {
+    display: flex;
+  }
+}
+
+// =============================================================================
 // Official MIT Logo (from Figma: Offical-Logo)
 // =============================================================================
 
@@ -253,6 +419,7 @@ $mit-learn-font-weight-bold: 700;
 .mit-learn-official-logo-img {
   width: 64px; // From Figma: width: 64px
   height: 32px; // From Figma: height: 32px
+  fill: $mit-learn-white; // White (MIT Brand)
 }
 
 // =============================================================================
