@@ -39,10 +39,16 @@ export default function UserMenu() {
         className="mit-learn-user-dropdown dropdown-menu dropdown-menu-right"
         aria-labelledby="user-menu-button"
       >
-        <a className="mit-learn-user-dropdown-item dropdown-item" href={myListsUrl}>
+        <a
+          className="mit-learn-user-dropdown-item dropdown-item"
+          href={myListsUrl}
+        >
           My Lists
         </a>
-        <a className="mit-learn-user-dropdown-item dropdown-item" href={logoutUrl}>
+        <a
+          className="mit-learn-user-dropdown-item dropdown-item"
+          href={logoutUrl}
+        >
           Logout
         </a>
       </div>
