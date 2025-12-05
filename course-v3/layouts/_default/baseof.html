@@ -3,7 +3,7 @@
 <html lang="{{ $.Site.Language.Lang }}">
 {{ partial "head.html" . }}
 {{ $pageDepth := strings.Count "/" .RelPermalink }}
-<body class="course-home-page">
+<body class="course-home-page has-mit-learn-header">
   {{ if $gtmId }}
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId }}"
