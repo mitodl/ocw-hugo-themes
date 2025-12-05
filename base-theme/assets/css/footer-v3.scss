@@ -1,37 +1,94 @@
 // This file has been created in base-theme in-case
 // we want to use this new footer in other themes (www, course-offline etc)
-.footer {
-  background-color: $footer-v2-background-color;
-  font-size: $font-sm !important;
-  color: $footer-v2-text-color !important;
 
-  a {
-    color: $footer-v2-text-color !important;
+.footer-v3 {
+  border-top: 1px solid #8c8c8c;
+
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+
+  .left-container {
+    gap: 30px;
+
+    @media screen and (max-width: 991px) {
+      gap: 16px;
+    }
+
+    img {
+      height: 48px;
+      @media screen and (max-width: 991px) {
+        height: 40px;
+      }
+    }
+
+    address {
+      @media screen and (max-width: 991px) {
+        flex: 1 0 0;
+      }
+    }
   }
 
-  .footer-main-content {
-    max-width: $max-content-width;
-    padding: 1.5rem 3rem 2.5rem 3rem !important;
+  .right-container {
+    gap: 32px;
 
-    .footer-social-icon {
-      height: 24px;
-      width: 24px;
-      margin-left: 5px;
-      margin-right: 5px;
-      opacity: 0.6;
+    @media screen and (max-width: 991px) {
+      gap: 16px;
+      align-items: flex-start;
+      align-self: stretch;
+    }
+  }
+
+  .footer-links {
+    gap: 16px;
+    @media screen and (max-width: 991px) {
+      justify-content: flex-start;
+      flex-wrap: wrap;
     }
 
-    .footer-social-icon.nudge-up {
-      position: relative;
-      top: -1px;
+    .footer-link {
+      padding: 0 16px;
+      @media screen and (max-width: 991px) {
+        padding: 0;
+      }
     }
+  }
 
-    .footer-social-icon:hover {
-      opacity: 1;
+  .copyright-container {
+    padding: 0 16px;
+    gap: 10px;
+    align-self: end;
+
+    @media screen and (max-width: 991px) {
+      padding: 0;
+      align-self: start;
     }
+  }
 
-    .oeg-logo {
-      width: 90px;
+  .footer-content {
+    @media screen and (max-width: 991px) {
+      gap: 16px;
+      flex-direction: column;
+    }
+  }
+
+  .container-inner {
+    padding: 32px 0;
+    @media screen and (max-width: 991px) {
+      padding: 26px 16px;
+      align-self: stretch;
+    }
+  }
+
+  .sized-container {
+    width: 100%;
+    margin: auto;
+
+    max-width: 1320px;
+
+    padding: 0 16px;
+
+    @media screen and (min-width: 600px) {
+      padding: 0 24px;
     }
   }
 }
