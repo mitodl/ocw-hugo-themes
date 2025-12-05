@@ -132,7 +132,7 @@
     "file-loader": "^6.0.0",
     "hugo-bin-extended": "^0.144.0",
     "imports-loader": "^5.0.0",
-    "inquirer": "^12.0.0",
+    "inquirer": "^13.0.0",
     "jest": "^30.0.0",
     "jest-fetch-mock": "^3.0.3",
     "jest-watch-typeahead": "^3.0.0",
