@@ -36,11 +36,44 @@ $panel-course-info-text-color: #464646;
   right: 0;
 }
 
-.download-course-link-button {
-  border-color: $blue !important;
-  color: $blue !important;
+// Download Course Button - Figma design: red background, white text
+.download-button-container {
+  width: 100%;
 }
 
-.download-course-link-button:hover {
-  color: $white !important;
+.download-course-link-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 48px;
+  padding: 12px 24px 12px 20px;
+  background-color: #750014 !important; // MIT red brand
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: 0px 2px 4px 0px rgba(37, 38, 43, 0.1), 0px 3px 8px 0px rgba(37, 38, 43, 0.12);
+  color: #ffffff !important;
+  font-family: "Neue Haas Grotesk Text Pro", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  text-decoration: none !important;
+  transition: background-color 0.2s;
+
+  .download-icon {
+    font-size: 24px;
+  }
+
+  &:hover {
+    background-color: #5a0010 !important; // Darker red on hover
+    color: #ffffff !important;
+  }
+
+  .text-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
 }

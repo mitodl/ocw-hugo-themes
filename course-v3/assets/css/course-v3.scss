@@ -61,27 +61,81 @@ h5 {
   line-height: $course-heading-five-line-height !important;
 }
 
+// Course Banner - v3 Design
+// Colors from Figma design system
+$banner-bg-color: #000000;
+$banner-text-color: #ffffff;
+
 #course-banner {
-  color: $white;
-  background-color: $blue;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: url("https://www.figma.com/api/mcp/asset/5871d38c-e4cb-4142-9dd1-27020b598449") -182.723px -227.266px / 122.737% 672.734% no-repeat, #000;
+
+  @include media-breakpoint-down(md) {
+    background: url("https://www.figma.com/api/mcp/asset/5871d38c-e4cb-4142-9dd1-27020b598449") -34.407px -0.757px / 323.489% 193.303% no-repeat, #212326;
+  }
 
   .course-banner-content {
-    max-width: $max-content-width;
-    padding: 1.5rem 3rem !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1272px;
+    margin: 0 auto;
+    padding: 48px 24px;
+
+    @include media-breakpoint-down(md) {
+      padding: 32px 16px;
+    }
+  }
+
+  .course-banner-title-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: $banner-text-color;
   }
 
   .course-number-term-detail {
-    font-size: $font-sm;
-    color: $white;
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-  h1 {
+    font-family: "Neue Haas Grotesk Text Pro", sans-serif;
+    font-size: 16px;
     font-weight: 400;
-    margin-bottom: 0px;
+    line-height: 20px;
+    color: $banner-text-color;
+
+    @include media-breakpoint-down(md) {
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 16px;
+    }
+  }
+
+  .course-title {
+    margin: 0;
+    
+    a,
+    a:link,
+    a:visited,
+    a:hover,
+    a:active,
+    a:focus {
+      font-family: "Neue Haas Grotesk Text Pro", sans-serif;
+      font-size: 40px !important;
+      font-weight: 700;
+      line-height: 60px !important;
+      color: #ffffff !important;
+      text-decoration: none !important;
+
+      @include media-breakpoint-down(md) {
+        font-size: 28px !important;
+        font-weight: 700;
+        line-height: 36px !important;
+      }
+    }
+  }
+
+  .course-banner-bookmark {
+    flex-shrink: 0;
   }
 }
 
@@ -205,6 +259,25 @@ pre {
 
 .course-detail-section:last-child {
   margin-bottom: 0;
+}
+
+// Course Description - Show more/Show less button styling
+#course-description {
+  .link-button {
+    color: #a31f34 !important; // MIT red
+    text-decoration: underline;
+    font-family: "Neue Haas Grotesk Text Pro", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      color: #750014 !important; // Darker red on hover
+    }
+  }
 }
 
 .course-detail-title {

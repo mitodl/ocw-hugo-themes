@@ -6,11 +6,213 @@
   }
 
   #course-main-content {
-    max-width: $max-content-width;
-    margin: 0 auto;
-    padding: 1.5rem 2.5rem 4rem 2.5rem !important;
+    background-color: #f3f4f8; // light-gray-1
+    padding: 56px 0 80px 0 !important;
+
+    @include media-breakpoint-down(md) {
+      padding: 24px 16px !important;
+    }
   }
 
+  // Main container for the course home content
+  .course-content-wrapper {
+    max-width: 1276px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+
+    @include media-breakpoint-down(md) {
+      padding: 0;
+      flex-direction: column;
+    }
+  }
+
+  // Desktop Left Nav - positioned outside the white card
+  .course-nav-column {
+    position: sticky;
+    top: 120px;
+    width: 196px;
+    flex-shrink: 0;
+    padding-top: 0;
+    border-radius: 8px 0 0 8px;
+    overflow: hidden;
+
+    .desktop-nav-wrapper {
+      nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          margin: 0;
+
+          a {
+            display: flex;
+            align-items: center;
+            padding: 16px 24px;
+            font-family: "Neue Haas Grotesk Text Pro", sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 18px;
+            color: #212326;
+            text-decoration: none;
+            transition: background-color 0.2s;
+
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.04);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Main Content Card - white background with shadow
+  .course-main-card {
+    flex: 1;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 2px 2px 15px 0px rgba(0, 0, 0, 0.05);
+    padding: 32px;
+    min-width: 0;
+    display: flex;
+    gap: 32px;
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      padding: 0;
+      border-radius: 0;
+      box-shadow: none;
+      background: transparent;
+      gap: 24px;
+    }
+  }
+
+  // Left column: description, course info, resource types
+  .course-detail-column {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .course-details {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+  }
+
+  // Right column: image and download button
+  .course-sidebar-column {
+    width: 280px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    @include media-breakpoint-down(md) {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #dde1e6;
+      border-radius: 4px;
+      box-shadow: 0px 8px 20px 0px rgba(120, 147, 172, 0.1);
+      overflow: hidden;
+    }
+
+    .course-image-section {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+
+      @include media-breakpoint-down(md) {
+        gap: 24px;
+        padding: 0 0 16px 0;
+      }
+    }
+
+    .course-image-container {
+      .course-image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 4px;
+        border: 1px solid #dde1e6;
+
+        @include media-breakpoint-down(md) {
+          height: 230px;
+          border-radius: 4px 4px 0 0;
+          border: none;
+          border-bottom: 1px solid #dde1e6;
+        }
+      }
+
+      .course-image-caption {
+        margin-top: 16px;
+        font-family: "Neue Haas Grotesk Text Pro", sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 18px;
+        color: #000000;
+
+        @include media-breakpoint-down(md) {
+          padding: 0 16px;
+        }
+      }
+    }
+
+    .course-download-section {
+      @include media-breakpoint-down(md) {
+        padding: 0 16px;
+      }
+    }
+  }
+
+  // Mobile navigation buttons
+  .mobile-nav-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 8px;
+    margin-bottom: 0;
+    box-shadow: 0px 8px 20px 0px rgba(120, 147, 172, 0.1);
+    border-radius: 4px;
+
+    .nav-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 32px;
+      padding: 0 16px;
+      border-radius: 4px;
+      font-family: "Neue Haas Grotesk Text Pro", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 16px;
+      text-decoration: none;
+      flex: 0 0 auto;
+      min-width: 114px;
+
+      &.active {
+        background: #a31f34;
+        color: #ffffff;
+        border: none;
+      }
+
+      &:not(.active) {
+        background: #f3f4f8;
+        border: 1px solid #dde1e6;
+        color: #a9081a;
+
+        &:hover {
+          background: #e9eaed;
+        }
+      }
+    }
+  }
+
+  // Legacy styles kept for compatibility
   .course-home-grid {
     padding-left: 10px !important;
     padding-right: 10px !important;
@@ -28,10 +230,15 @@
   }
 
   .card {
-    border-radius: 0px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
+    border-radius: 8px;
+    box-shadow: 2px 2px 15px 0px rgba(0, 0, 0, 0.05);
     border: 0px;
-    height: 100%;
+    height: auto;
+
+    @include media-breakpoint-down(md) {
+      border-radius: 4px;
+      box-shadow: 0px 8px 20px 0px rgba(120, 147, 172, 0.1);
+    }
   }
 
   .container-fluid {
