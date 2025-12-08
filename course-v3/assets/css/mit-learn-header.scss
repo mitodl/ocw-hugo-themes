@@ -1,13 +1,11 @@
-// =============================================================================
-// MIT Learn Header Styles - Based on Figma Design Specs
-// =============================================================================
+// MIT Learn Header Styles
 
 // Dimensions
 $mit-learn-header-height: 72px;
 $mit-learn-header-height-mobile: 60px;
 $mit-learn-drawer-width: 366px;
 
-// Colors (from Figma)
+// Colors
 $mit-learn-nav-gray: #303337;
 $mit-learn-dark-gray-1: #40464c;
 $mit-learn-dark-gray-2: #212326;
@@ -22,7 +20,6 @@ $mit-learn-font-weight-roman: 400;
 $mit-learn-font-weight-medium: 500;
 $mit-learn-font-weight-bold: 700;
 
-// Typography mixins (from Figma: Subtitle/S2 = 14px/18px, weight 500)
 @mixin mit-learn-subtitle2 {
   font-family: $mit-learn-font-family;
   font-weight: $mit-learn-font-weight-medium;
@@ -47,9 +44,7 @@ $mit-learn-font-weight-bold: 700;
   line-height: 16px;
 }
 
-// =============================================================================
-// Header Component (TopNavigation from Figma)
-// =============================================================================
+// Header
 
 .mit-learn-header {
   position: fixed;
@@ -69,13 +64,12 @@ $mit-learn-font-weight-bold: 700;
   }
 }
 
-// Navigation bar (from Figma)
 .mit-learn-header-bar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 32px; // From Figma: padding: 16px 32px
+  padding: 16px 32px;
   width: 100%;
   height: $mit-learn-header-height;
   background: $mit-learn-nav-gray;
@@ -87,16 +81,14 @@ $mit-learn-font-weight-bold: 700;
   }
 }
 
-// =============================================================================
-// Logo / Explore Section (Left side from Figma)
-// =============================================================================
+// Logo
 
 .mit-learn-header-left {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 0;
-  gap: 24px; // From Figma: gap: 24px
+  gap: 24px;
   height: 40px;
 }
 
@@ -104,14 +96,10 @@ $mit-learn-font-weight-bold: 700;
   display: flex;
   align-items: center;
   text-decoration: none;
-
-  &:hover {
-    text-decoration: none;
-  }
 }
 
 .mit-learn-logo {
-  height: 24px; // From Figma: height: 24px
+  height: 24px;
   width: auto;
 
   &.mit-learn-logo-mobile {
@@ -119,16 +107,14 @@ $mit-learn-font-weight-bold: 700;
   }
 }
 
-// =============================================================================
-// Menu Button (from Figma: MenuButton)
-// =============================================================================
+// Menu Button
 
 .mit-learn-menu-button {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 8px 16px; // From Figma: padding: 8px 16px
-  gap: 16px; // From Figma: gap: 16px
+  padding: 8px 16px;
+  gap: 16px;
   height: 40px;
   background: transparent;
   border: none;
@@ -158,11 +144,11 @@ $mit-learn-font-weight-bold: 700;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 16px; // From Figma: gap: 16px
+  gap: 16px;
 }
 
 .mit-learn-menu-button-text {
-  @include mit-learn-subtitle2; // From Figma: Subtitle/S2 (14)
+  @include mit-learn-subtitle2;
   color: $mit-learn-white;
 
   @include media-breakpoint-down(md) {
@@ -170,9 +156,7 @@ $mit-learn-font-weight-bold: 700;
   }
 }
 
-// =============================================================================
-// Right Side (from Figma: RightSide)
-// =============================================================================
+// Right Side
 
 .mit-learn-header-right {
   display: flex;
@@ -180,19 +164,17 @@ $mit-learn-font-weight-bold: 700;
   justify-content: flex-end;
   align-items: center;
   padding: 0;
-  gap: 16px; // From Figma: gap: 16px
+  gap: 16px;
   height: 40px;
 }
 
-// =============================================================================
-// Search Button (from Figma: NavSearchIcon)
-// =============================================================================
+// Search Button
 
 .mit-learn-search-button {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 8px 16px; // From Figma: padding: 8px 16px
+  padding: 8px 16px;
   gap: 10px;
   height: 40px;
   border-radius: 4px;
@@ -204,7 +186,6 @@ $mit-learn-font-weight-bold: 700;
   }
 
   &:hover {
-    text-decoration: none;
     color: $mit-learn-white;
     background: rgba(255, 255, 255, 0.1);
 
@@ -218,7 +199,7 @@ $mit-learn-font-weight-bold: 700;
   .remixicon {
     width: 24px;
     height: 24px;
-    opacity: 0.5; // From Figma: opacity: 0.5
+    opacity: 0.5;
     fill: $mit-learn-white;
   }
 
@@ -227,18 +208,12 @@ $mit-learn-font-weight-bold: 700;
   }
 }
 
-// =============================================================================
-// User Menu Container
-// =============================================================================
+// User Menu
 
 .mit-learn-user-menu-container {
   display: flex;
   align-items: center;
 }
-
-// =============================================================================
-// User Menu Component - Matches MIT Learn's UserMenu
-// =============================================================================
 
 .mit-learn-user-menu {
   position: relative;
@@ -326,9 +301,7 @@ $mit-learn-font-weight-bold: 700;
   }
 }
 
-// =============================================================================
-// Login Button - Matches MIT Learn's logged out state (tertiary variant)
-// =============================================================================
+// Login Button
 
 .mit-learn-login-container {
   display: flex;
@@ -336,7 +309,6 @@ $mit-learn-font-weight-bold: 700;
 }
 
 .mit-learn-login-button-desktop {
-  // From Figma specs
   display: flex;
   width: 100px;
   height: 40px;
@@ -345,11 +317,10 @@ $mit-learn-font-weight-bold: 700;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  // Tertiary variant styling
   border-radius: 4px;
-  border: 1px solid $mit-learn-light-gray-2; // #DDE1E6
-  background: $mit-learn-light-gray-2; // #DDE1E6
-  color: $mit-learn-dark-gray-2; // #212326
+  border: 1px solid $mit-learn-light-gray-2;
+  background: $mit-learn-light-gray-2;
+  color: $mit-learn-dark-gray-2;
   font-family: $mit-learn-font-family;
   font-size: 12px;
   font-weight: $mit-learn-font-weight-medium;
@@ -363,7 +334,6 @@ $mit-learn-font-weight-bold: 700;
     background-color: $mit-learn-white;
     border-color: $mit-learn-white;
     color: $mit-learn-dark-gray-2;
-    text-decoration: none;
   }
 
   @include media-breakpoint-down(md) {
@@ -375,14 +345,12 @@ $mit-learn-font-weight-bold: 700;
   display: none;
   align-items: center;
   justify-content: center;
-  // Matches MIT Learn MobileLoginButton styling (ActionButtonLink)
-  // edge="circular", variant="text"
   width: 24px;
   height: 24px;
   padding: 0;
   background-color: transparent;
   border: none;
-  border-radius: 50%; // circular edge
+  border-radius: 50%;
   color: $mit-learn-white;
   text-decoration: none;
   cursor: pointer;
@@ -393,7 +361,6 @@ $mit-learn-font-weight-bold: 700;
   }
 
   &:hover {
-    // text variant hover: rgba(64, 70, 76, 0.06) but we use opacity for white icon
     opacity: 0.8;
   }
 
@@ -402,33 +369,28 @@ $mit-learn-font-weight-bold: 700;
   }
 }
 
-// =============================================================================
-// Official MIT Logo (from Figma: Offical-Logo)
-// =============================================================================
+// Official MIT Logo
 
 .mit-learn-official-logo {
   display: flex;
   align-items: center;
-  padding: 0 0 0 16px; // From Figma: padding: 0px 0px 0px 16px
-  width: 80px; // From Figma: width: 80px (64px logo + 16px padding)
-  height: 32px; // From Figma: height: 32px
+  padding: 0 0 0 16px;
+  width: 80px;
+  height: 32px;
   text-decoration: none;
 
   &:hover {
-    text-decoration: none;
     opacity: 0.9;
   }
 }
 
 .mit-learn-official-logo-img {
-  width: 64px; // From Figma: width: 64px
-  height: 32px; // From Figma: height: 32px
-  fill: $mit-learn-white; // White (MIT Brand)
+  width: 64px;
+  height: 32px;
+  fill: $mit-learn-white;
 }
 
-// =============================================================================
 // Desktop Layout
-// =============================================================================
 
 .mit-learn-header-desktop {
   display: flex;
@@ -443,9 +405,7 @@ $mit-learn-font-weight-bold: 700;
   }
 }
 
-// =============================================================================
 // Mobile Layout
-// =============================================================================
 
 .mit-learn-header-mobile {
   display: none;
@@ -464,28 +424,26 @@ $mit-learn-font-weight-bold: 700;
 }
 
 .mit-learn-header-spacer-left {
-  width: 24px; // From Figma: gap: 24px between logo and menu button
+  width: 24px;
 
   @include media-breakpoint-down(md) {
     width: 16px;
   }
 }
 
-// =============================================================================
 // Navigation Drawer
-// =============================================================================
 
 .mit-learn-nav-drawer {
   position: fixed;
-  top: $mit-learn-header-height; // Start below header bar
+  top: $mit-learn-header-height;
   left: 0;
   width: $mit-learn-drawer-width;
-  height: calc(100% - #{$mit-learn-header-height}); // Subtract header height
+  height: calc(100% - #{$mit-learn-header-height});
   background: $mit-learn-white;
   border-right: 1px solid $mit-learn-light-gray-2;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
-  z-index: 1099; // Below header
+  z-index: 1099;
   overflow-y: auto;
   overscroll-behavior: contain;
   box-shadow: 0px 6px 24px 0px rgba(37, 38, 43, 0.1);
@@ -502,9 +460,7 @@ $mit-learn-font-weight-bold: 700;
   }
 }
 
-// =============================================================================
 // Navigation Sections
-// =============================================================================
 
 .mit-learn-nav-section {
   display: flex;
@@ -615,9 +571,7 @@ $mit-learn-font-weight-bold: 700;
   @include mit-learn-body3;
 }
 
-// =============================================================================
 // Backdrop
-// =============================================================================
 
 .mit-learn-nav-backdrop {
   position: fixed;
@@ -636,9 +590,7 @@ $mit-learn-font-weight-bold: 700;
   }
 }
 
-// =============================================================================
 // Body Adjustments
-// =============================================================================
 
 body.has-mit-learn-header {
   padding-top: $mit-learn-header-height;
@@ -646,9 +598,7 @@ body.has-mit-learn-header {
   @include media-breakpoint-down(md) {
     padding-top: $mit-learn-header-height-mobile;
   }
-}
 
-body.has-mit-learn-header {
   #mobile-header,
   #desktop-header {
     display: none !important;
