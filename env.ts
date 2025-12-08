@@ -160,6 +160,10 @@ const envSchema = {
   MIT_LEARN_API_BASE_URL: envalid.url({
     desc:       "The base URL of the MIT Learn API.",
     devDefault: "https://api.rc.learn.mit.edu"
+  }),
+  FEATURE_ENABLE_LEARN_INTEGRATION: envalid.bool({
+    desc:       "Enable MIT Learn integration (login, bookmarks, user lists)",
+    devDefault: false
   })
 }
 

@@ -46,6 +46,8 @@ jobs:
 
       - name: Run webpack build
         run: npm run build:webpack -- --output-path=../ocw-www/public/static_shared/
+        env:
+          FEATURE_ENABLE_LEARN_INTEGRATION: "true"
 
       - name: Copy webpack build to course v2
         run: mkdir -p ../ocw-course/public-v2/ && cp -r ../ocw-www/public/static_shared/ ../ocw-course/public-v2/
