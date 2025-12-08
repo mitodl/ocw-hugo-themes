@@ -1,6 +1,15 @@
 .course-image-section-container {
+
+  @include media-breakpoint-up(lg) {
+    position: relative;
+    top: -120px;
+  }
+
   .course-image-container {
     overflow: hidden;
+
+    border: 1px solid #dde1e6;
+    border-radius: 4px;
 
     .course-image {
       object-fit: contain;
@@ -10,8 +19,9 @@
 
     .course-image-caption {
       font-size: $font-sm;
-      margin-top: 10px;
+      padding: 0.5rem;
       line-height: 1.2;
+
     }
   }
 }
