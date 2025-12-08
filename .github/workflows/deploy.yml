@@ -48,6 +48,7 @@ jobs:
         run: npm run build:webpack -- --output-path=../ocw-www/public/static_shared/
         env:
           FEATURE_ENABLE_LEARN_INTEGRATION: "true"
+          MIT_LEARN_BASE_URL: ${{ secrets.MIT_LEARN_BASE_URL }}
 
       - name: Copy webpack build to course v2
         run: mkdir -p ../ocw-course/public-v2/ && cp -r ../ocw-www/public/static_shared/ ../ocw-course/public-v2/
@@ -63,7 +64,6 @@ jobs:
           OCW_COURSE_STARTER_SLUG: ${{ secrets.OCW_COURSE_STARTER_SLUG }}
           STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
-          MIT_LEARN_BASE_URL: ${{ secrets.MIT_LEARN_BASE_URL }}
 
       - name: Run the course v2 hugo build
         run: (cd ../ocw-course; hugo --config $GITHUB_WORKSPACE/ocw-hugo-projects/ocw-course-v2/config.yaml  --destination public-v2 --themesDir ../ocw-hugo-themes)
