@@ -5,7 +5,7 @@
 {{ $device := .device }}
 {{ $renderMarginTop := .renderMarginTop | default true}}
 <div class=" {{ if $renderMarginTop }}mt-4{{ end }}">
-  <h5 class="{{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
+  <h5 class="{{ if $inPanel }}panel-course-info-title {{ end }} course-info-subsection">
     Topics
   </h5>
   <ul class="list-unstyled pb-2 m-0 {{ if $inPanel }}panel-course-info-text{{ end }}">
