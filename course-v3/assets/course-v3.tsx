@@ -50,7 +50,10 @@ $(function() {
   const userMenuContainers = document.querySelectorAll(
     ".user-menu-container, .mit-learn-user-menu-container"
   )
-  const learnIntegrationEnabled = isFeatureEnabled("ocw-learn-integration")
+  const isNetlifyPreview =
+    window.location.hostname.includes("ocw-next.netlify.app") || false
+  const learnIntegrationEnabled =
+    isNetlifyPreview || isFeatureEnabled("ocw-learn-integration")
   if (userMenuContainers && learnIntegrationEnabled) {
     for (const userMenuContainer of Array.from(userMenuContainers)) {
       const root = createRoot(userMenuContainer)
