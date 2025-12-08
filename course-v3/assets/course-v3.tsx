@@ -51,9 +51,15 @@ $(function() {
     ".user-menu-container, .mit-learn-user-menu-container"
   )
 
-  const learnIntegrationEnabled =
-    process.env.FEATURE_ENABLE_LEARN_INTEGRATION === "true" ||
-    isFeatureEnabled("ocw-learn-integration")
+  const envFlagEnabled = process.env.FEATURE_ENABLE_LEARN_INTEGRATION === "true"
+  const postHogFlagEnabled = isFeatureEnabled("ocw-learn-integration")
+  const learnIntegrationEnabled = envFlagEnabled || postHogFlagEnabled
+  console.log("MIT Learn integration:", {
+    envFlagEnabled,
+    postHogFlagEnabled,
+    learnIntegrationEnabled,
+    envValue: process.env.FEATURE_ENABLE_LEARN_INTEGRATION
+  })
   if (userMenuContainers && learnIntegrationEnabled) {
     for (const userMenuContainer of Array.from(userMenuContainers)) {
       const root = createRoot(userMenuContainer)
