@@ -149,6 +149,7 @@ $mit-learn-font-weight-bold: 700;
 
 .mit-learn-menu-button-text {
   @include mit-learn-subtitle2;
+  font-weight: $mit-learn-font-weight-roman;
   color: $mit-learn-white;
 
   @include media-breakpoint-down(md) {
@@ -334,6 +335,7 @@ $mit-learn-font-weight-bold: 700;
     background-color: $mit-learn-white;
     border-color: $mit-learn-white;
     color: $mit-learn-dark-gray-2;
+    text-decoration: none;
   }
 
   @include media-breakpoint-down(md) {
@@ -378,10 +380,6 @@ $mit-learn-font-weight-bold: 700;
   width: 80px;
   height: 32px;
   text-decoration: none;
-
-  &:hover {
-    opacity: 0.9;
-  }
 }
 
 .mit-learn-official-logo-img {
