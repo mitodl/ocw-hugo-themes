@@ -65,7 +65,17 @@ h5 {
 
 #course-banner {
   color: $white;
-  background-color: $blue;
+
+  background-color: black;
+  background-position: -182.723px -227.266px;
+
+  background-size: 122.737% 672.734%;
+  background-repeat: no-repeat;
+
+  @include media-breakpoint-down(md) {
+    background-position: -34.407px -0.757px;
+    background-size: 323.489% 193.303%;
+  }
 
   .course-banner-content {
     max-width: $max-content-width;
