@@ -212,8 +212,12 @@ $mit-learn-font-weight-bold: 700;
 // User Menu
 
 .mit-learn-user-menu-container {
-  display: flex;
-  align-items: center;
+  display: none;
+
+  &:not(:empty) {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .mit-learn-user-menu {
@@ -376,8 +380,7 @@ $mit-learn-font-weight-bold: 700;
 .mit-learn-official-logo {
   display: flex;
   align-items: center;
-  padding: 0 0 0 16px;
-  width: 80px;
+  width: 64px;
   height: 32px;
   text-decoration: none;
 }
