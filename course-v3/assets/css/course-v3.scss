@@ -129,6 +129,10 @@ h5 {
   color: black !important;
 }
 
+#course-main-content {
+  background: white;
+}
+
 #course-main-content article.content {
   a:link {
     color: $course-content-link-unclicked;
@@ -208,15 +212,27 @@ pre {
   margin-bottom: 0;
 }
 
+
+#course-description h4 {
+  font-size: 1.125rem !important;
+  line-height: 1.625rem !important;
+  font-weight: 700 !important;
+
+}
+
+#expand-description, #collapse-description {
+  color: red;
+}
+
 .course-detail-title {
-  margin-bottom: 10px;
   min-height: 35px;
   display: flex;
   align-items: center;
 
   h2 {
-    font-size: $course-heading-four-font !important;
-    line-height: $course-heading-four-line-height !important;
+    font-size: 1.125rem !important;
+    line-height: 1.625rem !important;
+    font-weight: 700 !important;
   }
 }
 
