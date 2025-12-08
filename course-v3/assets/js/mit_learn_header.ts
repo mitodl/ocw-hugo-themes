@@ -15,6 +15,10 @@ export function initMITLearnHeader(): void {
   const navCloseButton = document.getElementById("mit-learn-nav-close")
   const backdrop = document.getElementById("mit-learn-nav-backdrop")
 
+  if (!navDrawer) {
+    return
+  }
+
   let isOpen = false
 
   const openDrawer = (): void => {
