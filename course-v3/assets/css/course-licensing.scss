@@ -1,0 +1,65 @@
+@import "../../../base-theme/assets/css/variables.scss";
+@import "../../../base-theme/assets/css/breakpoints.scss";
+
+.course-licensing-section {
+  width: 100%;
+  max-width: $max-content-width;
+  margin: 0 auto;
+  padding: 0 3rem 80px 3rem;
+  
+  @include media-breakpoint-down(md) {
+    padding: 0 1.5rem 60px 1.5rem;
+  }
+  
+  .licensing-container {
+    background-color: #f3f4f8;
+    border: 1px solid #dde1e6;
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    
+    .licensing-text {
+      font-family: "Neue Haas Grotesk Text Pro", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 18px;
+      color: #212326;
+      margin: 0;
+      
+      a {
+        color: #212326;
+        text-decoration: underline;
+        text-decoration-skip-ink: none;
+        text-underline-position: from-font;
+        
+        &:hover {
+          color: #212326;
+        }
+      }
+    }
+    
+    .cc-icons {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+      
+      .cc-icon {
+        width: 24px;
+        height: 24px;
+        display: block;
+        color: #000000;
+      }
+    }
+  }
+}

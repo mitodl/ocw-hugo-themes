@@ -38,6 +38,7 @@
           {{ partialCached "course_image_section.html" . }}
         </div>
       </div>
+      {{ partial "course_licensing.html" . }}
     </div>
     {{ block "footer" . }}{{ partial "footer-v3" . }}{{end}}
     {{ partialCached "hide_offline_links.html" . }}
