@@ -1,4 +1,10 @@
 {{ $menu := index .context.Site.Menus "leftnav" }}
+{{ $homeURL := partial "course_home_page_url.html" .context }}
+{{/* Create Course Home menu item */}}
+{{ $courseHomeItem := dict "Name" "Course Home" "URL" $homeURL "Identifier" "course-home" "PageRef" "" "HasChildren" false "Children" slice }}
+{{/* Prepend Course Home to the menu */}}
+{{ $menu = $menu | append (slice) }}
+{{ $menu = slice $courseHomeItem | append $menu }}
 <div class="mobile-course-menu-v3 medium-and-below-only" id="mobile-course-menu-v3">
   <button
     class="mobile-course-menu-toggle"
