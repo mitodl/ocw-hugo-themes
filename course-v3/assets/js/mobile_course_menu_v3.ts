@@ -22,7 +22,7 @@ export const initMobileCourseMenuV3 = () => {
   menuItems.style.display = "flex"
 
   // Toggle menu visibility
-  toggleButton.addEventListener("click", (e) => {
+  toggleButton.addEventListener("click", e => {
     e.preventDefault()
     const isExpanded = toggleButton.getAttribute("aria-expanded") === "true"
 
@@ -45,7 +45,7 @@ export const initMobileCourseMenuV3 = () => {
     ".mobile-course-menu-link"
   )
 
-  menuLinks.forEach((link) => {
+  menuLinks.forEach(link => {
     if (link.tagName === "A") {
       const linkPath = new URL(link.href, window.location.origin).pathname
       if (linkPath === currentPath) {
@@ -71,7 +71,7 @@ export const initMobileCourseMenuV3 = () => {
   })
 
   // Handle keyboard navigation
-  toggleButton.addEventListener("keydown", (e) => {
+  toggleButton.addEventListener("keydown", e => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault()
       toggleButton.click()
