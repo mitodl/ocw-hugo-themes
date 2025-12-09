@@ -1,5 +1,10 @@
 nav {
   display: block !important;
+
+  .nav-link {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
 }
 
 .course-nav {
@@ -8,8 +13,22 @@ nav {
 
     &.active {
       font-weight: 600;
-      color: $highlight-red !important;
+      background-color: #212326 !important;
+      color: #ffffff !important;
+      border-radius: 4px;
     }
+  }
+}
+
+.course-nav-parent {
+  padding-left: 8px !important;
+  &.active {
+    font-weight: 600;
+    background-color: #212326 !important;
+    // color: #ffffff !important;
+    border-left: 5px solid $highlight-red !important;
+    border-radius: 4px;
+    // padding-left: 14px;
   }
 }
 

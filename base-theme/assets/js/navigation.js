@@ -21,6 +21,8 @@ function courseNav() {
           window.location.pathname.replace(/\/$/, "")
         ) {
           navLinkEl.classList.add("active")
+          const parentNavItemEl = navLinkEl.closest(".course-nav-parent")
+          parentNavItemEl?.classList.add("active")
           // @ts-expect-error TODO
           const uuid = navLinkEl.dataset.uuid
           const navItemEl = navLinkEl.closest(".course-nav-list-item")
