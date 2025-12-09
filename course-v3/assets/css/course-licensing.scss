@@ -5,7 +5,7 @@
   width: 100%;
   max-width: $max-content-width;
   margin: 0 auto;
-  
+
   .licensing-container {
     background-color: #f3f4f8;
     border: 1px solid #dde1e6;
@@ -16,13 +16,13 @@
     justify-content: center;
     gap: 16px;
     width: 100%;
-    
+
     @include media-breakpoint-down(md) {
       flex-direction: column;
       align-items: flex-start;
       gap: 12px;
     }
-    
+
     .licensing-text {
       font-family: "Neue Haas Grotesk Text Pro", sans-serif;
       font-size: 14px;
@@ -30,25 +30,25 @@
       line-height: 18px;
       color: #212326;
       margin: 0;
-      
+
       a {
         color: #212326;
         text-decoration: underline;
         text-decoration-skip-ink: none;
         text-underline-position: from-font;
-        
+
         &:hover {
           color: #212326;
         }
       }
     }
-    
+
     .cc-icons {
       display: flex;
       align-items: center;
       gap: 12px;
       flex-shrink: 0;
-      
+
       .cc-icon {
         width: 24px;
         height: 24px;
