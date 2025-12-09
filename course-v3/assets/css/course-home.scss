@@ -13,7 +13,7 @@
     .course-nav {
       @include media-breakpoint-down(md) {
         position: sticky;
-        top: 0;
+        top: 60px;
         z-index: 500;
       }
     }
