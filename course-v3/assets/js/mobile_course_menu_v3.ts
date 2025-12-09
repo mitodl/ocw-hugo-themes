@@ -17,6 +17,10 @@ export const initMobileCourseMenuV3 = () => {
 
   console.log("Initializing mobile course menu v3")
 
+  // Ensure initial state matches the HTML (menu open by default)
+  toggleButton.setAttribute("aria-expanded", "true")
+  menuItems.style.display = "flex"
+
   // Toggle menu visibility
   toggleButton.addEventListener("click", (e) => {
     e.preventDefault()

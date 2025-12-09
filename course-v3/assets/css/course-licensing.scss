@@ -6,10 +6,6 @@
   max-width: $max-content-width;
   margin: 0 auto;
   
-  @include media-breakpoint-down(md) {
-    padding: 0 1.5rem 60px 1.5rem;
-  }
-  
   .licensing-container {
     background-color: #f3f4f8;
     border: 1px solid #dde1e6;
@@ -58,6 +54,11 @@
         height: 24px;
         display: block;
         color: #000000;
+      }
+
+      @include media-breakpoint-down(md) {
+        justify-content: center;
+        width: 100%;
       }
     }
   }

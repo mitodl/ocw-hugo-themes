@@ -15,7 +15,7 @@
           <span>{{ $courseImageMetadata.Params.image_metadata.caption | .RenderString }}</span>
         </div>
       </div>
-      <div>
+      <div class="large-and-above-only">
         {{ partial "download_course_link_button.html" (dict "context" . "inPanel" true) }}
       </div>
     </div>
