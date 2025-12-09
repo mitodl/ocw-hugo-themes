@@ -49,6 +49,7 @@ jobs:
         env:
           FEATURE_ENABLE_LEARN_INTEGRATION: "true"
           MIT_LEARN_BASE_URL: ${{ secrets.MIT_LEARN_BASE_URL }}
+          MIT_LEARN_API_BASE_URL: ${{ secrets.MIT_LEARN_API_BASE_URL }}
 
       - name: Copy webpack build to course v2
         run: mkdir -p ../ocw-course/public-v2/ && cp -r ../ocw-www/public/static_shared/ ../ocw-course/public-v2/
