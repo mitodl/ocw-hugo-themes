@@ -1,5 +1,4 @@
 .course-image-section-container {
-
   @include media-breakpoint-up(lg) {
     position: relative;
     top: -150px;
@@ -21,7 +20,6 @@
       font-size: $font-sm;
       padding: 0.5rem;
       line-height: 1.2;
-
     }
   }
 }
