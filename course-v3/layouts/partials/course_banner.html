@@ -6,8 +6,6 @@
     <div class="col-11">
       {{ $courseData := .Site.Data.course }}
       <span class="course-number-term-detail">{{ $courseData.primary_course_number }} | {{ $courseData.term }} {{ $courseData.year }}{{if $courseData.level }} | {{ delimit $courseData.level ", " }}{{ end }}</span>
-      <br>
-      <br>
       <h1>
         <a
           class="{{ $bannerClass }}"

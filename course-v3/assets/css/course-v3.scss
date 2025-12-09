@@ -80,7 +80,7 @@ h5 {
 
   .course-banner-content {
     max-width: $max-content-width;
-    padding: 1.5rem 3rem !important;
+    padding: 3rem 3rem !important;
   }
 
   .course-number-term-detail {
@@ -93,9 +93,14 @@ h5 {
   }
 
   h1 {
-    font-weight: 400;
+    font-weight: 700;
+    font-size: 2.5rem;
     margin-bottom: 0px;
-    max-width: 67%;
+    margin-top: 0.5rem;
+    
+    @include media-breakpoint-up(md) {
+      max-width: 67%;
+    }
   }
 }
 
