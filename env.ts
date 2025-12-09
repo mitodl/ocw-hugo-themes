@@ -109,6 +109,13 @@ const envSchema = {
       "../ocw-hugo-projects/ocw-course-v2/config.yaml"
     )
   }),
+  COURSE_V3_HUGO_CONFIG_PATH: envalid.str({
+    desc:       "Path to the ocw-course-v3 Hugo configuration file",
+    devDefault: path.resolve(
+      __dirname,
+      "../ocw-hugo-projects/ocw-course-v3/config.yaml"
+    )
+  }),
   FIELDS_HUGO_CONFIG_PATH: envalid.str({
     desc:       "A path to the mit-fields Hugo configuration file",
     devDefault: path.resolve(
@@ -153,6 +160,10 @@ const envSchema = {
   MIT_LEARN_API_BASE_URL: envalid.url({
     desc:       "The base URL of the MIT Learn API.",
     devDefault: "https://api.rc.learn.mit.edu"
+  }),
+  FEATURE_ENABLE_LEARN_INTEGRATION: envalid.bool({
+    desc:       "Enable MIT Learn integration (login, bookmarks, user lists)",
+    devDefault: false
   })
 }
 

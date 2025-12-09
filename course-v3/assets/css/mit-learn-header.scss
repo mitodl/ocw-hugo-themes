@@ -1,0 +1,608 @@
+// MIT Learn Header Styles
+
+// Dimensions
+$mit-learn-header-height: 72px;
+$mit-learn-header-height-mobile: 60px;
+$mit-learn-drawer-width: 366px;
+
+// Colors
+$mit-learn-nav-gray: #303337;
+$mit-learn-dark-gray-1: #40464c;
+$mit-learn-dark-gray-2: #212326;
+$mit-learn-silver-gray-dark: #626a73;
+$mit-learn-light-gray-2: #dde1e6;
+$mit-learn-red: #a31f34;
+$mit-learn-white: #ffffff;
+
+// Typography
+$mit-learn-font-family: "neue-haas-grotesk-text", sans-serif;
+$mit-learn-font-weight-roman: 400;
+$mit-learn-font-weight-medium: 500;
+$mit-learn-font-weight-bold: 700;
+
+@mixin mit-learn-subtitle2 {
+  font-family: $mit-learn-font-family;
+  font-weight: $mit-learn-font-weight-medium;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+@mixin mit-learn-subtitle3 {
+  font-family: $mit-learn-font-family;
+  font-weight: $mit-learn-font-weight-medium;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+@mixin mit-learn-body3 {
+  font-family: $mit-learn-font-family;
+  font-weight: $mit-learn-font-weight-roman;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+// Header
+
+.mit-learn-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: $mit-learn-header-height;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+
+  @include media-breakpoint-down(md) {
+    height: $mit-learn-header-height-mobile;
+  }
+}
+
+.mit-learn-header-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  width: 100%;
+  height: $mit-learn-header-height;
+  background: $mit-learn-nav-gray;
+  box-sizing: border-box;
+
+  @include media-breakpoint-down(md) {
+    height: $mit-learn-header-height-mobile;
+    padding: 0 16px;
+  }
+}
+
+// Logo
+
+.mit-learn-header-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0;
+  gap: 24px;
+  height: 40px;
+}
+
+.mit-learn-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.mit-learn-logo {
+  height: 24px;
+  width: auto;
+
+  &.mit-learn-logo-mobile {
+    height: 16px;
+  }
+}
+
+// Menu Button
+
+.mit-learn-menu-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 16px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: $mit-learn-white;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  svg,
+  .remixicon {
+    width: 24px;
+    height: 24px;
+    color: $mit-learn-white;
+    fill: $mit-learn-white;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding: 8px;
+    gap: 0;
+  }
+}
+
+.mit-learn-menu-button-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.mit-learn-menu-button-text {
+  @include mit-learn-subtitle2;
+  font-weight: $mit-learn-font-weight-roman;
+  color: $mit-learn-white;
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+// Right Side
+
+.mit-learn-header-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0;
+  gap: 16px;
+  height: 40px;
+}
+
+// Search Button
+
+.mit-learn-search-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 10px;
+  height: 40px;
+  border-radius: 4px;
+  color: $mit-learn-white;
+  text-decoration: none;
+
+  &:visited {
+    color: $mit-learn-white;
+  }
+
+  &:hover {
+    color: $mit-learn-white;
+    background: rgba(255, 255, 255, 0.1);
+
+    svg,
+    .remixicon {
+      opacity: 1;
+    }
+  }
+
+  svg,
+  .remixicon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.5;
+    fill: $mit-learn-white;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding: 8px;
+  }
+}
+
+// User Menu
+
+.mit-learn-user-menu-container {
+  display: none;
+
+  &:not(:empty) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.mit-learn-user-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.mit-learn-user-menu-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background: none;
+  color: $mit-learn-white;
+  height: 40px;
+  border: 1px solid $mit-learn-silver-gray-dark;
+  border-radius: 4px;
+  padding: 2px 8px;
+  gap: 8px;
+  font: inherit;
+  margin: 0 16px;
+  opacity: 0.75;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  @include media-breakpoint-down(md) {
+    border: none;
+    opacity: 1;
+    gap: 2px;
+    padding: 4px 0;
+    margin: 0 24px;
+  }
+}
+
+.mit-learn-user-icon {
+  width: 24px;
+  height: 24px;
+  color: $mit-learn-white;
+}
+
+.mit-learn-user-name {
+  color: $mit-learn-white;
+  font-size: 14px;
+  line-height: 20px;
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.mit-learn-user-chevron {
+  width: 24px;
+  height: 24px;
+  color: $mit-learn-white;
+}
+
+.mit-learn-user-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 16px;
+  background: $mit-learn-dark-gray-1;
+  border-radius: 0 0 5px 5px;
+  padding: 8px 16px;
+  min-width: 120px;
+  z-index: 1200;
+  box-shadow: 0px 6px 24px 0px rgba(37, 38, 43, 0.1);
+
+  @include media-breakpoint-down(md) {
+    left: 0;
+  }
+}
+
+.mit-learn-user-dropdown-item {
+  display: block;
+  padding: 8px 0;
+  color: $mit-learn-white;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+
+  &:hover {
+    color: $mit-learn-white;
+    text-decoration: underline;
+  }
+}
+
+// Login Button
+
+.mit-learn-login-container {
+  display: flex;
+  align-items: center;
+}
+
+.mit-learn-login-button-desktop {
+  display: flex;
+  width: 100px;
+  height: 40px;
+  padding: 18px 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+  border: 1px solid $mit-learn-light-gray-2;
+  background: $mit-learn-light-gray-2;
+  color: $mit-learn-dark-gray-2;
+  font-family: $mit-learn-font-family;
+  font-size: 12px;
+  font-weight: $mit-learn-font-weight-medium;
+  line-height: 16px;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: $mit-learn-white;
+    border-color: $mit-learn-white;
+    color: $mit-learn-dark-gray-2;
+    text-decoration: none;
+  }
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.mit-learn-login-button-mobile {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  color: $mit-learn-white;
+  text-decoration: none;
+  cursor: pointer;
+
+  .mit-learn-user-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  @include media-breakpoint-down(md) {
+    display: flex;
+  }
+}
+
+// Official MIT Logo
+
+.mit-learn-official-logo {
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 16px;
+  width: 80px;
+  height: 32px;
+  text-decoration: none;
+}
+
+.mit-learn-official-logo-img {
+  width: 64px;
+  height: 32px;
+  fill: $mit-learn-white;
+}
+
+// Desktop Layout
+
+.mit-learn-header-desktop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+// Mobile Layout
+
+.mit-learn-header-mobile {
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+
+  @include media-breakpoint-down(md) {
+    display: flex;
+  }
+}
+
+.mit-learn-header-spacer {
+  flex: 1;
+}
+
+.mit-learn-header-spacer-left {
+  width: 24px;
+
+  @include media-breakpoint-down(md) {
+    width: 16px;
+  }
+}
+
+// Navigation Drawer
+
+.mit-learn-nav-drawer {
+  position: fixed;
+  top: $mit-learn-header-height;
+  left: 0;
+  width: $mit-learn-drawer-width;
+  height: calc(100% - #{$mit-learn-header-height});
+  background: $mit-learn-white;
+  border-right: 1px solid $mit-learn-light-gray-2;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1099;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0px 6px 24px 0px rgba(37, 38, 43, 0.1);
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  @include media-breakpoint-down(md) {
+    top: $mit-learn-header-height-mobile;
+    height: calc(100% - #{$mit-learn-header-height-mobile});
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+// Navigation Sections
+
+.mit-learn-nav-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  padding: 24px 32px 8px 32px;
+  gap: 12px;
+}
+
+.mit-learn-nav-section-header {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  color: $mit-learn-dark-gray-1;
+  @include mit-learn-subtitle3;
+
+  &.has-button {
+    justify-content: space-between;
+    height: 16px;
+  }
+}
+
+.mit-learn-nav-close-button {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: $mit-learn-dark-gray-1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(12px);
+
+  &:hover {
+    background: rgba(64, 70, 76, 0.06);
+    border-radius: 4px;
+  }
+
+  svg,
+  .remixicon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.mit-learn-nav-items {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  gap: 12px;
+  color: $mit-learn-silver-gray-dark;
+}
+
+.mit-learn-nav-item {
+  display: flex;
+  padding: 4px 0;
+  align-items: flex-start;
+  align-self: stretch;
+  gap: 16px;
+  text-decoration: none !important;
+  color: inherit;
+
+  &:hover {
+    color: $mit-learn-dark-gray-2;
+
+    .mit-learn-nav-item-title {
+      color: $mit-learn-red;
+      text-decoration-line: underline;
+      text-decoration-color: $mit-learn-red;
+    }
+  }
+}
+
+.mit-learn-nav-icon-container {
+  display: flex;
+  align-items: flex-start;
+
+  &.with-description {
+    padding-top: 4px;
+  }
+
+  svg,
+  .remixicon {
+    width: 24px;
+    height: 24px;
+    color: $mit-learn-silver-gray-dark;
+  }
+}
+
+.mit-learn-nav-item-content {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: center;
+  gap: 4px;
+}
+
+.mit-learn-nav-item-title {
+  color: $mit-learn-dark-gray-2;
+  @include mit-learn-subtitle3;
+}
+
+.mit-learn-nav-item-description {
+  align-self: stretch;
+  @include mit-learn-body3;
+}
+
+// Backdrop
+
+.mit-learn-nav-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  z-index: 1098;
+  display: none;
+  pointer-events: none;
+
+  &.visible {
+    display: block;
+    pointer-events: auto;
+  }
+}
+
+// Body Adjustments
+
+body.has-mit-learn-header {
+  padding-top: $mit-learn-header-height;
+
+  @include media-breakpoint-down(md) {
+    padding-top: $mit-learn-header-height-mobile;
+  }
+
+  #mobile-header,
+  #desktop-header {
+    display: none !important;
+  }
+}

@@ -1,0 +1,14 @@
+{{- /* 
+  Icon partial - loads SVG icons from assets/icons folder
+  Usage: {{ partial "icon.html" "ri-menu-line" }}
+  
+  Icons are loaded via Hugo's resources.Get and inlined for optimal performance.
+  This allows icons to inherit color via CSS currentColor.
+*/ -}}
+{{- $iconName := . -}}
+{{- $iconPath := printf "icons/%s.svg" $iconName -}}
+{{- with resources.Get $iconPath -}}
+  {{- .Content | safeHTML -}}
+{{- else -}}
+  {{- warnf "Icon not found: %s" $iconPath -}}
+{{- end -}}

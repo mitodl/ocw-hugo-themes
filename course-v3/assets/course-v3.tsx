@@ -2,6 +2,7 @@ import "offcanvas-bootstrap/dist/js/bootstrap.offcanvas.js"
 import "promise-polyfill/src/polyfill.js"
 import "./css/course-v3.scss"
 import { initDivToggle } from "./js/div_toggle"
+import { initMITLearnHeader } from "./js/mit_learn_header"
 import {
   initCourseInfoExpander,
   initCourseDescriptionExpander
@@ -20,7 +21,7 @@ import {
 } from "../../base-theme/assets/js/posthog"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { makeQueryClient } from "../../base-theme/assets/js/clients"
-import UserMenu from "../../base-theme/assets/js/components/UserMenu"
+import UserMenu from "./js/components/UserMenu"
 import { createRoot } from "react-dom/client"
 import AddToUserListModal from "../../base-theme/assets/js/components/UserListModal"
 import CreateUserListModal from "../../base-theme/assets/js/components/CreateUserListModal"
@@ -37,6 +38,7 @@ declare let window: OCWWindow
 
 $(function() {
   window.posthog = initPostHog()
+  initMITLearnHeader()
   initCourseDescriptionExpander(document)
   initCourseInfoExpander(document)
   initDivToggle()
@@ -45,8 +47,19 @@ $(function() {
   showSolution()
   initCourseDrawersClosingViaSwiping()
   const queryClient = makeQueryClient()
-  const userMenuContainers = document.querySelectorAll(".user-menu-container")
-  const learnIntegrationEnabled = isFeatureEnabled("ocw-learn-integration")
+  const userMenuContainers = document.querySelectorAll(
+    ".user-menu-container, .mit-learn-user-menu-container"
+  )
+
+  const envFlagEnabled = process.env.FEATURE_ENABLE_LEARN_INTEGRATION === "true"
+  const postHogFlagEnabled = isFeatureEnabled("ocw-learn-integration")
+  const learnIntegrationEnabled = envFlagEnabled || postHogFlagEnabled
+  console.log("MIT Learn integration:", {
+    envFlagEnabled,
+    postHogFlagEnabled,
+    learnIntegrationEnabled,
+    envValue: process.env.FEATURE_ENABLE_LEARN_INTEGRATION
+  })
   if (userMenuContainers && learnIntegrationEnabled) {
     for (const userMenuContainer of Array.from(userMenuContainers)) {
       const root = createRoot(userMenuContainer)

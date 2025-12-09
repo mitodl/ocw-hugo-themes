@@ -1,5 +1,7 @@
 {{- define "title" -}}{{ partial "title.html" . }}{{- end -}}
 {{- define "extrahead" -}}
+<!-- Adobe Fonts (neue-haas-grotesk-text) for MIT Learn header -->
+<link rel="stylesheet" href="https://use.typekit.net/lbk1xay.css">
 {{- $css_urls := slice (partial "get_asset_webpack_url.html" "course_v3.css") (partial "get_asset_webpack_url.html" "common.css") -}}
 {{- $layout := .Params.layout -}}
 {{- if eq $layout "instructor_insights" -}}

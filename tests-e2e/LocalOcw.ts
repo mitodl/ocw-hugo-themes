@@ -142,7 +142,7 @@ class LocalOCW {
         baseURL:     destInTmp
       },
       {
-        cwd: fromRoot(`./test-sites/${site.name}`),
+        cwd: fromRoot(`./test-sites/${site.contentDir}`),
         ...execOptions,
         env: {
           ...process.env,
