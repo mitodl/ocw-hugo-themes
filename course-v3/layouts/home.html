@@ -12,7 +12,7 @@
   <!-- End Google Tag Manager (noscript) -->
   {{ end }}
 
-  <div class="overflow-auto">
+  <div>
     <span class="course-header">
       {{ partialCached "mobile_course_nav.html" . }}
       {{ partialCached "mobile_course_info.html" . }}
@@ -20,10 +20,10 @@
       {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
     </span>
     <div id="course-main-content">
-      <div class="row">
+      <div class="row course-nav">
         <div class="col-12 course-home-grid">
           <div class="medium-and-below-only mb-3">
-            {{ partial "mobile_nav_toggle.html" . }}
+            {{ partial "mobile_course_menu_v3.html" (dict "context" .) }}
           </div>
         </div>
       </div>
