@@ -1,0 +1,179 @@
+.mobile-course-menu-v3 {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0px 8px 20px 0px rgba(120, 147, 172, 0.1);
+  margin-bottom: 24px;
+  
+  // Course Menu Toggle Button
+  .mobile-course-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    width: 100%;
+    background-color: #40464c;
+    border: none;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom: 1px solid #ffffff;
+    padding: 16px 16px 16px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-bottom: -1px;
+    
+    &:hover {
+      background-color: #4a5056;
+    }
+    
+    &:focus {
+      outline: 2px solid #32c5ff;
+      outline-offset: -2px;
+    }
+    
+    .menu-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+    }
+    
+    .menu-label {
+      flex: 1;
+      font-family: "Neue Haas Grotesk Text Pro", sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 18px;
+      color: #ffffff;
+      text-align: left;
+      min-width: 0;
+    }
+    
+    .arrow-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      transition: transform 0.2s ease;
+    }
+    
+    &[aria-expanded="true"] .arrow-icon {
+      transform: rotate(180deg);
+    }
+  }
+  
+  // Menu Items Container
+  .mobile-course-menu-items {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 400px); // Leave room for header and toggle button
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
+  }
+  
+  // Individual Menu Item
+  .mobile-course-menu-item-v3 {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -1px; // Collapse borders
+    
+    &:last-child > .mobile-course-menu-link {
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+    
+    .mobile-course-menu-link {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      width: 100%;
+      padding: 16px;
+      background-color: #ffffff;
+      border: 1px solid #dde1e6;
+      font-family: "Neue Haas Grotesk Text Pro", sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 18px;
+      color: #212326;
+      text-decoration: none;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      
+      &:hover {
+        background-color: #f3f4f8;
+      }
+      
+      &:focus {
+        outline: 2px solid #32c5ff;
+        outline-offset: -2px;
+      }
+      
+      &.active {
+        background-color: #212326;
+        color: #ffffff;
+        border-left: 2px solid #a9081a;
+        border-top: 1px solid #dde1e6;
+        border-right: 1px solid #dde1e6;
+        border-bottom: 1px solid #dde1e6;
+        justify-content: flex-start;
+        padding-left: 14px;
+      }
+      
+      .submenu-arrow {
+        margin-left: auto;
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        transition: transform 0.2s ease;
+      }
+      
+      &.mobile-course-menu-link-with-submenu {
+        cursor: pointer;
+        
+        &[aria-expanded="true"] .submenu-arrow {
+          transform: rotate(180deg);
+        }
+      }
+    }
+    
+    // Submenu container
+    .mobile-course-submenu {
+      display: flex;
+      flex-direction: column;
+      background-color: #f3f4f8;
+      
+      .mobile-course-menu-item-v3 {
+        .mobile-course-menu-link {
+          padding-left: 32px; // Indent submenu items
+          background-color: #ffffff;
+          border-left: 4px solid #f3f4f8;
+          
+          &.active {
+            padding-left: 30px;
+            border-left: 4px solid #a9081a;
+          }
+          
+          &:hover {
+            background-color: #f3f4f8;
+          }
+        }
+        
+        // Nested submenu (third level)
+        .mobile-course-submenu {
+          .mobile-course-menu-link {
+            padding-left: 48px;
+            
+            &.active {
+              padding-left: 46px;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // Responsive behavior - only show on medium and below
+  @media (min-width: 992px) {
+    display: none;
+  }
+}

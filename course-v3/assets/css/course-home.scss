@@ -9,6 +9,14 @@
     max-width: $max-content-width;
     margin: 0 auto;
     padding: 1.5rem 2.5rem 4rem 2.5rem !important;
+
+    .course-nav {
+      @include media-breakpoint-down(md) {
+        position: sticky;
+        top: 0;
+        z-index: 500;
+      }
+    }
   }
 
   .course-home-grid {
