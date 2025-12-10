@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.138.0
+Version 1.138.0 (Released December 10, 2025)
 ---------------
 
 - chore(deps): update actions/checkout digest to 8e8c483 (#1689)
