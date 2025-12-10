@@ -1,6 +1,18 @@
 Release Notes
 =============
 
+Version 1.138.0 (Released December 10, 2025)
+---------------
+
+- chore(deps): update actions/checkout digest to 8e8c483 (#1689)
+- chore(deps): update node.js to v24 (#1691)
+- chore(deps): update actions/setup-node digest to 395ad32 (#1690)
+- Footer for ocw-course-v3 (#1681)
+- fix(deps): update dependency @sentry/browser to v10 (#1685)
+- chore(deps): update dependency @types/sinon to v21 (#1682)
+- feat: display credit text in image galleries (#1663)
+- chore(deps): update dependency jest-watch-typeahead to v3 (#1673)
+
 Version 1.137.0 (Released December 01, 2025)
 ---------------
 
