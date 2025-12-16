@@ -1,15 +1,13 @@
 {{ $courseData := .Site.Data.course }}
 
-<div class="hero-banner d-inline-flex flex-column justify-content-start align-items-center px-3" style="background-image: url('{{ partial "get_asset_webpack_url.html" "images/course-v3-header-bg.jpg" }}')">
-  <div class="align-self-stretch d-flex flex-column justify-content-center align-items-start">
-    <div class="pb-3 d-inline-flex justify-content-start align-items-start" data-property-1="OnDarkBG">
-      <div class="d-flex justify-content-start align-items-center breadcrumb-dark" data-color="BreadcrumbDark" data-property-1="Default" data-size="Small">
-        <div class="breadcrumb-text">{{ $courseData.primary_course_number }} | {{ $courseData.term }} {{ $courseData.year }}{{if $courseData.level }} | {{ delimit $courseData.level ", " }}{{ end }}</div>
-      </div>
-    </div>
-    <div class="align-self-stretch d-flex flex-column justify-content-start align-items-start gap-1">
-      <div class="align-self-stretch d-flex flex-column justify-content-start align-items-start gap-3">
-        <div class="align-self-stretch course-title">{{ $courseData.course_title }}</div>
+<div class="course-banner-v3" style="background-image: url('{{ partial "get_asset_webpack_url.html" "images/course-v3-header-bg.jpg" }}')">
+  <div class="container-v3">
+    <div class="hero-text">
+      <span class="breadcrumb-text">
+        {{ $courseData.primary_course_number }} | {{ $courseData.term }} {{ $courseData.year }}{{if $courseData.level }} | {{ delimit $courseData.level ", " }}{{ end }}
+      </span>
+      <div class="course-title">
+        {{ $courseData.course_title }}
       </div>
     </div>
   </div>

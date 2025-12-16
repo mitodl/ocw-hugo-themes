@@ -1,0 +1,83 @@
+.course-banner-v3 {
+    display: flex;
+
+    padding: 2rem 1rem;
+    @media (min-width: 768px) {
+        padding: 3rem 2rem;
+    }
+
+    @media (min-width: 1400px) {
+        padding: 3rem 0;
+        align-items: center;
+
+    }
+
+    flex-direction: column;
+    align-self: stretch;
+
+    background-color: black;
+    background-position:  50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    @media (max-width: 768px) {
+        background-position: -34.407px -0.757px;
+        background-size: 323.489% 193.303%;
+    }
+
+    .container-v3 {
+        display: flex;
+        // width: 85%;
+
+        @media (min-width: 1400px) {
+            width: 79.75rem;
+        }
+    
+        align-items: center;
+    }
+
+    .hero-text {
+        display: flex;
+        // width: 85%;
+        @media (min-width: 1400px) {
+            width: 59.5rem;
+        }
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        @media (min-width: 768px) {
+            gap: 0.5rem;
+        }
+    }
+
+    .breadcrumb-text {
+        color: white;
+        font-family: $mit-learn-font-family;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.25rem;
+    }
+
+    .course-title {
+        align-self: stretch;
+        color: white;
+        font-family: $mit-learn-font-family;
+        font-size: 1.75rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 2.25rem;
+
+        gap: 1rem;
+        @media (min-width: 768px) {
+            font-size: 2.25rem;
+            line-height: 3.125rem;
+        }
+
+    }
+
+
+
+
+
+}
