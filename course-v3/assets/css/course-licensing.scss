@@ -2,64 +2,47 @@
 @import "../../../base-theme/assets/css/breakpoints.scss";
 
 .course-licensing-section {
-  width: 100%;
-  max-width: $max-content-width;
-  margin: 0 auto;
+  border-radius: 0.25rem;
+  border: 1px solid var(--Light-Gray-2, #DDE1E6);
+  background: var(--Light-Gray-1, #F3F4F8);
 
-  .licensing-container {
-    background-color: #f3f4f8;
-    border: 1px solid #dde1e6;
-    border-radius: 8px;
-    padding: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    width: 100%;
+  gap: 1rem;
 
-    @include media-breakpoint-down(md) {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-    }
+  .licensing-text {
+    color: var(--dark-gray-2-text-primary, #212326);
 
-    .licensing-text {
-      font-family: "Neue Haas Grotesk Text Pro", sans-serif;
-      font-size: 14px;
+    font-family: $mit-learn-font-family;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.125rem;
+    margin: 0;
+
+    a {
+      color: var(--dark-gray-2-text-primary, #212326);
+
+      font-family: $mit-learn-font-family;
+      font-size: 0.875rem;
+      font-style: normal;
       font-weight: 400;
-      line-height: 18px;
-      color: #212326;
-      margin: 0;
-
-      a {
-        color: #212326;
-        text-decoration: underline;
-        text-decoration-skip-ink: none;
-        text-underline-position: from-font;
-
-        &:hover {
-          color: #212326;
-        }
-      }
-    }
-
-    .cc-icons {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-shrink: 0;
-
-      .cc-icon {
-        width: 24px;
-        height: 24px;
-        display: block;
-        color: #000000;
-      }
-
-      @include media-breakpoint-down(md) {
-        justify-content: center;
-        width: 100%;
-      }
+      line-height: 1.125rem;
+      text-decoration-line: underline;
+      text-decoration-style: solid;
+      text-decoration-skip-ink: none;
+      text-decoration-thickness: auto;
+      text-underline-offset: auto;
+      text-underline-position: from-font;
     }
   }
+
+  .cc-icons {
+
+    gap: 1rem;
+
+    @include media-breakpoint-down(md) {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+
 }
