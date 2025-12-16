@@ -1,23 +1,23 @@
 {{ $courseData := .context.Site.Data.course }} {{ $inPanel := .inPanel }} {{
 $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
 
-<div class="course-info">
-  <div class="course-detail-title {{ if $inPanel }}bg-light-gray{{ end }}">
-    <h2 class="font-black {{ if $inPanel }}py-1 pl-3 m-0{{ end }}">
+<div class="course-info d-flex flex-column align-self-stretch align-items-start">
+  <div class=" {{ if $inPanel }}bg-light-gray{{ end }} align-self-stretch">
+    <h5 class="m-0 {{ if $inPanel }}py-1 pl-3 m-0{{ end }}">
       Course Info
-    </h2>
+    </h5>
   </div>
-  <div class="{{ if $inPanel }}px-3 mt-4{{ end }}">
-    <div class="row">
-      <div class="col-12 {{ if not $inPanel }}col-sm-6{{ end }}">
+  <div class="{{ if $inPanel }}px-3 mt-4{{ end }} align-self-stretch">
+    <div class="info-container row m-0 align-items-start flex-column flex-md-row align-self-stretch">
+      <div class="col-12 p-0 {{ if not $inPanel }}col-sm-6{{ end }} d-flex flex-column align-self-stretch align-items-center justify-content-center instructors-departments">
         {{ with $courseData.instructors.content }}
-        <div class="">
+        <div class="align-self-stretch d-flex flex-column align-items-start instructors">
           {{ $instructors := partial "get_instructors.html" . }}
-          <h5 class="{{ if $inPanel }}panel-course-info-title {{ end }} course-info-subsection">
+          <h6 class="{{ if $inPanel }}panel-course-info-title {{ end }} course-info-subsection m-0">
             {{ if eq (len $instructors) 1 }}Instructor{{ else }}Instructors{{
             end }}
-            </h5>
-          <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
+            </h6>
+          <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }} align-self-stretch">
             {{ partial "partial_collapse_list.html" (dict "list" $instructors
             "id" "instructors" "key" "title" "klass" "course-info-instructor"
             "showCollapse" $inPanel) }}
@@ -27,11 +27,11 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
         {{ with $courseData.department_numbers }}
           {{ $departments := partial "get_departments.html" . }}
           {{ if $departments }}
-            <div class="mt-4">
-              <h5 class="{{ if $inPanel }}panel-course-info-title {{ end }} course-info-subsection">
+            <div class="mt-md-4 align-self-stretch">
+              <h6 class="{{ if $inPanel }}panel-course-info-title {{ end }} course-info-subsection m-0">
                 Departments
-              </h5>
-              <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
+              </h6>
+              <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }} align-self-stretch">
                 {{ partial "partial_collapse_list.html" (dict "list" $departments
                 "id" "departments" "key" "title" "klass" "course-info-department"
                 "useLinks" true) }}
@@ -72,8 +72,8 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
       </div>
 
       {{ if not $inPanel }}
-      <div class="col-12 col-sm-6">
-        <div class="mt-4 mt-sm-0">
+      <div class="col-12 col-sm-6 p-0">
+        <div class="mt-md-4 mt-sm-0">
           {{ partial "topics.html" (merge . (dict "renderMarginTop" false)) }}
         </div>
       </div>

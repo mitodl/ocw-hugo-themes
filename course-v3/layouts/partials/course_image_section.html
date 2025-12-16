@@ -2,22 +2,21 @@
 {{- $courseImageUrl := index $imageData 0 -}}
 {{- $courseImageMetadata := index $imageData 1 -}}
 
-<div class="card">
-  <div class="card-body">
-    <div class="course-image-section-container">
-      <div class="course-image-container">
-        <div class="d-flex flex-column">
-          <img class="course-image" src="{{ $courseImageUrl }}"
-            alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}"
-          />
-        </div>
-        <div class="course-image-caption">
-          <span>{{ $courseImageMetadata.Params.image_metadata.caption | .RenderString }}</span>
-        </div>
-      </div>
-      <div class="large-and-above-only">
-        {{ partial "download_course_link_button.html" (dict "context" . "inPanel" true) }}
+
+<div class="course-image-section-container align-self-stretch d-inline-flex flex-column justify-content-center align-items-start overflow-hidden">
+  <img class="course-image align-self-stretch rounded-top" src="{{ $courseImageUrl }}" alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}" />
+  <div class="align-self-stretch d-flex flex-column justify-content-start align-items-start gap-3">
+    <div class="course-card-content align-self-stretch p-3 bg-white rounded-bottom d-flex flex-column justify-content-start align-items-start">
+      <div class="course-description align-self-stretch">
+        <span class="text-body">
+          {{ $courseImageMetadata.Params.image_metadata.caption | .RenderString }}
+        </span>
       </div>
     </div>
   </div>
+
+  <div class="large-and-above-only">
+    {{ partial "download_course_link_button.html" (dict "context" . "inPanel" true) }}
+  </div>
+
 </div>

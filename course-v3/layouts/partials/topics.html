@@ -5,9 +5,9 @@
 {{ $device := .device }}
 {{ $renderMarginTop := .renderMarginTop | default true}}
 <div class=" {{ if $renderMarginTop }}mt-4{{ end }}">
-  <h5 class="{{ if $inPanel }}panel-course-info-title {{ end }} course-info-subsection">
+  <h6 class="{{ if $inPanel }}panel-course-info-title {{ end }} course-info-subsection m-0">
     Topics
-  </h5>
+  </h6>
   <ul class="list-unstyled pb-2 m-0 {{ if $inPanel }}panel-course-info-text{{ end }}">
     {{- $topics := (slice (slice "Social Science" "Political Science" "American Politics") (slice "Social Science" "Public Administration" "Public Policy")) -}}
 

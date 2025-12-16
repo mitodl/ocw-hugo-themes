@@ -5,6 +5,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~offcanvas-bootstrap/src/sass/bootstrap.offcanvas";
 
+@import "mit-learn-header";
 @import "course-nav";
 @import "course-info";
 @import "course-home";
@@ -16,13 +17,15 @@
 @import "topic";
 @import "learning-resource-types";
 @import "course-image-section";
-@import "mit-learn-header";
 @import "course-licensing";
 @import "mobile-course-menu-v3";
+@import "course-header";
 
-html {
+html, body {
   font-size: 16px !important;
+  font-family: $mit-learn-font-family !important;
 }
+
 
 // overriding default heading values with course heading values
 h1 {
@@ -222,18 +225,47 @@ pre {
   }
 }
 
+#course-description {
+  gap: 1rem;
+}
+
 .course-detail-section {
-  margin-bottom: 24px;
-}
 
-.course-detail-section:last-child {
-  margin-bottom: 0;
-}
+  h5 {
+    color: #000;
+    font-family: $mit-learn-font-family;
+    font-size: 1.125rem !important;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.625rem !important;
+    text-transform: none;
+  }
 
-#course-description h4 {
-  font-size: 1.125rem !important;
-  line-height: 1.625rem !important;
-  font-weight: 500 !important;
+  h6 {
+    color: #000;
+
+    font-family: $mit-learn-font-family;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.125rem;
+  }
+
+  .instructors-departments {
+    gap: 1.5rem;
+
+    .instructors {
+      gap: 0.5rem;
+    }
+  }
+
+  .course-info {
+    gap: 1rem;
+
+    .info-container {
+      gap: 1.5rem;
+    }
+  }
 }
 
 #expand-description,

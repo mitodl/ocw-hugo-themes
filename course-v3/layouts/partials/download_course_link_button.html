@@ -5,8 +5,8 @@
 {{- $downloadCourseUrl := partial "get_course_download_url.html" .context -}}
 {{- if not $hideDownload -}}
 <div class="download-course-section">
-  <div class="download-course-container-v3">
-    <a class="download-course-button-v3"
+  <div class="download-course-container-v3 d-flex flex-column align-items-start align-self-stretch">
+    <a class="download-course-button-v3 d-flex align-items-center justify-content-center align-self-stretch"
       role="button"
       href="{{- $downloadPageUrl -}}">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
