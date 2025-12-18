@@ -5,20 +5,6 @@
     max-width: $max-content-width;
   }
 
-  #course-main-content {
-    max-width: $max-content-width;
-    margin: 0 auto;
-    gap: 1.5rem;
-    
-    .course-nav {
-      @include media-breakpoint-down(md) {
-        position: sticky;
-        top: 60px;
-        z-index: 500;
-      }
-    }
-  }
-
   .course-home-grid {
     padding-left: 10px !important;
     padding-right: 10px !important;
