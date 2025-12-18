@@ -19,7 +19,6 @@
 @import "course-image-section";
 @import "course-licensing";
 @import "mobile-course-menu-v3";
-@import "course-header";
 @import "course-banner";
 
 html, body {
@@ -106,6 +105,76 @@ h5 {
       max-width: 67%;
     }
   }
+}
+
+
+.course-main-content-v3 {
+  display: flex;
+  padding: 1.5rem 1rem;
+
+  background-color: white;
+
+  @media (min-width: 768px) {
+      padding: 2rem 2rem 2.5rem 2rem;
+  }
+
+  @media (min-width: 1400px) {
+      padding: 2.5rem 0 5rem 0;
+      align-items: center;
+
+  }
+
+  flex-direction: column;
+  align-self: stretch;
+
+  .container-v3 {
+    display: flex;
+    flex-direction: column;
+    @media (min-width: 1400px) {
+        width: 79.75rem;
+    }
+    
+  
+  }
+
+  .course-overview {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    @include media-breakpoint-down(sm) {
+      flex-flow: column-reverse;
+      gap: 1.5rem;
+    }
+
+  }
+
+  .course-nav-desktop {
+    flex: 15.5% 1 1;
+  }
+
+  .course-detail {
+    flex: 57.5% 1 1;
+    gap: 2rem;
+
+    @media (min-width: 992px) {
+      padding: 0rem 2.5rem 3.5rem 2.5rem;
+    }
+  }
+
+  .course-image-section {
+    flex-basis: 27% 1 1;
+    @media (min-width: 1200px) {
+      visibility: hidden;
+    }
+  }
+
+  .bottom-download-button {
+    margin-top: 1.5rem;
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
 }
 
 .user-list-modal {

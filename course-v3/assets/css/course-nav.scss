@@ -2,8 +2,7 @@ nav {
   display: block !important;
 
   .nav-link {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding: 0 !important;
   }
 }
 
@@ -18,15 +17,24 @@ nav {
       border-radius: 4px;
     }
   }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
 }
 
 .course-nav-parent {
-  padding-left: 8px !important;
+  border-left: 3px solid transparent !important;
+  border-radius: 0.0625rem 0.25rem 0.25rem 0.0625rem;
+
+  padding: 0.5rem 0.75rem !important;
   &.active {
     font-weight: 600;
     background-color: #212326 !important;
     // color: #ffffff !important;
-    border-left: 5px solid $highlight-red !important;
+    border-left: 3px solid $highlight-red !important;
     border-radius: 4px;
     // padding-left: 14px;
   }
@@ -58,6 +66,7 @@ nav {
   border: none;
   padding: 0;
   background: none;
+  align-self: flex-start;
 }
 
 .course-nav-section-toggle > i:after {

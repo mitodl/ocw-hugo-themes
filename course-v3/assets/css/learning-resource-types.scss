@@ -31,9 +31,11 @@
 }
 
 .learning-resource-types-content {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: 16px 32px;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .learning-resource-type-item {

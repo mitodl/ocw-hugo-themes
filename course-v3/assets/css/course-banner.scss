@@ -27,7 +27,7 @@
 
     .container-v3 {
         display: flex;
-        // width: 85%;
+        position: relative;
 
         @media (min-width: 1400px) {
             width: 79.75rem;
@@ -38,7 +38,9 @@
 
     .hero-text {
         display: flex;
-        // width: 85%;
+        @media (min-width: 1200px) {
+            width: 75%;
+        }
         @media (min-width: 1400px) {
             width: 59.5rem;
         }
@@ -76,8 +78,14 @@
 
     }
 
+    .course-image-section {
+        @media (max-width: 1200px) {
+            display: none;
+        }
 
-
-
+        position: absolute;
+        top: 0rem;
+        right: 0rem;
+    }
 
 }
