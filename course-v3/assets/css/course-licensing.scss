@@ -5,7 +5,18 @@
   border-radius: 0.25rem;
   border: 1px solid var(--Light-Gray-2, #DDE1E6);
   background: var(--Light-Gray-1, #F3F4F8);
+  padding: 1rem;
 
+  @media (max-width: 992px) {
+    margin-top: 1.5rem;
+  }
+
+  flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row !important;
+    justify-content: center;
+    padding: 1.5rem;
+  }
   gap: 1rem;
 
   .licensing-text {
@@ -41,7 +52,7 @@
 
     @include media-breakpoint-down(md) {
       justify-content: center;
-      width: 100%;
+      // width: 100%;
     }
   }
 
