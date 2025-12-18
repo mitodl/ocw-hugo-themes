@@ -9,7 +9,7 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
   </div>
   <div class="{{ if $inPanel }}px-3 mt-4{{ end }} align-self-stretch">
     <div class="info-container d-flex m-0 align-items-start flex-column flex-md-row align-self-stretch">
-      <div class="p-0 d-flex flex-column align-self-stretch align-items-center justify-content-center instructors-departments">
+      <div class="p-0 d-flex flex-column align-self-stretch align-items-center justify-content-start instructors-departments">
         {{ with $courseData.instructors.content }}
         <div class="align-self-stretch d-flex flex-column align-items-start instructors">
           {{ $instructors := partial "get_instructors.html" . }}
@@ -27,7 +27,7 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
         {{ with $courseData.department_numbers }}
           {{ $departments := partial "get_departments.html" . }}
           {{ if $departments }}
-            <div class="mt-md-4 align-self-stretch">
+            <div class="align-self-stretch">
               <h6 class="{{ if $inPanel }}panel-course-info-title {{ end }} course-info-subsection m-0">
                 Departments
               </h6>
