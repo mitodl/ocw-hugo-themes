@@ -4,7 +4,7 @@
 {{ if gt (len ($courseData.learning_resource_types | default slice)) 0 }}
 <div class="learning-resource-types-container">
   <div class="learning-resource-types-header">
-    <h5 class="course-detail-title text-capitalize font-weight-bold {{ if $inPanel }}panel-course-info-title mt-3{{ end }}">
+    <h5 class="lrt-heading {{ if $inPanel }}panel-course-info-title mt-3{{ end }}">
       Learning Resource Types
     </h5>
     <p class="learning-resource-types-subtitle">

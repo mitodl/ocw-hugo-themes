@@ -176,9 +176,9 @@ h5 {
   }
 
   .mobile-nav-div {
-    position: sticky;
-    top: 3.75rem;
-    z-index: 99999;
+    // position: sticky;
+    // top: 3.75rem;
+    // z-index: 99999;
   }
 
 }
@@ -339,6 +339,7 @@ pre {
     gap: 1rem;
 
     .info-container {
+      font-size: 0.875rem;
       gap: 1.5rem;
       > * {
         flex-grow: 1;
