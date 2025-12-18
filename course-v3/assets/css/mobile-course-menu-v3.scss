@@ -27,10 +27,10 @@
       background-color: #4a5056;
     }
 
-    &:focus {
-      outline: 2px solid #32c5ff;
-      outline-offset: -2px;
-    }
+    // &:focus {
+    //   outline: 2px solid #32c5ff;
+    //   outline-offset: -2px;
+    // }
 
     .menu-icon {
       flex-shrink: 0;
@@ -65,9 +65,9 @@
   .mobile-course-menu-items {
     display: flex;
     flex-direction: column;
-    max-height: calc(100vh - 400px); // Leave room for header and toggle button
+    // max-height: calc(100vh - 400px);
     overflow-y: auto;
-    overflow-x: hidden;
+    // overflow-x: hidden;
     -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
   }
 
@@ -77,6 +77,10 @@
     flex-direction: column;
     margin-bottom: -1px; // Collapse borders
 
+    &:last-child {
+      margin-bottom: 0; // Don't cut off the last item
+    }
+
     &:last-child > .mobile-course-menu-link {
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
@@ -85,7 +89,7 @@
     .mobile-course-menu-link {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: space-between;
       gap: 8px;
       width: 100%;
       padding: 16px;
@@ -103,24 +107,25 @@
         background-color: #f3f4f8;
       }
 
-      &:focus {
-        outline: 2px solid #32c5ff;
-        outline-offset: -2px;
-      }
+      // &:focus {
+      //   outline: 2px solid #32c5ff;
+      //   outline-offset: -2px;
+      // }
 
       &.active {
         background-color: #212326;
         color: #ffffff;
         border-left: 2px solid #a9081a;
-        border-top: 1px solid #dde1e6;
+        border-top: 0 !important;
         border-right: 1px solid #dde1e6;
         border-bottom: 1px solid #dde1e6;
         justify-content: flex-start;
         padding-left: 14px;
+
       }
 
       .submenu-arrow {
-        margin-left: auto;
+        // margin-left: 0;
         flex-shrink: 0;
         width: 20px;
         height: 20px;
@@ -129,9 +134,14 @@
 
       &.mobile-course-menu-link-with-submenu {
         cursor: pointer;
-
+        text-align: left;
+        justify-content: flex-start;
         &[aria-expanded="true"] .submenu-arrow {
           transform: rotate(180deg);
+        }
+
+        &[aria-expanded="true"] {
+          border-bottom: 0;
         }
       }
     }

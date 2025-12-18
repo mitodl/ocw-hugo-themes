@@ -7,9 +7,11 @@
   gap: 32px;
   background-color: $white;
 
-  h5.course-detail-title {
-    font-size: 1.28rem !important; // 18px
-    line-height: 26px !important;
+  h5.lrt-heading{
+    font-size: 1.125rem !important;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 1.625rem !important;
     color: $black;
     margin: 0;
     min-height: auto;
@@ -23,7 +25,7 @@
 }
 
 .learning-resource-types-subtitle {
-  font-size: 1rem; // 14px
+  font-size: 0.875rem;
   font-weight: 400;
   line-height: 18px;
   color: #626a73;
@@ -58,7 +60,7 @@
   }
 
   span {
-    font-size: 1rem; // 14px
+    font-size: 0.875rem;
     font-weight: 400;
     line-height: 18px;
     color: #212326;
