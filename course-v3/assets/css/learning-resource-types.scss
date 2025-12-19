@@ -2,6 +2,11 @@
   border: 1px solid #dde1e6;
   border-radius: 8px;
   padding: 32px;
+
+  @media (max-width: 991px) {
+    padding: 24px;
+  }
+
   display: flex;
   flex-direction: column;
   gap: 32px;
