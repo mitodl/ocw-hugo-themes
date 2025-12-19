@@ -45,7 +45,7 @@ $panel-course-info-text-color: #464646;
   background-color: #f3f4f8; // light-gray-1
   border-radius: 0.25rem;
   padding: 1rem;
-  border: 1px solid var(--Light-Gray-2, #DDE1E6);
+  border: 1px solid var(--Light-Gray-2, #dde1e6);
   gap: 2rem;
 }
 
@@ -67,7 +67,7 @@ $panel-course-info-text-color: #464646;
   .download-icon {
     font-size: 1.5rem;
     width: 1.5rem;
-    height: 1.5rem ;
+    height: 1.5rem;
   }
 
   &:hover {
