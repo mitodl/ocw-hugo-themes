@@ -58,7 +58,6 @@
       }
     }
   }
-
 }
 
 #collapsed-description {
@@ -67,7 +66,9 @@
   }
 }
 
-#collapsed-description, #expanded-description, #full-description {
+#collapsed-description,
+#expanded-description,
+#full-description {
   color: #000;
 
   font-size: 0.875rem;

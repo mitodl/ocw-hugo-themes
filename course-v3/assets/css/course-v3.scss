@@ -21,11 +21,11 @@
 @import "mobile-course-menu-v3";
 @import "course-banner";
 
-html, body {
+html,
+body {
   font-size: 16px !important;
   font-family: $mit-learn-font-family !important;
 }
-
 
 // overriding default heading values with course heading values
 h1 {
@@ -107,7 +107,6 @@ h5 {
   }
 }
 
-
 .course-main-content-v3 {
   display: flex;
   padding: 1.5rem 1rem;
@@ -115,13 +114,12 @@ h5 {
   background-color: white;
 
   @media (min-width: 768px) {
-      padding: 2rem 2rem 2.5rem 2rem;
+    padding: 2rem 2rem 2.5rem 2rem;
   }
 
   @media (min-width: 1400px) {
-      padding: 2.5rem 0 5rem 0;
-      align-items: center;
-
+    padding: 2.5rem 0 5rem 0;
+    align-items: center;
   }
 
   flex-direction: column;
@@ -131,10 +129,8 @@ h5 {
     display: flex;
     flex-direction: column;
     @media (min-width: 1400px) {
-        width: 79.75rem;
+      width: 79.75rem;
     }
-    
-  
   }
 
   .course-overview {
@@ -145,7 +141,6 @@ h5 {
       flex-flow: column-reverse;
       gap: 1.5rem;
     }
-
   }
 
   .course-nav-desktop {
@@ -180,7 +175,6 @@ h5 {
     // top: 3.75rem;
     // z-index: 99999;
   }
-
 }
 
 .user-list-modal {
@@ -306,7 +300,6 @@ pre {
 }
 
 .course-detail-section {
-
   h5 {
     color: #000;
     font-family: $mit-learn-font-family;

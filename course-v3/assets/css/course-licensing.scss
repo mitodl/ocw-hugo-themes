@@ -3,8 +3,8 @@
 
 .course-licensing-section {
   border-radius: 0.25rem;
-  border: 1px solid var(--Light-Gray-2, #DDE1E6);
-  background: var(--Light-Gray-1, #F3F4F8);
+  border: 1px solid var(--Light-Gray-2, #dde1e6);
+  background: var(--Light-Gray-1, #f3f4f8);
   padding: 1rem;
 
   @media (max-width: 992px) {
@@ -47,7 +47,6 @@
   }
 
   .cc-icons {
-
     gap: 1rem;
 
     @include media-breakpoint-down(md) {
@@ -55,5 +54,4 @@
       // width: 100%;
     }
   }
-
 }
