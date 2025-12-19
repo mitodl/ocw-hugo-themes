@@ -70,11 +70,19 @@ export const initMobileCourseMenuV3 = () => {
     }
   })
 
-  // Handle keyboard navigation
-  toggleButton.addEventListener("keydown", e => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault()
-      toggleButton.click()
+  // Close menu when clicking outside
+  document.addEventListener("click", e => {
+    const target = e.target as Node
+    const isExpanded = toggleButton.getAttribute("aria-expanded") === "true"
+
+    // If menu is open and click is outside both the menu and toggle button
+    if (
+      isExpanded &&
+      !menuItems.contains(target) &&
+      !toggleButton.contains(target)
+    ) {
+      toggleButton.setAttribute("aria-expanded", "false")
+      menuItems.style.display = "none"
     }
   })
 }

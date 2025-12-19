@@ -23,6 +23,14 @@ nav {
     flex-direction: column;
     gap: 0.75rem;
   }
+
+  li > ul {
+    padding-left: 24px;
+
+    li > .course-nav-parent {
+      padding-left: 0 !important;
+    }
+  }
 }
 
 .course-nav-parent {
