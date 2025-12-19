@@ -107,7 +107,7 @@ const RESOURCE_TYPES = [
   "Presentation Assignments",
   "Presentation Assignments with Examples",
   "Problem Sets",
-  "Problem Sets with Solutions",
+  "Problem Set Solutions",
   "Problem-solving Notes",
   "Problem-solving Videos",
   "Programming Assignments",
