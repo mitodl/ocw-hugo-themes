@@ -171,9 +171,10 @@ h5 {
   }
 
   .mobile-nav-div {
-    // position: sticky;
-    // top: 3.75rem;
-    // z-index: 99999;
+    position: sticky;
+    top: 3.75rem;
+    z-index: 99999;
+    background-color: white;
   }
 }
 
