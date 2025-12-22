@@ -160,7 +160,7 @@ describe("SearchPage component", () => {
       text:         "Math 101",
       activeFacets: {
         topics:              ["Mathematics"],
-        course_feature_tags: ["Exams", "Problem Sets with Solutions"]
+        course_feature_tags: ["Exams", "Problem Set Solutions"]
       }
     }
     const searchString = serializeSearchParams(parameters)
