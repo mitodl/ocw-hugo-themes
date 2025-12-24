@@ -6,6 +6,10 @@
     padding: 3rem 2rem;
   }
 
+  @media (min-width: 992px) and (max-width: 1199px) {
+    padding: 1.5rem 2rem;
+  }
+
   @media (min-width: 1400px) {
     padding: 3rem 0;
     align-items: center;
@@ -48,6 +52,10 @@
     gap: 1rem;
     @media (min-width: 768px) {
       gap: 0.5rem;
+    }
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+      gap: 0;
     }
   }
 
