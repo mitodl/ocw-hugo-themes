@@ -1,14 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import { JSDOM } from "jsdom"
-
 import { initCourseInfoExpander } from "./course_expander"
 
 describe("initCourseInfoExpander", () => {
-  let html
-
   beforeEach(() => {
-    html = `<body>
+    // Clear and set up the DOM for each test
+    document.body.innerHTML = `
     <div class="course-description expand-container collapsed">
       <div class="course-info expand-container collapsed">
         <a class="expand-link course-info-link" aria-expanded="false">
@@ -20,7 +17,7 @@ describe("initCourseInfoExpander", () => {
         <span class="read-more-text">Read More</span>
       </button>
     </div>
-    </body>`
+    `
   })
 
   const assertExpanded = (button, expanded) => {
@@ -40,11 +37,11 @@ describe("initCourseInfoExpander", () => {
     }
   }
 
-  const toggleButton = (button, isMouseClick, window) => {
+  const toggleButton = (button, isMouseClick) => {
     if (isMouseClick) {
       button.click()
     } else {
-      const event = new window.KeyboardEvent("keypress", {
+      const event = new KeyboardEvent("keypress", {
         key:     "Enter",
         bubbles: true
       })
@@ -58,8 +55,6 @@ describe("initCourseInfoExpander", () => {
       it(`toggles the ${isReadMore ? "read more" : "course info"} link by ${
         isMouseClick ? "click" : "enter"
       }`, () => {
-        const { window } = new JSDOM(html)
-        const document = window.document
         initCourseInfoExpander(document)
         const buttonSelectors = [".read-more", ".course-info-link"]
         const selector = isReadMore ? ".read-more" : ".course-info-link"
@@ -69,10 +64,10 @@ describe("initCourseInfoExpander", () => {
         )
         assertExpanded(button, false)
         assertExpanded(otherButton, false)
-        toggleButton(button, isMouseClick, window)
+        toggleButton(button, isMouseClick)
         assertExpanded(button, true)
         assertExpanded(otherButton, false)
-        toggleButton(button, isMouseClick, window)
+        toggleButton(button, isMouseClick)
         assertExpanded(button, false)
         assertExpanded(otherButton, false)
       })
