@@ -145,9 +145,11 @@ h5 {
 
   .course-nav-desktop {
     flex: 15.5% 1 1;
+    margin-bottom: 3.5rem;
+    font-size: 0.875rem !important;
 
     @media (max-width: 1199px) {
-      font-size: 0.875rem !important;
+      margin-bottom: 1rem;
     }
 
     .material-icons {
@@ -369,6 +371,7 @@ pre {
 #expand-description,
 #collapse-description {
   color: $highlight-red;
+  margin-top: 0.5rem;
 }
 
 .course-detail-title {

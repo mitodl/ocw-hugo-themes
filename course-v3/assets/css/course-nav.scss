@@ -25,10 +25,10 @@ nav {
   }
 
   li > ul {
-    padding-left: 24px;
+    padding-left: 0px;
 
     li > .course-nav-parent {
-      padding-left: 0 !important;
+      padding-left: 24px !important;
     }
   }
 }
@@ -43,6 +43,15 @@ nav {
     background-color: #212326 !important;
     border-left: 3px solid $highlight-red !important;
     border-radius: 4px;
+  }
+
+  &:hover {
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    a,
+    button {
+      color: $highlight-red;
+    }
   }
 }
 
