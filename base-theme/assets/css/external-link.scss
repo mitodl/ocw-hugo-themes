@@ -1,5 +1,5 @@
 #external-link-modal {
-  z-index: 2147483647 !important;
+  z-index: $z-index-external-links-modal !important;
   .modal-footer {
     justify-content: space-between;
 
