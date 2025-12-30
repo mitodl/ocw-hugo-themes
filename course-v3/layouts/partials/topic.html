@@ -7,7 +7,7 @@
 {{ $subtopics = .subtopics }}
 {{ end }}
 {{ $scratch := newScratch }}
-<div class="position-relative pt-1 pb-1{{ if gt (len $subtopics) 0 }} pl-4 {{ end }}">
+<div class="position-relative {{ if gt (len $subtopics) 0 }} pl-4 {{ end }}">
   {{ if gt (len $subtopics) 0 }}
   <button
     type="button"
@@ -36,7 +36,7 @@
   {{ range $subtopic, $specialities := $subtopics }}
   {{ $subtopicIndex := $scratch.Get "index" }}
   <li>
-    <div class="position-relative pt-1 pb-1 {{ if gt (len ($specialities | default slice)) 0 }} pl-4 {{ else }} pl-2 {{ end }}">
+    <div class="position-relative {{ if gt (len ($specialities | default slice)) 0 }} pl-4 {{ else }} pl-2 {{ end }}">
       {{ if gt (len ($specialities | default slice)) 0 }}
       <button
         class="topic-toggle border-0 bg-transparent pl-0"
@@ -61,7 +61,7 @@
       aria-label="Specialties"
     >
       {{ range $speciality, $ignore := $specialities }}
-      <li class="pt-1 pb-1 pl-5">
+      <li class="pl-5">
         <span class="topic-text-wrapper">
           {{ $specialityTitle := title $speciality }}
           {{ $specialityUrl := partial "get_search_url.html" (dict "key" "topic" "value" $specialityTitle) }}
