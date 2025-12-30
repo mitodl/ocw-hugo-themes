@@ -4,7 +4,7 @@
 {{ $inPanel := .inPanel }}
 {{ $device := .device }}
 {{ $renderMarginTop := .renderMarginTop | default true}}
-<div class=" {{ if $renderMarginTop }}mt-4{{ end }}">
+<div class="d-flex flex-column course-topics-container {{ if $renderMarginTop }}mt-4{{ end }}">
   <h6 class="{{ if $inPanel }}panel-course-info-title {{ end }} m-0">
     Topics
   </h6>

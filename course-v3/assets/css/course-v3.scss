@@ -335,10 +335,18 @@ pre {
     .instructors {
       gap: 0.5rem;
     }
+
+    .departments {
+      gap: 0.5rem;
+    }
   }
 
   .info-topics {
     flex-basis: 50% !important;
+
+    .course-topics-container {
+      gap: 0.5rem;
+    }
   }
 
   .course-info {
