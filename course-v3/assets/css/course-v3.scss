@@ -149,6 +149,10 @@ h5 {
     @media (max-width: 1199px) {
       font-size: 0.875rem !important;
     }
+
+    .material-icons {
+      display: flex;
+    }
   }
 
   .course-detail {
