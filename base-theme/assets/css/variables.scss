@@ -154,3 +154,7 @@ $course-heading-five-line-height: 2rem; /* 28px */
 // material icon
 $material-icon-font-normal: 1.5rem; /* Preferred icon size = 24px */
 $material-icon-font-lg: 1.75rem; /* 28px */
+
+// z-index values to ensure external links modal is on top of nanogallery
+$z-index-nanogallery: 1000;
+$z-index-external-links-modal: $z-index-nanogallery + 100;

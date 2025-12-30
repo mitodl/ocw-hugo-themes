@@ -3,7 +3,7 @@ import { MOBILE_COURSE_NAV_DRAWER_ID } from "../../../course-v2/assets/js/mobile
 export const EXTERNAL_LINK_MODAL_ID = "external-link-modal"
 
 export function initExternalLinkModal() {
-  $("a.external-link-warning").on("click", event => {
+  $(document).on("click", "a.external-link-warning", event => {
     event.preventDefault()
 
     $(`#${MOBILE_COURSE_NAV_DRAWER_ID}`).trigger("offcanvas.close")
@@ -28,7 +28,7 @@ export function initExternalLinkModal() {
     modal.modal("show")
   })
 
-  $(`#${EXTERNAL_LINK_MODAL_ID} .btn-continue`).on("click", _ => {
+  $(document).on("click", `#${EXTERNAL_LINK_MODAL_ID} .btn-continue`, _ => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     $(`#${EXTERNAL_LINK_MODAL_ID}`).modal("hide")

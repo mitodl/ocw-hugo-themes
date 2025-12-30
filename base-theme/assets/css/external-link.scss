@@ -1,4 +1,5 @@
 #external-link-modal {
+  z-index: $z-index-external-links-modal !important;
   .modal-footer {
     justify-content: space-between;
 

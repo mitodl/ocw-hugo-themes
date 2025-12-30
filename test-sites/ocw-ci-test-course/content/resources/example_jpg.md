@@ -7,7 +7,7 @@ file_size: 154826
 file_type: image/jpeg
 image_metadata:
   caption: ''
-  credit: 'Distributed under the CCC.'
+  credit: 'Distributed under the CCC. {{% resource_link "8ef7f3de-f238-4b3f-afb1-2d11a16f7247" "Google" %}}'
   image-alt: ''
 learning_resource_types:
 - Activity Assignments
