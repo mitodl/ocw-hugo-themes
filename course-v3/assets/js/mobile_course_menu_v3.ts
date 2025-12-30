@@ -19,19 +19,19 @@ export const initMobileCourseMenuV3 = () => {
   const submenuToggleButtons = document.querySelectorAll<HTMLButtonElement>(
     ".mobile-course-menu-link-with-submenu"
   )
-  
+
   submenuToggleButtons.forEach(button => {
     button.addEventListener("click", e => {
       e.preventDefault()
       const submenuId = button.getAttribute("aria-controls")
       const submenu = document.getElementById(submenuId!)
-      
+
       if (!submenu) {
         return
       }
-      
+
       const isExpanded = button.getAttribute("aria-expanded") === "true"
-      
+
       if (isExpanded) {
         button.setAttribute("aria-expanded", "false")
         submenu.style.display = "none"
