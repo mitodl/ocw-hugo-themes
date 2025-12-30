@@ -72,7 +72,7 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
       </div>
 
       {{ if not $inPanel }}
-      <div class="p-0">
+      <div class="p-0 info-topics">
         <div>
           {{ partial "topics.html" (merge . (dict "renderMarginTop" false)) }}
         </div>
