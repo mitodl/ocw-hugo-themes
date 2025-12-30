@@ -8,25 +8,44 @@ export const initMobileCourseMenuV3 = () => {
   const menuItems = document.getElementById("mobile-course-menu-items")
 
   if (!toggleButton || !menuItems) {
-    console.log("Mobile course menu v3 elements not found", {
-      toggleButton,
-      menuItems
-    })
     return
   }
-
-  console.log("Initializing mobile course menu v3")
 
   // Ensure initial state matches the HTML (menu open by default)
   toggleButton.setAttribute("aria-expanded", "true")
   menuItems.style.display = "flex"
 
+  // Add event listeners for submenu toggle buttons
+  const submenuToggleButtons = document.querySelectorAll<HTMLButtonElement>(
+    ".mobile-course-menu-link-with-submenu"
+  )
+  
+  submenuToggleButtons.forEach(button => {
+    button.addEventListener("click", e => {
+      e.preventDefault()
+      const submenuId = button.getAttribute("aria-controls")
+      const submenu = document.getElementById(submenuId!)
+      
+      if (!submenu) {
+        return
+      }
+      
+      const isExpanded = button.getAttribute("aria-expanded") === "true"
+      
+      if (isExpanded) {
+        button.setAttribute("aria-expanded", "false")
+        submenu.style.display = "none"
+      } else {
+        button.setAttribute("aria-expanded", "true")
+        submenu.style.display = "flex"
+      }
+    })
+  })
+
   // Toggle menu visibility
   toggleButton.addEventListener("click", e => {
     e.preventDefault()
     const isExpanded = toggleButton.getAttribute("aria-expanded") === "true"
-
-    console.log("Toggle clicked", { isExpanded })
 
     if (isExpanded) {
       // Collapse menu
