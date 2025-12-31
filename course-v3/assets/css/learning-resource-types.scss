@@ -1,12 +1,72 @@
+.learning-resource-types-container {
+  border: 1px solid #dde1e6;
+  border-radius: 8px;
+  padding: 32px;
+
+  @media (max-width: 991px) {
+    padding: 24px;
+  }
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  background-color: $white;
+
+  h5.lrt-heading {
+    font-size: 1.125rem !important;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 1.625rem !important;
+    color: $black;
+    margin: 0;
+    min-height: auto;
+  }
+}
+
+.learning-resource-types-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.learning-resource-types-subtitle {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 18px;
+  color: #626a73;
+  margin: 0;
+}
+
+.learning-resource-types-content {
+  display: grid;
+  gap: 16px 32px;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .learning-resource-type-item {
-  border: 1px solid #bcbcbc;
-  border-radius: 15px;
-  box-sizing: border-box;
-  font-size: $font-sm;
-  padding: 3px 8px 3px 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  border: none;
+  border-radius: 0;
+  padding: 0;
   cursor: default;
 
   .material-icons {
-    font-size: 20px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #212326;
+  }
+
+  span {
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 18px;
+    color: #212326;
   }
 }

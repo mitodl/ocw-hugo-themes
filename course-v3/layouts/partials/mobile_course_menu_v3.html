@@ -1,0 +1,30 @@
+{{ $menu := index .context.Site.Menus "leftnav" }}
+{{ $homeURL := partial "course_home_page_url.html" .context }}
+{{/* Create Course Home menu item */}}
+{{ $courseHomeItem := dict "Name" "Course Home" "URL" $homeURL "Identifier" "course-home" "PageRef" "" "HasChildren" false "Children" slice }}
+{{/* Prepend Course Home to the menu */}}
+{{ $menu = slice $courseHomeItem | append $menu }}
+<div class="mobile-course-menu-v3 medium-and-below-only" id="mobile-course-menu-v3">
+  <button
+    class="mobile-course-menu-toggle"
+    type="button"
+    id="mobile-course-menu-toggle-v3"
+    aria-expanded="true"
+    aria-controls="mobile-course-menu-items"
+    aria-label="Toggle Course Menu"
+  >
+    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M15 12.4999L14.9992 14.9999H17.5V16.6666H14.9992L15 19.1666H13.3333L13.3325 16.6666H10.8333V14.9999H13.3325L13.3333 12.4999H15ZM9.16667 14.9999V16.6666H2.5V14.9999H9.16667ZM17.5 9.16658V10.8333H2.5V9.16658H17.5ZM17.5 3.33325V4.99992H2.5V3.33325H17.5Z" fill="white"/>
+    </svg>
+    <span class="menu-label">Course Menu</span>
+    <svg class="arrow-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 7.5L10 12.5L15 7.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  
+  <div class="mobile-course-menu-items" id="mobile-course-menu-items">
+    {{ range $menu }}
+      {{ partial "mobile_course_menu_item_v3.html" (dict "menuItem" . "context" $.context) }}
+    {{ end }}
+  </div>
+</div>

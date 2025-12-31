@@ -12,31 +12,35 @@
   <!-- End Google Tag Manager (noscript) -->
   {{ end }}
 
-  <div class="overflow-auto">
-    <span class="course-header">
+  <div>
+    <div class="course-header">
       {{ partialCached "mobile_course_nav.html" . }}
       {{ partialCached "mobile_course_info.html" . }}
       {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
       {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
-    </span>
-    <div id="course-main-content">
-      <div class="row">
-        <div class="col-12 course-home-grid">
-          <div class="medium-and-below-only mb-3">
-            {{ partial "mobile_nav_toggle.html" . }}
+    </div>
+    <div class="course-main-content-v3">
+      <div class="container-v3">
+        <div>
+          <div class="mobile-nav-div medium-and-below-only align-self-stretch">
+            {{ partial "mobile_course_menu_v3.html" (dict "context" .) }}
+          </div>
+          <div class="course-overview">
+            <div class="course-nav-desktop large-and-above-only p-0">
+              {{ partialCached "desktop_nav.html" . }}
+            </div>
+            <div class="course-detail d-flex flex-column align-items-start align-self-stretch">
+              {{ partialCached "course_detail.html" . }}
+            </div>
+            <div class="col-12 col-md-4 col-lg-3 p-0 course-image-section">
+              {{ partialCached "course_image_section.html" . }}
+            </div>
+          </div>
+          <div class="bottom-download-button align-self-stretch">
+            {{ partial "download_course_link_button.html" (dict "context" . "inPanel" false) }}
           </div>
         </div>
-      </div>
-      <div class="row course-cards">
-        <div class="col-2 course-home-grid large-and-above-only">
-          {{ partialCached "desktop_nav.html" . }}
-        </div>
-        <div class="col-12 col-md-8 col-lg-7 course-home-grid">
-          {{ partialCached "course_detail.html" . }}
-        </div>
-        <div class="col-12 col-md-4 col-lg-3 mb-3 mb-md-0 course-home-grid">
-          {{ partialCached "course_image_section.html" . }}
-        </div>
+        {{ partial "course_licensing.html" . }}
       </div>
     </div>
     {{ block "footer" . }}{{ partial "footer-v3" . }}{{end}}

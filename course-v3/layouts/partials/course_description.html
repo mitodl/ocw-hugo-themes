@@ -5,13 +5,13 @@
   {{ $plainDescription := . | replaceRE `\[(.*?)\]\(.*?\)` `$1` }}
   {{ $shouldCollapseDescription = gt (len $plainDescription) 320 }}
 {{ end }}
-<div id="course-description">
-  <h4 class="course-detail-title">
+<div id="course-description" class="d-flex flex-column align-self-stretch align-items-start">
+  <h5 class="align-self-stretch m-0">
     Course Description
-  </h4>
+  </h5>
   {{ if $shouldCollapseDescription }}
   <div id="collapsed-description" class="description">
-    {{- truncate 320 (.context.RenderString $courseData.course_description) -}}
+    {{- truncate 320 "" (.context.RenderString $courseData.course_description) -}}
     {{- partial "link_button.html" (dict "text" "Show more" "id" "expand-description")  -}}
   </div>
   <div id="expanded-description" class="description d-none">

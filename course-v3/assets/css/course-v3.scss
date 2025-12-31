@@ -5,6 +5,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~offcanvas-bootstrap/src/sass/bootstrap.offcanvas";
 
+@import "mit-learn-header";
 @import "course-nav";
 @import "course-info";
 @import "course-home";
@@ -16,10 +17,14 @@
 @import "topic";
 @import "learning-resource-types";
 @import "course-image-section";
-@import "mit-learn-header";
+@import "course-licensing";
+@import "mobile-course-menu-v3";
+@import "course-banner";
 
-html {
+html,
+body {
   font-size: 16px !important;
+  font-family: $mit-learn-font-family !important;
 }
 
 // overriding default heading values with course heading values
@@ -64,11 +69,21 @@ h5 {
 
 #course-banner {
   color: $white;
-  background-color: $blue;
+
+  background-color: black;
+  background-position: -182.723px -227.266px;
+
+  background-size: 122.737% 672.734%;
+  background-repeat: no-repeat;
+
+  @include media-breakpoint-down(md) {
+    background-position: -34.407px -0.757px;
+    background-size: 323.489% 193.303%;
+  }
 
   .course-banner-content {
     max-width: $max-content-width;
-    padding: 1.5rem 3rem !important;
+    padding: 3rem 3rem !important;
   }
 
   .course-number-term-detail {
@@ -81,8 +96,99 @@ h5 {
   }
 
   h1 {
-    font-weight: 400;
+    font-weight: 700;
+    font-size: 2.5rem;
     margin-bottom: 0px;
+    margin-top: 0.5rem;
+
+    @include media-breakpoint-up(md) {
+      max-width: 67%;
+    }
+  }
+}
+
+.course-main-content-v3 {
+  display: flex;
+  padding: 1.5rem 1rem;
+
+  background-color: white;
+
+  @media (min-width: 768px) {
+    padding: 2rem 2rem 2.5rem 2rem;
+  }
+
+  @media (min-width: 1400px) {
+    padding: 2.5rem 0 5rem 0;
+    align-items: center;
+  }
+
+  flex-direction: column;
+  align-self: stretch;
+
+  .container-v3 {
+    display: flex;
+    flex-direction: column;
+    @media (min-width: 1400px) {
+      width: 79.75rem;
+    }
+  }
+
+  .course-overview {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    @include media-breakpoint-down(sm) {
+      flex-flow: column-reverse;
+      gap: 1.5rem;
+    }
+  }
+
+  .course-nav-desktop {
+    flex: 15.5% 1 1;
+    margin-bottom: 3.5rem;
+    font-size: 0.875rem !important;
+
+    @media (max-width: 1199px) {
+      margin-bottom: 1rem;
+    }
+
+    .material-icons {
+      display: flex;
+    }
+  }
+
+  .course-detail {
+    flex: 57.5% 1 1;
+    gap: 2rem;
+
+    @media (min-width: 992px) {
+      padding: 0rem 1rem 1rem 1rem;
+    }
+
+    @media (min-width: 1200px) {
+      padding: 0rem 2.5rem 3.5rem 2.5rem;
+    }
+  }
+
+  .course-image-section {
+    flex-basis: 27% 1 1;
+    @media (min-width: 1200px) {
+      visibility: hidden;
+    }
+  }
+
+  .bottom-download-button {
+    margin-top: 1.5rem;
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  .mobile-nav-div {
+    position: sticky;
+    top: 3.75rem;
+    z-index: 99999;
+    background-color: white;
   }
 }
 
@@ -127,6 +233,10 @@ h5 {
 
 .font-black {
   color: black !important;
+}
+
+#course-main-content {
+  background: white;
 }
 
 #course-main-content article.content {
@@ -200,23 +310,79 @@ pre {
   }
 }
 
-.course-detail-section {
-  margin-bottom: 24px;
+#course-description {
+  gap: 1rem;
 }
 
-.course-detail-section:last-child {
-  margin-bottom: 0;
+.course-detail-section {
+  h5 {
+    color: #000;
+    font-family: $mit-learn-font-family;
+    font-size: 1.125rem !important;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.625rem !important;
+    text-transform: none;
+  }
+
+  h6 {
+    color: #000;
+
+    font-family: $mit-learn-font-family;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.125rem;
+  }
+
+  .instructors-departments {
+    gap: 1.5rem;
+
+    .instructors {
+      gap: 0.5rem;
+    }
+
+    .departments {
+      gap: 0.5rem;
+    }
+  }
+
+  .info-topics {
+    flex-basis: 50% !important;
+
+    .course-topics-container {
+      gap: 0.5rem;
+    }
+  }
+
+  .course-info {
+    gap: 1rem;
+
+    .info-container {
+      font-size: 0.875rem;
+      gap: 1.5rem;
+      > * {
+        flex-grow: 1;
+      }
+    }
+  }
+}
+
+#expand-description,
+#collapse-description {
+  color: $highlight-red;
+  margin-top: 0.5rem;
 }
 
 .course-detail-title {
-  margin-bottom: 10px;
   min-height: 35px;
   display: flex;
   align-items: center;
 
   h2 {
-    font-size: $course-heading-four-font !important;
-    line-height: $course-heading-four-line-height !important;
+    font-size: 1.125rem !important;
+    line-height: 1.625rem !important;
+    font-weight: 500 !important;
   }
 }
 

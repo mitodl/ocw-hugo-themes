@@ -4,12 +4,16 @@
 {{- $downloadPageUrl = partial "page_url.html" (dict "context" .context "url" $downloadPageUrl) -}}
 {{- $downloadCourseUrl := partial "get_course_download_url.html" .context -}}
 {{- if not $hideDownload -}}
-<hr>
-<div class="pb-3">
-  <a class="download-course-link-button btn btn-outline-primary btn-link link-button text-decoration-none px-4 py-2"
-    role="button"
-    href="{{- $downloadPageUrl -}}">
-    <div class="text-center w-100">Download Course</div>
-  </a>
+<div class="download-course-section">
+  <div class="download-course-container-v3 d-flex flex-column align-items-start align-self-stretch">
+    <a class="download-course-button-v3 d-flex align-items-center justify-content-center align-self-stretch"
+      role="button"
+      href="{{- $downloadPageUrl -}}">
+      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M3 19H21V21H3V19ZM13 13.1716L19.0711 7.1005L20.4853 8.51472L12 17L3.51472 8.51472L4.92893 7.1005L11 13.1716V2H13V13.1716Z" fill="white"/>
+      </svg>
+      <span>Download Course</span>
+    </a>
+  </div>
 </div>
 {{- end -}}

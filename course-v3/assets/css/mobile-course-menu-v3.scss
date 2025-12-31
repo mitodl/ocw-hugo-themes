@@ -1,0 +1,181 @@
+.mobile-course-menu-v3 {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  box-shadow: 0px 8px 20px 0px rgba(120, 147, 172, 0.1);
+  position: relative;
+  margin-bottom: 1.5rem;
+
+  .mobile-course-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    width: 100%;
+    background-color: #40464c;
+    border: none;
+    border-radius: 4px;
+    border-bottom: 1px solid #ffffff;
+    padding: 16px 16px 16px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-radius 0.2s ease;
+    margin-bottom: -1px;
+
+    &[aria-expanded="true"] {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &:hover {
+      background-color: #4a5056;
+    }
+
+    .menu-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+    }
+
+    .menu-label {
+      flex: 1;
+      font-family: $mit-learn-font-family;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 18px;
+      color: #ffffff;
+      text-align: left;
+      min-width: 0;
+    }
+
+    .arrow-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      transition: transform 0.2s ease;
+    }
+
+    &[aria-expanded="true"] .arrow-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  .mobile-course-menu-items {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    max-height: calc(100vh - 400px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    box-shadow: 0px 8px 20px 0px rgba(120, 147, 172, 0.1);
+  }
+
+  // Individual Menu Item
+  .mobile-course-menu-item-v3 {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -1px; // Collapse borders
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:last-child > .mobile-course-menu-link {
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+    .mobile-course-menu-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
+      padding: 16px;
+      background-color: #ffffff;
+      border: 1px solid #dde1e6;
+      font-family: $mit-learn-font-family;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 18px;
+      color: #212326;
+      text-decoration: none;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+
+      &:hover {
+        background-color: #f3f4f8;
+      }
+
+      &.active {
+        background-color: #212326;
+        color: #ffffff;
+        border-left: 2px solid #a9081a;
+        border-top: 0 !important;
+        border-right: 1px solid #dde1e6;
+        border-bottom: 1px solid #dde1e6;
+        justify-content: flex-start;
+        padding-left: 14px;
+      }
+
+      .submenu-arrow {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        transition: transform 0.2s ease;
+      }
+
+      &.mobile-course-menu-link-with-submenu {
+        cursor: pointer;
+        text-align: left;
+        justify-content: flex-start;
+        &[aria-expanded="true"] .submenu-arrow {
+          transform: rotate(180deg);
+        }
+
+        &[aria-expanded="true"] {
+          border-bottom: 0;
+        }
+      }
+    }
+
+    // Submenu container
+    .mobile-course-submenu {
+      display: flex;
+      flex-direction: column;
+      background-color: #f3f4f8;
+
+      .mobile-course-menu-item-v3 {
+        .mobile-course-menu-link {
+          padding-left: 32px; // Indent submenu items
+          background-color: #ffffff;
+          border-left: 4px solid #f3f4f8;
+
+          &.active {
+            padding-left: 30px;
+            border-left: 4px solid #a9081a;
+          }
+
+          &:hover {
+            background-color: #f3f4f8;
+          }
+        }
+
+        // Nested submenu (third level)
+        .mobile-course-submenu {
+          .mobile-course-menu-link {
+            padding-left: 48px;
+
+            &.active {
+              padding-left: 46px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
