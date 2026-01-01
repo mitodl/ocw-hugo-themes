@@ -1,72 +1,61 @@
 {{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
+{{- $courseData := .Site.Data.course -}}
+{{ $pageDepth := strings.Count "/" .RelPermalink }}
+
 <!doctype html>
 <html lang="{{ $.Site.Language.Lang }}">
 {{ partial "head.html" . }}
-{{ $pageDepth := strings.Count "/" .RelPermalink }}
+
 <body class="course-home-page has-mit-learn-header">
   {{ if $gtmId }}
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId }}"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId }}" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   {{ end }}
-  <div class="overflow-auto">
-    <span class="course-header">
-    {{ partialCached "mobile_course_nav.html" . }}
-    {{ partialCached "mobile_course_info.html" . $pageDepth }}
-    {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
-    </span>
-    {{ $isCourseHomePage := (eq .Params.layout "course_home") }}
-    {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
 
-    <div id="course-main-content">
-      <div class="row">
-        <div class="col-12 course-home-grid">
-          <div class="medium-and-below-only">
-            <div class="d-flex align-items-center mb-3">
-              <div class="col-6 px-0">
-                {{ partial "mobile_nav_toggle.html" . }}
-              </div>
-              <div class="col-6 px-0">
-                {{ partial "course_info_toggle.html" (dict "isCourseHomePage" $isCourseHomePage) }}
-              </div>
+  <div>
+    <div class="course-header">
+      {{ partialCached "mobile_course_nav.html" . }}
+      {{ partialCached "mobile_course_info.html" . }}
+      {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
+      {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
+    </div>
+    <div class="course-main-content-v3">
+      <div class="container-v3">
+        <div>
+          <div class="mobile-nav-div medium-and-below-only align-self-stretch">
+            {{ partial "mobile_course_menu_v3.html" (dict "context" .) }}
+          </div>
+          <div class="course-overview">
+            <div class="course-nav-desktop large-and-above-only p-0">
+              {{ partialCached "desktop_nav.html" . }}
+            </div>
+            <div class="course-detail d-flex flex-column align-items-start align-self-stretch">
+              {{ block "main" . }}{{ end }}
+            </div>
+            <div class="col-12 col-md-4 col-lg-3 p-0 desktop-course-info tablet-and-above-only">
+              {{ partialCached "desktop_course_info.html" . $pageDepth }}
             </div>
           </div>
-        </div>
-      </div>
-      <div class="row course-cards">
-        <div class="col-2 course-home-grid large-and-above-only">
-          {{ partialCached "desktop_nav.html" . }}
-        </div>
-        <div class="col-sm-12 col-lg-10 course-home-grid">
-          <div class="">
-            <div class="card">
-              <div class="d-flex justify-content-between">
-                <div class="p-0 col-lg-9" id="main-course-section">
-                  <div class="card-body">
-                    {{ block "main" . }}{{ end }}
-                  </div>
-                </div>
-                {{ if not $isCourseHomePage }}
-                  {{ partialCached "desktop_course_info.html" . $pageDepth }}
-                {{ end }}
-              </div>
-            </div>
+          <div class="bottom-download-button align-self-stretch">
+            {{ partial "download_course_link_button.html" (dict "context" . "inPanel" false) }}
           </div>
         </div>
+        {{ partial "course_licensing.html" . }}
       </div>
     </div>
-
     {{ block "footer" . }}{{ partial "footer-v3" . }}{{end}}
+    {{ partialCached "hide_offline_links.html" . }}
   </div>
-  {{ partialCached "hide_offline_links.html" . }}
   {{ partial "external_link_modal" }}
+
   <script>
     // Script for maintaining and toggling course drawer state
-    // note: This script is placed here instead of being in the bundle so it runs as soon as the HTML is rendered
+    // note: This script is placed here instead of being in the bundle so it runs as soon as the HTML is rendered 
     // this way, a glitch/layout thrashing in the course drawer is avoided.
     // code for toggling the course drawer has also been placed here to avoid code duplication.
-
+    
     // constants
     'use strict';
     const COURSE_DRAWER_LOCAL_STORAGE_KEY = "desktopCourseDrawerState"
@@ -104,7 +93,7 @@
             mainSection.removeClass("col-12")
             setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
           })
-
+      
           drawer.on("hidden.bs.collapse", (event) => {
             if (event.target.id !== DESKTOP_COURSE_DRAWER_ID) {
               return;
@@ -154,7 +143,7 @@
       function setLocalStorageItem(key, value) {
         return setOrGetLocalStorageItem("set", key, value)
       }
-
+      
       function getLocalStorageItem(key){
         return setOrGetLocalStorageItem("get", key)
       }

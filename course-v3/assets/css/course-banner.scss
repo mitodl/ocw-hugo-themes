@@ -41,11 +41,14 @@
 
   .hero-text {
     display: flex;
-    @media (min-width: 1200px) {
-      width: 75%;
-    }
-    @media (min-width: 1400px) {
-      width: 59.5rem;
+
+    &.is-homepage {
+      @media (min-width: 1200px) {
+        width: 75%;
+      }
+      @media (min-width: 1400px) {
+        width: 59.5rem;
+      }
     }
     flex-direction: column;
     align-items: flex-start;
