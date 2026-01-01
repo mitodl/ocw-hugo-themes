@@ -1,5 +1,6 @@
 {{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
 {{- $courseData := .Site.Data.course -}}
+{{ $pageDepth := strings.Count "/" .RelPermalink }}
 
 <!doctype html>
 <html lang="{{ $.Site.Language.Lang }}">

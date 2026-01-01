@@ -148,7 +148,7 @@ h5 {
   }
 
   .course-nav-desktop {
-    flex: 0 1 15.5%;
+    flex: 0 1 15.5% ;
     margin-bottom: 3.5rem;
     font-size: 0.875rem !important;
 
@@ -175,7 +175,7 @@ h5 {
   }
 
   .course-image-section {
-    flex: 1 1 27%;
+    flex-basis: 1 1 27%;
     @media (min-width: 1200px) {
       visibility: hidden;
     }
@@ -196,19 +196,7 @@ h5 {
   }
 
   .desktop-course-info {
-    > div {
-      border-radius: 10px;
-    }
-
-    &:has(> .course-info-button[aria-expanded="false"]) {
-      flex-basis: 4.5rem;
-    }
-
-    margin-bottom: 3.5rem;
-
-    @media (max-width: 1199px) {
-      margin-bottom: 1rem;
-    }
+    flex-basis: 0;
   }
 }
 
@@ -354,46 +342,38 @@ pre {
     font-weight: 500;
     line-height: 1.125rem;
   }
-}
 
-.instructors-departments {
-  gap: 1.5rem;
-
-  .instructors {
-    gap: 0.5rem;
-  }
-
-  .departments {
-    gap: 0.5rem;
-  }
-}
-
-.info-topics {
-  flex-basis: 50% !important;
-}
-
-.course-topics-container {
-  gap: 0.5rem;
-}
-
-.course-info {
-  gap: 1rem;
-
-  .info-container {
-    font-size: 0.875rem;
+  .instructors-departments {
     gap: 1.5rem;
-    > * {
-      flex-grow: 1;
+
+    .instructors {
+      gap: 0.5rem;
+    }
+
+    .departments {
+      gap: 0.5rem;
     }
   }
-}
 
-.gap-1 {
-  gap: 0.5rem;
-}
+  .info-topics {
+    flex-basis: 50% !important;
 
-.gap-3 {
-  gap: 1.5rem;
+    .course-topics-container {
+      gap: 0.5rem;
+    }
+  }
+
+  .course-info {
+    gap: 1rem;
+
+    .info-container {
+      font-size: 0.875rem;
+      gap: 1.5rem;
+      > * {
+        flex-grow: 1;
+      }
+    }
+  }
 }
 
 #expand-description,
