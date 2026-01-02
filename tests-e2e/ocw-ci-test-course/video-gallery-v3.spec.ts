@@ -120,9 +120,11 @@ test.describe("Course v3 Video Gallery Styles", () => {
     // Check borders (all sides)
     const borderColor = "rgb(221, 225, 230)" // #dde1e6
     await expect(card).toHaveCSS("border-color", borderColor)
-    
+
     // Check box-shadow
-    const boxShadow = await card.evaluate(el => window.getComputedStyle(el).boxShadow)
+    const boxShadow = await card.evaluate(
+      el => window.getComputedStyle(el).boxShadow
+    )
     expect(boxShadow).toContain("rgba(3, 21, 45, 0.05)")
   })
 
@@ -193,8 +195,8 @@ test.describe("Course v3 Video Gallery Styles", () => {
     await expect(title).toHaveCSS("line-height", "18px")
     await expect(title).toHaveCSS("word-break", "break-word")
     // Browsers may return either "1 1 0px" or "1 1 0%"
-    const flexValue = await title.evaluate((el) =>
-      window.getComputedStyle(el).flex,
+    const flexValue = await title.evaluate(
+      el => window.getComputedStyle(el).flex
     )
     expect(flexValue).toMatch(/^1 1 (0px|0%)$/)
   })
@@ -259,4 +261,3 @@ test.describe("Course v3 Video Gallery Styles", () => {
     await expect(card).toHaveCSS("text-decoration-line", "none")
   })
 })
-
