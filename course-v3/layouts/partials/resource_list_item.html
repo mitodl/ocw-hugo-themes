@@ -1,34 +1,31 @@
 {{ $downloadableLink := partial "get_resource_download_link.html" . }}
-<div class="resource-item resource-list-page">
-  <div class="row">
-    <div class="d-inline-flex">
-      <a class="resource-thumbnail"{{ if and $downloadableLink (not .hideDownloadIcon) }} href="{{- $downloadableLink -}}" target="_blank" aria-label="Download file" download{{ end }}>
-        {{ $resourceCategory := partial "get_resource_category.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
-        <div class="resource-type-thumbnail {{ $resourceCategory }}">
-          <div class="d-flex align-self-center">{{- $resourceCategory -}}</div>
-        </div>  
-        <div class="download-container{{if not .Params.file_size}} pb-1{{end}}">
-          {{ if not .hideDownloadIcon }}
-            <span class="download-link">
-              {{ if $downloadableLink }}
-                  <img
-                    class="hide-offline resources-download"
-                    src="{{ partial "get_asset_webpack_url.html" "images/resource-download.svg" }}"
-                    aria-hidden="true"
-                  />
-              {{ end }}
-            </span>
-            {{ if .Params.file_size }}
-              <div class="resource-list-file-size">
-                {{ partial "file_size_formatter.html" .Params.file_size }}
-              </div>
-            {{ end }}
-          {{ end }}
+{{ $resourceCategory := partial "get_resource_category.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
+<a 
+  class="resource-card" 
+  {{ if and $downloadableLink (not .hideDownloadIcon) }}href="{{- $downloadableLink -}}" target="_blank" aria-label="Download file" download{{ else }}href="{{ .permalink }}"{{ end }}
+>
+  <div class="resource-card-thumbnail">
+    <div class="resource-card-type {{ $resourceCategory }}">
+      {{- $resourceCategory -}}
+    </div>
+    <div class="resource-card-download">
+      {{ if not .hideDownloadIcon }}
+        {{ if $downloadableLink }}
+          <img
+            class="hide-offline resource-card-download-icon"
+            src="{{ partial "get_asset_webpack_url.html" "images/resource-download.svg" }}"
+            aria-hidden="true"
+          />
+        {{ end }}
+      {{ end }}
+      {{ if .Params.file_size }}
+        <div class="resource-card-file-size">
+          {{ partial "file_size_formatter.html" .Params.file_size }}
         </div>
-      </a>
-      <div class="resource-list-item-details">
-        {{ partial "resource_list_item_title.html" (dict "permalink" .permalink "title" .Params.title) }}
-      </div>
+      {{ end }}
     </div>
   </div>
-</div>
+  <span class="resource-card-title">
+    {{- .Params.title -}}
+  </span>
+</a>
