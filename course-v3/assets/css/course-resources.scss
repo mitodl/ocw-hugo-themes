@@ -48,155 +48,94 @@ h4 {
   }
 }
 
-@keyframes bounce {
-  0%,
-  10%,
-  20%,
-  27%,
-  50%,
-  70%,
-  80%,
-  90%,
-  100% {
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0);
-  }
-  40% {
-    -webkit-transform: translateY(-5px);
-    -ms-transform: translateY(-5px);
-    transform: translateY(-5px);
-  }
-  60% {
-    -webkit-transform: translateY(-1.5px);
-    -ms-transform: translateY(-1.5px);
-    transform: translateY(-1.5px);
-  }
+// New resource card styles for course-v3
+.resource-cards-container {
+  border: 1px solid #dde1e6;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.resource-thumbnail:hover .download-link {
-  animation: bounce 1.5s ease-in-out 1;
-}
-.resource-item {
-  border: 1px solid #dee2e6;
-  border-top: none;
-  border-radius: 1px;
-  padding: 8px 15px;
+.resource-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  background-color: $white;
+  border: 1px solid #dde1e6;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
 
-  .resource-list-file-size {
-    font-size: 10px;
-    line-height: 1.2;
+  &:hover {
+    background-color: #fefbf5;
+    text-decoration: none;
   }
-  .resource-thumbnail {
-    min-width: 40px;
-    max-width: 40px;
-    margin-top: auto;
-    margin-bottom: auto;
 
-    .resource-type-thumbnail {
-      background-color: $resource-file-thumbnail-color;
-      text-transform: uppercase;
-      height: 11.5px;
-      color: $white;
-      font-size: 9px;
-      display: flex;
-      justify-content: center;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-      padding-top: 1px;
-    }
-    .resource-type-thumbnail.video {
+  &:first-child {
+    border-top: none;
+  }
+
+  .resource-card-thumbnail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 54px;
+    min-width: 54px;
+    background-color: #dde1e6;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .resource-card-type {
+    width: 100%;
+    padding: 4px 0;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 12px;
+    color: $white;
+    text-transform: uppercase;
+    background-color: $resource-file-thumbnail-color;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+
+    &.video {
       background-color: $resource-video-thumbnail-color;
     }
-    .resource-type-thumbnail.pdf {
+
+    &.pdf {
       background-color: $resource-pdf-thumbnail-color;
     }
-
-    .download-container {
-      background-color: #ededed;
-      height: 33.5px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      border-bottom-left-radius: 5px;
-      border-bottom-right-radius: 5px;
-      border-bottom: 1px solid #cfcfcf;
-      padding-bottom: 2px;
-    }
   }
 
-  .wrapper {
+  .resource-card-download {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-
-    @include media-breakpoint-down(xs) {
-      margin-bottom: 10px;
-    }
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 0;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
   }
 
-  .see-all-resources-icon {
-    display: inline-flex;
-    vertical-align: top;
-    margin-left: 5px;
+  .resource-card-download-icon {
+    width: 14px;
+    height: 15px;
   }
 
-  .resource-download {
-    padding: 3px;
-    border: solid 0.5px $medium-gray;
-    border-radius: 20px;
-    margin-left: -12px;
-    margin-top: 14px;
-    background-color: $white;
+  .resource-card-file-size {
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 10px;
+    color: #212326;
   }
 
-  .resource-download:hover {
-    background-color: $light-gray;
-  }
-
-  .resource-list-title {
-    text-decoration: none;
-  }
-  .resource-thumbnail {
-    text-decoration: none;
-  }
-
-  .resource-list-item-details {
-    padding-top: 2px;
-    padding-left: 10px;
-    margin-bottom: auto;
-    margin-top: auto;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+  .resource-card-title {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    color: $black;
     word-break: break-word;
-    hyphens: auto;
   }
-
-  .row {
-    padding-left: 15px;
-    padding-right: 15px;
-
-    .wrapper {
-      padding: 0px;
-    }
-
-    .resource-details-container {
-      padding: 10px;
-    }
-  }
-}
-
-.resource-item.resource-list-page:hover {
-  background-color: #fefbf5;
-}
-
-.resource-item.resource-list-page {
-  transition: background-color 0.05s ease;
-}
-
-.resource-item:first-child {
-  border-top: 1px solid #dee2e6;
-}
-
-.resource-item.resource-body {
-  border: 1px solid #dee2e6;
 }

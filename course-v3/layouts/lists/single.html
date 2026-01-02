@@ -1,20 +1,24 @@
 {{ define "main" }}
-
   {{- $bundle := . -}}
   {{- $uids := .Params.resources.content -}}
   {{- $resources := slice -}}
+  
+  {{ range $id := $uids }}
+    {{ $page := where $.Site.Pages "Params.uid" $id }}
+    {{ $resources = $resources |  append (index $page 0) }}
+  {{ end }}
 
-  {{ partial "course_content.html" . }}
-  <div class="mb-5">
-    <div class="mb-3 collection-description">
-      {{ $bundle.Description | .RenderString }}
-    </div>
-    <span>
-      {{ range $id := $uids }}
-        {{ $page := where $.Site.Pages "Params.uid" $id }}
-        {{ $resources = $resources |  append (index $page 0) }}
-      {{ end }}
-      {{- partial "resource_list.html" (dict "resources" $resources "sort" false) -}}
-    </span> 
+  <div class="mb-2">
+    {{ partial "content_header_v3.html" . }}
+    <article class="content pt-3 mt-1">
+      <main id="course-content-section">
+        {{ if .Description }}
+          <div class="mb-3 collection-description">
+            {{ $bundle.Description | .RenderString }}
+          </div>
+        {{ end }}
+        {{- partial "resource_list.html" (dict "resources" $resources "sort" false) -}}
+      </main>
+    </article>
   </div>
 {{ end }}

@@ -2,17 +2,21 @@
   {{ $resources := .resources }}
   {{ $hideThumbnail := .hideThumbnail}}
   {{ $hideDownloadIcon := .hideDownloadIcon}}
+  <div class="resource-cards-container">
   {{ range $resourceToRender :=  .resourcesToRender }}
     {{- partial "resource_list_item.html" (dict "Params" . "permalink" (index $resources .resourceIndex).Permalink "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) -}}
   {{ end }}
+  </div>
 {{ end }}
 
 {{ define "renderResources" }}
   {{ $hideThumbnail := .hideThumbnail}}
   {{ $hideDownloadIcon := .hideDownloadIcon}}
+  <div class="resource-cards-container">
   {{ range .resources }}
     {{- partial "resource_list_item.html" (dict "Params" .Params "permalink" .Permalink "hideThumbnail" $hideThumbnail "hideDownloadIcon" $hideDownloadIcon) -}}
   {{ end }}
+  </div>
 {{ end }}
 
 {{- $hideThumbnail := .hideThumbnail | default false -}}
