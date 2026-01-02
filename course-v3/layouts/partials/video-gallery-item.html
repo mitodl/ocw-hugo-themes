@@ -1,16 +1,12 @@
-<div class="mb-2 border-gray rounded video-gallery-card">
-  <a class="video-link" href="{{ partial "page_url.html" (dict "context" . "url" .RelPermalink) }}">
-    <div class="inner-container">
-      <div class="left-col">
-        {{- if isset .Params.video_files "video_thumbnail_file" -}}
-        <img class="thumbnail" src="{{ .Params.video_files.video_thumbnail_file }}" alt="" />
-        {{- else -}}
-        <img class="youtube-logo-overlay" src="{{ partial "get_asset_webpack_url.html" "images/youtube.svg" }}" alt="YouTube" />
-        {{- end -}}
-      </div>
-      <div class="right-col">
-        <h5 class="video-title">{{ .Params.title }}</h5>
-      </div>
-    </div>
-  </a>
-</div>
+<a class="video-gallery-card" href="{{ partial "page_url.html" (dict "context" . "url" .RelPermalink) }}">
+  <div class="video-gallery-card-thumbnail">
+    {{- if isset .Params.video_files "video_thumbnail_file" -}}
+    <img src="{{ .Params.video_files.video_thumbnail_file }}" alt="" />
+    {{- else -}}
+    <img class="youtube-logo-overlay" src="{{ partial "get_asset_webpack_url.html" "images/youtube.svg" }}" alt="YouTube" />
+    {{- end -}}
+  </div>
+  <div class="video-gallery-card-title">
+    {{- .Params.title -}}
+  </div>
+</a>
