@@ -5,7 +5,9 @@
   
   {{ range $id := $uids }}
     {{ $page := where $.Site.Pages "Params.uid" $id }}
-    {{ $resources = $resources |  append (index $page 0) }}
+    {{ if gt (len $page) 0 }}
+      {{ $resources = $resources |  append (index $page 0) }}
+    {{ end }}
   {{ end }}
 
   <div class="mb-2">

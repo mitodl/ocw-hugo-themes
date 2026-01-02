@@ -61,7 +61,9 @@ h4 {
   gap: 1rem;
   padding: 0.5rem;
   background-color: $white;
-  border: 1px solid #dde1e6;
+  border-left: 1px solid #dde1e6;
+  border-right: 1px solid #dde1e6;
+  border-bottom: 1px solid #dde1e6;
   text-decoration: none;
   transition: background-color 0.15s ease;
 
@@ -71,7 +73,7 @@ h4 {
   }
 
   &:first-child {
-    border-top: none;
+    border-top: 1px solid #dde1e6;
   }
 
   .resource-card-thumbnail {
