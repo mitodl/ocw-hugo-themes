@@ -171,8 +171,8 @@ test.describe("Course v3 Resource List", () => {
     await expect(resourceCard).toBeVisible()
 
     // Get initial background color
-    const initialBg = await resourceCard.evaluate(el =>
-      window.getComputedStyle(el).backgroundColor
+    const initialBg = await resourceCard.evaluate(
+      el => window.getComputedStyle(el).backgroundColor
     )
 
     // Hover over card with force to ensure it triggers
@@ -181,8 +181,8 @@ test.describe("Course v3 Resource List", () => {
     await page.waitForTimeout(100)
 
     // Get hover background color
-    const hoverBg = await resourceCard.evaluate(el =>
-      window.getComputedStyle(el).backgroundColor
+    const hoverBg = await resourceCard.evaluate(
+      el => window.getComputedStyle(el).backgroundColor
     )
 
     // Background should change on hover (from white to #fefbf5)
