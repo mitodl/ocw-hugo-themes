@@ -136,7 +136,6 @@
     "jest": "^30.0.0",
     "jest-fetch-mock": "^3.0.3",
     "jest-watch-typeahead": "^3.0.0",
-    "jsdom": "^15.2.1",
     "mini-css-extract-plugin": "^2.6.1",
     "postcss-import": "^16.0.0",
     "postcss-loader": "^8.0.0",
