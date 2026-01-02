@@ -171,7 +171,7 @@ test.describe("Course v3 Resource List", () => {
     await expect(resourceCard).toBeVisible()
 
     // Get initial background color
-    const initialBg = await resourceCard.evaluate((el) =>
+    const initialBg = await resourceCard.evaluate(el =>
       window.getComputedStyle(el).backgroundColor
     )
 
@@ -181,7 +181,7 @@ test.describe("Course v3 Resource List", () => {
     await page.waitForTimeout(100)
 
     // Get hover background color
-    const hoverBg = await resourceCard.evaluate((el) =>
+    const hoverBg = await resourceCard.evaluate(el =>
       window.getComputedStyle(el).backgroundColor
     )
 
@@ -239,7 +239,7 @@ test.describe("Course v3 Resource List", () => {
     await expect(thumbnail).toBeVisible()
 
     // Thumbnail should be 54px wide
-    const width = await thumbnail.evaluate((el) => {
+    const width = await thumbnail.evaluate(el => {
       return window.getComputedStyle(el).width
     })
     expect(width).toBe("54px")
