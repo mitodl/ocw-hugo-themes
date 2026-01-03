@@ -2456,6 +2456,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mathjax/mathjax-newcm-font@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "@mathjax/mathjax-newcm-font@npm:4.1.0"
+  checksum: 10c0/938c42d5ac9e24348df9d0239953b39bab714cfe8b8b89932d8db9e827045553d65690ede336d44cd97a4325e4f3a234dda6a343638f79fe1c50a3caad2c4089
+  languageName: node
+  linkType: hard
+
 "@messageformat/core@npm:^3.0.1":
   version: 3.4.0
   resolution: "@messageformat/core@npm:3.4.0"
@@ -12240,10 +12247,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mathjax@npm:^3.2.2":
-  version: 3.2.2
-  resolution: "mathjax@npm:3.2.2"
-  checksum: 10c0/26c8557f948d1ef76ce2b0bc1ad66128c9a78a7e4f3d96587f90b23dd25cfbf14c9b58a1c75a7d8d35f92b72bab054eab61873443babe646b7bfd6b40bb717e6
+"mathjax@npm:^4.0.0":
+  version: 4.1.0
+  resolution: "mathjax@npm:4.1.0"
+  dependencies:
+    "@mathjax/mathjax-newcm-font": "npm:^4.1.0"
+  checksum: 10c0/e8fe4b9230acd4aee2793d141cc370c2fabae2a59b2f5dd772216fe708d13fa7fb92eee57a9c832e25d632d83df2eaa09d4edf0361a013f549124889f39ee4da
   languageName: node
   linkType: hard
 
@@ -13505,7 +13514,7 @@ __metadata:
     jquery: "npm:^3.5.1"
     lodash.has: "npm:^4.5.2"
     lodash.uppercase: "npm:^4.3.0"
-    mathjax: "npm:^3.2.2"
+    mathjax: "npm:^4.0.0"
     mini-css-extract-plugin: "npm:^2.6.1"
     nanogallery2: "npm:^2.4.2"
     offcanvas-bootstrap: "npm:^2.5.2"
