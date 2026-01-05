@@ -148,7 +148,7 @@ h5 {
   }
 
   .course-nav-desktop {
-    flex: 0 1 15.5% ;
+    flex: 0 1 15.5%;
     margin-bottom: 3.5rem;
     font-size: 0.875rem !important;
 
@@ -195,12 +195,12 @@ h5 {
     background-color: white;
   }
 
-  .desktop-course-info {    
+  .desktop-course-info {
     > div {
       border-radius: 10px;
     }
 
-    &:has(>.course-info-button[aria-expanded="false"]) {
+    &:has(> .course-info-button[aria-expanded="false"]) {
       flex-basis: 4.5rem;
     }
 
@@ -209,7 +209,6 @@ h5 {
     @media (max-width: 1199px) {
       margin-bottom: 1rem;
     }
-
   }
 }
 
@@ -355,7 +354,6 @@ pre {
     font-weight: 500;
     line-height: 1.125rem;
   }
-
 }
 
 .instructors-departments {
@@ -389,7 +387,6 @@ pre {
     }
   }
 }
-
 
 .gap-1 {
   gap: 0.5rem;
