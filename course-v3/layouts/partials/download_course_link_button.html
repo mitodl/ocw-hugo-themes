@@ -3,9 +3,10 @@
 {{- $downloadPageUrl := print $trimmedBaseUrl "/download" -}}
 {{- $downloadPageUrl = partial "page_url.html" (dict "context" .context "url" $downloadPageUrl) -}}
 {{- $downloadCourseUrl := partial "get_course_download_url.html" .context -}}
+{{ $inPanel := .inPanel }}
 {{- if not $hideDownload -}}
 <div class="download-course-section">
-  <div class="download-course-container-v3 d-flex flex-column align-items-start align-self-stretch">
+  <div class="download-course-container-v3 d-flex flex-column align-items-start align-self-stretch {{ if $inPanel }}in-panel{{ end }}">
     <a class="download-course-button-v3 d-flex align-items-center justify-content-center align-self-stretch"
       role="button"
       href="{{- $downloadPageUrl -}}">

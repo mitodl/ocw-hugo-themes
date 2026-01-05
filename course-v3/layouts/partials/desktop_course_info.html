@@ -1,6 +1,6 @@
 <button 
   type="button" 
-  class="btn course-info-button tablet-and-above-only"
+  class="course-info-button tablet-and-above-only"
   id="desktop-course-drawer-button"
   data-target="#desktop-course-drawer"
   data-toggle="collapse"
@@ -8,23 +8,21 @@
   aria-controls="desktop-course-drawer"
   aria-expanded="false"
 >
-  <img
-    class="expand-drawer-img drawer-icon-img"
-    src="{{ partial "get_asset_webpack_url.html" "images/left_arrow.svg" }}"
-    alt=""
-  />
-  <img
-    class="collapse-drawer-img drawer-icon-img"
-    src="{{ partial "get_asset_webpack_url.html" "images/close_small.svg" }}"
-    alt=""
-  />
+
+  <svg class="expand-drawer-img drawer-icon-img" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z" fill="black"/>
+  </svg>
+
 </button>
 
-<div class="collapse border-left p-0" id="desktop-course-drawer">
-  {{ partial "course_info.html" (dict "context" . "inPanel" true "isDesktopCourseDrawer" true) }}
-  <div class="px-3">
-    {{ partial "topics.html" (dict "context" . "inPanel" true "device" "desktop") }}
-    {{ partial "learning_resource_types.html" (dict "context" . "inPanel" true) }}
+<div class="collapse border p-0 overflow-hidden" id="desktop-course-drawer">
+  <div class="d-flex flex-column gap-3 p-4">
+    {{ partial "course_info.html" (dict "context" . "inPanel" true "isDesktopCourseDrawer" true) }}
+    <div class="d-flex flex-column gap-3">
+      {{ partial "topics.html" (dict "context" . "inPanel" true "device" "desktop") }}
+      {{ partial "learning_resource_types.html" (dict "context" . "inPanel" true) }}
+    </div>
+    
     {{ partial "download_course_link_button.html" (dict "context" . "inPanel" true) }}
   </div>
 </div>

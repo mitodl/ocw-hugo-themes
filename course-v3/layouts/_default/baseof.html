@@ -64,7 +64,6 @@
     // IDs of elements
     const DESKTOP_COURSE_DRAWER_ID = "desktop-course-drawer"
     const COURSE_DRAWER_BTN_ID = "desktop-course-drawer-button"
-    const MAIN_COURSE_SECTION_ID = "main-course-section"
 
     try{
 
@@ -83,14 +82,11 @@
 
         document.addEventListener("DOMContentLoaded", () => {
           const drawer = $(`#${DESKTOP_COURSE_DRAWER_ID}`)
-          const mainSection = $(`#${MAIN_COURSE_SECTION_ID}`)
 
           drawer.on("shown.bs.collapse", (event) => {
             if (event.target.id !== DESKTOP_COURSE_DRAWER_ID) {
               return;
             }
-            mainSection.addClass("col-lg-9")
-            mainSection.removeClass("col-12")
             setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
           })
       
@@ -98,8 +94,6 @@
             if (event.target.id !== DESKTOP_COURSE_DRAWER_ID) {
               return;
             }
-            mainSection.addClass("col-12")
-            mainSection.removeClass("col-lg-9")
             setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_CLOSED)
           })
         })
@@ -108,7 +102,6 @@
       function showOrHideDesktopCourseDrawer(state) {
         const drawer = document.getElementById(DESKTOP_COURSE_DRAWER_ID)
         const button = document.getElementById(COURSE_DRAWER_BTN_ID)
-        const mainSection = document.getElementById(MAIN_COURSE_SECTION_ID)
 
         if (state === COURSE_DRAWER_OPENED) {
           drawer.classList.add("show")
@@ -116,8 +109,6 @@
         } else {
           drawer.classList.remove("show")
           button.setAttribute("aria-expanded", "false")
-          mainSection.classList.remove("col-lg-9")
-          mainSection.classList.add("col-12")
         }
       }
 
