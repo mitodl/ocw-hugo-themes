@@ -21,7 +21,7 @@
         line-height: 18px;
         color: black;
       }
-      
+
       .video-page-title {
         font-family: "neue-haas-grotesk-text", sans-serif;
         font-size: 18px;
@@ -31,7 +31,7 @@
         margin: 0;
       }
     }
-    
+
     .video-page-metadata {
       display: flex;
       flex-direction: column;
@@ -41,7 +41,7 @@
       font-weight: 400;
       line-height: 22px;
       color: black;
-      
+
       .video-page-description,
       .video-page-instructor {
         strong {
@@ -51,87 +51,87 @@
       }
     }
   }
-  
+
   .video-page-player-wrapper {
     display: flex;
     flex-direction: column;
     gap: 8px;
     position: relative;
-      
-      .video-page-player {
+
+    .video-page-player {
+      width: 100%;
+      aspect-ratio: 653 / 396.22;
+      border-radius: 0;
+      overflow: hidden;
+
+      // Video player iframe or video element
+      iframe,
+      video {
         width: 100%;
-        aspect-ratio: 653 / 396.22;
-        border-radius: 0;
-        overflow: hidden;
-        
-        // Video player iframe or video element
-        iframe,
-        video {
-          width: 100%;
-          height: 100%;
-          display: block;
-        }
+        height: 100%;
+        display: block;
       }
-      
-      .video-page-controls {
-        position: absolute;
-        bottom: 3px;
-        right: 16px;
-        background-color: black;
+    }
+
+    .video-page-controls {
+      position: absolute;
+      bottom: 3px;
+      right: 16px;
+      background-color: black;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+
+      .video-page-audio-selector {
         display: flex;
-        gap: 24px;
         align-items: center;
-        
-        .video-page-audio-selector {
+        justify-content: space-between;
+        width: 130px;
+        padding: 0;
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        .audio-label {
+          font-family: "neue-haas-grotesk-text", sans-serif;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 18px;
+          color: #dde1e6;
+        }
+
+        .audio-cta {
           display: flex;
+          gap: 4px;
           align-items: center;
-          justify-content: space-between;
-          width: 130px;
-          padding: 0;
-          background: none;
-          border: none;
-          cursor: pointer;
-          
-          .audio-label {
+          padding: 4px;
+
+          .audio-value {
             font-family: "neue-haas-grotesk-text", sans-serif;
             font-size: 14px;
-            font-weight: 400;
+            font-weight: 500;
             line-height: 18px;
-            color: #dde1e6;
+            color: white;
           }
-          
-          .audio-cta {
-            display: flex;
-            gap: 4px;
-            align-items: center;
-            padding: 4px;
-            
-            .audio-value {
-              font-family: "neue-haas-grotesk-text", sans-serif;
-              font-size: 14px;
-              font-weight: 500;
-              line-height: 18px;
-              color: white;
-            }
-            
-            .audio-icon {
-              width: 20px;
-              height: 20px;
-            }
+
+          .audio-icon {
+            width: 20px;
+            height: 20px;
           }
         }
-        
-        .video-page-download-btn {
-          display: flex;
-          align-items: center;
-          width: 20px;
-          height: 20px;
-          padding: 0;
-          background: none;
-          border: none;
-          cursor: pointer;
+      }
 
-          img {
+      .video-page-download-btn {
+        display: flex;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        img {
           width: 100%;
           height: 100%;
         }
