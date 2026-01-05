@@ -1,9 +1,9 @@
 {{ $courseData := .context.Site.Data.course }} {{ $inPanel := .inPanel }} {{
 $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
 
-<div class="course-info d-flex flex-column align-self-stretch align-items-start">
+<div class="course-info  d-flex flex-column align-self-stretch align-items-start">
   <div class="align-self-stretch d-flex justify-content-between align-items-center">
-    <h5 class="m-0 text-black">
+    <h5 class="m-0">
       Course Info
     </h5>
     {{ if $inPanel}}
@@ -17,7 +17,7 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
         aria-controls="desktop-course-drawer"
         aria-expanded="false"
       >
-        <svg aria-hidden="true" class="collapse-drawer-img" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+        <svg class="collapse-drawer-img" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
           <path d="M6.36396 4.94978L11.3138 0L12.728 1.41421L7.77816 6.36398L12.728 11.3137L11.3138 12.7279L6.36396 7.77818L1.41422 12.7279L0 11.3137L4.94976 6.36398L0 1.41421L1.41422 0L6.36396 4.94978Z" fill="black"/>
         </svg>
       </button>
@@ -56,10 +56,10 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
           {{ end }}
         {{ end }} 
         {{ if $inPanel }}
-        <div class="align-self-start gap-1 d-flex flex-column">
+        <div class="align-self-start gap-1">
           <h6 class="m-0">
             As Taught In
-          </h6>
+          </h5>
           <div class="{{ if $inPanel }}panel-course-info-text{{ end }}">
             {{ $courseData.term }}
             {{ if isset $courseData "year" }}
@@ -68,10 +68,10 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
           </div>
         </div>
 
-        <div class="align-self-start gap-1 d-flex flex-column">
+        <div class="align-self-start gap-1">
           <h6 class="m-0">
             Level
-          </h6>
+          </h5>
           <div class="{{ if $inPanel }}panel-course-info-text{{ end }}">
             {{ if eq (printf "%T" $courseData.level) "string" }} {{
             $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
