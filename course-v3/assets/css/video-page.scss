@@ -1,0 +1,141 @@
+// Design: https://www.figma.com/design/Eux3guSenAFVvNHGi1Y9Wm/MIT-Design-System?node-id=27783-1995
+.video-page-content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  .video-page-header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .video-page-titles {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .video-page-parent-title {
+        font-family: "neue-haas-grotesk-text", sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 18px;
+        color: black;
+      }
+      
+      .video-page-title {
+        font-family: "neue-haas-grotesk-text", sans-serif;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 26px;
+        color: black;
+        margin: 0;
+      }
+    }
+    
+    .video-page-metadata {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      font-family: "neue-haas-grotesk-text", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      color: black;
+      
+      .video-page-description,
+      .video-page-instructor {
+        strong {
+          font-family: "neue-haas-grotesk-text", sans-serif;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+  
+  .video-page-player-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+      
+      .video-page-player {
+        width: 100%;
+        aspect-ratio: 653 / 396.22;
+        border-radius: 0;
+        overflow: hidden;
+        
+        // Video player iframe or video element
+        iframe,
+        video {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+      }
+      
+      .video-page-controls {
+        position: absolute;
+        bottom: 3px;
+        right: 16px;
+        background-color: black;
+        display: flex;
+        gap: 24px;
+        align-items: center;
+        
+        .video-page-audio-selector {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 130px;
+          padding: 0;
+          background: none;
+          border: none;
+          cursor: pointer;
+          
+          .audio-label {
+            font-family: "neue-haas-grotesk-text", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 18px;
+            color: #dde1e6;
+          }
+          
+          .audio-cta {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            padding: 4px;
+            
+            .audio-value {
+              font-family: "neue-haas-grotesk-text", sans-serif;
+              font-size: 14px;
+              font-weight: 500;
+              line-height: 18px;
+              color: white;
+            }
+            
+            .audio-icon {
+              width: 20px;
+              height: 20px;
+            }
+          }
+        }
+        
+        .video-page-download-btn {
+          display: flex;
+          align-items: center;
+          width: 20px;
+          height: 20px;
+          padding: 0;
+          background: none;
+          border: none;
+          cursor: pointer;
+
+          img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

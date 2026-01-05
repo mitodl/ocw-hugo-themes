@@ -56,11 +56,15 @@
       </div>
     </div>
   {{- else -}}
-      {{ partial "video.html" . }}
+      {{ partial "video_v3.html" . }}
   {{- end -}}
+</div>
+{{ if ne .Params.resourcetype "Video" }}
+<div class="resource-page-container">
   {{ if eq .Params.file_type "application/pdf" }}
     {{ partial "pdf_viewer.html" . }}
   {{ else if eq .Params.resourcetype "Image" }}
     {{ partial "image_page.html" . }}
   {{ end }}
+{{ end }}
 </div>
