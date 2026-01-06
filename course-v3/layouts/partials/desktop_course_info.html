@@ -9,7 +9,7 @@
   aria-expanded="false"
 >
 
-  <svg class="expand-drawer-img drawer-icon-img" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <svg aria-hidden="true" class="expand-drawer-img drawer-icon-img" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
     <path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z" fill="black"/>
   </svg>
 
@@ -22,7 +22,6 @@
       {{ partial "topics.html" (dict "context" . "inPanel" true "device" "desktop") }}
       {{ partial "learning_resource_types.html" (dict "context" . "inPanel" true) }}
     </div>
-    
     {{ partial "download_course_link_button.html" (dict "context" . "inPanel" true) }}
   </div>
 </div>

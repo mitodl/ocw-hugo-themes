@@ -52,10 +52,10 @@
 
   <script>
     // Script for maintaining and toggling course drawer state
-    // note: This script is placed here instead of being in the bundle so it runs as soon as the HTML is rendered 
+    // note: This script is placed here instead of being in the bundle so it runs as soon as the HTML is rendered
     // this way, a glitch/layout thrashing in the course drawer is avoided.
     // code for toggling the course drawer has also been placed here to avoid code duplication.
-    
+
     // constants
     'use strict';
     const COURSE_DRAWER_LOCAL_STORAGE_KEY = "desktopCourseDrawerState"
@@ -134,7 +134,7 @@
       function setLocalStorageItem(key, value) {
         return setOrGetLocalStorageItem("set", key, value)
       }
-      
+
       function getLocalStorageItem(key){
         return setOrGetLocalStorageItem("get", key)
       }
