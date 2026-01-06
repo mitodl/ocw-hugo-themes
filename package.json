@@ -76,7 +76,7 @@
     "react-dom": "^18.2.14",
     "react-dotdotdot": "1.3.1",
     "react-infinite-scroller": "^1.2.6",
-    "sass": "1.94.2",
+    "sass": "1.97.2",
     "tiny-invariant": "^1.3.3",
     "video.js": "^7.11.8",
     "videojs-transcript-ac": "^0.8.8",
