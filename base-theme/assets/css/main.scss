@@ -247,6 +247,10 @@ table {
   }
 }
 
+.text-black {
+  color: $black !important;
+}
+
 .icon-text-box-wrapper {
   border: 0.5px solid $medium-gray;
   background-color: $light-gray;
