@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.139.0 (Released January 07, 2026)
+---------------
+
+- chore(deps): update node.js to v24.12.0 (#1702)
+- chore(deps): update dependency jsdom to v27 (#1684)
+- Course Home Page for the v3 theme (#1688)
+- Fix external links in image credit texts (#1695)
+- Update Problem Sets with Solutions to Problem Set Solutions for search (#1694)
+- feat: add MIT Learn header for course-v3 theme (#1686)
+
 Version 1.138.0 (Released December 10, 2025)
 ---------------
 
