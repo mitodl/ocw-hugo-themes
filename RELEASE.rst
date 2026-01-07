@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.139.0
+Version 1.139.0 (Released January 07, 2026)
 ---------------
 
 - chore(deps): update node.js to v24.12.0 (#1702)
