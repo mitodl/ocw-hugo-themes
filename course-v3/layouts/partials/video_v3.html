@@ -1,56 +1,58 @@
-{{ $youtubeKey := trim .Params.video_metadata.youtube_id " "}}
-{{ $archiveUrl := .Params.video_files.archive_url }}
-{{ $captionsLocation := partial "video_captions_file_url.html" (dict "context" . "url" .Params.video_files.video_captions_file) }}
-{{ $transcriptPdfLocation := partial "resource_url.html" (dict "context" . "url" .Params.video_files.video_transcript_file) }}
-{{ $downloadLink := .Params.file }}
-{{ $relatedResourses := .Params.related_resources_text | default "" }}
-{{ $optionalTabTitle := .Params.optional_tab_title | default "" }}
-{{ $optionalTabContent := .Params.optional_text | default ""}}
-{{ $startTime := .Params.start_time | default "" }}
-{{ $endTime := .Params.end_time | default "" }}
-{{ $context := . }}
+{{- $youtubeKey := trim .Params.video_metadata.youtube_id " " -}}
+{{- $archiveUrl := .Params.video_files.archive_url -}}
+{{- $captionsLocation := partial "video_captions_file_url.html" (dict "context" . "url" .Params.video_files.video_captions_file) -}}
+{{- $transcriptPdfLocation := partial "resource_url.html" (dict "context" . "url" .Params.video_files.video_transcript_file) -}}
+{{- $downloadLink := .Params.file -}}
+{{- $relatedResourses := .Params.related_resources_text | default "" -}}
+{{- $optionalTabTitle := .Params.optional_tab_title | default "" -}}
+{{- $optionalTabContent := .Params.optional_text | default "" -}}
+{{- $startTime := .Params.start_time | default "" -}}
+{{- $endTime := .Params.end_time | default "" -}}
+{{- $context := . -}}
 
-{{ if (eq $downloadLink nil) }}
-{{ $downloadLink = .Params.video_files.archive_url }}
-{{ else }}
-{{ $downloadLink =  partial "resource_url.html" (dict "context" . "url" $downloadLink) }}
-{{ end }}
+{{- if (eq $downloadLink nil) -}}
+  {{- $downloadLink = .Params.video_files.archive_url -}}
+{{- else -}}
+  {{- $downloadLink = partial "resource_url.html" (dict "context" . "url" $downloadLink) -}}
+{{- end -}}
 
-<div class="video-page-content">
-  <div class="video-page-header">
-    <div class="video-page-titles">
-      {{ with .Params.parent_title }}
-      <div class="video-page-parent-title">{{ . }}</div>
-      {{ end }}
-      <h1 class="video-page-title">{{ .Title }}</h1>
-    </div>
-    <div class="video-page-metadata">
-      {{ if .Content }}
-      <div class="video-page-description">
-        <strong>Description:</strong> {{ .Content }}
-      </div>
-      {{ end }}
-      {{ with .Params.video_metadata.video_speakers }}
-      <div class="video-page-instructor">
-        <strong>Instructor:</strong> {{ . }}
-      </div>
-      {{ end }}
-    </div>
+<div class="video-page-v3">
+  {{- /* Header section with parent title and main title */ -}}
+  <div class="video-v3-header">
+    {{- with .Params.parent_title -}}
+    <div class="video-v3-parent-title">{{ . }}</div>
+    {{- end -}}
+    <h1 class="video-v3-title">{{ .Title }}</h1>
   </div>
-  
-  <div class="video-page-player-wrapper">
-    {{ partial "video_player.html" (dict "context" $context "youtubeKey" $youtubeKey "archiveUrl" $archiveUrl "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation)}}
+
+  {{- /* Metadata section - only render if we have content or a non-empty speaker */ -}}
+  {{- $hasSpeakers := and .Params.video_metadata.video_speakers (ne .Params.video_metadata.video_speakers "") -}}
+  {{- if or .Content $hasSpeakers -}}
+  <div class="video-v3-metadata">
+    {{- if .Content -}}
+    <p class="video-v3-description"><strong>Description:</strong> {{ .Content }}</p>
+    {{- end -}}
+    {{- if $hasSpeakers -}}
+    <p class="video-v3-instructor"><strong>Instructor:</strong> {{ .Params.video_metadata.video_speakers }}</p>
+    {{- end -}}
   </div>
-    
-    {{ if $transcriptPdfLocation }}
-      {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "transcript" "tabTitle" "Transcript" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation) }}
-    {{ end }}
+  {{- end -}}
 
-    {{ if $relatedResourses }}
-    {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
-    {{ end }}
+  {{- /* Video player */ -}}
+  <div class="video-v3-player-wrapper">
+    {{ partial "video_player.html" (dict "context" $context "youtubeKey" $youtubeKey "archiveUrl" $archiveUrl "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation) }}
+  </div>
 
-  {{ if and $optionalTabTitle $optionalTabContent }}
-    {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
-  {{ end }}
+  {{- /* Expandable tabs - transcript tab includes audio controls and download button */ -}}
+  {{- if $transcriptPdfLocation -}}
+  {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "transcript" "tabTitle" "Transcript" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation) }}
+  {{- end -}}
+
+  {{- if $relatedResourses -}}
+  {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
+  {{- end -}}
+
+  {{- if and $optionalTabTitle $optionalTabContent -}}
+  {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
+  {{- end -}}
 </div>
