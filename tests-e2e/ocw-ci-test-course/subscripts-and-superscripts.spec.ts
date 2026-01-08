@@ -68,6 +68,6 @@ test("Subscripts and superscripts render in tables", async ({ page }) => {
    */
   expect(actuals[0]).toBe("\n\nlorem<sub>abc 123</sub> ipsum\n")
   expect(actuals[1]).toBe(
-    '\n\nlorem<a href="https://mit.edu" target="_blank" rel="noopener"><sup>†</sup></a> ipsum\n'
+    '\n\nlorem<a class="external-link-warning external-link " target="_blank" href="https://mit.edu" aria-label="† (opens in a new tab)" onclick="event.preventDefault()"><sup>†</sup></a> ipsum\n'
   )
 })
