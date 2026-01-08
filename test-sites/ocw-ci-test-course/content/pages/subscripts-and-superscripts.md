@@ -37,7 +37,7 @@ Header Three
 {{< thclose >}}{{< trclose >}}{{< theadclose >}}{{< tbodyopen >}}{{< tropen >}}{{< tdopen >}}
 lorem<sub>abc 123</sub> ipsum
 {{< tdclose >}}{{< tdopen >}}
-lorem[<sup>†</sup>](https://mit.edu) ipsum
+lorem{{% resource_link "15c4e4f1-c7dd-4e2f-af6e-c59210f7710f" "<sup>†</sup>" %}} ipsum
 {{< tdclose >}}{{< tdopen >}}
 lorem{{% resource_link "7b3ae5c4-3b27-4806-b0c5-f012f16fa245" "<sup>‡</sup>" %}} ipsum
 {{< tdclose >}}{{< trclose >}}{{< tropen >}}{{< tdopen >}}
