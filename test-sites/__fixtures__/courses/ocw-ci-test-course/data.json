@@ -89,9 +89,18 @@
       "archive_url": "",
       "video_captions_file": "",
       "video_thumbnail_file": "",
-      "video_transcript_file": ""
+      "video_transcript_file": "",
+      "video_transcript_resource": {
+        "content": "",
+        "website": "ocw-ci-test-course"
+      },
+      "video_captions_resource": {
+        "content": "",
+        "website": "ocw-ci-test-course"
+      }
     },
     "video_metadata": {
+      "source": "",
       "video_speakers": "",
       "video_tags": "",
       "youtube_description": "",
