@@ -1,0 +1,63 @@
+
+.video-page-v3 {
+  // Header with parent title and main title
+  .video-v3-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+
+  .video-v3-parent-title {
+    font-family: "neue-haas-grotesk-text", sans-serif;
+    font-size: 14px !important;
+    font-weight: 500;
+    line-height: 18px !important;
+    color: #000;
+    margin: 0;
+  }
+
+  // Override global h1 styles with !important
+  h1.video-v3-title {
+    font-family: "neue-haas-grotesk-text", sans-serif;
+    font-size: 18px !important;
+    font-weight: 500;
+    line-height: 26px !important;
+    color: #000;
+    margin: 0 !important;
+  }
+
+  // Metadata section
+  .video-v3-metadata {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .video-v3-description,
+  .video-v3-instructor {
+    font-family: "neue-haas-grotesk-text", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    color: #000;
+    margin: 0;
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  // Video player wrapper
+  .video-v3-player-wrapper {
+    position: relative;
+    margin-bottom: 0;
+
+    .video-container {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
