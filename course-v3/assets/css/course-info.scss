@@ -2,7 +2,7 @@ $panel-course-info-text-color: #464646;
 
 .course-info {
   h5 {
-    font-size: 1rem !important;
+    font-size: 1.125rem !important;
     text-transform: capitalize;
     font-weight: 500;
   }
@@ -25,12 +25,12 @@ $panel-course-info-text-color: #464646;
   position: absolute;
   top: 0;
   right: 0;
-  background-color: $course-info-btn-color !important;
-  border-radius: 0px !important;
 }
 
 .course-info-button:hover {
-  background-color: $course-info-btn-hover-color !important;
+  svg path {
+    fill: #750014;
+  }
 }
 
 .close-mobile-course-info {
@@ -44,6 +44,17 @@ $panel-course-info-text-color: #464646;
   padding: 1rem;
   border: 1px solid var(--Light-Gray-2, #dde1e6);
   gap: 2rem;
+
+  &.in-panel {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    margin-bottom: -1.5rem;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
 }
 
 .download-course-button-v3 {

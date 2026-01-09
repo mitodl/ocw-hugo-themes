@@ -17,18 +17,21 @@
 
 #desktop-course-drawer-button {
   z-index: 990;
-  height: 35px;
-  width: 35px;
   display: flex;
+  padding: 1.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--Light-Gray-2, #dde1e6);
+  background: var(--white-mit-brand, #fff);
   justify-content: center;
   align-items: center;
 
   & .drawer-icon-img {
     display: none;
-    height: 12px;
+    height: 1.5rem;
   }
 
   &[aria-expanded="true"] {
+    display: none;
     .collapse-drawer-img {
       display: block;
     }

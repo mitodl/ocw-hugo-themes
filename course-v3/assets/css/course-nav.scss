@@ -43,6 +43,10 @@ nav {
     background-color: #212326 !important;
     border-left: 3px solid $highlight-red !important;
     border-radius: 4px;
+
+    button.course-nav-section-toggle {
+      color: white;
+    }
   }
 
   &:hover {

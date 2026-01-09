@@ -1,7 +1,7 @@
 {{- $context := .context -}}
 {{ $inPanel := .inPanel }}
 
-<div class="{{ if not $inPanel }}learning-resource-type-item{{ end }}">
+<div class="learning-resource-type-item">
     <i aria-hidden="true" class="material-icons">
       {{- if in $context "Audio" -}}
       equalizer

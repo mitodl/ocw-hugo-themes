@@ -1,8 +1,10 @@
 {{ $courseData := .Site.Data.course }}
 
+{{ $isHomepage := eq .RelPermalink "/" }}
+
 <div class="course-banner-v3" style="background-image: url('{{ partial "get_asset_webpack_url.html" "images/course-v3-header-bg.jpg" }}')">
   <div class="container-v3">
-    <div class="hero-text">
+    <div class="hero-text {{ if $isHomepage }}is-homepage{{ end }}">
       <span class="breadcrumb-text">
         {{ $courseData.primary_course_number }} | {{ $courseData.term }} {{ $courseData.year }}{{if $courseData.level }} | {{ delimit $courseData.level ", " }}{{ end }}
       </span>
@@ -10,9 +12,11 @@
         {{ $courseData.course_title }}
       </div>
     </div>
-    <div class="col-12 col-md-4 col-lg-3 p-0 course-image-section">
-      {{ partialCached "course_image_section.html" . }}
-    </div>
+    {{ if $isHomepage }}
+      <div class="col-12 col-md-4 col-lg-3 p-0 course-image-section">
+        {{ partialCached "course_image_section.html" . }}
+      </div>
+    {{ end }}
 
   </div>
 </div>

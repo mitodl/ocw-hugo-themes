@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.140.0
+---------------
+
+- generic page template for ocw-course-v3 (#1699)
+- chore(deps): update dependency inquirer to v13 (#1683)
+- fix(deps): update dependency sass to v1.97.2 (#1703)
+
 Version 1.139.0 (Released January 07, 2026)
 ---------------
 
