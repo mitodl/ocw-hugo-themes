@@ -40,7 +40,7 @@
   }
 }
 
-#course-main-content {
+.course-main-content-v3 {
   thead th,
   td {
     vertical-align: middle !important;
@@ -55,6 +55,45 @@
   @media only screen and (max-width: 760px),
     (min-device-width: 768px) and (max-device-width: 1024px) {
     @include mobile-table;
+  }
+
+  table {
+    border-collapse: separate !important;
+    border-spacing: 0px !important;
+
+    overflow: hidden !important;
+
+    thead {
+      background-color: #40464c !important;
+      text-transform: none !important;
+
+      th:first-child {
+        border-top-left-radius: 0.5rem;
+      }
+      th:last-child {
+        border-top-right-radius: 0.5rem;
+      }
+    }
+
+    tbody {
+      td {
+        background: white !important;
+        border-bottom: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+      }
+
+      td:first-child {
+        border-left: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+      }
+      td:last-child {
+        border-right: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+      }
+      tr:last-child td:first-child {
+        border-bottom-left-radius: 0.5rem;
+      }
+      tr:last-child td:last-child {
+        border-bottom-right-radius: 0.5rem;
+      }
+    }
   }
 }
 
