@@ -176,9 +176,8 @@ type StartOptions = {
 }
 
 /**
- * This program has three subcommands: `start course`, `start www`, and
- * `start fields`. They all do basically the same thing: start webpack + hugo
- * dev servers.
+ * This program has two subcommands: `start course` and `start www`. They both
+ * do basically the same thing: start webpack + hugo dev servers.
  *
  * That logic is shared here.
  */
@@ -238,18 +237,6 @@ start
   .description("Start webpack + hugo dev servers for ocw-www (homepage).")
   .requiredOption(...makeEnvOpt("--content-dir <value>", "WWW_CONTENT_PATH"))
   .requiredOption(...makeEnvOpt("--config <value>", "WWW_HUGO_CONFIG_PATH"))
-  .requiredOption(
-    ...makeEnvOpt("--git-content-source <value>", "GIT_CONTENT_SOURCE")
-  )
-  .action(async (opts: StartOptions) => {
-    startSiteAction(opts, ["--content-dir"])
-  })
-
-start
-  .command("fields")
-  .description("Start webpack + hugo dev servers for mit-fields.")
-  .requiredOption(...makeEnvOpt("--content-dir <value>", "FIELDS_CONTENT_PATH"))
-  .requiredOption(...makeEnvOpt("--config <value>", "FIELDS_HUGO_CONFIG_PATH"))
   .requiredOption(
     ...makeEnvOpt("--git-content-source <value>", "GIT_CONTENT_SOURCE")
   )

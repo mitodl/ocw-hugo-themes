@@ -37,15 +37,6 @@ course-v2/
     ├── resources/
     ├── shortcodes/
     └── home.html
-fields/
-├── assets/
-│   ├── css/
-│   ├── js/
-│   └── fields.js
-└── layouts/
-    ├── _default/
-    ├── partials/
-    └── home.html
 www/
 ├── archetypes/ (various Hugo markdown templates for manually creating content with "hugo new")
 ├── assets/
@@ -99,17 +90,6 @@ of [`ocw-studio`](https://github.com/mitodl/ocw-studio) and it uses the
 `ocw-www` starter configuration in
 [`ocw-hugo-projects`](https://github.com/mitodl/ocw-hugo-projects/blob/main/ocw-www/ocw-studio.yaml).
 
-### fields
-
-![Philosphy Fields Page](https://user-images.githubusercontent.com/12089658/166737333-442e2334-6f89-43c9-963c-91e7e0a010aa.png)
-
-The fields theme is used to render collections of course lists,
-much like the collections linked from the OCW home page. In this theme,
-the field that you specify in your content is used as the home page. This
-content can be edited in an instance of [`ocw-studio`](https://github.com/mitodl/ocw-studio)
-and it uses the `mit-fields` starter configuration in
-[`ocw-hugo-projects`](https://github.com/mitodl/ocw-hugo-projects/blob/main/mit-fields/ocw-studio.yaml).
-
 ## Local development
 
 ### Dependencies
@@ -155,14 +135,9 @@ Run `yarn start course --help` , `yarn start www --help`, and see [Environment V
 
 **Customizing site content:** To customize site content, either edit the site markdown locally, or edit the site at https://ocw-studio-rc.odl.mit.edu/sites/. After editing content in Studio, run `yarn start course <course-short-id>` (or `yarn start www` if you're working on ocw-www). If you already had the site locally, you will need to `cd` to the content directory and manually fetch the updated content with `git pull`.
 
-**MIT Fields:** In addition to ocw-www and the course sites, an experimental project "MIT Fields" is also available. Run `yarn start fields` to run an example fields site.
-
 ### Obtaining and Creating Content
 
 Content for the themes in this repo can be generated using an instance of [`ocw-studio`](https://github.com/mitodl/ocw-studio), a CMS used to author OCW sites. The RC instance is located at https://ocw-studio-rc.odl.mit.edu. Its content is published to MIT's Github Enterprise instance under the [`ocw-content-rc`](https://github.mit.edu/ocw-content-rc) organization. For the `www` theme, content can be found in the [`ocw-www`](https://github.mit.edu/ocw-content-rc/ocw-www) repo. For the `course` theme, use any repo in the [`ocw-content-rc`](https://github.mit.edu/ocw-content-rc) organization created using the `ocw-course` starter or create and publish your own.
-
-Much the same for `fields`, you can either create your own site using the
-`mit-fields` starter or find an existing one and use that.
 
 ### Environment variables
 
@@ -186,8 +161,6 @@ To further explain the various environment variables and what they do:
 | `COURSE_CONTENT_PATH`     | `course`                      | `/path/to/ocw-content-rc/`                          | A path to a base folder containing `ocw-course` type Hugo sites                                                                                                                              |
 | `OCW_TEST_COURSE`         | `course`                      | `18.06-spring-2010`                                 | The name of a folder in `COURSE_CONTENT_PATH` containing a Hugo site that will be rendered when running `yarn start course`                                                                  |
 | `OCW_COURSE_STARTER_SLUG` | `www`                         | `ocw-course-v2`                                        | When generating "New Courses" cards on the home page, the `ocw-studio` API is queried using `OCW_STUDIO_BASE_URL`. This value determines the `type` used in the query string against the API |
-| `FIELDS_HUGO_CONFIG_PATH` | `fields`                      | `/path/to/ocw-hugo-projects/mit-fields/config.yaml` | A path to the `mit-fields` Hugo configuration file                                                                                                                                           |
-| `FIELDS_CONTENT_PATH`     | `fields`                      | `/path/to/ocw-content-rc/philosophy`                | A path to a Hugo site that will be rendered when running `yarn start fields`                                                                                                                 |
 | `WEBPACK_ANALYZE`         | N/A                           | `true`                                              | Used in webpack build. If set to `true`, a dependency analysis of the bundle will be included in the build output.                                                                           |
 | `WEBPACK_HOST`            | N/A                           | `localhost`                                         | Host used by Hugo when querying the Webpack Dev Server. Can be set to your local IP to enable testing OCW on other devices (e.g., phones) within your network.                               |
 | `WEBPACK_PORT`            | N/A                           | `3001`                                              | Port used by Webpack Dev Server                                                                                                                                                              |
