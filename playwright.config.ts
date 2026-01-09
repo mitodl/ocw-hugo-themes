@@ -2,17 +2,12 @@ import { PlaywrightTestConfig } from "@playwright/test"
 import { devices } from "@playwright/test"
 import * as path from "path"
 
-let testsIgnore: string[] = ["**/jest/**"]
-if (process.env.IGNORE_V3_TESTS) {
-  testsIgnore = testsIgnore.concat(["**/ocw-ci-test-course-v3/**"])
-}
-
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
   testDir:    "./tests-e2e",
-  testIgnore: testsIgnore,
+  testIgnore: ["**/jest/**"],
   /* Maximum time one test can run for. */
   timeout:    60 * 1000,
   expect:     {
