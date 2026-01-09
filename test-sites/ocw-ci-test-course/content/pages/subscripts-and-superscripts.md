@@ -18,9 +18,9 @@ Example, Interior Bold: Lorem ipsum dolor sit<sub>abc **123**</sub> amet consect
 
 Example, Interior italic: Lorem ipsum dolor sit<sub>abc *123*</sub> amet consectetur. Lorem ipsum dolor sit<sup>abc *123*</sup> amet consectetur.
 
-Example, Links in scripts: Lorem ipsum dolor sit<sub>[abc 123](https://mit.edu)</sub> amet consectetur. Lorem ipsum dolor sit<sup>[abc 123](https://mit.edu)</sup> amet consectetur.
+Example, Links in scripts: Lorem ipsum dolor sit<sub>{{% resource_link "15c4e4f1-c7dd-4e2f-af6e-c59210f7710f" "abc 123" %}}</sub> amet consectetur. Lorem ipsum dolor sit<sup>{{% resource_link "15c4e4f1-c7dd-4e2f-af6e-c59210f7710f" "abc 123" %}}</sup> amet consectetur.
 
-Example, Scripts in Links: Lorem ipsum dolor [sit<sub>abc 123</sub> amet](https://mit.edu) consectetur. Lorem ipsum dolor [sit<sup>abc 123</sup> amet](https://mit.edu) amet consectetur.
+Example, Scripts in Links: Lorem ipsum dolor {{% resource_link "15c4e4f1-c7dd-4e2f-af6e-c59210f7710f" "sit<sub>abc 123</sub> amet" %}} consectetur. Lorem ipsum dolor {{% resource_link "15c4e4f1-c7dd-4e2f-af6e-c59210f7710f" "sit<sup>abc 123</sup> amet" %}} amet consectetur.
 
 Example, Resource Links in scripts: Lorem ipsum dolor sit<sub>{{% resource_link "7b3ae5c4-3b27-4806-b0c5-f012f16fa245" "abc 123" %}}</sub> amet consectetur. Lorem ipsum dolor sit<sup>{{% resource_link "7b3ae5c4-3b27-4806-b0c5-f012f16fa245" "abc 123" %}}</sup> amet consectetur.
 
@@ -37,7 +37,7 @@ Header Three
 {{< thclose >}}{{< trclose >}}{{< theadclose >}}{{< tbodyopen >}}{{< tropen >}}{{< tdopen >}}
 lorem<sub>abc 123</sub> ipsum
 {{< tdclose >}}{{< tdopen >}}
-lorem[<sup>†</sup>](https://mit.edu) ipsum
+lorem{{% resource_link "15c4e4f1-c7dd-4e2f-af6e-c59210f7710f" "<sup>†</sup>" %}} ipsum
 {{< tdclose >}}{{< tdopen >}}
 lorem{{% resource_link "7b3ae5c4-3b27-4806-b0c5-f012f16fa245" "<sup>‡</sup>" %}} ipsum
 {{< tdclose >}}{{< trclose >}}{{< tropen >}}{{< tdopen >}}
