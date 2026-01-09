@@ -1,4 +1,0 @@
-{{- define "extrajs" -}}
-{{- $js_urls := slice (partial "get_asset_webpack_url.html" "fields.js") (partial "get_asset_webpack_url.html" "www.js") -}}
-{{ partial "include_js.html" (dict "context" . "urls" $js_urls) }}
-{{- end -}}
