@@ -19,8 +19,7 @@ const entryNames = {
   courseV3:           "course_v3",
   courseOffline:      "course_offline",
   www:                "www",
-  wwwOffline:         "www_offline",
-  fields:             "fields"
+  wwwOffline:         "www_offline"
 }
 
 const config: webpack.Configuration = {
@@ -55,10 +54,6 @@ const config: webpack.Configuration = {
     [entryNames.wwwOffline]: [
       fromRoot("./base-theme/assets/expose-jQuery.ts"),
       fromRoot("./www-offline/assets/www-offline.tsx"),
-      fromRoot("./base-theme/assets/index.ts")
-    ],
-    [entryNames.fields]: [
-      fromRoot("./fields/assets/fields.js"),
       fromRoot("./base-theme/assets/index.ts")
     ]
   },
