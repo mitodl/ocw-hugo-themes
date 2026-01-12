@@ -90,10 +90,6 @@ const envSchema = {
     desc:       "A path to a base folder containing ocw-course type Hugo sites",
     devDefault: path.resolve(__dirname, "../ocw-content-rc/")
   }),
-  FIELDS_CONTENT_PATH: envalid.str({
-    desc:       "Path to site content for mit-fields.",
-    devDefault: path.resolve(__dirname, "../ocw-content-rc/cpg-fields-test")
-  }),
   WWW_CONTENT_PATH: envalid.str({
     desc:       "Path to the ocw-www Hugo content directory.",
     devDefault: path.resolve(__dirname, "../ocw-content-rc/ocw-www")
@@ -114,13 +110,6 @@ const envSchema = {
     devDefault: path.resolve(
       __dirname,
       "../ocw-hugo-projects/ocw-course-v3/config.yaml"
-    )
-  }),
-  FIELDS_HUGO_CONFIG_PATH: envalid.str({
-    desc:       "A path to the mit-fields Hugo configuration file",
-    devDefault: path.resolve(
-      __dirname,
-      "../ocw-hugo-projects/mit-fields/config.yaml"
     )
   }),
   WWW_HUGO_CONFIG_PATH: envalid.str({
