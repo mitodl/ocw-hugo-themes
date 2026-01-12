@@ -27,14 +27,14 @@
     margin: 0 !important;
   }
 
-  // Metadata section
+  // Metadata section with 16px gap between items
   .video-v3-metadata {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-bottom: 40px;
   }
 
+  // Description and Instructor text
   .video-v3-description,
   .video-v3-instructor {
     font-family: "neue-haas-grotesk-text", sans-serif;
@@ -44,9 +44,16 @@
     color: #000;
     margin: 0;
 
+    // Bold labels
     strong {
       font-weight: 700;
     }
+  }
+
+  // Video player section
+  .video-v3-player-section {
+    display: flex;
+    flex-direction: column;
   }
 
   // Video player wrapper

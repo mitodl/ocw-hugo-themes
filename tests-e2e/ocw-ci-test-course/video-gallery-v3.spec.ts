@@ -77,6 +77,7 @@ test.describe("Course v3 Video Gallery Styles", () => {
     await expect(container).toHaveCSS("display", "flex")
     await expect(container).toHaveCSS("flex-direction", "column")
     await expect(container).toHaveCSS("gap", "16px")
+    await expect(container).toHaveCSS("cursor", "pointer")
   })
 
   test("Video gallery card styles are defined correctly", async ({ page }) => {
@@ -193,6 +194,7 @@ test.describe("Course v3 Video Gallery Styles", () => {
     await expect(title).toHaveCSS("font-size", "14px")
     await expect(title).toHaveCSS("font-weight", "400")
     await expect(title).toHaveCSS("line-height", "18px")
+    await expect(title).toHaveCSS("text-align", "left")
     await expect(title).toHaveCSS("word-break", "break-word")
     // Browsers may return either "1 1 0px" or "1 1 0%"
     const flexValue = await title.evaluate(

@@ -44,14 +44,41 @@ test.describe("Video Page v3", () => {
   })
 
   test.describe("Metadata Section", () => {
-    test("should not render metadata section when no content and no instructor", async ({
+    test("should have correct gap between metadata items when rendered", async ({
       page
     }) => {
       // The test fixture has empty video_speakers, so metadata section should not render
       const metadata = page.locator(".video-v3-metadata")
       const count = await metadata.count()
-      // Should be 0 if no content/instructor, or present if there is content
-      expect(count).toBeGreaterThanOrEqual(0)
+      if (count > 0) {
+        await expect(metadata).toHaveCSS("gap", "16px")
+        await expect(metadata).toHaveCSS("margin-bottom", "40px")
+      }
+    })
+
+    test("should render description with correct styling when present", async ({
+      page
+    }) => {
+      const description = page.locator(".video-v3-description")
+      const count = await description.count()
+      if (count > 0) {
+        // 14px, font-weight 400, line-height 22px per Figma
+        await expect(description).toHaveCSS("font-size", "14px")
+        await expect(description).toHaveCSS("font-weight", "400")
+        await expect(description).toHaveCSS("line-height", "22px")
+      }
+    })
+
+    test("should render instructor with correct styling when present", async ({
+      page
+    }) => {
+      const instructor = page.locator(".video-v3-instructor")
+      const count = await instructor.count()
+      if (count > 0) {
+        await expect(instructor).toHaveCSS("font-size", "14px")
+        await expect(instructor).toHaveCSS("font-weight", "400")
+        await expect(instructor).toHaveCSS("line-height", "22px")
+      }
     })
   })
 
