@@ -1,4 +1,4 @@
-{{- if ne .Params.resourcetype "Video" -}}
+{{- if and (ne .Params.resourcetype "Video") (ne .Type "video_galleries") -}}
 <header>
   <div class="course-section-title-container">
     <div id="course-title">

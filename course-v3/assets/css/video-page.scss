@@ -1,11 +1,32 @@
 
 .video-page-v3 {
-  // Header with parent title and main title
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  // Content header section groups heading, title, and metadata
+  .video-v3-content-header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  // Section heading
+  .video-v3-section-heading {
+    font-family: "neue-haas-grotesk-text", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    color: #000;
+    margin: 0;
+  }
+
+  // Header with main title
   .video-v3-header {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    margin-bottom: 16px;
+    margin-bottom: 0;
   }
 
   .video-v3-parent-title {
@@ -43,10 +64,19 @@
     line-height: 22px;
     color: #000;
     margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 
     // Bold labels
     strong {
       font-weight: 700;
+    }
+
+    // Make content paragraphs display inline
+    p {
+      display: inline;
+      margin: 0;
+      padding: 0;
     }
   }
 

@@ -1,3 +1,18 @@
+.video-gallery-page-v3 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.video-gallery-title-v3 {
+  font-family: "neue-haas-grotesk-text", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #000;
+  margin: 0;
+}
+
 .video-gallery-cards-container {
   display: flex;
   flex-direction: column;

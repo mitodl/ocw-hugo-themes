@@ -1,5 +1,5 @@
 {{- $ctx := . -}}
-{{- partial "course_content.html" . -}}
+<!-- {{- partial "course_content.html" . -}} -->
 {{/*
   We check is_media_gallery here in case this is a legacy course. Legacy courses 
   often render video galleries between the text and bottomtext, so ocw-to-hugo 
@@ -8,6 +8,9 @@
 */}}
 {{- if not (isset .Params "is_media_gallery") -}}
   {{- if isset .Params "videos" -}}
-    {{- partial "video-gallery.html" . -}}
+    <div class="video-gallery-page-v3">
+      <div class="video-gallery-title-v3">{{ .Title }}</div>
+      {{- partial "video-gallery.html" . -}}
+    </div>
   {{- end -}}
 {{- end -}}
