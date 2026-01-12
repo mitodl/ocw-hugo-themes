@@ -3,8 +3,10 @@ import { devices } from "@playwright/test"
 import * as path from "path"
 
 let testsIgnore: string[] = ["**/jest/**"]
-if (process.env.IGNORE_V3_TESTS) {
-  testsIgnore = testsIgnore.concat(["**/ocw-ci-test-course-v3/**"])
+if (process.env.TESTS_IGNORE) {
+  testsIgnore = testsIgnore.concat(
+    process.env.TESTS_IGNORE.split(",").map(s => s.trim())
+  )
 }
 
 /**
