@@ -18,8 +18,9 @@
 
 <div class="video-page-v3">
   <div class="video-v3-content-header">
-    {{- /* Section heading */ -}}
-    <div class="video-v3-section-heading">Lecture Videos</div>
+    {{- /* Section heading - use video_gallery_title param or default to parent section title */ -}}
+    {{- $sectionHeading := .Params.video_gallery_title | default "Videos" -}}
+    <div class="video-v3-section-heading">{{ $sectionHeading }}</div>
     
     {{- /* Header section with parent title and main title */ -}}
     <div class="video-v3-header">

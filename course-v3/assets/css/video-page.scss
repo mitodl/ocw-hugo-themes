@@ -30,15 +30,15 @@
 
   .video-v3-parent-title {
     font-family: "neue-haas-grotesk-text", sans-serif;
-    font-size: 14px !important;
+    font-size: 14px;
     font-weight: 500;
-    line-height: 18px !important;
+    line-height: 18px;
     color: #000;
     margin: 0;
   }
 
-  // Override global h1 styles with !important
-  h1.video-v3-title {
+  // Use !important to override global h1 styles (course-v3.scss lines 37-45)
+  .video-v3-header h1.video-v3-title {
     font-family: "neue-haas-grotesk-text", sans-serif;
     font-size: 18px !important;
     font-weight: 500;
@@ -52,6 +52,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    margin-bottom: 40px;
   }
 
   // Description and Instructor text

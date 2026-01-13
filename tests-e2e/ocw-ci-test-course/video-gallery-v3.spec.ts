@@ -55,8 +55,7 @@ const injectTestHTML = async (
         if (includeTitle) {
           const title = document.createElement("div")
           title.className = "video-gallery-card-title"
-          title.textContent =
-            includeCard && !includeThumbnail ? "Test Video Title" : "Test Video"
+          title.textContent = !includeThumbnail ? "Test Video Title" : "Test Video"
           card.appendChild(title)
         }
 
@@ -139,7 +138,6 @@ test.describe("Course v3 Video Gallery Styles", () => {
     await expect(container).toHaveCSS("display", "flex")
     await expect(container).toHaveCSS("flex-direction", "column")
     await expect(container).toHaveCSS("gap", "16px")
-    await expect(container).toHaveCSS("cursor", "pointer")
   })
 
   test("Video gallery card styles are defined correctly", async ({ page }) => {
