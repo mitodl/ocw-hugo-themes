@@ -1,13 +1,83 @@
 import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
+import type { Page } from "@playwright/test"
+
+/**
+ * Helper function to inject test HTML for video gallery card testing
+ */
+const injectTestHTML = async (
+  page: Page,
+  options: {
+    includeCard?: boolean
+    includeThumbnail?: boolean
+    includeTitle?: boolean
+    visible?: boolean
+  } = {}
+): Promise<void> => {
+  const {
+    includeCard = true,
+    includeThumbnail = false,
+    includeTitle = false,
+    visible = false
+  } = options
+
+  await page.evaluate(
+    ({ includeCard, includeThumbnail, includeTitle, visible }) => {
+      const container = document.createElement("div")
+      container.className = "video-gallery-cards-container"
+
+      if (!visible) {
+        container.style.visibility = "hidden"
+        container.style.position = "absolute"
+      } else {
+        container.style.position = "absolute"
+        container.style.top = "0"
+        container.style.left = "0"
+        container.style.zIndex = "9999"
+      }
+
+      if (includeCard) {
+        const card = document.createElement("a")
+        card.className = "video-gallery-card"
+        card.href = "#"
+
+        if (visible) {
+          card.style.width = "200px"
+          card.style.height = "50px"
+        }
+
+        if (includeThumbnail) {
+          const thumbnail = document.createElement("div")
+          thumbnail.className = "video-gallery-card-thumbnail"
+          card.appendChild(thumbnail)
+        }
+
+        if (includeTitle) {
+          const title = document.createElement("div")
+          title.className = "video-gallery-card-title"
+          title.textContent = includeCard && !includeThumbnail ? "Test Video Title" : "Test Video"
+          card.appendChild(title)
+        }
+
+        container.appendChild(card)
+      }
+
+      document.body.appendChild(container)
+    },
+    { includeCard, includeThumbnail, includeTitle, visible }
+  )
+}
 
 test.describe("Course v3 Video Gallery Styles", () => {
+  let course: CoursePage
+
+  test.beforeEach(async ({ page }) => {
+    course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/multiple-videos-series-overview")
+  })
   test("Video gallery CSS is loaded and contains correct styles", async ({
     page
   }) => {
-    const course = new CoursePage(page, "course-v3")
-    await course.goto("/pages/multiple-videos-series-overview")
-
     // Check that course-v3 CSS is loaded
     const stylesheets = await page.evaluate(() =>
       Array.from(document.styleSheets)
@@ -58,17 +128,8 @@ test.describe("Course v3 Video Gallery Styles", () => {
   test("Video gallery container styles are defined correctly", async ({
     page
   }) => {
-    const course = new CoursePage(page, "course-v3")
-    await course.goto("/pages/multiple-videos-series-overview")
-
     // Inject test HTML to verify styles
-    await page.evaluate(() => {
-      const container = document.createElement("div")
-      container.className = "video-gallery-cards-container"
-      container.style.visibility = "hidden"
-      container.style.position = "absolute"
-      document.body.appendChild(container)
-    })
+    await injectTestHTML(page, { includeCard: false })
 
     const container = page.locator(".video-gallery-cards-container")
     await expect(container).toBeAttached()
@@ -81,32 +142,8 @@ test.describe("Course v3 Video Gallery Styles", () => {
   })
 
   test("Video gallery card styles are defined correctly", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
-    await course.goto("/pages/multiple-videos-series-overview")
-
     // Inject test HTML to verify card styles
-    await page.evaluate(() => {
-      const container = document.createElement("div")
-      container.className = "video-gallery-cards-container"
-      container.style.visibility = "hidden"
-      container.style.position = "absolute"
-
-      const card = document.createElement("a")
-      card.className = "video-gallery-card"
-      card.href = "#"
-
-      const thumbnail = document.createElement("div")
-      thumbnail.className = "video-gallery-card-thumbnail"
-
-      const title = document.createElement("div")
-      title.className = "video-gallery-card-title"
-      title.textContent = "Test Video"
-
-      card.appendChild(thumbnail)
-      card.appendChild(title)
-      container.appendChild(card)
-      document.body.appendChild(container)
-    })
+    await injectTestHTML(page, { includeCard: true, includeThumbnail: true, includeTitle: true })
 
     const card = page.locator(".video-gallery-card")
     await expect(card).toBeAttached()
@@ -130,27 +167,8 @@ test.describe("Course v3 Video Gallery Styles", () => {
   })
 
   test("Video gallery card thumbnail styles are correct", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
-    await course.goto("/pages/multiple-videos-series-overview")
-
     // Inject test HTML
-    await page.evaluate(() => {
-      const container = document.createElement("div")
-      container.className = "video-gallery-cards-container"
-      container.style.visibility = "hidden"
-      container.style.position = "absolute"
-
-      const card = document.createElement("a")
-      card.className = "video-gallery-card"
-      card.href = "#"
-
-      const thumbnail = document.createElement("div")
-      thumbnail.className = "video-gallery-card-thumbnail"
-
-      card.appendChild(thumbnail)
-      container.appendChild(card)
-      document.body.appendChild(container)
-    })
+    await injectTestHTML(page, { includeCard: true, includeThumbnail: true })
 
     const thumbnail = page.locator(".video-gallery-card-thumbnail")
     await expect(thumbnail).toBeAttached()
@@ -164,28 +182,8 @@ test.describe("Course v3 Video Gallery Styles", () => {
   })
 
   test("Video gallery card title styles are correct", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
-    await course.goto("/pages/multiple-videos-series-overview")
-
     // Inject test HTML
-    await page.evaluate(() => {
-      const container = document.createElement("div")
-      container.className = "video-gallery-cards-container"
-      container.style.visibility = "hidden"
-      container.style.position = "absolute"
-
-      const card = document.createElement("a")
-      card.className = "video-gallery-card"
-      card.href = "#"
-
-      const title = document.createElement("div")
-      title.className = "video-gallery-card-title"
-      title.textContent = "Test Video Title"
-
-      card.appendChild(title)
-      container.appendChild(card)
-      document.body.appendChild(container)
-    })
+    await injectTestHTML(page, { includeCard: true, includeTitle: true })
 
     const title = page.locator(".video-gallery-card-title")
     await expect(title).toBeAttached()
@@ -204,32 +202,8 @@ test.describe("Course v3 Video Gallery Styles", () => {
   })
 
   test("Video gallery card hover state is defined", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
-    await course.goto("/pages/multiple-videos-series-overview")
-
     // Inject test HTML (make visible for hover to work properly)
-    await page.evaluate(() => {
-      const container = document.createElement("div")
-      container.className = "video-gallery-cards-container"
-      container.style.position = "absolute"
-      container.style.top = "0"
-      container.style.left = "0"
-      container.style.zIndex = "9999"
-
-      const card = document.createElement("a")
-      card.className = "video-gallery-card"
-      card.href = "#"
-      card.style.width = "200px"
-      card.style.height = "50px"
-
-      const title = document.createElement("div")
-      title.className = "video-gallery-card-title"
-      title.textContent = "Test Video"
-
-      card.appendChild(title)
-      container.appendChild(card)
-      document.body.appendChild(container)
-    })
+    await injectTestHTML(page, { includeCard: true, includeTitle: true, visible: true })
 
     const card = page.locator(".video-gallery-card")
     await expect(card).toBeAttached()
@@ -245,18 +219,8 @@ test.describe("Course v3 Video Gallery Styles", () => {
   })
 
   test("Video gallery card has no text decoration", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
-    await course.goto("/pages/multiple-videos-series-overview")
-
     // Inject test HTML
-    await page.evaluate(() => {
-      const card = document.createElement("a")
-      card.className = "video-gallery-card"
-      card.href = "#"
-      card.style.visibility = "hidden"
-      card.style.position = "absolute"
-      document.body.appendChild(card)
-    })
+    await injectTestHTML(page, { includeCard: true })
 
     const card = page.locator(".video-gallery-card")
     await expect(card).toBeAttached()

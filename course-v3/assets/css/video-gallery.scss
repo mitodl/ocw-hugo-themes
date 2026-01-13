@@ -26,7 +26,7 @@
   gap: 16px;
   padding: 4px;
   background-color: $white;
-  border: 1px solid #dde1e6;
+  border: 1px solid $card-border;
   border-radius: 4px;
   box-shadow: 0px 1px 6px 0px rgba(3, 21, 45, 0.05);
   text-decoration: none;
@@ -34,8 +34,7 @@
   width: 100%;
 
   &:hover {
-    background-color: #fefbf5;
-    text-decoration: none;
+    background-color: $card-hover-bg;
   }
 
   .video-gallery-card-thumbnail {
@@ -45,7 +44,7 @@
     width: 104px;
     min-width: 104px;
     height: 60px;
-    background-color: #000;
+    background-color: $black;
     border-radius: 4px;
     overflow: hidden;
     position: relative;
@@ -71,7 +70,7 @@
   .video-gallery-card-title {
     flex: 1;
     font-family: "neue-haas-grotesk-text", sans-serif;
-    font-size: 14px;
+    font-size: $font-sm;
     font-weight: 400;
     line-height: 18px;
     color: $black;
