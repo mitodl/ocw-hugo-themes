@@ -55,7 +55,8 @@ const injectTestHTML = async (
         if (includeTitle) {
           const title = document.createElement("div")
           title.className = "video-gallery-card-title"
-          title.textContent = includeCard && !includeThumbnail ? "Test Video Title" : "Test Video"
+          title.textContent =
+            includeCard && !includeThumbnail ? "Test Video Title" : "Test Video"
           card.appendChild(title)
         }
 
@@ -143,7 +144,11 @@ test.describe("Course v3 Video Gallery Styles", () => {
 
   test("Video gallery card styles are defined correctly", async ({ page }) => {
     // Inject test HTML to verify card styles
-    await injectTestHTML(page, { includeCard: true, includeThumbnail: true, includeTitle: true })
+    await injectTestHTML(page, {
+      includeCard:      true,
+      includeThumbnail: true,
+      includeTitle:     true
+    })
 
     const card = page.locator(".video-gallery-card")
     await expect(card).toBeAttached()
@@ -203,7 +208,11 @@ test.describe("Course v3 Video Gallery Styles", () => {
 
   test("Video gallery card hover state is defined", async ({ page }) => {
     // Inject test HTML (make visible for hover to work properly)
-    await injectTestHTML(page, { includeCard: true, includeTitle: true, visible: true })
+    await injectTestHTML(page, {
+      includeCard:  true,
+      includeTitle: true,
+      visible:      true
+    })
 
     const card = page.locator(".video-gallery-card")
     await expect(card).toBeAttached()
