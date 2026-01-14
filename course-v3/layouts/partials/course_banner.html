@@ -1,6 +1,5 @@
 {{ $courseData := .Site.Data.course }}
-
-{{ $isHomepage := eq .RelPermalink "/" }}
+{{ $isHomepage := .IsHome }}
 
 <div class="course-banner-v3" style="background-image: url('{{ partial "get_asset_webpack_url.html" "images/course-v3-header-bg.jpg" }}')">
   <div class="container-v3">
@@ -17,6 +16,5 @@
         {{ partialCached "course_image_section.html" . }}
       </div>
     {{ end }}
-
   </div>
 </div>
