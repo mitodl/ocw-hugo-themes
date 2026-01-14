@@ -7,7 +7,7 @@
 {{ $subtopics = .subtopics }}
 {{ end }}
 {{ $scratch := newScratch }}
-<div class="position-relative {{ if gt (len $subtopics) 0 }} pl-4 {{ end }}">
+<div class="position-relative {{ if gt (len $subtopics) 0 }} pl-0 {{ else }} pl-1 {{ end }}">
   {{ if gt (len $subtopics) 0 }}
   <button
     type="button"
@@ -18,7 +18,9 @@
     aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}"
     aria-label="{{ $topicTitle }} subtopics"
   >
-    <i aria-hidden="true" class="material-icons"></i>
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M9.99991 10.9761L14.1247 6.85132L15.3032 8.02983L9.99991 13.3332L4.69666 8.02983L5.87516 6.85132L9.99991 10.9761Z" fill="#626A73"/>
+    </svg>
   </button>
   {{ end }}
   <span class="topic-text-wrapper">
@@ -36,7 +38,7 @@
   {{ range $subtopic, $specialities := $subtopics }}
   {{ $subtopicIndex := $scratch.Get "index" }}
   <li>
-    <div class="position-relative {{ if gt (len ($specialities | default slice)) 0 }} pl-4 {{ else }} pl-2 {{ end }}">
+    <div class="position-relative {{ if gt (len ($specialities | default slice)) 0 }} pl-0 {{ else }} pl-2 {{ end }}">
       {{ if gt (len ($specialities | default slice)) 0 }}
       <button
         class="topic-toggle border-0 bg-transparent pl-0"
@@ -46,7 +48,9 @@
         aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}"
         aria-label="{{ $subtopic }} specialties"
       >
-        <i aria-hidden="true" class="material-icons"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M9.99991 10.9761L14.1247 6.85132L15.3032 8.02983L9.99991 13.3332L4.69666 8.02983L5.87516 6.85132L9.99991 10.9761Z" fill="#626A73"/>
+        </svg>      
       </button>
       {{ end }}
       <span class="topic-text-wrapper">

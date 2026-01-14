@@ -1,10 +1,18 @@
 .topic-toggle {
-  position: absolute;
-  height: 26px;
-  top: 50%;
-  transform: translateY(-50%);
+  position: static;
+  // height: 21px;
+  // top: 50%;
+  // line-height: 1px;
+  // transform: translateY(-50%);
+  vertical-align: top;
   left: 0;
   pointer-events: all;
+
+  .material-icons {
+    font-size: 21px;
+    width: 21px;
+    height: 21px;
+  }
 }
 
 .topic-toggle > i:after {
