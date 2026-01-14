@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.140.0
+Version 1.140.0 (Released January 14, 2026)
 ---------------
 
 - generic page template for ocw-course-v3 (#1699)
