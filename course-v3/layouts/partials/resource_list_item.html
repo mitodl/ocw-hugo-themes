@@ -1,31 +1,32 @@
 {{ $downloadableLink := partial "get_resource_download_link.html" . }}
 {{ $resourceCategory := partial "get_resource_category.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
-<a 
-  class="resource-card" 
-  {{ if and $downloadableLink (not .hideDownloadIcon) }}href="{{- $downloadableLink -}}" aria-label="Download file" download{{ else }}href="{{ .permalink }}"{{ end }}
->  {{ if not .hideThumbnail }}  <div class="resource-card-thumbnail">
-    <div class="resource-card-type {{ $resourceCategory }}">
-      {{- $resourceCategory -}}
-    </div>
-    <div class="resource-card-download">
-      {{ if not .hideDownloadIcon }}
-        {{ if $downloadableLink }}
-          <img
-            class="hide-offline resource-card-download-icon"
-            src="{{ partial "get_asset_webpack_url.html" "images/resource-download.svg" }}"
-            aria-hidden="true"
-          />
+<div class="resource-card">
+  {{ if not .hideThumbnail }}
+  <a class="resource-card-thumbnail-link"{{ if and $downloadableLink (not .hideDownloadIcon) }} href="{{- $downloadableLink -}}" target="_blank" aria-label="Download file" download{{ end }}>
+    <div class="resource-card-thumbnail">
+      <div class="resource-card-type {{ $resourceCategory }}">
+        {{- $resourceCategory -}}
+      </div>
+      <div class="resource-card-download">
+        {{ if not .hideDownloadIcon }}
+          {{ if $downloadableLink }}
+            <img
+              class="hide-offline resource-card-download-icon"
+              src="{{ partial "get_asset_webpack_url.html" "images/resource-download.svg" }}"
+              aria-hidden="true"
+            />
+          {{ end }}
         {{ end }}
-      {{ end }}
-      {{ if .Params.file_size }}
-        <div class="resource-card-file-size">
-          {{ partial "file_size_formatter.html" .Params.file_size }}
-        </div>
-      {{ end }}
+        {{ if .Params.file_size }}
+          <div class="resource-card-file-size">
+            {{ partial "file_size_formatter.html" .Params.file_size }}
+          </div>
+        {{ end }}
+      </div>
     </div>
-  </div>
+  </a>
   {{ end }}
-  <div class="resource-card-title">
+  <a class="resource-card-title" href="{{ .permalink }}">
     {{- .Params.title -}}
-  </div>
-</a>
+  </a>
+</div>

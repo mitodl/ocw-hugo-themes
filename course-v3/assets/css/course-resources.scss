@@ -48,32 +48,48 @@ h4 {
   }
 }
 
-// New resource card styles for course-v3
+// Course-v3 specific color overrides
+$resource-card-file-color: #002896; // Dark Blue
+$resource-card-pdf-color: #a31f34; // Red
+$resource-card-video-color: #494949; // Dark Gray
+$resource-card-border-color: #dde1e6; // Light Gray
+$resource-card-text-primary: #212326; // Text Primary
+
+// Resource card container styles for course-v3
 .resource-cards-container {
-  border: 1px solid #dde1e6;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid $resource-card-border-color;
   border-radius: 8px;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .resource-card {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.5rem;
+  gap: 16px;
+  padding: 8px;
   background-color: $white;
-  border-left: 1px solid #dde1e6;
-  border-right: 1px solid #dde1e6;
-  border-bottom: 1px solid #dde1e6;
-  text-decoration: none;
+  border: 1px solid $resource-card-border-color;
   transition: background-color 0.15s ease;
+  width: 100%;
+  box-sizing: border-box;
 
   &:hover {
     background-color: #fefbf5;
-    text-decoration: none;
   }
 
-  &:first-child {
-    border-top: 1px solid #dde1e6;
+  // Remove double borders between items
+  & + .resource-card {
+    margin-top: -1px;
+  }
+
+  .resource-card-thumbnail-link {
+    text-decoration: none;
+    display: flex;
+    flex-shrink: 0;
   }
 
   .resource-card-thumbnail {
@@ -82,7 +98,7 @@ h4 {
     align-items: center;
     width: 54px;
     min-width: 54px;
-    background-color: #dde1e6;
+    background-color: $resource-card-border-color;
     border-radius: 4px;
     overflow: hidden;
   }
@@ -96,16 +112,16 @@ h4 {
     line-height: 12px;
     color: $white;
     text-transform: uppercase;
-    background-color: $resource-file-thumbnail-color;
+    background-color: $resource-card-file-color;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
 
     &.video {
-      background-color: $resource-video-thumbnail-color;
+      background-color: $resource-card-video-color;
     }
 
     &.pdf {
-      background-color: $resource-pdf-thumbnail-color;
+      background-color: $resource-card-pdf-color;
     }
   }
 
@@ -129,15 +145,23 @@ h4 {
     font-size: 10px;
     font-weight: 500;
     line-height: 10px;
-    color: #212326;
+    color: $resource-card-text-primary;
   }
 
   .resource-card-title {
     flex: 1;
+    min-width: 0;
+    min-height: 1px;
     font-size: 14px;
     font-weight: 400;
     line-height: 18px;
     color: $black;
     word-break: break-word;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: none;
+      color: $black;
+    }
   }
 }

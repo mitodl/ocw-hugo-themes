@@ -105,10 +105,10 @@ test.describe("Course v3 Resource List", () => {
     const fileBadge = fileCard.locator(".resource-card-type.file")
     await expect(fileBadge).toBeVisible()
 
-    // Check for blue background color (hex: #0851bb)
+    // Check for dark blue background color from Figma (hex: #002896)
     await expect(fileBadge).toHaveCSS(
       "background-color",
-      "rgb(8, 81, 187)" // #0851bb
+      "rgb(0, 40, 150)" // #002896 (Dark Blue from Figma)
     )
   })
 
@@ -193,15 +193,15 @@ test.describe("Course v3 Resource List", () => {
     )
   })
 
-  test("Resource card title is clickable", async ({ page }) => {
+  test("Resource card title is clickable and navigates to resource page", async ({ page }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/lists/a-resource-list")
 
     const resourceCard = page.locator(".resource-card").first()
-    await expect(resourceCard).toHaveAttribute("href")
-
     const title = resourceCard.locator(".resource-card-title")
+    
     await expect(title).toBeVisible()
+    await expect(title).toHaveAttribute("href")
 
     const titleText = await title.textContent()
     expect(titleText).toBeTruthy()
@@ -245,7 +245,7 @@ test.describe("Course v3 Resource List", () => {
     expect(width).toBe("54px")
   })
 
-  test("First resource card has top border, other cards don't", async ({
+  test("Resource cards have proper borders with collapsed spacing", async ({
     page
   }) => {
     const course = new CoursePage(page, "course-v3")
@@ -254,29 +254,29 @@ test.describe("Course v3 Resource List", () => {
     const firstCard = page.locator(".resource-card").first()
     const secondCard = page.locator(".resource-card").nth(1)
 
-    // First card should have top border
+    // Both cards should have border on all sides
     await expect(firstCard).toHaveCSS("border-top-width", "1px")
+    await expect(secondCard).toHaveCSS("border-top-width", "1px")
 
-    // Second card should not have top border (only left, right, bottom)
-    await expect(secondCard).toHaveCSS("border-top-width", "0px")
+    // Second card uses negative margin to collapse borders visually
+    await expect(secondCard).toHaveCSS("margin-top", "-1px")
   })
 
-  test("Download links have download attribute without target blank", async ({
+  test("Download links have download attribute and target blank", async ({
     page
   }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/lists/a-resource-list")
 
-    const downloadableCard = page.locator(".resource-card[download]").first()
-    const count = await downloadableCard.count()
+    const downloadableLink = page.locator(".resource-card-thumbnail-link[download]").first()
+    const count = await downloadableLink.count()
 
     if (count > 0) {
       // Should have download attribute
-      await expect(downloadableCard).toHaveAttribute("download")
+      await expect(downloadableLink).toHaveAttribute("download")
 
-      // Should NOT have target="_blank"
-      const target = await downloadableCard.getAttribute("target")
-      expect(target).not.toBe("_blank")
+      // Should have target="_blank" for downloads
+      await expect(downloadableLink).toHaveAttribute("target", "_blank")
     }
   })
 
