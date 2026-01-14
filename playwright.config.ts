@@ -2,12 +2,19 @@ import { PlaywrightTestConfig } from "@playwright/test"
 import { devices } from "@playwright/test"
 import * as path from "path"
 
+let testsIgnore: string[] = ["**/jest/**"]
+if (process.env.TESTS_IGNORE) {
+  testsIgnore = testsIgnore.concat(
+    process.env.TESTS_IGNORE.split(",").map(s => s.trim())
+  )
+}
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
   testDir:    "./tests-e2e",
-  testIgnore: ["**/jest/**"],
+  testIgnore: testsIgnore,
   /* Maximum time one test can run for. */
   timeout:    60 * 1000,
   expect:     {
