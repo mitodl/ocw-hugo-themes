@@ -181,7 +181,6 @@ h5 {
   }
 
   .bottom-download-button {
-    margin-top: 1.5rem;
     @media (min-width: 768px) {
       display: none;
     }
@@ -209,6 +208,10 @@ h5 {
       margin-bottom: 1rem;
     }
   }
+}
+
+.download-course-section {
+  margin-top: 1.5rem;
 }
 
 .user-list-modal {
