@@ -1,5 +1,5 @@
-{{ $courseData := .courseData }}
-{{ $isHomepage := .isHomepage }}
+{{ $courseData := .Site.Data.course }}
+{{ $isHomepage := .IsHome }}
 
 <div class="course-banner-v3" style="background-image: url('{{ partial "get_asset_webpack_url.html" "images/course-v3-header-bg.jpg" }}')">
   <div class="container-v3">
@@ -13,9 +13,8 @@
     </div>
     {{ if $isHomepage }}
       <div class="col-12 col-md-4 col-lg-3 p-0 course-image-section">
-        {{ partialCached "course_image_section.html" .context }}
+        {{ partialCached "course_image_section.html" . }}
       </div>
     {{ end }}
-
   </div>
 </div>

@@ -18,7 +18,7 @@
       {{ partialCached "mobile_course_nav.html" . }}
       {{ partialCached "mobile_course_info.html" . }}
       {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
-      {{ block "subheader" . }}{{ partial "course_banner.html" (dict "courseData" .Site.Data.course "isHomepage" true "context" .) }}{{ end }}
+      {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
     </div>
     <div class="course-main-content-v3">
       <div class="container-v3">
