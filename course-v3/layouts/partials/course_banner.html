@@ -11,10 +11,5 @@
         {{ $courseData.course_title }}
       </div>
     </div>
-    {{ if $isHomepage }}
-      <div class="col-12 col-md-4 col-lg-3 p-0 course-image-section absolutify">
-        {{ partialCached "course_image_section.html" . }}
-      </div>
-    {{ end }}
   </div>
 </div>

@@ -20,3 +20,18 @@
   </div>
 
 </div>
+
+<script>
+  function adjustImageSectionMargin() {
+    const imageSection = document.querySelector('.course-image-section')
+    const heroTextHeight = document.querySelector('.course-banner-v3 .hero-text').offsetHeight
+    const bannerPaddingBottom = parseFloat(window.getComputedStyle(document.querySelector('.course-banner-v3')).paddingBottom)
+    imageSection.style.marginTop = `-${heroTextHeight + bannerPaddingBottom + 32}px`
+  }
+
+  // Run on page load
+  adjustImageSectionMargin()
+  
+  // Run on window resize
+  window.addEventListener('resize', adjustImageSectionMargin)
+</script>

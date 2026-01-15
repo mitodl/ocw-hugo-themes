@@ -86,27 +86,4 @@
       line-height: 3.125rem;
     }
   }
-
-  .course-image-section {
-    @media (max-width: 992px) {
-      display: none;
-    }
-
-    max-width: min(24%, 320px) !important;
-    position: fixed;
-    top: 7.5rem;
-    right: 2rem;
-
-    @media (min-width: 1400px) {
-      right: calc((100% - 79.75rem) / 2);
-    }
-
-    &.absolutify {
-      position: absolute;
-      top: 0rem;
-      right: 0rem;
-      max-width: min(26%, 320px) !important;
-
-    }
-  }
 }
