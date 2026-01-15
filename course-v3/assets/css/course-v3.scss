@@ -385,86 +385,38 @@ pre {
 }
 
 .course-topics-container {
-
   gap: 0.5rem;
   line-height: 1.125rem;
 
   button {
     line-height: 1rem;
     transform: rotate(-90deg);
+    padding: 0;
 
     &[aria-expanded="true"] {
       transform: rotate(0deg);
     }
-
-    padding: 0;
   }
-
 
   ul li{
-  
     > div {
-
-      padding-bottom: 0.5rem; // 12px spacing between topic items
+      padding-bottom: 0.5rem;
     }
-    
-    // &:last-child {
-    //   > div {
-
-    //     padding-bottom: 0; // Remove margin from the last item
-    //   }
-    // }
   }
 
-  // Add spacing between parent topics and their subtopics
-  .subtopic-container {
-    // padding-top: 0.5rem; // 8px spacing from parent topic to first subtopic
-    
+  .subtopic-container {    
     li {
       > div {
-
-        padding-bottom: 0.5rem; // Slightly less spacing between subtopics
+        padding-bottom: 0.5rem;
       }
-      
-      // &:last-child {
-      //   > div {
-
-      //     padding-bottom: 0;
-      //   }
-      // }
     }
   }
 
-  // Add spacing between subtopics and their specialties (third level)
-  ul[id*="speciality-container"] {
-    // padding-top: 0.5rem; // 8px spacing from subtopic to first specialty
-    
+  ul[id*="speciality-container"] {    
     li {
-
-        padding-bottom: 0.5rem; // Consistent spacing between specialties
-      
-      // &:last-child {
-      //   > div {
-
-      //     padding-bottom: 0;
-      //   }
-      // }
+      padding-bottom: 0.5rem;
     }
   }
-
-
-  // ul.collapsing {
-
-  //     transition: none;
-  //     height: auto !important
-
-  // }
-
-  // * {
-  //   margin: 0 !important;
-  //   padding: 0 !important;
-  // }
-
 }
 
 .course-info {
