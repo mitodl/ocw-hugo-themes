@@ -199,7 +199,7 @@ test.describe("Course v3 Resource List", () => {
 
     const resourceCard = page.locator(".resource-card").first()
     const title = resourceCard.locator(".resource-card-title")
-    
+
     await expect(title).toBeVisible()
     await expect(title).toHaveAttribute("href")
 
