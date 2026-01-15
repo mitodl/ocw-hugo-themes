@@ -182,7 +182,6 @@ h5 {
       top: 0;
       margin-top: 0 !important;
     }
-
   }
 
   .bottom-download-button {
@@ -368,16 +367,16 @@ pre {
   flex-basis: 50%;
   gap: 1.5rem;
 
-  .instructors, .departments {
+  .instructors,
+  .departments {
     gap: 0.5rem;
 
     ul {
       gap: 0.5rem;
       display: flex;
       flex-direction: column;
-    };
+    }
   }
-
 }
 
 .info-topics {
@@ -398,13 +397,13 @@ pre {
     }
   }
 
-  ul li{
+  ul li {
     > div {
       padding-bottom: 0.5rem;
     }
   }
 
-  .subtopic-container {    
+  .subtopic-container {
     li {
       > div {
         padding-bottom: 0.5rem;
@@ -412,7 +411,7 @@ pre {
     }
   }
 
-  ul[id*="speciality-container"] {    
+  ul[id*="speciality-container"] {
     li {
       padding-bottom: 0.5rem;
     }
