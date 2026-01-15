@@ -193,7 +193,9 @@ test.describe("Course v3 Resource List", () => {
     )
   })
 
-  test("Resource card title is clickable and navigates to resource page", async ({ page }) => {
+  test("Resource card title is clickable and navigates to resource page", async ({
+    page
+  }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/lists/a-resource-list")
 
@@ -268,7 +270,9 @@ test.describe("Course v3 Resource List", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/lists/a-resource-list")
 
-    const downloadableLink = page.locator(".resource-card-thumbnail-link[download]").first()
+    const downloadableLink = page
+      .locator(".resource-card-thumbnail-link[download]")
+      .first()
     const count = await downloadableLink.count()
 
     if (count > 0) {

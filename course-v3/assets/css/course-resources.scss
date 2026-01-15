@@ -85,7 +85,6 @@ $resource-card-text-primary: #212326; // Text Primary
   box-sizing: border-box;
 }
 
-
 // Mixin for resource card styles
 @mixin resource-thumbnail-styles {
   .resource-card-thumbnail-link {
@@ -224,15 +223,15 @@ $resource-card-text-primary: #212326; // Text Primary
   border: 1px solid $resource-card-border-color;
   width: 100%;
   box-sizing: border-box;
-  
+
   // Use the same mixin for thumbnail styles
-  @include resource-thumbnail-styles; 
+  @include resource-thumbnail-styles;
 }
 
 .resource-single-thumbnail-link {
-    text-decoration: none;
-    display: flex;
-    flex-shrink: 0;
+  text-decoration: none;
+  display: flex;
+  flex-shrink: 0;
 }
 
 .resource-single-title {
@@ -253,7 +252,8 @@ $resource-card-text-primary: #212326; // Text Primary
   padding: 12px 20px 12px 24px;
   background-color: #750014;
   border-radius: 4px;
-  box-shadow: 0px 2px 4px 0px rgba(37, 38, 43, 0.1), 0px 3px 8px 0px rgba(37, 38, 43, 0.12);
+  box-shadow: 0px 2px 4px 0px rgba(37, 38, 43, 0.1),
+    0px 3px 8px 0px rgba(37, 38, 43, 0.12);
   text-decoration: none;
   flex-shrink: 0;
 
