@@ -2,6 +2,15 @@ import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
 
 test.describe("Course v3 Resource List", () => {
+  test("Resource list container spans full width", async ({ page }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/lists/a-resource-list")
+
+    // The wrapper div should have w-100 class
+    const wrapper = page.locator(".mb-2.w-100")
+    await expect(wrapper).toBeVisible()
+  })
+
   test("Resource cards container has correct styling", async ({ page }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/lists/a-resource-list")
