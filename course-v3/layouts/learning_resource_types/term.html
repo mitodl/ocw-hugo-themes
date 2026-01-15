@@ -1,7 +1,7 @@
 {{ define "main" }}
 {{ partial "course_content.html" . }}
 
-<div class="mb-5">
+<div class="mb-5 w-100">
   {{ $resources := where .Pages "Params.content_type" "resource" }}
   {{ partial "resource_list.html" (dict "resources" $resources) }}
 </div>

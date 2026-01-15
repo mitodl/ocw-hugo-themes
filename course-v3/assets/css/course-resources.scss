@@ -48,6 +48,25 @@ h4 {
   }
 }
 
+// Resource page title styling (S1 16)
+.resource-page-title {
+  color: $black !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  font-style: normal !important;
+  padding-bottom: 0 !important;
+}
+
+// Resource list description styling (P22 14)
+.resource-list-description {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  color: $black;
+  margin-bottom: 16px;
+}
+
 // Course-v3 specific color overrides
 $resource-card-file-color: #002896; // Dark Blue
 $resource-card-pdf-color: #a31f34; // Red
@@ -66,26 +85,9 @@ $resource-card-text-primary: #212326; // Text Primary
   box-sizing: border-box;
 }
 
-.resource-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 8px;
-  background-color: $white;
-  border: 1px solid $resource-card-border-color;
-  transition: background-color 0.15s ease;
-  width: 100%;
-  box-sizing: border-box;
 
-  &:hover {
-    background-color: #fefbf5;
-  }
-
-  // Remove double borders between items
-  & + .resource-card {
-    margin-top: -1px;
-  }
-
+// Mixin for resource card styles
+@mixin resource-thumbnail-styles {
   .resource-card-thumbnail-link {
     text-decoration: none;
     display: flex;
@@ -147,6 +149,29 @@ $resource-card-text-primary: #212326; // Text Primary
     line-height: 10px;
     color: $resource-card-text-primary;
   }
+}
+
+.resource-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px;
+  background-color: $white;
+  border: 1px solid $resource-card-border-color;
+  transition: background-color 0.15s ease;
+  width: 100%;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: #fefbf5;
+  }
+
+  // Remove double borders between items
+  & + .resource-card {
+    margin-top: -1px;
+  }
+
+  @include resource-thumbnail-styles;
 
   .resource-card-title {
     flex: 1;
@@ -163,5 +188,90 @@ $resource-card-text-primary: #212326; // Text Primary
       text-decoration: none;
       color: $black;
     }
+  }
+}
+
+// Single resource page styles
+.resource-single-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.resource-type-field {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 14px;
+  line-height: 18px;
+  color: $black;
+
+  .resource-type-label {
+    font-weight: 500;
+  }
+
+  .resource-type-value {
+    font-weight: 400;
+  }
+}
+
+.resource-single-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px;
+  background-color: $white;
+  border: 1px solid $resource-card-border-color;
+  width: 100%;
+  box-sizing: border-box;
+  
+  // Use the same mixin for thumbnail styles
+  @include resource-thumbnail-styles; 
+}
+
+.resource-single-thumbnail-link {
+    text-decoration: none;
+    display: flex;
+    flex-shrink: 0;
+}
+
+.resource-single-title {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: $black;
+}
+
+.resource-download-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 12px 20px 12px 24px;
+  background-color: #750014;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px 0px rgba(37, 38, 43, 0.1), 0px 3px 8px 0px rgba(37, 38, 43, 0.12);
+  text-decoration: none;
+  flex-shrink: 0;
+
+  &:hover {
+    text-decoration: none;
+    background-color: darken(#750014, 5%);
+  }
+
+  .resource-download-icon {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+  }
+
+  span {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
+    color: $white;
   }
 }
