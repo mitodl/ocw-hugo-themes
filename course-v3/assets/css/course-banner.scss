@@ -43,8 +43,8 @@
     display: flex;
 
     &.is-homepage {
-      @media (min-width: 1200px) {
-        width: 75%;
+      @media (min-width: 992px) {
+        max-width: 72.5%;
       }
       @media (min-width: 1400px) {
         width: 59.5rem;
@@ -88,17 +88,25 @@
   }
 
   .course-image-section {
-    @media (max-width: 1200px) {
+    @media (max-width: 992px) {
       display: none;
     }
 
-    max-width: 320px !important;
+    max-width: min(24%, 320px) !important;
     position: fixed;
     top: 7.5rem;
     right: 2rem;
 
     @media (min-width: 1400px) {
       right: calc((100% - 79.75rem) / 2);
+    }
+
+    &.absolutify {
+      position: absolute;
+      top: 0rem;
+      right: 0rem;
+      max-width: min(26%, 320px) !important;
+
     }
   }
 }

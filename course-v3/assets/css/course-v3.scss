@@ -175,8 +175,9 @@ h5 {
 
   .course-image-section {
     flex: 1 1 27%;
-    @media (min-width: 1200px) {
+    @media (min-width: 992px) {
       visibility: hidden;
+      height: 0;
     }
   }
 
