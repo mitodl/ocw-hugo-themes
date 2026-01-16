@@ -19,9 +19,12 @@
       aria-controls="resource-list-container-{{ $resourceSlug }}"
       aria-expanded="{{ if $expand }}true{{ else }}false{{ end }}">
         <i aria-hidden="true" class="material-icons"></i>
-        <h4 class="my-4">{{ .Title }}</h4>  
+        <h4 class="my-0">{{ .Title }}</h4>  
       </a>
     </div>
+    {{ if .Content }}
+    <div class="resource-list-description">{{ .Content }}</div>
+    {{ end }}
 
     <div id="resource-list-container-{{ $resourceSlug }}" class="collapse{{ if $expand }} show{{ end }}">
       {{ partial "resource_list.html" (dict "resources" $resources "limitResources" $numberOfResources) }}
