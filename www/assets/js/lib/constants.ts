@@ -88,7 +88,7 @@ const RESOURCE_TYPES = [
   "Design Assignments with Examples",
   "Editable Files",
   "Exams",
-  "Exams with Solutions",
+  "Exam Solutions",
   "Image Gallery",
   "Instructor Insights",
   "Laboratory Assignments",
