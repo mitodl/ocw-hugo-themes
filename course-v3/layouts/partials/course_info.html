@@ -7,20 +7,16 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
       Course Info
     </h5>
     {{ if $inPanel}}
-      <button 
-        type="button" 
-        class="course-info-button tablet-and-above-only position-static border-0 bg-white"
-        id="desktop-course-drawer-button-close"
-        data-target="#desktop-course-drawer"
-        data-toggle="collapse"
-        aria-label="Course Info"
-        aria-controls="desktop-course-drawer"
-        aria-expanded="false"
-      >
-        <svg aria-hidden="true" class="collapse-drawer-img" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
-          <path d="M6.36396 4.94978L11.3138 0L12.728 1.41421L7.77816 6.36398L12.728 11.3137L11.3138 12.7279L6.36396 7.77818L1.41422 12.7279L0 11.3137L4.94976 6.36398L0 1.41421L1.41422 0L6.36396 4.94978Z" fill="black"/>
-        </svg>
-      </button>
+    <button type="button" class="course-info-button tablet-and-above-only position-static border-0 bg-white"
+      id="desktop-course-drawer-button-close" data-target="#desktop-course-drawer" data-toggle="collapse"
+      aria-label="Course Info" aria-controls="desktop-course-drawer" aria-expanded="false">
+      <svg aria-hidden="true" class="collapse-drawer-img" xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+        viewBox="0 0 13 13" fill="none">
+        <path
+          d="M6.36396 4.94978L11.3138 0L12.728 1.41421L7.77816 6.36398L12.728 11.3137L11.3138 12.7279L6.36396 7.77818L1.41422 12.7279L0 11.3137L4.94976 6.36398L0 1.41421L1.41422 0L6.36396 4.94978Z"
+          fill="black" />
+      </svg>
+    </button>
     {{ end }}
   </div>
   <div class="align-self-stretch">
@@ -41,20 +37,20 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
         </div>
         {{ end }}
         {{ with $courseData.department_numbers }}
-          {{ $departments := partial "get_departments.html" . }}
-          {{ if $departments }}
-            <div class="d-flex flex-column departments align-self-stretch">
-              <h6 class="m-0">
-                Departments
-              </h6>
-              <div class="{{ if $inPanel }}panel-course-info-text{{ end }} align-self-stretch">
-                {{ partial "partial_collapse_list.html" (dict "list" $departments
-                "id" "departments" "key" "title" "klass" "course-info-department"
-                "useLinks" true) }}
-              </div>
-            </div>
-          {{ end }}
-        {{ end }} 
+        {{ $departments := partial "get_departments.html" . }}
+        {{ if $departments }}
+        <div class="d-flex flex-column departments align-self-stretch">
+          <h6 class="m-0">
+            Departments
+          </h6>
+          <div class="{{ if $inPanel }}panel-course-info-text{{ end }} align-self-stretch">
+            {{ partial "partial_collapse_list.html" (dict "list" $departments
+            "id" "departments" "key" "title" "klass" "course-info-department"
+            "useLinks" true) }}
+          </div>
+        </div>
+        {{ end }}
+        {{ end }}
         {{ if $inPanel }}
         <div class="align-self-start gap-1 d-flex flex-column">
           <h6 class="m-0">
@@ -63,7 +59,7 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
           <div class="{{ if $inPanel }}panel-course-info-text{{ end }}">
             {{ $courseData.term }}
             {{ if isset $courseData "year" }}
-              {{ $courseData.year }}
+            {{ $courseData.year }}
             {{ end }}
           </div>
         </div>
@@ -77,10 +73,10 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
             $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
             {{- partial "link.html" (dict "href" $levelSearchUrl "text" $courseData.level "stripLinkOffline" true) -}}
             {{ else }}
-              {{ range $courseData.level }}
-                {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) }}
-                {{- partial "link.html" (dict "href" $levelSearchUrl "text" . "stripLinkOffline" true) -}}<br />
-              {{ end }}
+            {{ range $courseData.level }}
+            {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) }}
+            {{- partial "link.html" (dict "href" $levelSearchUrl "text" . "stripLinkOffline" true) -}}<br />
+            {{ end }}
             {{ end }}
           </div>
         </div>
@@ -89,9 +85,22 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
 
       {{ if not $inPanel }}
       <div class="p-0 info-topics">
-          {{ partial "topics.html" (merge . (dict "renderMarginTop" false)) }}
+        {{ partial "topics.html" (merge . (dict "renderMarginTop" false)) }}
       </div>
       {{ end }}
     </div>
   </div>
 </div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('click', function (e) {
+      const closestButton = e.target.closest('button')
+      if (closestButton && closestButton.classList.contains('course-info-button')) {
+        document.querySelectorAll('.image-gallery').forEach(gallery => {
+          $(gallery).nanogallery2('resize')
+        });
+      }
+  });
+});
+</script>

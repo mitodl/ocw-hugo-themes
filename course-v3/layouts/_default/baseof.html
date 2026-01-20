@@ -16,7 +16,6 @@
 
   <div>
     <div class="course-header">
-      {{ partialCached "mobile_course_nav.html" . }}
       {{ partialCached "mobile_course_info.html" . }}
       {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
       {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
@@ -27,11 +26,11 @@
           <div class="mobile-nav-div medium-and-below-only align-self-stretch">
             {{ partial "mobile_course_menu_v3.html" (dict "context" .) }}
           </div>
-          <div class="course-overview">
+          <div class="course-overview page-content">
             <div class="course-nav-desktop large-and-above-only p-0">
               {{ partialCached "desktop_nav.html" . }}
             </div>
-            <div class="course-detail">
+            <div class="course-detail align-self-stretch">
               {{ block "main" . }}{{ end }}
             </div>
             <div class="col-12 col-md-4 col-lg-3 p-0 desktop-course-info tablet-and-above-only">

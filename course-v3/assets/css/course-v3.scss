@@ -163,6 +163,10 @@ h5 {
 
   .course-detail {
     flex: 1 1 57.5%;
+    &:has(.image-gallery) {
+      min-width: 0;
+    }
+    gap: 2rem;
 
     @media (min-width: 992px) {
       padding: 0rem 1rem 1rem 1rem;
@@ -193,7 +197,7 @@ h5 {
   .mobile-nav-div {
     position: sticky;
     top: 3.75rem;
-    z-index: 99999;
+    z-index: 999;
     background-color: white;
   }
 
@@ -210,6 +214,10 @@ h5 {
 
     @media (max-width: 1199px) {
       margin-bottom: 1rem;
+    }
+
+    .download-course-section {
+      margin-top: 0;
     }
   }
 }
@@ -386,6 +394,7 @@ pre {
 .course-topics-container {
   gap: 0.5rem;
   line-height: 1.125rem;
+  margin-bottom: -0.5rem;
 
   button {
     line-height: 1rem;

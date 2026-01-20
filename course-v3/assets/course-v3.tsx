@@ -7,7 +7,6 @@ import {
   initCourseInfoExpander,
   initCourseDescriptionExpander
 } from "./js/course_expander"
-import { initCourseDrawersClosingViaSwiping } from "./js/mobile_course_drawers"
 import { initImageGalleriesFromMarkup } from "./js/init_image_galleries_from_markup"
 import {
   clearSolution,
@@ -46,7 +45,6 @@ $(function() {
   clearSolution()
   checkAnswer()
   showSolution()
-  initCourseDrawersClosingViaSwiping()
   initMobileCourseMenuV3()
   const queryClient = makeQueryClient()
   const userMenuContainers = document.querySelectorAll(
