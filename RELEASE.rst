@@ -1,6 +1,20 @@
 Release Notes
 =============
 
+Version 1.141.0
+---------------
+
+- chore(deps): update dependency postcss-preset-env to v11 (#1716)
+- chore(deps): update actions/setup-node digest to 6044e13 (#1714)
+- chore(deps): update node.js to v24.13.0 (#1715)
+- Update Exams with Solutions LRT to Exam Solutions (#1712)
+- feat: added resource list layout for course-v3 theme (#1700)
+- chore(deps): update actions/upload-artifact action to v6 (#1709)
+- fix: chp image section not rendering (#1707)
+- fix: e2e tests breaking due to external link migrations (#1637)
+- Remove MIT Fields project (#1708)
+- Add icon for Problem Set Solutions (#1705)
+
 Version 1.140.0 (Released January 14, 2026)
 ---------------
 
