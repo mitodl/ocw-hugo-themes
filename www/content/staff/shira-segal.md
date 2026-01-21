@@ -1,8 +1,8 @@
 ---
 first_name: Shira
 last_name: Segal
-job_title: Collaborations and Engagement Manager
-image: /images/about/staff/shira-segal.jpg
+job_title: Senior Manager, Open Education Collaborations
+image: /images/about/staff/shira-segal.jpeg
 _build:
     render: "never"
     list: "always"
