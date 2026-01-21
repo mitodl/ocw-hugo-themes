@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.141.0
+Version 1.141.0 (Released January 21, 2026)
 ---------------
 
 - chore(deps): update dependency postcss-preset-env to v11 (#1716)
