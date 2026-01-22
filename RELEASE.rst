@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.141.1
+Version 1.141.1 (Released January 22, 2026)
 ---------------
 
 - update staff images and titles (#1718)
