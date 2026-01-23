@@ -21,12 +21,10 @@ test.describe("Course v3 Video Gallery Page", () => {
     const galleryPage = page.locator(".video-gallery-page-v3")
     await expect(galleryPage).toBeVisible()
 
-    // Check the title is rendered
-    const title = page.locator(".video-gallery-title-v3")
+    // Check the title is rendered by content_header_v3 (not the video gallery itself)
+    const title = page.locator(".resource-page-title")
     await expect(title).toBeVisible()
-    await expect(title).toHaveCSS("font-size", "16px")
-    await expect(title).toHaveCSS("font-weight", "500")
-    await expect(title).toHaveCSS("line-height", "24px") // 1.5 * 16px
+    await expect(title).toHaveText("Lecture Videos")
   })
 
   test("Video gallery cards container styles are correct", async ({ page }) => {

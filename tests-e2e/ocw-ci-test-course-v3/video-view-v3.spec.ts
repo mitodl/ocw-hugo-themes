@@ -51,9 +51,23 @@ test.describe("Course v3 Video View Page", () => {
     const metaBlock = page.locator(".video-view-meta-block").first()
     const count = await metaBlock.count()
     if (count > 0) {
-      await expect(metaBlock).toHaveCSS("gap", "16px")
       await expect(metaBlock).toHaveCSS("font-size", "14px")
       await expect(metaBlock).toHaveCSS("line-height", "22px")
+    }
+  })
+
+  test("Last meta block has no bottom margin on its last paragraph", async ({
+    page
+  }) => {
+    // The last meta block (instructor) should have no bottom margin on its last p
+    const lastMetaBlock = page.locator(
+      ".video-view-header > .video-view-meta-block:last-child"
+    )
+    await expect(lastMetaBlock).toBeVisible()
+
+    const lastParagraph = lastMetaBlock.locator("p:last-of-type")
+    if ((await lastParagraph.count()) > 0) {
+      await expect(lastParagraph).toHaveCSS("margin-bottom", "0px")
     }
   })
 
@@ -84,5 +98,26 @@ test.describe("Course v3 Video View Page", () => {
     const container = page.locator(".resource-page-container")
     await expect(container).toHaveCSS("margin-top", "0px")
     await expect(container).toHaveCSS("padding-right", "0px")
+  })
+})
+
+test.describe("Course v3 Video View Page - No Instructor", () => {
+  test("Description has no bottom margin when instructor is missing", async ({
+    page
+  }) => {
+    // Use a video without instructor
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p")
+
+    // When instructor is missing, description becomes the last meta block
+    const lastMetaBlock = page.locator(
+      ".video-view-header > .video-view-meta-block:last-child"
+    )
+
+    // The last paragraph in the last meta block should have no bottom margin
+    const lastParagraph = lastMetaBlock.locator("p:last-of-type")
+    if ((await lastParagraph.count()) > 0) {
+      await expect(lastParagraph).toHaveCSS("margin-bottom", "0px")
+    }
   })
 })

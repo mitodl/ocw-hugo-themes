@@ -22,6 +22,11 @@
   gap: 16px;
   width: 100%;
   color: $black;
+
+  // Remove bottom margin from last p in the last meta block
+  > .video-view-meta-block:last-child p:last-of-type {
+    margin-bottom: 0 !important;
+  }
 }
 
 .video-view-title-container {
@@ -58,7 +63,6 @@
   font-weight: $mit-learn-font-weight-roman;
   line-height: 22px;
   color: $black;
-  margin-bottom: 0 !important;
 }
 
 .video-view-content {

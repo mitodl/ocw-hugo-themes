@@ -31,7 +31,7 @@ video_files:
   video_thumbnail_file: https://img.youtube.com/vi/YWyHAlAuRL0/default.jpg
   video_transcript_file: /courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf
 video_metadata:
-  video_speakers: ''
+  video_speakers: 'Dr. Ana Bell'
   video_tags: ''
   youtube_description: ''
   youtube_id: YWyHAlAuRL0
