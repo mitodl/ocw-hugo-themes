@@ -1,6 +1,6 @@
 {{- $ctx := . -}}
 <div class="video-gallery-page-v3">
-  <p class="video-gallery-title-v3">{{ .Params.title }}</p>
+  <h2 class="video-gallery-title-v3">{{ .Params.title }}</h2>
   <div class="video-gallery-cards-container">
     {{- range .Params.videos.content -}}
       {{- $uuid := . -}}
@@ -12,14 +12,3 @@
     {{- end -}}
   </div>
 </div>
-{{/*
-  We check is_media_gallery here in case this is a legacy course. Legacy courses 
-  often render video galleries between the text and bottomtext, so ocw-to-hugo 
-  adds a video-gallery shortcode in the middle. So if it's a legacy course, we 
-  don't need to explicitly render the video gallery here.
-*/}}
-{{- if not (isset .Params "is_media_gallery") -}}
-  {{- if isset .Params "videos" -}}
-    {{/* Videos are already rendered above */}}
-  {{- end -}}
-{{- end -}}

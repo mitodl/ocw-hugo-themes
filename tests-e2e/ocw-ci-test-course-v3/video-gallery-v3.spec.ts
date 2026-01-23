@@ -77,8 +77,11 @@ test.describe("Course v3 Video Gallery Page", () => {
     )
     const count = await youtubeLogos.count()
 
-    // Either there are videos with youtube logo or all have thumbnails
-    expect(count).toBeGreaterThanOrEqual(0)
+    if (count > 0) {
+      const logo = youtubeLogos.first()
+      await expect(logo).toBeVisible()
+      await expect(logo).toHaveAttribute("alt", "YouTube")
+    }
   })
 
   test("Video gallery card links to correct video pages", async ({ page }) => {
