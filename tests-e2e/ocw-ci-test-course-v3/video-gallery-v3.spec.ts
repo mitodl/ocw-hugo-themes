@@ -14,7 +14,9 @@ test.describe("Course v3 Video Gallery Page", () => {
     }
   })
 
-  test("Video gallery page renders with correct structure", async ({ page }) => {
+  test("Video gallery page renders with correct structure", async ({
+    page
+  }) => {
     // Check the video gallery page container exists
     const galleryPage = page.locator(".video-gallery-page-v3")
     await expect(galleryPage).toBeVisible()
@@ -87,7 +89,9 @@ test.describe("Course v3 Video Gallery Page", () => {
     expect(href).toContain("/resources/")
   })
 
-  test("Video gallery card hover state changes border color", async ({ page }) => {
+  test("Video gallery card hover state changes border color", async ({
+    page
+  }) => {
     const videoCard = page.locator(".video-gallery-card").first()
 
     // Hover and check border changes to black
