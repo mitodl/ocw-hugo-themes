@@ -42,7 +42,29 @@
       </div>
     </div>
   {{- else -}}
-      {{ partial "video.html" . }}
+    <div class="video-view-page-v3">
+      <div class="video-view-header">
+        <div class="video-view-title-container">
+          {{ with .Params.parent_title }}
+          <p class="video-view-category">{{ . }}</p>
+          {{ end }}
+          <h1 class="video-view-title">{{ .Title }}</h1>
+        </div>
+        {{ if .Content }}
+        <div class="video-view-meta-block">
+          <div>{{ .Content }}</div>
+        </div>
+        {{ end }}
+        {{ with .Params.video_metadata.video_speakers }}
+        <div class="video-view-meta-block">
+          <div><strong>Instructors:</strong> {{ . }}</div>
+        </div>
+        {{ end }}
+      </div>
+      <div class="video-view-content">
+        {{ partial "video_v3.html" . }}
+      </div>
+    </div>
   {{- end -}}
   {{ if eq .Params.file_type "application/pdf" }}
     {{ partial "pdf_viewer.html" . }}

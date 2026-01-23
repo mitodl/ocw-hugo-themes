@@ -1,4 +1,5 @@
 {{- $ctx := . -}}
+<div class="video-gallery-cards-container">
 {{- range .Params.videos.content -}}
   {{- $uuid := . -}}
   {{- range $ctx.Site.Pages -}}
@@ -7,3 +8,4 @@
     {{- end -}}
   {{- end -}}
 {{- end -}}
+</div>

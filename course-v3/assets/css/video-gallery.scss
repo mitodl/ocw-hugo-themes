@@ -1,0 +1,92 @@
+// Video Gallery Styles for course-v3
+// Uses $mit-learn-font-family from mit-learn-header.scss
+
+.video-gallery-page-v3 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.video-gallery-title-v3 {
+  font-family: $mit-learn-font-family;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: $black;
+  margin: 0;
+}
+
+.video-gallery-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.video-gallery-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 4px;
+  background-color: $white;
+  border: 1px solid $mit-learn-light-gray-2;
+  border-radius: 4px;
+  box-shadow: 0px 1px 6px 0px rgba(3, 21, 45, 0.05);
+  text-decoration: none !important;
+  transition: border-color 0.15s ease;
+  width: 100%;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $black;
+    text-decoration: none !important;
+  }
+
+  .video-gallery-card-thumbnail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 104px;
+    min-width: 104px;
+    height: 60px;
+    background-color: $black;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      pointer-events: none;
+    }
+
+    .youtube-logo-overlay {
+      position: absolute;
+      width: 40px;
+      height: 28px;
+      object-fit: contain;
+      inset: unset;
+    }
+  }
+
+  .video-gallery-card-title {
+    flex: 1;
+    font-family: $mit-learn-font-family;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    color: $black;
+    text-align: left;
+    word-break: break-word;
+    text-decoration: none;
+  }
+
+  &:hover .video-gallery-card-title {
+    text-decoration: none;
+  }
+}
