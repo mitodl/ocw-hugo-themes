@@ -5,13 +5,6 @@ test.describe("Course v3 Video Gallery Page", () => {
   test.beforeEach(async ({ page }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/video_galleries/lecture-videos/")
-
-    // Skip all tests if video galleries page doesn't exist in test content
-    const galleryPage = page.locator(".video-gallery-page-v3")
-    const isVisible = await galleryPage.isVisible().catch(() => false)
-    if (!isVisible) {
-      test.skip(true, "Video gallery page not available in test content")
-    }
   })
 
   test("Video gallery page renders with correct structure", async ({
@@ -90,18 +83,20 @@ test.describe("Course v3 Video Gallery Page", () => {
     expect(href).toContain("/resources/")
   })
 
-  test("Video gallery card hover state changes border color", async ({
-    page
-  }) => {
+  test("Video gallery card hover state changes styles", async ({ page }) => {
     const videoCard = page.locator(".video-gallery-card").first()
 
-    // Hover and check border changes to black
+    // Hover and check styles change
     await videoCard.hover()
-    await expect(videoCard).toHaveCSS("border-color", "rgb(0, 0, 0)")
+    await expect(videoCard).toHaveCSS("border-color", "rgb(184, 194, 204)")
+    await expect(videoCard).toHaveCSS(
+      "background-color",
+      "rgba(243, 244, 248, 0.4)"
+    )
 
-    // Title should NOT change color on hover (stays black)
+    // Title should change color to highlight red on hover
     const title = videoCard.locator(".video-gallery-card-title")
-    await expect(title).toHaveCSS("color", "rgb(0, 0, 0)")
+    await expect(title).toHaveCSS("color", "rgb(163, 31, 52)")
     await expect(title).toHaveCSS("text-decoration-line", "none")
   })
 
