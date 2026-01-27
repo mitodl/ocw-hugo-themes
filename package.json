@@ -1,6 +1,6 @@
 {
   "name": "ocw-hugo-themes",
-  "version": "1.141.1",
+  "version": "1.142.0",
   "description": "A Hugo theme for building OCW websites",
   "repository": "mitodl/ocw-hugo-themes",
   "main": "base-theme/assets/index.js",
