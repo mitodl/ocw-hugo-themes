@@ -43,8 +43,8 @@
     display: flex;
 
     &.is-homepage {
-      @media (min-width: 1200px) {
-        width: 75%;
+      @media (min-width: 992px) {
+        max-width: 72.5%;
       }
       @media (min-width: 1400px) {
         width: 59.5rem;
@@ -84,21 +84,6 @@
     @media (min-width: 768px) {
       font-size: 2.25rem;
       line-height: 3.125rem;
-    }
-  }
-
-  .course-image-section {
-    @media (max-width: 1200px) {
-      display: none;
-    }
-
-    max-width: 320px !important;
-    position: fixed;
-    top: 7.5rem;
-    right: 2rem;
-
-    @media (min-width: 1400px) {
-      right: calc((100% - 79.75rem) / 2);
     }
   }
 }

@@ -163,6 +163,10 @@ h5 {
 
   .course-detail {
     flex: 1 1 57.5%;
+    &:has(.image-gallery) {
+      min-width: 0;
+    }
+    gap: 2rem;
 
     @media (min-width: 992px) {
       padding: 0rem 1rem 1rem 1rem;
@@ -175,13 +179,16 @@ h5 {
 
   .course-image-section {
     flex: 1 1 27%;
-    @media (min-width: 1200px) {
-      visibility: hidden;
+    position: sticky;
+    top: 104px;
+    @media (max-width: 992px) {
+      position: static;
+      top: 0;
+      margin-top: 0 !important;
     }
   }
 
   .bottom-download-button {
-    margin-top: 1.5rem;
     @media (min-width: 768px) {
       display: none;
     }
@@ -190,7 +197,7 @@ h5 {
   .mobile-nav-div {
     position: sticky;
     top: 3.75rem;
-    z-index: 99999;
+    z-index: 999;
     background-color: white;
   }
 
@@ -208,7 +215,15 @@ h5 {
     @media (max-width: 1199px) {
       margin-bottom: 1rem;
     }
+
+    .download-course-section {
+      margin-top: 0;
+    }
   }
+}
+
+.download-course-section {
+  margin-top: 1.5rem;
 }
 
 .user-list-modal {
@@ -356,14 +371,19 @@ pre {
 }
 
 .instructors-departments {
+  line-height: 1.125rem;
+  flex-basis: 50%;
   gap: 1.5rem;
 
-  .instructors {
-    gap: 0.5rem;
-  }
-
+  .instructors,
   .departments {
     gap: 0.5rem;
+
+    ul {
+      gap: 0.5rem;
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 
@@ -373,6 +393,38 @@ pre {
 
 .course-topics-container {
   gap: 0.5rem;
+  line-height: 1.125rem;
+  margin-bottom: -0.5rem;
+
+  button {
+    line-height: 1rem;
+    transform: rotate(-90deg);
+    padding: 0;
+
+    &[aria-expanded="true"] {
+      transform: rotate(0deg);
+    }
+  }
+
+  ul li {
+    > div {
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  .subtopic-container {
+    li {
+      > div {
+        padding-bottom: 0.5rem;
+      }
+    }
+  }
+
+  ul[id*="speciality-container"] {
+    li {
+      padding-bottom: 0.5rem;
+    }
+  }
 }
 
 .course-info {

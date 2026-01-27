@@ -4,31 +4,34 @@
 <div class="learning-resource-type-item">
     <i aria-hidden="true" class="material-icons">
       {{- if in $context "Audio" -}}
-      equalizer
+      {{ partial "icon.html" "audio" }}
       {{- else if in $context "Video" -}}
-      theaters
+        {{ partial "icon.html" "video" }}
       {{- else if or (in $context "Problem Set") (in $context "Assignment") -}}
         {{- if or (in $context "with Examples") (in $context "Solutions") -}}
-        assignment_turned_in
+        {{ partial "icon.html" "assignment-with-examples" }}
         {{- else -}}
-        assignment
+        {{ partial "icon.html" "problem-set" }}
         {{- end -}}
       {{- else if in $context "Exam" -}}
-      grading
+        {{ partial "icon.html" "exams" }}
       {{- else if eq $context "Image Gallery" -}}
-      collections
+        {{ partial "icon.html" "image-gallery" }}
       {{- else if eq $context "Lecture Notes" -}}
-      notes
+        {{ partial "icon.html" "lecture-notes" }}
+
       {{- else if eq $context "Open Textbooks" -}}
-      menu_book
+        {{ partial "icon.html" "open-textbooks" }}
       {{- else if in $context "Projects" -}}
-      group_work
+        {{ partial "icon.html" "projects" }}
       {{- else if in $context "Simulations" -}}
-      laptop_windows
+        {{ partial "icon.html" "simulations" }}
       {{- else if in $context "Instructor Insights" -}}
-      <span class="material-icons-round">
-        co_present
-      </span>
+        {{ partial "icon.html" "instructor-insights" }}
+      {{- else if in $context "Readings" -}}
+        {{ partial "icon.html" "readings" }}
+      {{- else if in $context "Editable Files" -}}
+        {{ partial "icon.html" "editable-files" }}
       {{- end -}}
     </i>
     <span>

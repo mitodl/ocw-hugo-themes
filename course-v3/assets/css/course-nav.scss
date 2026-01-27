@@ -7,6 +7,84 @@ nav {
 }
 
 .course-nav {
+  &.mobile {
+    background: white;
+    ul {
+      gap: 0;
+      margin: 0;
+
+      li {
+        border-bottom: 1px solid #dde6e2;
+      }
+
+      li:first-child {
+        border-top: 1px solid #dde6e2;
+      }
+
+      li:last-child {
+        border-bottom: none;
+      }
+    }
+
+    > ul {
+      > li:first-child {
+        border-top: none;
+      }
+    }
+
+    li .course-nav-parent {
+      border-radius: 0;
+      padding: 1rem;
+      justify-content: start;
+      gap: 0.5rem;
+
+      border-left: 1px solid #dde6e2;
+      border-right: 1px solid #dde6e2;
+
+      &.active {
+        border-left: 2px solid $highlight-red;
+      }
+
+      &:has(button) {
+        .course-nav-text-wrapper {
+          width: unset;
+        }
+
+        button {
+          flex-grow: 1;
+          justify-content: start;
+        }
+      }
+    }
+
+    // Nested padding for upto 5 levels of nesting.
+    > ul > li {
+      > ul > li {
+        > .course-nav-parent {
+          padding-left: 2rem;
+        }
+
+        > ul > li {
+          > .course-nav-parent {
+            padding-left: 3rem;
+          }
+
+          > ul > li {
+            > .course-nav-parent {
+              padding-left: 4rem;
+            }
+
+            > ul > li {
+              > .course-nav-parent {
+                padding-left: 5rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   a {
     text-decoration: none;
 
@@ -21,37 +99,47 @@ nav {
   ul {
     display: flex;
     flex-direction: column;
+    margin-left: 1rem;
+  }
+
+  > ul {
     gap: 0.75rem;
+    margin-left: 0;
+
+    li > div:hover {
+      background-color: #f3f4f8;
+      border-radius: 4px;
+    }
   }
 
   li > ul {
     padding-left: 0px;
-
-    li > .course-nav-parent {
-      padding-left: 24px !important;
-    }
   }
 }
 
-.course-nav-parent {
-  border-left: 3px solid transparent !important;
+ul .course-nav-parent {
+  border-left: 3px solid transparent;
   border-radius: 0.0625rem 0.25rem 0.25rem 0.0625rem;
+  padding: 0.5rem 0.75rem;
+  justify-content: space-between;
 
-  padding: 0.5rem 0.75rem !important;
   &.active {
     font-weight: 600;
-    background-color: #212326 !important;
+    background-color: #212326;
     border-left: 3px solid $highlight-red !important;
     border-radius: 4px;
 
+    &:hover {
+      background-color: #212326;
+    }
     button.course-nav-section-toggle {
-      color: white;
+      svg path {
+        fill: white;
+      }
     }
   }
 
   &:hover {
-    background-color: #f3f4f8;
-    border-radius: 4px;
     a,
     button {
       color: $highlight-red;
@@ -88,12 +176,10 @@ nav {
   align-self: flex-start;
 }
 
-.course-nav-section-toggle > i:after {
-  content: "keyboard_arrow_down";
-}
-
-.course-nav-section-toggle[aria-expanded="true"] > i:after {
-  content: "keyboard_arrow_up" !important;
+.course-nav-section-toggle[aria-expanded="true"] {
+  svg {
+    transform: rotate(180deg);
+  }
 }
 
 .course-nav-child-nav {
