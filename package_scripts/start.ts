@@ -168,11 +168,17 @@ const start = program
     "Set the log level for Hugo (options: debug, info, warn, error).",
     "info"
   )
+  .option(
+    "--port [number]",
+    "Port number for the Hugo development server.",
+    "3000"
+  )
 
 type StartOptions = {
   gitContentSource: string
   contentDir: string
   config: string
+  port?: string
 }
 
 /**
@@ -198,13 +204,14 @@ const startSiteAction = async (opts: StartOptions, cliOptNames: string[]) => {
 
   await ensureHugoConfig("COURSE_HUGO_CONFIG_PATH")
 
-  const globalOpts = program.opts() as { logLevel: string }
+  const globalOpts = program.opts() as { logLevel: string; port: string }
   const logLevel = globalOpts.logLevel
+  const port = parseInt(globalOpts.port, 10)
 
   startWebpackAnd({
     name:    "hugo",
     cwd:     opts.contentDir,
-    command: hugoServer({ config: opts.config, logLevel })
+    command: hugoServer({ config: opts.config, logLevel, port })
   })
 }
 

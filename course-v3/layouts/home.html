@@ -15,7 +15,6 @@
 
   <div>
     <div class="course-header">
-      {{ partialCached "mobile_course_nav.html" . }}
       {{ partialCached "mobile_course_info.html" . }}
       {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
       {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}

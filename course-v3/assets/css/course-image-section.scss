@@ -5,9 +5,11 @@
     margin-bottom: 1rem;
   }
 
-  .download-button {
-    margin-top: 1rem;
+  @media (min-width: 1200px) {
+    margin-bottom: 3.5rem;
+  }
 
+  .download-button {
     @media (max-width: 768px) {
       display: none;
     }

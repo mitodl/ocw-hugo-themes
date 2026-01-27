@@ -1,16 +1,5 @@
 .topic-toggle {
-  position: absolute;
-  height: 26px;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 0;
+  position: relative;
   pointer-events: all;
-}
-
-.topic-toggle > i:after {
-  content: "chevron_right";
-}
-
-.topic-toggle[aria-expanded="true"] > i:after {
-  content: "expand_more" !important;
+  top: -1px;
 }

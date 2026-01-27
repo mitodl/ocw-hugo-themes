@@ -23,8 +23,6 @@
   </button>
   
   <div class="mobile-course-menu-items" id="mobile-course-menu-items">
-    {{ range $menu }}
-      {{ partial "mobile_course_menu_item_v3.html" (dict "menuItem" . "context" $.context) }}
-    {{ end }}
+    {{ partial "nav.html" (dict "context" .context "device" "mobile") }}
   </div>
 </div>

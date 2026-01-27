@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.142.0
+---------------
+
+- feat: added video gallery for course-v3 (#1701)
+- Fix some issues with the v3 theme (#1713)
+
 Version 1.141.1 (Released January 22, 2026)
 ---------------
 

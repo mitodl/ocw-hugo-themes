@@ -7,7 +7,7 @@
 {{ $subtopics = .subtopics }}
 {{ end }}
 {{ $scratch := newScratch }}
-<div class="position-relative {{ if gt (len $subtopics) 0 }} pl-4 {{ end }}">
+<div class="position-relative {{ if gt (len $subtopics) 0 }} pl-0 {{ else }} pl-1 {{ end }}">
   {{ if gt (len $subtopics) 0 }}
   <button
     type="button"
@@ -18,7 +18,7 @@
     aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}"
     aria-label="{{ $topicTitle }} subtopics"
   >
-    <i aria-hidden="true" class="material-icons"></i>
+    {{ partial "icon.html" "chevron" }}
   </button>
   {{ end }}
   <span class="topic-text-wrapper">
@@ -36,7 +36,7 @@
   {{ range $subtopic, $specialities := $subtopics }}
   {{ $subtopicIndex := $scratch.Get "index" }}
   <li>
-    <div class="position-relative {{ if gt (len ($specialities | default slice)) 0 }} pl-4 {{ else }} pl-2 {{ end }}">
+    <div class="position-relative {{ if gt (len ($specialities | default slice)) 0 }} pl-0 {{ else }} pl-2 {{ end }}">
       {{ if gt (len ($specialities | default slice)) 0 }}
       <button
         class="topic-toggle border-0 bg-transparent pl-0"
@@ -46,7 +46,7 @@
         aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}"
         aria-label="{{ $subtopic }} specialties"
       >
-        <i aria-hidden="true" class="material-icons"></i>
+        {{ partial "icon.html" "chevron" }}
       </button>
       {{ end }}
       <span class="topic-text-wrapper">
