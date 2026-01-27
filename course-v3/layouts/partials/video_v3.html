@@ -1,0 +1,34 @@
+{{ $youtubeKey := trim .Params.video_metadata.youtube_id " "}}
+{{ $archiveUrl := .Params.video_files.archive_url }}
+{{ $captionsLocation := partial "video_captions_file_url.html" (dict "context" . "url" .Params.video_files.video_captions_file) }}
+{{ $transcriptPdfLocation := partial "resource_url.html" (dict "context" . "url" .Params.video_files.video_transcript_file) }}
+{{ $downloadLink := .Params.file }}
+{{ $relatedResourses := .Params.related_resources_text | default "" }}
+{{ $optionalTabTitle := .Params.optional_tab_title | default "" }}
+{{ $optionalTabContent := .Params.optional_text | default ""}}
+{{ $startTime := .Params.start_time | default "" }}
+{{ $endTime := .Params.end_time | default "" }}
+{{ $context := . }}
+
+{{ if (eq $downloadLink nil) }}
+{{ $downloadLink = .Params.video_files.archive_url }}
+{{ else }}
+{{ $downloadLink = partial "resource_url.html" (dict "context" . "url" $downloadLink) }}
+{{ end }}
+
+<div class="video-page">
+  <div class="video-player-wrapper">
+    {{ partial "video_player.html" (dict "context" $context "youtubeKey" $youtubeKey "archiveUrl" $archiveUrl "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation)}}
+    {{ if $transcriptPdfLocation }}
+      {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "transcript" "tabTitle" "Transcript" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation) }}
+    {{ end }}
+
+    {{ if $relatedResourses }}
+      {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
+    {{ end }}
+
+    {{ if and $optionalTabTitle $optionalTabContent }}
+      {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
+    {{ end }}
+  </div>
+</div>

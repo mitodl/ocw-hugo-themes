@@ -8,6 +8,17 @@
 */}}
 {{- if not (isset .Params "is_media_gallery") -}}
   {{- if isset .Params "videos" -}}
-    {{- partial "video-gallery.html" . -}}
+    <div class="video-gallery-page-v3">
+      <div class="video-gallery-cards-container">
+        {{- range .Params.videos.content -}}
+          {{- $uuid := . -}}
+          {{- range $ctx.Site.Pages -}}
+            {{- if eq (replace .Params.uid "-" "") (replace $uuid "-" "") -}}
+              {{ partial "video-gallery-item.html" . }}
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+      </div>
+    </div>
   {{- end -}}
 {{- end -}}
