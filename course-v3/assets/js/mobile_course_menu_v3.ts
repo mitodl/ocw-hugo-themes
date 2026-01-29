@@ -11,24 +11,13 @@ export const initMobileCourseMenuV3 = () => {
     return
   }
 
-  // Ensure initial state matches the HTML (menu open by default)
-  toggleButton.setAttribute("aria-expanded", "true")
-  menuItems.style.display = "flex"
-
-  // Toggle menu visibility
+  // Toggle menu visibility via aria-expanded (CSS handles display)
   toggleButton.addEventListener("click", e => {
     e.preventDefault()
     const isExpanded = toggleButton.getAttribute("aria-expanded") === "true"
 
-    if (isExpanded) {
-      // Collapse menu
-      toggleButton.setAttribute("aria-expanded", "false")
-      menuItems.style.display = "none"
-    } else {
-      // Expand menu
-      toggleButton.setAttribute("aria-expanded", "true")
-      menuItems.style.display = "flex"
-    }
+    // Toggle aria-expanded attribute (CSS will handle visibility)
+    toggleButton.setAttribute("aria-expanded", isExpanded ? "false" : "true")
   })
 
   // Close menu when clicking outside
@@ -43,7 +32,6 @@ export const initMobileCourseMenuV3 = () => {
       !toggleButton.contains(target)
     ) {
       toggleButton.setAttribute("aria-expanded", "false")
-      menuItems.style.display = "none"
     }
   })
 }
