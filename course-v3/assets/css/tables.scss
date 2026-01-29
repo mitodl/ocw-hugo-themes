@@ -76,21 +76,21 @@
     }
 
     tbody {
-      td {
+      > tr > td {
         background: white !important;
         border-bottom: 1px solid var(--Light-Gray-2, #dde1e6) !important;
       }
 
-      td:first-child {
+      > tr > td:first-child {
         border-left: 1px solid var(--Light-Gray-2, #dde1e6) !important;
       }
-      td:last-child {
+      > tr > td:last-child {
         border-right: 1px solid var(--Light-Gray-2, #dde1e6) !important;
       }
-      tr:last-child td:first-child {
+      > tr:last-child > td:first-child {
         border-bottom-left-radius: 0.5rem;
       }
-      tr:last-child td:last-child {
+      > tr:last-child > td:last-child {
         border-bottom-right-radius: 0.5rem;
       }
     }
