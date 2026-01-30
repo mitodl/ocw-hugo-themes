@@ -81,11 +81,6 @@
           background: white !important;
           border-bottom: 1px solid var(--Light-Gray-2, #dde1e6) !important;
 
-          // Reset borders for any nested elements inside cells
-          * {
-            border: none !important;
-          }
-
           &:first-child {
             border-left: 1px solid var(--Light-Gray-2, #dde1e6) !important;
           }
@@ -100,6 +95,48 @@
             border-bottom-left-radius: 0.5rem;
           }
           &:last-child {
+            border-bottom-right-radius: 0.5rem;
+          }
+        }
+      }
+    }
+
+    &.has-rowspans {
+      tbody {
+        > tr {
+          > td {
+            border-bottom: none !important;
+            border-left: none !important;
+            border-right: none !important;
+          }
+
+          > td[rowspan] {
+            border-bottom: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+
+            &:first-child {
+              border-left: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+            }
+
+            &:last-child {
+              border-right: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+            }
+          }
+        }
+
+        > tr.rowspan-end > td {
+          border-bottom: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+        }
+
+        > tr:last-child > td {
+          border-bottom: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+
+          &:first-child {
+            border-left: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+            border-bottom-left-radius: 0.5rem;
+          }
+
+          &:last-child {
+            border-right: 1px solid var(--Light-Gray-2, #dde1e6) !important;
             border-bottom-right-radius: 0.5rem;
           }
         }
