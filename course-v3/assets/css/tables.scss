@@ -104,13 +104,15 @@
     &.has-rowspans {
       tbody {
         > tr {
-          > td {
+          > td,
+          > th {
             border-bottom: none !important;
             border-left: none !important;
             border-right: none !important;
           }
 
-          > td[rowspan] {
+          > td[rowspan],
+          > th[rowspan] {
             border-bottom: 1px solid var(--Light-Gray-2, #dde1e6) !important;
 
             &:first-child {
@@ -123,11 +125,13 @@
           }
         }
 
-        > tr.rowspan-end > td {
+        > tr.rowspan-end > td,
+        > tr.rowspan-end > th {
           border-bottom: 1px solid var(--Light-Gray-2, #dde1e6) !important;
         }
 
-        > tr:last-child > td {
+        > tr:last-child > td,
+        > tr:last-child > th {
           border-bottom: 1px solid var(--Light-Gray-2, #dde1e6) !important;
 
           &:first-child {

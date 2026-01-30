@@ -14,9 +14,15 @@ export const initTableRowspanBorders = () => {
       const cells = Array.from(row.querySelectorAll("td[rowspan], th[rowspan]"))
       cells.forEach(cell => {
         const rowspanValue = cell.getAttribute("rowspan")
-        const rowspan = rowspanValue ? parseInt(rowspanValue, 10) : 1
+        const parsedRowspan =
+          rowspanValue !== null ? parseInt(rowspanValue, 10) : 1
+        const rowspan =
+          !Number.isNaN(parsedRowspan) && parsedRowspan >= 1 ? parsedRowspan : 1
         if (rowspan > 1) {
-          endRows.add(rowIndex + rowspan - 1)
+          const endIndex = Math.min(rowIndex + rowspan - 1, rows.length - 1)
+          if (endIndex > rowIndex) {
+            endRows.add(endIndex)
+          }
         }
       })
     })
