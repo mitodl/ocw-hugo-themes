@@ -204,6 +204,7 @@ h5 {
   }
 
   .desktop-course-info {
+    color: $black;
     > div {
       border-radius: 10px;
     }
@@ -220,6 +221,12 @@ h5 {
 
     .download-course-section {
       margin-top: 0;
+    }
+
+    h6 {
+      font-size: $font-sm;
+      line-height: 1.125rem;
+      font-weight: 500;
     }
   }
 }
