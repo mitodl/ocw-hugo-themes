@@ -3,43 +3,46 @@ import videojs from "video.js"
 
 function _initMenuItems() {
   const MenuItems = videojs.getComponent("MenuItem")
-  const SettingMenuItems = videojs.extend(MenuItems, {
-    constructor: function(player, options) {
+  class SettingMenuItems extends MenuItems {
+    constructor(player, options) {
       options.selectable = true
-      MenuItems.call(this, player, options)
+      super( player, options)
       player.on("onPlaybackRateChange", videojs.bind(this, this.update))
-    },
-    handleClick: function() {
-      this.player_.tech_.ytPlayer.setPlaybackRate(this.options_.label)
+    }
+
+    handleClick() {
+      this.player_.tech_.setPlaybackRate(this.options_.label)
       this.player_.currentPlaybackRate = this.options_.label
       this.player_.trigger("onPlaybackRateChange")
-    },
-    update: function() {
+    }
+
+    update() {
       const selection = this.player_.currentPlaybackRate
       this.selected(this.options_.label === selection)
     }
-  })
-  MenuItems.registerComponent("SettingMenuItems", SettingMenuItems)
+  }
+
+  videojs.registerComponent("SettingMenuItems", SettingMenuItems)
 }
 
 function _initMenuButton() {
   const MenuButton = videojs.getComponent("MenuButton")
-  const SettingMenuButton = videojs.extend(MenuButton, {
-    constructor: function(player, options) {
+  class SettingMenuButton extends MenuButton {
+    constructor(player, opts) {
+      super(player, opts)
       this.label = document.createElement("span")
-      this.playbackSpeeds = options.playbackSpeeds
-      options.label = "playback speed"
-
-      MenuButton.call(this, player, options)
+      this.playbackSpeeds = opts.playbackSpeeds
+      opts.label = "playback speed"
       this.$("button").classList.add("vjs-quality-selector")
       this.el().setAttribute("aria-label", "playback speed")
       this.el().classList.add("playback-button-position")
       this.controlText("playback speed")
-    },
-    createItems: function() {
+    }
+
+    createItems() {
       const menuItems = []
       const SettingMenuItems = videojs.getComponent("SettingMenuItems")
-      this.playbackSpeeds.map(item => {
+      this.options_.playbackSpeeds.map(item => {
         menuItems.push(
           new SettingMenuItems(this.player_, {
             label:    item,
@@ -49,10 +52,10 @@ function _initMenuButton() {
       })
       return menuItems
     }
-  })
+  }
 
   // ready function
-  MenuButton.registerComponent("SettingMenuButton", SettingMenuButton)
+  videojs.registerComponent("SettingMenuButton", SettingMenuButton)
 }
 
 export const initPlayBackSpeedButton = () => {
