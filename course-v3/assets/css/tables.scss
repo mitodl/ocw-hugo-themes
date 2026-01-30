@@ -106,34 +106,29 @@
         > tr {
           > td,
           > th {
+            // All cells get bottom border, no vertical borders by default
             border-bottom: 1px solid var(--Light-Gray-2, #dde1e6) !important;
             border-left: none !important;
             border-right: none !important;
           }
 
-          // Only cells with rowspan in first column get left border
-          > td[rowspan]:first-child,
-          > th[rowspan]:first-child {
+          // Rowspan cells: align top and add both left and right borders
+          > td[rowspan],
+          > th[rowspan] {
             vertical-align: top !important;
             border-left: 1px solid var(--Light-Gray-2, #dde1e6) !important;
-          }
-
-          // Only cells with rowspan in last column get right border
-          > td[rowspan]:last-child,
-          > th[rowspan]:last-child {
             border-right: 1px solid var(--Light-Gray-2, #dde1e6) !important;
           }
-        }
 
-        // First row gets outer borders (since it starts the rowspans)
-        > tr:first-child {
-          > td:first-child,
-          > th:first-child {
+          // First cell gets left border only if it's NOT a rowspan cell
+          > td:first-child:not([rowspan]),
+          > th:first-child:not([rowspan]) {
             border-left: 1px solid var(--Light-Gray-2, #dde1e6) !important;
           }
 
-          > td:last-child,
-          > th:last-child {
+          // Last cell gets right border only if it's NOT a rowspan cell
+          > td:last-child:not([rowspan]),
+          > th:last-child:not([rowspan]) {
             border-right: 1px solid var(--Light-Gray-2, #dde1e6) !important;
           }
         }
