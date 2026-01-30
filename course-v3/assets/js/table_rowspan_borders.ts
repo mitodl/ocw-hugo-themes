@@ -1,7 +1,5 @@
 export const initTableRowspanBorders = () => {
-  const tables = document.querySelectorAll(
-    ".course-main-content-v3 table"
-  )
+  const tables = document.querySelectorAll(".course-main-content-v3 table")
 
   tables.forEach(table => {
     const tbody = table.querySelector("tbody")
