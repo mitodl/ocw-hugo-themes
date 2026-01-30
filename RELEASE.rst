@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.142.0
+Version 1.142.0 (Released January 30, 2026)
 ---------------
 
 - feat: added video gallery for course-v3 (#1701)
