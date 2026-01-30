@@ -1,5 +1,5 @@
 // color variables
-$control-item-color: $dark-gray;
+$control-item-color: white;
 $control-item-bg-color: $light-gray;
 $slider-color: $pink;
 
@@ -40,6 +40,9 @@ $slider-color: $pink;
   }
   .vjs-menu-content {
     background-color: $control-item-bg-color !important;
+    .vjs-menu-item-text, .vjs-menu-title {
+      color: black;
+    }
   }
 
   .vjs-volume-bar {
