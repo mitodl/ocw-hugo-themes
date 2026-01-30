@@ -6,7 +6,7 @@ function _initMenuItems() {
   class SettingMenuItems extends MenuItems {
     constructor(player, options) {
       options.selectable = true
-      super( player, options)
+      super(player, options)
       player.on("onPlaybackRateChange", videojs.bind(this, this.update))
     }
 
