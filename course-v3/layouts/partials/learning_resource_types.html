@@ -12,7 +12,7 @@
     </p>
   </div>
   <div class="learning-resource-types-content {{ if $inPanel }}in-panel{{ end }}">
-    {{ range $courseData.learning_resource_types }}
+    {{ range sort $courseData.learning_resource_types }}
       {{ partial "learning_resource_type.html" (dict "context" . "inPanel" $inPanel) }}
     {{ end }}
   </div>
