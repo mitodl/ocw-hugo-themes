@@ -197,13 +197,11 @@ h5 {
   }
 
   .mobile-nav-div {
-    position: sticky;
-    top: 3.75rem;
-    z-index: 999;
     background-color: white;
   }
 
   .desktop-course-info {
+    color: $black;
     > div {
       border-radius: 10px;
     }
@@ -220,6 +218,12 @@ h5 {
 
     .download-course-section {
       margin-top: 0;
+    }
+
+    h6 {
+      font-size: $font-sm;
+      line-height: 1.125rem;
+      font-weight: 500;
     }
   }
 }

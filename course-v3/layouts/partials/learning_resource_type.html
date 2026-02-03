@@ -2,16 +2,16 @@
 {{ $inPanel := .inPanel }}
 
 <div class="learning-resource-type-item">
-    <i aria-hidden="true" class="material-icons">
+    <span aria-hidden="true" class="lrt-icon">
       {{- if in $context "Audio" -}}
-      {{ partial "icon.html" "audio" }}
+        {{ partial "icon.html" "audio" }}
       {{- else if in $context "Video" -}}
         {{ partial "icon.html" "video" }}
       {{- else if or (in $context "Problem Set") (in $context "Assignment") -}}
         {{- if or (in $context "with Examples") (in $context "Solutions") -}}
-        {{ partial "icon.html" "assignment-with-examples" }}
+          {{ partial "icon.html" "assignment-with-examples" }}
         {{- else -}}
-        {{ partial "icon.html" "problem-set" }}
+          {{ partial "icon.html" "problem-set" }}
         {{- end -}}
       {{- else if in $context "Exam" -}}
         {{ partial "icon.html" "exams" }}
@@ -19,7 +19,6 @@
         {{ partial "icon.html" "image-gallery" }}
       {{- else if eq $context "Lecture Notes" -}}
         {{ partial "icon.html" "lecture-notes" }}
-
       {{- else if eq $context "Open Textbooks" -}}
         {{ partial "icon.html" "open-textbooks" }}
       {{- else if in $context "Projects" -}}
@@ -33,7 +32,7 @@
       {{- else if in $context "Editable Files" -}}
         {{ partial "icon.html" "editable-files" }}
       {{- end -}}
-    </i>
+    </span>
     <span>
       {{- $context -}}
     </span>
