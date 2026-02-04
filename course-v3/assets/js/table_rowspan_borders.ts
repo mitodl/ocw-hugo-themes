@@ -63,7 +63,7 @@ export const initTableRowspanBorders = () => {
         rowCells.push({
           cell,
           colStart: columnIndex,
-          colEnd: columnIndex + colspan,
+          colEnd:   columnIndex + colspan,
           rowspan,
           colspan
         })
