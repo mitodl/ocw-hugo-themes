@@ -2,12 +2,36 @@ h4 {
   color: $highlight-red !important;
 }
 
+.resource-list {
+  margin-bottom: 24px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
 .download-course-container {
   border-radius: 3px;
+
+  .download-course-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .download-course-button-wrap {
+    display: flex;
+    justify-content: flex-start;
+  }
 
   .download-course-text {
     font-size: 14px;
     line-height: 1.5;
+
+    ol {
+      margin-bottom: 0;
+    }
   }
 
   .download-course-button {
@@ -29,7 +53,7 @@ h4 {
     transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: $mit-red-dark-hover;
+      background-color: $highlight-red;
     }
 
     &:active {
@@ -160,8 +184,10 @@ $resource-card-text-primary: #212326; // Text Primary
   }
 
   .resource-card-download-icon {
-    width: 14px;
-    height: 15px;
+    width: 12px;
+    height: 13px;
+    display: block;
+    flex-shrink: 0;
   }
 
   .resource-card-file-size {
