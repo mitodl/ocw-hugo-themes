@@ -112,42 +112,20 @@
             border-right: none !important;
           }
 
-          // Rowspan cells: align top and add both left and right borders
+          // Rowspan cells: align top
           > td[rowspan],
           > th[rowspan] {
             vertical-align: top !important;
+          }
+
+          > td.rowspan-border-left,
+          > th.rowspan-border-left {
             border-left: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+          }
+
+          > td.rowspan-border-right,
+          > th.rowspan-border-right {
             border-right: 1px solid var(--Light-Gray-2, #dde1e6) !important;
-          }
-
-          // First cell gets left border only if it's NOT a rowspan cell
-          &:not(.rowspan-continued-left) {
-            > td:first-child:not([rowspan]),
-            > th:first-child:not([rowspan]) {
-              border-left: 1px solid var(--Light-Gray-2, #dde1e6) !important;
-            }
-          }
-
-          &.rowspan-continued-left {
-            > td:first-child,
-            > th:first-child {
-              border-left: none !important;
-            }
-          }
-
-          // Last cell gets right border only if it's NOT a rowspan cell
-          &:not(.rowspan-continued-right) {
-            > td:last-child:not([rowspan]),
-            > th:last-child:not([rowspan]) {
-              border-right: 1px solid var(--Light-Gray-2, #dde1e6) !important;
-            }
-          }
-
-          &.rowspan-continued-right {
-            > td:last-child,
-            > th:last-child {
-              border-right: none !important;
-            }
           }
         }
 
