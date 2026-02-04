@@ -1,3 +1,10 @@
+/**
+ * Initializes table rowspan border styling by detecting rowspan cells and adding
+ * appropriate CSS classes for proper border rendering. Scans tables within the
+ * course content area and applies 'has-rowspans' class to tables containing
+ * rowspans, and 'rowspan-border-left'/'rowspan-border-right' classes to cells
+ * that need vertical borders at rowspan boundaries.
+ */
 export const initTableRowspanBorders = () => {
   const tables = document.querySelectorAll(".course-main-content-v3 table")
 
@@ -8,17 +15,15 @@ export const initTableRowspanBorders = () => {
     }
 
     const rows = Array.from(tbody.querySelectorAll("tr"))
-    const endRows = new Set<number>()
-    const rowData: Array<{
-      row: HTMLTableRowElement
-      cells: Array<{
+    const rowData: Array<
+      Array<{
         cell: HTMLTableCellElement
         colStart: number
         colEnd: number
         rowspan: number
         colspan: number
       }>
-    }> = []
+    > = []
     const rowspanColumns = new Set<number>()
     // activeRowspans stores remaining rows including the current row.
     const activeRowspans: number[] = []
@@ -30,7 +35,7 @@ export const initTableRowspanBorders = () => {
       return !Number.isNaN(parsed) && parsed >= 1 ? parsed : 1
     }
 
-    rows.forEach((row, rowIndex) => {
+    rows.forEach(row => {
       const cells = Array.from(row.children).filter(
         child => child.tagName === "TD" || child.tagName === "TH"
       ) as HTMLTableCellElement[]
@@ -38,10 +43,6 @@ export const initTableRowspanBorders = () => {
       let columnIndex = 0
       while (activeRowspans[columnIndex] > 0) {
         columnIndex += 1
-      }
-
-      if (columnIndex > 0) {
-        row.classList.add("rowspan-continued-left")
       }
 
       const rowCells: Array<{
@@ -70,10 +71,6 @@ export const initTableRowspanBorders = () => {
 
         if (rowspan > 1) {
           hasRowspans = true
-          const endIndex = Math.min(rowIndex + rowspan - 1, rows.length - 1)
-          if (endIndex > rowIndex) {
-            endRows.add(endIndex)
-          }
           for (let offset = 0; offset < colspan; offset += 1) {
             const spanIndex = columnIndex + offset
             rowspanColumns.add(spanIndex)
@@ -87,15 +84,8 @@ export const initTableRowspanBorders = () => {
         columnIndex += colspan
       })
 
-      rowData.push({ row, cells: rowCells })
+      rowData.push(rowCells)
       colCount = Math.max(colCount, columnIndex, activeRowspans.length)
-
-      for (let i = columnIndex; i < activeRowspans.length; i += 1) {
-        if (activeRowspans[i] > 0) {
-          row.classList.add("rowspan-continued-right")
-          break
-        }
-      }
 
       // Decrement active rowspans after processing the current row.
       activeRowspans.forEach((span, index) => {
@@ -107,14 +97,7 @@ export const initTableRowspanBorders = () => {
 
     table.classList.toggle("has-rowspans", hasRowspans)
 
-    endRows.forEach(index => {
-      const row = rows[index]
-      if (row) {
-        row.classList.add("rowspan-end")
-      }
-    })
-
-    rowData.forEach(({ cells }) => {
+    rowData.forEach(cells => {
       cells.forEach(({ cell }) => {
         cell.classList.remove("rowspan-border-left", "rowspan-border-right")
       })
@@ -132,7 +115,7 @@ export const initTableRowspanBorders = () => {
       boundaryIndexes.add(columnIndex + 1)
     })
 
-    rowData.forEach(({ cells }) => {
+    rowData.forEach(cells => {
       cells.forEach(({ cell, colStart, colEnd }) => {
         if (boundaryIndexes.has(colStart)) {
           cell.classList.add("rowspan-border-left")

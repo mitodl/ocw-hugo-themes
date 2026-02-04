@@ -112,12 +112,6 @@
             border-right: none !important;
           }
 
-          // Rowspan cells: align top
-          > td[rowspan],
-          > th[rowspan] {
-            vertical-align: top !important;
-          }
-
           > td.rowspan-border-left,
           > th.rowspan-border-left {
             border-left: 1px solid var(--Light-Gray-2, #dde1e6) !important;
