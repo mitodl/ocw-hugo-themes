@@ -75,10 +75,15 @@ $panel-course-info-text-color: #464646;
   }
 
   &:hover {
-    background-color: $mit-red-dark-hover;
+    background-color: $highlight-red;
+    color: $white;
   }
 
   &:active {
     background-color: $mit-red-dark-active;
+  }
+
+  &:visited {
+    color: $white;
   }
 }
