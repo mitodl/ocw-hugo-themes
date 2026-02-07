@@ -8,6 +8,8 @@
       equalizer
       {{- else if in $context "Video" -}}
       theaters
+      {{- else if in $context "Podcast" -}}
+      podcasts
       {{- else if or (in $context "Problem Set") (in $context "Assignment") -}}
         {{- if or (in $context "with Examples") (in $context "Solutions") -}}
         assignment_turned_in
@@ -18,8 +20,10 @@
       grading
       {{- else if eq $context "Image Gallery" -}}
       collections
-      {{- else if eq $context "Lecture Notes" -}}
+      {{- else if in $context "Notes" -}}
       notes
+      {{- else if in $context "Readings" -}}
+      auto_stories
       {{- else if eq $context "Open Textbooks" -}}
       menu_book
       {{- else if in $context "Projects" -}}
@@ -30,6 +34,10 @@
       <span class="material-icons-round">
         co_present
       </span>
+      {{- else if eq $context "Tools" -}}
+      build
+      {{- else if in $context "Editable" -}}
+      edit_note
       {{- end -}}
     </i>
     <span>

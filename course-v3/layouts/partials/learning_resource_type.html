@@ -7,6 +7,8 @@
         {{ partial "icon.html" "audio" }}
       {{- else if in $context "Video" -}}
         {{ partial "icon.html" "video" }}
+      {{- else if in $context "Podcast" -}}
+        {{ partial "icon.html" "podcasts" }}
       {{- else if or (in $context "Problem Set") (in $context "Assignment") -}}
         {{- if or (in $context "with Examples") (in $context "Solutions") -}}
           {{ partial "icon.html" "assignment-with-examples" }}
@@ -17,7 +19,7 @@
         {{ partial "icon.html" "exams" }}
       {{- else if eq $context "Image Gallery" -}}
         {{ partial "icon.html" "image-gallery" }}
-      {{- else if eq $context "Lecture Notes" -}}
+      {{- else if in $context "Notes" -}}
         {{ partial "icon.html" "lecture-notes" }}
       {{- else if eq $context "Open Textbooks" -}}
         {{ partial "icon.html" "open-textbooks" }}
@@ -31,6 +33,8 @@
         {{ partial "icon.html" "readings" }}
       {{- else if in $context "Editable Files" -}}
         {{ partial "icon.html" "editable-files" }}
+      {{- else if eq $context "Tools" -}}
+        {{ partial "icon.html" "tools" }}
       {{- end -}}
     </span>
     <span>
