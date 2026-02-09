@@ -1,24 +1,26 @@
 {{ define "main" }}
 {{- $hideDownload := .Site.Data.course.hide_download -}}
-{{ partial "resources_header.html" . }}
 {{- if not $hideDownload -}}
-  {{ $numberOfResourcesLimit := 10 }}
-  {{ $taxonomy := "learning_resource_types" }}
-  <div class="mb-5 w-100">
-    {{ with ($.Site.GetPage (printf "/%s" $taxonomy)) }}
-      {{ with .Pages }}
-        {{ range . }}
-          {{ if in .Title "Video" }}
-            {{ partial "resource_list_collapsible.html" (dict "context" . "expand" true) }}
+  <div class="download-page-content">
+    {{ partial "resources_header.html" . }}
+    {{ $numberOfResourcesLimit := 10 }}
+    {{ $taxonomy := "learning_resource_types" }}
+    <div class="download-resource-lists">
+      {{ with ($.Site.GetPage (printf "/%s" $taxonomy)) }}
+        {{ with .Pages }}
+          {{ range . }}
+            {{ if in .Title "Video" }}
+              {{ partial "resource_list_collapsible.html" (dict "context" . "expand" true) }}
+            {{ end }}
           {{ end }}
-        {{ end }}
-        {{ range . }}
-          {{ if not (in .Title "Video") }}
-            {{ partial "resource_list_collapsible.html" (dict "context" . "expand" false) }}
+          {{ range . }}
+            {{ if not (in .Title "Video") }}
+              {{ partial "resource_list_collapsible.html" (dict "context" . "expand" false) }}
+            {{ end }}
           {{ end }}
         {{ end }}
       {{ end }}
-    {{ end }}
+    </div>
   </div>
-  {{- end -}}
+{{- end -}}
 {{ end }}

@@ -6,19 +6,12 @@
 {{- if not $hideDownload -}}
 <div class="mb-2">
   <h2>Download</h2>
-  <div class="hide-offline download-course-container background-color-light-grey p-3">
+  <div class="hide-offline download-course-container">
     <div class="download-course-content">
-      <div class="download-course-button-wrap">
-        <a class="download-course-button p-2" href="{{ $downloadCourseUrl }}">
-          <span aria-hidden="true" class="material-icons">file_download</span> Download course
-        </a>
-      </div>
       <div class="download-course-text">
         {{- if $noResourcesFound -}}
         This package contains the same content as the online version of the course. Once downloaded, to open the homepage, click on the <strong>index.html</strong> file.
         For more help using these materials, read our {{ partial "link.html" (dict "href" $zenDeskUrl "text" "FAQs" "target" "_blank") }}.
-      </div>
-    </div>
         {{- else -}}
         This package contains the same content as the online version of the course
         {{- if $containsVideos }}, <em>except for the audio/video materials</em>, which can be downloaded using the links below{{ end }}. Once downloaded, follow the steps below.
@@ -27,9 +20,14 @@
           <li>To open the homepage, click on the <strong>index.html</strong> file.</li>
           <li>To find the course resource files such as PDFs, open the <strong>static_resources</strong> folder.</li>
         </ol>
+        {{- end -}}
+      </div>
+      <div class="download-course-button-wrap">
+        <a class="download-course-button" href="{{ $downloadCourseUrl }}">
+          <span aria-hidden="true" class="material-icons">file_download</span> Download course
+        </a>
       </div>
     </div>
-    {{- end -}}
   </div>
   <div class="alert-warning p-2 limited-pointer-only">
     <strong>Note: </strong>
