@@ -41,9 +41,9 @@
 }
 
 .course-main-content-v3 {
-  thead th,
+  th,
   td {
-    vertical-align: middle !important;
+    vertical-align: top !important;
   }
 
   tr {
@@ -76,22 +76,63 @@
     }
 
     tbody {
-      td {
-        background: white !important;
-        border-bottom: 1px solid var(--Light-Gray-2, #dde1e6) !important;
-      }
+      > tr {
+        > td {
+          background: white !important;
+          border-bottom: 1px solid var(--Light-Gray-2, #dde1e6) !important;
 
-      td:first-child {
-        border-left: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+          &:first-child {
+            border-left: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+          }
+
+          &:last-child {
+            border-right: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+          }
+        }
+
+        &:last-child > td {
+          &:first-child {
+            border-bottom-left-radius: 0.5rem;
+          }
+          &:last-child {
+            border-bottom-right-radius: 0.5rem;
+          }
+        }
       }
-      td:last-child {
-        border-right: 1px solid var(--Light-Gray-2, #dde1e6) !important;
-      }
-      tr:last-child td:first-child {
-        border-bottom-left-radius: 0.5rem;
-      }
-      tr:last-child td:last-child {
-        border-bottom-right-radius: 0.5rem;
+    }
+
+    &.has-rowspans {
+      tbody {
+        > tr {
+          > td,
+          > th {
+            // All cells get bottom border, no vertical borders by default
+            border-bottom: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+            border-left: none !important;
+            border-right: none !important;
+          }
+
+          > td.rowspan-border-left,
+          > th.rowspan-border-left {
+            border-left: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+          }
+
+          > td.rowspan-border-right,
+          > th.rowspan-border-right {
+            border-right: 1px solid var(--Light-Gray-2, #dde1e6) !important;
+          }
+        }
+
+        > tr:last-child > td,
+        > tr:last-child > th {
+          &:first-child {
+            border-bottom-left-radius: 0.5rem;
+          }
+
+          &:last-child {
+            border-bottom-right-radius: 0.5rem;
+          }
+        }
       }
     }
   }

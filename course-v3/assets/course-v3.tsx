@@ -14,6 +14,7 @@ import {
   showSolution
 } from "./js/quiz_multiple_choice"
 import { initMobileCourseMenuV3 } from "./js/mobile_course_menu_v3"
+import { initTableRowspanBorders } from "./js/table_rowspan_borders"
 import posthog from "posthog-js"
 import {
   initPostHog,
@@ -46,6 +47,7 @@ $(function() {
   checkAnswer()
   showSolution()
   initMobileCourseMenuV3()
+  initTableRowspanBorders()
   const queryClient = makeQueryClient()
   const userMenuContainers = document.querySelectorAll(
     ".user-menu-container, .mit-learn-user-menu-container"
