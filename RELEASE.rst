@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.143.0
+Version 1.143.0 (Released February 09, 2026)
 ---------------
 
 - chore: fixed navmenu for mobile version (#1725)
