@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.144.0
+---------------
+
+- chore: fix download button styling and text (#1731)
+- Fix missing LRT icons for both v2 and v3 themes (#1736)
+- Umar/9769 fix styling for tables with rowspans (#1724)
+- chore(deps): update actions/checkout digest to de0fac2 (#1733)
+- chore(deps): update dependency webpack to v5.104.1 [security] (#1735)
+- chore(deps): update dependency webpack-cli to v6 (#1727)
+
 Version 1.143.0 (Released February 09, 2026)
 ---------------
 
