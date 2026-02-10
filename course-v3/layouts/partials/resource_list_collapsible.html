@@ -14,7 +14,7 @@
     {{ $resourceSlug := urlize (lower .Title) }}
     <div class="resource-list-toggle">
       <a href="#resource-list-container-{{ $resourceSlug }}"
-      class="{{ if not $expand }}collapsed {{ end }}py-3"
+      class="resource-list-toggle-link {{ if not $expand }}collapsed{{ end }}"
       data-toggle="collapse"
       aria-controls="resource-list-container-{{ $resourceSlug }}"
       aria-expanded="{{ if $expand }}true{{ else }}false{{ end }}">

@@ -5,13 +5,13 @@ h4 {
 .download-page-content {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 32px;
 }
 
 .download-resource-lists {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 16px;
   width: 100%;
 }
 
@@ -98,23 +98,23 @@ h4 {
     border-bottom: 1px solid $border-gray;
   }
 
-  a {
+  .resource-list-toggle-link {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 16px 0;
+    padding: 16px 0 24px 0;
   }
 
-  a,
-  a:hover {
+  .resource-list-toggle-link,
+  .resource-list-toggle-link:hover {
     text-decoration: none;
   }
 
-  a.collapsed i:before {
+  .resource-list-toggle-link.collapsed i:before {
     content: "keyboard_arrow_right";
   }
 
-  a:not(.collapsed) i:before {
+  .resource-list-toggle-link:not(.collapsed) i:before {
     content: "keyboard_arrow_down";
   }
 
