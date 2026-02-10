@@ -2,17 +2,94 @@ h4 {
   color: $highlight-red !important;
 }
 
+.download-page-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.download-resource-lists {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.resource-list {
+  margin-bottom: 0;
+}
+
 .download-course-container {
-  border-radius: 3px;
+  background-color: #f3f4f8; // light-gray-1
+  border: 1px solid #dde1e6; // light-gray-2
+  border-radius: 4px;
+  padding: 24px;
+
+  .download-course-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .download-course-button-wrap {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .download-course-text {
+    font-size: 14px;
+    line-height: 22px;
+    color: $black;
+    width: 100%;
+
+    ol {
+      margin-top: 16px;
+      margin-bottom: 0;
+      padding-left: 1.25rem;
+    }
+
+    li {
+      margin-bottom: 0;
+    }
+  }
 
   .download-course-button {
     display: inline-flex;
-    height: fit-content;
-    padding: 10px 22px;
+    align-items: center;
+    height: 48px;
+    padding: 12px 24px 12px 24px;
+    gap: 8px;
     border-radius: 4px;
-    background-color: $blue;
-    color: white;
+    background-color: $mit-red-dark;
+    color: $white;
     text-decoration: none;
+    font-family: $mit-learn-font-family;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
+    box-shadow: 0px 2px 4px 0px rgba(37, 38, 43, 0.1),
+      0px 3px 8px 0px rgba(37, 38, 43, 0.12);
+    transition: background-color 0.2s ease;
+
+    .material-icons {
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    &:hover {
+      background-color: $highlight-red;
+      color: $white;
+      text-decoration: none;
+    }
+
+    &:active {
+      background-color: $mit-red-dark-active;
+    }
+
+    &:visited {
+      color: $white;
+    }
   }
 }
 
@@ -21,30 +98,37 @@ h4 {
     border-bottom: 1px solid $border-gray;
   }
 
-  a {
-    display: block;
+  .resource-list-toggle-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 0 24px 0;
   }
 
-  a,
-  a:hover {
+  .resource-list-toggle-link,
+  .resource-list-toggle-link:hover {
     text-decoration: none;
   }
 
-  a.collapsed i:before {
+  .resource-list-toggle-link.collapsed i:before {
     content: "keyboard_arrow_right";
   }
 
-  a:not(.collapsed) i:before {
+  .resource-list-toggle-link:not(.collapsed) i:before {
     content: "keyboard_arrow_down";
   }
 
   i {
-    font-size: 2rem;
+    font-size: 24px;
+    line-height: 1;
+    color: $black;
     vertical-align: middle;
   }
 
-  h4 {
-    display: inline;
+  .resource-list-title {
+    @include mit-learn-subtitle2;
+    color: $black;
+    margin: 0;
   }
 }
 
@@ -138,8 +222,10 @@ $resource-card-text-primary: #212326; // Text Primary
   }
 
   .resource-card-download-icon {
-    width: 14px;
-    height: 15px;
+    width: 12px;
+    height: 13px;
+    display: block;
+    flex-shrink: 0;
   }
 
   .resource-card-file-size {
@@ -250,7 +336,7 @@ $resource-card-text-primary: #212326; // Text Primary
   gap: 8px;
   height: 48px;
   padding: 12px 20px 12px 24px;
-  background-color: #750014;
+  background-color: $mit-red-dark;
   border-radius: 4px;
   box-shadow: 0px 2px 4px 0px rgba(37, 38, 43, 0.1),
     0px 3px 8px 0px rgba(37, 38, 43, 0.12);
@@ -259,7 +345,7 @@ $resource-card-text-primary: #212326; // Text Primary
 
   &:hover {
     text-decoration: none;
-    background-color: darken(#750014, 5%);
+    background-color: $mit-red-dark-hover;
   }
 
   .resource-download-icon {

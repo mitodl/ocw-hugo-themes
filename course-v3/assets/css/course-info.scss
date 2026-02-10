@@ -25,7 +25,7 @@ $panel-course-info-text-color: #464646;
 
 .course-info-button:hover {
   svg path {
-    fill: #750014;
+    fill: $mit-red-dark;
   }
 }
 
@@ -56,13 +56,13 @@ $panel-course-info-text-color: #464646;
 .download-course-button-v3 {
   padding: 0.75rem 1.5rem 0.75rem 1.25rem;
   gap: 0.625rem;
-  background-color: #750014; // MIT red
+  background-color: $mit-red-dark;
   border-radius: 0.25rem;
-  color: #ffffff;
+  color: $white;
   text-decoration: none;
   font-family: $mit-learn-font-family;
   font-weight: 500;
-  line-height: 16px;
+  line-height: 1.15;
   box-shadow: 0px 2px 4px 0px rgba(37, 38, 43, 0.1),
     0px 3px 8px 0px rgba(37, 38, 43, 0.12);
   gap: 0.5rem;
@@ -75,16 +75,16 @@ $panel-course-info-text-color: #464646;
   }
 
   &:hover {
-    background-color: #8b0018;
-    color: #ffffff;
+    background-color: $highlight-red;
+    color: $white;
     text-decoration: none;
   }
 
   &:active {
-    background-color: #5e0011;
+    background-color: $mit-red-dark-active;
   }
 
   &:visited {
-    color: white;
+    color: $white;
   }
 }
