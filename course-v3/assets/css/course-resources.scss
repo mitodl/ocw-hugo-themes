@@ -15,13 +15,6 @@ h4 {
   width: 100%;
 }
 
-.download-page-title {
-  font-size: 16px !important;
-  font-weight: 500;
-  line-height: 1.5;
-  margin: 0;
-}
-
 .resource-list {
   margin-bottom: 0;
 }
@@ -106,7 +99,10 @@ h4 {
   }
 
   a {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 0;
   }
 
   a,
@@ -123,12 +119,16 @@ h4 {
   }
 
   i {
-    font-size: 2rem;
+    font-size: 24px;
+    line-height: 1;
+    color: $black;
     vertical-align: middle;
   }
 
-  h4 {
-    display: inline;
+  .resource-list-title {
+    @include mit-learn-subtitle2;
+    color: $black;
+    margin: 0;
   }
 }
 
