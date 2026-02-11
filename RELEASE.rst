@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.144.0
+Version 1.144.0 (Released February 11, 2026)
 ---------------
 
 - chore: fix download button styling and text (#1731)
