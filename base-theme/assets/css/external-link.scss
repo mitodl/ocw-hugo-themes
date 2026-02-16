@@ -1,5 +1,10 @@
 #external-link-modal {
   z-index: $z-index-external-links-modal !important;
+
+  .mt-20 {
+    margin-top: 20rem;
+  }
+
   .modal-footer {
     justify-content: space-between;
 

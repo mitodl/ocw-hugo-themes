@@ -23,6 +23,16 @@ export function initExternalLinkModal() {
 
     continueButton.attr("href", targetUrl)
 
+    // Remove centered class on tall screens (above 1500px)
+    const modalDialog = modal.find(".modal-dialog")
+    if (window.innerHeight > 1500) {
+      modalDialog.removeClass("modal-dialog-centered")
+      modalDialog.addClass("mt-20")
+    } else {
+      modalDialog.addClass("modal-dialog-centered")
+      modalDialog.removeClass("mt-20")
+    }
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     modal.modal("show")
