@@ -13,14 +13,14 @@
   <div class="mb-2 w-100">
     {{ partial "content_header_v3.html" . }}
     <article class="content pt-3 mt-1">
-      <main id="course-content-section">
+      <div class="course-content-body">
         {{ if .Description }}
           <div class="mb-3 collection-description">
             {{ $bundle.Description | .RenderString }}
           </div>
         {{ end }}
         {{- partial "resource_list.html" (dict "resources" $resources "sort" false) -}}
-      </main>
+      </div>
     </article>
   </div>
 {{ end }}

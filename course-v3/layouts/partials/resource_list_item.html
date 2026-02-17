@@ -2,7 +2,7 @@
 {{ $resourceCategory := partial "get_resource_category.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
 <div class="resource-card">
   {{ if not .hideThumbnail }}
-  <a class="resource-card-thumbnail-link"{{ if and $downloadableLink (not .hideDownloadIcon) }} href="{{- $downloadableLink -}}" target="_blank" aria-label="Download file" download{{ end }}>
+  <a class="resource-card-thumbnail-link"{{ if and $downloadableLink (not .hideDownloadIcon) }} href="{{- $downloadableLink -}}" target="_blank" download{{ end }}>
     <div class="resource-card-thumbnail">
       <div class="resource-card-type {{ $resourceCategory }}">
         {{- $resourceCategory -}}
