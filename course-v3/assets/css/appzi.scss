@@ -1,0 +1,9 @@
+@media (min-height: 1500px) {
+  div[data-appzi-dom="launcher"] {
+    top: 1000px !important;
+  }
+
+  div[data-appzi-dom="survey"] {
+    top: 500px !important;
+  }
+}
