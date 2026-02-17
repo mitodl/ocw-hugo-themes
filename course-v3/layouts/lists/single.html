@@ -12,7 +12,7 @@
 
   <div class="mb-2 w-100">
     {{ partial "content_header_v3.html" . }}
-    <article id="course-content-section" class="content pt-3 mt-1">
+    <article class="content pt-3 mt-1">
       <div class="course-content-body">
         {{ if .Description }}
           <div class="mb-3 collection-description">
@@ -20,7 +20,7 @@
           </div>
         {{ end }}
         {{- partial "resource_list.html" (dict "context" . "resources" $resources "sort" false) -}}
-      </main>
+      </div>
     </article>
   </div>
 {{ end }}
