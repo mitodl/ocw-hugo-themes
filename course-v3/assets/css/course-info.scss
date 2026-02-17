@@ -17,6 +17,17 @@ $panel-course-info-text-color: #464646;
   font-size: $font-sm;
 }
 
+.course-info,
+.desktop-course-info {
+  a.strip-link-offline,
+  a.partial-collapse-link {
+    align-items: center;
+    display: inline-flex;
+    min-height: 24px;
+    padding: 2px 0;
+  }
+}
+
 .course-info-button {
   position: absolute;
   top: 0;

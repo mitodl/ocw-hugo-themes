@@ -352,6 +352,13 @@ pre {
 
 #course-description {
   gap: 1rem;
+
+  code {
+    background-color: #f3f4f8;
+    border-radius: 0.125rem;
+    color: #6f1d1b;
+    padding: 0.125em 0.25em;
+  }
 }
 
 .course-detail-section {

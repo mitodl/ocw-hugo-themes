@@ -10,7 +10,7 @@
       {{- end -}}
       
       <div class="resource-single-card">
-        <a class="resource-single-thumbnail-link"{{ if $downloadableLink }} href="{{- $downloadableLink -}}" target="_blank" aria-label="Download file" download{{ end }}>
+        <a class="resource-single-thumbnail-link"{{ if $downloadableLink }} href="{{- $downloadableLink -}}" target="_blank" download{{ end }}>
           {{ $resourceCategory := partial "get_resource_category.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
           <div class="resource-card-thumbnail">
             <div class="resource-card-type {{ $resourceCategory }}">{{- $resourceCategory -}}</div>
