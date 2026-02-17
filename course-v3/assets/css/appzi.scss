@@ -1,9 +1,13 @@
-@media (min-height: 1500px) {
+$tall-screen-breakpoint: 1500px;
+$appzi-launcher-top: 1000px;
+$appzi-survey-top: 500px;
+
+@media (min-height: $tall-screen-breakpoint) {
   div[data-appzi-dom="launcher"] {
-    top: 1000px !important;
+    top: $appzi-launcher-top !important;
   }
 
   div[data-appzi-dom="survey"] {
-    top: 500px !important;
+    top: $appzi-survey-top !important;
   }
 }

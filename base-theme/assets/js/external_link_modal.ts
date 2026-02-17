@@ -24,13 +24,17 @@ export function initExternalLinkModal() {
     continueButton.attr("href", targetUrl)
 
     // Remove centered class on tall screens (above 1500px)
+    const TALL_SCREEN_BREAKPOINT_PX = 1500
+    const TALL_SCREEN_MARGIN_CLASS = "tall-screen-top-margin"
     const modalDialog = modal.find(".modal-dialog")
-    if (window.innerHeight > 1500) {
-      modalDialog.removeClass("modal-dialog-centered")
-      modalDialog.addClass("mt-20")
+    if (window.innerHeight > TALL_SCREEN_BREAKPOINT_PX) {
+      modalDialog
+        .removeClass("modal-dialog-centered")
+        .addClass(TALL_SCREEN_MARGIN_CLASS)
     } else {
-      modalDialog.addClass("modal-dialog-centered")
-      modalDialog.removeClass("mt-20")
+      modalDialog
+        .addClass("modal-dialog-centered")
+        .removeClass(TALL_SCREEN_MARGIN_CLASS)
     }
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
