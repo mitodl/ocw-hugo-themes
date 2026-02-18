@@ -33,7 +33,7 @@ test("Resource list shows correct resource categories", async ({ page }) => {
   await course.goto("/lists/a-resource-list")
 
   for (const expectedResource of expectedResources) {
-    const resource = await page.locator(".resource-item", {
+    const resource = await page.locator(".resource-card", {
       has: page.getByRole("link", { name: expectedResource.title })
     })
 
