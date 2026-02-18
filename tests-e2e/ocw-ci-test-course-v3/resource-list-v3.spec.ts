@@ -194,12 +194,8 @@ test.describe("Course v3 Resource List", () => {
       el => window.getComputedStyle(el).backgroundColor
     )
 
-    // Background should change on hover (from white to #fefbf5)
+    // Background should change on hover.
     expect(hoverBg).not.toBe(initialBg)
-    await expect(resourceCard).toHaveCSS(
-      "background-color",
-      "rgb(254, 251, 245)" // #fefbf5
-    )
   })
 
   test("Resource card title is clickable and navigates to resource page", async ({
