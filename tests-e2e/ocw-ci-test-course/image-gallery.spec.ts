@@ -1,9 +1,7 @@
 import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
 
-test("Image gallery displays thumbnail and opens viewer", async ({
-  page
-}) => {
+test("Image gallery displays thumbnail and opens viewer", async ({ page }) => {
   const course = new CoursePage(page, "course")
   await course.goto("/pages/image-gallery")
 
