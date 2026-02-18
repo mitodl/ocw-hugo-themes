@@ -9,9 +9,7 @@ const FOOTER_LINKS = [
   ["Contact Us", /^\/contact\/?$/]
 ]
 
-test("Footer links exist and point to the expected pages", async ({
-  page
-}) => {
+test("Footer links exist and point to the expected pages", async ({ page }) => {
   const course = new CoursePage(page, "course")
   await course.goto()
 
