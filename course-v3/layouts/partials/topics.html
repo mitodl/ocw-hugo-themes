@@ -6,9 +6,9 @@
 {{ with $courseData.topics }}
   {{ with partial "hierarchical_select_as_map.html" . }}
   <div class="d-flex flex-column course-topics-container">
-    <h6 class="m-0">
+    <h3 class="m-0 course-subsection-heading">
       Topics
-    </h6>
+    </h3>
     <ul class="list-unstyled m-0 {{ if $inPanel }}panel-course-info-text{{ end }}">
       {{- range $topic, $subtopics := . -}}
       <li>
