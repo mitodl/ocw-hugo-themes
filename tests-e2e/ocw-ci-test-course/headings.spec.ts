@@ -15,31 +15,31 @@ test(`Verify accesibility and semantic structure of headings`, async ({
     },
     {
       label:                "Course Info",
-      expectedHeadingLevel: "H5"
+      expectedHeadingLevel: "H2"
     },
     {
       label:                "Instructors",
-      expectedHeadingLevel: "H6"
+      expectedHeadingLevel: "H3"
     },
     {
       label:                "Departments",
-      expectedHeadingLevel: "H6"
+      expectedHeadingLevel: "H3"
     },
     {
       label:                "As Taught In",
-      expectedHeadingLevel: "H6"
+      expectedHeadingLevel: "H3"
     },
     {
       label:                "Level",
-      expectedHeadingLevel: "H6"
+      expectedHeadingLevel: "H3"
     },
     {
       label:                "Topics",
-      expectedHeadingLevel: "H6"
+      expectedHeadingLevel: "H3"
     },
     {
       label:                "Learning Resource Types",
-      expectedHeadingLevel: "H6"
+      expectedHeadingLevel: "H3"
     }
   ]
   const coursePage = new CoursePage(page, "course")

@@ -446,6 +446,7 @@ pre {
 }
 
 .course-detail-section {
+  h2.course-section-heading,
   h5 {
     color: #000;
     font-family: $mit-learn-font-family;
@@ -456,6 +457,7 @@ pre {
     text-transform: none;
   }
 
+  h3.course-subsection-heading,
   h6 {
     color: #000;
 
