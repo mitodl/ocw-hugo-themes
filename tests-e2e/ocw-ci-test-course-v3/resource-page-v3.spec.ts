@@ -25,6 +25,9 @@ test.describe("Course v3 Single Resource Page", () => {
     await expect(badge).toBeVisible()
     await expect(badge).toHaveText("pdf")
     await expect(badge).toHaveCSS("background-color", "rgb(163, 31, 52)") // #a31f34
+
+    const thumbnailLink = page.locator(".resource-single-thumbnail-link")
+    await expect(thumbnailLink).toHaveAttribute("aria-label", "Download file.pdf")
   })
 
   test("Resource page displays download button correctly", async ({ page }) => {
