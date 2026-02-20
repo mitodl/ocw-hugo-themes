@@ -1,0 +1,10 @@
+{{ $sitemapDomain := partial "sitemap_domain.html" }}
+Sitemap: https://{{ $sitemapDomain }}/sitemap.xml
+
+User-agent: *
+{{ $noindex := eq (lower (getenv "NOINDEX")) "true" }}
+{{ if $noindex }}
+Disallow: /
+{{ else }}
+Allow: /
+{{ end }}

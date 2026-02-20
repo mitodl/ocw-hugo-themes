@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test"
-import { CoursePage } from "../util"
+import { CoursePage, expectTriggerToOpenANewTab } from "../util"
 
-test("Image gallery displays thumbnail and opens viewer", async ({ page }) => {
+test("Image gallery displays thumbnail and opens viewer with credit text", async ({
+  page
+}) => {
   const course = new CoursePage(page, "course")
   await course.goto("/pages/image-gallery")
 
@@ -10,22 +12,34 @@ test("Image gallery displays thumbnail and opens viewer", async ({ page }) => {
 
   await thumbnailTitle.click()
 
-  const viewer = page.locator(".nGY2Viewer")
-  await expect(viewer).toBeVisible()
+  const creditText = page.getByText("Distributed under the CCC.")
+  await expect(creditText).toBeVisible()
 })
 
-test("Image gallery credit metadata contains external link warning markup", async ({
-  page,
-  request
+test("Image gallery external link in credit text opens external link modal and new tab", async ({
+  page
 }) => {
   const course = new CoursePage(page, "course")
   await course.goto("/pages/image-gallery")
-  const response = await request.get(page.url())
-  expect(response.ok()).toBeTruthy()
 
-  const html = await response.text()
-  expect(html).toContain('data-credit="Distributed under the CCC.')
-  expect(html).toContain("external-link-warning external-link")
-  expect(html).toContain("href=&#34;https://google.com&#34;")
-  expect(html).toContain("Google (opens in a new tab)")
+  const thumbnailTitle = page.getByText("A dog having fun")
+  await thumbnailTitle.click()
+
+  const externalLinktoGoogle = page.locator(".nGY2Viewer").getByText("Google")
+  await externalLinktoGoogle.click()
+
+  // External link modal should open
+  const modalText = page.getByText("You are leaving MIT OpenCourseWare")
+  await expect(modalText).toBeVisible()
+
+  // Click continue button and assert new tab opens
+  const continueButton = page.getByRole("button", { name: "Continue" })
+  await expectTriggerToOpenANewTab(
+    page,
+    "https://www.google.com",
+    continueButton
+  )
+
+  // Assert modal is closed after clicking continue
+  await expect(modalText).toBeHidden()
 })
