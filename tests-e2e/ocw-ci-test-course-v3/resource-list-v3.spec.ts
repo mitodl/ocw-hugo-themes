@@ -277,6 +277,20 @@ test.describe("Course v3 Resource List", () => {
 
       // Should have target="_blank" for downloads
       await expect(downloadableLink).toHaveAttribute("target", "_blank")
+
+      // Should have a descriptive accessible name
+      const card = downloadableLink.locator(
+        "xpath=ancestor::div[contains(@class,'resource-card')][1]"
+      )
+      const titleText = (await card
+        .locator(".resource-card-title")
+        .textContent())?.trim()
+      const ariaLabel = await downloadableLink.getAttribute("aria-label")
+
+      expect(ariaLabel).toBeTruthy()
+      expect(ariaLabel).toContain("Download ")
+      expect(titleText).toBeTruthy()
+      expect(ariaLabel).toContain(titleText)
     }
   })
 

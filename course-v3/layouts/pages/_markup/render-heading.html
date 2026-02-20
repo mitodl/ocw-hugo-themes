@@ -1,4 +1,3 @@
 {{ if gt .Level 1 }}
-    {{ $renderLevel := cond (eq .Level 2) 3 .Level }}
-    <h{{ $renderLevel }} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }}</h{{ $renderLevel }}>
+    <h{{ add .Level 1}} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }}</h{{ add .Level 1 }}>
 {{ end }}
