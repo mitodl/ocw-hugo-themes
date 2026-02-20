@@ -282,9 +282,9 @@ test.describe("Course v3 Resource List", () => {
       const card = downloadableLink.locator(
         "xpath=ancestor::div[contains(@class,'resource-card')][1]"
       )
-      const titleText = (await card
-        .locator(".resource-card-title")
-        .textContent())?.trim()
+      const titleText = (
+        await card.locator(".resource-card-title").textContent()
+      )?.trim()
       const ariaLabel = await downloadableLink.getAttribute("aria-label")
 
       expect(ariaLabel).toBeTruthy()
