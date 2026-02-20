@@ -2,8 +2,7 @@ import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
 
 const DESKTOP_COURSE_DRAWER_ID = "desktop-course-drawer"
-const DESKTOP_COURSE_DRAWER_COLUMN = "div.desktop-course-info"
-const MAIN_COURSE_SECTION_ID = "course-content-section"
+const MAIN_COURSE_SECTION_ID = "main-course-section"
 
 test("Course info section can be toggled", async ({ page }) => {
   const course = new CoursePage(page, "course")
@@ -34,9 +33,7 @@ test("Toggling topics does not affect drawer layout", async ({ page }) => {
   await topicCollapseButton.click()
   const mainSection = await page.locator(`#${MAIN_COURSE_SECTION_ID}`)
   const drawer = await page.locator(`#${DESKTOP_COURSE_DRAWER_ID}`)
-  const drawerColumn = await page.locator(DESKTOP_COURSE_DRAWER_COLUMN)
 
-  await expect(mainSection).toHaveClass(/.*course-detail.*/)
-  await expect(drawer).toHaveClass(/.*collapse.*/)
-  await expect(drawerColumn).toHaveClass(/.*col-lg-3.*/)
+  await expect(mainSection).toHaveClass(/.*col-lg-9.*/)
+  await expect(drawer).toHaveClass(/.*col-3.*/)
 })

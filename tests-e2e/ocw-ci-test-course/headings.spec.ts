@@ -6,6 +6,14 @@ test(`Verify accesibility and semantic structure of headings`, async ({
 }) => {
   const headingsData = [
     {
+      label:                "OCW CI Test Course",
+      expectedHeadingLevel: "H1"
+    },
+    {
+      label:                "Course Info",
+      expectedHeadingLevel: "H2"
+    },
+    {
       label:                "Section 2",
       expectedHeadingLevel: "H2"
     },
@@ -14,32 +22,28 @@ test(`Verify accesibility and semantic structure of headings`, async ({
       expectedHeadingLevel: "H3"
     },
     {
-      label:                "Course Info",
-      expectedHeadingLevel: "H2"
+      label:                "INSTRUCTORS",
+      expectedHeadingLevel: "H5"
     },
     {
-      label:                "Instructors",
-      expectedHeadingLevel: "H3"
+      label:                "DEPARTMENTS",
+      expectedHeadingLevel: "H5"
     },
     {
-      label:                "Departments",
-      expectedHeadingLevel: "H3"
+      label:                "AS TAUGHT IN",
+      expectedHeadingLevel: "H5"
     },
     {
-      label:                "As Taught In",
-      expectedHeadingLevel: "H3"
+      label:                "LEVEL",
+      expectedHeadingLevel: "H5"
     },
     {
-      label:                "Level",
-      expectedHeadingLevel: "H3"
+      label:                "TOPICS",
+      expectedHeadingLevel: "H5"
     },
     {
-      label:                "Topics",
-      expectedHeadingLevel: "H3"
-    },
-    {
-      label:                "Learning Resource Types",
-      expectedHeadingLevel: "H3"
+      label:                "LEARNING RESOURCE TYPES",
+      expectedHeadingLevel: "H5"
     }
   ]
   const coursePage = new CoursePage(page, "course")
