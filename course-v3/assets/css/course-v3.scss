@@ -504,3 +504,10 @@ pre {
     }
   }
 }
+
+// Accessibility: ensure footer links meet 24px minimum touch target height
+.footer-v3 .footer-link a {
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+}

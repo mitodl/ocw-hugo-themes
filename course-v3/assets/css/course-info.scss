@@ -22,9 +22,9 @@ $panel-course-info-text-color: #464646;
   a.strip-link-offline,
   a.partial-collapse-link {
     align-items: center;
-    display: inline-flex;
+    display: block;
     min-height: 24px;
-    padding: 2px 0;
+    padding: 5px 0;
   }
 }
 
