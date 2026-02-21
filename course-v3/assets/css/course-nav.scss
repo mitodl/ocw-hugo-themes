@@ -3,6 +3,9 @@ nav {
 
   .nav-link {
     padding: 0 !important;
+    min-height: 24px;
+    display: flex;
+    align-items: center;
   }
 }
 
