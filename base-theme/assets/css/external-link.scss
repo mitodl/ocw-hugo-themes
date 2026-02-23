@@ -1,5 +1,14 @@
 #external-link-modal {
   z-index: $z-index-external-links-modal !important;
+
+  .modal-dialog-centered {
+    @media (min-height: $tall-screen-breakpoint) {
+      align-items: flex-start;
+      min-height: auto;
+      margin-top: 20rem;
+    }
+  }
+
   .modal-footer {
     justify-content: space-between;
 
