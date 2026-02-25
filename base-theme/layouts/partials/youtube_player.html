@@ -57,11 +57,13 @@
 </div>
 
 <script>
+  console.log('This is the YouTube player script');
   (function() {
+    console.log('Checking for modern JavaScript support', document.currentScript);
     try {
-      throw new Error("Test for ES6 support");
-      new Function("class X{}; const a = 1;");
+      new Function("class X{}; 1??2; ({})?.abc");
     } catch(e) {
+      console.log("Browser does not support modern JavaScript features, showing fallback player", e);
       var script = document.currentScript;
       var fallback = script.previousElementSibling;
       var player = fallback.previousElementSibling;
