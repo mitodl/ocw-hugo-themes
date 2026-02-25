@@ -36,6 +36,41 @@
   {{ end }}
 </div>
 
+<div class="video-fallback-container" style="display:none">
+  <div class="video-fallback-warning alert alert-warning" role="alert">
+    Your browser does not support some features used on this site.
+    The video player below may have limited functionality.
+    For the best experience, please use a modern browser.
+    {{ if .downloadLink }}
+      You can also <a href="{{ .downloadLink }}">download the video</a> to watch it offline.
+    {{ end }}
+  </div>
+  <div class="video-fallback-player">
+    <iframe
+      src="https://www.youtube.com/embed/{{ .youtubeKey }}?rel=0{{ if ne .startTime "" }}&start={{ .startTime }}{{ end }}{{ if ne .endTime "" }}&end={{ .endTime }}{{ end }}"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      loading="lazy"
+      title="Video player"
+    ></iframe>
+  </div>
+</div>
+
+<script>
+  (function() {
+    try {
+      throw new Error("Test for ES6 support");
+      new Function("class X{}; const a = 1;");
+    } catch(e) {
+      var script = document.currentScript;
+      var fallback = script.previousElementSibling;
+      var player = fallback.previousElementSibling;
+      player.style.display = "none";
+      fallback.style.display = "block";
+    }
+  })()
+</script>
+
 <script>
   window.addEventListener('load', function() {
     if (window.initVideoJS) {

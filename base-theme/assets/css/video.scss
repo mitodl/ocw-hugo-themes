@@ -273,3 +273,30 @@ a.video-download-button:visited {
   width: 100%;
   padding-top: 56.25%; // apply aspect ratio padding of (9,16)
 }
+
+// Fallback player styles for browsers without ES6 support
+.video-fallback-container {
+  max-width: 100%;
+}
+
+.video-fallback-warning {
+  font-size: $font-sm;
+  margin-bottom: 0.5rem;
+}
+
+.video-fallback-player {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; // 16:9 aspect ratio
+  height: 0;
+  overflow: hidden;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
