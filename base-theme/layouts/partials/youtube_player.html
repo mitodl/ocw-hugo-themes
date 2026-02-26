@@ -53,12 +53,15 @@
 <script>
   window.handleVideoJSError = function(err) {
     console.error('Error loading VideoJS or YouTube player:', err)
-    document.querySelectorAll('.video-container.youtube-container').forEach(container => {
+    let youtubeVideoContainers = document.querySelectorAll('.video-container.youtube-container')
+    for (let container of youtubeVideoContainers) {
       container.style.display = 'none';
-    })
-    document.querySelectorAll('.video-fallback-container').forEach(container => {
+    }
+
+    let fallbackContainers = document.querySelectorAll('.video-fallback-container')
+    for (let container of fallbackContainers) {
       container.style.display = 'block';
-    })
+    }
   }
 
   try {
