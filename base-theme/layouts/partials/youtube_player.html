@@ -62,7 +62,7 @@
   }
 
   try {
-    new Function("class X{}")
+      new Function("class X{}; 1??2; ({})?.abc");
   }
   catch (e) {
     window.handleVideoJSError(e)
@@ -71,9 +71,6 @@
   window.addEventListener('load', function() {
     if (window.initVideoJS) {
       window.initVideoJS()
-    }
-    else {
-      window.handleVideoJSError(new Error('initVideoJS not defined after load'))
     }
   })
 </script>
