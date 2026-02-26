@@ -1,7 +1,3 @@
-h4 {
-  color: $highlight-red !important;
-}
-
 .download-page-content {
   display: flex;
   flex-direction: column;
@@ -149,6 +145,16 @@ h4 {
   line-height: 22px;
   color: $black;
   margin-bottom: 16px;
+}
+
+.see-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.see-all-link .see-all-resources-icon {
+  margin-left: 0;
 }
 
 // Course-v3 specific color overrides

@@ -23,6 +23,54 @@
   }
 }
 
+#course-content-section {
+  // Normalize body copy rhythm and readability for course content.
+  :is(p, li, td, th) {
+    line-height: 22px;
+  }
+
+  // Keep heading styles consistent across content pages.
+  :is(h2, h3, h4, h5, h6) {
+    color: $black !important;
+  }
+
+  > * {
+    margin-bottom: 0;
+  }
+
+  // Global spacing request: keep a consistent 40px rhythm between content blocks.
+  > * + * {
+    margin-top: 2.5rem;
+  }
+
+  // Tables should not contribute extra bottom whitespace.
+  table {
+    margin-bottom: 0 !important;
+  }
+
+  // Markdown occasionally emits empty paragraphs around tables/shortcodes.
+  > p:empty {
+    display: none;
+  }
+
+  // Prevent extra trailing whitespace from the last content block (e.g., tables).
+  > :last-child {
+    margin-bottom: 0 !important;
+  }
+
+  > :last-child > :last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+body[data-page-path*="/syllabus"] #course-content-section {
+  // Syllabus uses compact intra-section spacing (heading -> body, body -> body).
+  > :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
+  > p + p {
+    margin-top: 0.5rem;
+  }
+}
+
 th,
 td {
   > p:empty {

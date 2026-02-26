@@ -199,6 +199,12 @@ h5 {
 
   .mobile-nav-div {
     background-color: white;
+
+    @include media-breakpoint-down(md) {
+      position: sticky;
+      top: $mit-learn-header-height-mobile;
+      z-index: 1000;
+    }
   }
 
   .desktop-course-info {
