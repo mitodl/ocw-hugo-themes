@@ -46,37 +46,34 @@
     {{ end }}
   </div>
   <div class="video-fallback-player">
-    <iframe
-      src="https://www.youtube.com/embed/{{ .youtubeKey }}?rel=0{{ if ne .startTime "" }}&start={{ .startTime }}{{ end }}{{ if ne .endTime "" }}&end={{ .endTime }}{{ end }}"
-      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-      loading="lazy"
-      title="Video player"
-    ></iframe>
+    <iframe src="https://www.youtube.com/embed/{{ .youtubeKey }}"></iframe>
   </div>
 </div>
 
 <script>
-  console.log('This is the YouTube player script');
-  (function() {
-    console.log('Checking for modern JavaScript support', document.currentScript);
-    try {
-      new Function("class X{}; 1??2; ({})?.abc");
-    } catch(e) {
-      console.log("Browser does not support modern JavaScript features, showing fallback player", e);
-      var script = document.currentScript;
-      var fallback = script.previousElementSibling;
-      var player = fallback.previousElementSibling;
-      player.style.display = "none";
-      fallback.style.display = "block";
-    }
-  })()
-</script>
+  window.handleVideoJSError = function(err) {
+    console.error('Error loading VideoJS or YouTube player:', err)
+    document.querySelectorAll('.video-container.youtube-container').forEach(container => {
+      container.style.display = 'none';
+    })
+    document.querySelectorAll('.video-fallback-container').forEach(container => {
+      container.style.display = 'block';
+    })
+  }
 
-<script>
+  try {
+    new Function("class X{}")
+  }
+  catch (e) {
+    window.handleVideoJSError(e)
+  }
+
   window.addEventListener('load', function() {
     if (window.initVideoJS) {
       window.initVideoJS()
+    }
+    else {
+      window.handleVideoJSError(new Error('initVideoJS not defined after load'))
     }
   })
 </script>
