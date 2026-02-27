@@ -4,7 +4,7 @@
 
 
 <div class="course-image-section-container w-100 align-self-stretch d-inline-flex flex-column justify-content-center align-items-start overflow-hidden">
-  <img class="course-image align-self-stretch rounded-top" src="{{ $courseImageUrl }}" alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}" fetchpriority="high" />
+  <img class="course-image align-self-stretch rounded-top" src="{{ $courseImageUrl }}" alt="{{ index $courseImageMetadata.Params.image_metadata "image-alt" }}" loading="eager" decoding="async" fetchpriority="high" />
   <div class="align-self-stretch d-flex flex-column justify-content-start align-items-start gap-3">
     <div class="course-card-content align-self-stretch p-3 bg-white rounded-bottom d-flex flex-column justify-content-start align-items-start">
       <div class="course-description align-self-stretch">
