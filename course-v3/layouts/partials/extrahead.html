@@ -26,9 +26,6 @@
 })();
 </script>
 <noscript><link rel="stylesheet" href="https://use.typekit.net/lbk1xay.css"></noscript>
-<!-- Preload course banner background image to improve LCP -->
-{{- $bannerBgUrl := partial "get_asset_webpack_url.html" "images/course-v3-header-bg.jpg" -}}
-<link rel="preload" as="image" href="{{ partial "webpack_url.html" (dict "context" . "url" $bannerBgUrl) }}" fetchpriority="high">
 {{- $css_urls := slice (partial "get_asset_webpack_url.html" "course_v3.css") (partial "get_asset_webpack_url.html" "common.css") -}}
 {{- $layout := .Params.layout -}}
 {{- if eq $layout "instructor_insights" -}}
