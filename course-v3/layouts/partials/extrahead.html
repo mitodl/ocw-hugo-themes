@@ -3,6 +3,17 @@
 <!-- Preconnect to external font providers to reduce connection latency -->
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
 <link rel="preconnect" href="https://p.typekit.net" crossorigin>
+<!-- Preconnect to resource CDN for course images -->
+{{- $resourceBaseUrl := getenv "RESOURCE_BASE_URL" -}}
+{{- if $resourceBaseUrl -}}
+<link rel="preconnect" href="{{ $resourceBaseUrl }}" crossorigin>
+{{- end -}}
+<!-- Preload course image -->
+{{- $imageData := partial "course-image-url.html" . -}}
+{{- $courseImageUrl := index $imageData 0 -}}
+{{- if $courseImageUrl -}}
+<link rel="preload" as="image" href="{{ $courseImageUrl }}" fetchpriority="high">
+{{- end -}}
 <!-- Adobe Fonts (neue-haas-grotesk) - fetch, patch font-display to optional to prevent late LCP repaints -->
 <script>
 (function(){
@@ -15,9 +26,6 @@
 })();
 </script>
 <noscript><link rel="stylesheet" href="https://use.typekit.net/lbk1xay.css"></noscript>
-<!-- Preload course banner background image to improve LCP -->
-{{- $bannerBgUrl := partial "get_asset_webpack_url.html" "images/course-v3-header-bg.jpg" -}}
-<link rel="preload" as="image" href="{{ partial "webpack_url.html" (dict "context" . "url" $bannerBgUrl) }}" fetchpriority="high">
 {{- $css_urls := slice (partial "get_asset_webpack_url.html" "course_v3.css") (partial "get_asset_webpack_url.html" "common.css") -}}
 {{- $layout := .Params.layout -}}
 {{- if eq $layout "instructor_insights" -}}

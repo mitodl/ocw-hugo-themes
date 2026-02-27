@@ -1,5 +1,8 @@
 {{- define "extrajs" -}}
+{{- $sitemapDomain := partial "sitemap_domain.html" -}}
+{{- if hasSuffix $sitemapDomain "ocw.mit.edu" -}}
 <!-- Appzi: Capture Insightful Feedback -->
 <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>
 <!-- End Appzi -->
+{{- end -}}
 {{- end -}}
