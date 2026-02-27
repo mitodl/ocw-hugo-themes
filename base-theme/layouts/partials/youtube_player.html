@@ -38,9 +38,8 @@
 
 <div class="video-fallback-container" style="display:none">
   <div class="video-fallback-warning alert alert-warning" role="alert">
-    Your browser does not support some features used on this site.
-    The video player below may have limited functionality.
-    For the best experience, please use a modern browser.
+    Your browser does not support some features required to play this video.
+    Please update your browser to the latest version for the best experience.
     {{ if .downloadLink }}
       You can also <a href="{{ .downloadLink }}">download the video</a> to watch it offline.
     {{ end }}
@@ -65,7 +64,7 @@
   }
 
   try {
-      new Function("class X{}; 1??2; ({})?.abc");
+      new Function("class X{#abc;}; 1??2; ({})?.abc");
   }
   catch (e) {
     window.handleVideoJSError(e)
