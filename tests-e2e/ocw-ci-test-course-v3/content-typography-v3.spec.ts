@@ -58,17 +58,47 @@ test.describe("Course v3 content typography and spacing", () => {
     const heading = page.locator("#course-content-section > h3").first()
     const firstParagraph = page.locator("#course-content-section > p").first()
     const secondParagraph = page.locator("#course-content-section > p").nth(1)
-    const goalsHeading = page
-      .locator("#course-content-section > h3")
-      .filter({ hasText: "Goals" })
 
     await expect(heading).toBeVisible()
     await expect(firstParagraph).toBeVisible()
     await expect(secondParagraph).toBeVisible()
-    await expect(goalsHeading).toBeVisible()
+    // heading -> paragraph = 8px
     await expect(firstParagraph).toHaveCSS("margin-top", "8px")
-    await expect(goalsHeading).toHaveCSS("margin-top", "40px")
+    // paragraph -> paragraph = 8px
     await expect(secondParagraph).toHaveCSS("margin-top", "8px")
+  })
+
+  test("Syllabus paragraph-to-table transition uses compact 8px gap, not 40px", async ({
+    page,
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/syllabus")
+
+    // The Grading Policy section has: h3 -> p -> table
+    const table = page.locator("#course-content-section > table").first()
+    await expect(table).toBeVisible()
+    await expect(table).toHaveCSS("margin-top", "8px")
+  })
+
+  test("Syllabus headings still use 40px gap between sections", async ({
+    page,
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/syllabus")
+
+    // "Goals" heading follows a table — should still get the full 40px section gap
+    const goalsHeading = page
+      .locator("#course-content-section > h3")
+      .filter({ hasText: "Goals" })
+    await expect(goalsHeading).toBeVisible()
+    await expect(goalsHeading).toHaveCSS("margin-top", "40px")
+
+    // "Grading Policy" heading follows a paragraph — also 40px
+    const gradingHeading = page
+      .locator("#course-content-section > h3")
+      .filter({ hasText: "Grading Policy" })
+    await expect(gradingHeading).toBeVisible()
+    await expect(gradingHeading).toHaveCSS("margin-top", "40px")
   })
 
   test("Syllabus page body carries data-page-path attribute", async ({

@@ -64,9 +64,10 @@
 }
 
 body[data-page-path*="/syllabus"] #course-content-section {
-  // Syllabus uses compact intra-section spacing (heading -> body, body -> body).
+  // Syllabus uses compact intra-section spacing.
   > :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
-  > p + p {
+  > :is(p, ul, ol, blockquote, table, section, div)
+    + :is(p, ul, ol, blockquote, table, section, div) {
     margin-top: 0.5rem;
   }
 }

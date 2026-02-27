@@ -11,6 +11,16 @@ Readings overview for this course.
 
 Assignment preview and planning notes.
 
+## Grading Policy
+
+Grades will be roughly computed as follows:
+
+| Activity | Percentage |
+| --- | --- |
+| Assignments | 40% |
+| Midterm | 25% |
+| Final Exam | 35% |
+
 ## Goals
 
 Understand the primary course objectives.
