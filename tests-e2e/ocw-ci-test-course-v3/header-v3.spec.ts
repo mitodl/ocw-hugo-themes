@@ -48,7 +48,7 @@ test.describe("MIT Learn Header", () => {
   })
 
   test("Navigation drawer contains Learn section with correct links", async ({
-    page
+    page,
   }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/")
@@ -62,7 +62,7 @@ test.describe("MIT Learn Header", () => {
 
     // Check Learn section links - verify path patterns (base URL may vary by environment)
     const coursesLink = navDrawer.getByRole("link", {
-      name: /Courses Single courses/i
+      name: /Courses Single courses/i,
     })
     await expect(coursesLink).toHaveAttribute(
       "href",
@@ -70,7 +70,7 @@ test.describe("MIT Learn Header", () => {
     )
 
     const programsLink = navDrawer.getByRole("link", {
-      name: /Programs A series/i
+      name: /Programs A series/i,
     })
     await expect(programsLink).toHaveAttribute(
       "href",
@@ -78,7 +78,7 @@ test.describe("MIT Learn Header", () => {
     )
 
     const materialsLink = navDrawer.getByRole("link", {
-      name: /Learning Materials/i
+      name: /Learning Materials/i,
     })
     await expect(materialsLink).toHaveAttribute(
       "href",
@@ -123,7 +123,7 @@ test.describe("MIT Learn Header", () => {
   })
 
   test("Mobile course menu is sticky and closed by default", async ({
-    page
+    page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     const course = new CoursePage(page, "course-v3")
@@ -138,8 +138,37 @@ test.describe("MIT Learn Header", () => {
     await expect(menuToggle).toHaveAttribute("aria-expanded", "false")
   })
 
+  test("Mobile course menu has high z-index for sticky layering", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const mobileMenuWrapper = page.locator(".mobile-nav-div")
+    await expect(mobileMenuWrapper).toBeVisible()
+    await expect(mobileMenuWrapper).toHaveCSS("z-index", "1000")
+  })
+
+  test("Mobile course menu is closed by default on every page", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+
+    // Check on the syllabus page
+    await course.goto("/pages/syllabus")
+    const menuToggleSyllabus = page.locator("#mobile-course-menu-toggle-v3")
+    await expect(menuToggleSyllabus).toHaveAttribute("aria-expanded", "false")
+
+    // Navigate to a different page
+    await course.goto("/pages/subscripts-and-superscripts")
+    const menuToggleSubscripts = page.locator("#mobile-course-menu-toggle-v3")
+    await expect(menuToggleSubscripts).toHaveAttribute("aria-expanded", "false")
+  })
+
   test("Mobile course menu resets to closed after navigation", async ({
-    page
+    page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     const course = new CoursePage(page, "course-v3")
