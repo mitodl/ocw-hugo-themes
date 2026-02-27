@@ -3,7 +3,7 @@ import { CoursePage } from "../util"
 
 test.describe("Course v3 content typography and spacing", () => {
   test("Body copy uses 22px line-height for 14px content text", async ({
-    page,
+    page
   }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/subscripts-and-superscripts")
@@ -39,7 +39,7 @@ test.describe("Course v3 content typography and spacing", () => {
   })
 
   test("First direct child of content section has no bottom margin", async ({
-    page,
+    page
   }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/subscripts-and-superscripts")
@@ -50,7 +50,7 @@ test.describe("Course v3 content typography and spacing", () => {
   })
 
   test("Syllabus content uses compact 8px spacing between heading and paragraphs", async ({
-    page,
+    page
   }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/syllabus")
@@ -69,7 +69,7 @@ test.describe("Course v3 content typography and spacing", () => {
   })
 
   test("Syllabus paragraph-to-table transition uses compact 8px gap, not 40px", async ({
-    page,
+    page
   }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/syllabus")
@@ -81,7 +81,7 @@ test.describe("Course v3 content typography and spacing", () => {
   })
 
   test("Syllabus headings still use 40px gap between sections", async ({
-    page,
+    page
   }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/syllabus")
@@ -102,7 +102,7 @@ test.describe("Course v3 content typography and spacing", () => {
   })
 
   test("Syllabus page body carries data-page-path attribute", async ({
-    page,
+    page
   }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/syllabus")
@@ -113,7 +113,7 @@ test.describe("Course v3 content typography and spacing", () => {
   })
 
   test("Last table in content does not add extra bottom spacing", async ({
-    page,
+    page
   }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/subscripts-and-superscripts")
@@ -124,7 +124,7 @@ test.describe("Course v3 content typography and spacing", () => {
   })
 
   test("Last child of content section has no bottom margin", async ({
-    page,
+    page
   }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/subscripts-and-superscripts")
@@ -137,7 +137,7 @@ test.describe("Course v3 content typography and spacing", () => {
   })
 
   test("Content headings render with consistent black color", async ({
-    page,
+    page
   }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/assignments")
@@ -157,7 +157,7 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(tableHeading).toBeVisible()
     // Verify table header text is not red (old h4 override removed)
     const color = await tableHeading.evaluate(
-      (el) => window.getComputedStyle(el).color
+      el => window.getComputedStyle(el).color
     )
     // Should be black-ish, not red (#a31f34 = rgb(163, 31, 52))
     expect(color).not.toBe("rgb(163, 31, 52)")
