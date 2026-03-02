@@ -280,9 +280,18 @@ a.video-download-button:visited {
 }
 
 .video-fallback-warning {
+  padding: 11px 16px;
+  display: flex;
+  gap: 0.5rem;
   font-size: $font-sm;
   margin-bottom: 0.5rem;
-  background-color: lemonchiffon;
+  background-color: rgb(255, 244, 229);
+  border-radius: 4px;
+  border: 2px solid;
+
+  .warning-icon svg {
+    fill: rgb(250, 176, 5)
+  }
 }
 
 .video-fallback-player {

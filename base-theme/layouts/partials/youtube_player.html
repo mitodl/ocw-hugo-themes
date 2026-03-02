@@ -10,6 +10,10 @@
 {{$youtubeParams = printf "%s" `"ytControls":2}` | printf "%s%s" $youtubeParams |}}
 {{ if .isOffline }}
   <div class="show-offline d-none alert alert-warning" role="alert">
+    {{ $searchSvg := resources.Get "images/search.svg" }}
+    {{ if $searchSvg }}
+      {{ $searchSvg.Content | safeHTML }}
+    {{ end }}
     Viewing videos requires an internet connection
   </div>
 {{ end }}
@@ -37,12 +41,20 @@
 </div>
 
 <div class="video-fallback-container" style="display:none">
-  <div class="video-fallback-warning alert alert-warning" role="alert">
-    Your browser does not support some features required to play this video.
-    Please update your browser to the latest version for the best experience.
-    {{ if .downloadLink }}
-      You can also <a href="{{ .downloadLink }}">download the video</a> to watch it offline.
-    {{ end }}
+  <div class="video-fallback-warning" role="alert">
+    <div class="warning-icon">
+      {{ $searchSvg := resources.Get "images/warning.svg" }}
+      {{ if $searchSvg }}
+        {{ $searchSvg.Content | safeHTML }}
+      {{ end }}
+    </div>
+    <div class="warning-text">
+      Your browser does not support some features required to play this video.
+      Please update your browser to the latest version for the best experience.
+      {{ if .downloadLink }}
+        You can also <a href="{{ .downloadLink }}">download the video</a> to watch it offline.
+      {{ end }}
+    </div>
   </div>
   <div class="video-fallback-player">
     <iframe src="https://www.youtube.com/embed/{{ .youtubeKey }}"></iframe>
