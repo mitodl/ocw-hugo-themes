@@ -121,4 +121,67 @@ test.describe("MIT Learn Header", () => {
 
     await expect(navDrawer).toHaveAttribute("aria-hidden", "true")
   })
+
+  test("Mobile course menu is sticky and closed by default", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const mobileMenuWrapper = page.locator(".mobile-nav-div")
+    const menuToggle = page.locator("#mobile-course-menu-toggle-v3")
+
+    await expect(mobileMenuWrapper).toBeVisible()
+    await expect(mobileMenuWrapper).toHaveCSS("position", "sticky")
+    await expect(mobileMenuWrapper).toHaveCSS("top", "60px")
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "false")
+  })
+
+  test("Mobile course menu has high z-index for sticky layering", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const mobileMenuWrapper = page.locator(".mobile-nav-div")
+    await expect(mobileMenuWrapper).toBeVisible()
+    await expect(mobileMenuWrapper).toHaveCSS("z-index", "1000")
+  })
+
+  test("Mobile course menu is closed by default on every page", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+
+    // Check on the syllabus page
+    await course.goto("/pages/syllabus")
+    const menuToggleSyllabus = page.locator("#mobile-course-menu-toggle-v3")
+    await expect(menuToggleSyllabus).toHaveAttribute("aria-expanded", "false")
+
+    // Navigate to a different page
+    await course.goto("/pages/subscripts-and-superscripts")
+    const menuToggleSubscripts = page.locator("#mobile-course-menu-toggle-v3")
+    await expect(menuToggleSubscripts).toHaveAttribute("aria-expanded", "false")
+  })
+
+  test("Mobile course menu resets to closed after navigation", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const menuToggle = page.locator("#mobile-course-menu-toggle-v3")
+    await menuToggle.click()
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "true")
+
+    const firstLink = page.locator("#mobile-course-menu-items a").first()
+    await firstLink.click()
+
+    const nextPageMenuToggle = page.locator("#mobile-course-menu-toggle-v3")
+    await expect(nextPageMenuToggle).toHaveAttribute("aria-expanded", "false")
+  })
 })

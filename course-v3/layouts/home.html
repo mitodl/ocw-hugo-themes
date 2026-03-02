@@ -5,7 +5,7 @@
 <html lang="{{ $.Site.Language.Lang }}">
 {{ partial "head.html" . }}
 
-<body class="course-home-page has-mit-learn-header">
+<body class="course-home-page has-mit-learn-header" data-page-path="{{ .RelPermalink }}">
   {{ if $gtmId }}
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId }}" height="0" width="0"

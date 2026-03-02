@@ -11,6 +11,14 @@ export const initMobileCourseMenuV3 = () => {
     return
   }
 
+  const closeMenu = () => {
+    toggleButton.setAttribute("aria-expanded", "false")
+  }
+
+  // Always start with a collapsed menu on page load/redirect.
+  closeMenu()
+  window.addEventListener("pageshow", closeMenu)
+
   // Toggle menu visibility via aria-expanded (CSS handles display)
   toggleButton.addEventListener("click", e => {
     e.preventDefault()
@@ -32,6 +40,14 @@ export const initMobileCourseMenuV3 = () => {
       !toggleButton.contains(target)
     ) {
       toggleButton.setAttribute("aria-expanded", "false")
+    }
+  })
+
+  // Collapse the menu as soon as a navigation link is clicked.
+  menuItems.addEventListener("click", e => {
+    const target = e.target as HTMLElement | null
+    if (target?.closest("a")) {
+      closeMenu()
     }
   })
 }
