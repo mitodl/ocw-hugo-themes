@@ -41,7 +41,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@mitodl/course-search-utils": "^2.3.3",
+    "@mitodl/course-search-utils": "^3.0.0",
     "@mitodl/open-api-axios": "^2025.4.8",
     "@mitodl/smoot-design": "^6.0.1",
     "@mui/material": "^7.0.1",

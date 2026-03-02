@@ -2641,23 +2641,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mitodl/course-search-utils@npm:^2.3.3":
-  version: 2.3.3
-  resolution: "@mitodl/course-search-utils@npm:2.3.3"
+"@mitodl/course-search-utils@npm:^3.0.0":
+  version: 3.5.0
+  resolution: "@mitodl/course-search-utils@npm:3.5.0"
   dependencies:
-    bodybuilder: "npm:^2.5.0"
-    query-string: "npm:^6.13.1"
-    ramda: "npm:^0.27.1"
+    "@mitodl/mit-learn-api-axios": "npm:2025.10.28"
+    "@remixicon/react": "npm:^4.2.0"
+    axios: "npm:^1.6.7"
+    fuse.js: "npm:^7.0.0"
   peerDependencies:
     "@types/history": ^4.9
-    history: ^4.9 || ^5.0.0
-    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+    next: ^14.2.7
+    react: ^16.13.1
+    react-router: ^6.22.2
   peerDependenciesMeta:
     "@types/history":
       optional: true
     history:
       optional: true
-  checksum: 10c0/639fd06a5ca66cabc330b012ac2cdb5e10266fab1726e7a3a5972611747d4e1fe76bcb3c8d9baa1449f43c48febbd9e9ddddb83e86f8496b7e85b54c3a251f3b
+    next:
+      optional: true
+    react-router:
+      optional: true
+  checksum: 10c0/693d2a9ae7866995f5b3d959878b2b4fa1c28eb34832bc9231043109138e4ea0814cd99009b29fc197c0a22e1af0082c2c18e0b07aafa7cfd80e22c7926c5c87
+  languageName: node
+  linkType: hard
+
+"@mitodl/mit-learn-api-axios@npm:2025.10.28":
+  version: 2025.10.28
+  resolution: "@mitodl/mit-learn-api-axios@npm:2025.10.28"
+  dependencies:
+    "@types/node": "npm:^22.0.0"
+    axios: "npm:^1.6.5"
+  checksum: 10c0/54f24238f64ae763bbe0bcf47e3f7c29a9e7b5984297862f2b3560c04fa278c5a8301cb82c919510e40864b279278f7b85023a8dc7f99813d9abe8e84a02b364
   languageName: node
   linkType: hard
 
@@ -3197,6 +3213,15 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
   checksum: 10c0/848cac34f8584477ab6c91686ab447c7f7eee997e0b1771cc71298d15a4dd0400ce7b899ad8c1603a72d59a72f24a390964133693a3ba602828801d4dacc3f45
+  languageName: node
+  linkType: hard
+
+"@remixicon/react@npm:^4.2.0":
+  version: 4.9.0
+  resolution: "@remixicon/react@npm:4.9.0"
+  peerDependencies:
+    react: ">=18.2.0"
+  checksum: 10c0/91bbadb677f45cf8b6687fdf9d273511fddb4e862f1da6c11bc7932acb578bcb26ae5b9e1eb62143a4e916b71797739a36d689866d5b0949f0f0f22c1684cb96
   languageName: node
   linkType: hard
 
@@ -5920,6 +5945,17 @@ __metadata:
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
   checksum: 10c0/450993c2ba975ffccaf0d480b68839a3b2435a5469a71fa2fb0b8a55cdb2c2ae47e609360b9c1e2b2534b73dfd69e2733a1cf9f8215bee0bcd729b72f801b0ce
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.6.7":
+  version: 1.13.6
+  resolution: "axios@npm:1.13.6"
+  dependencies:
+    follow-redirects: "npm:^1.15.11"
+    form-data: "npm:^4.0.5"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 10c0/51fb5af055c3b85662fa97df17d986ae2c37d13bf86d50b6bb36b6b3a2dec6966a1d3a14ab3774b71707b155ae3597ed9b7babdf1a1a863d1a31840cb8e7ec71
   languageName: node
   linkType: hard
 
@@ -9315,6 +9351,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"follow-redirects@npm:^1.15.11":
+  version: 1.15.11
+  resolution: "follow-redirects@npm:1.15.11"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 10c0/d301f430542520a54058d4aeeb453233c564aaccac835d29d15e050beb33f339ad67d9bddbce01739c5dc46a6716dbe3d9d0d5134b1ca203effa11a7ef092343
+  languageName: node
+  linkType: hard
+
 "for-each@npm:^0.3.3, for-each@npm:^0.3.5":
   version: 0.3.5
   resolution: "for-each@npm:0.3.5"
@@ -9360,6 +9406,19 @@ __metadata:
     es-set-tostringtag: "npm:^2.1.0"
     mime-types: "npm:^2.1.12"
   checksum: 10c0/e534b0cf025c831a0929bf4b9bbe1a9a6b03e273a8161f9947286b9b13bf8fb279c6944aae0070c4c311100c6d6dbb815cd955dc217728caf73fad8dc5b8ee9c
+  languageName: node
+  linkType: hard
+
+"form-data@npm:^4.0.5":
+  version: 4.0.5
+  resolution: "form-data@npm:4.0.5"
+  dependencies:
+    asynckit: "npm:^0.4.0"
+    combined-stream: "npm:^1.0.8"
+    es-set-tostringtag: "npm:^2.1.0"
+    hasown: "npm:^2.0.2"
+    mime-types: "npm:^2.1.12"
+  checksum: 10c0/dd6b767ee0bbd6d84039db12a0fa5a2028160ffbfaba1800695713b46ae974a5f6e08b3356c3195137f8530dcd9dfcb5d5ae1eeff53d0db1e5aad863b619ce3b
   languageName: node
   linkType: hard
 
@@ -13612,7 +13671,7 @@ __metadata:
     "@babel/preset-typescript": "npm:^7.25.7"
     "@emotion/react": "npm:^11.14.0"
     "@emotion/styled": "npm:^11.14.0"
-    "@mitodl/course-search-utils": "npm:^2.3.3"
+    "@mitodl/course-search-utils": "npm:^3.0.0"
     "@mitodl/ocw-to-hugo": "npm:1.36.0"
     "@mitodl/open-api-axios": "npm:^2025.4.8"
     "@mitodl/smoot-design": "npm:^6.0.1"
