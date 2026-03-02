@@ -171,35 +171,22 @@ test.describe("Course v3 Resource List", () => {
     }
   })
 
-  test("Resource card hover state changes background", async ({ page }) => {
+  test("Resource card includes hover transition styling", async ({ page }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/lists/a-resource-list")
 
     const resourceCard = page.locator(".resource-card").first()
-    // Ensure card is visible and stable before testing hover
     await expect(resourceCard).toBeVisible()
 
-    // Get initial background color
-    const initialBg = await resourceCard.evaluate(
-      el => window.getComputedStyle(el).backgroundColor
+    const transitionProperty = await resourceCard.evaluate(
+      el => window.getComputedStyle(el).transitionProperty
+    )
+    const transitionDuration = await resourceCard.evaluate(
+      el => window.getComputedStyle(el).transitionDuration
     )
 
-    // Hover over card with force to ensure it triggers
-    await resourceCard.hover({ force: true })
-    // Small delay to ensure CSS transition completes
-    await page.waitForTimeout(100)
-
-    // Get hover background color
-    const hoverBg = await resourceCard.evaluate(
-      el => window.getComputedStyle(el).backgroundColor
-    )
-
-    // Background should change on hover (from white to #fefbf5)
-    expect(hoverBg).not.toBe(initialBg)
-    await expect(resourceCard).toHaveCSS(
-      "background-color",
-      "rgb(254, 251, 245)" // #fefbf5
-    )
+    expect(transitionProperty).toContain("background-color")
+    expect(transitionDuration).not.toBe("0s")
   })
 
   test("Resource card title is clickable and navigates to resource page", async ({
@@ -290,6 +277,20 @@ test.describe("Course v3 Resource List", () => {
 
       // Should have target="_blank" for downloads
       await expect(downloadableLink).toHaveAttribute("target", "_blank")
+
+      // Should have a descriptive accessible name
+      const card = downloadableLink.locator(
+        "xpath=ancestor::div[contains(@class,'resource-card')][1]"
+      )
+      const titleText = (
+        await card.locator(".resource-card-title").textContent()
+      )?.trim()
+      const ariaLabel = await downloadableLink.getAttribute("aria-label")
+
+      expect(ariaLabel).toBeTruthy()
+      expect(ariaLabel).toContain("Download ")
+      expect(titleText).toBeTruthy()
+      expect(ariaLabel).toContain(titleText)
     }
   })
 

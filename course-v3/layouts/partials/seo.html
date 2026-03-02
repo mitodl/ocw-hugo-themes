@@ -1,0 +1,48 @@
+{{ define "seo" }}
+
+  {{- $sitemapDomain := partial "sitemap_domain.html" -}}
+
+  <!-- default value for the meta description -->
+  {{- $defaultMetadataDescription := "MIT OpenCourseWare is a web based publication of virtually all MIT course content. OCW is open and available to the world and is a permanent MIT activity" -}}
+  {{- $metaDataDescription := $defaultMetadataDescription -}}
+  {{- if .IsHome -}}
+  {{- $metaDataDescription = (.Site.Data.course.course_description | plainify) | default $defaultMetadataDescription -}}
+  {{- else -}}
+  {{- $metaDataDescription = (.Params.description | plainify) | default $defaultMetadataDescription -}}
+  {{- end -}}
+
+  {{ $title := partial "title.html" . }}
+  {{- $canonicalURL := partial "get_canonical_url.html" . -}}
+
+  <meta name="description" content="{{- $metaDataDescription -}}">
+  <meta name="keywords" content="opencourseware,MIT OCW,courseware,MIT opencourseware,Free Courses,class notes,class syllabus,class materials,tutorials,online courses,MIT courses">
+  {{/*  Facebook Open Graph  */}}
+  <meta property="og:site_name" content="MIT OpenCourseWare">
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{- $canonicalURL -}}" />
+  <meta property="og:title" content="{{- $title -}}" />
+  <meta property="og:description" content="{{- $metaDataDescription -}}" />
+
+  {{ partial "extra_metadata.html" (dict "context" . ) }}
+
+  <link rel="canonical" href="{{- $canonicalURL -}}" />
+  <link rel="alternate" hreflang="en" href="{{- $canonicalURL -}}" />
+  <link rel="alternate" hreflang="x-default" href="{{- $canonicalURL -}}" />
+
+  <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type" : "WebPage",
+        "name": "{{- $title -}}",
+        "url": "{{- $canonicalURL -}}",
+        "description": "{{- $metaDataDescription -}}",
+        "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "inLanguage": "en",
+        "publisher": {
+          "@type": "CollegeOrUniversity",
+          "name": "MIT OpenCourseWare",
+          "url": "https://{{- $sitemapDomain -}}"
+        }
+      }
+  </script>
+{{ end }}

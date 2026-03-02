@@ -38,13 +38,15 @@ test.describe("MIT Learn Header", () => {
     await course.goto("/")
 
     const navDrawer = page.locator("#mit-learn-nav-drawer")
-    await expect(navDrawer).toHaveAttribute("aria-hidden", "true")
+    await expect(navDrawer).toHaveAttribute("inert", "")
+    await expect(navDrawer).not.toHaveClass(/open/)
 
     // Click menu button (desktop or mobile depending on viewport)
     const menuButton = page.locator(".mit-learn-menu-button").first()
     await menuButton.click()
 
-    await expect(navDrawer).toHaveAttribute("aria-hidden", "false")
+    await expect(navDrawer).toHaveClass(/open/)
+    await expect(navDrawer).not.toHaveAttribute("inert", "")
   })
 
   test("Navigation drawer contains Learn section with correct links", async ({
@@ -58,7 +60,8 @@ test.describe("MIT Learn Header", () => {
     await menuButton.click()
 
     const navDrawer = page.locator("#mit-learn-nav-drawer")
-    await expect(navDrawer).toHaveAttribute("aria-hidden", "false")
+    await expect(navDrawer).toHaveClass(/open/)
+    await expect(navDrawer).not.toHaveAttribute("inert", "")
 
     // Check Learn section links - verify path patterns (base URL may vary by environment)
     const coursesLink = navDrawer.getByRole("link", {
@@ -95,13 +98,15 @@ test.describe("MIT Learn Header", () => {
     await menuButton.click()
 
     const navDrawer = page.locator("#mit-learn-nav-drawer")
-    await expect(navDrawer).toHaveAttribute("aria-hidden", "false")
+    await expect(navDrawer).toHaveClass(/open/)
+    await expect(navDrawer).not.toHaveAttribute("inert", "")
 
     // Close drawer
     const closeButton = page.locator("#mit-learn-nav-close")
     await closeButton.click()
 
-    await expect(navDrawer).toHaveAttribute("aria-hidden", "true")
+    await expect(navDrawer).not.toHaveClass(/open/)
+    await expect(navDrawer).toHaveAttribute("inert", "")
   })
 
   test("Clicking backdrop closes navigation drawer", async ({ page }) => {
@@ -113,12 +118,14 @@ test.describe("MIT Learn Header", () => {
     await menuButton.click()
 
     const navDrawer = page.locator("#mit-learn-nav-drawer")
-    await expect(navDrawer).toHaveAttribute("aria-hidden", "false")
+    await expect(navDrawer).toHaveClass(/open/)
+    await expect(navDrawer).not.toHaveAttribute("inert", "")
 
     // Click backdrop
     const backdrop = page.locator("#mit-learn-nav-backdrop")
     await backdrop.click({ force: true })
 
-    await expect(navDrawer).toHaveAttribute("aria-hidden", "true")
+    await expect(navDrawer).not.toHaveClass(/open/)
+    await expect(navDrawer).toHaveAttribute("inert", "")
   })
 })

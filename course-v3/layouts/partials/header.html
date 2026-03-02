@@ -11,12 +11,14 @@
             src="{{- partial "get_asset_webpack_url.html" "images/mit_learn_logo.svg" -}}" 
             alt="MIT Learn" 
             class="mit-learn-logo"
+            width="130" 
+            height="24"
           />
         </a>
         <button 
           id="mit-learn-menu-button-desktop"
           class="mit-learn-menu-button"
-          aria-label="Open navigation menu"
+          aria-label="Explore MIT menu"
           aria-expanded="false"
           aria-controls="mit-learn-nav-drawer"
         >
@@ -38,6 +40,8 @@
             src="{{- partial "get_asset_webpack_url.html" "images/mit-logo-white.svg" -}}" 
             alt="MIT" 
             class="mit-learn-official-logo-img"
+            width="36" 
+            height="20"
           />
         </a>
       </div>
@@ -60,6 +64,8 @@
           src="{{- partial "get_asset_webpack_url.html" "images/mit_learn_logo.svg" -}}" 
           alt="MIT Learn" 
           class="mit-learn-logo mit-learn-logo-mobile"
+          width="130" 
+          height="24"
         />
       </a>
       <div class="mit-learn-header-spacer"></div>
@@ -72,13 +78,15 @@
           src="{{- partial "get_asset_webpack_url.html" "images/mit-logo-white.svg" -}}" 
           alt="MIT" 
           class="mit-learn-official-logo-img"
+          width="36" 
+          height="20"
         />
       </a>
     </div>
   </div>
 
   {{/* Navigation Drawer */}}
-  <nav id="mit-learn-nav-drawer" class="mit-learn-nav-drawer" aria-hidden="true" aria-label="Main navigation">
+  <nav id="mit-learn-nav-drawer" class="mit-learn-nav-drawer" aria-label="Main navigation" inert>
     <div class="mit-learn-nav-drawer-content">
       {{/* LEARN Section */}}
       <div class="mit-learn-nav-section">

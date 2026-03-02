@@ -353,9 +353,17 @@ pre {
 
 #course-description {
   gap: 1rem;
+
+  code {
+    background-color: #f3f4f8;
+    border-radius: 0.125rem;
+    color: #6f1d1b;
+    padding: 0.125em 0.25em;
+  }
 }
 
 .course-detail-section {
+  h2.course-section-heading,
   h5 {
     color: #000;
     font-family: $mit-learn-font-family;
@@ -366,6 +374,7 @@ pre {
     text-transform: none;
   }
 
+  h3.course-subsection-heading,
   h6 {
     color: #000;
 
@@ -495,4 +504,11 @@ pre {
       padding-right: 2.6rem !important;
     }
   }
+}
+
+// Accessibility: ensure footer links meet 24px minimum touch target height
+.footer-v3 .footer-link a {
+  display: flex;
+  align-items: center;
+  min-height: 24px;
 }
