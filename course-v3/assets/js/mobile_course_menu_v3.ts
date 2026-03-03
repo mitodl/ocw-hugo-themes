@@ -45,8 +45,8 @@ export const initMobileCourseMenuV3 = () => {
 
   // Collapse the menu as soon as a navigation link is clicked.
   menuItems.addEventListener("click", e => {
-    const target = e.target as HTMLElement | null
-    if (target?.closest("a")) {
+    const target = e.target
+    if (target instanceof Element && target.closest("a")) {
       closeMenu()
     }
   })

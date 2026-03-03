@@ -303,11 +303,26 @@ span[class^="toggle"]:not(.toggle-visible) {
   display: none;
 }
 
-div[class^="reveal"],
-.multiple-choice-check-button,
-.multiple-choice-show-button {
+div[class^="reveal"] {
   color: #115f83;
   cursor: pointer;
+}
+
+.multiple-choice-check-button,
+.multiple-choice-show-button {
+  font-family: $mit-learn-font-family;
+  font-size: 14px;
+  font-weight: $mit-learn-font-weight-medium;
+  color: #115f83;
+  border-color: #115f83;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: #115f83;
+    border-color: #115f83;
+    color: $white;
+  }
 }
 
 .correctness-icon-correct {

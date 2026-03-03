@@ -30,8 +30,10 @@
   }
 
   // Keep heading styles consistent across content pages.
+  // !important overrides Bootstrap's heading color specificity.
   :is(h2, h3, h4, h5, h6) {
     color: $black !important;
+    font-weight: $mit-learn-font-weight-medium;
   }
 
   > * {
@@ -44,6 +46,7 @@
   }
 
   // Tables should not contribute extra bottom whitespace.
+  // !important overrides Bootstrap's default table margin-bottom.
   table {
     margin-bottom: 0 !important;
   }
@@ -58,6 +61,8 @@
     margin-bottom: 0 !important;
   }
 
+  // Handles nested last-children (e.g., a <p> or <tr> inside a final
+  // <table>/<div>) that may carry inherited bottom margins from Bootstrap.
   > :last-child > :last-child {
     margin-bottom: 0 !important;
   }
