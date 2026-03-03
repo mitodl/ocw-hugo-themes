@@ -178,17 +178,10 @@ ul .course-nav-parent {
 }
 
 .course-nav-section-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   border: none;
-  min-width: 1.5rem;
-  min-height: 1.5rem;
-  padding: 0.125rem;
-  margin-left: 0.25rem;
+  padding: 0;
   background: none;
   align-self: flex-start;
-  line-height: 1;
 }
 
 @media (pointer: coarse), (pointer: none) {
