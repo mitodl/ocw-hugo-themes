@@ -144,6 +144,44 @@ test.describe("Course v3 content typography and spacing", () => {
     expect(courseInfoWeight).toBe("500")
   })
 
+  test("Heading levels step down by 2px from title to nested headings", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+
+    await course.goto("/pages/syllabus")
+    const pageTitle = page.locator(".resource-page-title").first()
+    const sectionHeading = page
+      .locator("#course-content-section > :is(h2, h3)")
+      .filter({ hasText: "Course Information" })
+
+    await expect(pageTitle).toBeVisible()
+    await expect(sectionHeading).toBeVisible()
+    await expect(pageTitle).toHaveCSS("font-size", "18px")
+    await expect(sectionHeading).toHaveCSS("font-size", "16px")
+
+    const titleSize = parseFloat(
+      await pageTitle.evaluate(el => window.getComputedStyle(el).fontSize)
+    )
+    const sectionSize = parseFloat(
+      await sectionHeading.evaluate(el => window.getComputedStyle(el).fontSize)
+    )
+
+    const nestedSize = await page.evaluate(() => {
+      const container = document.querySelector("#course-content-section")
+      if (!container) return 0
+      const heading = document.createElement("h4")
+      heading.textContent = "Nested heading size probe"
+      container.appendChild(heading)
+      const size = parseFloat(window.getComputedStyle(heading).fontSize)
+      heading.remove()
+      return size
+    })
+
+    expect(titleSize - sectionSize).toBe(2)
+    expect(sectionSize - nestedSize).toBe(2)
+  })
+
   test("Syllabus page body carries data-page-path attribute", async ({
     page
   }) => {

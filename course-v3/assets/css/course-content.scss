@@ -24,64 +24,79 @@
 }
 
 #course-content-section {
-  // Normalize body copy rhythm and readability for course content.
+  // Body text
   :is(p, li, td, th) {
     line-height: 22px;
   }
 
-  // Keep heading styles consistent across content pages.
-  // !important overrides Bootstrap's heading color specificity.
+  // Headings
   :is(h2, h3, h4, h5, h6) {
     color: $black !important;
     font-weight: $mit-learn-font-weight-medium;
+  }
+
+  h2,
+  h3 {
+    font-size: 16px !important;
+    line-height: 24px !important;
+  }
+
+  h4 {
+    font-size: 14px !important;
+    line-height: 22px !important;
+  }
+
+  h5 {
+    font-size: 12px !important;
+    line-height: 20px !important;
+  }
+
+  h6 {
+    font-size: 10px !important;
+    line-height: 18px !important;
   }
 
   > * {
     margin-bottom: 0;
   }
 
-  // Global spacing request: keep a consistent 40px rhythm between content blocks.
+  // Global spacing
   > * + * {
     margin-top: 2.5rem;
   }
 
-  // When a heading is directly followed by a table (no intervening body text),
-  // use tighter spacing so the table reads as part of the heading's section.
+  // Heading to table spacing
   > :is(h2, h3, h4, h5, h6) + table,
   > :is(h2, h3, h4, h5, h6) + p:empty + table {
     margin-top: 0.5rem;
   }
 
-  // Tables should not contribute extra bottom whitespace.
-  // !important overrides Bootstrap's default table margin-bottom.
+  // Table spacing
   table {
     margin-bottom: 0 !important;
   }
 
-  // Markdown occasionally emits empty paragraphs around tables/shortcodes.
+  // Empty markdown paragraphs
   > p:empty {
     display: none;
   }
 
-  // Prevent extra trailing whitespace from the last content block (e.g., tables).
+  // Trailing spacing
   > :last-child {
     margin-bottom: 0 !important;
   }
 
-  // Handles nested last-children (e.g., a <p> or <tr> inside a final
-  // <table>/<div>) that may carry inherited bottom margins from Bootstrap.
+  // Nested trailing spacing
   > :last-child > :last-child {
     margin-bottom: 0 !important;
   }
 }
 
 body[data-page-path*="/syllabus"] #course-content-section {
-  // Syllabus uses compact intra-section spacing.
+  // Syllabus compact spacing
   > :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
   > :is(p, ul, ol, blockquote, table, section, div)
     + :is(p, ul, ol, blockquote, table, section, div),
-  // Hugo/Goldmark may emit empty <p> tags between headings and tables;
-  // chain through them so compact spacing still applies.
   > :is(h2, h3, h4, h5, h6) + p:empty + :is(p, ul, ol, blockquote, table, section, div),
   > :is(p, ul, ol, blockquote, table, section, div)
     + p:empty
@@ -89,7 +104,7 @@ body[data-page-path*="/syllabus"] #course-content-section {
     margin-top: 0.5rem;
   }
 
-  // Keep full section rhythm whenever a new heading starts.
+  // Syllabus section spacing
   > :is(h2, h3, h4, h5, h6) + :is(h2, h3, h4, h5, h6),
   > :is(p, ul, ol, blockquote, table, section, div)
     + :is(h2, h3, h4, h5, h6) {
