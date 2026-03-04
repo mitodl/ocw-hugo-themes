@@ -329,7 +329,8 @@ div[class^="reveal"] {
   border-width: 1px;
   padding: 9px 24px;
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .multiple-choice-check-button {

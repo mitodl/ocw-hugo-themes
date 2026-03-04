@@ -55,7 +55,9 @@ test.describe("Course v3 content typography and spacing", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/syllabus")
 
-    const heading = page.locator("#course-content-section > :is(h2, h3)").first()
+    const heading = page
+      .locator("#course-content-section > :is(h2, h3)")
+      .first()
     const firstParagraph = page.locator("#course-content-section > p").first()
     const secondParagraph = page.locator("#course-content-section > p").nth(1)
 
@@ -300,7 +302,10 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(checkButton).toBeVisible()
     await expect(showSolutionButton).toBeVisible()
 
-    await expect(checkButton).toHaveCSS("background-color", "rgb(255, 255, 255)")
+    await expect(checkButton).toHaveCSS(
+      "background-color",
+      "rgb(255, 255, 255)"
+    )
     await expect(checkButton).toHaveCSS("border-color", "rgb(117, 0, 20)")
     await expect(checkButton).toHaveCSS("color", "rgb(117, 0, 20)")
 
@@ -308,7 +313,10 @@ test.describe("Course v3 content typography and spacing", () => {
       "background-color",
       "rgb(117, 0, 20)"
     )
-    await expect(showSolutionButton).toHaveCSS("border-color", "rgb(117, 0, 20)")
+    await expect(showSolutionButton).toHaveCSS(
+      "border-color",
+      "rgb(117, 0, 20)"
+    )
     await expect(showSolutionButton).toHaveCSS("color", "rgb(255, 255, 255)")
   })
 

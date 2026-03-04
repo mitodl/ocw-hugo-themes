@@ -110,7 +110,9 @@ body[data-page-path*="/syllabus"] #course-content-section {
   > :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
   > :is(p, ul, ol, blockquote, table, section, div)
     + :is(p, ul, ol, blockquote, table, section, div),
-  > :is(h2, h3, h4, h5, h6) + p:empty + :is(p, ul, ol, blockquote, table, section, div),
+  > :is(h2, h3, h4, h5, h6)
+    + p:empty
+    + :is(p, ul, ol, blockquote, table, section, div),
   > :is(p, ul, ol, blockquote, table, section, div)
     + p:empty
     + :is(p, ul, ol, blockquote, table, section, div) {
@@ -119,8 +121,7 @@ body[data-page-path*="/syllabus"] #course-content-section {
 
   // Syllabus section spacing
   > :is(h2, h3, h4, h5, h6) + :is(h2, h3, h4, h5, h6),
-  > :is(p, ul, ol, blockquote, table, section, div)
-    + :is(h2, h3, h4, h5, h6) {
+  > :is(p, ul, ol, blockquote, table, section, div) + :is(h2, h3, h4, h5, h6) {
     margin-top: 2.5rem;
   }
 
@@ -128,7 +129,9 @@ body[data-page-path*="/syllabus"] #course-content-section {
     > :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
     > :is(p, ul, ol, blockquote, table, section, div)
       + :is(p, ul, ol, blockquote, table, section, div),
-    > :is(h2, h3, h4, h5, h6) + p:empty + :is(p, ul, ol, blockquote, table, section, div),
+    > :is(h2, h3, h4, h5, h6)
+      + p:empty
+      + :is(p, ul, ol, blockquote, table, section, div),
     > :is(p, ul, ol, blockquote, table, section, div)
       + p:empty
       + :is(p, ul, ol, blockquote, table, section, div) {

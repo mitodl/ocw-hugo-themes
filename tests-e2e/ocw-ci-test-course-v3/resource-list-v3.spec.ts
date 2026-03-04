@@ -315,7 +315,10 @@ test.describe("Course v3 Resource List", () => {
 
     const seeAllContainer = page.locator(".see-all-container").first()
     const seeAllCount = await seeAllContainer.count()
-    test.skip(seeAllCount === 0, "No See all link rendered for current fixtures")
+    test.skip(
+      seeAllCount === 0,
+      "No See all link rendered for current fixtures"
+    )
 
     await expect(seeAllContainer).toBeVisible()
     await expect(seeAllContainer).toHaveCSS("padding-top", "16px")
