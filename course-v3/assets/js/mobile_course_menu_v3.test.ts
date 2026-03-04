@@ -13,14 +13,18 @@ describe("initMobileCourseMenuV3", () => {
   })
 
   it("collapses the menu immediately on initialization", () => {
-    const toggleButton = document.getElementById("mobile-course-menu-toggle-v3")!
+    const toggleButton = document.getElementById(
+      "mobile-course-menu-toggle-v3"
+    )!
     initMobileCourseMenuV3()
 
     expect(toggleButton.getAttribute("aria-expanded")).toBe("false")
   })
 
   it("toggles menu state when clicking the toggle button", () => {
-    const toggleButton = document.getElementById("mobile-course-menu-toggle-v3")!
+    const toggleButton = document.getElementById(
+      "mobile-course-menu-toggle-v3"
+    )!
     initMobileCourseMenuV3()
 
     toggleButton.click()
@@ -31,7 +35,9 @@ describe("initMobileCourseMenuV3", () => {
   })
 
   it("collapses the menu when clicking outside", () => {
-    const toggleButton = document.getElementById("mobile-course-menu-toggle-v3")!
+    const toggleButton = document.getElementById(
+      "mobile-course-menu-toggle-v3"
+    )!
     initMobileCourseMenuV3()
 
     toggleButton.click()
@@ -42,7 +48,9 @@ describe("initMobileCourseMenuV3", () => {
   })
 
   it("collapses the menu when clicking a link inside the menu", () => {
-    const toggleButton = document.getElementById("mobile-course-menu-toggle-v3")!
+    const toggleButton = document.getElementById(
+      "mobile-course-menu-toggle-v3"
+    )!
     const menuLink = document.querySelector("#mobile-course-menu-items a")!
     initMobileCourseMenuV3()
 
@@ -54,7 +62,9 @@ describe("initMobileCourseMenuV3", () => {
   })
 
   it("collapses the menu on pageshow", () => {
-    const toggleButton = document.getElementById("mobile-course-menu-toggle-v3")!
+    const toggleButton = document.getElementById(
+      "mobile-course-menu-toggle-v3"
+    )!
     initMobileCourseMenuV3()
 
     toggleButton.click()
@@ -79,7 +89,9 @@ describe("initMobileCourseMenuV3", () => {
         </div>
       </div>
     `
-    const toggleButton = document.getElementById("mobile-course-menu-toggle-v3")!
+    const toggleButton = document.getElementById(
+      "mobile-course-menu-toggle-v3"
+    )!
     initMobileCourseMenuV3()
 
     toggleButton.click()
@@ -91,7 +103,9 @@ describe("initMobileCourseMenuV3", () => {
   })
 
   it("handles multiple rapid toggles correctly", () => {
-    const toggleButton = document.getElementById("mobile-course-menu-toggle-v3")!
+    const toggleButton = document.getElementById(
+      "mobile-course-menu-toggle-v3"
+    )!
     initMobileCourseMenuV3()
 
     // Rapid toggles
@@ -104,7 +118,9 @@ describe("initMobileCourseMenuV3", () => {
   })
 
   it("handles multiple pageshow events without error", () => {
-    const toggleButton = document.getElementById("mobile-course-menu-toggle-v3")!
+    const toggleButton = document.getElementById(
+      "mobile-course-menu-toggle-v3"
+    )!
     initMobileCourseMenuV3()
 
     toggleButton.click()
