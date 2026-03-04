@@ -291,11 +291,22 @@ h5 {
     color: $course-content-link-unclicked;
   }
 
-  a:visited,
-  a:hover,
-  a:active {
+  a:visited {
     color: $course-content-link-hover-clicked;
   }
+
+  a:hover,
+  a:focus-visible,
+  a:active {
+    color: $highlight-red;
+    text-decoration-color: $highlight-red;
+  }
+}
+
+a:not([class]):hover,
+a:not([class]):focus-visible {
+  color: $highlight-red;
+  text-decoration-color: $highlight-red;
 }
 
 div[class^="toggle"]:not(.toggle-visible),

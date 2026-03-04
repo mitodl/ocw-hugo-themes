@@ -141,7 +141,7 @@ test.describe("Course v3 content typography and spacing", () => {
     )
 
     expect(meetingTimesWeight).toBe(courseInfoWeight)
-    expect(courseInfoWeight).toBe("500")
+    expect(courseInfoWeight).toBe("700")
   })
 
   test("Heading levels step down by 2px from title to nested headings", async ({
@@ -158,7 +158,9 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(pageTitle).toBeVisible()
     await expect(sectionHeading).toBeVisible()
     await expect(pageTitle).toHaveCSS("font-size", "18px")
+    await expect(pageTitle).toHaveCSS("font-weight", "700")
     await expect(sectionHeading).toHaveCSS("font-size", "16px")
+    await expect(sectionHeading).toHaveCSS("font-weight", "700")
 
     const titleSize = parseFloat(
       await pageTitle.evaluate(el => window.getComputedStyle(el).fontSize)
@@ -167,19 +169,65 @@ test.describe("Course v3 content typography and spacing", () => {
       await sectionHeading.evaluate(el => window.getComputedStyle(el).fontSize)
     )
 
-    const nestedSize = await page.evaluate(() => {
+    const nestedHeadingStyles = await page.evaluate(() => {
       const container = document.querySelector("#course-content-section")
-      if (!container) return 0
+      if (!container) return { size: 0, weight: "" }
       const heading = document.createElement("h4")
       heading.textContent = "Nested heading size probe"
       container.appendChild(heading)
-      const size = parseFloat(window.getComputedStyle(heading).fontSize)
+      const styles = window.getComputedStyle(heading)
+      const size = parseFloat(styles.fontSize)
+      const weight = styles.fontWeight
       heading.remove()
-      return size
+      return { size, weight }
     })
 
+    expect(nestedHeadingStyles.size).toBe(14)
+    expect(nestedHeadingStyles.weight).toBe("700")
     expect(titleSize - sectionSize).toBe(2)
-    expect(sectionSize - nestedSize).toBe(2)
+    expect(sectionSize - nestedHeadingStyles.size).toBe(2)
+  })
+
+  test("Mobile content blocks use 24px spacing globally", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/subscripts-and-superscripts")
+
+    const secondParagraph = page.locator("#course-content-section > p").nth(1)
+    await expect(secondParagraph).toBeVisible()
+    await expect(secondParagraph).toHaveCSS("margin-top", "24px")
+  })
+
+  test("Mobile syllabus uses 16px heading-to-content spacing", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/syllabus")
+
+    const firstParagraph = page.locator("#course-content-section > p").first()
+    const calendarTable = page.locator(
+      "#course-content-section > :is(h2, h3):has-text('Calendar') + table"
+    )
+
+    await expect(firstParagraph).toBeVisible()
+    await expect(calendarTable).toBeVisible()
+    await expect(firstParagraph).toHaveCSS("margin-top", "16px")
+    await expect(calendarTable).toHaveCSS("margin-top", "16px")
+  })
+
+  test("Mobile syllabus uses 24px spacing between sections", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/syllabus")
+
+    const goalsHeading = page
+      .locator("#course-content-section > :is(h2, h3)")
+      .filter({ hasText: "Goals" })
+    await expect(goalsHeading).toBeVisible()
+    await expect(goalsHeading).toHaveCSS("margin-top", "24px")
   })
 
   test("Syllabus page body carries data-page-path attribute", async ({
@@ -228,6 +276,16 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(heading).toHaveCSS("color", "rgb(0, 0, 0)")
   })
 
+  test("Content links use red on hover", async ({ page }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/subscripts-and-superscripts")
+
+    const link = page.locator("#course-content-section a").first()
+    await expect(link).toBeVisible()
+    await link.hover()
+    await expect(link).toHaveCSS("color", "rgb(163, 31, 52)")
+  })
+
   test("Multiple choice buttons use secondary and primary styles", async ({
     page
   }) => {
@@ -262,11 +320,9 @@ test.describe("Course v3 content typography and spacing", () => {
       .locator("#course-content-section th, #course-content-section td")
       .first()
     await expect(tableHeading).toBeVisible()
-    // Verify table header text is not red (old h4 override removed)
     const color = await tableHeading.evaluate(
       el => window.getComputedStyle(el).color
     )
-    // Should be black-ish, not red (#a31f34 = rgb(163, 31, 52))
     expect(color).not.toBe("rgb(163, 31, 52)")
   })
 })

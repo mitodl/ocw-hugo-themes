@@ -32,7 +32,14 @@
   // Headings
   :is(h2, h3, h4, h5, h6) {
     color: $black !important;
-    font-weight: $mit-learn-font-weight-medium;
+    font-weight: $mit-learn-font-weight-bold;
+  }
+
+  a:hover,
+  a:focus-visible,
+  a:active {
+    color: $highlight-red;
+    text-decoration-color: $highlight-red;
   }
 
   h2,
@@ -63,6 +70,12 @@
   // Global spacing
   > * + * {
     margin-top: 2.5rem;
+  }
+
+  @include media-breakpoint-down(md) {
+    > * + * {
+      margin-top: 1.5rem;
+    }
   }
 
   // Heading to table spacing
@@ -109,6 +122,24 @@ body[data-page-path*="/syllabus"] #course-content-section {
   > :is(p, ul, ol, blockquote, table, section, div)
     + :is(h2, h3, h4, h5, h6) {
     margin-top: 2.5rem;
+  }
+
+  @include media-breakpoint-down(md) {
+    > :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
+    > :is(p, ul, ol, blockquote, table, section, div)
+      + :is(p, ul, ol, blockquote, table, section, div),
+    > :is(h2, h3, h4, h5, h6) + p:empty + :is(p, ul, ol, blockquote, table, section, div),
+    > :is(p, ul, ol, blockquote, table, section, div)
+      + p:empty
+      + :is(p, ul, ol, blockquote, table, section, div) {
+      margin-top: 1rem;
+    }
+
+    > :is(h2, h3, h4, h5, h6) + :is(h2, h3, h4, h5, h6),
+    > :is(p, ul, ol, blockquote, table, section, div)
+      + :is(h2, h3, h4, h5, h6) {
+      margin-top: 1.5rem;
+    }
   }
 }
 

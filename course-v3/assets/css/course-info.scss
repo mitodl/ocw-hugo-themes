@@ -6,6 +6,13 @@ $panel-course-info-text-color: #464646;
     text-transform: capitalize;
     font-weight: 500;
   }
+
+  a:hover,
+  a:focus-visible,
+  a:active {
+    color: $highlight-red;
+    text-decoration-color: $highlight-red;
+  }
 }
 
 .panel-course-info-title {
