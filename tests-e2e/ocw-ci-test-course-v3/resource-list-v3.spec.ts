@@ -308,4 +308,16 @@ test.describe("Course v3 Resource List", () => {
       await expect(cards.nth(i)).toBeVisible()
     }
   })
+
+  test("Download page See all link uses 16px top spacing", async ({ page }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/download")
+
+    const seeAllContainer = page.locator(".see-all-container").first()
+    const seeAllCount = await seeAllContainer.count()
+    test.skip(seeAllCount === 0, "No See all link rendered for current fixtures")
+
+    await expect(seeAllContainer).toBeVisible()
+    await expect(seeAllContainer).toHaveCSS("padding-top", "16px")
+  })
 })

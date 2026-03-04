@@ -11,6 +11,10 @@ Readings overview for this course.
 
 Assignment preview and planning notes.
 
+## Course Meeting Times
+
+Tuesday and Thursday, 10:00 AM to 11:30 AM.
+
 ## Grading Policy
 
 Grades will be roughly computed as follows:
@@ -24,3 +28,10 @@ Grades will be roughly computed as follows:
 ## Goals
 
 Understand the primary course objectives.
+
+## Calendar
+
+| Week | Topic |
+| --- | --- |
+| 1 | Introduction and course logistics |
+| 2 | Core concepts review |

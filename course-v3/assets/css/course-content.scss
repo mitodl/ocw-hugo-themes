@@ -45,6 +45,13 @@
     margin-top: 2.5rem;
   }
 
+  // When a heading is directly followed by a table (no intervening body text),
+  // use tighter spacing so the table reads as part of the heading's section.
+  > :is(h2, h3, h4, h5, h6) + table,
+  > :is(h2, h3, h4, h5, h6) + p:empty + table {
+    margin-top: 0.5rem;
+  }
+
   // Tables should not contribute extra bottom whitespace.
   // !important overrides Bootstrap's default table margin-bottom.
   table {
@@ -72,8 +79,21 @@ body[data-page-path*="/syllabus"] #course-content-section {
   // Syllabus uses compact intra-section spacing.
   > :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
   > :is(p, ul, ol, blockquote, table, section, div)
+    + :is(p, ul, ol, blockquote, table, section, div),
+  // Hugo/Goldmark may emit empty <p> tags between headings and tables;
+  // chain through them so compact spacing still applies.
+  > :is(h2, h3, h4, h5, h6) + p:empty + :is(p, ul, ol, blockquote, table, section, div),
+  > :is(p, ul, ol, blockquote, table, section, div)
+    + p:empty
     + :is(p, ul, ol, blockquote, table, section, div) {
     margin-top: 0.5rem;
+  }
+
+  // Keep full section rhythm whenever a new heading starts.
+  > :is(h2, h3, h4, h5, h6) + :is(h2, h3, h4, h5, h6),
+  > :is(p, ul, ol, blockquote, table, section, div)
+    + :is(h2, h3, h4, h5, h6) {
+    margin-top: 2.5rem;
   }
 }
 
@@ -81,13 +101,5 @@ th,
 td {
   > p:empty {
     display: none;
-  }
-}
-
-td {
-  h3 {
-    font-weight: normal !important;
-    font-style: italic !important;
-    font-family: arial, helvetica, sans-serif !important;
   }
 }

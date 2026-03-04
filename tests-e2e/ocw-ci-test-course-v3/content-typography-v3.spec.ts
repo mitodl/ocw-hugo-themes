@@ -55,7 +55,7 @@ test.describe("Course v3 content typography and spacing", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/syllabus")
 
-    const heading = page.locator("#course-content-section > h3").first()
+    const heading = page.locator("#course-content-section > :is(h2, h3)").first()
     const firstParagraph = page.locator("#course-content-section > p").first()
     const secondParagraph = page.locator("#course-content-section > p").nth(1)
 
@@ -80,6 +80,24 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(table).toHaveCSS("margin-top", "8px")
   })
 
+  test("Syllabus heading-to-table transition under Calendar uses 8px gap", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/syllabus")
+
+    const calendarHeading = page
+      .locator("#course-content-section > :is(h2, h3)")
+      .filter({ hasText: "Calendar" })
+    const calendarTable = page.locator(
+      "#course-content-section > :is(h2, h3):has-text('Calendar') + table"
+    )
+
+    await expect(calendarHeading).toBeVisible()
+    await expect(calendarTable).toBeVisible()
+    await expect(calendarTable).toHaveCSS("margin-top", "8px")
+  })
+
   test("Syllabus headings still use 40px gap between sections", async ({
     page
   }) => {
@@ -88,17 +106,42 @@ test.describe("Course v3 content typography and spacing", () => {
 
     // "Goals" heading follows a table — should still get the full 40px section gap
     const goalsHeading = page
-      .locator("#course-content-section > h3")
+      .locator("#course-content-section > :is(h2, h3)")
       .filter({ hasText: "Goals" })
     await expect(goalsHeading).toBeVisible()
     await expect(goalsHeading).toHaveCSS("margin-top", "40px")
 
     // "Grading Policy" heading follows a paragraph — also 40px
     const gradingHeading = page
-      .locator("#course-content-section > h3")
+      .locator("#course-content-section > :is(h2, h3)")
       .filter({ hasText: "Grading Policy" })
     await expect(gradingHeading).toBeVisible()
     await expect(gradingHeading).toHaveCSS("margin-top", "40px")
+  })
+
+  test("Syllabus section heading weights are consistent", async ({ page }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/syllabus")
+
+    const courseInfoHeading = page
+      .locator("#course-content-section > :is(h2, h3)")
+      .filter({ hasText: "Course Information" })
+    const meetingTimesHeading = page
+      .locator("#course-content-section > :is(h2, h3)")
+      .filter({ hasText: "Course Meeting Times" })
+
+    await expect(courseInfoHeading).toBeVisible()
+    await expect(meetingTimesHeading).toBeVisible()
+
+    const courseInfoWeight = await courseInfoHeading.evaluate(
+      el => window.getComputedStyle(el).fontWeight
+    )
+    const meetingTimesWeight = await meetingTimesHeading.evaluate(
+      el => window.getComputedStyle(el).fontWeight
+    )
+
+    expect(meetingTimesWeight).toBe(courseInfoWeight)
+    expect(courseInfoWeight).toBe("500")
   })
 
   test("Syllabus page body carries data-page-path attribute", async ({
@@ -145,6 +188,32 @@ test.describe("Course v3 content typography and spacing", () => {
     const heading = page.locator("#course-content-section h3").first()
     await expect(heading).toBeVisible()
     await expect(heading).toHaveCSS("color", "rgb(0, 0, 0)")
+  })
+
+  test("Multiple choice buttons use secondary and primary styles", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/shortcode-demos")
+
+    const checkButton = page.locator(".multiple-choice-check-button").first()
+    const showSolutionButton = page
+      .locator(".multiple-choice-show-button")
+      .first()
+
+    await expect(checkButton).toBeVisible()
+    await expect(showSolutionButton).toBeVisible()
+
+    await expect(checkButton).toHaveCSS("background-color", "rgb(255, 255, 255)")
+    await expect(checkButton).toHaveCSS("border-color", "rgb(117, 0, 20)")
+    await expect(checkButton).toHaveCSS("color", "rgb(117, 0, 20)")
+
+    await expect(showSolutionButton).toHaveCSS(
+      "background-color",
+      "rgb(117, 0, 20)"
+    )
+    await expect(showSolutionButton).toHaveCSS("border-color", "rgb(117, 0, 20)")
+    await expect(showSolutionButton).toHaveCSS("color", "rgb(255, 255, 255)")
   })
 
   test("Heading inside a table cell uses black color", async ({ page }) => {
