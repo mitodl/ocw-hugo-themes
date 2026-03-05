@@ -198,7 +198,7 @@ h5 {
   }
 
   .mobile-nav-div {
-    background-color: white;
+    background-color: transparent;
 
     @include media-breakpoint-down(md) {
       position: sticky;

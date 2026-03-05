@@ -79,9 +79,20 @@
   }
 
   // Heading to table spacing
-  > :is(h2, h3, h4, h5, h6) + table,
-  > :is(h2, h3, h4, h5, h6) + p:empty + table {
+  > :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
+  > :is(h2, h3, h4, h5, h6)
+    + p:empty
+    + :is(p, ul, ol, blockquote, table, section, div) {
     margin-top: 0.5rem;
+  }
+
+  @include media-breakpoint-down(md) {
+    > :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
+    > :is(h2, h3, h4, h5, h6)
+      + p:empty
+      + :is(p, ul, ol, blockquote, table, section, div) {
+      margin-top: 0.5rem;
+    }
   }
 
   // Table spacing
@@ -102,47 +113,6 @@
   // Nested trailing spacing
   > :last-child > :last-child {
     margin-bottom: 0 !important;
-  }
-}
-
-body[data-page-path*="/syllabus"] #course-content-section {
-  // Syllabus compact spacing
-  > :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
-  > :is(p, ul, ol, blockquote, table, section, div)
-    + :is(p, ul, ol, blockquote, table, section, div),
-  > :is(h2, h3, h4, h5, h6)
-    + p:empty
-    + :is(p, ul, ol, blockquote, table, section, div),
-  > :is(p, ul, ol, blockquote, table, section, div)
-    + p:empty
-    + :is(p, ul, ol, blockquote, table, section, div) {
-    margin-top: 0.5rem;
-  }
-
-  // Syllabus section spacing
-  > :is(h2, h3, h4, h5, h6) + :is(h2, h3, h4, h5, h6),
-  > :is(p, ul, ol, blockquote, table, section, div) + :is(h2, h3, h4, h5, h6) {
-    margin-top: 2.5rem;
-  }
-
-  @include media-breakpoint-down(md) {
-    > :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
-    > :is(p, ul, ol, blockquote, table, section, div)
-      + :is(p, ul, ol, blockquote, table, section, div),
-    > :is(h2, h3, h4, h5, h6)
-      + p:empty
-      + :is(p, ul, ol, blockquote, table, section, div),
-    > :is(p, ul, ol, blockquote, table, section, div)
-      + p:empty
-      + :is(p, ul, ol, blockquote, table, section, div) {
-      margin-top: 1rem;
-    }
-
-    > :is(h2, h3, h4, h5, h6) + :is(h2, h3, h4, h5, h6),
-    > :is(p, ul, ol, blockquote, table, section, div)
-      + :is(h2, h3, h4, h5, h6) {
-      margin-top: 1.5rem;
-    }
   }
 }
 
