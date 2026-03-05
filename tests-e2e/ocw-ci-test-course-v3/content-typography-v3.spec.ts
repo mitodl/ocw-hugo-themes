@@ -320,17 +320,14 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(showSolutionButton).toHaveCSS("color", "rgb(255, 255, 255)")
   })
 
-  test("Heading inside a table cell uses black color", async ({ page }) => {
+  test("Table cell text does not use red link color", async ({ page }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/subscripts-and-superscripts")
 
-    const tableHeading = page
+    const tableCell = page
       .locator("#course-content-section th, #course-content-section td")
       .first()
-    await expect(tableHeading).toBeVisible()
-    const color = await tableHeading.evaluate(
-      el => window.getComputedStyle(el).color
-    )
-    expect(color).not.toBe("rgb(163, 31, 52)")
+    await expect(tableCell).toBeVisible()
+    await expect(tableCell).not.toHaveCSS("color", "rgb(163, 31, 52)")
   })
 })
