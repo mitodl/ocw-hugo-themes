@@ -8,11 +8,13 @@
 {{- if $resourceBaseUrl -}}
 <link rel="preconnect" href="{{ $resourceBaseUrl }}" crossorigin>
 {{- end -}}
-<!-- Preload course image -->
+<!-- Preload course image (only on home page where the image is above the fold) -->
+{{- if and .IsHome .Site.Data.course.course_image.content -}}
 {{- $imageData := partial "course-image-url.html" . -}}
 {{- $courseImageUrl := index $imageData 0 -}}
 {{- if $courseImageUrl -}}
 <link rel="preload" as="image" href="{{ $courseImageUrl }}" fetchpriority="high">
+{{- end -}}
 {{- end -}}
 <!-- Adobe Fonts (neue-haas-grotesk) - fetch, patch font-display to optional to prevent late LCP repaints -->
 <script>
@@ -20,8 +22,13 @@
   var u='https://use.typekit.net/lbk1xay.css';
   fetch(u).then(function(r){return r.text()}).then(function(t){
     var s=document.createElement('style');
-    s.textContent=t.replace(/font-display\s*:\s*auto/g,'font-display:optional');
+    s.textContent=t.replace(/font-display\s*:\s*(auto|block|fallback|swap)/g,'font-display:optional');
     document.head.appendChild(s);
+  }).catch(function(){
+    var l=document.createElement('link');
+    l.rel='stylesheet';
+    l.href=u;
+    document.head.appendChild(l);
   });
 })();
 </script>
