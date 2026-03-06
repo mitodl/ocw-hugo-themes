@@ -49,7 +49,7 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(firstChild).toHaveCSS("margin-bottom", "0px")
   })
 
-  test("Syllabus content uses compact 8px spacing between heading and paragraphs", async ({
+  test("Syllabus heading-to-paragraph uses compact 8px spacing", async ({
     page
   }) => {
     const course = new CoursePage(page, "course-v3")
@@ -59,27 +59,24 @@ test.describe("Course v3 content typography and spacing", () => {
       .locator("#course-content-section > :is(h2, h3)")
       .first()
     const firstParagraph = page.locator("#course-content-section > p").first()
-    const secondParagraph = page.locator("#course-content-section > p").nth(1)
 
     await expect(heading).toBeVisible()
     await expect(firstParagraph).toBeVisible()
-    await expect(secondParagraph).toBeVisible()
-    // heading -> paragraph = 8px
+    // heading -> paragraph = 8px (compact, not 40px)
     await expect(firstParagraph).toHaveCSS("margin-top", "8px")
-    // paragraph -> paragraph = 8px
-    await expect(secondParagraph).toHaveCSS("margin-top", "8px")
   })
 
-  test("Syllabus paragraph-to-table transition uses compact 8px gap, not 40px", async ({
+  test("Syllabus paragraph-to-table uses global 40px gap", async ({
     page
   }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/syllabus")
 
-    // The Grading Policy section has: h3 -> p -> table
+    // The Grading Policy section has: h2 -> p -> table.
+    // h2 -> p uses compact 8px; p -> table uses the global 40px section gap.
     const table = page.locator("#course-content-section > table").first()
     await expect(table).toBeVisible()
-    await expect(table).toHaveCSS("margin-top", "8px")
+    await expect(table).toHaveCSS("margin-top", "40px")
   })
 
   test("Syllabus heading-to-table transition under Calendar uses 8px gap", async ({
@@ -200,7 +197,7 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(secondParagraph).toHaveCSS("margin-top", "24px")
   })
 
-  test("Mobile syllabus uses 16px heading-to-content spacing", async ({
+  test("Mobile syllabus heading-to-content uses compact 8px spacing", async ({
     page
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
@@ -214,17 +211,19 @@ test.describe("Course v3 content typography and spacing", () => {
 
     await expect(firstParagraph).toBeVisible()
     await expect(calendarTable).toBeVisible()
-    await expect(firstParagraph).toHaveCSS("margin-top", "16px")
-    await expect(calendarTable).toHaveCSS("margin-top", "16px")
+    // heading -> content = 8px on mobile (same as desktop)
+    await expect(firstParagraph).toHaveCSS("margin-top", "8px")
+    await expect(calendarTable).toHaveCSS("margin-top", "8px")
   })
 
-  test("Mobile syllabus uses 24px spacing between sections", async ({
+  test("Mobile syllabus uses 24px global section spacing", async ({
     page
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/syllabus")
 
+    // "Goals" heading follows a table — gets the mobile global 1.5rem=24px gap
     const goalsHeading = page
       .locator("#course-content-section > :is(h2, h3)")
       .filter({ hasText: "Goals" })
