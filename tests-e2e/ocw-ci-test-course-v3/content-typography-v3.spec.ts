@@ -66,9 +66,7 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(firstParagraph).toHaveCSS("margin-top", "8px")
   })
 
-  test("Syllabus paragraph-to-table uses global 40px gap", async ({
-    page
-  }) => {
+  test("Syllabus paragraph-to-table uses global 40px gap", async ({ page }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/syllabus")
 
@@ -216,9 +214,7 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(calendarTable).toHaveCSS("margin-top", "8px")
   })
 
-  test("Mobile syllabus uses 24px global section spacing", async ({
-    page
-  }) => {
+  test("Mobile syllabus uses 24px global section spacing", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/syllabus")
