@@ -496,3 +496,12 @@ pre {
     }
   }
 }
+
+// Accessibility: keep larger touch targets on touch-first devices only.
+@media (pointer: coarse), (pointer: none) {
+  .footer-v3 .footer-link a {
+    display: flex;
+    align-items: center;
+    min-height: 24px;
+  }
+}
