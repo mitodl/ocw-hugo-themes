@@ -72,23 +72,27 @@
     margin-top: 2.5rem;
   }
 
+  > p + p {
+    margin-top: 1.5rem;
+  }
+
   @include media-breakpoint-down(md) {
     > * + * {
       margin-top: 1.5rem;
     }
   }
 
-  // Heading to table spacing
-  > :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
-  > :is(h2, h3, h4, h5, h6)
+  // Heading to content spacing
+  :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
+  :is(h2, h3, h4, h5, h6)
     + p:empty
     + :is(p, ul, ol, blockquote, table, section, div) {
     margin-top: 0.5rem;
   }
 
   @include media-breakpoint-down(md) {
-    > :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
-    > :is(h2, h3, h4, h5, h6)
+    :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
+    :is(h2, h3, h4, h5, h6)
       + p:empty
       + :is(p, ul, ol, blockquote, table, section, div) {
       margin-top: 0.5rem;

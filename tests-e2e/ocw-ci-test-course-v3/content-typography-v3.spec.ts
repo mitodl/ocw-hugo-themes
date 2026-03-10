@@ -25,7 +25,7 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(th).toHaveCSS("line-height", "22px")
   })
 
-  test("Paragraph blocks use 40px spacing globally", async ({ page }) => {
+  test("Paragraph blocks use 24px spacing globally", async ({ page }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/subscripts-and-superscripts")
 
@@ -35,7 +35,7 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(firstParagraph).toBeVisible()
     await expect(secondParagraph).toBeVisible()
     await expect(firstParagraph).toHaveCSS("margin-bottom", "0px")
-    await expect(secondParagraph).toHaveCSS("margin-top", "40px")
+    await expect(secondParagraph).toHaveCSS("margin-top", "24px")
   })
 
   test("First direct child of content section has no bottom margin", async ({
