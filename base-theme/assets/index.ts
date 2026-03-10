@@ -19,6 +19,7 @@ export interface OCWWindow extends Window {
   PDFObject: typeof PDFObject
   initVideoJS: () => void
   initModalHandler: () => void
+  handleVideoJSError: (error: Error) => void
 }
 
 declare let window: OCWWindow
