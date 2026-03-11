@@ -144,9 +144,7 @@ test.describe("Course v3 content typography and spacing", () => {
     const sectionHeading = page
       .locator("#course-content-section > :is(h2, h3)")
       .filter({ hasText: "Course Information" })
-    const nestedHeading = page
-      .locator("#course-content-section h4")
-      .first()
+    const nestedHeading = page.locator("#course-content-section h4").first()
 
     await expect(pageTitle).toBeVisible()
     await expect(sectionHeading).toBeVisible()

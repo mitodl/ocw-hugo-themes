@@ -308,5 +308,4 @@ test.describe("Course v3 Resource List", () => {
       await expect(cards.nth(i)).toBeVisible()
     }
   })
-
 })
