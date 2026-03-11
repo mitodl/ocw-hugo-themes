@@ -19,9 +19,9 @@ const devOverrides: Configuration = {
   devtool: "eval-source-map",
 
   devServer: {
-    host:          env.WEBPACK_HOST,
-    port:          env.WEBPACK_PORT,
-    client:        {
+    host:   env.WEBPACK_HOST,
+    port:   env.WEBPACK_PORT,
+    client: {
       overlay: {
         warnings: false,
         errors:   true
