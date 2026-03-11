@@ -9,6 +9,10 @@ uid: 24f3f26a-303f-4f90-b39f-672f367f0f57
 
 Readings overview for this course.
 
+### Prerequisites
+
+Students should have prior knowledge of basic mathematics.
+
 Assignment preview and planning notes.
 
 ## Course Meeting Times

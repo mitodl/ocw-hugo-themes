@@ -184,4 +184,54 @@ test.describe("MIT Learn Header", () => {
     const nextPageMenuToggle = page.locator("#mobile-course-menu-toggle-v3")
     await expect(nextPageMenuToggle).toHaveAttribute("aria-expanded", "false")
   })
+
+  test("Mobile course menu toggles open and closed on button click", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const menuToggle = page.locator("#mobile-course-menu-toggle-v3")
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "false")
+
+    await menuToggle.click()
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "true")
+
+    await menuToggle.click()
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "false")
+  })
+
+  test("Mobile course menu collapses when clicking outside", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const menuToggle = page.locator("#mobile-course-menu-toggle-v3")
+    await menuToggle.click()
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "true")
+
+    // Click on the page content area outside the menu
+    await page.locator("#course-content-section").click({ force: true })
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "false")
+  })
+
+  test("Mobile course menu handles multiple rapid toggles", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const menuToggle = page.locator("#mobile-course-menu-toggle-v3")
+
+    // Rapid toggles: closed → open → closed → open
+    await menuToggle.click()
+    await menuToggle.click()
+    await menuToggle.click()
+
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "true")
+  })
 })

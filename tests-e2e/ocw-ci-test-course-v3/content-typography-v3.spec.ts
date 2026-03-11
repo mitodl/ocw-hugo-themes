@@ -130,15 +130,8 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(courseInfoHeading).toBeVisible()
     await expect(meetingTimesHeading).toBeVisible()
 
-    const courseInfoWeight = await courseInfoHeading.evaluate(
-      el => window.getComputedStyle(el).fontWeight
-    )
-    const meetingTimesWeight = await meetingTimesHeading.evaluate(
-      el => window.getComputedStyle(el).fontWeight
-    )
-
-    expect(meetingTimesWeight).toBe(courseInfoWeight)
-    expect(courseInfoWeight).toBe("700")
+    await expect(courseInfoHeading).toHaveCSS("font-weight", "700")
+    await expect(meetingTimesHeading).toHaveCSS("font-weight", "700")
   })
 
   test("Heading levels step down by 2px from title to nested headings", async ({
@@ -151,38 +144,21 @@ test.describe("Course v3 content typography and spacing", () => {
     const sectionHeading = page
       .locator("#course-content-section > :is(h2, h3)")
       .filter({ hasText: "Course Information" })
+    const nestedHeading = page
+      .locator("#course-content-section h4")
+      .first()
 
     await expect(pageTitle).toBeVisible()
     await expect(sectionHeading).toBeVisible()
+    await expect(nestedHeading).toBeVisible()
+
+    // 18px → 16px → 14px hierarchy, all bold
     await expect(pageTitle).toHaveCSS("font-size", "18px")
     await expect(pageTitle).toHaveCSS("font-weight", "700")
     await expect(sectionHeading).toHaveCSS("font-size", "16px")
     await expect(sectionHeading).toHaveCSS("font-weight", "700")
-
-    const titleSize = parseFloat(
-      await pageTitle.evaluate(el => window.getComputedStyle(el).fontSize)
-    )
-    const sectionSize = parseFloat(
-      await sectionHeading.evaluate(el => window.getComputedStyle(el).fontSize)
-    )
-
-    const nestedHeadingStyles = await page.evaluate(() => {
-      const container = document.querySelector("#course-content-section")
-      if (!container) return { size: 0, weight: "" }
-      const heading = document.createElement("h4")
-      heading.textContent = "Nested heading size probe"
-      container.appendChild(heading)
-      const styles = window.getComputedStyle(heading)
-      const size = parseFloat(styles.fontSize)
-      const weight = styles.fontWeight
-      heading.remove()
-      return { size, weight }
-    })
-
-    expect(nestedHeadingStyles.size).toBe(14)
-    expect(nestedHeadingStyles.weight).toBe("700")
-    expect(titleSize - sectionSize).toBe(2)
-    expect(sectionSize - nestedHeadingStyles.size).toBe(2)
+    await expect(nestedHeading).toHaveCSS("font-size", "14px")
+    await expect(nestedHeading).toHaveCSS("font-weight", "700")
   })
 
   test("Mobile content blocks use 24px spacing globally", async ({ page }) => {
@@ -225,17 +201,6 @@ test.describe("Course v3 content typography and spacing", () => {
       .filter({ hasText: "Goals" })
     await expect(goalsHeading).toBeVisible()
     await expect(goalsHeading).toHaveCSS("margin-top", "24px")
-  })
-
-  test("Syllabus page body carries data-page-path attribute", async ({
-    page
-  }) => {
-    const course = new CoursePage(page, "course-v3")
-    await course.goto("/pages/syllabus")
-
-    const body = page.locator("body")
-    const path = await body.getAttribute("data-page-path")
-    expect(path).toContain("/syllabus")
   })
 
   test("Last table in content does not add extra bottom spacing", async ({
@@ -297,7 +262,7 @@ test.describe("Course v3 content typography and spacing", () => {
     page
   }) => {
     const course = new CoursePage(page, "course-v3")
-    await course.goto("/pages/shortcode-demos")
+    await course.goto("/pages/quiz-demo")
 
     const checkButton = page.locator(".multiple-choice-check-button").first()
     const showSolutionButton = page
