@@ -65,6 +65,8 @@ class LocalOCW {
 
   private fixturesPort: number
 
+  private sitesServer: SimpleServer | null = null
+
   /**
    * A server that responds to STATIC_API_BASE_URL requests with JSON from
    * test-sites/__fixtures__.
@@ -171,7 +173,7 @@ class LocalOCW {
    *  - redirects requests like /not/a/course/page to /ocw-ci-test-www/not/a/course/page
    */
   serveSites = (): void => {
-    const server = new SimpleServer(
+    this.sitesServer = new SimpleServer(
       (request, response) => {
         return handler(request, response, {
           public: this.rootDestinationDir
@@ -181,7 +183,12 @@ class LocalOCW {
         rules: [OCW_WWW_REWRITE]
       }
     )
-    server.listen(LOCAL_OCW_PORT)
+    this.sitesServer.listen(LOCAL_OCW_PORT)
+  }
+
+  teardown = (): void => {
+    this.fixturesServer.close()
+    this.sitesServer?.close()
   }
 
   buildAllSites = async (): Promise<void> => {

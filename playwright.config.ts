@@ -44,5 +44,6 @@ const config: PlaywrightTestConfig = {
 }
 
 config.globalSetup = path.resolve(__dirname, "./tests-e2e/global-setup.ts")
+config.globalTeardown = path.resolve(__dirname, "./tests-e2e/global-teardown.ts")
 
 export default config
