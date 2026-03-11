@@ -169,7 +169,7 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(secondParagraph).toHaveCSS("margin-top", "24px")
   })
 
-  test("Mobile syllabus heading-to-content uses compact 8px spacing", async ({
+  test("Mobile syllabus heading-to-content uses compact 16px spacing", async ({
     page
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
@@ -183,9 +183,9 @@ test.describe("Course v3 content typography and spacing", () => {
 
     await expect(firstParagraph).toBeVisible()
     await expect(calendarTable).toBeVisible()
-    // heading -> content = 8px on mobile (same as desktop)
-    await expect(firstParagraph).toHaveCSS("margin-top", "8px")
-    await expect(calendarTable).toHaveCSS("margin-top", "8px")
+    // heading -> content = 16px on mobile (vs 8px on desktop)
+    await expect(firstParagraph).toHaveCSS("margin-top", "16px")
+    await expect(calendarTable).toHaveCSS("margin-top", "16px")
   })
 
   test("Mobile syllabus uses 24px global section spacing", async ({ page }) => {
