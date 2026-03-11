@@ -283,6 +283,16 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(link).toHaveCSS("color", "rgb(163, 31, 52)")
   })
 
+  test("Course info topic links use red on hover", async ({ page }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("")
+
+    const topicLink = page.locator(".course-info-topic:visible").first()
+    await expect(topicLink).toBeVisible()
+    await topicLink.hover()
+    await expect(topicLink).toHaveCSS("color", "rgb(163, 31, 52)")
+  })
+
   test("Multiple choice buttons use secondary and primary styles", async ({
     page
   }) => {

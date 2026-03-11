@@ -303,6 +303,19 @@ h5 {
   }
 }
 
+.course-main-content-v3 {
+  a:not(.btn):not(.download-course-button):not(.download-course-button-v3):not(
+      .resource-list-toggle-link
+    ):not(.mit-learn-nav-item):not(.nav-link):not(.text-white) {
+    &:hover,
+    &:focus-visible,
+    &:active {
+      color: $highlight-red !important;
+      text-decoration-color: $highlight-red;
+    }
+  }
+}
+
 a:not([class]):hover,
 a:not([class]):focus-visible {
   color: $highlight-red;
