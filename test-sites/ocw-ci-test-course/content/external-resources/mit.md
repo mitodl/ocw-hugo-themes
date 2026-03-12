@@ -1,7 +1,7 @@
 ---
 content_type: external-resource
 external_url: https://mit.edu
-has_external_license_warning: true
+has_external_license_warning: false
 license: https://en.wikipedia.org/wiki/All_rights_reserved
 status: ''
 title: abc 123
