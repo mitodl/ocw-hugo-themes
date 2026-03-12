@@ -19,8 +19,14 @@ const devOverrides: Configuration = {
   devtool: "eval-source-map",
 
   devServer: {
-    host:          env.WEBPACK_HOST,
-    port:          env.WEBPACK_PORT,
+    host:   env.WEBPACK_HOST,
+    port:   env.WEBPACK_PORT,
+    client: {
+      overlay: {
+        warnings: false,
+        errors:   true
+      }
+    },
     devMiddleware: {
       // Compiled assets are written to disk so that they can be
       // accessed through the hugo server.
