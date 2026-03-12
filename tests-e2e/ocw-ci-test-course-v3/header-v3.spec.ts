@@ -214,7 +214,7 @@ test.describe("MIT Learn Header", () => {
     await expect(menuToggle).toHaveAttribute("aria-expanded", "true")
 
     // Click on the page content area outside the menu
-    await page.locator("#course-content-section").click({ force: true })
+    await page.locator(".course-banner-v3").click()
     await expect(menuToggle).toHaveAttribute("aria-expanded", "false")
   })
 
