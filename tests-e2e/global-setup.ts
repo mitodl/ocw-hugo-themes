@@ -13,6 +13,8 @@ const setupTests = async () => {
     await ocw.buildAllSites()
     ocw.serveSites()
     ocw.announceSites()
+
+    return () => ocw.teardown()
   }
 }
 
