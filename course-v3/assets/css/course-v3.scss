@@ -198,7 +198,13 @@ h5 {
   }
 
   .mobile-nav-div {
-    background-color: white;
+    background-color: transparent;
+
+    @include media-breakpoint-down(md) {
+      position: sticky;
+      top: $mit-learn-header-height-mobile;
+      z-index: 1000;
+    }
   }
 
   .desktop-course-info {
@@ -285,11 +291,35 @@ h5 {
     color: $course-content-link-unclicked;
   }
 
-  a:visited,
-  a:hover,
-  a:active {
+  a:visited {
     color: $course-content-link-hover-clicked;
   }
+
+  a:hover,
+  a:focus-visible,
+  a:active {
+    color: $highlight-red;
+    text-decoration-color: $highlight-red;
+  }
+}
+
+.course-main-content-v3 {
+  a:not(.btn):not(.download-course-button):not(.download-course-button-v3):not(
+      .resource-list-toggle-link
+    ):not(.mit-learn-nav-item):not(.nav-link):not(.text-white) {
+    &:hover,
+    &:focus-visible,
+    &:active {
+      color: $highlight-red !important;
+      text-decoration-color: $highlight-red;
+    }
+  }
+}
+
+a:not([class]):hover,
+a:not([class]):focus-visible {
+  color: $highlight-red;
+  text-decoration-color: $highlight-red;
 }
 
 div[class^="toggle"]:not(.toggle-visible),
@@ -297,11 +327,61 @@ span[class^="toggle"]:not(.toggle-visible) {
   display: none;
 }
 
-div[class^="reveal"],
-.multiple-choice-check-button,
-.multiple-choice-show-button {
+div[class^="reveal"] {
   color: #115f83;
   cursor: pointer;
+}
+
+.multiple-choice-check-button,
+.multiple-choice-show-button {
+  font-family: $mit-learn-font-family;
+  font-size: 14px;
+  font-weight: $mit-learn-font-weight-medium;
+  line-height: 22px;
+  border-radius: 4px;
+  border-width: 1px;
+  padding: 9px 24px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.multiple-choice-check-button {
+  color: $mit-red-dark !important;
+  background-color: $white !important;
+  border-color: $mit-red-dark !important;
+
+  &:hover,
+  &:focus {
+    background-color: $highlight-red !important;
+    border-color: $highlight-red !important;
+    color: $white !important;
+  }
+
+  &:active {
+    background-color: $mit-red-dark-active !important;
+    border-color: $mit-red-dark-active !important;
+    color: $white !important;
+  }
+}
+
+.multiple-choice-show-button {
+  color: $white !important;
+  background-color: $mit-red-dark !important;
+  border-color: $mit-red-dark !important;
+
+  &:hover,
+  &:focus {
+    background-color: $highlight-red !important;
+    border-color: $highlight-red !important;
+    color: $white !important;
+  }
+
+  &:active {
+    background-color: $mit-red-dark-active !important;
+    border-color: $mit-red-dark-active !important;
+    color: $white !important;
+  }
 }
 
 .correctness-icon-correct {
@@ -321,7 +401,10 @@ div[class^="reveal"],
 }
 
 .multiple_choice_buttons {
-  margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
 }
 
 .multiple-choice-div {

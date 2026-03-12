@@ -22,10 +22,10 @@
     </div>
     <div class="course-main-content-v3">
       <div class="container-v3">
+        <div class="mobile-nav-div medium-and-below-only align-self-stretch">
+          {{ partial "mobile_course_menu_v3.html" (dict "context" .) }}
+        </div>
         <div>
-          <div class="mobile-nav-div medium-and-below-only align-self-stretch">
-            {{ partial "mobile_course_menu_v3.html" (dict "context" .) }}
-          </div>
           <div class="course-overview page-content">
             <div class="course-nav-desktop large-and-above-only p-0">
               {{ partialCached "desktop_nav.html" . }}
