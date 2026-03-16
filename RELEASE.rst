@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.145.0
+Version 1.145.0 (Released March 16, 2026)
 ---------------
 
 - Add video fallback and warning for very old browsers (#1744)
