@@ -1,6 +1,18 @@
 Release Notes
 =============
 
+Version 1.145.0 (Released March 16, 2026)
+---------------
+
+- Add video fallback and warning for very old browsers (#1744)
+- fix(deps): update dependency video.js to v8 (#1502)
+- chore(deps): update actions/upload-artifact action to v7 (#1747)
+- chore(deps): update node.js to v24.14.0 (#1746)
+- Improve the display of external link and appzi modals on tall screens (#1741)
+- chore(deps): update node.js to v24.13.1 (#1738)
+- fix: improve handling when some fields have missing data (#1732)
+- chore(deps): update dependency webpack-manifest-plugin to v6 (#1734)
+
 Version 1.144.0 (Released February 11, 2026)
 ---------------
 
