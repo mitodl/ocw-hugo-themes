@@ -2688,21 +2688,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/lab@npm:^7.0.1-beta.23":
-  version: 7.0.1-beta.23
-  resolution: "@mui/lab@npm:7.0.1-beta.23"
+"@mui/lab@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@mui/lab@npm:7.0.0"
   dependencies:
-    "@babel/runtime": "npm:^7.28.6"
-    "@mui/system": "npm:^7.3.9"
-    "@mui/types": "npm:^7.4.12"
-    "@mui/utils": "npm:^7.3.9"
+    "@babel/runtime": "npm:^7.28.4"
+    "@mui/system": "npm:^7.3.3"
+    "@mui/types": "npm:^7.4.7"
+    "@mui/utils": "npm:^7.3.3"
     clsx: "npm:^2.1.1"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     "@emotion/react": ^11.5.0
     "@emotion/styled": ^11.3.0
-    "@mui/material": ^7.3.9
-    "@mui/material-pigment-css": ^7.3.9
+    "@mui/material": ^7.3.3
+    "@mui/material-pigment-css": ^7.3.3
     "@types/react": ^17.0.0 || ^18.0.0 || ^19.0.0
     react: ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -2715,7 +2715,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: 10c0/566d04103c7413e8efc7a80316c4a6f03e3b08cb4a7c3c347f404e9fcc0b133c278a516a0d3182c30647dcf2a58f89211a9bb3239a6c5db3b685c8e877aa0c67
+  checksum: 10c0/0fb296321844e6cca7ab11330f0c7a7ce38d4d6554c0d27b943ba9523bb50c155e014a15242def70c0ab1fb09b9707dc0d1716fa577cba51a30d7c63ea6f32af
   languageName: node
   linkType: hard
 
@@ -2795,7 +2795,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/system@npm:^7.3.9":
+"@mui/system@npm:^7.3.3, @mui/system@npm:^7.3.9":
   version: 7.3.9
   resolution: "@mui/system@npm:7.3.9"
   dependencies:
@@ -2823,7 +2823,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/types@npm:^7.4.12":
+"@mui/types@npm:^7.4.12, @mui/types@npm:^7.4.7":
   version: 7.4.12
   resolution: "@mui/types@npm:7.4.12"
   dependencies:
@@ -2837,7 +2837,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/utils@npm:^7.0.0, @mui/utils@npm:^7.3.9":
+"@mui/utils@npm:^7.0.0, @mui/utils@npm:^7.3.3, @mui/utils@npm:^7.3.9":
   version: 7.3.9
   resolution: "@mui/utils@npm:7.3.9"
   dependencies:
@@ -13994,7 +13994,7 @@ __metadata:
     "@mitodl/ocw-to-hugo": "npm:1.36.0"
     "@mitodl/open-api-axios": "npm:^2025.4.8"
     "@mitodl/smoot-design": "npm:^6.0.1"
-    "@mui/lab": "npm:^7.0.1-beta.23"
+    "@mui/lab": "npm:^7.0.0"
     "@mui/material": "npm:^7.0.1"
     "@playwright/test": "npm:^1.56.0"
     "@remixicon/react": "npm:^4.6.0"
@@ -14058,7 +14058,7 @@ __metadata:
     jest-environment-jsdom: "npm:^30.0.0"
     jest-fetch-mock: "npm:^3.0.3"
     jest-watch-typeahead: "npm:^3.0.0"
-    jquery: "npm:^3.5.1"
+    jquery: "npm:^3.7.1"
     lodash.has: "npm:^4.5.2"
     lodash.uppercase: "npm:^4.3.0"
     mathjax: "npm:^4.0.0"
