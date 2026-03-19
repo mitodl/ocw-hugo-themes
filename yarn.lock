@@ -2688,6 +2688,37 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mui/lab@npm:^7.0.1-beta.23":
+  version: 7.0.1-beta.23
+  resolution: "@mui/lab@npm:7.0.1-beta.23"
+  dependencies:
+    "@babel/runtime": "npm:^7.28.6"
+    "@mui/system": "npm:^7.3.9"
+    "@mui/types": "npm:^7.4.12"
+    "@mui/utils": "npm:^7.3.9"
+    clsx: "npm:^2.1.1"
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    "@emotion/react": ^11.5.0
+    "@emotion/styled": ^11.3.0
+    "@mui/material": ^7.3.9
+    "@mui/material-pigment-css": ^7.3.9
+    "@types/react": ^17.0.0 || ^18.0.0 || ^19.0.0
+    react: ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/react":
+      optional: true
+    "@emotion/styled":
+      optional: true
+    "@mui/material-pigment-css":
+      optional: true
+    "@types/react":
+      optional: true
+  checksum: 10c0/566d04103c7413e8efc7a80316c4a6f03e3b08cb4a7c3c347f404e9fcc0b133c278a516a0d3182c30647dcf2a58f89211a9bb3239a6c5db3b685c8e877aa0c67
+  languageName: node
+  linkType: hard
+
 "@mui/material@npm:^7.0.1":
   version: 7.3.9
   resolution: "@mui/material@npm:7.3.9"
@@ -12068,14 +12099,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jquery@npm:>=1.12.4":
-  version: 4.0.0
-  resolution: "jquery@npm:4.0.0"
-  checksum: 10c0/06d8d0f51121af5a691f8b59c74823157bb5b60eea915b30eaa920d6c0ffd91e60ba81e9b97bd8203f331f9dd8d0ec9a4b010935ea314bdd2f15453c29bc780b
-  languageName: node
-  linkType: hard
-
-"jquery@npm:^3.5.1":
+"jquery@npm:3.7.1":
   version: 3.7.1
   resolution: "jquery@npm:3.7.1"
   checksum: 10c0/808cfbfb758438560224bf26e17fcd5afc7419170230c810dd11f5c1792e2263e2970cca8d659eb84fcd9acc301edb6d310096e450277d54be4f57071b0c82d9
@@ -13962,6 +13986,7 @@ __metadata:
     "@mitodl/ocw-to-hugo": "npm:1.36.0"
     "@mitodl/open-api-axios": "npm:^2025.4.8"
     "@mitodl/smoot-design": "npm:^6.0.1"
+    "@mui/lab": "npm:^7.0.1-beta.23"
     "@mui/material": "npm:^7.0.1"
     "@playwright/test": "npm:^1.56.0"
     "@remixicon/react": "npm:^4.6.0"

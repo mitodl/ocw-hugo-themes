@@ -6,7 +6,7 @@
   "main": "base-theme/assets/index.js",
   "packageManager": "yarn@4.12.0",
   "scripts": {
-    "lint": "eslint $PROJECT_CWD/'**/*.{js,jsx,ts,tsx}'",
+    "lint": "DISABLE_V8_COMPILE_CACHE=1 eslint $PROJECT_CWD/'**/*.{js,jsx,ts,tsx}'",
     "start": "NODE_ENV=development ts-node ./package_scripts/start.ts",
     "start:webpack": "yarn with-env --dev -- webpack --config ./base-theme/assets/webpack/webpack.dev.ts --stats-children",
     "start:www": "echo This command has been removed. Use `yarn start www` instead.",
@@ -35,6 +35,7 @@
   },
   "license": "BSD-3-CLAUSE",
   "resolutions": {
+    "jquery": "3.7.1",
     "natives": "1.1.6"
   },
   "browserslist": "> 0.25%, not dead",
@@ -44,6 +45,7 @@
     "@mitodl/course-search-utils": "^2.3.3",
     "@mitodl/open-api-axios": "^2025.4.8",
     "@mitodl/smoot-design": "^6.0.1",
+    "@mui/lab": "^7.0.1-beta.23",
     "@mui/material": "^7.0.1",
     "@remixicon/react": "^4.6.0",
     "@sentry/browser": "^10.0.0",

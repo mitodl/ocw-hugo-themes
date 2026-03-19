@@ -76,7 +76,7 @@ const config: webpack.Configuration = {
         }
       },
       {
-        test:      /\.(jpg)|(png)|(svg)|(gif)$/,
+        test:      /\.(?:jpg|png|svg|gif)$/,
         type:      "asset/resource",
         generator: {
           filename: "images/[fullhash][ext]"
