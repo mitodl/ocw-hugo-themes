@@ -1,6 +1,17 @@
 Release Notes
 =============
 
+Version 1.146.0
+---------------
+
+- fix(deps): update dependency sass to v1.98.0 (#1754)
+- chore(deps): update actions/setup-node digest to 53b8394 (#1753)
+- fix(deps): update dependency mathjax to v4 (#1625)
+- Hide warnings overlay for webpack (#1752)
+- Update Test Site Content (including PK12 values) (#1751)
+- Add end-to-end test teardown (#1750)
+- chore: global tweaks for paragraph, sections and consistent style (#1745)
+
 Version 1.145.0 (Released March 16, 2026)
 ---------------
 
