@@ -59,7 +59,7 @@ export enum RESOURCE_TYPE {
 export const DISPLAY_DATE_FORMAT = "MMMM D, YYYY"
 
 export const SEARCH_URL = "/search/"
-export const CONTACT_URL = "/contact/"
+export const CONTACT_URL = "https://mitocw.zendesk.com/hc/en-us/requests/new"
 
 export const PHONE = "PHONE"
 export const TABLET = "TABLET"
