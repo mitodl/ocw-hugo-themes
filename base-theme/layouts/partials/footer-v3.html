@@ -21,33 +21,34 @@ we want to use this new footer in other themes (www, course-offline etc)
 
 {{/* Define Right Container Block */}}
 {{ define "footer-v3-right-container" }}
+{{ $homeUrl := partial "home_url.html" }}
 <div class="d-flex flex-column justify-content-center right-container">
   <!-- Links Container -->
   <div class="d-flex align-items-start footer-links">
     <!-- Home Link -->
     <div class="d-flex align-items-start footer-link">
-      <a href="/" class="fw-normal text-center text-decoration-none">
+      <a href="{{ $homeUrl }}" class="fw-normal text-center text-decoration-none">
         Home
       </a>
     </div>
     
     <!-- About Us Link -->
     <div class="d-flex align-items-start footer-link">
-      <a href="/about" class="fw-normal text-center text-decoration-none">
+      <a href="https://learn.mit.edu/about" class="fw-normal text-center text-decoration-none" target="_blank" rel="noopener noreferrer">
         About Us
       </a>
     </div>
     
     <!-- Accessibility Link -->
     <div class="d-flex align-items-start footer-link">
-      <a href="/accessibility" class="fw-normal text-center text-decoration-none">
+      <a href="https://learn.mit.edu/accessibility" class="fw-normal text-center text-decoration-none" target="_blank" rel="noopener noreferrer">
         Accessibility
       </a>
     </div>
     
     <!-- Terms of Service Link -->
     <div class="d-flex align-items-start footer-link">
-      <a href="/terms" class="fw-normal text-center text-decoration-none">
+      <a href="https://learn.mit.edu/terms" class="fw-normal text-center text-decoration-none" target="_blank" rel="noopener noreferrer">
         Terms of Service
       </a>
     </div>

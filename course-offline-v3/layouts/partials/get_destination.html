@@ -5,7 +5,10 @@
   {{ if $isExternalCourseLink }}
     {{ $destination = partial "site_root_url.html" $destination }}
   {{ else }}
-    {{ $destination = printf "%s/index.html" (strings.TrimSuffix "/" $destination) }}
+    {{ $destination = strings.TrimSuffix "/index.html" $destination }}
+    {{ if not (strings.HasSuffix $destination ".html") }}
+      {{ $destination = printf "%s/index.html" (strings.TrimSuffix "/" $destination) }}
+    {{ end }}
   {{ end }}
 {{ end }}
 {{ return $destination }}
