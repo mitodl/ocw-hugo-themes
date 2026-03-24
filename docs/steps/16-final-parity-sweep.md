@@ -50,6 +50,7 @@
    - remote-media/thumbnail fallback
 4. Use failing tests to identify the smallest remaining override/helper fix needed. Prefer tightening shared helpers over forking large templates late in the effort.
 5. Stop once the minimal offline-v3 lane is stable and the override theme is still thin.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not rewrite the online v3 test suite to accommodate offline-v3.

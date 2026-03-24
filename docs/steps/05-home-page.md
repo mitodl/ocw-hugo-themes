@@ -39,6 +39,7 @@
 3. Keep course description, course info, topics, course image, and learning resource type content unchanged from the v3 structure.
 4. Verify that homepage expander behavior and course-info rendering still work with the offline-v3 bundle.
 5. Ensure all homepage links remain inside the offline package.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not change homepage content structure beyond what is needed for offline CTAs and local links.

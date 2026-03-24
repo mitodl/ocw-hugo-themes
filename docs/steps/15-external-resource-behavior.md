@@ -33,6 +33,7 @@
 2. Verify that internal links on the same page remain local and do not trigger external-link handling.
 3. Confirm that nav items backed by external resources still behave as true external destinations.
 4. Make only the smallest fix required if helper branching between internal and external URLs is incorrect.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not disable warnings for true external URLs.

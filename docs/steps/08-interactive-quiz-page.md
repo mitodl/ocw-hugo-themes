@@ -39,6 +39,7 @@
    - show solution
    - any reset/visibility behavior already expected by the current v3 implementation
 4. Make the smallest possible fix if the bundle migration dropped required imports or initialization.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not rewrite quiz markup unless the JS and shortcode contract is actually broken.

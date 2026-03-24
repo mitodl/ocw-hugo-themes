@@ -45,6 +45,7 @@
    - one list page
    - one resource page
 5. Use the same local server and fixture infrastructure as the rest of Playwright. Do not invent a separate serve path for offline-v3.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not merge offline-v3 into the existing online `course-v3` alias.

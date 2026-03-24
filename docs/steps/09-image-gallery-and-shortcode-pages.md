@@ -38,6 +38,7 @@
 3. Ensure gallery base URLs resolve through offline-safe helpers rather than root-relative or remote paths.
 4. Verify shortcode-generated resource links in `shortcode-demos` are local, correctly formatted, and free of spacing/markup regressions.
 5. Keep fixes shared where possible. Only add a v3-specific override if the shared base behavior cannot be corrected safely.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not fork page layouts for gallery or shortcode support.

@@ -37,6 +37,7 @@
 3. Preserve the existing v3 resource-card markup and classes so current styling and tests remain compatible.
 4. Ensure download links resolve to local files through the offline-safe helper path.
 5. Validate both standalone resource-list pages and taxonomy-driven list surfaces because they share the same partials.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not redesign or restyle the v3 resource cards.

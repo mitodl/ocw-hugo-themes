@@ -44,6 +44,7 @@
    - captions links
    - start/end-time behavior where present
 5. Confirm repeated embeds on one page work without duplicate-ID or initialization regressions.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not fork generic page layouts in this step.

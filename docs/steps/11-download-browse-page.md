@@ -39,6 +39,7 @@
    - a local file download
 4. Remove or relabel redundant “Download Course” language so it no longer suggests downloading a course the user already has.
 5. Keep the page visually aligned with the v3 taxonomy/list structure rather than regressing to a v2-only layout.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not leave the header area blank in the final state.

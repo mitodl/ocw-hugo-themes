@@ -60,6 +60,7 @@
    - footer
 4. Override only the chrome elements that are not offline-safe, especially footer links and any remaining online-only CTA wording.
 5. Confirm that MathJax and any existing offline-specific asset injections still work after the bundle switch.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not solve page-type-specific rendering issues in this step.

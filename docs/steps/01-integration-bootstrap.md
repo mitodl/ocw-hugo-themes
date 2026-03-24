@@ -38,6 +38,7 @@
 4. Keep the sibling offline Hugo config unchanged unless the build proves it is wrong.
 5. Build the offline-v3 site using the existing offline-v3 Hugo config and confirm that the new theme is discoverable by Hugo and that CSS/JS assets are emitted with the new bundle name.
 6. Do not attempt page-type parity, routing cleanup, or v3 visual convergence in this step. The only goal is to get a successful build with the new theme wired in.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not edit `course-v3` layouts yet.

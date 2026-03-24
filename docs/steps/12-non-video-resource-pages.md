@@ -44,6 +44,7 @@
    - any root-relative URLs still emitted by shared partials
    - any v3-specific CTA wording that is wrong in offline context
 4. Verify representative file types rather than relying on a single PDF page.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not fork the full v3 resource-page structure unless partial-level overrides cannot solve the problem.

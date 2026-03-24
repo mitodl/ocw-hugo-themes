@@ -50,6 +50,7 @@
 4. Rework non-video download link generation so the final rendered path is package-safe. Root-absolute `/static_resources/...` is not acceptable as the end state.
 5. Keep shared fixes in `base-offline` if they clearly benefit both offline themes. Only use `course-offline-v3` overrides when the behavior is truly v3-specific.
 6. Verify that markdown destination rewriting, course-home URLs, nav URLs, and canonical URL generation still behave correctly in offline-v3.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not change v3 bundle imports in this step.

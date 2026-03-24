@@ -36,6 +36,7 @@
    - if not, fall back to a local non-broken placeholder treatment rather than relying on the network
 3. Preserve gallery card titles, metadata, and layout.
 4. Validate that clicking a gallery card opens the local video resource page.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not redesign the v3 gallery layout.

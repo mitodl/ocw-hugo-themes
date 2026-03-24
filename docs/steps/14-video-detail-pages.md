@@ -52,6 +52,7 @@
    - related resources tab
    - start/end-time behavior
 5. Confirm embedded-page links into these video detail pages are already local and still work.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not fork the entire v3 video page if shared helper fixes can solve the behavior.

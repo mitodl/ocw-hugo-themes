@@ -47,6 +47,7 @@
    - any remaining layout-level issues created by offline bundle/chrome changes
 4. Keep typography and spacing aligned with existing v3 behavior.
 5. Do not yet focus on embedded videos, quiz behavior, or image-gallery-specific issues beyond whatever is necessary to keep generic content stable.
+- After the step passes its validation points and regression gate, create a commit containing all changes for this step and only those changes.
 
 ## Invariants / Do Not Change
 - Do not fork `course_content.html` unless helper-level fixes cannot solve the problem.
