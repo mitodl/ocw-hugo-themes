@@ -10,6 +10,6 @@
       (merge .Params (dict "text" $title))
     -}}
   {{- else -}}
-    [{{ $title }}]({{- .Permalink -}}{{- $anchor_id -}})
+    [{{ $title }}]({{- partial "page_url.html" (dict "context" $.Page "url" .RelPermalink) -}}{{- $anchor_id -}})
   {{- end -}}
 {{- end -}}

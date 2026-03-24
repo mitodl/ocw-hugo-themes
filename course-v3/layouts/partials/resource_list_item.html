@@ -1,4 +1,4 @@
-{{ $downloadableLink := partial "get_resource_download_link.html" . }}
+{{ $downloadableLink := partial "get_resource_download_link.html" (dict "context" .context "Params" .Params) }}
 {{ $resourceCategory := partial "get_resource_category.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
 <div class="resource-card">
   {{ if not .hideThumbnail }}
@@ -27,7 +27,7 @@
     </div>
   </a>
   {{ end }}
-  <a class="resource-card-title" href="{{ .permalink }}">
+  <a class="resource-card-title" href="{{ partial "page_url.html" (dict "context" .context "url" .permalink) }}">
     {{- .Params.title -}}
   </a>
 </div>
