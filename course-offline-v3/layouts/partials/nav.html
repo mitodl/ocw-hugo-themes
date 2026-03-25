@@ -1,0 +1,21 @@
+{{/* Offline-v3 override: threads .context (the current page) into every
+     nav_item.html call so that nav_url.html can use path_to_root.html to
+     produce correct package-local relative URLs in all build configurations
+     (Playwright test server, real offline package, or direct file:// access).
+     Apart from the added "context" key in the nav_item dict, this template is
+     identical to course-v3/layouts/partials/nav.html. */}}
+{{ $menu := index .context.Site.Menus "leftnav" }}
+{{ $device := .device }}
+{{ $context := .context }}
+{{ $homeURL := partial "course_home_page_url.html" $context }}
+{{/* Create Course Home menu item */}}
+{{ $courseHomeItem := dict "Name" "Course Home" "URL" $homeURL "Identifier" "course-home" "PageRef" "" "HasChildren" false "Children" slice }}
+{{/* Prepend Course Home to the menu */}}
+{{ $menu = slice $courseHomeItem | append $menu }}
+<nav class="course-nav {{ $device }}" aria-label="Course materials">
+  <ul class="w-100 m-auto list-unstyled">
+    {{ range $menu }}
+      {{ partial "nav_item.html" (dict "menuItem" . "device" $device "context" $context) }}
+    {{ end }}
+  </ul>
+</nav>

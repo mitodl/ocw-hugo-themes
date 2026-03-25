@@ -1,7 +1,18 @@
 {{ $url := .menuItem.URL }}
 {{ $noHttpPrefix := not (strings.HasPrefix $url "http") }}
 {{ $noHtmlSuffix := not (strings.HasSuffix $url ".html") }}
-{{ if and $noHttpPrefix $noHtmlSuffix }}
-  {{ $url = printf "%s/index.html" (strings.TrimSuffix "/" $url) }}
+{{ if and $url $noHttpPrefix $noHtmlSuffix }}
+  {{ $context := .context }}
+  {{ if $context }}
+    {{/* Use path_to_root to compute a URL relative to the server root, the same
+         approach used by page_url.html, so that nav links resolve correctly in
+         both the Playwright test environment (baseURL includes a /courses/… path
+         prefix) and in real offline packages (baseURL = "/"). */}}
+    {{ $pathToRoot := partial "path_to_root.html" $context.RelPermalink }}
+    {{ $pagePath := $url | strings.TrimSuffix "/" | strings.TrimPrefix "/" }}
+    {{ $url = printf "%s%s/index.html" $pathToRoot $pagePath }}
+  {{ else }}
+    {{ $url = printf "%s/index.html" (strings.TrimSuffix "/" $url) }}
+  {{ end }}
 {{ end }}
 {{ return $url }}

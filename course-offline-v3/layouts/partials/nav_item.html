@@ -1,0 +1,65 @@
+{{/* Offline-v3 override: extracts .context from the incoming dict and
+     threads it into nav_url.html and every recursive child nav_item.html
+     call.  All other markup is identical to course-v3/layouts/partials/nav_item.html. */}}
+{{ $id := .menuItem.Identifier }}
+{{ $device := .device }}
+{{ $context := .context }}
+{{ $hasParent := isset . "parentId" }}
+{{ $hasChildren := .menuItem.HasChildren }}
+{{ $url := partial "nav_url.html" . }}
+{{ $linkedPage := site.GetPage .menuItem.PageRef }}
+{{ $hasOneValidChild := false }}
+
+{{ if $hasChildren }}
+  {{ $hasOneValidChild = partial "nav_item_has_child.html" .menuItem.Children }}
+{{ end }}
+
+<li class="course-nav-list-item">
+  <div class="course-nav-parent d-flex flex-direction-row align-items-center">
+    <span class="course-nav-text-wrapper">
+      {{ if eq $linkedPage.Params.content_type "external-resource" }}
+        {{- partial "external_resource_link"
+          (merge $linkedPage.Params
+            (dict
+              "text" .menuItem.Name
+              "class" "text-dark nav-link"
+            )
+          )
+        -}}
+      {{ else if or $url $hasOneValidChild }}
+        <a class="nav-link"
+          data-uuid="{{ .menuItem.Identifier }}"
+          {{ if $url }} href="{{ $url }}" {{ else }} href="#" {{ end }}>
+          {{ .menuItem.Name }}
+        </a>
+      {{ end }}
+    </span>
+    {{ if $hasOneValidChild }}
+    <button
+      class="course-nav-section-toggle d-flex align-items-center"
+      type="button"
+      id="nav-button_{{ $device }}_{{ .menuItem.Identifier }}"
+      data-toggle="collapse"
+      data-target="#nav-container_{{ $device }}_{{ .menuItem.Identifier }}"
+      data-uuid="{{ .menuItem.Identifier }}"
+      aria-controls="nav-container_{{ $device }}_{{ .menuItem.Identifier }}"
+      aria-expanded="false"
+      aria-label="Subsections for {{.menuItem.Name}}"
+    >
+      {{ partial "icon.html" "chevron" }}
+    </button>
+    {{ end }}
+  </div>
+
+  {{ if .menuItem.Children}}
+    <ul
+      class="course-nav-child-nav collapse"
+      id="nav-container_{{ $device }}_{{ .menuItem.Identifier }}"
+      aria-labelledby="nav-button_{{ $device }}_{{ .menuItem.Identifier }}"
+    >
+      {{- range .menuItem.Children }}
+        {{ partial "nav_item.html" (dict "menuItem" . "parentId" $id "device" $device "context" $context) }}
+      {{ end -}}
+    </ul>
+  {{ end }}
+</li>
