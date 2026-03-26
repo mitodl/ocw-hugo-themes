@@ -1,2 +1,4 @@
-{{ $pathToRoot := partial "path_to_root.html" .RelPermalink }}
-{{ return (printf "%s/index.html" (strings.TrimSuffix "/" $pathToRoot)) }}
+{{/* Return course home URL with explicit index.html for offline file:// access.
+     Site-relative path so Hugo's relativeURLs post-processor converts it
+     per-page — safe with partialCached. */}}
+{{ return "/index.html" }}

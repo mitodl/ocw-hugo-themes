@@ -87,7 +87,7 @@ class LocalOCW {
     /**
      * Listen to requests
      */
-    listen: () => void
+    listen: () => Promise<void>
   }
 
   constructor({ rootDestinationDir, fixturesPort }: LocalOCWOptions) {
@@ -121,7 +121,10 @@ class LocalOCW {
         patchedHandler = undefined
       },
       close:  () => server.close(),
-      listen: () => server.listen(this.fixturesPort)
+      listen: () =>
+        new Promise<void>(resolve => {
+          server.listen(this.fixturesPort, resolve)
+        })
     }
   }
 
@@ -171,12 +174,17 @@ class LocalOCW {
    * Set up a server that:
    *  - serves the contents of `test-sites/tmp/dist`
    *  - redirects requests like /not/a/course/page to /ocw-ci-test-www/not/a/course/page
+   *
+   * trailingSlash ensures directory requests get a trailing `/` redirect,
+   * matching file:// behavior so that relative URLs in offline builds
+   * resolve from the correct directory context.
    */
   serveSites = (): void => {
     this.sitesServer = new SimpleServer(
       (request, response) => {
         return handler(request, response, {
-          public: this.rootDestinationDir
+          public:        this.rootDestinationDir,
+          trailingSlash: true
         })
       },
       {
@@ -192,11 +200,9 @@ class LocalOCW {
   }
 
   buildAllSites = async (): Promise<void> => {
-    await Promise.all(
-      Object.keys(TEST_SITES).map(alias => {
-        return this.buildSite(alias as TestSiteAlias)
-      })
-    )
+    for (const alias of Object.keys(TEST_SITES)) {
+      await this.buildSite(alias as TestSiteAlias)
+    }
   }
 
   /**

@@ -1,19 +1,14 @@
-{{/* Offline-v3 nav URL: use path_to_root to produce URLs relative to the
-     server root.  Requires .context (the current page) to be threaded through
-     from the caller so that path_to_root can compute the correct depth.
-     IMPORTANT: desktop_nav must NOT be cached (partialCached) because these
-     URLs depend on the rendering page's depth. */}}
+{{/* Offline-v3 nav URL: strip the baseURL path prefix so the URL is
+     site-relative, then append /index.html for file:// access.
+     Hugo's relativeURLs post-processor converts these absolute paths
+     per-page AFTER partialCached renders, keeping them compatible with
+     cached desktop nav. */}}
 {{ $url := .menuItem.URL }}
 {{ $noHttpPrefix := not (strings.HasPrefix $url "http") }}
 {{ $noHtmlSuffix := not (strings.HasSuffix $url ".html") }}
-{{ if and $url $noHttpPrefix $noHtmlSuffix }}
-  {{ $context := .context }}
-  {{ if $context }}
-    {{ $pathToRoot := partial "path_to_root.html" $context.RelPermalink }}
-    {{ $pagePath := $url | strings.TrimSuffix "/" | strings.TrimPrefix "/" }}
-    {{ $url = printf "%s%s/index.html" $pathToRoot $pagePath }}
-  {{ else }}
-    {{ $url = printf "%s/index.html" (strings.TrimSuffix "/" $url) }}
-  {{ end }}
+{{ if and $noHttpPrefix $noHtmlSuffix }}
+  {{ $baseURLPath := (urls.Parse site.BaseURL).Path | strings.TrimSuffix "/" }}
+  {{ $url = strings.TrimPrefix $baseURLPath $url }}
+  {{ $url = printf "%s/index.html" (strings.TrimSuffix "/" $url) }}
 {{ end }}
 {{ return $url }}

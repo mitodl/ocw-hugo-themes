@@ -89,8 +89,8 @@ class SimpleServer {
     this.handleNotRedirected(request, response)
   }
 
-  listen(port: number) {
-    this.server.listen(port)
+  listen(port: number, callback?: () => void) {
+    this.server.listen(port, callback)
   }
 
   close() {

@@ -9,7 +9,7 @@ const setupTests = async () => {
     })
 
     await ocw.rmrfTmp()
-    ocw.fixturesServer.listen()
+    await ocw.fixturesServer.listen()
     await ocw.buildAllSites()
     ocw.serveSites()
     ocw.announceSites()
