@@ -1,5 +1,7 @@
 # Step 04: V3 Bundle And Shared Chrome
 
+> **Status: ✅ COMPLETE**
+
 ## Objective
 - Completion rule: this step is not complete until every validation point in the Validation Points section has been implemented and verified.
 
@@ -12,17 +14,20 @@
   - `course-offline-v3` remains a thin override theme.
   - No schema or content-model changes are allowed.
 
-## Current Repo Truth
-- `course-offline/assets/course-offline.ts` currently imports `course-v2` CSS and older offline behavior.
-- `course-v3/assets/course-v3.tsx` is the online v3 entrypoint and imports:
-  - v3 CSS
-  - MIT Learn header JS
-  - mobile course menu JS
-  - course expander logic
-  - quiz/image-gallery init
-  - table-rowspan borders
-- `course-v3/layouts/home.html` and the v3 base layout already use shared v3 header/footer patterns.
-- `base-theme/layouts/partials/footer-v3.html` is not offline-safe as-is because it contains hard-coded root-relative URLs.
+## Current Repo Truth (post-implementation)
+- `course-offline-v3/assets/course-offline.ts` imports v3 CSS and JS (not v2).
+- `course-offline-v3/layouts/partials/basejs.html` references `course_offline_v3.js`.
+- `course-offline-v3/layouts/partials/extrahead.html` references `course_offline_v3.css` and `common.css`.
+- `course-offline-v3/layouts/partials/extrajs.html` is empty (no analytics).
+- `course-offline-v3/layouts/partials/extraheader.html` exists (no search icon).
+- `course-offline-v3/layouts/partials/download_course_link_button.html` overrides the CTA.
+- `base-theme/layouts/partials/footer-v3.html` still has hard-coded root-relative URLs — this is a known remaining issue.
+
+## Implementation Notes
+- The offline-v3 entrypoint imports v3 CSS/JS directly rather than copying the files. This keeps the bundle aligned with online v3 while remaining separately owned.
+- MathJax conditional loading is inherited from `course-v3`'s baseof block.
+- Footer-v3 hard-coded URLs were NOT fully resolved in this step. An `extrajs.html` strip-links approach or a footer override may be needed in a later step.
+- `extraheader.html` was added as an empty override to suppress the search icon in offline mode.
 
 ## Read Only These Files
 - `course-offline-v3/assets/course-offline.ts` or its offline-v3 entrypoint equivalent

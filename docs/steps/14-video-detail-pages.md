@@ -69,6 +69,19 @@
 - Regression gate: run the affected existing E2E coverage for `course-v2` online, `course-v2` offline, and `course-v3` online themes, plus any shared-theme coverage touched by the change.
 - Regression gate: if this step changes shared helpers, shared partials, webpack entries, env wiring, or E2E harness code, broaden the regression check to every impacted theme before marking the step complete.
 
+### Regression Spec Matrix
+| Spec file | Theme | Must pass | Why |
+|---|---|---|---|
+| `ocw-ci-test-course/video.spec.ts` | course (v2) | ✅ | Shared video partials |
+| `ocw-ci-test-course/video-tabs.spec.ts` | course (v2) | ✅ | Video tab behavior |
+| `ocw-ci-test-course-v3/video-view-v3.spec.ts` | course-v3 | ✅ | v3 video page structure |
+| `ocw-ci-test-course-v3-offline/smoke-v3-offline.spec.ts` | offline-v3 | ✅ | Baseline health |
+| `ocw-ci-test-course-v3-offline/routing-v3-offline.spec.ts` | offline-v3 | ✅ | Embedded video link locality |
+
+### New Offline-v3 Specs Needed
+- `video-detail-v3-offline.spec.ts` — covers `/resources/ocw_test_course_mit8_01f16_l01v01_360p` and `/resources/ocw_test_course_mit8_01f16_l26v02_360p`: local MP4 playback, captions/transcript locality, optional tab, related resources tab, no-instructor variant.
+
+### Step-Specific Assertions
 - Video resource pages render with the v3 structure intact.
 - Local video playback works when packaged media is present.
 - Captions and transcript links resolve through local/offline-safe paths.

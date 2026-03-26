@@ -54,6 +54,19 @@
 - Regression gate: run the affected existing E2E coverage for `course-v2` online, `course-v2` offline, and `course-v3` online themes, plus any shared-theme coverage touched by the change.
 - Regression gate: if this step changes shared helpers, shared partials, webpack entries, env wiring, or E2E harness code, broaden the regression check to every impacted theme before marking the step complete.
 
+### Regression Spec Matrix
+| Spec file | Theme | Must pass | Why |
+|---|---|---|---|
+| `ocw-ci-test-course/resource-list.spec.ts` | course (v2) | ✅ | Shared resource list partials |
+| `ocw-ci-test-course/download.spec.ts` | course (v2) | ✅ | Download link behavior |
+| `ocw-ci-test-course-v3/resource-list-v3.spec.ts` | course-v3 | ✅ | v3 resource list cards |
+| `ocw-ci-test-course-v3-offline/routing-v3-offline.spec.ts` | offline-v3 | ✅ | Resource card title/download locality |
+| `ocw-ci-test-course-v3-offline/smoke-v3-offline.spec.ts` | offline-v3 | ✅ | Baseline health |
+
+### New Offline-v3 Specs Needed
+- `resource-list-v3-offline.spec.ts` — covers `/lists/a-resource-list`: card titles navigate locally, download links are local, “See all” links are local, card structure matches v3.
+
+### Step-Specific Assertions
 - Resource-card titles navigate to local resource pages.
 - Download icons and download links point to local file destinations.
 - “See all” links remain local.

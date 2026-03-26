@@ -55,6 +55,18 @@
 - Regression gate: run the affected existing E2E coverage for `course-v2` online, `course-v2` offline, and `course-v3` online themes, plus any shared-theme coverage touched by the change.
 - Regression gate: if this step changes shared helpers, shared partials, webpack entries, env wiring, or E2E harness code, broaden the regression check to every impacted theme before marking the step complete.
 
+### Regression Spec Matrix
+| Spec file | Theme | Must pass | Why |
+|---|---|---|---|
+| `ocw-ci-test-course/image-gallery.spec.ts` | course (v2) | ✅ | Shared `image-gallery.html` shortcode |
+| `ocw-ci-test-course/shortcodes.spec.ts` | course (v2) | ✅ | Shared `resource_link.html` shortcode |
+| `ocw-ci-test-course-v3-offline/routing-v3-offline.spec.ts` | offline-v3 | ✅ | Shortcode link locality |
+| `ocw-ci-test-course-v3-offline/smoke-v3-offline.spec.ts` | offline-v3 | ✅ | Baseline health |
+
+### New Offline-v3 Specs Needed
+- `image-gallery-v3-offline.spec.ts` — covers `/pages/image-gallery`: gallery renders, initializes locally, controls work, no network dependence for assets.
+
+### Step-Specific Assertions
 - Image gallery renders and initializes locally.
 - Gallery controls and viewer behavior work without online dependencies.
 - Gallery resource/credit links remain correct.

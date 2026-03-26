@@ -1,5 +1,7 @@
 # Step 03: Shared Offline URL And Routing
 
+> **Status: ✅ COMPLETE**
+
 ## Objective
 - Completion rule: this step is not complete until every validation point in the Validation Points section has been implemented and verified.
 
@@ -12,14 +14,20 @@
   - The offline-v3 theme is still thin.
   - No schema or content-model changes are allowed.
 
-## Current Repo Truth
-- `base-offline` already owns reusable offline helpers for page/resource URLs, webpack asset URLs, image gallery setup, and video behavior.
-- `course-offline` already owns the course-specific offline helpers `nav_url`, `course_home_page_url`, `get_destination`, and `get_canonical_url`.
-- `course-v3` bypasses helper routing in at least:
-  - `resource_list_item.html` via raw `.permalink`
-  - `see_all.html` via raw `.permalink`
-- `base-theme/layouts/shortcodes/resource_link.html` also bypasses helper routing via raw `.Permalink`.
-- `base-offline/layouts/partials/get_resource_download_link.html` currently emits root-absolute `/static_resources/...` for non-video files.
+## Current Repo Truth (post-implementation)
+- `base-offline` shared helpers are unchanged and work for both v2 and v3 offline themes.
+- `course-offline-v3` owns v3-specific overrides:
+  - `nav.html`, `nav_item.html`, `nav_url.html` — thread v3-specific context through `path_to_root.html`.
+  - `course_home_page_url.html`, `get_destination.html`, `get_canonical_url.html` — ported from `course-offline` as v3-compatible copies.
+  - `resource_list_item_title.html` — overrides the card-title partial to use offline-safe URLs.
+- Remaining known routing hotspots:
+  - `see_all.html` — still uses raw `.permalink` (may need override in step 07-09 if it shows up in those routes).
+  - `footer-v3.html` — hard-coded root-relative URLs remain (addressed partially in step 04).
+
+## Implementation Notes
+- Deviated from expected edit set: added `nav.html` and `nav_item.html` overrides (plan expected only `nav_url.html`). This was needed because the v3 nav partial threads different context (`dict` with `menuItem`, `device`) than v2.
+- The `see_all.html` raw `.permalink` issue was deferred rather than solved here. It impacts video galleries and resource lists (steps 07, 10).
+- `resource_link.html` shortcode routing appears to work through the theme chain without a `course-offline-v3` override, verified by the routing E2E spec.
 
 ## Read Only These Files
 - `base-offline/layouts/partials/page_url.html`

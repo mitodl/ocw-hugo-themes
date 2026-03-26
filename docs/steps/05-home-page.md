@@ -1,5 +1,7 @@
 # Step 05: Home Page
 
+> **Status: ✅ COMPLETE**
+
 ## Objective
 - Completion rule: this step is not complete until every validation point in the Validation Points section has been implemented and verified.
 
@@ -12,10 +14,17 @@
   - Offline-v3 now uses the v3 bundle and shared chrome.
   - `course-offline-v3` remains thin and no schema changes are allowed.
 
-## Current Repo Truth
-- `course-v3/layouts/home.html` renders the homepage using v3 header, nav, course detail, course image, licensing, and `download_course_link_button`.
-- The bottom CTA and some panel CTAs still use the v3 online “Download Course” messaging path.
-- The homepage is the main offline entry point and should direct users into the packaged course, not back to a redundant course-download action.
+## Current Repo Truth (post-implementation)
+- `course-offline-v3` inherits `course-v3/layouts/home.html` without needing a full-page fork.
+- The CTA is overridden by `course-offline-v3/layouts/partials/download_course_link_button.html` ("Browse Resources" instead of "Download Course").
+- The `resources_header.html` override is intentionally blank to suppress online download instructions.
+- Homepage loads with v3 header, nav, course detail, and course image intact in offline mode.
+
+## Implementation Notes
+- No `home.html` fork was needed — partial-level overrides were sufficient.
+- CTA text changed to "Browse Resources" following existing offline conventions from `course-offline`.
+- Course description expansion and course-info panels work with the offline-v3 bundle.
+- Verified by `smoke-v3-offline.spec.ts` (home page load test).
 
 ## Read Only These Files
 - `course-v3/layouts/home.html`

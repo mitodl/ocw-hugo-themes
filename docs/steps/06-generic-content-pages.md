@@ -1,5 +1,7 @@
 # Step 06: Generic Content Pages
 
+> **Status: ✅ COMPLETE**
+
 ## Objective
 - Completion rule: this step is not complete until every validation point in the Validation Points section has been implemented and verified.
 
@@ -13,10 +15,22 @@
   - Homepage offline CTA behavior is solved.
   - `course-offline-v3` remains thin and no schema changes are allowed.
 
-## Current Repo Truth
-- `course-v3/layouts/pages/single.html` and `course-v3/layouts/pages/section.html` render through `course_content.html`.
-- Generic content pages include typography, tables, sub/superscripts, markdown links, nested sections, and shortcode-generated links.
-- Future `instructor_insights` pages follow the same general page-content path.
+## Current Repo Truth (post-implementation)
+- Generic content pages (`pages/single.html`, `pages/section.html`) are inherited from `course-v3` without forking.
+- The offline-v3 routing overrides from step 03 handle all internal link rewriting.
+- Tables, sub/superscripts, shortcode links, and markdown links all render correctly in offline-v3.
+- Section/subsection navigation works with package-local links.
+
+## Implementation Notes
+- No `course-offline-v3/layouts/pages/` overrides were needed. The v3 page layouts work as-is with the offline routing helpers.
+- Verified by `generic-content-pages.spec.ts`:
+  - `/pages/syllabus` — table rendering
+  - `/pages/section-1` — section content loads
+  - `/pages/subsection-1a` — nav links are package-local
+  - Footer link assertions pass
+- Also verified by `routing-v3-offline.spec.ts`:
+  - `/pages/shortcode-demos` — shortcode-generated links are package-local
+- The `instructor_insights` layout path was not explicitly tested but follows the same `course_content.html` rendering path.
 
 ## Read Only These Files
 - `course-v3/layouts/pages/single.html`

@@ -63,6 +63,18 @@
 - Regression gate: run the affected existing E2E coverage for `course-v2` online, `course-v2` offline, and `course-v3` online themes, plus any shared-theme coverage touched by the change.
 - Regression gate: if this step changes shared helpers, shared partials, webpack entries, env wiring, or E2E harness code, broaden the regression check to every impacted theme before marking the step complete.
 
+### Regression Spec Matrix
+| Spec file | Theme | Must pass | Why |
+|---|---|---|---|
+| `ocw-ci-test-course-v3/resource-page-v3.spec.ts` | course-v3 | ✅ | v3 resource page structure |
+| `ocw-ci-test-course/download.spec.ts` | course (v2) | ✅ | Shared download helpers |
+| `ocw-ci-test-course-v3-offline/smoke-v3-offline.spec.ts` | offline-v3 | ✅ | Resource page load in smoke |
+| `ocw-ci-test-course-v3-offline/routing-v3-offline.spec.ts` | offline-v3 | ✅ | Download link locality |
+
+### New Offline-v3 Specs Needed
+- `resource-page-v3-offline.spec.ts` — covers `/resources/file_pdf`, `/resources/example_pdf`, `/resources/example_jpg`, `/resources/example_notes`: v3 page structure, PDF viewer, image display, download links are local.
+
+### Step-Specific Assertions
 - Non-video resource pages render with v3 page structure intact.
 - PDF pages preview locally and download locally.
 - Image resource pages render locally and download locally.

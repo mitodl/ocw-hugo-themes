@@ -84,6 +84,17 @@
 - Regression gate: run the affected existing E2E coverage for `course-v2` online, `course-v2` offline, and `course-v3` online themes, plus any shared-theme coverage touched by the change.
 - Regression gate: if this step changes shared helpers, shared partials, webpack entries, env wiring, or E2E harness code, broaden the regression check to every impacted theme before marking the step complete.
 
+### Full Regression Spec Matrix
+All existing specs must pass:
+
+| Spec directory | Spec files | Must pass |
+|---|---|---|
+| `ocw-ci-test-course/` | All 13 specs (course-home, course-info, download, external-resources, footer, headings, homepage, image-gallery, resource-list, shortcodes, subscripts-and-superscripts, video, video-tabs) | ✅ |
+| `ocw-ci-test-course-v3/` | All 6 specs (content-typography-v3, header-v3, resource-list-v3, resource-page-v3, video-gallery-v3, video-view-v3) | ✅ |
+| `ocw-ci-test-course-v3-offline/` | All existing + all new specs from steps 07–15 | ✅ |
+| `ocw-ci-test-www/` | Both specs (featured_courses, homepage) | ✅ |
+
+### Step-Specific Assertions
 - Asset loading works across the offline-v3 site.
 - Internal navigation remains local on all page families.
 - File downloads resolve to local packaged files.

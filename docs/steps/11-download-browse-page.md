@@ -55,6 +55,17 @@
 - Regression gate: run the affected existing E2E coverage for `course-v2` online, `course-v2` offline, and `course-v3` online themes, plus any shared-theme coverage touched by the change.
 - Regression gate: if this step changes shared helpers, shared partials, webpack entries, env wiring, or E2E harness code, broaden the regression check to every impacted theme before marking the step complete.
 
+### Regression Spec Matrix
+| Spec file | Theme | Must pass | Why |
+|---|---|---|---|
+| `ocw-ci-test-course/download.spec.ts` | course (v2) | ✅ | Shared download/taxonomy partials |
+| `ocw-ci-test-course/resource-list.spec.ts` | course (v2) | ✅ | Collapsible list behavior |
+| `ocw-ci-test-course-v3-offline/smoke-v3-offline.spec.ts` | offline-v3 | ✅ | Baseline health |
+
+### New Offline-v3 Specs Needed
+- `download-v3-offline.spec.ts` — covers `/download`: grouped resource lists render, header text is offline-appropriate, no “Download Course” CTA, all items resolve locally.
+
+### Step-Specific Assertions
 - `/download` renders grouped collapsible resource lists.
 - The page header and instructions are useful in offline context.
 - No redundant “Download Course” CTA remains.

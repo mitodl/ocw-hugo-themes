@@ -49,6 +49,17 @@
 - Regression gate: run the affected existing E2E coverage for `course-v2` online, `course-v2` offline, and `course-v3` online themes, plus any shared-theme coverage touched by the change.
 - Regression gate: if this step changes shared helpers, shared partials, webpack entries, env wiring, or E2E harness code, broaden the regression check to every impacted theme before marking the step complete.
 
+### Regression Spec Matrix
+| Spec file | Theme | Must pass | Why |
+|---|---|---|---|
+| `ocw-ci-test-course/external-resources.spec.ts` | course (v2) | ✅ | Shared external link handling |
+| `ocw-ci-test-course-v3-offline/routing-v3-offline.spec.ts` | offline-v3 | ✅ | Link locality assertions |
+| `ocw-ci-test-course-v3-offline/generic-content-pages.spec.ts` | offline-v3 | ✅ | Mixed-page link behavior |
+
+### New Offline-v3 Specs Needed
+- `external-resources-v3-offline.spec.ts` — covers `/pages/external-resources-page`: external links use warning/new-tab, internal links stay package-local, mixed-page distinction is correct.
+
+### Step-Specific Assertions
 - External links still open through the warning/new-tab path.
 - Internal links on the same page stay package-local.
 - Mixed-content pages distinguish internal and external destinations correctly.

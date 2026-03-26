@@ -1,5 +1,7 @@
 # Step 02: Offline Build And E2E Plumbing
 
+> **Status: ✅ COMPLETE**
+
 ## Objective
 - Completion rule: this step is not complete until every validation point in the Validation Points section has been implemented and verified.
 
@@ -12,11 +14,20 @@
   - No page-specific behavior changes have been made yet.
   - No schema or content-model changes are allowed.
 
-## Current Repo Truth
-- `.env` contains `COURSE_V3_HUGO_CONFIG_PATH` but no offline-v3-specific env var.
-- `tests-e2e/util/test_sites.ts` defines only `course`, `course-v3`, and `www`.
-- `tests-e2e/LocalOcw.ts` already builds all aliases from `TEST_SITES`, so adding a new alias is the correct integration point.
-- The test content for both online and offline v3 should continue to be `test-sites/ocw-ci-test-course`.
+## Current Repo Truth (post-implementation)
+- `env.ts` contains `COURSE_V3_OFFLINE_HUGO_CONFIG_PATH`.
+- `tests-e2e/util/test_sites.ts` defines `course`, `course-v3`, `course-v3-offline`, and `www` aliases.
+- `LocalOcw` builds all aliases from `TEST_SITES`, including the offline-v3 site.
+- Three E2E spec files exist under `tests-e2e/ocw-ci-test-course-v3-offline/`:
+  - `smoke-v3-offline.spec.ts`
+  - `routing-v3-offline.spec.ts`
+  - `generic-content-pages.spec.ts`
+
+## Implementation Notes
+- `COURSE_V3_OFFLINE_HUGO_CONFIG_PATH` added to `env.ts` (not `.env`).
+- The `course-v3-offline` alias was added to `test_sites.ts` reusing `ocw-ci-test-course` content.
+- Smoke spec covers home page, generic page, list page, and resource page loads.
+- Deviations from plan: `routing-v3-offline.spec.ts` and `generic-content-pages.spec.ts` were added ahead of schedule (originally planned for later steps).
 
 ## Read Only These Files
 - `.env`

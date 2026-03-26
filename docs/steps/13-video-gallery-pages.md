@@ -52,6 +52,17 @@
 - Regression gate: run the affected existing E2E coverage for `course-v2` online, `course-v2` offline, and `course-v3` online themes, plus any shared-theme coverage touched by the change.
 - Regression gate: if this step changes shared helpers, shared partials, webpack entries, env wiring, or E2E harness code, broaden the regression check to every impacted theme before marking the step complete.
 
+### Regression Spec Matrix
+| Spec file | Theme | Must pass | Why |
+|---|---|---|---|
+| `ocw-ci-test-course-v3/video-gallery-v3.spec.ts` | course-v3 | ✅ | v3 gallery layout and card links |
+| `ocw-ci-test-course/video.spec.ts` | course (v2) | ✅ | Shared video partials |
+| `ocw-ci-test-course-v3-offline/smoke-v3-offline.spec.ts` | offline-v3 | ✅ | Baseline health |
+
+### New Offline-v3 Specs Needed
+- `video-gallery-v3-offline.spec.ts` — covers `/video_galleries/lecture-videos`: v3 gallery layout, card links are local, thumbnail fallback for missing remotes, no broken images.
+
+### Step-Specific Assertions
 - Gallery page loads with v3 layout intact.
 - Card links open local video resource pages.
 - Missing remote thumbnails do not produce broken-image behavior as the only outcome.

@@ -54,8 +54,16 @@
 - Regression gate: build the existing `course-v2` offline site and confirm it still builds successfully after this step.
 - Regression gate: run the affected existing E2E coverage for `course-v2` online, `course-v2` offline, and `course-v3` online themes, plus any shared-theme coverage touched by the change.
 - Regression gate: if this step changes shared helpers, shared partials, webpack entries, env wiring, or E2E harness code, broaden the regression check to every impacted theme before marking the step complete.
+### Regression Spec Matrix
+| Spec file | Theme | Must pass | Why |
+|---|---|---|---|
+| `ocw-ci-test-course-v3-offline/smoke-v3-offline.spec.ts` | offline-v3 | ✅ | Baseline health |
+| `ocw-ci-test-course-v3-offline/generic-content-pages.spec.ts` | offline-v3 | ✅ | Page rendering not regressed |
 
-- Quiz options are interactive.
+### New Offline-v3 Specs Needed
+- `quiz-v3-offline.spec.ts` — covers `/pages/quiz-demo`: answer selection, check-answer flow, show-solution flow, v3 quiz UI styling.
+
+### Step-Specific Assertions- Quiz options are interactive.
 - “Check answer” flow works.
 - “Show solution” flow works.
 - Quiz UI styling still looks like v3 content-page behavior, not a v2 regression.

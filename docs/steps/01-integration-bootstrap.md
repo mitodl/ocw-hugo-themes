@@ -1,5 +1,7 @@
 # Step 01: Integration Bootstrap
 
+> **Status: ✅ COMPLETE**
+
 ## Objective
 - Completion rule: this step is not complete until every validation point in the Validation Points section has been implemented and verified.
 
@@ -9,12 +11,16 @@
 ## Assumes Complete
 - No previous steps.
 
-## Current Repo Truth
-- `../ocw-hugo-projects/ocw-course-v3/config-offline.yaml` already points at `base-offline -> course-offline-v3 -> course-v3 -> base-theme`.
-- `course-offline-v3/` does not exist in this repo yet.
-- `course-offline/` already contains the existing offline theme bootstrap and should be copied before the new directory is inspected or edited.
-- `base-theme/assets/webpack/webpack.common.ts` has a `course_offline` entry but no `course_offline_v3`.
-- The current offline asset references in `course-offline/layouts/partials/basejs.html` and `course-offline/layouts/partials/extrahead.html` point at `course_offline` assets.
+## Current Repo Truth (post-implementation)
+- `course-offline-v3/` exists with 13 partial overrides, an asset entrypoint, and empty content directories.
+- `base-theme/assets/webpack/webpack.common.ts` has a `course_offline_v3` entry.
+- `course-offline-v3/layouts/partials/basejs.html` and `extrahead.html` reference `course_offline_v3` assets.
+- The existing `course-offline/` theme and its `course_offline` webpack entry remain unchanged.
+
+## Implementation Notes
+- `course-offline-v3/` was created by duplicating `course-offline/` and then updating asset references.
+- The `course_offline_v3` webpack entry was added alongside (not replacing) `course_offline`.
+- `basejs.html` and `extrahead.html` were updated to reference the new `course_offline_v3` bundle names.
 
 ## Read Only These Files
 - `course-offline/assets/course-offline.ts`
