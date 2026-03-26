@@ -32,7 +32,9 @@ test("offline-v3 section-1 page loads", async ({ page }) => {
   const response = await course.goto("/pages/section-1")
 
   expect(response?.ok()).toBeTruthy()
-  await expect(page).toHaveURL(/ocw-ci-test-course-v3-offline\/pages\/section-1\/?$/)
+  await expect(page).toHaveURL(
+    /ocw-ci-test-course-v3-offline\/pages\/section-1\/?$/
+  )
   await expect(page.locator("body")).toContainText("Section 1")
 })
 
@@ -41,7 +43,9 @@ test("offline-v3 subsection-1a page loads", async ({ page }) => {
   const response = await course.goto("/pages/subsection-1a")
 
   expect(response?.ok()).toBeTruthy()
-  await expect(page).toHaveURL(/ocw-ci-test-course-v3-offline\/pages\/subsection-1a\/?$/)
+  await expect(page).toHaveURL(
+    /ocw-ci-test-course-v3-offline\/pages\/subsection-1a\/?$/
+  )
   await expect(page.locator("body")).toContainText("Subsection 1a")
 })
 
@@ -50,7 +54,9 @@ test("offline-v3 subsection-1b page loads", async ({ page }) => {
   const response = await course.goto("/pages/subsection-1b")
 
   expect(response?.ok()).toBeTruthy()
-  await expect(page).toHaveURL(/ocw-ci-test-course-v3-offline\/pages\/subsection-1b\/?$/)
+  await expect(page).toHaveURL(
+    /ocw-ci-test-course-v3-offline\/pages\/subsection-1b\/?$/
+  )
   await expect(page.locator("body")).toContainText("Subsection 1b")
 })
 
@@ -125,7 +131,9 @@ test("nested nav links (subsections) are package-local", async ({ page }) => {
 // No online-only leakage on generic pages
 // ---------------------------------------------------------------------------
 
-test("footer nav links are not hardcoded to learn.mit.edu", async ({ page }) => {
+test("footer nav links are not hardcoded to learn.mit.edu", async ({
+  page
+}) => {
   const course = offlineCourse(page)
   await course.goto("/pages/syllabus")
 
@@ -133,7 +141,9 @@ test("footer nav links are not hardcoded to learn.mit.edu", async ({ page }) => 
   // to the live learn.mit.edu domain — they should be resolved via site_root_url
   // which for the test build resolves to the local fixture server.
   const footerNav = page.locator(".footer-v3-right-container, footer")
-  const footerLinks = footerNav.locator("a[href*='about'], a[href*='terms'], a[href*='contact'], a[href*='accessibility']")
+  const footerLinks = footerNav.locator(
+    "a[href*='about'], a[href*='terms'], a[href*='contact'], a[href*='accessibility']"
+  )
   for (const link of await footerLinks.all()) {
     const href = await link.getAttribute("href")
     expect(href).not.toMatch(/learn\.mit\.edu/)

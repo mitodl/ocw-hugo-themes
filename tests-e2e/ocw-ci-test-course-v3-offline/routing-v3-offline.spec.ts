@@ -12,7 +12,9 @@ const expectLocalPackageHref = async (locator: Locator) => {
   return href as string
 }
 
-test("shortcode-generated resource links stay package-local", async ({ page }) => {
+test("shortcode-generated resource links stay package-local", async ({
+  page
+}) => {
   const course = offlineCourse(page)
   await course.goto("/pages/shortcode-demos")
 
@@ -49,7 +51,9 @@ test("embedded video page links stay package-local", async ({ page }) => {
 
   const viewVideoPageLink = page.getByRole("link", { name: "View video page" })
   const href = await expectLocalPackageHref(viewVideoPageLink)
-  expect(href).toContain("resources/ocw_test_course_mit8_01f16_l01v01_360p/index.html")
+  expect(href).toContain(
+    "resources/ocw_test_course_mit8_01f16_l01v01_360p/index.html"
+  )
 
   await page.goto(new URL(href, page.url()).href)
   await expect(page).toHaveURL(

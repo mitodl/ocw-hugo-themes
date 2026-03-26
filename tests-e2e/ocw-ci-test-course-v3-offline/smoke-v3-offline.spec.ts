@@ -20,7 +20,9 @@ test("offline-v3 generic page loads", async ({ page }) => {
   const response = await course.goto("/pages/assignments")
 
   expect(response?.ok()).toBeTruthy()
-  await expect(page).toHaveURL(/ocw-ci-test-course-v3-offline\/pages\/assignments\/?$/)
+  await expect(page).toHaveURL(
+    /ocw-ci-test-course-v3-offline\/pages\/assignments\/?$/
+  )
   await expect(page.locator("body")).toContainText("Section 2")
 })
 
@@ -29,7 +31,9 @@ test("offline-v3 resource list page loads", async ({ page }) => {
   const response = await course.goto("/lists/a-resource-list")
 
   expect(response?.ok()).toBeTruthy()
-  await expect(page).toHaveURL(/ocw-ci-test-course-v3-offline\/lists\/a-resource-list\/?$/)
+  await expect(page).toHaveURL(
+    /ocw-ci-test-course-v3-offline\/lists\/a-resource-list\/?$/
+  )
   await expect(page.locator("body")).toContainText("A resource list")
 })
 
@@ -38,6 +42,8 @@ test("offline-v3 resource page loads", async ({ page }) => {
   const response = await course.goto("/resources/file_pdf")
 
   expect(response?.ok()).toBeTruthy()
-  await expect(page).toHaveURL(/ocw-ci-test-course-v3-offline\/resources\/file_pdf\/?$/)
+  await expect(page).toHaveURL(
+    /ocw-ci-test-course-v3-offline\/resources\/file_pdf\/?$/
+  )
   await expect(page.locator("body")).toContainText("file.pdf")
 })

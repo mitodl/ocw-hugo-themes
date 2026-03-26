@@ -1,0 +1,155 @@
+{{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
+{{- $courseData := .Site.Data.course -}}
+{{ $pageDepth := strings.Count "/" .RelPermalink }}
+
+<!doctype html>
+<html lang="{{ $.Site.Language.Lang }}">
+{{ partial "head.html" . }}
+
+<body class="course-home-page has-mit-learn-header">
+  {{ if $gtmId }}
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId }}" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  {{ end }}
+
+  <div>
+    <div class="course-header">
+      {{ partialCached "mobile_course_info.html" . }}
+      {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
+      {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
+    </div>
+    <div class="course-main-content-v3">
+      <div class="container-v3">
+        <div class="mobile-nav-div medium-and-below-only align-self-stretch">
+          {{ partial "mobile_course_menu_v3.html" (dict "context" .) }}
+        </div>
+        <div>
+          <div class="course-overview page-content">
+            <div class="course-nav-desktop large-and-above-only p-0">
+{{/* Offline-v3 override: use uncached partial for desktop nav because
+                 nav_url.html produces page-depth-dependent URLs via path_to_root.
+                 partialCached would freeze the home page's URLs for all pages. */}}
+              {{ partial "desktop_nav.html" . }}
+            </div>
+            <div class="course-detail align-self-stretch">
+              {{ block "main" . }}{{ end }}
+            </div>
+            <div class="col-12 col-md-4 col-lg-3 p-0 desktop-course-info tablet-and-above-only">
+              {{ partialCached "desktop_course_info.html" . $pageDepth }}
+            </div>
+          </div>
+          <div class="bottom-download-button align-self-stretch">
+            {{ partial "download_course_link_button.html" (dict "context" . "inPanel" false) }}
+          </div>
+        </div>
+        {{ partial "course_licensing.html" . }}
+      </div>
+    </div>
+    {{ block "footer" . }}{{ partial "footer-v3" . }}{{end}}
+    {{ partialCached "hide_offline_links.html" . }}
+  </div>
+  {{ partial "external_link_modal" }}
+
+  <script>
+    // Script for maintaining and toggling course drawer state
+    // note: This script is placed here instead of being in the bundle so it runs as soon as the HTML is rendered
+    // this way, a glitch/layout thrashing in the course drawer is avoided.
+    // code for toggling the course drawer has also been placed here to avoid code duplication.
+
+    // constants
+    'use strict';
+    const COURSE_DRAWER_LOCAL_STORAGE_KEY = "desktopCourseDrawerState"
+    const COURSE_DRAWER_OPENED = "opened"
+    const COURSE_DRAWER_CLOSED = "closed"
+    // IDs of elements
+    const DESKTOP_COURSE_DRAWER_ID = "desktop-course-drawer"
+    const COURSE_DRAWER_BTN_ID = "desktop-course-drawer-button"
+
+    try{
+
+      /*
+      * Checks if user has already selected any option/state for drawer then it sets that else keep it open by default
+      */
+      function initializeDesktopCourseDrawerState() {
+        const state = getLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY)
+        if (state === null) {
+          // No preference found so setting to "opened" as default and opening the drawer
+          setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
+          showOrHideDesktopCourseDrawer(COURSE_DRAWER_OPENED)
+        } else {
+          showOrHideDesktopCourseDrawer(state)
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+          const drawer = $(`#${DESKTOP_COURSE_DRAWER_ID}`)
+
+          drawer.on("shown.bs.collapse", (event) => {
+            if (event.target.id !== DESKTOP_COURSE_DRAWER_ID) {
+              return;
+            }
+            setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
+          })
+      
+          drawer.on("hidden.bs.collapse", (event) => {
+            if (event.target.id !== DESKTOP_COURSE_DRAWER_ID) {
+              return;
+            }
+            setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_CLOSED)
+          })
+        })
+      }
+
+      function showOrHideDesktopCourseDrawer(state) {
+        const drawer = document.getElementById(DESKTOP_COURSE_DRAWER_ID)
+        const button = document.getElementById(COURSE_DRAWER_BTN_ID)
+
+        if (state === COURSE_DRAWER_OPENED) {
+          drawer.classList.add("show")
+          button.setAttribute("aria-expanded", "true")
+        } else {
+          drawer.classList.remove("show")
+          button.setAttribute("aria-expanded", "false")
+        }
+      }
+
+      function setOrGetLocalStorageItem(action,key,value) {
+        try {
+          // checking browser support for localStorage
+          if (typeof Storage !== "undefined") {
+            if (action === "set") {
+              localStorage.setItem(key, value)
+              return true
+            } else {
+              return localStorage.getItem(key)
+            }
+          }
+          console.error("This browser has no web storage support.")
+          return null
+        } catch (e) {
+          console.error("An exception occurred while storing/fetching data in/from localstorage: ", e)
+          return null
+        }
+      }
+
+      function setLocalStorageItem(key, value) {
+        return setOrGetLocalStorageItem("set", key, value)
+      }
+
+      function getLocalStorageItem(key){
+        return setOrGetLocalStorageItem("get", key)
+      }
+
+      initializeDesktopCourseDrawerState();
+    }
+    catch(e){
+      console.error("Something went wrong in maintaining/toggling course drawer state", e)
+    }
+  </script>
+
+  {{ partialCached "navigation_js.html" . }}
+  {{ partialCached "responsive_tables_js.html" . }}
+</body>
+
+</html>
