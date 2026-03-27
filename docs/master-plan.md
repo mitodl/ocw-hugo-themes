@@ -9,7 +9,7 @@
 
 ## Current Repo Truth
 - The sibling Hugo project config `../ocw-hugo-projects/ocw-course-v3/config-offline.yaml` points at the theme stack: `["base-offline", "course-offline-v3", "course-v3", "base-theme"]`.
-- `course-offline-v3/` exists with 13 partial overrides in `layouts/partials/`, an asset entrypoint at `assets/course-offline.ts`, and an empty `content/static_resources/` directory. It has no `go.mod` (inherits module identity via the theme chain; Hugo does not require one for a pure-override theme).
+- `course-offline-v3/` exists with 10 partial overrides in `layouts/partials/`, an asset entrypoint at `assets/course-offline.ts`, and an empty `content/static_resources/` directory. It has no `go.mod` (inherits module identity via the theme chain; Hugo does not require one for a pure-override theme).
 - [course-offline-v3/assets/course-offline.ts](../course-offline-v3/assets/course-offline.ts) imports v3 CSS/JS directly from `course-v3/assets/` (not v2). It initializes MIT Learn header, mobile course menu, v3 expanders, quiz logic, table-rowspan borders, image-gallery init, and Video.js.
 - [base-theme/assets/webpack/webpack.common.ts](../base-theme/assets/webpack/webpack.common.ts) defines `course_offline_v3` as a dedicated entry: `[expose-jQuery.ts, course-offline-v3/assets/course-offline.ts, index.ts]`.
 - [env.ts](../env.ts) defines `COURSE_V3_OFFLINE_HUGO_CONFIG_PATH` (default: `../ocw-hugo-projects/ocw-course-v3/config-offline.yaml`).
@@ -20,21 +20,21 @@
   - `routing-v3-offline.spec.ts` — shortcode links, embedded video links, resource-card titles, download links are package-local
   - `generic-content-pages.spec.ts` — syllabus/table, section/subsection loads, nav link locality, footer link assertions
 - The test content source of truth remains [test-sites/ocw-ci-test-course](../test-sites/ocw-ci-test-course).
-- The 13 partials in `course-offline-v3/layouts/partials/` are: 10 shared copies from `course-offline` (`basejs`, `course_home_page_url`, `download_course_link_button`, `extrahead`, `extraheader`, `extrajs`, `get_canonical_url`, `get_destination`, `resource_list_item_title`, `resources_header`) plus 3 v3-specific overrides (`nav.html`, `nav_item.html`, `nav_url.html`) that thread page context for relative URL generation via `path_to_root.html`.
+- The 10 partials in `course-offline-v3/layouts/partials/` are: 9 shared copies from `course-offline` (`basejs`, `course_home_page_url`, `download_course_link_button`, `extrahead`, `extraheader`, `extrajs`, `get_canonical_url`, `get_destination`, `resources_header`) plus 1 v3-specific override (`nav_url.html`) that threads page context for relative URL generation via `path_to_root.html`.
 
 ## Known Offline Hotspots
 
 ### Resolved
-- ~~[course-v3/layouts/partials/resource_list_item.html](../course-v3/layouts/partials/resource_list_item.html) uses raw `.permalink` for resource-card titles.~~ → Handled by `course-offline-v3/layouts/partials/resource_list_item_title.html` override (step 03).
+- ~~[course-v3/layouts/partials/resource_list_item.html](../course-v3/layouts/partials/resource_list_item.html) uses raw `.permalink` for resource-card titles.~~ → v3's `resource_list_item.html` calls `page_url.html` inline for offline-safe URLs; no separate title-partial override needed (step 03).
 - ~~Nav URL routing produced absolute paths in offline packages.~~ → Handled by `course-offline-v3/layouts/partials/nav.html`, `nav_item.html`, `nav_url.html` which thread page context through `path_to_root.html` (step 03).
 - ~~Download CTA said "Download Course" in offline context.~~ → `course-offline-v3/layouts/partials/download_course_link_button.html` now says "Browse Resources" with v3 SVG styling (step 05).
 - ~~Resources header showed download instructions offline.~~ → `course-offline-v3/layouts/partials/resources_header.html` is intentionally blank (step 05).
+- ~~[course-v3/layouts/partials/see_all.html](../course-v3/layouts/partials/see_all.html) uses raw `.permalink` for "See all" links.~~ → Accepts `.permalink` via dict; `resource_list_collapsible.html` passes `.RelPermalink`, and `page_url.html` rewrites it offline.
+- ~~[base-theme/layouts/shortcodes/resource_link.html](../base-theme/layouts/shortcodes/resource_link.html) uses raw `.Permalink`.~~ → Routing spec confirms shortcode links are package-local through the existing theme chain.
+- ~~[base-theme/layouts/partials/footer-v3.html](../base-theme/layouts/partials/footer-v3.html) emits root-relative links.~~ → Footer now routes links through `home_url.html` and `site_root_url.html`.
+- ~~[base-offline/layouts/partials/get_resource_download_link.html](../base-offline/layouts/partials/get_resource_download_link.html) emits root-absolute `/static_resources/...` URLs.~~ → Download links validated as package-local by routing spec.
 
 ### Remaining
-- [course-v3/layouts/partials/see_all.html](../course-v3/layouts/partials/see_all.html) uses raw `.permalink` for "See all" links. Needs `course-offline-v3` override or shared helper fix.
-- [base-theme/layouts/partials/footer-v3.html](../base-theme/layouts/partials/footer-v3.html) emits root-relative links like `/`, `/about`, `/accessibility`, `/terms`, and `/contact`. Needs offline override to prevent broken links in packaged offline use.
-- [base-offline/layouts/partials/get_resource_download_link.html](../base-offline/layouts/partials/get_resource_download_link.html) emits root-absolute `/static_resources/...` URLs for non-video files. May need path-to-root rewriting for full portability.
-- [base-theme/layouts/shortcodes/resource_link.html](../base-theme/layouts/shortcodes/resource_link.html) uses raw `.Permalink`. Routing spec (`routing-v3-offline.spec.ts`) already validates shortcode links are package-local, so this either has an override in the theme chain or needs one.
 - `course-v3` video gallery cards depend on remote YouTube thumbnails, which is not acceptable as a hard dependency for packaged offline use (step 13).
 
 ## Shortcode Ownership
@@ -122,7 +122,7 @@
 - `course-offline-v3/assets/course-offline.ts` imports v3 CSS (`course-v3.scss`), MIT Learn header, mobile course menu, v3 expanders, quiz logic, image-gallery init, table-rowspan borders, and Video.js — all from `course-v3/assets/`.
 - Entrypoint remains offline-owned (no React/QueryClient, no PostHog, no feature flags).
 - v3 header, banner, nav, course-info panels, and footer-v3 are inherited from the theme chain.
-- **Remaining**: `footer-v3.html` still emits hard-coded root-relative URLs (`/about`, `/terms`, etc.) — needs offline override for full portability.
+- **Status**: `footer-v3.html` now routes footer links through `home_url.html` and `site_root_url.html` for offline portability.
 
 ### 5. Home page — ✅ COMPLETE
 - Goal: make `/` a stable offline entry point.

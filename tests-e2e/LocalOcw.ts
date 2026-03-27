@@ -200,6 +200,8 @@ class LocalOCW {
   }
 
   buildAllSites = async (): Promise<void> => {
+    // Sequential builds: Hugo writes to a shared output directory, so parallel
+    // builds would race on filesystem writes and produce corrupted output.
     for (const alias of Object.keys(TEST_SITES)) {
       await this.buildSite(alias as TestSiteAlias)
     }

@@ -21,12 +21,11 @@
 - `course-offline-v3/layouts/partials/extrajs.html` is empty (no analytics).
 - `course-offline-v3/layouts/partials/extraheader.html` exists (no search icon).
 - `course-offline-v3/layouts/partials/download_course_link_button.html` overrides the CTA.
-- `base-theme/layouts/partials/footer-v3.html` still has hard-coded root-relative URLs — this is a known remaining issue.
+- `base-theme/layouts/partials/footer-v3.html` routes footer links through `home_url.html` and `site_root_url.html` for offline portability.
 
 ## Implementation Notes
 - The offline-v3 entrypoint imports v3 CSS/JS directly rather than copying the files. This keeps the bundle aligned with online v3 while remaining separately owned.
 - MathJax conditional loading is inherited from `course-v3`'s baseof block.
-- Footer-v3 hard-coded URLs were NOT fully resolved in this step. An `extrajs.html` strip-links approach or a footer override may be needed in a later step.
 - `extraheader.html` was added as an empty override to suppress the search icon in offline mode.
 
 ## Read Only These Files

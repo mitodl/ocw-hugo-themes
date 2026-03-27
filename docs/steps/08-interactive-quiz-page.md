@@ -63,7 +63,8 @@
 ### New Offline-v3 Specs Needed
 - `quiz-v3-offline.spec.ts` — covers `/pages/quiz-demo`: answer selection, check-answer flow, show-solution flow, v3 quiz UI styling.
 
-### Step-Specific Assertions- Quiz options are interactive.
+### Step-Specific Assertions
+- Quiz options are interactive.
 - “Check answer” flow works.
 - “Show solution” flow works.
 - Quiz UI styling still looks like v3 content-page behavior, not a v2 regression.

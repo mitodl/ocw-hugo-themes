@@ -326,16 +326,16 @@
 ## Known Hotspots
 
 ### Resolved
-- ~~`course-v3/layouts/partials/resource_list_item.html` — card title uses raw `.permalink`.~~ → `course-offline-v3/layouts/partials/resource_list_item_title.html` override appends `index.html`.
+- ~~`course-v3/layouts/partials/resource_list_item.html` — card title uses raw `.permalink`.~~ → v3's `resource_list_item.html` calls `page_url.html` inline for offline-safe URLs; no separate title-partial override needed.
 - ~~Nav URLs produced absolute paths in offline packages.~~ → `course-offline-v3` nav overrides (`nav.html`, `nav_item.html`, `nav_url.html`) thread page context through `path_to_root.html`.
 - ~~Download CTA said "Download Course" in offline context.~~ → `course-offline-v3/layouts/partials/download_course_link_button.html` says "Browse Resources".
 - ~~Resources header showed download instructions offline.~~ → `course-offline-v3/layouts/partials/resources_header.html` is intentionally blank.
+- ~~`course-v3/layouts/partials/see_all.html` — uses raw `.permalink`.~~ → Accepts `.permalink` via dict; `resource_list_collapsible.html` now passes `.RelPermalink`, and `page_url.html` rewrites it offline.
+- ~~`base-theme/layouts/shortcodes/resource_link.html` — uses raw `.Permalink`.~~ → Routing spec confirms shortcode links are package-local through the existing theme chain.
+- ~~`base-theme/layouts/partials/footer-v3.html` — hard-coded root-relative URLs.~~ → Footer now routes links through `home_url.html` and `site_root_url.html`.
+- ~~`base-offline/layouts/partials/get_resource_download_link.html` — root-absolute `/static_resources/...` URLs.~~ → Download links validated as package-local by routing spec.
 
 ### Remaining
-- `course-v3/layouts/partials/see_all.html` — uses raw `.permalink`. Needs override or shared helper fix.
-- `base-theme/layouts/shortcodes/resource_link.html` — uses raw `.Permalink`. Routing spec validates shortcode links are package-local, so this either has an override in the theme chain or needs one.
-- `base-theme/layouts/partials/footer-v3.html` — hard-coded root-relative URLs (`/`, `/about`, `/accessibility`, `/terms`, `/contact`) are not package-safe.
-- `base-offline/layouts/partials/get_resource_download_link.html` — emits root-absolute `/static_resources/...` URLs. May need `path_to_root` rewriting for full portability.
 - Remote YouTube thumbnail dependence — v3 video-gallery cards use remote thumbnails directly. Needs offline fallback (step 13).
 
 ## Historical Note

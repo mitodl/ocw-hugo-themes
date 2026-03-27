@@ -19,10 +19,10 @@
 - `course-offline-v3` owns v3-specific overrides:
   - `nav.html`, `nav_item.html`, `nav_url.html` — thread v3-specific context through `path_to_root.html`.
   - `course_home_page_url.html`, `get_destination.html`, `get_canonical_url.html` — ported from `course-offline` as v3-compatible copies.
-  - `resource_list_item_title.html` — overrides the card-title partial to use offline-safe URLs.
+- v3's `resource_list_item.html` calls `page_url.html` inline for offline-safe card-title URLs; no separate title-partial override needed.
 - Remaining known routing hotspots:
-  - `see_all.html` — still uses raw `.permalink` (may need override in step 07-09 if it shows up in those routes).
-  - `footer-v3.html` — hard-coded root-relative URLs remain (addressed partially in step 04).
+  - `see_all.html` — resolved; accepts `.permalink` via dict and is rewritten by `page_url.html` offline.
+  - `footer-v3.html` — resolved; routes links through `home_url.html` and `site_root_url.html`.
 
 ## Implementation Notes
 - Deviated from expected edit set: added `nav.html` and `nav_item.html` overrides (plan expected only `nav_url.html`). This was needed because the v3 nav partial threads different context (`dict` with `menuItem`, `device`) than v2.

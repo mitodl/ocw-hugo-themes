@@ -86,9 +86,10 @@ test("download-page resource links stay package-local", async ({ page }) => {
   const course = offlineCourse(page)
   await course.goto("/download")
 
+  // Expand the collapsed "Activity Assignments" section
   await page
-    .getByRole("link", { name: "Activity Assignments" })
-    .click({ force: true })
+    .locator(".resource-list-toggle-link.collapsed", { hasText: "Activity Assignments" })
+    .click()
 
   const resourceCard = page.locator(".resource-card", {
     has: page.locator(".resource-card-title", { hasText: "example_jpg.jpg" })
