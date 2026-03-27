@@ -88,7 +88,9 @@ test("download-page resource links stay package-local", async ({ page }) => {
 
   // Expand the collapsed "Activity Assignments" section
   await page
-    .locator(".resource-list-toggle-link.collapsed", { hasText: "Activity Assignments" })
+    .locator(".resource-list-toggle-link.collapsed", {
+      hasText: "Activity Assignments"
+    })
     .click()
 
   const resourceCard = page.locator(".resource-card", {
