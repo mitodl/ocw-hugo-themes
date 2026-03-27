@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.146.1
+---------------
+
+- chore(deps): lock file maintenance (#1692)
+- chore: point contact links to the zendesk form (#1756)
+- chore(deps): update yarn to v4.13.0 (#1757)
+- chore(deps): update dependency css-minimizer-webpack-plugin to v8 (#1760)
+- chore(deps): update dependency copy-webpack-plugin to v14 (#1758)
+- chore(deps): update dependency webpack-cli to v7 (#1761)
+
 Version 1.146.0 (Released March 19, 2026)
 ---------------
 
