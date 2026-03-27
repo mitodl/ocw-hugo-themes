@@ -35,6 +35,7 @@
   },
   "license": "BSD-3-CLAUSE",
   "resolutions": {
+    "jquery": "3.7.1",
     "natives": "1.1.6"
   },
   "browserslist": "> 0.25%, not dead",
