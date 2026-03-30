@@ -89,7 +89,9 @@ test("Has expected meta tags in <head>", async ({ page }) => {
   )
 })
 
-test("Appzi is only injected on the production sitemap domain", async ({ page }) => {
+test("Appzi is only injected on the production sitemap domain", async ({
+  page
+}) => {
   const course = new CoursePage(page, "course")
   const sitemapDomain = env.SITEMAP_DOMAIN.replace(/\/$/, "")
   await course.goto()
