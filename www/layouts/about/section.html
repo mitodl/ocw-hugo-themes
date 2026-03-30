@@ -231,7 +231,7 @@
         <span class="timeline-black-dot top-0"></span>
         <span class="timeline-black-dot bottom-0"></span>
       </div>
-      <div class="row">
+      <div class="row align-items-start">
         <div
           id="timeline-column-left"
           class="col-6 d-flex flex-column justify-content-end"
@@ -242,7 +242,7 @@
           {{ with $.Site.GetPage "/milestones/2011-2015" }}
           {{ partial "milestone_card_desktop.html" . }}
           {{ end }}
-          {{ with $.Site.GetPage "/milestones/2021" }}
+          {{ with $.Site.GetPage "/milestones/2021-2025" }}
           {{ partial "milestone_card_desktop.html" . }}
           {{ end }}
         </div>
@@ -254,6 +254,9 @@
           {{ partial "milestone_card_desktop.html" . }}
           {{ end }}
           {{ with $.Site.GetPage "/milestones/2016-2020" }}
+          {{ partial "milestone_card_desktop.html" . }}
+          {{ end }}
+          {{ with $.Site.GetPage "/milestones/2026" }}
           {{ partial "milestone_card_desktop.html" . }}
           {{ end }}
         </div>
