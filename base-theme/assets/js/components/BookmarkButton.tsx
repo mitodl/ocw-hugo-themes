@@ -1,6 +1,7 @@
 import React from "react"
 import { useUserListMemberList } from "../hooks/userLists"
 import { useLearningResourceByReadableId } from "../hooks/learningResources"
+import { useUserIsAuthenticated } from "../hooks/user"
 import { ActionButton } from "@mitodl/smoot-design"
 import { RiBookmarkFill, RiBookmarkLine } from "@remixicon/react"
 
@@ -11,10 +12,14 @@ interface BookmarkButtonProps {
 const BookmarkButton: React.FC<BookmarkButtonProps> = ({
   resourceReadableId
 }) => {
+  const isAuthenticated = useUserIsAuthenticated()
   const { data: resource, isLoading: isResourceLoading } =
     useLearningResourceByReadableId({ readable_id: [resourceReadableId] })
   const { data: userListMemberships, isLoading: isUserListMembershipsLoading } =
     useUserListMemberList(resource?.id)
+
+  if (!isAuthenticated) return null
+
   const inUserList = userListMemberships?.length || 0 > 0
   return (
     <ActionButton

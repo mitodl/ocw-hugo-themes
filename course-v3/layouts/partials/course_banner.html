@@ -7,8 +7,12 @@
       <span class="breadcrumb-text">
         {{ $courseData.primary_course_number }} | {{ $courseData.term }} {{ $courseData.year }}{{if $courseData.level }} | {{ delimit $courseData.level ", " }}{{ end }}
       </span>
-      <div class="course-title">
-        {{ $courseData.course_title }}
+      <div class="course-title-row">
+        <div class="course-title">
+          {{ $courseData.course_title }}
+        </div>
+        {{- $readableId := printf "%s+%s_%s" $courseData.primary_course_number (lower $courseData.term) $courseData.year -}}
+        <div class="bookmark-button-container" data-resourcereadableid="{{- $readableId -}}"></div>
       </div>
     </div>
   </div>
