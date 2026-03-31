@@ -16,10 +16,7 @@ import {
 import { initMobileCourseMenuV3 } from "./js/mobile_course_menu_v3"
 import { initTableRowspanBorders } from "./js/table_rowspan_borders"
 import posthog from "posthog-js"
-import {
-  initPostHog,
-  isFeatureEnabled
-} from "../../base-theme/assets/js/posthog"
+import { initPostHog } from "../../base-theme/assets/js/posthog"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { makeQueryClient } from "../../base-theme/assets/js/clients"
 import UserMenu from "./js/components/UserMenu"
@@ -53,16 +50,7 @@ $(function() {
     ".user-menu-container, .mit-learn-user-menu-container"
   )
 
-  const envFlagEnabled = process.env.FEATURE_ENABLE_LEARN_INTEGRATION === "true"
-  const postHogFlagEnabled = isFeatureEnabled("ocw-learn-integration")
-  const learnIntegrationEnabled = envFlagEnabled || postHogFlagEnabled
-  console.log("MIT Learn integration:", {
-    envFlagEnabled,
-    postHogFlagEnabled,
-    learnIntegrationEnabled,
-    envValue: process.env.FEATURE_ENABLE_LEARN_INTEGRATION
-  })
-  if (userMenuContainers && learnIntegrationEnabled) {
+  if (userMenuContainers) {
     for (const userMenuContainer of Array.from(userMenuContainers)) {
       const root = createRoot(userMenuContainer)
       root.render(
@@ -75,7 +63,7 @@ $(function() {
   const bookmarkButtonContainers = document.querySelectorAll(
     ".bookmark-button-container"
   )
-  if (bookmarkButtonContainers.length > 0 && learnIntegrationEnabled) {
+  if (bookmarkButtonContainers.length > 0) {
     for (const bookmarkButton of Array.from(bookmarkButtonContainers)) {
       const resourceReadableId =
         (bookmarkButton as HTMLButtonElement).dataset.resourcereadableid || ""
@@ -91,7 +79,7 @@ $(function() {
     const userListModalContainer = document.querySelector(
       "#user-list-modal-container"
     )
-    if (userListModalContainer && learnIntegrationEnabled) {
+    if (userListModalContainer) {
       const root = createRoot(userListModalContainer)
       root.render(
         <QueryClientProvider client={queryClient}>
@@ -104,7 +92,7 @@ $(function() {
     const createUserListModalContainer = document.querySelector(
       "#create-user-list-modal-container"
     )
-    if (createUserListModalContainer && learnIntegrationEnabled) {
+    if (createUserListModalContainer) {
       const root = createRoot(createUserListModalContainer)
       root.render(
         <QueryClientProvider client={queryClient}>
