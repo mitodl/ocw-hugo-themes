@@ -20,7 +20,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
 
   if (!isAuthenticated) return null
 
-  const inUserList = userListMemberships?.length || 0 > 0
+  const inUserList = (userListMemberships?.length ?? 0) > 0
   return (
     <ActionButton
       className="bookmark-button"
