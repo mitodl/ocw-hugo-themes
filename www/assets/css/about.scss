@@ -9,6 +9,11 @@
     }
   }
 
+  .red-btn:hover {
+    filter: brightness(90%);
+    transition: filter 0.1s ease-in-out;
+  }
+
   .navbar {
     @include media-breakpoint-up(lg) {
       padding-left: 10rem;
