@@ -9,6 +9,13 @@
     }
   }
 
+  .navbar {
+    @include media-breakpoint-up(lg) {
+      padding-left: 10rem;
+      padding-right: 10rem;
+    }
+  }
+
   #intro {
     #intro-text {
       padding: 20px 0 0 0;
