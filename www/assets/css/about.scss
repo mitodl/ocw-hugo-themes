@@ -40,22 +40,6 @@
     }
   }
 
-  #ocw-at-20 {
-    padding: 0 !important;
-    margin: 0 -1rem 0 -1rem !important;
-    max-width: 100% !important;
-
-    h1 {
-      padding-left: 4rem;
-      max-width: $max-content-width;
-      margin: 0 auto;
-    }
-
-    #ocw-20-text {
-      line-height: 38px;
-    }
-  }
-
   #milestones-desktop {
     min-width: 1110px;
 
@@ -337,6 +321,57 @@
     }
   }
 
+  #testimonials {
+    background-color: $about-red;
+
+    .testimonial-card {
+      background-color: $white;
+      border-radius: 8px;
+      padding: 2rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 0;
+
+      .testimonial-open-quote {
+        display: block;
+        font-size: 4rem;
+        line-height: 1;
+        color: $about-red;
+        margin-bottom: 0.25rem;
+        height: 2.5rem;
+      }
+
+      .testimonial-quote {
+        font-size: 1rem;
+        font-style: normal;
+        line-height: 1.7;
+        color: $dark-gray;
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+      }
+
+      .testimonial-attribution {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.125rem;
+
+        .testimonial-name {
+          font-weight: 700;
+          font-size: 0.9375rem;
+          color: $about-red;
+        }
+
+        .testimonial-location {
+          font-size: 0.875rem;
+          color: $medium-gray;
+        }
+      }
+    }
+  }
+
   #our-team {
     .staff-card {
       max-width: 330px;
@@ -367,6 +402,18 @@
 
     h1 {
       padding-top: 2rem;
+    }
+  }
+
+  #impact-report {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+
+    img {
+      max-height: 400px;
+      width: 100%;
+      object-fit: cover;
+      display: block;
     }
   }
 }
