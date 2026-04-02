@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { User } from "@mitodl/open-api-axios/v0"
+import { User } from "@mitodl/mit-learn-api-axios/v0"
 import { usersApi } from "../../clients"
 
 const useUserMe = () =>
