@@ -71,8 +71,20 @@
     line-height: 1.25rem;
   }
 
-  .course-title {
+  .course-title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
     align-self: stretch;
+  }
+
+  .bookmark-button-container {
+    flex-shrink: 0;
+    padding-top: 0.5rem;
+  }
+
+  .course-title {
+    flex: 1;
     color: white;
     font-family: $mit-learn-font-family;
     font-size: 1.75rem;
