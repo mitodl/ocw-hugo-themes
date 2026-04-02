@@ -13,7 +13,7 @@ const useLearningResourceByReadableId = (
 ) => {
   const readableId = params.readable_id ? params.readable_id[0] : ""
   if (opts) {
-    opts.enabled = !!readableId
+    opts.enabled = (opts.enabled ?? true) && !!readableId
   }
   const queryDetails = learningResourceQueries.detailByReadableId(readableId)
   return useQuery({
