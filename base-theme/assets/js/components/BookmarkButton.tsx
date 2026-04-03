@@ -14,7 +14,10 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
 }) => {
   const isAuthenticated = useUserIsAuthenticated()
   const { data: resource, isLoading: isResourceLoading } =
-    useLearningResourceByReadableId({ readable_id: [resourceReadableId] })
+    useLearningResourceByReadableId(
+      { readable_id: [resourceReadableId] },
+      { enabled: isAuthenticated }
+    )
   const { data: userListMemberships, isLoading: isUserListMembershipsLoading } =
     useUserListMemberList(resource?.id)
 
