@@ -1,7 +1,6 @@
 import instance from "../../axios"
 import type {
   UserlistsApiUserlistsItemsListRequest as ItemsListRequest,
-  LearningResource,
   UserlistsApiUserlistsListRequest as ListRequest,
   PaginatedUserListRelationshipList
 } from "@mitodl/mit-learn-api-axios/v1"
@@ -51,20 +50,7 @@ const userlistQueries = {
           }) :
           userListsApi.userlistsItemsList(listingParams)
         const { data } = await request
-        return {
-          ...data,
-          results: data.results.map(
-            (relation: {
-              id: number
-              parent: number
-              child: number
-              resource: LearningResource
-            }) => ({
-              ...relation,
-              resource: relation.resource
-            })
-          )
-        }
+        return data
       },
       getNextPageParam: lastPage => {
         return lastPage.next ?? undefined
