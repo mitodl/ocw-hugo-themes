@@ -9,9 +9,28 @@
     }
   }
 
-  .red-btn:hover {
+  .about-action-btn {
+    display: inline-block;
+    background-color: #a31f34;
+    color: $white;
+    padding: 12px 24px;
+    text-decoration: none;
+  }
+
+  .about-action-btn:hover,
+  .about-action-btn:focus {
+    color: $white;
+    text-decoration: none;
     filter: brightness(90%);
     transition: filter 0.1s ease-in-out;
+  }
+
+  #mit-learn-text {
+    line-height: 40px;
+
+    a {
+      color: inherit;
+    }
   }
 
   .navbar {
@@ -23,10 +42,46 @@
 
   #intro {
     #intro-text {
-      padding: 20px 0 0 0;
+      padding: 48px 0 0 0;
 
       @include media-breakpoint-up(lg) {
         width: 75%;
+      }
+    }
+  }
+
+  #icon-highlights {
+    .icon-highlights-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-left: -0.75rem;
+      margin-right: -0.75rem;
+    }
+
+    .icon-highlight-item {
+      flex: 0 1 100%;
+      max-width: 100%;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+
+      @include media-breakpoint-up(sm) {
+        flex-basis: 50%;
+        max-width: 50%;
+      }
+
+      @include media-breakpoint-up(md) {
+        flex-basis: 33.3333%;
+        max-width: 33.3333%;
+      }
+
+      @include media-breakpoint-up(lg) {
+        flex-basis: 25%;
+        max-width: 25%;
+      }
+
+      img {
+        border-radius: 0;
       }
     }
   }
@@ -333,8 +388,12 @@
     }
   }
 
+  #testimonials-impact {
+    background-color: $black;
+  }
+
   #testimonials {
-    background-color: $about-red;
+    background-color: transparent;
 
     .testimonial-card {
       background-color: $white;
@@ -373,7 +432,7 @@
         .testimonial-name {
           font-weight: 700;
           font-size: 0.9375rem;
-          color: $about-red;
+          color: inherit;
         }
 
         .testimonial-location {
@@ -418,8 +477,8 @@
   }
 
   #impact-report {
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin-top: 0;
+    margin-bottom: 0;
 
     img {
       max-height: 400px;
