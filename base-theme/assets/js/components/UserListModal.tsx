@@ -164,12 +164,12 @@ const AddToUserListModal: React.FC = () => {
   const [resourceReadableId, setResourceReadableId] = useState("")
   useEffect(() => {
     const handler = (event: MouseEvent) => {
-      const button = (event.target as HTMLElement).closest<HTMLElement>(
+      const button = (event.target as Element | null)?.closest<HTMLElement>(
         ".bookmark-button"
       )
       if (!button) return
-      const resourceReadableId = button.dataset.resourcereadableid || ""
-      setResourceReadableId(resourceReadableId)
+      const readableId = button.dataset.resourcereadableid || ""
+      setResourceReadableId(readableId)
     }
     document.addEventListener("click", handler)
     return () => {
