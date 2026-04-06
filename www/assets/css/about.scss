@@ -26,7 +26,7 @@
   }
 
   #mit-learn-text {
-    line-height: 40px;
+    line-height: 36px;
 
     a {
       color: inherit;
@@ -40,12 +40,12 @@
     }
   }
 
-  #intro {
-    #intro-text {
+  #intro, #outro {
+    #intro-text, #outro-text {
       padding: 48px 0 0 0;
-
-      @include media-breakpoint-up(lg) {
-        width: 75%;
+      h2 {
+        line-height: 36px;
+        font-size: 24px;
       }
     }
   }
@@ -82,6 +82,9 @@
 
       img {
         border-radius: 0;
+        width: 256px;
+        height: 256px;
+        object-fit: cover;
       }
     }
   }
