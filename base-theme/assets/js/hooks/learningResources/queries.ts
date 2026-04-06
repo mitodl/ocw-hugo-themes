@@ -1,5 +1,4 @@
 import { learningResourcesApi } from "../../clients"
-import { clearListMemberships } from "../util/queries"
 import { queryOptions } from "@tanstack/react-query"
 
 const learningResourceKeys = {
@@ -19,7 +18,7 @@ const learningResourceQueries = {
       queryFn:  () =>
         learningResourcesApi
           .learningResourcesList({ readable_id: [readableId] })
-          .then(res => clearListMemberships(res.data.results[0]))
+          .then(res => res.data.results[0])
     })
 }
 

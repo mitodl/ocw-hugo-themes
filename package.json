@@ -43,7 +43,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mitodl/course-search-utils": "^2.3.3",
-    "@mitodl/open-api-axios": "^2025.4.8",
+    "@mitodl/mit-learn-api-axios": "^2026.3.31",
     "@mitodl/smoot-design": "^6.0.1",
     "@mui/lab": "^7.0.0",
     "@mui/material": "^7.0.1",

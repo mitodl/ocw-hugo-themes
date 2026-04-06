@@ -2606,6 +2606,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mitodl/mit-learn-api-axios@npm:^2026.3.31":
+  version: 2026.3.31
+  resolution: "@mitodl/mit-learn-api-axios@npm:2026.3.31"
+  dependencies:
+    "@types/node": "npm:^22.0.0"
+    axios: "npm:^1.6.5"
+  checksum: 10c0/7817ec70b3606063ccf58d50a5e3e103a9471de5bf7535137c71bc100dd30b8578d8860f51182cfeb5046bf0dd6a3e76082cd8e69bb241ac631ab16066c8de1a
+  languageName: node
+  linkType: hard
+
 "@mitodl/ocw-to-hugo@npm:1.36.0":
   version: 1.36.0
   resolution: "@mitodl/ocw-to-hugo@npm:1.36.0"
@@ -2630,16 +2640,6 @@ __metadata:
   bin:
     ocw-to-hugo: src/bin/index.js
   checksum: 10c0/da258f1a1ca25e6d711763877db6fdb51219f616c127b43b930d0e30e0a8b7abbedbe551faefa66614769906797492a91d73929e06ed5e6ff053f69c578e9db4
-  languageName: node
-  linkType: hard
-
-"@mitodl/open-api-axios@npm:^2025.4.8":
-  version: 2025.4.8
-  resolution: "@mitodl/open-api-axios@npm:2025.4.8"
-  dependencies:
-    "@types/node": "npm:^22.0.0"
-    axios: "npm:^1.6.5"
-  checksum: 10c0/f35475d40381af218500c53875d9e63a78426ac0c71d4024377248311578648aafad30615b3f91cd73718467a7a3f2557b06ec777735a45ef9c95a7840c6dfe2
   languageName: node
   linkType: hard
 
@@ -13949,8 +13949,8 @@ __metadata:
     "@emotion/react": "npm:^11.14.0"
     "@emotion/styled": "npm:^11.14.0"
     "@mitodl/course-search-utils": "npm:^2.3.3"
+    "@mitodl/mit-learn-api-axios": "npm:^2026.3.31"
     "@mitodl/ocw-to-hugo": "npm:1.36.0"
-    "@mitodl/open-api-axios": "npm:^2025.4.8"
     "@mitodl/smoot-design": "npm:^6.0.1"
     "@mui/lab": "npm:^7.0.0"
     "@mui/material": "npm:^7.0.1"
