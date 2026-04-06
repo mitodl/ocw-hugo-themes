@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import type {
   LearningResourcesApiLearningResourcesUserlistsPartialUpdateRequest,
   LearningResourcesApiLearningResourcesListRequest as LRListRequest
-} from "@mitodl/open-api-axios/v1"
+} from "@mitodl/mit-learn-api-axios/v1"
 import { learningResourceQueries } from "./queries"
 import { learningResourcesApi } from "../../clients"
 import { userlistKeys } from "../userLists/queries"

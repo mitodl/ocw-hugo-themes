@@ -11,7 +11,7 @@ import type {
   UserlistsApiUserlistsDestroyRequest as DestroyRequest,
   UserlistsApiUserlistsItemsListRequest as ItemsListRequest,
   UserList
-} from "@mitodl/open-api-axios/v1"
+} from "@mitodl/mit-learn-api-axios/v1"
 import { userlistKeys, userlistQueries } from "./queries"
 import { useUserIsAuthenticated } from "../user"
 

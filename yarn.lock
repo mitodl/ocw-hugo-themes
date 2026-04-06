@@ -2606,6 +2606,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mitodl/mit-learn-api-axios@npm:^2026.3.31":
+  version: 2026.3.31
+  resolution: "@mitodl/mit-learn-api-axios@npm:2026.3.31"
+  dependencies:
+    "@types/node": "npm:^22.0.0"
+    axios: "npm:^1.6.5"
+  checksum: 10c0/7817ec70b3606063ccf58d50a5e3e103a9471de5bf7535137c71bc100dd30b8578d8860f51182cfeb5046bf0dd6a3e76082cd8e69bb241ac631ab16066c8de1a
+  languageName: node
+  linkType: hard
+
 "@mitodl/ocw-to-hugo@npm:1.36.0":
   version: 1.36.0
   resolution: "@mitodl/ocw-to-hugo@npm:1.36.0"
@@ -2630,16 +2640,6 @@ __metadata:
   bin:
     ocw-to-hugo: src/bin/index.js
   checksum: 10c0/da258f1a1ca25e6d711763877db6fdb51219f616c127b43b930d0e30e0a8b7abbedbe551faefa66614769906797492a91d73929e06ed5e6ff053f69c578e9db4
-  languageName: node
-  linkType: hard
-
-"@mitodl/open-api-axios@npm:^2025.4.8":
-  version: 2025.4.8
-  resolution: "@mitodl/open-api-axios@npm:2025.4.8"
-  dependencies:
-    "@types/node": "npm:^22.0.0"
-    axios: "npm:^1.6.5"
-  checksum: 10c0/f35475d40381af218500c53875d9e63a78426ac0c71d4024377248311578648aafad30615b3f91cd73718467a7a3f2557b06ec777735a45ef9c95a7840c6dfe2
   languageName: node
   linkType: hard
 
@@ -3419,19 +3419,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@posthog/core@npm:1.23.4":
-  version: 1.23.4
-  resolution: "@posthog/core@npm:1.23.4"
-  dependencies:
-    cross-spawn: "npm:^7.0.6"
-  checksum: 10c0/a6d867093bc8fde11a9d4db0fadf06fd7130285a9da46cf681652fbb15b74ded8f26236423d756c61252e634d215dd8635348641469c714892b8b7c49f816485
+"@posthog/core@npm:1.24.6":
+  version: 1.24.6
+  resolution: "@posthog/core@npm:1.24.6"
+  checksum: 10c0/38d9813ee4b526d55e28074eef98ffa262dd9e48b93a801708ab260fe272d617b36a1c8b696a0659a0c15b2e6d575d0c1ce3e9ed20abad561d8f6a7881c2c7ad
   languageName: node
   linkType: hard
 
-"@posthog/types@npm:1.360.2":
-  version: 1.360.2
-  resolution: "@posthog/types@npm:1.360.2"
-  checksum: 10c0/285e905e803e2000720e39703d27612c8c57c416ad5ad6ca58d7b95a827461f820242e4c714eabed9febc854b94f6eb0a27df7796aa5c7604e4d238294a2ccb0
+"@posthog/types@npm:1.364.7":
+  version: 1.364.7
+  resolution: "@posthog/types@npm:1.364.7"
+  checksum: 10c0/fd045f080aaaa238acc1e5c5c68e54d1a3063ec7267c0d01f0d0965b99f9bdc71baf46bd5b55bd5fc76ad2351654e7283cf70949be121d922bf0b3fdfc25d2ba
   languageName: node
   linkType: hard
 
@@ -13951,8 +13949,8 @@ __metadata:
     "@emotion/react": "npm:^11.14.0"
     "@emotion/styled": "npm:^11.14.0"
     "@mitodl/course-search-utils": "npm:^2.3.3"
+    "@mitodl/mit-learn-api-axios": "npm:^2026.3.31"
     "@mitodl/ocw-to-hugo": "npm:1.36.0"
-    "@mitodl/open-api-axios": "npm:^2025.4.8"
     "@mitodl/smoot-design": "npm:^6.0.1"
     "@mui/lab": "npm:^7.0.0"
     "@mui/material": "npm:^7.0.1"
@@ -14043,7 +14041,7 @@ __metadata:
     react-infinite-scroller: "npm:^1.2.6"
     recursive-readdir: "npm:^2.2.3"
     rimraf: "npm:^6.0.0"
-    sass: "npm:1.98.0"
+    sass: "npm:1.99.0"
     sass-lint: "npm:^1.13.1"
     sass-loader: "npm:^16.0.0"
     serve-handler: "npm:^6.1.3"
@@ -15388,23 +15386,23 @@ __metadata:
   linkType: hard
 
 "posthog-js@npm:^1.225.0":
-  version: 1.360.2
-  resolution: "posthog-js@npm:1.360.2"
+  version: 1.364.7
+  resolution: "posthog-js@npm:1.364.7"
   dependencies:
     "@opentelemetry/api": "npm:^1.9.0"
     "@opentelemetry/api-logs": "npm:^0.208.0"
     "@opentelemetry/exporter-logs-otlp-http": "npm:^0.208.0"
     "@opentelemetry/resources": "npm:^2.2.0"
     "@opentelemetry/sdk-logs": "npm:^0.208.0"
-    "@posthog/core": "npm:1.23.4"
-    "@posthog/types": "npm:1.360.2"
+    "@posthog/core": "npm:1.24.6"
+    "@posthog/types": "npm:1.364.7"
     core-js: "npm:^3.38.1"
     dompurify: "npm:^3.3.2"
     fflate: "npm:^0.4.8"
     preact: "npm:^10.28.2"
     query-selector-shadow-dom: "npm:^1.0.1"
     web-vitals: "npm:^5.1.0"
-  checksum: 10c0/a11bfea610afe52043571f8ff549f24f0141c273738fa41a406127a38e052b81b440fb76f659916aa081e6e0bd27520989147425840247fdecc50d73a6b516d7
+  checksum: 10c0/0ec42f88174b51a52abe361febb7dd967a3ef7710c3065130fc7158d2e6104a629cf844ab764b4f60528b38259505ad29397690a4eb104bbfad925bda8236783
   languageName: node
   linkType: hard
 
@@ -16634,9 +16632,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass@npm:1.98.0"
+"sass@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass@npm:1.99.0"
   dependencies:
     "@parcel/watcher": "npm:^2.4.1"
     chokidar: "npm:^4.0.0"
@@ -16647,7 +16645,7 @@ __metadata:
       optional: true
   bin:
     sass: sass.js
-  checksum: 10c0/9e91daa20f970fefb364ac31289f070636da7aa7eaeb43e371ea98fa98085a6dbc2d3d058504226a02d07717faf0a4ce8d41b579ecb428c4a9d96b4dc1944a95
+  checksum: 10c0/83c54a8c6decb79fff50dd9500d7932cf1cb7c5d9be4bc42bd3d537402c37bbee062aea6efdbdf9fb0b8697b18177d60c72bf101872336b93b1c27a2dc3621e1
   languageName: node
   linkType: hard
 

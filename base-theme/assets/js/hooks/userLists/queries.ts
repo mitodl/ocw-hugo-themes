@@ -1,13 +1,11 @@
 import instance from "../../axios"
 import type {
   UserlistsApiUserlistsItemsListRequest as ItemsListRequest,
-  LearningResource,
   UserlistsApiUserlistsListRequest as ListRequest,
   PaginatedUserListRelationshipList
-} from "@mitodl/open-api-axios/v1"
+} from "@mitodl/mit-learn-api-axios/v1"
 import { userListsApi } from "../../clients"
 import { UseInfiniteQueryOptions } from "@tanstack/react-query"
-import { clearListMemberships } from "../util/queries"
 import { queryOptions } from "@tanstack/react-query"
 
 const infiniteQueryOptions = <T>(options: UseInfiniteQueryOptions<T>) => options
@@ -52,20 +50,7 @@ const userlistQueries = {
           }) :
           userListsApi.userlistsItemsList(listingParams)
         const { data } = await request
-        return {
-          ...data,
-          results: data.results.map(
-            (relation: {
-              id: number
-              parent: number
-              child: number
-              resource: LearningResource
-            }) => ({
-              ...relation,
-              resource: clearListMemberships(relation.resource)
-            })
-          )
-        }
+        return data
       },
       getNextPageParam: lastPage => {
         return lastPage.next ?? undefined

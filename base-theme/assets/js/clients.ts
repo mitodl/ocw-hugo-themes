@@ -1,9 +1,9 @@
-import { UsersApi } from "@mitodl/open-api-axios/v0"
+import { UsersApi } from "@mitodl/mit-learn-api-axios/v0"
 import {
   Configuration,
   LearningResourcesApi,
   UserlistsApi
-} from "@mitodl/open-api-axios/v1"
+} from "@mitodl/mit-learn-api-axios/v1"
 import { QueryClient } from "@tanstack/react-query"
 
 type MaybeHasStatus = {
