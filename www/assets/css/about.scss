@@ -33,6 +33,21 @@
     }
   }
 
+  #mit-learn {
+    #mit-learn-text-col {
+      height: 480px;
+      @include media-breakpoint-down(md) {
+        height: 320px;
+      }
+    }
+
+    .row {
+      @include media-breakpoint-down(md) {
+        row-gap: 1.5rem;
+      }
+    }
+  }
+
   .navbar {
     @include media-breakpoint-up(lg) {
       padding-left: 10rem;
@@ -46,6 +61,16 @@
       h2 {
         line-height: 36px;
         font-size: 24px;
+      }
+    }
+  }
+
+  #outro {
+    #outro-text {
+      padding-top: 0;
+
+      h2 {
+        margin-bottom: 0;
       }
     }
   }
@@ -475,7 +500,7 @@
     }
 
     h1 {
-      padding-top: 2rem;
+      padding-top: 0;
     }
   }
 
