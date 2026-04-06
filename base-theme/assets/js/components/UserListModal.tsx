@@ -163,17 +163,17 @@ const AddToUserListModalInternal: React.FC<UserListModalInternalProps> = ({
 const AddToUserListModal: React.FC = () => {
   const [resourceReadableId, setResourceReadableId] = useState("")
   useEffect(() => {
-    const buttons = Array.from(
-      document.querySelectorAll<HTMLElement>(".bookmark-button")
-    )
     const handler = (event: MouseEvent) => {
-      const resourceReadableId =
-        (event.currentTarget as HTMLElement).dataset.resourcereadableid || ""
-      setResourceReadableId(resourceReadableId)
+      const button = (event.target as Element | null)?.closest<HTMLElement>(
+        ".bookmark-button"
+      )
+      if (!button) return
+      const readableId = button.dataset.resourcereadableid || ""
+      setResourceReadableId(readableId)
     }
-    buttons.forEach(button => button.addEventListener("click", handler))
+    document.addEventListener("click", handler)
     return () => {
-      buttons.forEach(button => button.removeEventListener("click", handler))
+      document.removeEventListener("click", handler)
     }
   }, [])
   return <AddToUserListModalInternal resourceReadableId={resourceReadableId} />
