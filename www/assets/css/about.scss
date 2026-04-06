@@ -55,8 +55,10 @@
     }
   }
 
-  #intro, #outro {
-    #intro-text, #outro-text {
+  #intro,
+  #outro {
+    #intro-text,
+    #outro-text {
       padding: 48px 0 0 0;
       h2 {
         line-height: 36px;
