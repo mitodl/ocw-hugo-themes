@@ -13,9 +13,9 @@ test.describe("offline-v3 smoke", () => {
 
     await expect(page.locator("body")).toContainText("OCW CI Test Course")
     await expect(page.locator('link[href*="course_offline_v3"]')).toHaveCount(1)
-    await expect(
-      page.locator('script[src*="course_offline_v3"]')
-    ).toHaveCount(1)
+    await expect(page.locator('script[src*="course_offline_v3"]')).toHaveCount(
+      1
+    )
   })
 
   test("offline-v3 generic page loads", async ({ page }) => {

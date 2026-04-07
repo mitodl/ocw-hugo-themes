@@ -37,7 +37,9 @@ test.describe("offline-v3 routing", () => {
   test("resource links inside subscript and superscript content stay package-local", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl(siteDir, "/pages/subscripts-and-superscripts"))
+    await page.goto(
+      offlineFileUrl(siteDir, "/pages/subscripts-and-superscripts")
+    )
 
     const internalScriptLink = page.locator("a", {
       has: page.locator("sup", { hasText: "‡" })

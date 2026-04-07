@@ -36,8 +36,8 @@ export const buildOfflineV3Site = async (): Promise<string> => {
  */
 export const offlineFileUrl = (siteDir: string, route = "/"): string => {
   const trimmed = route.replace(/^\//, "").replace(/\/$/, "")
-  const filePath = trimmed
-    ? path.join(siteDir, trimmed, "index.html")
-    : path.join(siteDir, "index.html")
+  const filePath = trimmed ?
+    path.join(siteDir, trimmed, "index.html") :
+    path.join(siteDir, "index.html")
   return `file://${filePath}`
 }
