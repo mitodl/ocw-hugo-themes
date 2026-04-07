@@ -35,9 +35,8 @@
 
   #mit-learn {
     #mit-learn-text-col {
-      height: 480px;
-      @include media-breakpoint-down(md) {
-        height: 320px;
+      @include media-breakpoint-up(lg) {
+        height: 480px;
       }
     }
   }
