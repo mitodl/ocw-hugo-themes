@@ -7,6 +7,11 @@ type TestSite = {
   name: string
   contentDir: string
   configPath: string
+  /**
+   * If true, this site is not built as part of buildAllSites().
+   * It is expected to be built per-test-file in a beforeAll hook.
+   */
+  offline?: boolean
 }
 const TEST_SITES: Record<TestSiteAlias, TestSite> = {
   course: {
@@ -22,7 +27,8 @@ const TEST_SITES: Record<TestSiteAlias, TestSite> = {
   "course-v3-offline": {
     name:       "ocw-ci-test-course-v3-offline",
     contentDir: "ocw-ci-test-course",
-    configPath: env.COURSE_V3_OFFLINE_HUGO_CONFIG_PATH
+    configPath: env.COURSE_V3_OFFLINE_HUGO_CONFIG_PATH,
+    offline:    true
   },
   www: {
     name:       "ocw-ci-test-www",
