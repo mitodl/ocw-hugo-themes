@@ -1,6 +1,20 @@
 Release Notes
 =============
 
+Version 1.147.0
+---------------
+
+- about page updates (#1770)
+- Remove login and bookmarking from course-v2 theme (#1776)
+- Fix bookmark modal not working in course-v3 (#1773)
+- Update from open-api-axios to mit-learn-api-axios (#1772)
+- chore(deps): update dependency posthog-js to v1.364.6 (#1774)
+- fix(deps): update dependency sass to v1.99.0 (#1775)
+- Skip API calls for unauthenticated users for bookmark button (#1771)
+- Add bookmark button to v3 theme (#1769)
+- Always render login button for v3 theme (#1768)
+- chore(deps): update node.js to v24.14.1 (#1764)
+
 Version 1.146.1 (Released March 31, 2026)
 ---------------
 
