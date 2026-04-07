@@ -6,11 +6,10 @@ import { TEST_SITES } from "./test_sites"
 
 /**
  * Absolute path to the directory where the offline-v3 site is built.
- * global-setup builds here once before any worker starts; subsequent
- * calls to buildOfflineV3Site() skip the Hugo invocation when the
- * output already exists.
+ * This matches the rootDestinationDir used by the main LocalOCW instance in
+ * global-setup so that the site built there is reused by spec beforeAll hooks.
  */
-const OFFLINE_V3_BUILD_ROOT = fromRoot("./test-sites/tmp/offline-v3-dist")
+const OFFLINE_V3_BUILD_ROOT = fromRoot("./test-sites/tmp/dist")
 
 /**
  * Build the offline-v3 course site and return the absolute path to its root

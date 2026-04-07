@@ -202,10 +202,7 @@ class LocalOCW {
   buildAllSites = async (): Promise<void> => {
     // Sequential builds: Hugo writes to a shared output directory, so parallel
     // builds would race on filesystem writes and produce corrupted output.
-    // Sites marked `offline: true` are excluded here; they are built per-test-file
-    // in a beforeAll hook and served via file:// URLs instead of HTTP.
-    for (const [alias, site] of Object.entries(TEST_SITES)) {
-      if (site.offline) continue
+    for (const alias of Object.keys(TEST_SITES)) {
       await this.buildSite(alias as TestSiteAlias)
     }
   }
