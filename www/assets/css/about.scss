@@ -40,12 +40,6 @@
         height: 320px;
       }
     }
-
-    .row {
-      @include media-breakpoint-down(md) {
-        row-gap: 1.5rem;
-      }
-    }
   }
 
   .navbar {
