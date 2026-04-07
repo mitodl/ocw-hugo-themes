@@ -6,7 +6,7 @@
 {{ $url := .menuItem.URL }}
 {{ $noHttpPrefix := not (strings.HasPrefix $url "http") }}
 {{ $noHtmlSuffix := not (strings.HasSuffix $url ".html") }}
-{{ if and $noHttpPrefix $noHtmlSuffix }}
+{{ if and $url $noHttpPrefix $noHtmlSuffix }}
   {{ $baseURLPath := (urls.Parse site.BaseURL).Path | strings.TrimSuffix "/" }}
   {{ $url = strings.TrimPrefix $baseURLPath $url }}
   {{ $url = printf "%s/index.html" (strings.TrimSuffix "/" $url) }}

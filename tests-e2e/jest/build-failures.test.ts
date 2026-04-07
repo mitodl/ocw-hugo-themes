@@ -36,8 +36,8 @@ describe("OCW Build Failures", () => {
     await ocw.rmrfTmp()
   })
 
-  beforeAll(() => {
-    ocw.fixturesServer.listen()
+  beforeAll(async () => {
+    await ocw.fixturesServer.listen()
   })
 
   afterAll(() => {

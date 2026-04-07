@@ -1,11 +1,14 @@
+import * as fs from "node:fs"
 import * as path from "node:path"
+import { pathToFileURL } from "node:url"
 import LocalOCW, { fromRoot } from "../LocalOcw"
 import { TEST_SITES } from "./test_sites"
 
 /**
  * Absolute path to the directory where the offline-v3 site is built.
- * All beforeAll hooks write here; Hugo builds are deterministic so
- * concurrent writes produce identical output.
+ * global-setup builds here once before any worker starts; subsequent
+ * calls to buildOfflineV3Site() skip the Hugo invocation when the
+ * output already exists.
  */
 const OFFLINE_V3_BUILD_ROOT = fromRoot("./test-sites/tmp/offline-v3-dist")
 
@@ -14,18 +17,20 @@ const OFFLINE_V3_BUILD_ROOT = fromRoot("./test-sites/tmp/offline-v3-dist")
  * directory (i.e. the directory that contains index.html for "/").
  *
  * Call this inside a `test.beforeAll` hook in each offline spec file.
- * The fixturesPort value below matches the port started by global-setup so
- * that STATIC_API_BASE_URL resolves correctly if the server happens to be
- * running; the build itself does not require an active HTTP server.
+ * When global-setup has already built the site the Hugo invocation is
+ * skipped, so concurrent workers do not race on the same destination.
  */
 export const buildOfflineV3Site = async (): Promise<string> => {
-  const ocw = new LocalOCW({
-    rootDestinationDir: OFFLINE_V3_BUILD_ROOT,
-    fixturesPort:       4321
-  })
-  await ocw.buildSite("course-v3-offline")
   const site = TEST_SITES["course-v3-offline"]
-  return path.join(OFFLINE_V3_BUILD_ROOT, "courses", site.name)
+  const siteDir = path.join(OFFLINE_V3_BUILD_ROOT, "courses", site.name)
+  if (!fs.existsSync(path.join(siteDir, "index.html"))) {
+    const ocw = new LocalOCW({
+      rootDestinationDir: OFFLINE_V3_BUILD_ROOT,
+      fixturesPort:       4321
+    })
+    await ocw.buildSite("course-v3-offline")
+  }
+  return siteDir
 }
 
 /**
@@ -39,5 +44,5 @@ export const offlineFileUrl = (siteDir: string, route = "/"): string => {
   const filePath = trimmed ?
     path.join(siteDir, trimmed, "index.html") :
     path.join(siteDir, "index.html")
-  return `file://${filePath}`
+  return pathToFileURL(filePath).href
 }
