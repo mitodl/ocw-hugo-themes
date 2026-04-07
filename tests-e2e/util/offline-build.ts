@@ -1,47 +1,44 @@
-import * as fs from "node:fs"
 import * as path from "node:path"
 import { pathToFileURL } from "node:url"
-import LocalOCW, { fromRoot } from "../LocalOcw"
+import { Locator, expect } from "@playwright/test"
+import { fromRoot } from "../LocalOcw"
 import { TEST_SITES } from "./test_sites"
 
-/**
- * Absolute path to the directory where the offline-v3 site is built.
- * This matches the rootDestinationDir used by the main LocalOCW instance in
- * global-setup so that the site built there is reused by spec beforeAll hooks.
- */
 const OFFLINE_V3_BUILD_ROOT = fromRoot("./test-sites/tmp/dist")
 
+const site = TEST_SITES["course-v3-offline"]
+
 /**
- * Build the offline-v3 course site and return the absolute path to its root
- * directory (i.e. the directory that contains index.html for "/").
- *
- * Call this inside a `test.beforeAll` hook in each offline spec file.
- * When global-setup has already built the site the Hugo invocation is
- * skipped, so concurrent workers do not race on the same destination.
+ * Absolute path to the built offline-v3 course site root.
+ * The site is built by global-setup before any worker starts.
  */
-export const buildOfflineV3Site = async (): Promise<string> => {
-  const site = TEST_SITES["course-v3-offline"]
-  const siteDir = path.join(OFFLINE_V3_BUILD_ROOT, "courses", site.name)
-  if (!fs.existsSync(path.join(siteDir, "index.html"))) {
-    const ocw = new LocalOCW({
-      rootDestinationDir: OFFLINE_V3_BUILD_ROOT,
-      fixturesPort:       4321
-    })
-    await ocw.buildSite("course-v3-offline")
-  }
-  return siteDir
+export const offlineV3SiteDir = path.join(
+  OFFLINE_V3_BUILD_ROOT,
+  "courses",
+  site.name
+)
+
+/**
+ * Construct a `file://` URL for a route within the built offline site.
+ *
+ * @param route  Site-root-relative path, e.g. "/" or "/pages/assignments"
+ */
+export const offlineFileUrl = (route = "/"): string => {
+  const trimmed = route.replace(/^\//, "").replace(/\/$/, "")
+  const filePath = trimmed ?
+    path.join(offlineV3SiteDir, trimmed, "index.html") :
+    path.join(offlineV3SiteDir, "index.html")
+  return pathToFileURL(filePath).href
 }
 
 /**
- * Construct a `file://` URL for a route within a built offline site.
- *
- * @param siteDir  Absolute path returned by `buildOfflineV3Site()`
- * @param route    Site-root-relative path, e.g. "/" or "/pages/assignments"
+ * Assert that a locator's href is a package-local relative URL (not absolute,
+ * not root-relative). Returns the href string for further assertions.
  */
-export const offlineFileUrl = (siteDir: string, route = "/"): string => {
-  const trimmed = route.replace(/^\//, "").replace(/\/$/, "")
-  const filePath = trimmed ?
-    path.join(siteDir, trimmed, "index.html") :
-    path.join(siteDir, "index.html")
-  return pathToFileURL(filePath).href
+export const expectLocalPackageHref = async (locator: Locator) => {
+  const href = await locator.getAttribute("href")
+  expect(href).toBeTruthy()
+  expect(href).not.toMatch(/^https?:\/\//)
+  expect(href).not.toMatch(/^\//)
+  return href as string
 }

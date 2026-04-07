@@ -1,25 +1,11 @@
-import { test, expect, Locator } from "@playwright/test"
-import { buildOfflineV3Site, offlineFileUrl } from "../util"
-
-const expectLocalPackageHref = async (locator: Locator) => {
-  const href = await locator.getAttribute("href")
-  expect(href).toBeTruthy()
-  expect(href).not.toMatch(/^https?:\/\//)
-  expect(href).not.toMatch(/^\//)
-  return href as string
-}
+import { test, expect } from "@playwright/test"
+import { offlineFileUrl, expectLocalPackageHref } from "../util"
 
 test.describe("offline-v3 routing", () => {
-  let siteDir: string
-
-  test.beforeAll(async () => {
-    siteDir = await buildOfflineV3Site()
-  })
-
   test("shortcode-generated resource links stay package-local", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl(siteDir, "/pages/shortcode-demos"))
+    await page.goto(offlineFileUrl("/pages/shortcode-demos"))
 
     const resourceLink = page.getByRole("link", {
       name: "Resource link to First Test Page"
@@ -37,9 +23,7 @@ test.describe("offline-v3 routing", () => {
   test("resource links inside subscript and superscript content stay package-local", async ({
     page
   }) => {
-    await page.goto(
-      offlineFileUrl(siteDir, "/pages/subscripts-and-superscripts")
-    )
+    await page.goto(offlineFileUrl("/pages/subscripts-and-superscripts"))
 
     const internalScriptLink = page.locator("a", {
       has: page.locator("sup", { hasText: "‡" })
@@ -50,7 +34,7 @@ test.describe("offline-v3 routing", () => {
   })
 
   test("embedded video page links stay package-local", async ({ page }) => {
-    await page.goto(offlineFileUrl(siteDir, "/pages/video-series-overview"))
+    await page.goto(offlineFileUrl("/pages/video-series-overview"))
 
     const viewVideoPageLink = page.getByRole("link", {
       name: "View video page"
@@ -69,7 +53,7 @@ test.describe("offline-v3 routing", () => {
   test("resource card titles and non-video download links stay package-local", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl(siteDir, "/lists/a-resource-list"))
+    await page.goto(offlineFileUrl("/lists/a-resource-list"))
 
     const pdfCard = page.locator(".resource-card", {
       has: page.locator(".resource-card-title", { hasText: "file.pdf" })
@@ -87,7 +71,7 @@ test.describe("offline-v3 routing", () => {
   })
 
   test("download-page resource links stay package-local", async ({ page }) => {
-    await page.goto(offlineFileUrl(siteDir, "/download"))
+    await page.goto(offlineFileUrl("/download"))
 
     // Expand the collapsed "Activity Assignments" section
     await page
