@@ -123,6 +123,8 @@
 
   .resource-list-title {
     @include mit-learn-subtitle2;
+    font-size: $course-heading-four-font !important;
+    line-height: $course-heading-four-line-height !important;
     color: $black;
     margin: 0;
   }

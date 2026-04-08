@@ -74,6 +74,20 @@ h5 {
   line-height: $course-heading-five-line-height !important;
 }
 
+// Semantic heading overrides: preserve original h5/h6 visual sizes
+// when elements change from h5/h6 to h2/h3 for accessibility.
+.course-section-heading {
+  font-size: $course-heading-five-font !important;
+  line-height: $course-heading-five-line-height !important;
+  font-weight: 500;
+}
+
+.course-subsection-heading {
+  font-size: 1rem !important;
+  line-height: 1.2 !important;
+  font-weight: 500;
+}
+
 #course-banner {
   color: $white;
 
