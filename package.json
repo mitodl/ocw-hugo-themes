@@ -120,7 +120,7 @@
     "cross-env": "^10.0.0",
     "css-loader": "^7.0.0",
     "css-minimizer-webpack-plugin": "^8.0.0",
-    "dotenv-webpack": "^8.0.0",
+    "dotenv-webpack": "^9.0.0",
     "envalid": "^8.0.0",
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.14.0",
