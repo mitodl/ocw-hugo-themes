@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.147.1
+---------------
+
+- fix: remove stray dot (.) and standardize header font (#1778)
+- chore(deps): update dependency dotenv-webpack to v9 (#1765)
+
 Version 1.147.0 (Released April 07, 2026)
 ---------------
 
