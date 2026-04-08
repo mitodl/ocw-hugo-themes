@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.147.1
+Version 1.147.1 (Released April 08, 2026)
 ---------------
 
 - fix: remove stray dot (.) and standardize header font (#1778)
