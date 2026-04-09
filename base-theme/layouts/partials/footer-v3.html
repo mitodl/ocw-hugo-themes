@@ -21,33 +21,37 @@ we want to use this new footer in other themes (www, course-offline etc)
 
 {{/* Define Right Container Block */}}
 {{ define "footer-v3-right-container" }}
+{{ $homeUrl := partial "home_url.html" }}
+{{ $aboutUrl := partial "site_root_url.html" "/about" }}
+{{ $accessibilityUrl := partial "site_root_url.html" "/accessibility" }}
+{{ $termsUrl := partial "site_root_url.html" "/terms" }}
 <div class="d-flex flex-column justify-content-center right-container">
   <!-- Links Container -->
   <div class="d-flex align-items-start footer-links">
     <!-- Home Link -->
     <div class="d-flex align-items-start footer-link">
-      <a href="/" class="fw-normal text-center text-decoration-none">
+      <a href="{{ $homeUrl }}" class="fw-normal text-center text-decoration-none">
         Home
       </a>
     </div>
     
     <!-- About Us Link -->
     <div class="d-flex align-items-start footer-link">
-      <a href="/about" class="fw-normal text-center text-decoration-none">
+      <a href="{{ $aboutUrl }}" class="fw-normal text-center text-decoration-none">
         About Us
       </a>
     </div>
     
     <!-- Accessibility Link -->
     <div class="d-flex align-items-start footer-link">
-      <a href="/accessibility" class="fw-normal text-center text-decoration-none">
+      <a href="{{ $accessibilityUrl }}" class="fw-normal text-center text-decoration-none">
         Accessibility
       </a>
     </div>
     
     <!-- Terms of Service Link -->
     <div class="d-flex align-items-start footer-link">
-      <a href="/terms" class="fw-normal text-center text-decoration-none">
+      <a href="{{ $termsUrl }}" class="fw-normal text-center text-decoration-none">
         Terms of Service
       </a>
     </div>

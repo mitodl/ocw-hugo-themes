@@ -19,8 +19,8 @@
             {{ $bundle.Description | .RenderString }}
           </div>
         {{ end }}
-        {{- partial "resource_list.html" (dict "resources" $resources "sort" false) -}}
-      </div>
+        {{- partial "resource_list.html" (dict "context" . "resources" $resources "sort" false) -}}
+      </main>
     </article>
   </div>
 {{ end }}

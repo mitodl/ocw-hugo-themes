@@ -18,6 +18,7 @@ const entryNames = {
   courseV2:           "course_v2",
   courseV3:           "course_v3",
   courseOffline:      "course_offline",
+  courseOfflineV3:    "course_offline_v3",
   www:                "www",
   wwwOffline:         "www_offline"
 }
@@ -41,6 +42,11 @@ const config: webpack.Configuration = {
     [entryNames.courseOffline]: [
       fromRoot("./base-theme/assets/expose-jQuery.ts"),
       fromRoot("./course-offline/assets/course-offline.ts"),
+      fromRoot("./base-theme/assets/index.ts")
+    ],
+    [entryNames.courseOfflineV3]: [
+      fromRoot("./base-theme/assets/expose-jQuery.ts"),
+      fromRoot("./course-offline-v3/assets/course-offline.ts"),
       fromRoot("./base-theme/assets/index.ts")
     ],
     [entryNames.instructorInsights]: [
