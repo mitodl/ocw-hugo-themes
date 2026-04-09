@@ -2,6 +2,10 @@
   "course_title": "OCW CI Test Course",
   "course_description": "This is a test course for use in CI pipelines. This course can be found:\n\n- On Github at  {{% resource_link \"5653a8f2-056f-412c-913c-50b4664ed954\" \"https://github.mit.edu/ocw-content-rc/ocw-ci-test-course\" %}}\n- On OCW Studio at {{% resource_link \"8c797ae1-d349-4fdb-9ea0-371d969b89e0\" \"https://ocw-studio-rc.odl.mit.edu/sites/ocw-ci-test-course\" %}}\n\nThe content of this course is additionally checked into the `ocw-hugo-themes` repository.\n\n Recommended usage by OL Engineers:\n\n- Clone the github repository to your local.\n- When developing on `ocw-hugo-themes`, make edits in Studio as needed for the tests you want to write. Pull to local, and copy the files to `ocw-hugo-themes/test-sites/ocw-ci-test-course`.",
   "course_description_html": "<p>This is a test course for use in CI pipelines. This course can be found:</p>\n<ul>\n<li>On Github at  <a   class=\"external-link \"   target=\"_blank\"   href=\"https://github.mit.edu/ocw-content-rc/ocw-ci-test-course\"  aria-label=\"https://github.mit.edu/ocw-content-rc/ocw-ci-test-course (opens in a new tab)\"  >https://github.mit.edu/ocw-content-rc/ocw-ci-test-course</a></li>\n<li>On OCW Studio at <a   class=\"external-link \"   target=\"_blank\"   href=\"https://ocw-studio-rc.odl.mit.edu/sites/ocw-ci-test-course\"  aria-label=\"https://ocw-studio-rc.odl.mit.edu/sites/ocw-ci-test-course (opens in a new tab)\"  >https://ocw-studio-rc.odl.mit.edu/sites/ocw-ci-test-course</a></li>\n</ul>\n<p>The content of this course is additionally checked into the <code>ocw-hugo-themes</code> repository.</p>\n<p> Recommended usage by OL Engineers:</p>\n<ul>\n<li>Clone the github repository to your local.</li>\n<li>When developing on <code>ocw-hugo-themes</code>, make edits in Studio as needed for the tests you want to write. Pull to local, and copy the files to <code>ocw-hugo-themes/test-sites/ocw-ci-test-course</code>.</li>\n</ul>\n",
+  "course_image": {
+    "content": "5388b0c3-c599-4c42-8a3c-f89beed7c154",
+    "website": "ocw-ci-test-course"
+  },
   "site_uid": "554fc3fa-2f4b-4a94-87f4-19e51ae36920",
   "legacy_uid": "",
   "instructors": [
@@ -10,21 +14,27 @@
       "last_name": "One",
       "middle_initial": "",
       "salutation": "Prof.",
-      "title": "Prof. Tester One"
+      "title": "Prof. Tester One",
+      "uid": "588e4e64-823f-4e8e-a29e-0e695e2297ae",
+      "url": "/search/?q=Prof.+Tester+One"
     },
     {
       "first_name": "Tester",
       "last_name": "Two",
       "middle_initial": "",
       "salutation": "",
-      "title": "Dr. Tester Two"
+      "title": "Dr. Tester Two",
+      "uid": "3caa0884-4fdd-4f3c-ba39-67a64c27d877",
+      "url": "/search/?q=Dr.+Tester+Two"
     },
     {
       "first_name": "Another",
       "last_name": "Three",
       "middle_initial": "T",
       "salutation": "",
-      "title": "Another Tester Three"
+      "title": "Another Tester Three",
+      "uid": "d3c64374-bb1c-46bb-a1a1-827c336e4d8e",
+      "url": "/search/?q=Another+Tester+Three"
     }
   ],
   "department_numbers": [
@@ -59,6 +69,7 @@
     ]
   ],
   "primary_course_number": "123",
+  "site_short_id": "ocw-ci-test-course",
   "extra_course_numbers": "456",
   "term": "Fall",
   "year": "2022",
