@@ -74,20 +74,6 @@ h5 {
   line-height: $course-heading-five-line-height !important;
 }
 
-// Semantic heading overrides: preserve original h5/h6 visual sizes
-// when elements change from h5/h6 to h2/h3 for accessibility.
-.course-section-heading {
-  font-size: $course-heading-five-font !important;
-  line-height: $course-heading-five-line-height !important;
-  font-weight: 500;
-}
-
-.course-subsection-heading {
-  font-size: 1rem !important;
-  line-height: 1.2 !important;
-  font-weight: 500;
-}
-
 #course-banner {
   color: $white;
 
@@ -241,9 +227,10 @@ h5 {
       margin-top: 0;
     }
 
-    h6 {
-      font-size: $font-sm;
-      line-height: 1.125rem;
+    h6,
+    h3.course-subsection-heading {
+      font-size: $font-sm !important;
+      line-height: 1.125rem !important;
       font-weight: 500;
     }
   }
@@ -453,7 +440,8 @@ pre {
 }
 
 .course-detail-section {
-  h5 {
+  h5,
+  h2.course-section-heading {
     color: #000;
     font-family: $mit-learn-font-family;
     font-size: 1.125rem !important;
@@ -463,14 +451,15 @@ pre {
     text-transform: none;
   }
 
-  h6 {
+  h6,
+  h3.course-subsection-heading {
     color: #000;
 
     font-family: $mit-learn-font-family;
-    font-size: 0.875rem;
+    font-size: 0.875rem !important;
     font-style: normal;
     font-weight: 500;
-    line-height: 1.125rem;
+    line-height: 1.125rem !important;
   }
 }
 

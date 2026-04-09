@@ -3,6 +3,7 @@ $panel-course-info-text-color: #464646;
 .course-info {
   .course-section-heading {
     font-size: 1.125rem !important;
+    line-height: $course-heading-five-line-height !important;
     text-transform: capitalize;
     font-weight: 500;
   }

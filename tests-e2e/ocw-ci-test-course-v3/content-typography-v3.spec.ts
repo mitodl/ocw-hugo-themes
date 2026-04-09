@@ -154,7 +154,7 @@ test.describe("Course v3 content typography and spacing", () => {
 
     // Resource page title and section heading share the same 16px step,
     // with nested headings dropping to 14px.
-    await expect(pageTitle).toHaveCSS("font-size", "16px")
+    await expect(pageTitle).toHaveCSS("font-size", "18px")
     await expect(pageTitle).toHaveCSS("font-weight", "700")
     await expect(sectionHeading).toHaveCSS("font-size", "16px")
     await expect(sectionHeading).toHaveCSS("font-weight", "700")
