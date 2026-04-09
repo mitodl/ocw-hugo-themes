@@ -63,60 +63,64 @@
     line-height: 18px !important;
   }
 
-  > * {
-    margin-bottom: 0;
-  }
-
-  // Global spacing
-  > * + * {
-    margin-top: 2.5rem;
-  }
-
-  > p + p {
-    margin-top: 1.5rem;
-  }
-
-  @include media-breakpoint-down(md) {
-    > * + * {
-      margin-top: 1.5rem;
-    }
-  }
-
-  // Heading to content spacing
-  :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
-  :is(h2, h3, h4, h5, h6)
-    + p:empty
-    + :is(p, ul, ol, blockquote, table, section, div) {
-    margin-top: 0.5rem;
-  }
-
-  @include media-breakpoint-down(md) {
-    :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
-    :is(h2, h3, h4, h5, h6)
-      + p:empty
-      + :is(p, ul, ol, blockquote, table, section, div) {
-      margin-top: 1rem;
-    }
-  }
-
   // Table spacing
   table {
     margin-bottom: 0 !important;
   }
 
-  // Empty markdown paragraphs
-  > p:empty {
-    display: none;
-  }
+  .course-content-body {
+    > * {
+      margin-bottom: 0;
+    }
 
-  // Trailing spacing
-  > :last-child {
-    margin-bottom: 0 !important;
-  }
+    // Global spacing
+    > * + * {
+      margin-top: 2.5rem;
+    }
 
-  // Nested trailing spacing
-  > :last-child > :last-child {
-    margin-bottom: 0 !important;
+    > p + p {
+      margin-top: 1.5rem;
+    }
+
+    @include media-breakpoint-down(md) {
+      > * + * {
+        margin-top: 1.5rem;
+      }
+    }
+
+    // Heading to content spacing
+    :is(h2, h3, h4, h5, h6)
+      + :is(p, ul, ol, blockquote, table, section, div),
+    :is(h2, h3, h4, h5, h6)
+      + p:empty
+      + :is(p, ul, ol, blockquote, table, section, div) {
+      margin-top: 0.5rem;
+    }
+
+    @include media-breakpoint-down(md) {
+      :is(h2, h3, h4, h5, h6)
+        + :is(p, ul, ol, blockquote, table, section, div),
+      :is(h2, h3, h4, h5, h6)
+        + p:empty
+        + :is(p, ul, ol, blockquote, table, section, div) {
+        margin-top: 1rem;
+      }
+    }
+
+    // Empty markdown paragraphs
+    > p:empty {
+      display: none;
+    }
+
+    // Trailing spacing
+    > :last-child {
+      margin-bottom: 0 !important;
+    }
+
+    // Nested trailing spacing
+    > :last-child > :last-child {
+      margin-bottom: 0 !important;
+    }
   }
 }
 
