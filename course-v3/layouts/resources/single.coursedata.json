@@ -1,1 +1,1 @@
-{{- .Params | jsonify -}}
+{{- .Params | jsonify (dict "noHTMLEscape" true) -}}

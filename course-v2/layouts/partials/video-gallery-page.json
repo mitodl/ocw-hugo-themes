@@ -11,4 +11,4 @@
 {{- end -}}
 {{- $computed = merge $computed (dict "videos" $videos) -}}
 {{- end -}}
-{{- merge .Params $computed | jsonify -}}
+{{- merge .Params $computed | jsonify (dict "noHTMLEscape" true) -}}
