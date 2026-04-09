@@ -227,9 +227,10 @@ h5 {
       margin-top: 0;
     }
 
-    h6 {
-      font-size: $font-sm;
-      line-height: 1.125rem;
+    h6,
+    h3.course-subsection-heading {
+      font-size: $font-sm !important;
+      line-height: 1.125rem !important;
       font-weight: 500;
     }
   }
@@ -439,7 +440,8 @@ pre {
 }
 
 .course-detail-section {
-  h5 {
+  h5,
+  h2.course-section-heading {
     color: #000;
     font-family: $mit-learn-font-family;
     font-size: 1.125rem !important;
@@ -449,14 +451,15 @@ pre {
     text-transform: none;
   }
 
-  h6 {
+  h6,
+  h3.course-subsection-heading {
     color: #000;
 
     font-family: $mit-learn-font-family;
-    font-size: 0.875rem;
+    font-size: 0.875rem !important;
     font-style: normal;
     font-weight: 500;
-    line-height: 1.125rem;
+    line-height: 1.125rem !important;
   }
 }
 
@@ -577,5 +580,14 @@ pre {
     .search-icon {
       padding-right: 2.6rem !important;
     }
+  }
+}
+
+// Accessibility: keep larger touch targets on touch-first devices only.
+@media (pointer: coarse), (pointer: none) {
+  .footer-v3 .footer-link a {
+    display: flex;
+    align-items: center;
+    min-height: 24px;
   }
 }

@@ -3,3 +3,10 @@
   pointer-events: all;
   top: -1px;
 }
+
+@media (pointer: coarse), (pointer: none) {
+  .topic-toggle {
+    min-width: 24px;
+    min-height: 24px;
+  }
+}
