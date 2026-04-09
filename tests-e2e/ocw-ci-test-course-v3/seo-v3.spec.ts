@@ -8,7 +8,7 @@ test.describe("Course v3 SEO", () => {
   }) => {
     const sitemapDomain = env.SITEMAP_DOMAIN ?
       env.SITEMAP_DOMAIN :
-      "https://live-qa.ocw.mit.edu"
+      "live-qa.ocw.mit.edu"
     const courseImagePath = "/courses/ocw-ci-test-course/example_jpg.jpg"
     const course = new CoursePage(page, "course-v3")
 
@@ -42,7 +42,7 @@ test.describe("Course v3 SEO", () => {
   test("Course v3 robots.txt allows crawling by default", async ({ page }) => {
     const sitemapDomain = env.SITEMAP_DOMAIN ?
       env.SITEMAP_DOMAIN :
-      "https://live-qa.ocw.mit.edu"
+      "live-qa.ocw.mit.edu"
     const course = new CoursePage(page, "course-v3")
 
     const response = await course.goto("/robots.txt")

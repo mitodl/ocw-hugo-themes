@@ -11,6 +11,10 @@
     var s=document.createElement('style');
     s.textContent=t.replace(/font-display\s*:\s*auto/g,'font-display:optional');
     document.head.appendChild(s);
+  }).catch(function(){
+    var l=document.createElement('link');
+    l.rel='stylesheet';l.href=u;
+    document.head.appendChild(l);
   });
 })();
 </script>
