@@ -1,4 +1,1 @@
-{
-  "title": {{- .Title | jsonify -}},
-  "content": {{- .Plain | jsonify  -}}
-}
+{{- merge .Params (dict "content" .Content) | jsonify (dict "noHTMLEscape" true) -}}

@@ -1,25 +1,14 @@
 {{- $ctx := . -}}
-{ 
-  "title": {{- .Title | jsonify -}},
-  "description": {{- .Description | jsonify -}}
-  {{- if not (isset .Params "is_media_gallery") -}}
-  {{- if isset .Params "videos" -}}
-  , 
-  "videos": [
-    {{- range $index, $uuid := .Params.videos.content -}}
-    {{- range $ctx.Site.Pages -}}
-      {{- if eq (replace .Params.uid "-" "") (replace $uuid "-" "") -}}
-        {{- if $index -}}
-         ,  
-        {{- end -}}
-        {
-          "description": {{ .Params.description | jsonify }},
-          "file": {{ .Params.file | jsonify }}
-        }
-      {{- end -}}
-    {{- end -}}
-    {{- end -}}
-    ]
-  {{- end -}}
-  {{- end -}}
-}
+{{- $computed := dict -}}
+{{- if and (not (isset .Params "is_media_gallery")) (isset .Params "videos") -}}
+{{- $videos := slice -}}
+{{- range $index, $uuid := .Params.videos.content -}}
+{{- range $ctx.Site.Pages -}}
+{{- if eq (replace .Params.uid "-" "") (replace $uuid "-" "") -}}
+{{- $videos = $videos | append .Params -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- $computed = merge $computed (dict "videos" $videos) -}}
+{{- end -}}
+{{- merge .Params $computed | jsonify -}}
