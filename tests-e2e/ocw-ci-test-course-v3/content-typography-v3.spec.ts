@@ -57,9 +57,7 @@ test.describe("Course v3 content typography and spacing", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/syllabus")
 
-    const heading = page
-      .locator(`${CONTENT_BODY} > :is(h2, h3)`)
-      .first()
+    const heading = page.locator(`${CONTENT_BODY} > :is(h2, h3)`).first()
     const firstParagraph = page.locator(`${CONTENT_BODY} > p`).first()
 
     await expect(heading).toBeVisible()
@@ -221,9 +219,7 @@ test.describe("Course v3 content typography and spacing", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/subscripts-and-superscripts")
 
-    const lastChild = page
-      .locator(`${CONTENT_BODY} > *:not(:empty)`)
-      .last()
+    const lastChild = page.locator(`${CONTENT_BODY} > *:not(:empty)`).last()
     await expect(lastChild).toBeVisible()
     await expect(lastChild).toHaveCSS("margin-bottom", "0px")
   })

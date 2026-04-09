@@ -89,8 +89,7 @@
     }
 
     // Heading to content spacing
-    :is(h2, h3, h4, h5, h6)
-      + :is(p, ul, ol, blockquote, table, section, div),
+    :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
     :is(h2, h3, h4, h5, h6)
       + p:empty
       + :is(p, ul, ol, blockquote, table, section, div) {
@@ -98,8 +97,7 @@
     }
 
     @include media-breakpoint-down(md) {
-      :is(h2, h3, h4, h5, h6)
-        + :is(p, ul, ol, blockquote, table, section, div),
+      :is(h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, table, section, div),
       :is(h2, h3, h4, h5, h6)
         + p:empty
         + :is(p, ul, ol, blockquote, table, section, div) {
