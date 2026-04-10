@@ -1,0 +1,18 @@
+{{/* Offline-v3 video gallery item: use local thumbnail if present,
+     otherwise fall back to the YouTube logo SVG placeholder.
+     Remote YouTube thumbnail URLs (https://img.youtube.com/...) are
+     intentionally skipped to avoid broken-image requests in offline packages. */}}
+{{ $cardUrl := partial "page_url.html" (dict "context" . "url" .RelPermalink) }}
+{{ $thumbnailFile := .Params.video_files.video_thumbnail_file | default "" }}
+{{ $isLocalThumbnail := and $thumbnailFile (not (strings.HasPrefix $thumbnailFile "http")) }}
+
+<a class="video-gallery-card" href="{{ $cardUrl }}">
+  <div class="video-gallery-card-thumbnail">
+    {{- if $isLocalThumbnail -}}
+    <img src="{{ partial "resource_url.html" (dict "context" . "url" $thumbnailFile) }}" alt="" loading="lazy" decoding="async" />
+    {{- else -}}
+    <img class="youtube-logo-overlay" src="{{ partial "get_asset_webpack_url.html" "images/youtube.svg" }}" alt="YouTube" loading="lazy" decoding="async" />
+    {{- end -}}
+  </div>
+  <div class="video-gallery-card-title">{{ .Params.title }}</div>
+</a>
