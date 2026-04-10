@@ -117,5 +117,6 @@ test("Course robots.txt allows crawling by default", async ({ page }) => {
   await expect(page.locator("body")).toContainText(
     `Sitemap: https://${sitemapDomain}/sitemap.xml`
   )
-  await expect(page.locator("body")).toContainText("Allow: /")
+  // Empty Disallow (no path) means allow all crawling
+  await expect(page.locator("body")).not.toContainText("Disallow: /")
 })

@@ -24,11 +24,6 @@
 }
 
 #course-content-section {
-  // Body text
-  :is(p, li, td, th) {
-    line-height: 22px;
-  }
-
   // Headings
   :is(h2, h3, h4, h5, h6) {
     color: $black !important;
@@ -42,33 +37,39 @@
     text-decoration-color: $highlight-red;
   }
 
-  h2,
-  h3 {
-    font-size: 16px !important;
-    line-height: 24px !important;
-  }
-
-  h4 {
-    font-size: 14px !important;
-    line-height: 22px !important;
-  }
-
-  h5 {
-    font-size: 12px !important;
-    line-height: 20px !important;
-  }
-
-  h6 {
-    font-size: 10px !important;
-    line-height: 18px !important;
-  }
-
   // Table spacing
   table {
     margin-bottom: 0 !important;
   }
 
   .course-content-body {
+    // Body text — scoped so it doesn't bleed outside the content body
+    :is(p, li, td, th) {
+      line-height: 22px;
+    }
+
+    // Content heading sizes — scoped so the page title h2 keeps its 18px
+    h2,
+    h3 {
+      font-size: 16px !important;
+      line-height: 24px !important;
+    }
+
+    h4 {
+      font-size: 14px !important;
+      line-height: 22px !important;
+    }
+
+    h5 {
+      font-size: 12px !important;
+      line-height: 20px !important;
+    }
+
+    h6 {
+      font-size: 10px !important;
+      line-height: 18px !important;
+    }
+
     > * {
       margin-bottom: 0;
     }
