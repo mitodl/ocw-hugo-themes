@@ -44,9 +44,6 @@ test.describe("offline-v3 quiz page", () => {
     await page.goto(offlineFileUrl("/pages/quiz-demo"))
 
     // The solution button may be initially hidden or toggled; just verify DOM presence
-    const solutionToggle = page.locator(
-      'button[onclick*="showSolution"], [id*="solution"], .solution-button'
-    )
     // Don't assert count > 0 since it may be conditionally rendered; just
     // assert page structure is intact
     await expect(page.locator(".multiple-choice-question")).toBeVisible()
