@@ -38,7 +38,7 @@
     "publisher" (dict
       "@type" "CollegeOrUniversity"
       "name" "MIT OpenCourseWare"
-      "url" (printf "https://%s" $sitemapDomain)
+      "url" (printf "https://%s" (strings.TrimSuffix "/" $sitemapDomain))
     )
   -}}
   <script type="application/ld+json">
