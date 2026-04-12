@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.148.0
+---------------
+
+- chore: addressed feedback and fixed bad rebase (#1783)
+- feat: offline v3 theme (#1759)
+- chore: improved accessibility and seo scores in lighthouse (#1742)
+
 Version 1.147.1 (Released April 08, 2026)
 ---------------
 
