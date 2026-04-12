@@ -2,7 +2,7 @@
 {{ $imageData := partial "course-image-url.html" $context }}
 {{ $courseImageMetadata := index $imageData 1 }}
 {{- $sitemapDomain := partial "sitemap_domain.html" -}}
-{{- $absCourseImage := printf "https://%s%s" (strings.TrimSuffix "/" $sitemapDomain) $courseImageMetadata.Params.file -}}
+{{- $absCourseImage := printf "https://%s/%s" (strings.TrimSuffix "/" $sitemapDomain) (strings.TrimPrefix "/" $courseImageMetadata.Params.file) -}}
 <meta property="og:image" content="{{- $absCourseImage -}}" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@mitocw" />
