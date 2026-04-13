@@ -1,0 +1,14 @@
+{{/* Offline-v3 nav URL: strip the baseURL path prefix so the URL is
+     site-relative, then append /index.html for file:// access.
+     Hugo's relativeURLs post-processor converts these absolute paths
+     per-page AFTER partialCached renders, keeping them compatible with
+     cached desktop nav. */}}
+{{ $url := .menuItem.URL }}
+{{ $noHttpPrefix := not (strings.HasPrefix $url "http") }}
+{{ $noHtmlSuffix := not (strings.HasSuffix $url ".html") }}
+{{ if and $url $noHttpPrefix $noHtmlSuffix }}
+  {{ $baseURLPath := (urls.Parse site.BaseURL).Path | strings.TrimSuffix "/" }}
+  {{ $url = strings.TrimPrefix $baseURLPath $url }}
+  {{ $url = printf "%s/index.html" (strings.TrimSuffix "/" $url) }}
+{{ end }}
+{{ return $url }}

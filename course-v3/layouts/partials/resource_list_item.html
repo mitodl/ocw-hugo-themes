@@ -1,8 +1,8 @@
-{{ $downloadableLink := partial "get_resource_download_link.html" . }}
+{{ $downloadableLink := partial "get_resource_download_link.html" (dict "context" .context "Params" .Params) }}
 {{ $resourceCategory := partial "get_resource_category.html" (dict "resourceType" .Params.resourcetype "fileType" .Params.file_type) }}
 <div class="resource-card">
   {{ if not .hideThumbnail }}
-  <a class="resource-card-thumbnail-link"{{ if and $downloadableLink (not .hideDownloadIcon) }} href="{{- $downloadableLink -}}" target="_blank" aria-label="Download file" download{{ end }}>
+  <a class="resource-card-thumbnail-link"{{ if and $downloadableLink (not .hideDownloadIcon) }} href="{{- $downloadableLink -}}" target="_blank" aria-label="Download {{ .Params.title | plainify }}" download{{ end }}>
     <div class="resource-card-thumbnail">
       <div class="resource-card-type {{ $resourceCategory }}">
         {{- $resourceCategory -}}
@@ -14,6 +14,7 @@
               class="hide-offline resource-card-download-icon"
               src="{{ partial "get_asset_webpack_url.html" "images/resource-download.svg" }}"
               aria-hidden="true"
+              loading="lazy"
             />
           {{ end }}
         {{ end }}
@@ -26,7 +27,7 @@
     </div>
   </a>
   {{ end }}
-  <a class="resource-card-title" href="{{ .permalink }}">
+  <a class="resource-card-title" href="{{ partial "page_url.html" (dict "context" .context "url" .permalink) }}">
     {{- .Params.title -}}
   </a>
 </div>

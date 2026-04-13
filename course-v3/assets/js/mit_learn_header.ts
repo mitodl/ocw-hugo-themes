@@ -19,12 +19,14 @@ export function initMITLearnHeader(): void {
     return
   }
 
+  navDrawer.setAttribute("inert", "")
+
   let isOpen = false
 
   const openDrawer = (): void => {
     isOpen = true
     navDrawer.classList.add("open")
-    navDrawer.setAttribute("aria-hidden", "false")
+    navDrawer.removeAttribute("inert")
     backdrop?.classList.add("visible")
 
     // Update button states
@@ -41,7 +43,7 @@ export function initMITLearnHeader(): void {
   const closeDrawer = (): void => {
     isOpen = false
     navDrawer.classList.remove("open")
-    navDrawer.setAttribute("aria-hidden", "true")
+    navDrawer.setAttribute("inert", "")
     backdrop?.classList.remove("visible")
 
     // Update button states

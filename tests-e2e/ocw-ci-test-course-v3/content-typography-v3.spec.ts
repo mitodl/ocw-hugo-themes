@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
 
+const CONTENT_BODY = ".course-content-body"
+
 test.describe("Course v3 content typography and spacing", () => {
   test("Body copy uses 22px line-height for 14px content text", async ({
     page
@@ -8,7 +10,7 @@ test.describe("Course v3 content typography and spacing", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/subscripts-and-superscripts")
 
-    const paragraph = page.locator("#course-content-section > p").first()
+    const paragraph = page.locator(`${CONTENT_BODY} > p`).first()
     await expect(paragraph).toBeVisible()
     await expect(paragraph).toHaveCSS("line-height", "22px")
   })
@@ -17,8 +19,8 @@ test.describe("Course v3 content typography and spacing", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/subscripts-and-superscripts")
 
-    const td = page.locator("#course-content-section td").first()
-    const th = page.locator("#course-content-section th").first()
+    const td = page.locator(`${CONTENT_BODY} td`).first()
+    const th = page.locator(`${CONTENT_BODY} th`).first()
     await expect(td).toBeVisible()
     await expect(th).toBeVisible()
     await expect(td).toHaveCSS("line-height", "22px")
@@ -29,8 +31,8 @@ test.describe("Course v3 content typography and spacing", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/subscripts-and-superscripts")
 
-    const firstParagraph = page.locator("#course-content-section > p").first()
-    const secondParagraph = page.locator("#course-content-section > p").nth(1)
+    const firstParagraph = page.locator(`${CONTENT_BODY} > p`).first()
+    const secondParagraph = page.locator(`${CONTENT_BODY} > p`).nth(1)
 
     await expect(firstParagraph).toBeVisible()
     await expect(secondParagraph).toBeVisible()
@@ -44,7 +46,7 @@ test.describe("Course v3 content typography and spacing", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/subscripts-and-superscripts")
 
-    const firstChild = page.locator("#course-content-section > *").first()
+    const firstChild = page.locator(`${CONTENT_BODY} > *`).first()
     await expect(firstChild).toBeVisible()
     await expect(firstChild).toHaveCSS("margin-bottom", "0px")
   })
@@ -55,10 +57,8 @@ test.describe("Course v3 content typography and spacing", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/syllabus")
 
-    const heading = page
-      .locator("#course-content-section > :is(h2, h3)")
-      .first()
-    const firstParagraph = page.locator("#course-content-section > p").first()
+    const heading = page.locator(`${CONTENT_BODY} > :is(h2, h3)`).first()
+    const firstParagraph = page.locator(`${CONTENT_BODY} > p`).first()
 
     await expect(heading).toBeVisible()
     await expect(firstParagraph).toBeVisible()
@@ -72,7 +72,7 @@ test.describe("Course v3 content typography and spacing", () => {
 
     // The Grading Policy section has: h2 -> p -> table.
     // h2 -> p uses compact 8px; p -> table uses the global 40px section gap.
-    const table = page.locator("#course-content-section > table").first()
+    const table = page.locator(`${CONTENT_BODY} > table`).first()
     await expect(table).toBeVisible()
     await expect(table).toHaveCSS("margin-top", "40px")
   })
@@ -84,10 +84,10 @@ test.describe("Course v3 content typography and spacing", () => {
     await course.goto("/pages/syllabus")
 
     const calendarHeading = page
-      .locator("#course-content-section > :is(h2, h3)")
+      .locator(`${CONTENT_BODY} > :is(h2, h3)`)
       .filter({ hasText: "Calendar" })
     const calendarTable = page.locator(
-      "#course-content-section > :is(h2, h3):has-text('Calendar') + table"
+      `${CONTENT_BODY} > :is(h2, h3):has-text('Calendar') + table`
     )
 
     await expect(calendarHeading).toBeVisible()
@@ -103,14 +103,14 @@ test.describe("Course v3 content typography and spacing", () => {
 
     // "Goals" heading follows a table — should still get the full 40px section gap
     const goalsHeading = page
-      .locator("#course-content-section > :is(h2, h3)")
+      .locator(`${CONTENT_BODY} > :is(h2, h3)`)
       .filter({ hasText: "Goals" })
     await expect(goalsHeading).toBeVisible()
     await expect(goalsHeading).toHaveCSS("margin-top", "40px")
 
     // "Grading Policy" heading follows a paragraph — also 40px
     const gradingHeading = page
-      .locator("#course-content-section > :is(h2, h3)")
+      .locator(`${CONTENT_BODY} > :is(h2, h3)`)
       .filter({ hasText: "Grading Policy" })
     await expect(gradingHeading).toBeVisible()
     await expect(gradingHeading).toHaveCSS("margin-top", "40px")
@@ -121,10 +121,10 @@ test.describe("Course v3 content typography and spacing", () => {
     await course.goto("/pages/syllabus")
 
     const courseInfoHeading = page
-      .locator("#course-content-section > :is(h2, h3)")
+      .locator(`${CONTENT_BODY} > :is(h2, h3)`)
       .filter({ hasText: "Course Information" })
     const meetingTimesHeading = page
-      .locator("#course-content-section > :is(h2, h3)")
+      .locator(`${CONTENT_BODY} > :is(h2, h3)`)
       .filter({ hasText: "Course Meeting Times" })
 
     await expect(courseInfoHeading).toBeVisible()
@@ -142,15 +142,16 @@ test.describe("Course v3 content typography and spacing", () => {
     await course.goto("/pages/syllabus")
     const pageTitle = page.locator(".resource-page-title").first()
     const sectionHeading = page
-      .locator("#course-content-section > :is(h2, h3)")
+      .locator(`${CONTENT_BODY} > :is(h2, h3)`)
       .filter({ hasText: "Course Information" })
-    const nestedHeading = page.locator("#course-content-section h4").first()
+    const nestedHeading = page.locator(`${CONTENT_BODY} h4`).first()
 
     await expect(pageTitle).toBeVisible()
     await expect(sectionHeading).toBeVisible()
     await expect(nestedHeading).toBeVisible()
 
-    // 18px → 16px → 14px hierarchy, all bold
+    // Resource page title and section heading share the same 16px step,
+    // with nested headings dropping to 14px.
     await expect(pageTitle).toHaveCSS("font-size", "18px")
     await expect(pageTitle).toHaveCSS("font-weight", "700")
     await expect(sectionHeading).toHaveCSS("font-size", "16px")
@@ -164,7 +165,7 @@ test.describe("Course v3 content typography and spacing", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/subscripts-and-superscripts")
 
-    const secondParagraph = page.locator("#course-content-section > p").nth(1)
+    const secondParagraph = page.locator(`${CONTENT_BODY} > p`).nth(1)
     await expect(secondParagraph).toBeVisible()
     await expect(secondParagraph).toHaveCSS("margin-top", "24px")
   })
@@ -176,9 +177,9 @@ test.describe("Course v3 content typography and spacing", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/syllabus")
 
-    const firstParagraph = page.locator("#course-content-section > p").first()
+    const firstParagraph = page.locator(`${CONTENT_BODY} > p`).first()
     const calendarTable = page.locator(
-      "#course-content-section > :is(h2, h3):has-text('Calendar') + table"
+      `${CONTENT_BODY} > :is(h2, h3):has-text('Calendar') + table`
     )
 
     await expect(firstParagraph).toBeVisible()
@@ -195,7 +196,7 @@ test.describe("Course v3 content typography and spacing", () => {
 
     // "Goals" heading follows a table — gets the mobile global 1.5rem=24px gap
     const goalsHeading = page
-      .locator("#course-content-section > :is(h2, h3)")
+      .locator(`${CONTENT_BODY} > :is(h2, h3)`)
       .filter({ hasText: "Goals" })
     await expect(goalsHeading).toBeVisible()
     await expect(goalsHeading).toHaveCSS("margin-top", "24px")
@@ -207,7 +208,7 @@ test.describe("Course v3 content typography and spacing", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/subscripts-and-superscripts")
 
-    const lastTable = page.locator("#course-content-section table").last()
+    const lastTable = page.locator(`${CONTENT_BODY} table`).last()
     await expect(lastTable).toBeVisible()
     await expect(lastTable).toHaveCSS("margin-bottom", "0px")
   })
@@ -218,9 +219,7 @@ test.describe("Course v3 content typography and spacing", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/subscripts-and-superscripts")
 
-    const lastChild = page
-      .locator("#course-content-section > *:not(:empty)")
-      .last()
+    const lastChild = page.locator(`${CONTENT_BODY} > *:not(:empty)`).last()
     await expect(lastChild).toBeVisible()
     await expect(lastChild).toHaveCSS("margin-bottom", "0px")
   })
@@ -231,7 +230,7 @@ test.describe("Course v3 content typography and spacing", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/assignments")
 
-    const heading = page.locator("#course-content-section h3").first()
+    const heading = page.locator(`${CONTENT_BODY} h3`).first()
     await expect(heading).toBeVisible()
     await expect(heading).toHaveCSS("color", "rgb(0, 0, 0)")
   })
@@ -240,7 +239,7 @@ test.describe("Course v3 content typography and spacing", () => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/subscripts-and-superscripts")
 
-    const link = page.locator("#course-content-section a").first()
+    const link = page.locator(`${CONTENT_BODY} a`).first()
     await expect(link).toBeVisible()
     await link.hover()
     await expect(link).toHaveCSS("color", "rgb(163, 31, 52)")

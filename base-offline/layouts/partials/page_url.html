@@ -1,2 +1,9 @@
 {{ $pathToRoot := partial "path_to_root.html" .context.RelPermalink }}
-{{ return printf "%s/%s/index.html" (strings.TrimSuffix "/" $pathToRoot) (strings.TrimSuffix "/" (strings.TrimPrefix "/" .url)) }}
+{{ $pagePath := .url }}
+{{ if strings.HasPrefix $pagePath "http" }}
+	{{ $pagePath = (urls.Parse $pagePath).Path }}
+{{ end }}
+{{ $pagePath = strings.TrimPrefix "/" $pagePath }}
+{{ $pagePath = strings.TrimSuffix "/index.html" $pagePath }}
+{{ $pagePath = strings.TrimSuffix "/" $pagePath }}
+{{ return printf "%s/%s/index.html" (strings.TrimSuffix "/" $pathToRoot) $pagePath }}

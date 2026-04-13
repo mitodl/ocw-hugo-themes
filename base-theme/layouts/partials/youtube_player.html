@@ -16,7 +16,7 @@
     {{ end }}
     Viewing videos requires an internet connection
   </div>
-{{ end }}
+{{ else }}
 <div class="video-container embedded-video-container youtube-container">
   <video
     id="video-player-{{ .youtubeKey }}-{{ $random }}"
@@ -88,3 +88,4 @@
     }
   })
 </script>
+{{ end }}

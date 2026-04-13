@@ -6,9 +6,9 @@
   {{ $shouldCollapseDescription = gt (len $plainDescription) 320 }}
 {{ end }}
 <div id="course-description" class="d-flex flex-column align-self-stretch align-items-start">
-  <h5 class="align-self-stretch m-0">
+  <h2 class="course-section-heading align-self-stretch m-0">
     Course Description
-  </h5>
+  </h2>
   {{ if $shouldCollapseDescription }}
   <div id="collapsed-description" class="description">
     {{- truncate 320 "" (.context.RenderString $courseData.course_description) -}}
