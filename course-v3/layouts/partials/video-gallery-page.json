@@ -1,6 +1,6 @@
 {{- $ctx := . -}}
 {{- $computed := dict -}}
-{{- if and (not (isset .Params "is_media_gallery")) (isset .Params "videos") -}}
+{{- if isset .Params "videos" -}}
 {{- $videos := slice -}}
 {{- range $index, $uuid := .Params.videos.content -}}
 {{- range $ctx.Site.Pages -}}
