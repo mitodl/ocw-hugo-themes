@@ -1,1 +1,1 @@
-{{- merge .Params (dict "content" .Content) | jsonify (dict "noHTMLEscape" true) -}}
+{{- merge .Params (dict "content" .Content) | jsonify (dict "noHTMLEscape" true "indent" "  ") -}}

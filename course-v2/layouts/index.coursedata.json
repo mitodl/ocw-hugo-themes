@@ -6,5 +6,5 @@
 {{- $instructors = partial "get_instructors.html" .content -}}
 {{- end -}}
 {{- $computed := dict "course_description_html" ($courseData.course_description | default "" | $.RenderString) "image_src" $courseImageUrl "course_image_metadata" $courseImageMetadata.Params "instructors" $instructors -}}
-{{- merge $courseData $computed | jsonify (dict "noHTMLEscape" true) -}}
+{{- merge $courseData $computed | jsonify (dict "noHTMLEscape" true "indent" "  ") -}}
 
