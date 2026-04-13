@@ -56,8 +56,6 @@ test.describe("offline-v3 quiz page", () => {
       1
     )
     // v2 offline bundle must not be loaded
-    await expect(
-      page.locator('script[src*="course_offline."]')
-    ).toHaveCount(0)
+    await expect(page.locator('script[src*="course_offline."]')).toHaveCount(0)
   })
 })

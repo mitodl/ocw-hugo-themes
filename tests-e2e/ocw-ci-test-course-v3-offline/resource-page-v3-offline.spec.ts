@@ -66,7 +66,9 @@ test.describe("offline-v3 non-video resource pages", () => {
     await page.goto(offlineFileUrl("/resources/example_jpg"))
 
     // The resource image should reference a local path, not an absolute one
-    const resourceImg = page.locator(".image-page img, .resource-single-card img").first()
+    const resourceImg = page
+      .locator(".image-page img, .resource-single-card img")
+      .first()
     if ((await resourceImg.count()) > 0) {
       const src = await resourceImg.getAttribute("src")
       expect(src).not.toMatch(/^https?:\/\//)

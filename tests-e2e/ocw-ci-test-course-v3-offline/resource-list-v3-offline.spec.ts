@@ -33,7 +33,9 @@ test.describe("offline-v3 resource list page", () => {
     await page.goto(offlineFileUrl("/lists/a-resource-list"))
 
     // Download links are the thumbnail-link anchors that have the `download` attribute
-    const downloadLinks = page.locator(".resource-card-thumbnail-link[download]")
+    const downloadLinks = page.locator(
+      ".resource-card-thumbnail-link[download]"
+    )
     const count = await downloadLinks.count()
     expect(count).toBeGreaterThan(0)
 

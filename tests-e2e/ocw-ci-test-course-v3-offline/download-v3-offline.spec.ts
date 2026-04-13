@@ -16,9 +16,7 @@ test.describe("offline-v3 download / browse page", () => {
     await page.goto(offlineFileUrl("/download"))
 
     // The online "Download course" button text must not appear
-    await expect(
-      page.locator('a:has-text("Download course")')
-    ).toHaveCount(0)
+    await expect(page.locator('a:has-text("Download course")')).toHaveCount(0)
   })
 
   test("Browse Resources CTA button is present and local", async ({ page }) => {

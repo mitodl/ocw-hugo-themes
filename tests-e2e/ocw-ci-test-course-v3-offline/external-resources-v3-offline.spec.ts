@@ -89,21 +89,20 @@ test.describe("offline-v3 external resources", () => {
     await expect(continueBtn).toHaveAttribute("target", "_blank")
   })
 
-  test(
-    "warning link has onClick=event.preventDefault() so JS can intercept",
-    async ({ page }) => {
-      await page.goto(offlineFileUrl(EXTERNAL_RESOURCES_PAGE))
+  test("warning link has onClick=event.preventDefault() so JS can intercept", async ({
+    page
+  }) => {
+    await page.goto(offlineFileUrl(EXTERNAL_RESOURCES_PAGE))
 
-      const link = page
-        .locator("p")
-        .filter({ hasText: "This link opens a warning" })
-        .getByRole("link")
+    const link = page
+      .locator("p")
+      .filter({ hasText: "This link opens a warning" })
+      .getByRole("link")
 
-      // Template sets onClick to prevent navigation before the modal JS kicks in
-      const onClick = await link.getAttribute("onclick")
-      expect(onClick).toContain("event.preventDefault")
-    }
-  )
+    // Template sets onClick to prevent navigation before the modal JS kicks in
+    const onClick = await link.getAttribute("onclick")
+    expect(onClick).toContain("event.preventDefault")
+  })
 
   // ---------------------------------------------------------------------------
   // OCW link — no warning expected

@@ -14,9 +14,7 @@ test.describe("offline-v3 embedded resource pages", () => {
     // The offline warning div must be visible (YouTube player is suppressed)
     await expect(page.locator(".show-offline")).toBeVisible()
     // The YouTube iframe must NOT be present
-    await expect(
-      page.locator('iframe[src*="youtube.com"]')
-    ).toHaveCount(0)
+    await expect(page.locator('iframe[src*="youtube.com"]')).toHaveCount(0)
   })
 
   test("View video page link is package-local on video-series-overview", async ({
@@ -35,9 +33,7 @@ test.describe("offline-v3 embedded resource pages", () => {
     await page.goto(offlineFileUrl("/pages/video-series-overview"))
 
     // The download link is inside the tab popup as "Download video"
-    const downloadLink = page
-      .locator('a[aria-label="Download video"]')
-      .first()
+    const downloadLink = page.locator('a[aria-label="Download video"]').first()
     const href = await expectLocalPackageHref(downloadLink)
     expect(href).toContain("static_resources/")
   })
