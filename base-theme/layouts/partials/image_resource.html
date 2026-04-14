@@ -12,7 +12,7 @@
     <a href="{{- $imageHref -}}" target="_blank">
 {{- end -}}
 {{- $metadata := .resource.Params.image_metadata | default dict -}}
-<img src="{{ partial "resource_url.html" (dict "context" .context "url" .resource.Params.file) }}" {{ if index $metadata "image-alt" -}}alt="{{ index $metadata "image-alt" }}"{{- end }} />
+{{ partial "picture_element.html" (dict "src" (partial "resource_url.html" (dict "context" .context "url" .resource.Params.file)) "alt" (index $metadata "image-alt" | default "") "sizes" "100vw") }}
 {{- if $imageHref -}}
     </a>
 {{- end -}}
