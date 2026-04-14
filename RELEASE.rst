@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.148.0
+Version 1.148.0 (Released April 14, 2026)
 ---------------
 
 - chore: addressed feedback and fixed bad rebase (#1783)
