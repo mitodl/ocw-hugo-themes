@@ -48,3 +48,18 @@ function setOrGetLocalStorageItemHelper(
     return false
   }
 }
+
+/**
+ * Appends Fastly Image Optimizer query params to an image URL.
+ * Only applies to absolute (http/https) or root-relative (/) URLs;
+ * relative paths (offline builds) are returned unchanged.
+ */
+export function fastlyOptimizedUrl(
+  url: string,
+  params: Record<string, string>
+): string {
+  if (!url || (!url.startsWith("http") && !url.startsWith("/"))) return url
+  const separator = url.includes("?") ? "&" : "?"
+  const qs = new URLSearchParams(params).toString()
+  return `${url}${separator}${qs}`
+}
