@@ -39,7 +39,7 @@ test.describe("Course v3 SEO", () => {
     )
   })
 
-  test("Course v3 canonical URL uses Learn domain", async ({ page }) => {
+  test("Course v3 canonical URL uses Learn domain with /courses/o/ path", async ({ page }) => {
     const canonicalDomain = env.COURSE_V3_CANONICAL_DOMAIN ?
       env.COURSE_V3_CANONICAL_DOMAIN :
       "learn.mit.edu"
@@ -50,17 +50,17 @@ test.describe("Course v3 SEO", () => {
     const canonical = page.locator('link[rel="canonical"]')
     await expect(canonical).toHaveAttribute(
       "href",
-      new RegExp(`^https://${canonicalDomain}/courses/`)
+      new RegExp(`^https://${canonicalDomain}/courses/o/ocw-ci-test-course/`)
     )
 
     const ogUrl = page.locator('meta[property="og:url"]')
     await expect(ogUrl).toHaveAttribute(
       "content",
-      new RegExp(`^https://${canonicalDomain}/courses/`)
+      new RegExp(`^https://${canonicalDomain}/courses/o/ocw-ci-test-course/`)
     )
   })
 
-  test("Course v3 subpage canonical URL uses Learn domain", async ({
+  test("Course v3 subpage canonical URL includes subpath after course key", async ({
     page
   }) => {
     const canonicalDomain = env.COURSE_V3_CANONICAL_DOMAIN ?
@@ -72,8 +72,8 @@ test.describe("Course v3 SEO", () => {
 
     const canonical = page.locator('link[rel="canonical"]')
     const href = await canonical.getAttribute("href")
-    expect(href).toMatch(
-      new RegExp(`^https://${canonicalDomain}/courses/.*pages/syllabus`)
+    expect(href).toBe(
+      `https://${canonicalDomain}/courses/o/ocw-ci-test-course/pages/syllabus/`
     )
   })
 

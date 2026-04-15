@@ -1,2 +1,5 @@
 {{- $domain := getenv "COURSE_V3_CANONICAL_DOMAIN" | default "learn.mit.edu" -}}
-{{- return printf "https://%s%s" (strings.TrimSuffix "/" $domain) .RelPermalink -}}
+{{- $siteShortId := .Site.Data.course.site_short_id -}}
+{{- $baseUrlPath := (urls.Parse .Site.BaseURL).Path | strings.TrimSuffix "/" -}}
+{{- $subPath := strings.TrimPrefix $baseUrlPath .RelPermalink -}}
+{{- return printf "https://%s/courses/o/%s%s" (strings.TrimSuffix "/" $domain) $siteShortId $subPath -}}
