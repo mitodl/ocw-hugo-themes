@@ -19,10 +19,12 @@
   Output (when optimizable):
     <picture>
       <source type="image/avif"
-              srcset="<src>?format=avif&quality=60&width=1280 1280w,
+              srcset="<src>?format=avif&quality=60&width=480 480w,
+                      <src>?format=avif&quality=60&width=800 800w,
+                      <src>?format=avif&quality=60&width=1280 1280w,
                       <src>?format=avif&quality=60&width=1920 1920w"
               sizes="...">
-      <img src="<src>" ...>
+      <img src="<src>" alt="..." ...>
     </picture>
 */}}
 
@@ -38,15 +40,17 @@
   {{- $canOptimize := or (hasPrefix $src "http://") (hasPrefix $src "https://") (hasPrefix $src "/") -}}
   {{- if $canOptimize -}}
     {{- $separator := cond (strings.Contains $src "?") "&" "?" -}}
+    {{- $avif480  := printf "%s%sformat=avif&quality=60&width=480 480w"   $src $separator -}}
+    {{- $avif800  := printf "%s%sformat=avif&quality=60&width=800 800w"   $src $separator -}}
     {{- $avif1280 := printf "%s%sformat=avif&quality=60&width=1280 1280w" $src $separator -}}
     {{- $avif1920 := printf "%s%sformat=avif&quality=60&width=1920 1920w" $src $separator -}}
 <picture>
   <source type="image/avif"
-          srcset="{{ $avif1280 }}, {{ $avif1920 }}"
+          srcset="{{ $avif480 }}, {{ $avif800 }}, {{ $avif1280 }}, {{ $avif1920 }}"
           sizes="{{ $sizes }}">
-  <img src="{{ $src }}"{{ with $alt }} alt="{{ . }}"{{ end }}{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}" />
+  <img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}" />
 </picture>
   {{- else -}}
-<img src="{{ $src }}"{{ with $alt }} alt="{{ . }}"{{ end }}{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}" />
+<img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}" />
   {{- end -}}
 {{- end -}}

@@ -1,19 +1,4 @@
-/**
- * Appends Fastly Image Optimizer query params to an image URL.
- * Only applies to absolute (http/https) or root-relative (/) URLs;
- * relative paths (offline) are returned unchanged.
- */
-function fastlyOptimizedUrl(
-  url: string,
-  params: Record<string, string>
-): string {
-  if (!url || (!url.startsWith("http") && !url.startsWith("/"))) return url
-  const separator = url.includes("?") ? "&" : "?"
-  const qs = Object.entries(params)
-    .map(([k, v]) => `${k}=${v}`)
-    .join("&")
-  return `${url}${separator}${qs}`
-}
+import { fastlyOptimizedUrl } from "../../../base-theme/assets/js/utils"
 
 export function initImageGalleriesFromMarkup() {
   const galleries = document.querySelectorAll(".image-gallery")
