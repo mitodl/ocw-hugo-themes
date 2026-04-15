@@ -39,6 +39,44 @@ test.describe("Course v3 SEO", () => {
     )
   })
 
+  test("Course v3 canonical URL uses Learn domain", async ({ page }) => {
+    const canonicalDomain = env.COURSE_V3_CANONICAL_DOMAIN ?
+      env.COURSE_V3_CANONICAL_DOMAIN :
+      "learn.mit.edu"
+    const course = new CoursePage(page, "course-v3")
+
+    await course.goto("/")
+
+    const canonical = page.locator('link[rel="canonical"]')
+    await expect(canonical).toHaveAttribute(
+      "href",
+      new RegExp(`^https://${canonicalDomain}/courses/`)
+    )
+
+    const ogUrl = page.locator('meta[property="og:url"]')
+    await expect(ogUrl).toHaveAttribute(
+      "content",
+      new RegExp(`^https://${canonicalDomain}/courses/`)
+    )
+  })
+
+  test("Course v3 subpage canonical URL uses Learn domain", async ({
+    page
+  }) => {
+    const canonicalDomain = env.COURSE_V3_CANONICAL_DOMAIN ?
+      env.COURSE_V3_CANONICAL_DOMAIN :
+      "learn.mit.edu"
+    const course = new CoursePage(page, "course-v3")
+
+    await course.goto("/pages/syllabus")
+
+    const canonical = page.locator('link[rel="canonical"]')
+    const href = await canonical.getAttribute("href")
+    expect(href).toMatch(
+      new RegExp(`^https://${canonicalDomain}/courses/.*pages/syllabus`)
+    )
+  })
+
   test("Course v3 robots.txt allows crawling by default", async ({ page }) => {
     const sitemapDomain = env.SITEMAP_DOMAIN ?
       env.SITEMAP_DOMAIN :

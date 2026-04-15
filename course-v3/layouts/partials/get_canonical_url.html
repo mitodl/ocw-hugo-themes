@@ -1,0 +1,2 @@
+{{- $domain := getenv "COURSE_V3_CANONICAL_DOMAIN" | default "learn.mit.edu" -}}
+{{- return printf "https://%s%s" (strings.TrimSuffix "/" $domain) .RelPermalink -}}
