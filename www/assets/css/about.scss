@@ -94,7 +94,7 @@
         max-width: 33.3333%;
       }
 
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up(xl) {
         flex-basis: 25%;
         max-width: 25%;
       }
