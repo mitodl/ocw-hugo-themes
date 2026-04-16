@@ -47,17 +47,13 @@ test.describe("Course v3 SEO", () => {
 
     await course.goto("/")
 
+    const expectedUrl = `https://${canonicalDomain}/courses/o/ocw-ci-test-course/`
+
     const canonical = page.locator('link[rel="canonical"]')
-    await expect(canonical).toHaveAttribute(
-      "href",
-      new RegExp(`^https://${canonicalDomain}/courses/o/ocw-ci-test-course/`)
-    )
+    await expect(canonical).toHaveAttribute("href", expectedUrl)
 
     const ogUrl = page.locator('meta[property="og:url"]')
-    await expect(ogUrl).toHaveAttribute(
-      "content",
-      new RegExp(`^https://${canonicalDomain}/courses/o/ocw-ci-test-course/`)
-    )
+    await expect(ogUrl).toHaveAttribute("content", expectedUrl)
   })
 
   test("Course v3 subpage canonical URL includes subpath after course key", async ({
@@ -90,5 +86,16 @@ test.describe("Course v3 SEO", () => {
       `Sitemap: https://${sitemapDomain}/sitemap.xml`
     )
     await expect(page.locator("body")).toContainText("Allow: /")
+  })
+
+  test("Course v3 does not emit noindex meta tag by default", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+
+    await course.goto("/")
+
+    const noindexMeta = page.locator('meta[name="robots"][content="noindex"]')
+    await expect(noindexMeta).toHaveCount(0)
   })
 })
