@@ -35,8 +35,7 @@
   },
   "license": "BSD-3-CLAUSE",
   "resolutions": {
-    "jquery": "3.7.1",
-    "natives": "1.1.6"
+    "jquery": "3.7.1"
   },
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
@@ -85,8 +84,6 @@
     "yup": "^1.6.1"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@babel/preset-typescript": "^7.25.7",
     "@mitodl/ocw-to-hugo": "1.36.0",
     "@playwright/test": "^1.56.0",
     "@rrweb/types": "2.0.0-alpha.17",
