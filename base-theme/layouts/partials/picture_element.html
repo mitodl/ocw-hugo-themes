@@ -1,0 +1,56 @@
+{{/*
+  Renders a responsive <picture> element with AVIF srcset via Fastly Image Optimizer,
+  falling back to the original image for non-AVIF browsers and offline builds.
+
+  Parameters (via dict):
+    .src      — required — already-resolved image URL (from resource_url.html or similar)
+    .alt      — optional — alt text (default "")
+    .class    — optional — CSS class(es) for the <img> element
+    .sizes    — optional — sizes attribute (default "100vw")
+    .loading  — optional — loading attribute (default "lazy")
+    .decoding — optional — decoding attribute (default "async")
+
+  Optimization is applied when the src is an absolute URL (http(s)://) or a root-relative
+  path (/images/...). Both will be served through Fastly in production.
+
+  When the src is a relative path (e.g. ../../static_resources/..., used in offline builds),
+  the partial emits a plain <img> without optimization.
+
+  Output (when optimizable):
+    <picture>
+      <source type="image/avif"
+              srcset="<src>?format=avif&quality=60&width=480 480w,
+                      <src>?format=avif&quality=60&width=800 800w,
+                      <src>?format=avif&quality=60&width=1280 1280w,
+                      <src>?format=avif&quality=60&width=1920 1920w"
+              sizes="...">
+      <img src="<src>" alt="..." ...>
+    </picture>
+*/}}
+
+{{- $src      := .src | default "" -}}
+{{- $alt      := .alt | default "" -}}
+{{- $class    := .class | default "" -}}
+{{- $sizes    := .sizes | default "100vw" -}}
+{{- $loading  := .loading | default "lazy" -}}
+{{- $decoding := .decoding | default "async" -}}
+
+{{- if $src -}}
+  {{/* Optimize absolute URLs and root-relative paths; skip relative paths (offline) */}}
+  {{- $canOptimize := or (hasPrefix $src "http://") (hasPrefix $src "https://") (hasPrefix $src "/") -}}
+  {{- if $canOptimize -}}
+    {{- $separator := cond (strings.Contains $src "?") "&" "?" -}}
+    {{- $avif480  := printf "%s%sformat=avif&quality=60&width=480 480w"   $src $separator -}}
+    {{- $avif800  := printf "%s%sformat=avif&quality=60&width=800 800w"   $src $separator -}}
+    {{- $avif1280 := printf "%s%sformat=avif&quality=60&width=1280 1280w" $src $separator -}}
+    {{- $avif1920 := printf "%s%sformat=avif&quality=60&width=1920 1920w" $src $separator -}}
+<picture>
+  <source type="image/avif"
+          srcset="{{ $avif480 }}, {{ $avif800 }}, {{ $avif1280 }}, {{ $avif1920 }}"
+          sizes="{{ $sizes }}">
+  <img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}" />
+</picture>
+  {{- else -}}
+<img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}" />
+  {{- end -}}
+{{- end -}}

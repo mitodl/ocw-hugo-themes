@@ -134,8 +134,7 @@
       <div id="impact-report" class="pb-7">
         <div class="row no-gutters px-lg-6">
           <div class="col-12 col-lg-6">
-            <img class="img-responsive w-100" src="/images/about/impact-report.jpeg"
-              alt="Students engaging with MIT OpenCourseWare" />
+            {{ partial "picture_element.html" (dict "src" "/images/about/impact-report.jpeg" "alt" "Students engaging with MIT OpenCourseWare" "class" "img-responsive w-100" "sizes" "(min-width: 992px) 50vw, 100vw") }}
           </div>
           <div class="col-12 col-lg-6 bg-black px-0">
             <div class="d-flex justify-content-center align-items-center h-100 px-sm-7 px-5 py-5">
@@ -261,7 +260,7 @@
               President's Message
             </h1>
             <div id="president-image" class="d-inline-block">
-              <img class="img-responsive" src="/images/about/president-kornbluth.jpeg" alt="" />
+              {{ partial "picture_element.html" (dict "src" "/images/about/president-kornbluth.jpeg" "class" "img-responsive" "sizes" "(min-width: 992px) 50vw, 100vw") }}
               <div class="text-left px-3 px-lg-0 pt-4">
                 MIT President Sally Kornbluth
               </div>
