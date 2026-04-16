@@ -39,7 +39,9 @@ test.describe("Course v3 SEO", () => {
     )
   })
 
-  test("Course v3 canonical URL uses Learn domain with /courses/o/ path", async ({ page }) => {
+  test("Course v3 canonical URL uses Learn domain with /courses/o/ path", async ({
+    page
+  }) => {
     const canonicalDomain = env.COURSE_V3_CANONICAL_DOMAIN ?
       env.COURSE_V3_CANONICAL_DOMAIN :
       "learn.mit.edu"
