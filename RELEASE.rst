@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.148.1
+---------------
+
+- Add icons section for about page and replace ocw@20 video (#1787)
+- Remove two deprecated dependencies (#1790)
+- Generate complete data.json files (#1780)
+- Update dependency posthog-js to v1.367.0 (#1788)
+
 Version 1.148.0 (Released April 14, 2026)
 ---------------
 
