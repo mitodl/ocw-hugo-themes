@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.148.1
+Version 1.148.1 (Released April 22, 2026)
 ---------------
 
 - Add icons section for about page and replace ocw@20 video (#1787)
