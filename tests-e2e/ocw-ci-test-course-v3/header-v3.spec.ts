@@ -38,6 +38,7 @@ test.describe("MIT Learn Header", () => {
     await course.goto("/")
 
     const navDrawer = page.locator("#mit-learn-nav-drawer")
+    await expect(navDrawer).toHaveAttribute("inert", "")
     await expect(navDrawer).not.toHaveClass(/open/)
 
     // Click menu button (desktop or mobile depending on viewport)
@@ -47,6 +48,7 @@ test.describe("MIT Learn Header", () => {
 
     await expect(navDrawer).toHaveClass(/open/)
     await expect(menuButton).toHaveAttribute("aria-expanded", "true")
+    await expect(navDrawer).not.toHaveAttribute("inert", "")
   })
 
   test("Navigation drawer contains Learn section with correct links", async ({
@@ -61,6 +63,7 @@ test.describe("MIT Learn Header", () => {
 
     const navDrawer = page.locator("#mit-learn-nav-drawer")
     await expect(navDrawer).toHaveClass(/open/)
+    await expect(navDrawer).not.toHaveAttribute("inert", "")
 
     // Check Learn section links - verify path patterns (base URL may vary by environment)
     const coursesLink = navDrawer.getByRole("link", {
@@ -99,6 +102,7 @@ test.describe("MIT Learn Header", () => {
     const navDrawer = page.locator("#mit-learn-nav-drawer")
     await expect(navDrawer).toHaveClass(/open/)
     await expect(menuButton).toHaveAttribute("aria-expanded", "true")
+    await expect(navDrawer).not.toHaveAttribute("inert", "")
 
     // Close drawer
     const closeButton = page.locator("#mit-learn-nav-close")
@@ -106,6 +110,7 @@ test.describe("MIT Learn Header", () => {
 
     await expect(navDrawer).not.toHaveClass(/open/)
     await expect(menuButton).toHaveAttribute("aria-expanded", "false")
+    await expect(navDrawer).toHaveAttribute("inert", "")
   })
 
   test("Clicking backdrop closes navigation drawer", async ({ page }) => {
@@ -119,6 +124,7 @@ test.describe("MIT Learn Header", () => {
     const navDrawer = page.locator("#mit-learn-nav-drawer")
     await expect(navDrawer).toHaveClass(/open/)
     await expect(menuButton).toHaveAttribute("aria-expanded", "true")
+    await expect(navDrawer).not.toHaveAttribute("inert", "")
 
     // Click backdrop
     const backdrop = page.locator("#mit-learn-nav-backdrop")
@@ -126,6 +132,7 @@ test.describe("MIT Learn Header", () => {
 
     await expect(navDrawer).not.toHaveClass(/open/)
     await expect(menuButton).toHaveAttribute("aria-expanded", "false")
+    await expect(navDrawer).toHaveAttribute("inert", "")
   })
 
   test("Mobile course menu is sticky and closed by default", async ({
