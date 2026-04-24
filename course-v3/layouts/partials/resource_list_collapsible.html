@@ -1,4 +1,5 @@
 {{ $expand := .expand }}
+{{ $urlContext := .urlContext }}
 {{ with .context}}
   {{ $numberOfResourcesLimit := 10 }}
   <div class="resource-list">
@@ -27,12 +28,14 @@
     {{ end }}
 
     <div id="resource-list-container-{{ $resourceSlug }}" class="collapse{{ if $expand }} show{{ end }}">
-      {{ partial "resource_list.html" (dict "context" . "resources" $resources "limitResources" $numberOfResources) }}
+      {{ $listContext := . }}
+      {{ if $urlContext }}{{ $listContext = $urlContext }}{{ end }}
+      {{ partial "resource_list.html" (dict "context" $listContext "resources" $resources "limitResources" $numberOfResources) }}
 
       {{ if eq $limitedResourcesShown true }}
         <div class="d-flex">
           <div class="ml-auto see-all-container">
-          {{ partial "see_all.html" (dict "context" . "permalink" .RelPermalink) }}
+          {{ partial "see_all.html" (dict "context" $listContext "permalink" .RelPermalink) }}
           </div>
         </div>
       {{ end }}
