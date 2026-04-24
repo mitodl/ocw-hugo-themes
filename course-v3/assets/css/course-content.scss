@@ -30,13 +30,6 @@
     font-weight: $mit-learn-font-weight-bold;
   }
 
-  a:hover,
-  a:focus-visible,
-  a:active {
-    color: $highlight-red;
-    text-decoration-color: $highlight-red;
-  }
-
   // Table spacing
   table {
     margin-bottom: 0 !important;
@@ -46,6 +39,14 @@
     // Body text — scoped so it doesn't bleed outside the content body
     :is(p, li, td, th) {
       line-height: 22px;
+    }
+
+    // Link hover — scoped to content body so it doesn't affect nav or download buttons
+    a:hover,
+    a:focus-visible,
+    a:active {
+      color: $highlight-red;
+      text-decoration-color: $highlight-red;
     }
 
     // Content heading sizes — scoped so the page title h2 keeps its 18px

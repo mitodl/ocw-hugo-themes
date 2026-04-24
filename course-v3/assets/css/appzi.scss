@@ -1,0 +1,12 @@
+$appzi-launcher-top: 1000px;
+$appzi-survey-top: 500px;
+
+@media (min-height: $tall-screen-breakpoint) {
+  div[data-appzi-dom="launcher"] {
+    top: $appzi-launcher-top !important;
+  }
+
+  div[data-appzi-dom="survey"] {
+    top: $appzi-survey-top !important;
+  }
+}
