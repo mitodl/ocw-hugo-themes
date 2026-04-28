@@ -1,5 +1,5 @@
 {{- $gtmId := getenv "GTM_ACCOUNT_ID" -}}
-{{- $noindex := getenv "NOINDEX" -}}
+{{- $noindex := partial "noindex.html" . -}}
 
 <head>
   {{ if $gtmId }}
@@ -12,7 +12,7 @@
     <!-- End Google Tag Manager -->
   {{ end }}
   {{ block "extrahead" . }}{{ end }}
-  {{ if eq $noindex "true" }}
+  {{ if $noindex }}
   <meta name="robots" content="noindex">
   {{ end }}
   <meta charset="utf-8">
