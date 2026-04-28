@@ -49,10 +49,6 @@ const envSchema = {
     desc:       "Whether a noindex tag should be added to prevent indexing by web crawlers.",
     devDefault: false
   }),
-  COURSE_V3_NOINDEX: envalid.bool({
-    desc:       "Whether a noindex tag should be added to course-v3 pages. Takes precedence over NOINDEX for the course-v3 theme.",
-    devDefault: false
-  }),
   OCW_COURSE_STARTER_SLUG: envalid.str({
     desc:       "Used when querying the OCW Studio API for course information",
     devDefault: "ocw-course-v2"

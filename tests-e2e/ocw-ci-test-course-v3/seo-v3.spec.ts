@@ -89,15 +89,4 @@ test.describe("Course v3 SEO", () => {
     )
     await expect(page.locator("body")).toContainText("Allow: /")
   })
-
-  test("Course v3 does not emit noindex meta tag by default", async ({
-    page
-  }) => {
-    const course = new CoursePage(page, "course-v3")
-
-    await course.goto("/")
-
-    const noindexMeta = page.locator('meta[name="robots"][content="noindex"]')
-    await expect(noindexMeta).toHaveCount(0)
-  })
 })

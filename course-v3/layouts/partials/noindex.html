@@ -1,3 +1,0 @@
-{{- $courseV3Noindex := eq (lower (getenv "COURSE_V3_NOINDEX")) "true" -}}
-{{- $noindex := eq (lower (getenv "NOINDEX")) "true" -}}
-{{- return or $courseV3Noindex $noindex -}}

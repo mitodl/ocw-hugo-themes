@@ -2,7 +2,7 @@
 Sitemap: https://{{ $sitemapDomain }}/sitemap.xml
 
 User-agent: *
-{{ $noindex := partial "noindex.html" . }}
+{{ $noindex := eq (lower (getenv "NOINDEX")) "true" }}
 {{ if $noindex }}
 Disallow: /
 {{ else }}
