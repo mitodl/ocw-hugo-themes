@@ -1,6 +1,10 @@
 {{/*
-  Renders a responsive <picture> element with AVIF srcset via Fastly Image Optimizer,
-  falling back to the original image for non-AVIF browsers and offline builds.
+  Renders a responsive <picture> element with WebP srcset via Fastly Image Optimizer,
+  falling back to the original image for non-WebP browsers and offline builds.
+
+  Fastly IO is configured with webp=True in image_optimizer_default_settings.
+  WebP is the only format currently enabled at the Fastly service level; AVIF support
+  can be added once avif=True is set in the Pulumi config for ocw_site.
 
   Parameters (via dict):
     .src      — required — already-resolved image URL (from resource_url.html or similar)
@@ -18,11 +22,11 @@
 
   Output (when optimizable):
     <picture>
-      <source type="image/avif"
-              srcset="<src>?format=avif&quality=60&width=480 480w,
-                      <src>?format=avif&quality=60&width=800 800w,
-                      <src>?format=avif&quality=60&width=1280 1280w,
-                      <src>?format=avif&quality=60&width=1920 1920w"
+      <source type="image/webp"
+              srcset="<src>?format=webp&quality=60&width=480 480w,
+                      <src>?format=webp&quality=60&width=800 800w,
+                      <src>?format=webp&quality=60&width=1280 1280w,
+                      <src>?format=webp&quality=60&width=1920 1920w"
               sizes="...">
       <img src="<src>" alt="..." ...>
     </picture>
@@ -40,13 +44,13 @@
   {{- $canOptimize := or (hasPrefix $src "http://") (hasPrefix $src "https://") (hasPrefix $src "/") -}}
   {{- if $canOptimize -}}
     {{- $separator := cond (strings.Contains $src "?") "&" "?" -}}
-    {{- $avif480  := printf "%s%sformat=avif&quality=60&width=480 480w"   $src $separator -}}
-    {{- $avif800  := printf "%s%sformat=avif&quality=60&width=800 800w"   $src $separator -}}
-    {{- $avif1280 := printf "%s%sformat=avif&quality=60&width=1280 1280w" $src $separator -}}
-    {{- $avif1920 := printf "%s%sformat=avif&quality=60&width=1920 1920w" $src $separator -}}
-<picture>
-  <source type="image/avif"
-          srcset="{{ $avif480 }}, {{ $avif800 }}, {{ $avif1280 }}, {{ $avif1920 }}"
+    {{- $webp480  := printf "%s%sformat=webp&quality=60&width=480 480w"   $src $separator -}}
+    {{- $webp800  := printf "%s%sformat=webp&quality=60&width=800 800w"   $src $separator -}}
+    {{- $webp1280 := printf "%s%sformat=webp&quality=60&width=1280 1280w" $src $separator -}}
+    {{- $webp1920 := printf "%s%sformat=webp&quality=60&width=1920 1920w" $src $separator -}}
+<picture style="display: contents">
+  <source type="image/webp"
+          srcset="{{ $webp480 }}, {{ $webp800 }}, {{ $webp1280 }}, {{ $webp1920 }}"
           sizes="{{ $sizes }}">
   <img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}" />
 </picture>

@@ -1,17 +1,21 @@
-import { fastlyOptimizedUrl } from "../../../base-theme/assets/js/utils"
+import { fastlyOptimizedGalleryUrl } from "../../../base-theme/assets/js/utils"
 
 export function initImageGalleriesFromMarkup() {
   const galleries = document.querySelectorAll(".image-gallery")
   galleries.forEach(gallery => {
-    const baseUrl = gallery.getAttribute("data-base-url")
+    const baseUrl = gallery.getAttribute("data-base-url") || ""
 
     const links = gallery.querySelectorAll("a[href]")
     const items = Array.from(links).map(link => {
       const src = link.getAttribute("href") || ""
       return {
-        src,
-        srct: fastlyOptimizedUrl(src, {
-          format:  "avif",
+        src: fastlyOptimizedGalleryUrl(src, baseUrl, {
+          format:  "webp",
+          quality: "60",
+          width:   "1920"
+        }),
+        srct: fastlyOptimizedGalleryUrl(src, baseUrl, {
+          format:  "webp",
           quality: "60",
           width:   "480"
         }),
@@ -20,17 +24,17 @@ export function initImageGalleriesFromMarkup() {
       }
     })
 
-    // nanogallery2 renders thumbnails as plain <img> (no <picture>), so AVIF
-    // thumbnails will fail in non-AVIF browsers. Watch for img elements as
+    // nanogallery2 renders thumbnails as plain <img> (no <picture>), so WebP
+    // thumbnails will fail in non-WebP browsers. Watch for img elements as
     // nanogallery2 creates them (including lazy-loaded ones) and attach an
-    // onerror that falls back to format=auto when AVIF is not supported.
+    // onerror that falls back to format=auto when WebP is not supported.
     const addAvifFallback = (img: HTMLImageElement) => {
       if (img.dataset.avifFallbackSet) return
       img.dataset.avifFallbackSet = "1"
       img.addEventListener(
         "error",
         () => {
-          img.src = img.src.replace(/\bformat=avif\b/, "format=auto")
+          img.src = img.src.replace(/\bformat=webp\b/, "format=auto")
         },
         { once: true }
       )

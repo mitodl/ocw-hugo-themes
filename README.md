@@ -178,6 +178,23 @@ To further explain the various environment variables and what they do:
 
 Most tests in OCW Hugo Themes should be written as e2e tests with Playwright. See [End to End Testing](./tests-e2e/README.md) for more.
 
+### Responsive images
+
+Use the shared `picture_element.html` partial for content images that should be served through Fastly Image Optimizer:
+
+```go-html-template
+{{ partial "picture_element.html" (dict
+  "src" (partial "resource_url.html" (dict "context" . "url" .Params.file))
+  "alt" "Descriptive alt text"
+  "class" "img-fluid"
+  "sizes" "(min-width: 992px) 50vw, 100vw"
+) }}
+```
+
+The partial renders WebP `srcset` candidates at `480w`, `800w`, `1280w`, and `1920w`, with the original image URL kept on the fallback `<img>`. Root-relative and absolute URLs are optimized; relative paths are emitted as a plain `<img>` so offline bundles continue to use original local assets. Fastly IO currently has WebP enabled for OCW; add other formats only after the service defaults support them.
+
+Choose `sizes` based on the rendered slot width, not the source image width. Use `100vw` for full-width content images, `50vw` for two-column desktop layouts with a `100vw` mobile fallback, and fixed values such as `200px` only when the component has a fixed image slot.
+
 ### Miscellaneous commands
 
 - `WEBPACK_ANALYZE=true yarn run build:webpack`: This builds the project for production and should open an analysis of the bundle in your web browser.
