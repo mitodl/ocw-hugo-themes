@@ -43,6 +43,10 @@ $(function() {
   window.videojs = videojs
 })
 
+let nanogallery2Initialized = false
+
 window.initNanogallery2 = () => {
+  if (nanogallery2Initialized) return
   initImageGalleriesFromMarkup()
+  nanogallery2Initialized = true
 }
