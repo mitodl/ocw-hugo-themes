@@ -36,7 +36,12 @@
     ],
     "website": "ocw-www"
   },
+  "audience": ["Learners"],
   "course_image": {
+    "content": "5388b0c3-c599-4c42-8a3c-f89beed7c154",
+    "website": "ocw-ci-test-course"
+  },
+  "course_image_thumbnail": {
     "content": "5388b0c3-c599-4c42-8a3c-f89beed7c154",
     "website": "ocw-ci-test-course"
   },
@@ -57,5 +62,6 @@
     "Exams",
     "Exam Solutions"
   ],
-  "site_uid": "554fc3fa-2f4b-4a94-87f4-19e51ae36920"
+  "site_uid": "554fc3fa-2f4b-4a94-87f4-19e51ae36920",
+  "site_url_path": "courses/ocw-ci-test-course"
 }
