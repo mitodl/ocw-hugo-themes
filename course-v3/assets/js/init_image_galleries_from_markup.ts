@@ -27,9 +27,9 @@ export function initImageGalleriesFromMarkup() {
     // thumbnails will fail in non-WebP browsers. Watch for img elements as
     // nanogallery2 creates them (including lazy-loaded ones) and attach an
     // onerror that falls back to format=auto when WebP is not supported.
-    const addAvifFallback = (img: HTMLImageElement) => {
-      if (img.dataset.avifFallbackSet) return
-      img.dataset.avifFallbackSet = "1"
+    const addWebpFallback = (img: HTMLImageElement) => {
+      if (img.dataset.webpFallbackSet) return
+      img.dataset.webpFallbackSet = "1"
       img.addEventListener(
         "error",
         () => {
@@ -38,8 +38,19 @@ export function initImageGalleriesFromMarkup() {
         { once: true }
       )
     }
-    const observer = new MutationObserver(() => {
-      gallery.querySelectorAll<HTMLImageElement>("img").forEach(addAvifFallback)
+    const addWebpFallbackFromNode = (node: Node) => {
+      if (!(node instanceof Element)) return
+      if (node instanceof HTMLImageElement) {
+        addWebpFallback(node)
+        return
+      }
+      node.querySelectorAll<HTMLImageElement>("img").forEach(addWebpFallback)
+    }
+    gallery.querySelectorAll<HTMLImageElement>("img").forEach(addWebpFallback)
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(addWebpFallbackFromNode)
+      })
     })
     observer.observe(gallery, { childList: true, subtree: true })
 
