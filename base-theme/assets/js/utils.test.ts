@@ -5,10 +5,10 @@ describe("fastlyOptimizedUrl", () => {
     expect(
       fastlyOptimizedUrl("/images/example.jpg", {
         format:  "webp",
-        quality: "60",
+        quality: "75",
         width:   "480"
       })
-    ).toBe("/images/example.jpg?format=webp&quality=60&width=480")
+    ).toBe("/images/example.jpg?format=webp&quality=75&width=480")
   })
 
   it("preserves existing query params", () => {
