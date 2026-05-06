@@ -135,6 +135,37 @@ Run `yarn start course --help` , `yarn start www --help`, and see [Environment V
 
 **Customizing site content:** To customize site content, either edit the site markdown locally, or edit the site at https://ocw-studio-rc.odl.mit.edu/sites/. After editing content in Studio, run `yarn start course <course-short-id>` (or `yarn start www` if you're working on ocw-www). If you already had the site locally, you will need to `cd` to the content directory and manually fetch the updated content with `git pull`.
 
+### Testing course-v3 Path Prefixes
+
+To build a course-v3 site at a prefixed path such as `/courses/o/...`, use:
+
+```bash
+yarn build:course-v3-prefixed <course id> --serve
+```
+
+The base URL is derived from course metadata (`data/course.json`): it uses the last segment of `site_url_path` if present, otherwise assembles a slug from `primary_course_number`, `course_title`, `term`, and `year`. The result is joined with the prefix (default `/courses/o`) to form the full site-relative path, e.g., `/courses/o/9.40-spring-2018`. Other defaults come from `COURSE_CONTENT_PATH`, `OCW_TEST_COURSE`, `COURSE_V3_HUGO_CONFIG_PATH`, `RESOURCE_BASE_URL`, and `STATIC_API_BASE_URL`.
+
+```bash
+# Use a different prefix (e.g., testing a /courses/x/... deployment)
+yarn build:course-v3-prefixed 9.40-spring-2018 --base-url-prefix /courses/x --serve
+
+# Skip metadata derivation entirely and set the full path directly
+yarn build:course-v3-prefixed 9.40-spring-2018 --base-url /courses/o/neural-computation --serve
+```
+
+Key flags:
+
+| Flag | Description |
+| --- | --- |
+| `--base-url <path>` | Override the derived site-relative path (e.g., `/courses/o/my-course`) |
+| `--base-url-prefix <path>` | Prefix used when deriving the base URL from course metadata (default: `/courses/o`) |
+| `--content-dir <path>` | Path to course content root (default: `COURSE_CONTENT_PATH`) |
+| `--out-dir <path>` | Output root directory (default: `build/prefixed-course-v3`) |
+| `--clean` | Remove prior output for this course before rebuilding |
+| `--skip-webpack` | Reuse existing webpack assets (faster rebuilds) |
+| `--serve` | Serve the output after building |
+| `--port <number>` | Port for `--serve` (default: `8000`) |
+
 ### Obtaining and Creating Content
 
 Content for the themes in this repo can be generated using an instance of [`ocw-studio`](https://github.com/mitodl/ocw-studio), a CMS used to author OCW sites. The RC instance is located at https://ocw-studio-rc.odl.mit.edu. Its content is published to MIT's Github Enterprise instance under the [`ocw-content-rc`](https://github.mit.edu/ocw-content-rc) organization. For the `www` theme, content can be found in the [`ocw-www`](https://github.mit.edu/ocw-content-rc/ocw-www) repo. For the `course` theme, use any repo in the [`ocw-content-rc`](https://github.mit.edu/ocw-content-rc) organization created using the `ocw-course` starter or create and publish your own.
@@ -157,6 +188,7 @@ To further explain the various environment variables and what they do:
 | `SITEMAP_DOMAIN`          | `base-theme`                  | `ocw.mit.edu`                                       | The domain used when writing fully qualified URLs into the sitemap                                                                                                                           |
 | `WWW_HUGO_CONFIG_PATH`    | `www`                         | `/path/to/ocw-hugo-projects/ocw-www/config.yaml`    | A path to the `ocw-www` Hugo configuration file                                                                                                                                              |
 | `COURSE_HUGO_CONFIG_PATH` | `course`                      | `/path/to/ocw-hugo-projects/ocw-course/config.yaml` | A path to the `ocw-course` Hugo configuration file                                                                                                                                           |
+| `COURSE_V3_BASE_URL_PREFIX` | `course-v3`                  | `/courses/o`                                        | The base URL prefix used when deriving prefixed course-v3 build paths                                                                                                                        |
 | `WWW_CONTENT_PATH`        | `www`                         | `/path/to/ocw-content-rc/ocw-www`                   | A path to a Hugo site that will be rendered when running `yarn start www`                                                                                                                    |
 | `COURSE_CONTENT_PATH`     | `course`                      | `/path/to/ocw-content-rc/`                          | A path to a base folder containing `ocw-course` type Hugo sites                                                                                                                              |
 | `OCW_TEST_COURSE`         | `course`                      | `18.06-spring-2010`                                 | The name of a folder in `COURSE_CONTENT_PATH` containing a Hugo site that will be rendered when running `yarn start course`                                                                  |
