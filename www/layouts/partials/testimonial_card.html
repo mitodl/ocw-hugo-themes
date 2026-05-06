@@ -3,11 +3,7 @@
 <div class="h-100 testimonial-card">
   <div class="testimonial d-flex flex-column rounded h-100">
     <div class="testimonial-image-wrapper">
-      <img 
-        src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $testimonial.Params.image.content).Params.file) }}" 
-        alt="{{ $testimonial.Title }}" 
-        class="testimonial-image"
-      >
+      {{ partial "picture_element.html" (dict "src" (partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $testimonial.Params.image.content).Params.file)) "alt" $testimonial.Title "class" "testimonial-image" "sizes" "(min-width: 768px) 33vw, 100vw") }}
     </div>
     <div class="testimonial-title {{if $testimonial.Params.is_quote}}quote{{ end }}">
       {{ if eq .source "list" }}

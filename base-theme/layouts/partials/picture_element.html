@@ -1,0 +1,87 @@
+{{/*
+  Renders a responsive <picture> element with WebP srcset via Fastly Image Optimizer,
+  falling back to the original image for non-WebP browsers and offline builds.
+
+  Fastly IO is configured with webp=True in image_optimizer_default_settings.
+  WebP is the only format currently enabled at the Fastly service level; AVIF support
+  can be added once avif=True is set in the Pulumi config for ocw_site.
+
+  Parameters (via dict):
+    .src      — required — already-resolved image URL (from resource_url.html or similar)
+    .alt      — optional — alt text (default "")
+    .class    — optional — CSS class(es) for the <img> element
+    .sizes    — optional — sizes attribute (default "100vw")
+    .loading  — optional — loading attribute (default "lazy")
+    .decoding — optional — decoding attribute (default "async")
+
+  Optimization is applied when the src is an absolute URL (http(s)://) or a root-relative
+  path (/images/...). Both will be served through Fastly in production.
+
+  When the src is a relative path (e.g. ../../static_resources/..., used in offline builds),
+  the partial emits a plain <img> without optimization.
+
+  Output (when optimizable):
+    <picture>
+      <!-- 3x DPR (e.g. modern smartphones): Fastly dpr=3 returns width*3 physical pixels -->
+      <source type="image/webp"
+              media="(-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi)"
+              srcset="<src>?format=webp&quality=75&width=480&dpr=3 480w, ..."
+              sizes="...">
+      <!-- 2x DPR (e.g. Retina laptops, iPhone): Fastly dpr=2 returns width*2 physical pixels -->
+      <source type="image/webp"
+              media="(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)"
+              srcset="<src>?format=webp&quality=75&width=480&dpr=2 480w, ..."
+              sizes="...">
+      <!-- 1x DPR fallback -->
+      <source type="image/webp"
+              srcset="<src>?format=webp&quality=75&width=480 480w,
+                      <src>?format=webp&quality=75&width=800 800w,
+                      <src>?format=webp&quality=75&width=1280 1280w,
+                      <src>?format=webp&quality=75&width=1920 1920w"
+              sizes="...">
+      <img src="<src>" alt="..." ...>
+    </picture>
+*/}}
+
+{{- $src      := .src | default "" -}}
+{{- $alt      := .alt | default "" -}}
+{{- $class    := .class | default "" -}}
+{{- $sizes    := .sizes | default "100vw" -}}
+{{- $loading  := .loading | default "lazy" -}}
+{{- $decoding := .decoding | default "async" -}}
+
+{{- if $src -}}
+  {{/* Optimize absolute URLs and root-relative paths; skip relative paths (offline) */}}
+  {{- $canOptimize := or (hasPrefix $src "http://") (hasPrefix $src "https://") (hasPrefix $src "/") -}}
+  {{- if $canOptimize -}}
+    {{- $separator   := cond (strings.Contains $src "?") "&" "?" -}}
+    {{- $webp480     := printf "%s%sformat=webp&quality=75&width=480 480w"          $src $separator -}}
+    {{- $webp800     := printf "%s%sformat=webp&quality=75&width=800 800w"          $src $separator -}}
+    {{- $webp1280    := printf "%s%sformat=webp&quality=75&width=1280 1280w"        $src $separator -}}
+    {{- $webp1920    := printf "%s%sformat=webp&quality=75&width=1920 1920w"        $src $separator -}}
+    {{- $webp480_2x  := printf "%s%sformat=webp&quality=75&width=480&dpr=2 480w"   $src $separator -}}
+    {{- $webp800_2x  := printf "%s%sformat=webp&quality=75&width=800&dpr=2 800w"   $src $separator -}}
+    {{- $webp1280_2x := printf "%s%sformat=webp&quality=75&width=1280&dpr=2 1280w" $src $separator -}}
+    {{- $webp1920_2x := printf "%s%sformat=webp&quality=75&width=1920&dpr=2 1920w" $src $separator -}}
+    {{- $webp480_3x  := printf "%s%sformat=webp&quality=75&width=480&dpr=3 480w"   $src $separator -}}
+    {{- $webp800_3x  := printf "%s%sformat=webp&quality=75&width=800&dpr=3 800w"   $src $separator -}}
+    {{- $webp1280_3x := printf "%s%sformat=webp&quality=75&width=1280&dpr=3 1280w" $src $separator -}}
+    {{- $webp1920_3x := printf "%s%sformat=webp&quality=75&width=1920&dpr=3 1920w" $src $separator -}}
+<picture style="display: contents">
+  <source type="image/webp"
+          media="(-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi)"
+          srcset="{{ $webp480_3x }}, {{ $webp800_3x }}, {{ $webp1280_3x }}, {{ $webp1920_3x }}"
+          sizes="{{ $sizes }}">
+  <source type="image/webp"
+          media="(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)"
+          srcset="{{ $webp480_2x }}, {{ $webp800_2x }}, {{ $webp1280_2x }}, {{ $webp1920_2x }}"
+          sizes="{{ $sizes }}">
+  <source type="image/webp"
+          srcset="{{ $webp480 }}, {{ $webp800 }}, {{ $webp1280 }}, {{ $webp1920 }}"
+          sizes="{{ $sizes }}">
+  <img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}" />
+</picture>
+  {{- else -}}
+<img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}" />
+  {{- end -}}
+{{- end -}}

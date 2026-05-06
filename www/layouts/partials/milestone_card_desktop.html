@@ -1,6 +1,6 @@
 <div id="milestone-card-desktop-{{ .Title }}" class="milestone-card">
   <div class="milestone-card-img">
-    <img src="{{ .Params.image }}" />
+    {{ partial "picture_element.html" (dict "src" .Params.image "sizes" "(min-width: 992px) 25vw, 50vw") }}
     <span class="milestone-card-img-dot"></span>
     <span class="timeline-red-dot"></span>
     <span class="timeline-red-line"></span>
