@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.148.2
+Version 1.148.2 (Released May 06, 2026)
 ---------------
 
 - Update End-to-End Test Site Content (#1794)
