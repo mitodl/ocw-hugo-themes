@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.148.3
+Version 1.148.3 (Released May 06, 2026)
 ---------------
 
 - Remove Amy Taber from OCW Team listing (#1796)
