@@ -100,14 +100,20 @@ const readCourseMetadata = async (
   return JSON.parse(metadata) as CourseMetadata
 }
 
-const resolveContentDir = (contentDir: string, courseShortId: string): string => {
+const resolveContentDir = (
+  contentDir: string,
+  courseShortId: string
+): string => {
   const resolved = path.resolve(contentDir)
   return fs.existsSync(path.join(resolved, "data/course.json")) ?
     resolved :
     path.join(resolved, courseShortId)
 }
 
-const ensureContent = async (contentDir: string, courseShortId: string): Promise<void> => {
+const ensureContent = async (
+  contentDir: string,
+  courseShortId: string
+): Promise<void> => {
   if (fs.existsSync(path.join(contentDir, "data/course.json"))) return
   const repoUrl = `${env.GIT_CONTENT_SOURCE}/${courseShortId}.git`
   console.log(color.cyan(`Cloning course content from ${repoUrl}...`))
