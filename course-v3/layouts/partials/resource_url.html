@@ -1,0 +1,17 @@
+{{- $url := .url -}}
+{{/*
+  Here we are disassembling the URL and returning a URL rooted at RESOURCE_BASE_URL.
+  Resource paths from Studio can include a leading course path segment
+  (for example, courses/foo), which is stripped before prefixing.
+  We also prepend Hugo's baseURL path segment before final URL construction.
+*/}}
+{{- if .url -}}
+  {{- $prefix := getenv "RESOURCE_BASE_URL" | default "" -}}
+  {{- $path := (urls.Parse .url).Path -}}
+  {{- $path = strings.TrimPrefix "/" $path -}}
+  {{- $path = replaceRE "^courses/[^/]+/?" "" $path -}}
+  {{- $basePath := (urls.Parse site.BaseURL) -}}
+  {{- $path = printf "%s/%s" (strings.TrimSuffix "/" $basePath.Path) (strings.TrimPrefix "/" $path) -}}
+  {{- $url = printf "%s/%s" (strings.TrimSuffix "/" $prefix) (strings.TrimPrefix "/" $path) -}}
+{{- end -}}
+{{- return $url -}}
