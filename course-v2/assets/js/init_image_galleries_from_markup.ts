@@ -11,12 +11,12 @@ export function initImageGalleriesFromMarkup() {
       return {
         src: fastlyOptimizedGalleryUrl(src, baseUrl, {
           format:  "webp",
-          quality: "60",
+          quality: "75",
           width:   "1920"
         }),
         srct: fastlyOptimizedGalleryUrl(src, baseUrl, {
           format:  "webp",
-          quality: "60",
+          quality: "75",
           width:   "480"
         }),
         title:       link.innerHTML,

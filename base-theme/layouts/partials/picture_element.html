@@ -22,11 +22,22 @@
 
   Output (when optimizable):
     <picture>
+      <!-- 3x DPR (e.g. modern smartphones): Fastly dpr=3 returns width*3 physical pixels -->
       <source type="image/webp"
-              srcset="<src>?format=webp&quality=60&width=480 480w,
-                      <src>?format=webp&quality=60&width=800 800w,
-                      <src>?format=webp&quality=60&width=1280 1280w,
-                      <src>?format=webp&quality=60&width=1920 1920w"
+              media="(-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi)"
+              srcset="<src>?format=webp&quality=75&width=480&dpr=3 480w, ..."
+              sizes="...">
+      <!-- 2x DPR (e.g. Retina laptops, iPhone): Fastly dpr=2 returns width*2 physical pixels -->
+      <source type="image/webp"
+              media="(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)"
+              srcset="<src>?format=webp&quality=75&width=480&dpr=2 480w, ..."
+              sizes="...">
+      <!-- 1x DPR fallback -->
+      <source type="image/webp"
+              srcset="<src>?format=webp&quality=75&width=480 480w,
+                      <src>?format=webp&quality=75&width=800 800w,
+                      <src>?format=webp&quality=75&width=1280 1280w,
+                      <src>?format=webp&quality=75&width=1920 1920w"
               sizes="...">
       <img src="<src>" alt="..." ...>
     </picture>
@@ -43,12 +54,28 @@
   {{/* Optimize absolute URLs and root-relative paths; skip relative paths (offline) */}}
   {{- $canOptimize := or (hasPrefix $src "http://") (hasPrefix $src "https://") (hasPrefix $src "/") -}}
   {{- if $canOptimize -}}
-    {{- $separator := cond (strings.Contains $src "?") "&" "?" -}}
-    {{- $webp480  := printf "%s%sformat=webp&quality=60&width=480 480w"   $src $separator -}}
-    {{- $webp800  := printf "%s%sformat=webp&quality=60&width=800 800w"   $src $separator -}}
-    {{- $webp1280 := printf "%s%sformat=webp&quality=60&width=1280 1280w" $src $separator -}}
-    {{- $webp1920 := printf "%s%sformat=webp&quality=60&width=1920 1920w" $src $separator -}}
+    {{- $separator   := cond (strings.Contains $src "?") "&" "?" -}}
+    {{- $webp480     := printf "%s%sformat=webp&quality=75&width=480 480w"          $src $separator -}}
+    {{- $webp800     := printf "%s%sformat=webp&quality=75&width=800 800w"          $src $separator -}}
+    {{- $webp1280    := printf "%s%sformat=webp&quality=75&width=1280 1280w"        $src $separator -}}
+    {{- $webp1920    := printf "%s%sformat=webp&quality=75&width=1920 1920w"        $src $separator -}}
+    {{- $webp480_2x  := printf "%s%sformat=webp&quality=75&width=480&dpr=2 480w"   $src $separator -}}
+    {{- $webp800_2x  := printf "%s%sformat=webp&quality=75&width=800&dpr=2 800w"   $src $separator -}}
+    {{- $webp1280_2x := printf "%s%sformat=webp&quality=75&width=1280&dpr=2 1280w" $src $separator -}}
+    {{- $webp1920_2x := printf "%s%sformat=webp&quality=75&width=1920&dpr=2 1920w" $src $separator -}}
+    {{- $webp480_3x  := printf "%s%sformat=webp&quality=75&width=480&dpr=3 480w"   $src $separator -}}
+    {{- $webp800_3x  := printf "%s%sformat=webp&quality=75&width=800&dpr=3 800w"   $src $separator -}}
+    {{- $webp1280_3x := printf "%s%sformat=webp&quality=75&width=1280&dpr=3 1280w" $src $separator -}}
+    {{- $webp1920_3x := printf "%s%sformat=webp&quality=75&width=1920&dpr=3 1920w" $src $separator -}}
 <picture style="display: contents">
+  <source type="image/webp"
+          media="(-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi)"
+          srcset="{{ $webp480_3x }}, {{ $webp800_3x }}, {{ $webp1280_3x }}, {{ $webp1920_3x }}"
+          sizes="{{ $sizes }}">
+  <source type="image/webp"
+          media="(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)"
+          srcset="{{ $webp480_2x }}, {{ $webp800_2x }}, {{ $webp1280_2x }}, {{ $webp1920_2x }}"
+          sizes="{{ $sizes }}">
   <source type="image/webp"
           srcset="{{ $webp480 }}, {{ $webp800 }}, {{ $webp1280 }}, {{ $webp1920 }}"
           sizes="{{ $sizes }}">
