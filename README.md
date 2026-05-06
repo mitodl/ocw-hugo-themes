@@ -140,10 +140,10 @@ Run `yarn start course --help` , `yarn start www --help`, and see [Environment V
 To build a course-v3 site at a prefixed path such as `/courses/o/...`, use:
 
 ```bash
-yarn build:course-v3-prefixed <course id> --serve
+yarn build:course-v3-prefixed <short-id> --serve
 ```
 
-The base URL is derived from course metadata (`data/course.json`): it uses the last segment of `site_url_path` if present, otherwise assembles a slug from `primary_course_number`, `course_title`, `term`, and `year`. The result is joined with the prefix (default `/courses/o`) to form the full site-relative path, e.g., `/courses/o/9.40-spring-2018`. Other defaults come from `COURSE_CONTENT_PATH`, `OCW_TEST_COURSE`, `COURSE_V3_HUGO_CONFIG_PATH`, `RESOURCE_BASE_URL`, and `STATIC_API_BASE_URL`.
+The base URL is derived from course metadata (`data/course.json`): it uses the last segment of `site_url_path` if present, otherwise assembles a slug from `primary_course_number`, `course_title`, `term`, and `year`. The result is joined with the prefix (default `/courses/o`) to form the full site-relative path, e.g., `/courses/o/9-40-introduction-to-neural-computation-spring-2018`. Other defaults come from `COURSE_CONTENT_PATH`, `OCW_TEST_COURSE`, `COURSE_V3_HUGO_CONFIG_PATH`, `RESOURCE_BASE_URL`, and `STATIC_API_BASE_URL`.
 
 ```bash
 # Use a different prefix (e.g., testing a /courses/x/... deployment)
