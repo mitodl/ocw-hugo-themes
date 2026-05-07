@@ -112,6 +112,10 @@ const envSchema = {
       "../ocw-hugo-projects/ocw-course-v3/config.yaml"
     )
   }),
+  COURSE_V3_BASE_URL_PREFIX: envalid.str({
+    desc:       "Base URL prefix used for prefixed ocw-course-v3 builds",
+    devDefault: "/courses/o"
+  }),
   COURSE_V3_OFFLINE_HUGO_CONFIG_PATH: envalid.str({
     desc:       "Path to the offline ocw-course-v3 Hugo configuration file",
     devDefault: path.resolve(
