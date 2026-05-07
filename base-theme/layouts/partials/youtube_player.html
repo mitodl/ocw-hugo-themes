@@ -16,7 +16,7 @@
     {{ end }}
     Viewing videos requires an internet connection
   </div>
-{{ else }}
+{{ end }}
 <div class="video-container embedded-video-container youtube-container">
   <video
     id="video-player-{{ .youtubeKey }}-{{ $random }}"
@@ -40,6 +40,7 @@
   {{ end }}
 </div>
 
+{{ if not .isOffline }}
 <div class="video-fallback-container" style="display:none">
   <div class="video-fallback-warning" role="alert">
     <div class="warning-icon">
@@ -60,6 +61,7 @@
     <iframe src="https://www.youtube.com/embed/{{ .youtubeKey }}"></iframe>
   </div>
 </div>
+{{ end }}
 
 <script>
   window.handleVideoJSError = function(err) {
@@ -88,4 +90,3 @@
     }
   })
 </script>
-{{ end }}
