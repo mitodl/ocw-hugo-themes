@@ -9,7 +9,7 @@
 {{end}}
 {{$youtubeParams = printf "%s" `"ytControls":2}` | printf "%s%s" $youtubeParams |}}
 {{ if .isOffline }}
-  <div class="show-offline d-none alert alert-warning" role="alert">
+  <div class="show-offline alert alert-warning" role="alert">
     {{ $searchSvg := resources.Get "images/search.svg" }}
     {{ if $searchSvg }}
       {{ $searchSvg.Content | safeHTML }}
@@ -23,13 +23,13 @@
     class="video-js vjs-default-skin vjs-big-play-centered vjs-ocw"
     controls
     data-downloadlink = "{{ .downloadLink }}"
-    data-transcriptlink = "{{ .transcriptLink }}" 
-    data-setup='{
+    data-transcriptlink = "{{ .transcriptLink }}"
+    {{ if not .isOffline }}data-setup='{
     "fluid": true,
     "techOrder": ["youtube"],
     "inactivityTimeout": 0,
     "sources": [{"type": "video/youtube", "src": "https://www.youtube.com/embed/{{ .youtubeKey }}"}]
-    {{$youtubeParams}} }'
+    {{$youtubeParams}} }'{{ end }}
   >
       {{ if .captionsLocation }}
         <track kind="captions" src="{{ .captionsLocation }}" mode="disabled" srclang="en" label="English">
