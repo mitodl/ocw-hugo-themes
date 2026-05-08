@@ -2,8 +2,6 @@ import { test, expect } from "@playwright/test"
 import { offlineFileUrl, expectLocalPackageHref } from "../util"
 
 /**
- * Step 15 – External-resource behavior (offline-v3)
- *
  * Acceptance route: /pages/external-resources-page
  *
  * The page contains:
