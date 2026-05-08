@@ -10,12 +10,12 @@
         {{ with .Pages }}
           {{ range . }}
             {{ if in .Title "Video" }}
-              {{ partial "resource_list_collapsible.html" (dict "context" . "expand" true) }}
+              {{ partial "resource_list_collapsible.html" (dict "context" . "expand" true "urlContext" $) }}
             {{ end }}
           {{ end }}
           {{ range . }}
             {{ if not (in .Title "Video") }}
-              {{ partial "resource_list_collapsible.html" (dict "context" . "expand" false) }}
+              {{ partial "resource_list_collapsible.html" (dict "context" . "expand" false "urlContext" $) }}
             {{ end }}
           {{ end }}
         {{ end }}
