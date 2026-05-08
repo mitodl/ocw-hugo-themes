@@ -1,0 +1,37 @@
+{{/*
+  video_transcript_links.html
+
+  Resolves video_transcript_file into a slice of transcript link dicts.
+  Handles both legacy (string) and new (array of objects) formats.
+
+  Input: dict with:
+    - "context" : page context (for resource_url resolution)
+    - "transcriptFile" : .Params.video_files.video_transcript_file (string or array)
+
+  Returns: slice of dicts with keys: "href", "language", "label"
+*/}}
+{{- $context := .context -}}
+{{- $transcriptFile := .transcriptFile -}}
+{{- $links := slice -}}
+
+{{- if $transcriptFile -}}
+  {{- $type := printf "%T" $transcriptFile -}}
+  {{- if or (eq $type "[]interface {}") (eq $type "[]map[string]interface {}") -}}
+    {{/* New array format: [{file: "...", language: "en"}, ...] */}}
+    {{- range $transcriptFile -}}
+      {{- $file := .file -}}
+      {{- $lang := .language | default "en" -}}
+      {{- $href := partial "resource_url.html" (dict "context" $context "url" $file) -}}
+      {{- $label := partial "human_language.html" $lang -}}
+      {{- $links = $links | append (dict "href" $href "language" $lang "label" $label) -}}
+    {{- end -}}
+  {{- else -}}
+    {{/* Legacy string format: single file path */}}
+    {{- $href := partial "resource_url.html" (dict "context" $context "url" $transcriptFile) -}}
+    {{- if $href -}}
+      {{- $links = $links | append (dict "href" $href "language" "en" "label" "English") -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- return $links -}}

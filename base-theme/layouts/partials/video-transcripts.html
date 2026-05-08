@@ -1,0 +1,25 @@
+{{/*
+  video-transcripts.html
+
+  Renders transcript download links below a video player.
+  Receives a slice of transcript link objects from video_transcript_links.html.
+
+  Input: dict with:
+    - "transcriptLinks" : slice of dicts with keys: "href", "language", "label"
+
+  If the slice is empty or nil, produces no output.
+*/}}
+{{- $transcriptLinks := .transcriptLinks -}}
+{{- if and $transcriptLinks (gt (len $transcriptLinks) 0) -}}
+<div class="ocw-transcript-section">
+  <ul class="ocw-transcript-list">
+    {{- range $transcriptLinks }}
+    <li lang="{{ .language }}">
+      <a href="{{ .href }}" download aria-label="{{ .label }} transcript (PDF)">
+        {{ .label }} Transcript (PDF)
+      </a>
+    </li>
+    {{- end }}
+  </ul>
+</div>
+{{- end -}}

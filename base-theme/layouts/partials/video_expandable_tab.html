@@ -33,7 +33,13 @@
           <a href="{{ .downloadLink }}" target="_blank" aria-label="Download video">Download video</a>
         </li>
       {{ end }}
-      {{ if .transcriptLink }}
+      {{ if .transcriptLinks }}
+        {{ range .transcriptLinks }}
+        <li>
+          <a href="{{ .href }}" target="_blank" lang="{{ .language }}" aria-label="{{ .label }} transcript (PDF)">{{ .label }} Transcript (PDF)</a>
+        </li>
+        {{ end }}
+      {{ else if .transcriptLink }}
         <li>
           <a href="{{ .transcriptLink }}" target="_blank" aria-label="Download transcript">Download transcript</a>
         </li>

@@ -1,0 +1,58 @@
+{{/*
+  video_caption_tracks.html
+
+  Resolves video_captions_file into a slice of caption track dicts.
+  Handles both legacy (string) and new (array of objects) formats.
+
+  Input: dict with:
+    - "context" : page context (for resource_url resolution)
+    - "captionsFile" : .Params.video_files.video_captions_file (string or array)
+
+  Returns: slice of dicts with keys: "src", "srclang", "label", "isDefault"
+*/}}
+{{- $context := .context -}}
+{{- $captionsFile := .captionsFile -}}
+{{- $tracks := slice -}}
+
+{{- if $captionsFile -}}
+  {{- $type := printf "%T" $captionsFile -}}
+  {{- if or (eq $type "[]interface {}") (eq $type "[]map[string]interface {}") -}}
+    {{/* New array format: [{file: "...", language: "en"}, ...] */}}
+    {{/* First pass: check whether any English track exists */}}
+    {{- $hasEnglish := false -}}
+    {{- range $captionsFile -}}
+      {{- if eq (.language | default "en") "en" -}}
+        {{- $hasEnglish = true -}}
+      {{- end -}}
+    {{- end -}}
+    {{/* Second pass: build tracks; when no English exists, first track gets default */}}
+    {{- $firstDone := false -}}
+    {{- range $captionsFile -}}
+      {{- $file := .file -}}
+      {{- $lang := .language | default "en" -}}
+      {{- $locale := .locale | default "" -}}
+      {{- $srclang := $lang -}}
+      {{- if $locale -}}
+        {{- $srclang = printf "%s-%s" $lang $locale -}}
+      {{- end -}}
+      {{- $src := partial "video_captions_file_url.html" (dict "context" $context "url" $file) -}}
+      {{- $label := partial "human_language.html" $lang -}}
+      {{- $isDefault := false -}}
+      {{- if $hasEnglish -}}
+        {{- $isDefault = eq $lang "en" -}}
+      {{- else if not $firstDone -}}
+        {{- $isDefault = true -}}
+        {{- $firstDone = true -}}
+      {{- end -}}
+      {{- $tracks = $tracks | append (dict "src" $src "srclang" $srclang "label" $label "isDefault" $isDefault) -}}
+    {{- end -}}
+  {{- else -}}
+    {{/* Legacy string format: single file path */}}
+    {{- $src := partial "video_captions_file_url.html" (dict "context" $context "url" $captionsFile) -}}
+    {{- if $src -}}
+      {{- $tracks = $tracks | append (dict "src" $src "srclang" "en" "label" "English" "isDefault" true) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- return $tracks -}}

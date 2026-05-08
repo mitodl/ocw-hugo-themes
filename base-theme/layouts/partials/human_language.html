@@ -1,0 +1,7 @@
+{{- $code := . -}}
+{{- $languages := dict "en" "English" "fr" "French" "es" "Spanish" "zh" "Chinese" "de" "German" "ar" "Arabic" "pt" "Portuguese" "ja" "Japanese" "ko" "Korean" "ru" "Russian" "it" "Italian" "nl" "Dutch" "hi" "Hindi" "tr" "Turkish" "pl" "Polish" "vi" "Vietnamese" "th" "Thai" "he" "Hebrew" "uk" "Ukrainian" "sv" "Swedish" -}}
+{{- $name := index $languages $code -}}
+{{- if not $name -}}
+  {{- $name = upper $code -}}
+{{- end -}}
+{{- return $name -}}
