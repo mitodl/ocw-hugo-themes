@@ -88,3 +88,27 @@ test("Has expected meta tags in <head>", async ({ page }) => {
     "summary_large_image"
   )
 })
+
+test("Appzi script is present on the page", async ({ page }) => {
+  const course = new CoursePage(page, "course")
+  await course.goto()
+
+  const appziScript = page.locator('script[src*="https://w.appzi.io/w.js"]')
+  await expect(appziScript).toHaveCount(1)
+})
+
+test("Course robots.txt allows crawling by default", async ({ page }) => {
+  const sitemapDomain = env.SITEMAP_DOMAIN ?
+    env.SITEMAP_DOMAIN :
+    "https://live-qa.ocw.mit.edu"
+  const course = new CoursePage(page, "course")
+
+  const response = await course.goto("/robots.txt")
+
+  expect(response?.ok()).toBeTruthy()
+  await expect(page.locator("body")).toContainText(
+    `Sitemap: https://${sitemapDomain}/sitemap.xml`
+  )
+  // Empty Disallow (no path) means allow all crawling
+  await expect(page.locator("body")).not.toContainText("Disallow: /")
+})

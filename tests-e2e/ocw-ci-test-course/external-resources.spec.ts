@@ -130,8 +130,9 @@ test("Modal's close buttons close modal", async ({ page }) => {
     await expect(dialog).toBeVisible()
     await expect(modalTitle).toBeVisible()
 
-    const closeButton = await page.getByRole("button", {
-      name: closeButtonName
+    const closeButton = await dialog.getByRole("button", {
+      name:  closeButtonName,
+      exact: true
     })
     await closeButton.click()
 

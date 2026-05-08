@@ -16,6 +16,12 @@ $panel-course-info-text-color: #464646;
   }
 }
 
+.course-info-section-label {
+  font-size: $course-heading-five-font !important;
+  line-height: $course-heading-five-line-height !important;
+  font-weight: 500 !important;
+}
+
 .panel-course-info-title {
   text-transform: uppercase;
   color: $panel-course-info-text-color !important;

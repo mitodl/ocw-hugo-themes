@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
+import { VideoElement } from "../util/VideoElement"
 
 test("Start and end times does not exist", async ({ page }) => {
   const course = new CoursePage(page, "course")
@@ -10,16 +11,21 @@ test("Start and end times does not exist", async ({ page }) => {
   expect(src).not.toMatch(/.*?end=.*/)
 })
 
-test("Start time exists and transcript line matches", async ({ page }) => {
+test("Start time exists and transcript section can be expanded", async ({
+  page
+}) => {
   const course = new CoursePage(page, "course")
+  const videoElement = new VideoElement(page)
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
   const src = await page.locator("iframe.vjs-tech").getAttribute("src")
   expect(src).toMatch(/.*?start=13.*/)
 
-  const transcriptLine = page.locator('.transcript-line[data-begin="12.06"]')
-  await expect(transcriptLine).toContainText(
-    "so here's our runner, and here's our road"
-  )
+  await videoElement.tab({ name: "Transcript", exact: true }).click()
+  await expect(
+    videoElement.tab({ name: "Transcript", expanded: true, exact: true })
+  ).toBeVisible()
+  await videoElement.downloadButton().click()
+  await expect(videoElement.downloadTranscript()).toBeVisible()
 })
 
 test("End time exists", async ({ page }) => {

@@ -3,7 +3,7 @@
 <div class="video-tab-toggle-section pointer">
   <div class="video-tab-header d-flex">
     {{ if .tabTitle }}
-      <span class="tab-title-section">
+      <span class="tab-title-section"{{ if not (and .resourceUrl $isEmbedVideo) }} role="tablist"{{ end }}>
         {{ if and .resourceUrl $isEmbedVideo }}
           <a href="{{ .resourceUrl }}" aria-label="{{ .tabTitle }}">
           {{ partial "video_tab_title.html" (dict "tabTitle" .tabTitle) }}

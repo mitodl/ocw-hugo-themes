@@ -26,17 +26,22 @@
   {{ partial "extra_metadata.html" (dict "context" . ) }}
 
   <link rel="canonical" href="{{- $canonicalURL -}}" />
+  <link rel="alternate" hreflang="en" href="{{- $canonicalURL -}}" />
+  <link rel="alternate" hreflang="x-default" href="{{- $canonicalURL -}}" />
 
   <script type="application/ld+json">
       {
-        "@context": "http://schema.org/",
+        "@context": "https://schema.org",
         "@type" : "WebPage",
-        "name": "MIT OpenCourseWare",
+        "name": "{{- $title -}}",
+        "url": "{{- $canonicalURL -}}",
         "description": "{{- $metaDataDescription -}}",
-        "license": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "inLanguage": "en",
         "publisher": {
           "@type": "CollegeOrUniversity",
-          "name": "MIT OpenCourseWare"
+          "name": "MIT OpenCourseWare",
+          "url": "https://{{- $sitemapDomain -}}"
         }
       }
   </script>
