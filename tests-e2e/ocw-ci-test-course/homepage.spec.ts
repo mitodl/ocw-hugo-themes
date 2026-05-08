@@ -89,20 +89,12 @@ test("Has expected meta tags in <head>", async ({ page }) => {
   )
 })
 
-test("Appzi is only injected on the production sitemap domain", async ({
-  page
-}) => {
+test("Appzi script is present on the page", async ({ page }) => {
   const course = new CoursePage(page, "course")
-  const sitemapDomain = env.SITEMAP_DOMAIN.replace(/\/$/, "")
   await course.goto()
 
   const appziScript = page.locator('script[src*="https://w.appzi.io/w.js"]')
-
-  if (sitemapDomain === "ocw.mit.edu") {
-    await expect(appziScript).toHaveCount(1)
-  } else {
-    await expect(appziScript).toHaveCount(0)
-  }
+  await expect(appziScript).toHaveCount(1)
 })
 
 test("Course robots.txt allows crawling by default", async ({ page }) => {

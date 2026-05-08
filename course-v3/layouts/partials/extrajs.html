@@ -1,9 +1,5 @@
 {{- define "extrajs" -}}
-{{- $sitemapDomain := strings.TrimSuffix "/" (partial "sitemap_domain.html") -}}
-{{- if eq $sitemapDomain "ocw.mit.edu" -}}
-<!-- Appzi is only enabled on the public production domain to avoid third-party
-requests in local/preview environments and keep Lighthouse measurements clean. -->
+<!-- Appzi: Capture Insightful Feedback -->
 <script async src="https://w.appzi.io/w.js?token=Tgs1d"></script>
 <!-- End Appzi -->
-{{- end -}}
 {{- end -}}
