@@ -1,7 +1,29 @@
-{{- $code := . -}}
+{{/*
+  human_language.html
+
+  Converts an ISO 639-1 language code (and optional locale) into a display name.
+
+  Input: string code  OR  dict with:
+    - "language" : ISO 639-1 two-letter code (e.g. "en")
+    - "locale"   : ISO 3166-1 alpha-2 region code (e.g. "US") — optional
+
+  Returns: display string, e.g. "English", "English (US)", "French"
+  Falls back to uppercase code when unknown, e.g. "ZZ"
+*/}}
+{{- $lang := "" -}}
+{{- $locale := "" -}}
+{{- if eq (printf "%T" .) "string" -}}
+  {{- $lang = . -}}
+{{- else -}}
+  {{- $lang = .language | default "" -}}
+  {{- $locale = .locale | default "" -}}
+{{- end -}}
 {{- $languages := dict "en" "English" "fr" "French" "es" "Spanish" "zh" "Chinese" "de" "German" "ar" "Arabic" "pt" "Portuguese" "ja" "Japanese" "ko" "Korean" "ru" "Russian" "it" "Italian" "nl" "Dutch" "hi" "Hindi" "tr" "Turkish" "pl" "Polish" "vi" "Vietnamese" "th" "Thai" "he" "Hebrew" "uk" "Ukrainian" "sv" "Swedish" -}}
-{{- $name := index $languages $code -}}
+{{- $name := index $languages $lang -}}
 {{- if not $name -}}
-  {{- $name = upper $code -}}
+  {{- $name = upper $lang -}}
+{{- end -}}
+{{- if $locale -}}
+  {{- $name = printf "%s (%s)" $name (upper $locale) -}}
 {{- end -}}
 {{- return $name -}}

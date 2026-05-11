@@ -43,7 +43,7 @@ export class VideoElement {
 
   downloadTranscript(): Locator {
     return this.container.getByRole("link", {
-      name: `Download transcript`
+      name: /Transcript \(PDF\)/i
     })
   }
 

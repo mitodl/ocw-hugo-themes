@@ -36,7 +36,7 @@
         {{- $srclang = printf "%s-%s" $lang $locale -}}
       {{- end -}}
       {{- $src := partial "video_captions_file_url.html" (dict "context" $context "url" $file) -}}
-      {{- $label := partial "human_language.html" $lang -}}
+      {{- $label := partial "human_language.html" (dict "language" $lang "locale" $locale) -}}
       {{- $isDefault := false -}}
       {{- if $hasEnglish -}}
         {{- $isDefault = eq $lang "en" -}}

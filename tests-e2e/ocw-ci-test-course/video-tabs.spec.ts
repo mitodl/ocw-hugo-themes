@@ -66,7 +66,7 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
 
   const videoDownloadLink = page.getByRole("link", { name: "Download video" })
   const transcriptDownloadLink = page.getByRole("link", {
-    name: "Download transcript"
+    name: /Transcript \(PDF\)/i
   })
   const downloadLinksArr = [videoDownloadLink, transcriptDownloadLink]
 
