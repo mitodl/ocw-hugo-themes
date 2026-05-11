@@ -1,10 +1,12 @@
 {{/*
-  Renders a responsive <picture> element with WebP srcset via Fastly Image Optimizer,
-  falling back to the original image for non-WebP browsers and offline builds.
+  Renders a responsive <img> with srcset/sizes via Fastly Image Optimizer.
+
+  Uses format=auto so Fastly serves WebP to browsers that accept it (via the Accept
+  request header) and the original format to browsers that do not. This is semantically
+  equivalent to a <picture><source type="image/webp"> fallback, but emits a plain <img>
+  so the DOM structure is unchanged and existing CSS selectors keep working.
 
   Fastly IO is configured with webp=True in image_optimizer_default_settings.
-  WebP is the only format currently enabled at the Fastly service level; AVIF support
-  can be added once avif=True is set in the Pulumi config for ocw_site.
 
   Parameters (via dict):
     .src      — required — already-resolved image URL (from resource_url.html or similar)
@@ -21,15 +23,19 @@
   the partial emits a plain <img> without optimization.
 
   Output (when optimizable):
-    <picture>
-      <source type="image/webp"
-              srcset="<src>?format=webp&quality=60&width=480 480w,
-                      <src>?format=webp&quality=60&width=800 800w,
-                      <src>?format=webp&quality=60&width=1280 1280w,
-                      <src>?format=webp&quality=60&width=1920 1920w"
-              sizes="...">
-      <img src="<src>" alt="..." ...>
-    </picture>
+    <img src="<src>"
+         srcset="<src>?format=auto&quality=75&width=480 480w,
+                 <src>?format=auto&quality=75&width=800 800w,
+                 <src>?format=auto&quality=75&width=1280 1280w,
+                 <src>?format=auto&quality=75&width=1920 1920w,
+                 <src>?format=auto&quality=75&width=2560 2560w,
+                 <src>?format=auto&quality=75&width=3840 3840w"
+         sizes="..."
+         alt="..." ...>
+
+  DPR handling: browsers using `w` descriptors already factor in devicePixelRatio when
+  selecting a srcset candidate. The extended breakpoints (2560w, 3840w) cover 2x and 3x
+  retina displays natively — no Fastly dpr= param or extra <source> elements are needed.
 */}}
 
 {{- $src      := .src | default "" -}}
@@ -44,16 +50,13 @@
   {{- $canOptimize := or (hasPrefix $src "http://") (hasPrefix $src "https://") (hasPrefix $src "/") -}}
   {{- if $canOptimize -}}
     {{- $separator := cond (strings.Contains $src "?") "&" "?" -}}
-    {{- $webp480  := printf "%s%sformat=webp&quality=60&width=480 480w"   $src $separator -}}
-    {{- $webp800  := printf "%s%sformat=webp&quality=60&width=800 800w"   $src $separator -}}
-    {{- $webp1280 := printf "%s%sformat=webp&quality=60&width=1280 1280w" $src $separator -}}
-    {{- $webp1920 := printf "%s%sformat=webp&quality=60&width=1920 1920w" $src $separator -}}
-<picture style="display: contents">
-  <source type="image/webp"
-          srcset="{{ $webp480 }}, {{ $webp800 }}, {{ $webp1280 }}, {{ $webp1920 }}"
-          sizes="{{ $sizes }}">
-  <img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}" />
-</picture>
+    {{- $w480  := printf "%s%sformat=auto&quality=75&width=480 480w"   $src $separator -}}
+    {{- $w800  := printf "%s%sformat=auto&quality=75&width=800 800w"   $src $separator -}}
+    {{- $w1280 := printf "%s%sformat=auto&quality=75&width=1280 1280w" $src $separator -}}
+    {{- $w1920 := printf "%s%sformat=auto&quality=75&width=1920 1920w" $src $separator -}}
+    {{- $w2560 := printf "%s%sformat=auto&quality=75&width=2560 2560w" $src $separator -}}
+    {{- $w3840 := printf "%s%sformat=auto&quality=75&width=3840 3840w" $src $separator -}}
+<img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} srcset="{{ $w480 }}, {{ $w800 }}, {{ $w1280 }}, {{ $w1920 }}, {{ $w2560 }}, {{ $w3840 }}" sizes="{{ $sizes }}" loading="{{ $loading }}" decoding="{{ $decoding }}" />
   {{- else -}}
 <img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}" />
   {{- end -}}
