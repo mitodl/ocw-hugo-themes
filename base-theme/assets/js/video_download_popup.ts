@@ -5,10 +5,7 @@ export const initVideoDownloadPopup = () => {
   let activePopupDownloadIconIndex = -1
 
   function resetPopupToMainMenu(popup: HTMLElement) {
-    const mainMenu = popup.querySelector(".download-menu-main") as HTMLElement | null
-    const subMenu = popup.querySelector(".download-menu-submenu") as HTMLElement | null
-    if (mainMenu) mainMenu.classList.remove("hidden")
-    if (subMenu) subMenu.classList.add("hidden")
+    popup.removeAttribute("data-view")
   }
 
   downloadIcons.forEach((downloadIcon, index) => {
@@ -43,25 +40,60 @@ export const initVideoDownloadPopup = () => {
   // Wire sub-menu navigation within each popup
   popups.forEach(popup => {
     const p = popup as HTMLElement
-    const mainMenu = p.querySelector(".download-menu-main") as HTMLElement | null
-    const subMenu = p.querySelector(".download-menu-submenu") as HTMLElement | null
     const openSubmenuBtn = p.querySelector(".download-transcript-submenu-btn")
     const backBtn = p.querySelector(".download-submenu-back-btn")
 
     openSubmenuBtn?.addEventListener("click", event => {
       event.stopPropagation()
-      mainMenu?.classList.add("hidden")
-      subMenu?.classList.remove("hidden")
+      p.setAttribute("data-view", "submenu")
     })
 
     backBtn?.addEventListener("click", event => {
       event.stopPropagation()
-      subMenu?.classList.add("hidden")
-      mainMenu?.classList.remove("hidden")
+      p.removeAttribute("data-view")
     })
   })
 
-  // Click anywhere on page (other than download buttons), and the active popup will close
+  // Wire transcript language dropdowns
+  const transcriptLangBtns = document.querySelectorAll(".transcript-lang-dropdown-btn")
+  transcriptLangBtns.forEach(btn => {
+    const htmlBtn = btn as HTMLElement
+    const dropdown = btn.closest(".transcript-lang-dropdown") as HTMLElement
+    const menu = dropdown?.querySelector(".transcript-lang-dropdown-menu") as HTMLElement | null
+
+    htmlBtn.addEventListener("click", event => {
+      event.stopPropagation()
+      const isOpen = htmlBtn.getAttribute("aria-expanded") === "true"
+      htmlBtn.setAttribute("aria-expanded", isOpen ? "false" : "true")
+      if (isOpen) {
+        menu?.classList.add("hidden")
+      } else {
+        menu?.classList.remove("hidden")
+      }
+    })
+
+    menu?.querySelectorAll(".transcript-lang-option").forEach(option => {
+      const htmlOption = option as HTMLElement
+      htmlOption.addEventListener("click", event => {
+        event.stopPropagation()
+        // Update trigger button text
+        const btnText = htmlBtn.querySelector(".transcript-lang-btn-text")
+        if (btnText) btnText.textContent = htmlOption.textContent?.trim() ?? ""
+        // Update active state
+        menu?.querySelectorAll(".transcript-lang-option").forEach(o => {
+          o.classList.remove("active")
+          o.setAttribute("aria-selected", "false")
+        })
+        htmlOption.classList.add("active")
+        htmlOption.setAttribute("aria-selected", "true")
+        // Close dropdown
+        htmlBtn.setAttribute("aria-expanded", "false")
+        menu?.classList.add("hidden")
+      })
+    })
+  })
+
+  // Click anywhere on page: close active popup and any open transcript dropdowns
   document.addEventListener("click", () => {
     if (activePopup) {
       downloadIcons[activePopupDownloadIconIndex].setAttribute(
@@ -72,5 +104,12 @@ export const initVideoDownloadPopup = () => {
       resetPopupToMainMenu(activePopup)
       activePopup = null
     }
+    transcriptLangBtns.forEach(btn => {
+      const htmlBtn = btn as HTMLElement
+      const dropdown = btn.closest(".transcript-lang-dropdown") as HTMLElement
+      const menu = dropdown?.querySelector(".transcript-lang-dropdown-menu") as HTMLElement | null
+      htmlBtn.setAttribute("aria-expanded", "false")
+      menu?.classList.add("hidden")
+    })
   })
 }

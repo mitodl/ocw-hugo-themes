@@ -32,6 +32,17 @@
   padding-top: 5px;
   padding-bottom: 7px;
 }
+.video-tab-content-section[data-transcript-empty="true"] {
+  padding: 0;
+}
+
+// Suppress background/padding on the collapse panel itself when empty so it
+// has zero visual height (the lang bar is a sibling, not inside the panel).
+.video-tab.transcript:not(.show),
+.video-tab.transcript.show:has(.video-tab-content-section[data-transcript-empty="true"]) {
+  padding: 0;
+  background-color: transparent;
+}
 .video-tab-content-section > a {
   display: inline-block;
   margin-top: 5px;
@@ -240,6 +251,7 @@ a.video-download-button:visited {
   padding: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 999 !important; // Need a higher z-index than active transcript line
+  min-width: 200px; // Constant width for both main and sub-menu views; wide enough for language names
 }
 .video-tab-download-popup.hidden {
   visibility: hidden;
@@ -261,8 +273,35 @@ a.video-download-button:visited {
   background-color: $light-gray;
 }
 
-.download-menu-submenu.hidden {
+// Both views fill the full popup width for consistent sizing
+.video-tab-download-popup .download-menu-main,
+.video-tab-download-popup .download-menu-submenu {
+  width: 100%;
+}
+
+// Submenu is hidden by default; shown when popup has data-view="submenu"
+.video-tab-download-popup .download-menu-submenu {
   display: none;
+}
+
+.video-tab-download-popup[data-view="submenu"] .download-menu-main {
+  display: none;
+}
+
+.video-tab-download-popup[data-view="submenu"] .download-menu-submenu {
+  display: block;
+  animation: popup-slide-in 0.18s ease;
+}
+
+@keyframes popup-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .download-transcript-submenu-btn {
@@ -310,35 +349,95 @@ a.video-download-button:visited {
   }
 }
 
+// Lang bar is a sibling of .video-tab-toggle-section (before the collapse panel).
+// Use :has([aria-expanded]) so Bootstrap's synchronous attribute update shows/hides
+// it reliably without needing JS events — works in both Chrome and Firefox.
 .transcript-lang-bar {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 8px;
-  padding: 8px 6%;
+  padding: 6px 6%;
   background-color: darken($light-gray, 4%);
   border-bottom: 1px solid #d0d0d0;
+  position: relative;
+}
 
-  label {
-    margin: 0;
-    font-size: 0.85rem;
-    font-weight: 600;
-    white-space: nowrap;
+// Show when the transcript tab toggle button has aria-expanded="true".
+.video-tab-toggle-section:has(.tab-toggle-button[aria-expanded="true"]) ~ .transcript-lang-bar {
+  display: flex;
+}
+
+.transcript-lang-label {
+  margin: 0;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.transcript-lang-dropdown {
+  position: relative;
+}
+
+.transcript-lang-dropdown-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between; // Keep icon pinned to right even as label changes
+  gap: 2px;
+  min-width: 160px; // Wide enough for "English (US)" style locale labels
+  background: $white;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: $black;
+
+  i.material-icons {
+    font-size: 1.1rem;
+    transition: transform 0.15s;
+  }
+
+  &[aria-expanded="true"] i.material-icons {
+    transform: rotate(180deg);
   }
 }
 
-.transcript-lang-select {
-  border: 1px solid #bbb;
-  border-radius: 3px;
+.transcript-lang-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 999;
   background: $white;
-  color: $black;
-  font-size: 0.85rem;
-  padding: 2px 6px;
-  cursor: pointer;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  min-width: 100%;
 
-  &:focus-visible {
-    outline: 2px solid $blue;
-    outline-offset: 1px;
+  &.hidden {
+    visibility: hidden;
   }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 5px;
+  }
+}
+
+.transcript-lang-option {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 5px 40px 5px 5px;
+  text-align: left;
+  color: $black;
+  cursor: pointer;
+  font-size: inherit;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: $light-gray;
+  }
+
 }
 
 .youtube-container .vjs-poster,

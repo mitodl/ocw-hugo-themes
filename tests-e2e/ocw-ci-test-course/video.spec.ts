@@ -20,12 +20,18 @@ test("Start time exists and transcript section can be expanded", async ({
   const src = await page.locator("iframe.vjs-tech").getAttribute("src")
   expect(src).toMatch(/.*?start=13.*/)
 
-  await videoElement.tab({ name: "Transcript", exact: true }).click()
-  await expect(
-    videoElement.tab({ name: "Transcript", expanded: true, exact: true })
-  ).toBeVisible()
-  await videoElement.downloadButton().click()
-  await expect(videoElement.downloadTranscript()).toBeVisible()
+  // Open the transcript tab so the plugin mounts and transcript lines appear
+  const videoPage = new VideoElement(page)
+  await videoPage.tab({ name: /Transcript/i, exact: false }).click()
+  // For single-lang resources, the dropdown shows one option — click it to mount
+  await page.waitForSelector(".transcript-lang-dropdown-btn", { state: "visible" })
+  await page.locator(".transcript-lang-dropdown-btn").click()
+  await page.locator(".transcript-lang-option").first().click()
+
+  const transcriptLine = page.locator('.transcript-line[data-begin="12.06"]')
+  await expect(transcriptLine).toContainText(
+    "so here's our runner, and here's our road"
+  )
 })
 
 test("End time exists", async ({ page }) => {

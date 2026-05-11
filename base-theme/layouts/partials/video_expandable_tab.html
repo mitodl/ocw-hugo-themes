@@ -51,7 +51,7 @@
     </div>
     {{/* Sub-menu view — shown when transcript links present */}}
     {{ if .transcriptLinks }}
-    <div class="download-menu-submenu hidden" role="menu">
+    <div class="download-menu-submenu" role="menu">
       <ul>
         <li>
           <button class="download-submenu-back-btn">
@@ -60,7 +60,7 @@
         </li>
         {{ range .transcriptLinks }}
         <li>
-          <a href="{{ .href }}" target="_blank" lang="{{ .language }}" aria-label="{{ .label }} transcript (PDF)" role="menuitem">{{ .label }}</a>
+          <a href="{{ .href }}" target="_blank" lang="{{ .language }}" aria-label="{{ .label }} transcript (PDF)">{{ .label }}</a>
         </li>
         {{ end }}
       </ul>
@@ -68,18 +68,31 @@
     {{ end }}
   </div>
 </div>
-<div class="video-tab container collapse pr-0 {{ .tabClass }}" role="tabpanel">
-  {{ if $hasTranscriptLinks }}
-  <div class="transcript-lang-bar">
-    <label for="transcript-lang-select-{{- .tabClass -}}">Select language:</label>
-    <select id="transcript-lang-select-{{- .tabClass -}}" class="transcript-lang-select">
-      {{ range $i, $tl := .transcriptLinks }}
-      <option value="{{ $tl.language }}"{{ if eq $i 0 }} selected{{ end }}>{{ $tl.label }}</option>
-      {{ end }}
-    </select>
+{{ if $hasTranscriptLinks }}
+<div class="transcript-lang-bar">
+  <span class="transcript-lang-label">Select language:</span>
+  <div class="transcript-lang-dropdown">
+    <button class="transcript-lang-dropdown-btn" aria-haspopup="listbox" aria-expanded="false">
+      <span class="transcript-lang-btn-text">----</span>
+      <i class="material-icons" aria-hidden="true">expand_more</i>
+    </button>
+    <div class="transcript-lang-dropdown-menu hidden" role="listbox">
+      <ul>
+        {{ range $tl := .transcriptLinks }}
+        <li>
+          <button class="transcript-lang-option"
+                  data-lang="{{ $tl.language }}"
+                  role="option"
+                  aria-selected="false">{{ $tl.label }}</button>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
   </div>
-  {{ end }}
-  <div class="video-tab-content-section">
+</div>
+{{ end }}
+<div class="video-tab container collapse pr-0 {{ .tabClass }}" role="tabpanel">
+  <div class="video-tab-content-section" data-transcript-empty="true">
     {{ .context.RenderString .tabContent }}
   </div>
 </div>

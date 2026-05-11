@@ -30,9 +30,11 @@ function switchActiveTrack(player, lang) {
  * currently "showing", so we just re-call this.transcript() after switching.
  */
 function remountTranscript(player, transcriptContainer, options) {
-  // Remove any existing transcript DOM mounted by the plugin
-  const existing = transcriptContainer.querySelector(".transcript")
-  if (existing) existing.remove()
+  // Remove all previously mounted transcript plugin elements.
+  // The plugin creates a <div id="transcript-{playerId}"> (no CSS class),
+  // so we clear the container entirely to avoid stacking on repeated language switches.
+  transcriptContainer.innerHTML = ""
+  transcriptContainer.setAttribute("data-transcript-empty", "true")
 
   const hasTextTracks = player.textTracks().length !== 0
   if (!hasTextTracks) return
@@ -50,9 +52,9 @@ function remountTranscript(player, transcriptContainer, options) {
     tracks[0].mode = "showing"
   }
 
-  // @ts-expect-error TODO
   const transcript = player.transcript(options)
   if (transcript) {
+    transcriptContainer.removeAttribute("data-transcript-empty")
     transcriptContainer.appendChild(transcript.el())
   }
 }
@@ -72,14 +74,6 @@ export const initVideoTranscriptTrack = () => {
           showTrackSelector: false
         }
 
-        let transcript = null
-        const hasTextTracks = this.textTracks().length !== 0
-
-        if (hasTextTracks) {
-          // @ts-expect-error TODO
-          transcript = this.transcript(transcriptOptions)
-        }
-
         const videoPage = videoPlayer.closest(".video-page")
         if (!videoPage) return
 
@@ -88,26 +82,33 @@ export const initVideoTranscriptTrack = () => {
           ".video-tab-content-section"
         )
 
-        if (transcript && transcriptContainer) {
-          transcriptContainer.appendChild(transcript.el())
-        }
-
-        // Wire up language selector dropdown (present when > 1 caption track)
-        const langSelect = videoPage.querySelector(".transcript-lang-select")
-        if (!langSelect) return
-
         const player = this
-        langSelect.addEventListener("change", () => {
-          const lang = langSelect.value
 
-          // Switch the active VTT track on the player
-          switchActiveTrack(player, lang)
+        // Wire up language selector (option buttons inside the transcript-lang-dropdown).
+        // The transcript pane is intentionally left empty until the user picks a language.
+        const langOptions = videoPage.querySelectorAll(".transcript-lang-option")
 
-          // Re-mount the transcript panel with the newly active track
+        if (langOptions.length > 0) {
+          // Multi-lang: mount transcript only when a language option is clicked.
+          langOptions.forEach(option => {
+            option.addEventListener("click", () => {
+              const lang = option.getAttribute("data-lang")
+              if (lang) {
+                switchActiveTrack(player, lang)
+                if (transcriptContainer) {
+                  remountTranscript(player, transcriptContainer, transcriptOptions)
+                }
+              }
+            })
+          })
+        } else {
+          // Single-lang: auto-mount transcript when the tab finishes opening.
           if (transcriptContainer) {
-            remountTranscript(player, transcriptContainer, transcriptOptions)
+            transcriptTab?.addEventListener("shown.bs.collapse", () => {
+              remountTranscript(player, transcriptContainer, transcriptOptions)
+            })
           }
-        })
+        }
       })
     }
   }
