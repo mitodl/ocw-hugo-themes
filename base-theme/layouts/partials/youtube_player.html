@@ -36,7 +36,7 @@
         <track kind="captions" src="{{ .src }}" srclang="{{ .srclang }}" label="{{ .label }}"{{ if .isDefault }} default{{ end }}{{ if .isDefault }} mode="showing"{{ else }} mode="disabled"{{ end }}>
         {{ end }}
       {{ else if .captionsLocation }}
-        <track kind="captions" src="{{ .captionsLocation }}" mode="showing" srclang="en" label="English">
+        <track kind="captions" src="{{ .captionsLocation }}" mode="disabled" srclang="en" label="English">
       {{ end }}
   </video>
 </div>

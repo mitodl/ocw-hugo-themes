@@ -90,8 +90,9 @@ export const initVideoTranscriptTrack = () => {
           ".transcript-lang-option"
         )
 
-        if (langOptions.length > 1) {
-          // Multi-lang: mount transcript only when a language option is clicked.
+        if (langOptions.length > 0) {
+          // Any resource with a lang bar: mount transcript only when a language
+          // option is clicked, keeping the pane empty until the user selects.
           langOptions.forEach(option => {
             option.addEventListener("click", () => {
               const lang = option.getAttribute("data-lang")
@@ -108,11 +109,11 @@ export const initVideoTranscriptTrack = () => {
             })
           })
         } else {
-          // Single-lang (0 or 1 option): auto-mount immediately on player ready,
-          // matching the original behaviour so transcript lines are in the DOM
-          // even while the tab is visually collapsed.
+          // No lang bar (no transcript links): auto-mount when the tab opens.
           if (transcriptContainer) {
-            remountTranscript(player, transcriptContainer, transcriptOptions)
+            transcriptTab?.addEventListener("show.bs.collapse", () => {
+              remountTranscript(player, transcriptContainer, transcriptOptions)
+            })
           }
         }
       })

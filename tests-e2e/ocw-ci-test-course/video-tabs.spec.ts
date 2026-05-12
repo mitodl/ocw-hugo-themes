@@ -296,6 +296,44 @@ test("Selecting a language multiple times does not stack transcript views", asyn
   expect(await pluginElements.count()).toBeLessThanOrEqual(1)
 })
 
+test("Switching language replaces the transcript preview, not stacks below it", async ({
+  page
+}) => {
+  const coursePage = new CoursePage(page, "course")
+  await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
+  const videoPage = new VideoElement(page)
+
+  // Open transcript tab
+  await videoPage.tab({ name: /Transcript/i, exact: false }).click()
+  await page.waitForSelector(".video-tab.container.transcript.show", {
+    state: "attached"
+  })
+
+  const dropdownBtn = page.locator(".transcript-lang-dropdown-btn")
+  const transcriptContainer = page.locator(
+    ".video-tab.transcript .video-tab-content-section"
+  )
+
+  // Select English first
+  await dropdownBtn.click()
+  await page.locator(".transcript-lang-option[data-lang='en']").click()
+
+  // Switch to French
+  await dropdownBtn.click()
+  await page.locator(".transcript-lang-option[data-lang='fr']").click()
+
+  // There must still be exactly one plugin element (no stacking)
+  const pluginElements = transcriptContainer.locator("[id^='transcript-']")
+  expect(await pluginElements.count()).toBeLessThanOrEqual(1)
+
+  // Switch back to English
+  await dropdownBtn.click()
+  await page.locator(".transcript-lang-option[data-lang='en']").click()
+
+  // Still exactly one plugin element after switching back
+  expect(await pluginElements.count()).toBeLessThanOrEqual(1)
+})
+
 test("Download sub-menu width matches main menu for multi-lang resource", async ({
   page
 }) => {

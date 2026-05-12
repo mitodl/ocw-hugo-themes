@@ -19,13 +19,15 @@ test("Start time exists and transcript section can be expanded", async ({
   const src = await page.locator("iframe.vjs-tech").getAttribute("src")
   expect(src).toMatch(/.*?start=13.*/)
 
-  // Open the transcript tab. For single-lang resources the plugin auto-mounts
-  // on player ready, so the lines are already in the DOM.
+  // Open the transcript tab and select the only language option.
+  // The pane stays empty until a language is explicitly selected.
   const videoElement = new VideoElement(page)
   await videoElement.tab({ name: /Transcript/i, exact: false }).click()
   await page.waitForSelector(".video-tab.container.transcript.show", {
     state: "attached"
   })
+  await page.locator(".transcript-lang-dropdown-btn").click()
+  await page.locator(".transcript-lang-option").first().click()
 
   const transcriptLine = page.locator('.transcript-line[data-begin="12.06"]')
   await expect(transcriptLine).toContainText(
