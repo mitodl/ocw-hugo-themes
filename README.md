@@ -223,7 +223,7 @@ Use the shared `picture_element.html` partial for content images that should be 
 ) }}
 ```
 
-The partial renders WebP `srcset` candidates at `480w`, `800w`, `1280w`, and `1920w`, with the original image URL kept on the fallback `<img>`. Root-relative and absolute URLs are optimized; relative paths are emitted as a plain `<img>` so offline bundles continue to use original local assets. Fastly IO currently has WebP enabled for OCW; add other formats only after the service defaults support them.
+The partial renders optimized `srcset` candidates at `480w`, `800w`, `1280w`, `1920w`, `2560w`, and `3840w` using `format=auto&quality=75`. `format=auto` lets Fastly content-negotiate the best format (WebP, AVIF, or original) based on the browser's `Accept` header — no explicit format needs to be hard-coded. The extended breakpoints cover 2× and 3× retina displays. Root-relative and absolute URLs are optimized; relative paths (used in offline builds) are emitted as a plain `<img>` unchanged.
 
 Choose `sizes` based on the rendered slot width, not the source image width. Use `100vw` for full-width content images, `50vw` for two-column desktop layouts with a `100vw` mobile fallback, and fixed values such as `200px` only when the component has a fixed image slot.
 
