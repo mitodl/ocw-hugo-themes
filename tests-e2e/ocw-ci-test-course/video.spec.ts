@@ -1,6 +1,5 @@
 import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
-import { VideoElement } from "../util/VideoElement"
 
 test("Start and end times does not exist", async ({ page }) => {
   const course = new CoursePage(page, "course")
@@ -20,14 +19,8 @@ test("Start time exists and transcript section can be expanded", async ({
   const src = await page.locator("iframe.vjs-tech").getAttribute("src")
   expect(src).toMatch(/.*?start=13.*/)
 
-  // Open the transcript tab so the plugin mounts and transcript lines appear
-  const videoPage = new VideoElement(page)
-  await videoPage.tab({ name: /Transcript/i, exact: false }).click()
-  // For single-lang resources, the dropdown shows one option — click it to mount
-  await page.waitForSelector(".transcript-lang-dropdown-btn", { state: "visible" })
-  await page.locator(".transcript-lang-dropdown-btn").click()
-  await page.locator(".transcript-lang-option").first().click()
-
+  // The transcript plugin auto-mounts on player ready for single-lang resources,
+  // so the lines are in the DOM even before the tab is opened.
   const transcriptLine = page.locator('.transcript-line[data-begin="12.06"]')
   await expect(transcriptLine).toContainText(
     "so here's our runner, and here's our road"

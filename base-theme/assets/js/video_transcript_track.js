@@ -88,7 +88,7 @@ export const initVideoTranscriptTrack = () => {
         // The transcript pane is intentionally left empty until the user picks a language.
         const langOptions = videoPage.querySelectorAll(".transcript-lang-option")
 
-        if (langOptions.length > 0) {
+        if (langOptions.length > 1) {
           // Multi-lang: mount transcript only when a language option is clicked.
           langOptions.forEach(option => {
             option.addEventListener("click", () => {
@@ -102,11 +102,11 @@ export const initVideoTranscriptTrack = () => {
             })
           })
         } else {
-          // Single-lang: auto-mount transcript when the tab finishes opening.
+          // Single-lang (0 or 1 option): auto-mount immediately on player ready,
+          // matching the original behaviour so transcript lines are in the DOM
+          // even while the tab is visually collapsed.
           if (transcriptContainer) {
-            transcriptTab?.addEventListener("shown.bs.collapse", () => {
-              remountTranscript(player, transcriptContainer, transcriptOptions)
-            })
+            remountTranscript(player, transcriptContainer, transcriptOptions)
           }
         }
       })
