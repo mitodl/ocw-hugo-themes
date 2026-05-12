@@ -39,7 +39,9 @@
 // Suppress background/padding on the collapse panel itself when empty so it
 // has zero visual height (the lang bar is a sibling, not inside the panel).
 .video-tab.transcript:not(.show),
-.video-tab.transcript.show:has(.video-tab-content-section[data-transcript-empty="true"]) {
+.video-tab.transcript.show:has(
+    .video-tab-content-section[data-transcript-empty="true"]
+  ) {
   padding: 0;
   background-color: transparent;
 }
@@ -363,7 +365,8 @@ a.video-download-button:visited {
 }
 
 // Show when the transcript tab toggle button has aria-expanded="true".
-.video-tab-toggle-section:has(.tab-toggle-button[aria-expanded="true"]) ~ .transcript-lang-bar {
+.video-tab-toggle-section:has(.tab-toggle-button[aria-expanded="true"])
+  ~ .transcript-lang-bar {
   display: flex;
 }
 
@@ -437,7 +440,6 @@ a.video-download-button:visited {
   &:hover {
     background-color: $light-gray;
   }
-
 }
 
 .youtube-container .vjs-poster,

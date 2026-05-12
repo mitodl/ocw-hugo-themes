@@ -86,7 +86,9 @@ export const initVideoTranscriptTrack = () => {
 
         // Wire up language selector (option buttons inside the transcript-lang-dropdown).
         // The transcript pane is intentionally left empty until the user picks a language.
-        const langOptions = videoPage.querySelectorAll(".transcript-lang-option")
+        const langOptions = videoPage.querySelectorAll(
+          ".transcript-lang-option"
+        )
 
         if (langOptions.length > 1) {
           // Multi-lang: mount transcript only when a language option is clicked.
@@ -96,7 +98,11 @@ export const initVideoTranscriptTrack = () => {
               if (lang) {
                 switchActiveTrack(player, lang)
                 if (transcriptContainer) {
-                  remountTranscript(player, transcriptContainer, transcriptOptions)
+                  remountTranscript(
+                    player,
+                    transcriptContainer,
+                    transcriptOptions
+                  )
                 }
               }
             })

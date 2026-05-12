@@ -91,10 +91,7 @@ test.describe("Course v3 video tab language selector", () => {
     await course.goto(MULTI_LANG_RESOURCE)
 
     // Open download popup
-    await page
-      .getByRole("button", { name: "Show Downloads" })
-      .first()
-      .click()
+    await page.getByRole("button", { name: "Show Downloads" }).first().click()
 
     // Sub-menu button should be present in main view
     const subMenuBtn = page.getByRole("button", {
@@ -136,7 +133,9 @@ test.describe("Course v3 video tab language selector", () => {
     const dropdownBtn = page.locator(".transcript-lang-dropdown-btn")
     await dropdownBtn.click()
     await page.locator(".transcript-lang-option[data-lang='en']").click()
-    await expect(page.locator(".transcript-lang-btn-text")).toHaveText("English")
+    await expect(page.locator(".transcript-lang-btn-text")).toHaveText(
+      "English"
+    )
   })
 
   test("language selector active option is not bold (consistent with menu styling)", async ({

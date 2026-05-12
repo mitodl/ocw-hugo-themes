@@ -217,9 +217,7 @@ test("Multi-lang resource shows language selector with English and French option
   page
 }) => {
   const coursePage = new CoursePage(page, "course")
-  await coursePage.goto(
-    "/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4"
-  )
+  await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
   const videoPage = new VideoElement(page)
 
   // Open the Transcript tab
@@ -244,9 +242,7 @@ test("Clicking a language option updates the dropdown button label", async ({
   page
 }) => {
   const coursePage = new CoursePage(page, "course")
-  await coursePage.goto(
-    "/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4"
-  )
+  await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
   const videoPage = new VideoElement(page)
 
   // Open transcript tab
@@ -274,9 +270,7 @@ test("Selecting a language multiple times does not stack transcript views", asyn
   page
 }) => {
   const coursePage = new CoursePage(page, "course")
-  await coursePage.goto(
-    "/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4"
-  )
+  await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
   const videoPage = new VideoElement(page)
 
   // Open transcript tab
@@ -306,9 +300,7 @@ test("Download sub-menu width matches main menu for multi-lang resource", async 
   page
 }) => {
   const coursePage = new CoursePage(page, "course")
-  await coursePage.goto(
-    "/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4"
-  )
+  await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
 
   // Open the download popup
   const downloadBtn = page.getByRole("button", { name: "Show Downloads" })
@@ -332,9 +324,7 @@ test("Transcript pane is empty until a language is selected", async ({
   page
 }) => {
   const coursePage = new CoursePage(page, "course")
-  await coursePage.goto(
-    "/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4"
-  )
+  await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
   const videoPage = new VideoElement(page)
 
   // Open the transcript tab
@@ -361,11 +351,11 @@ test("Language selector active option is not bold (consistent with menu styling)
   page
 }) => {
   const coursePage = new CoursePage(page, "course")
-  await coursePage.goto(
-    "/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4"
-  )
+  await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
 
-  await new VideoElement(page).tab({ name: /Transcript/i, exact: false }).click()
+  await new VideoElement(page)
+    .tab({ name: /Transcript/i, exact: false })
+    .click()
   await page.waitForSelector(".video-tab.container.transcript.show", {
     state: "attached"
   })

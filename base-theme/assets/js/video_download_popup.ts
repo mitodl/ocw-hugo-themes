@@ -55,11 +55,15 @@ export const initVideoDownloadPopup = () => {
   })
 
   // Wire transcript language dropdowns
-  const transcriptLangBtns = document.querySelectorAll(".transcript-lang-dropdown-btn")
+  const transcriptLangBtns = document.querySelectorAll(
+    ".transcript-lang-dropdown-btn"
+  )
   transcriptLangBtns.forEach(btn => {
     const htmlBtn = btn as HTMLElement
     const dropdown = btn.closest(".transcript-lang-dropdown") as HTMLElement
-    const menu = dropdown?.querySelector(".transcript-lang-dropdown-menu") as HTMLElement | null
+    const menu = dropdown?.querySelector(
+      ".transcript-lang-dropdown-menu"
+    ) as HTMLElement | null
 
     htmlBtn.addEventListener("click", event => {
       event.stopPropagation()
@@ -107,7 +111,9 @@ export const initVideoDownloadPopup = () => {
     transcriptLangBtns.forEach(btn => {
       const htmlBtn = btn as HTMLElement
       const dropdown = btn.closest(".transcript-lang-dropdown") as HTMLElement
-      const menu = dropdown?.querySelector(".transcript-lang-dropdown-menu") as HTMLElement | null
+      const menu = dropdown?.querySelector(
+        ".transcript-lang-dropdown-menu"
+      ) as HTMLElement | null
       htmlBtn.setAttribute("aria-expanded", "false")
       menu?.classList.add("hidden")
     })
