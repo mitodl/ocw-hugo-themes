@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.149.0
+Version 1.149.0 (Released May 13, 2026)
 ---------------
 
 - fix: flaky test in ResourceCollection.test.tsx (#1800)
