@@ -253,7 +253,7 @@ a.video-download-button:visited {
   padding: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 999 !important; // Need a higher z-index than active transcript line
-  min-width: 230px; // Constant width for both main and sub-menu views; wide enough for language transcript labels
+  width: 260px; // Fixed width for both main and sub-menu views; prevents popup from growing when switching views
 }
 .video-tab-download-popup.hidden {
   visibility: hidden;

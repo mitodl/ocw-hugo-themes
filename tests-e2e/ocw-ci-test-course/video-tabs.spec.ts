@@ -347,14 +347,14 @@ test("Download sub-menu width matches main menu for multi-lang resource", async 
   const mainMenu = popup.locator(".download-menu-main")
   const subMenu = popup.locator(".download-menu-submenu")
 
-  const mainWidth = await mainMenu.evaluate(el => el.offsetWidth)
+  const mainViewWidth = await popup.evaluate(el => el.offsetWidth)
 
   // Navigate to sub-menu
   await page.getByRole("button", { name: /Download Transcript/i }).click()
-  const subWidth = await subMenu.evaluate(el => el.offsetWidth)
+  const subViewWidth = await popup.evaluate(el => el.offsetWidth)
 
-  // Both views should have the same width (both set to width: 100%)
-  expect(subWidth).toBe(mainWidth)
+  // Popup should not change size when switching between main and sub-menu views
+  expect(subViewWidth).toBe(mainViewWidth)
 })
 
 test("Transcript pane is empty until a language is selected", async ({
