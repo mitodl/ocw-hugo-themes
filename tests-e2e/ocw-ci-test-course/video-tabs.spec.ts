@@ -81,7 +81,7 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
   await page.keyboard.press("Enter")
 
   const transcriptDownloadLink = page.getByRole("link", {
-    name: /Transcript \(PDF\)/i
+    name: /English \(Default\)/i
   })
   await expect(transcriptDownloadLink).toBeVisible()
   // Skip Back button, tab to the first transcript link
@@ -234,7 +234,7 @@ test("Multi-lang resource shows language selector with English and French option
   // Both language options should be present
   const langOptions = page.locator(".transcript-lang-option")
   await expect(langOptions).toHaveCount(2)
-  await expect(langOptions.nth(0)).toHaveText("English")
+  await expect(langOptions.nth(0)).toHaveText("English (Default)")
   await expect(langOptions.nth(1)).toHaveText("French")
 })
 
@@ -251,10 +251,10 @@ test("Clicking a language option updates the dropdown button label", async ({
     state: "attached"
   })
 
-  // Initial label is the placeholder before any selection
+  // Initial label is the default language (English pre-selected)
   const dropdownBtn = page.locator(".transcript-lang-dropdown-btn")
   await expect(page.locator(".transcript-lang-btn-text")).toHaveText(
-    "Select a language"
+    "English (Default)"
   )
 
   // Open dropdown, click French
@@ -357,7 +357,7 @@ test("Download sub-menu width matches main menu for multi-lang resource", async 
   expect(subViewWidth).toBe(mainViewWidth)
 })
 
-test("Transcript pane is empty until a language is selected", async ({
+test("English transcript auto-loads when the tab is opened", async ({
   page
 }) => {
   const coursePage = new CoursePage(page, "course")
@@ -370,18 +370,16 @@ test("Transcript pane is empty until a language is selected", async ({
     state: "attached"
   })
 
-  // No transcript plugin element should be present before selecting a language
-  const transcriptPlugin = page.locator(
-    ".video-tab.transcript .video-tab-content-section [id^='transcript-']"
+  // English is the default; the button should show "English (Default)"
+  await expect(page.locator(".transcript-lang-btn-text")).toHaveText(
+    "English (Default)"
   )
-  await expect(transcriptPlugin).toHaveCount(0)
 
-  // After selecting a language the dropdown label should update,
-  // confirming the selection was registered by the JS.
+  // Switching to French updates the button label
   const dropdownBtn = page.locator(".transcript-lang-dropdown-btn")
   await dropdownBtn.click()
-  await page.locator(".transcript-lang-option[data-lang='en']").click()
-  await expect(page.locator(".transcript-lang-btn-text")).toHaveText("English")
+  await page.locator(".transcript-lang-option[data-lang='fr']").click()
+  await expect(page.locator(".transcript-lang-btn-text")).toHaveText("French")
 })
 
 test("Language selector active option is not bold (consistent with menu styling)", async ({
