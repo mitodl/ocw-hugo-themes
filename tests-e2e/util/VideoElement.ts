@@ -48,9 +48,10 @@ export class VideoElement {
   }
 
   downloadTranscript(): Locator {
-    return this.container.getByRole("link", {
-      name: /Transcript \(PDF\)/i
-    })
+    return this.container
+      .locator(".download-menu-submenu")
+      .getByRole("link")
+      .first()
   }
 
   /**

@@ -68,6 +68,24 @@ function remountTranscript(player, transcriptContainer, options) {
 
 export const initVideoTranscriptTrack = () => {
   if (document.querySelector(".video-container")) {
+    // Toggle .transcript-tab-expanded on the toggle section when the transcript
+    // panel opens/closes. This must run eagerly (before videojs.ready) so the
+    // lang bar is visible even if the player initialises after the tab is clicked.
+    // (JS fallback for CSS :has(), which is not supported in Firefox < 121.)
+    document.querySelectorAll(".video-page").forEach(videoPage => {
+      const transcriptTab = videoPage.querySelector(".transcript")
+      const langBar = videoPage.querySelector(".transcript-lang-bar")
+      const langBarToggleSection = langBar?.previousElementSibling
+      if (langBar && langBarToggleSection && transcriptTab) {
+        transcriptTab.addEventListener("show.bs.collapse", () => {
+          langBarToggleSection.classList.add("transcript-tab-expanded")
+        })
+        transcriptTab.addEventListener("hide.bs.collapse", () => {
+          langBarToggleSection.classList.remove("transcript-tab-expanded")
+        })
+      }
+    })
+
     const videoPlayers = document.querySelectorAll(".vjs-ocw")
 
     for (const videoPlayer of Array.from(videoPlayers)) {
@@ -90,20 +108,6 @@ export const initVideoTranscriptTrack = () => {
         )
 
         const player = this
-
-        // Toggle .transcript-tab-expanded on the toggle section when the
-        // transcript panel opens/closes (JS fallback for CSS :has(), which is
-        // not supported in Firefox < 121).
-        const langBar = videoPage.querySelector(".transcript-lang-bar")
-        const langBarToggleSection = langBar?.previousElementSibling
-        if (langBar && langBarToggleSection && transcriptTab) {
-          transcriptTab.addEventListener("show.bs.collapse", () => {
-            langBarToggleSection.classList.add("transcript-tab-expanded")
-          })
-          transcriptTab.addEventListener("hide.bs.collapse", () => {
-            langBarToggleSection.classList.remove("transcript-tab-expanded")
-          })
-        }
 
         // Wire up language selector (option buttons inside the transcript-lang-dropdown).
         const langOptions = videoPage.querySelectorAll(

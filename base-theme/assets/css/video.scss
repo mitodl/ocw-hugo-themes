@@ -344,8 +344,6 @@ a.video-download-button:visited {
 }
 
 // Lang bar is a sibling of .video-tab-toggle-section (before the collapse panel).
-// Visibility is toggled via JS (.transcript-tab-expanded class) for cross-browser
-// compatibility — CSS :has() is not supported in Firefox < 121.
 .transcript-lang-bar {
   display: none;
   align-items: center;
@@ -356,7 +354,12 @@ a.video-download-button:visited {
   position: relative;
 }
 
-// Show when the transcript tab is expanded (class toggled by JS).
+// Show when the transcript tab is expanded.
+// Primary: CSS :has() for modern browsers (Firefox 121+, Chrome, Safari).
+// Fallback: .transcript-tab-expanded class toggled by JS (video_transcript_track.js)
+// for Firefox < 121 which does not support :has().
+// stylelint-disable-next-line selector-pseudo-class-no-unknown
+.video-tab-toggle-section:has(button[aria-expanded="true"]) ~ .transcript-lang-bar,
 .video-tab-toggle-section.transcript-tab-expanded ~ .transcript-lang-bar {
   display: flex;
 }
