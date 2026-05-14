@@ -43,7 +43,6 @@ function remountTranscript(player, transcriptContainer, options) {
   // The plugin creates a <div id="transcript-{playerId}"> (no CSS class),
   // so we clear the container entirely to avoid stacking on repeated language switches.
   transcriptContainer.innerHTML = ""
-  transcriptContainer.setAttribute("data-transcript-empty", "true")
 
   const hasTextTracks = player.textTracks().length !== 0
   if (!hasTextTracks) return
@@ -63,7 +62,6 @@ function remountTranscript(player, transcriptContainer, options) {
 
   const transcript = player.transcript(options)
   if (transcript) {
-    transcriptContainer.removeAttribute("data-transcript-empty")
     transcriptContainer.appendChild(transcript.el())
   }
 }
@@ -108,37 +106,33 @@ export const initVideoTranscriptTrack = () => {
         }
 
         // Wire up language selector (option buttons inside the transcript-lang-dropdown).
-        // The transcript pane is intentionally left empty until the user picks a language.
         const langOptions = videoPage.querySelectorAll(
           ".transcript-lang-option"
         )
 
-        if (langOptions.length > 0) {
-          // Any resource with a lang bar: mount transcript only when a language
-          // option is clicked, keeping the pane empty until the user selects.
-          langOptions.forEach(option => {
-            option.addEventListener("click", () => {
-              const lang = option.getAttribute("data-lang")
-              if (lang) {
-                switchActiveTrack(player, lang)
-                if (transcriptContainer) {
-                  remountTranscript(
-                    player,
-                    transcriptContainer,
-                    transcriptOptions
-                  )
-                }
-              }
-            })
+        // Always auto-mount the transcript on tab open (default language is
+        // pre-selected; options fire re-mount on switch).
+        if (transcriptContainer) {
+          transcriptTab?.addEventListener("show.bs.collapse", () => {
+            remountTranscript(player, transcriptContainer, transcriptOptions)
           })
-        } else {
-          // No lang bar (no transcript links): auto-mount when the tab opens.
-          if (transcriptContainer) {
-            transcriptTab?.addEventListener("show.bs.collapse", () => {
-              remountTranscript(player, transcriptContainer, transcriptOptions)
-            })
-          }
         }
+
+        langOptions.forEach(option => {
+          option.addEventListener("click", () => {
+            const lang = option.getAttribute("data-lang")
+            if (lang) {
+              switchActiveTrack(player, lang)
+              if (transcriptContainer) {
+                remountTranscript(
+                  player,
+                  transcriptContainer,
+                  transcriptOptions
+                )
+              }
+            }
+          })
+        })
       })
     }
   }

@@ -32,16 +32,8 @@
   padding-top: 5px;
   padding-bottom: 7px;
 }
-.video-tab-content-section[data-transcript-empty="true"] {
-  padding: 0;
-}
-
-// Suppress background/padding on the collapse panel itself when empty so it
-// has zero visual height (the lang bar is a sibling, not inside the panel).
-.video-tab.transcript:not(.show),
-.video-tab.transcript.show:has(
-    .video-tab-content-section[data-transcript-empty="true"]
-  ) {
+// Hide background/padding on the transcript collapse panel when closed.
+.video-tab.transcript:not(.show) {
   padding: 0;
   background-color: transparent;
 }

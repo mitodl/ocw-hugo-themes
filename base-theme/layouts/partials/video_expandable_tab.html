@@ -69,21 +69,30 @@
   </div>
 </div>
 {{ if $hasTranscriptLinks }}
+{{- $defaultLabel := "" -}}
+{{- range .transcriptLinks -}}
+  {{- if and (not $defaultLabel) .isDefault -}}
+    {{- $defaultLabel = .label -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $defaultLabel -}}
+  {{- with index .transcriptLinks 0 -}}{{- $defaultLabel = .label -}}{{- end -}}
+{{- end -}}
 <div class="transcript-lang-bar">
   <span class="transcript-lang-label">Select language:</span>
   <div class="transcript-lang-dropdown">
     <button class="transcript-lang-dropdown-btn" aria-haspopup="listbox" aria-expanded="false">
-      <span class="transcript-lang-btn-text">Select a language</span>
+      <span class="transcript-lang-btn-text">{{ $defaultLabel }}</span>
       <i class="material-icons" aria-hidden="true">expand_more</i>
     </button>
     <div class="transcript-lang-dropdown-menu hidden" role="listbox">
       <ul>
         {{ range $tl := .transcriptLinks }}
         <li>
-          <button class="transcript-lang-option"
+          <button class="transcript-lang-option{{ if $tl.isDefault }} active{{ end }}"
                   data-lang="{{ if $tl.locale }}{{ $tl.language }}-{{ $tl.locale }}{{ else }}{{ $tl.language }}{{ end }}"
                   role="option"
-                  aria-selected="false">{{ $tl.label }}</button>
+                  aria-selected="{{ if $tl.isDefault }}true{{ else }}false{{ end }}">{{ $tl.label }}</button>
         </li>
         {{ end }}
       </ul>
@@ -92,7 +101,7 @@
 </div>
 {{ end }}
 <div class="video-tab container collapse pr-0 {{ .tabClass }}" role="tabpanel">
-  <div class="video-tab-content-section"{{ if $videoHasTranscript }} data-transcript-empty="true"{{ end }}>
+  <div class="video-tab-content-section">
     {{ .context.RenderString .tabContent }}
   </div>
 </div>
