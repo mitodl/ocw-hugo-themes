@@ -384,13 +384,14 @@ a.video-download-button:visited {
   align-items: center;
   justify-content: space-between; // Keep icon pinned to right even as label changes
   gap: 2px;
-  min-width: 160px; // Wide enough for "English (US)" style locale labels
+  min-width: 160px; // Wide enough for "English (Default)" style labels
   background: $white;
   border: 1px solid #ccc;
+  border-radius: 4px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   padding: 4px 8px;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: $black;
 
   i.material-icons {
