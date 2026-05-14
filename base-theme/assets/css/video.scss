@@ -352,8 +352,8 @@ a.video-download-button:visited {
 }
 
 // Lang bar is a sibling of .video-tab-toggle-section (before the collapse panel).
-// Use :has([aria-expanded]) so Bootstrap's synchronous attribute update shows/hides
-// it reliably without needing JS events — works in both Chrome and Firefox.
+// Visibility is toggled via JS (.transcript-tab-expanded class) for cross-browser
+// compatibility — CSS :has() is not supported in Firefox < 121.
 .transcript-lang-bar {
   display: none;
   align-items: center;
@@ -364,9 +364,8 @@ a.video-download-button:visited {
   position: relative;
 }
 
-// Show when the transcript tab toggle button has aria-expanded="true".
-.video-tab-toggle-section:has(.tab-toggle-button[aria-expanded="true"])
-  ~ .transcript-lang-bar {
+// Show when the transcript tab is expanded (class toggled by JS).
+.video-tab-toggle-section.transcript-tab-expanded ~ .transcript-lang-bar {
   display: flex;
 }
 

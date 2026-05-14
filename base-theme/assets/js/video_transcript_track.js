@@ -93,6 +93,20 @@ export const initVideoTranscriptTrack = () => {
 
         const player = this
 
+        // Toggle .transcript-tab-expanded on the toggle section when the
+        // transcript panel opens/closes (JS fallback for CSS :has(), which is
+        // not supported in Firefox < 121).
+        const langBar = videoPage.querySelector(".transcript-lang-bar")
+        const langBarToggleSection = langBar?.previousElementSibling
+        if (langBar && langBarToggleSection && transcriptTab) {
+          transcriptTab.addEventListener("show.bs.collapse", () => {
+            langBarToggleSection.classList.add("transcript-tab-expanded")
+          })
+          transcriptTab.addEventListener("hide.bs.collapse", () => {
+            langBarToggleSection.classList.remove("transcript-tab-expanded")
+          })
+        }
+
         // Wire up language selector (option buttons inside the transcript-lang-dropdown).
         // The transcript pane is intentionally left empty until the user picks a language.
         const langOptions = videoPage.querySelectorAll(
