@@ -344,8 +344,6 @@ test("Download sub-menu width matches main menu for multi-lang resource", async 
   await downloadBtn.click()
 
   const popup = page.locator(".video-tab-download-popup").first()
-  const mainMenu = popup.locator(".download-menu-main")
-  const subMenu = popup.locator(".download-menu-submenu")
 
   const mainViewWidth = await popup.evaluate(el => el.offsetWidth)
 
