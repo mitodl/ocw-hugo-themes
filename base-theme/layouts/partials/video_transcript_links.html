@@ -33,7 +33,7 @@
       {{- $lang := .language | default "en" -}}
       {{- $locale := .locale | default "" -}}
       {{- $href := partial "resource_url.html" (dict "context" $context "url" $file) -}}
-      {{- $label := partial "human_language.html" (dict "language" $lang "locale" $locale) -}}
+      {{- $baseLabel := partial "human_language.html" $lang -}}
       {{- $isDefault := false -}}
       {{- if $hasEnglish -}}
         {{- if and (eq $lang "en") (not $firstEnglishDone) -}}
@@ -44,13 +44,19 @@
         {{- $isDefault = true -}}
         {{- $firstDone = true -}}
       {{- end -}}
+      {{- $label := $baseLabel -}}
+      {{- if $isDefault -}}
+        {{- $label = printf "%s (Default)" $baseLabel -}}
+      {{- else if $locale -}}
+        {{- $label = printf "%s (%s)" $baseLabel (upper $locale) -}}
+      {{- end -}}
       {{- $links = $links | append (dict "href" $href "language" $lang "locale" $locale "label" $label "isDefault" $isDefault) -}}
     {{- end -}}
   {{- else -}}
     {{/* Legacy string format: single file path */}}
     {{- $href := partial "resource_url.html" (dict "context" $context "url" $transcriptFile) -}}
     {{- if $href -}}
-      {{- $links = $links | append (dict "href" $href "language" "en" "locale" "" "label" "English" "isDefault" true) -}}
+      {{- $links = $links | append (dict "href" $href "language" "en" "locale" "" "label" "English (Default)" "isDefault" true) -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}

@@ -60,7 +60,7 @@
         </li>
         {{ range .transcriptLinks }}
         <li>
-          <a href="{{ .href }}" target="_blank" lang="{{ if .locale }}{{ .language }}-{{ .locale }}{{ else }}{{ .language }}{{ end }}" aria-label="{{ .label }} Transcript (PDF)">{{ .label }} Transcript (PDF)</a>
+          <a href="{{ .href }}" target="_blank" lang="{{ if .locale }}{{ .language }}-{{ .locale }}{{ else }}{{ .language }}{{ end }}" aria-label="{{ .label }}">{{ .label }}</a>
         </li>
         {{ end }}
       </ul>
