@@ -253,10 +253,9 @@ test("Clicking a language option updates the dropdown button label", async ({
 
   // Initial label is the placeholder before any selection
   const dropdownBtn = page.locator(".transcript-lang-dropdown-btn")
-  await expect(page.locator(".transcript-lang-btn-text")).toHaveText("----")
-
-  // Initial label should be the placeholder
-  await expect(page.locator(".transcript-lang-btn-text")).toHaveText("----")
+  await expect(page.locator(".transcript-lang-btn-text")).toHaveText(
+    "Select a language"
+  )
 
   // Open dropdown, click French
   await dropdownBtn.click()

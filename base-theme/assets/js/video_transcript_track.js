@@ -8,20 +8,29 @@ import videojs from "video.js"
  */
 function switchActiveTrack(player, lang) {
   const tracks = player.textTracks()
-  let matched = null
+  // Prefer exact BCP-47 match; fall back to first base-language match.
+  let exactMatch = null
+  let baseMatch = null
+  const baseBtnLang = lang.split("-")[0]
   for (let i = 0; i < tracks.length; i++) {
     const track = tracks[i]
     if (track.kind === "captions" || track.kind === "subtitles") {
-      // BCP-47 comparison: "en-US" matches button lang="en" and lang="en-US"
       const trackLang = track.language || ""
-      const baseTrackLang = trackLang.split("-")[0]
-      const baseBtnLang = lang.split("-")[0]
-      const isMatch = trackLang === lang || baseTrackLang === baseBtnLang
-      track.mode = isMatch ? "showing" : "disabled"
-      if (isMatch) matched = track
+      if (trackLang === lang && !exactMatch) {
+        exactMatch = track
+      } else if (trackLang.split("-")[0] === baseBtnLang && !baseMatch) {
+        baseMatch = track
+      }
     }
   }
-  return matched
+  const chosen = exactMatch || baseMatch
+  for (let i = 0; i < tracks.length; i++) {
+    const track = tracks[i]
+    if (track.kind === "captions" || track.kind === "subtitles") {
+      track.mode = track === chosen ? "showing" : "disabled"
+    }
+  }
+  return chosen
 }
 
 /**

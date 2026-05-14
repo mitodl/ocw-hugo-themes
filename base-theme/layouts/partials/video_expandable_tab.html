@@ -60,7 +60,7 @@
         </li>
         {{ range .transcriptLinks }}
         <li>
-          <a href="{{ .href }}" target="_blank" lang="{{ .language }}" aria-label="{{ .label }} transcript (PDF)">{{ .label }}</a>
+          <a href="{{ .href }}" target="_blank" lang="{{ if .locale }}{{ .language }}-{{ .locale }}{{ else }}{{ .language }}{{ end }}" aria-label="{{ .label }} Transcript (PDF)">{{ .label }} Transcript (PDF)</a>
         </li>
         {{ end }}
       </ul>
@@ -73,7 +73,7 @@
   <span class="transcript-lang-label">Select language:</span>
   <div class="transcript-lang-dropdown">
     <button class="transcript-lang-dropdown-btn" aria-haspopup="listbox" aria-expanded="false">
-      <span class="transcript-lang-btn-text">----</span>
+      <span class="transcript-lang-btn-text">Select a language</span>
       <i class="material-icons" aria-hidden="true">expand_more</i>
     </button>
     <div class="transcript-lang-dropdown-menu hidden" role="listbox">
@@ -81,7 +81,7 @@
         {{ range $tl := .transcriptLinks }}
         <li>
           <button class="transcript-lang-option"
-                  data-lang="{{ $tl.language }}"
+                  data-lang="{{ if $tl.locale }}{{ $tl.language }}-{{ $tl.locale }}{{ else }}{{ $tl.language }}{{ end }}"
                   role="option"
                   aria-selected="false">{{ $tl.label }}</button>
         </li>
@@ -92,7 +92,7 @@
 </div>
 {{ end }}
 <div class="video-tab container collapse pr-0 {{ .tabClass }}" role="tabpanel">
-  <div class="video-tab-content-section" data-transcript-empty="true">
+  <div class="video-tab-content-section"{{ if $videoHasTranscript }} data-transcript-empty="true"{{ end }}>
     {{ .context.RenderString .tabContent }}
   </div>
 </div>

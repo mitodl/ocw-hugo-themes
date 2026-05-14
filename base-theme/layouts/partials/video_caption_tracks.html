@@ -27,6 +27,7 @@
     {{- end -}}
     {{/* Second pass: build tracks; when no English exists, first track gets default */}}
     {{- $firstDone := false -}}
+    {{- $firstEnglishDone := false -}}
     {{- range $captionsFile -}}
       {{- $file := .file -}}
       {{- $lang := .language | default "en" -}}
@@ -39,7 +40,10 @@
       {{- $label := partial "human_language.html" (dict "language" $lang "locale" $locale) -}}
       {{- $isDefault := false -}}
       {{- if $hasEnglish -}}
-        {{- $isDefault = eq $lang "en" -}}
+        {{- if and (eq $lang "en") (not $firstEnglishDone) -}}
+          {{- $isDefault = true -}}
+          {{- $firstEnglishDone = true -}}
+        {{- end -}}
       {{- else if not $firstDone -}}
         {{- $isDefault = true -}}
         {{- $firstDone = true -}}

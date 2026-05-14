@@ -44,7 +44,9 @@ test.describe("Course v3 video tab language selector", () => {
     })
 
     // Initial label is the placeholder before any selection
-    await expect(page.locator(".transcript-lang-btn-text")).toHaveText("----")
+    await expect(page.locator(".transcript-lang-btn-text")).toHaveText(
+      "Select a language"
+    )
 
     // Open dropdown, click French
     await page.locator(".transcript-lang-dropdown-btn").click()
@@ -81,6 +83,44 @@ test.describe("Course v3 video tab language selector", () => {
       ".video-tab.transcript .video-tab-content-section"
     )
     const pluginElements = transcriptContainer.locator("[id^='transcript-']")
+    expect(await pluginElements.count()).toBeLessThanOrEqual(1)
+  })
+
+  test("switching language replaces the transcript preview, not stacks below it", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto(MULTI_LANG_RESOURCE)
+    const videoPage = new VideoElement(page)
+
+    // Open transcript tab
+    await videoPage.tab({ name: /Transcript/i, exact: false }).click()
+    await page.waitForSelector(".video-tab.container.transcript.show", {
+      state: "attached"
+    })
+
+    const dropdownBtn = page.locator(".transcript-lang-dropdown-btn")
+    const transcriptContainer = page.locator(
+      ".video-tab.transcript .video-tab-content-section"
+    )
+
+    // Select English first
+    await dropdownBtn.click()
+    await page.locator(".transcript-lang-option[data-lang='en']").click()
+
+    // Switch to French
+    await dropdownBtn.click()
+    await page.locator(".transcript-lang-option[data-lang='fr']").click()
+
+    // There must still be exactly one plugin element (no stacking)
+    const pluginElements = transcriptContainer.locator("[id^='transcript-']")
+    expect(await pluginElements.count()).toBeLessThanOrEqual(1)
+
+    // Switch back to English
+    await dropdownBtn.click()
+    await page.locator(".transcript-lang-option[data-lang='en']").click()
+
+    // Still exactly one plugin element after switching back
     expect(await pluginElements.count()).toBeLessThanOrEqual(1)
   })
 

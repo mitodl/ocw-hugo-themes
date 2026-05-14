@@ -16,7 +16,7 @@
       {{ end }}
       {{ if .captionTracks }}
         {{ range .captionTracks }}
-        <track kind="captions" src="{{ .src }}" srclang="{{ .srclang }}" label="{{ .label }}"{{ if .isDefault }} default{{ end }} />
+        <track kind="captions" src="{{ .src }}" srclang="{{ .srclang }}" label="{{ .label }}"{{ if .isDefault }} default mode="showing"{{ end }} />
         {{ end }}
       {{ else if .captionsLocation }}
         <track kind="captions" src="{{ .captionsLocation }}" srclang="en" label="English" default mode="showing" />
