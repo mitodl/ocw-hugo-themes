@@ -359,7 +359,8 @@ a.video-download-button:visited {
 // Fallback: .transcript-tab-expanded class toggled by JS (video_transcript_track.js)
 // for Firefox < 121 which does not support :has().
 // stylelint-disable-next-line selector-pseudo-class-no-unknown
-.video-tab-toggle-section:has(button[aria-expanded="true"]) ~ .transcript-lang-bar,
+.video-tab-toggle-section:has(button[aria-expanded="true"])
+  ~ .transcript-lang-bar,
 .video-tab-toggle-section.transcript-tab-expanded ~ .transcript-lang-bar {
   display: flex;
 }
