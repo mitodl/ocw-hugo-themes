@@ -114,9 +114,13 @@ export const initVideoTranscriptTrack = () => {
           ".transcript-lang-option"
         )
 
-        // Always auto-mount the transcript on tab open (default language is
-        // pre-selected; options fire re-mount on switch).
+        // Auto-mount the transcript:
+        //   1. Immediately on ready – so cues are in the DOM when the user opens
+        //      the tab (VTT cues may still be loading when show.bs.collapse fires).
+        //   2. On every tab open – so switching back after close re-renders, and
+        //      language-switch re-mounts get a clean container.
         if (transcriptContainer) {
+          remountTranscript(player, transcriptContainer, transcriptOptions)
           transcriptTab?.addEventListener("show.bs.collapse", () => {
             remountTranscript(player, transcriptContainer, transcriptOptions)
           })

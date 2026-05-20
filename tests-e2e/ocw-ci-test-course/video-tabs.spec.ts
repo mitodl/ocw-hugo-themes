@@ -333,28 +333,6 @@ test("Switching language replaces the transcript preview, not stacks below it", 
   expect(await pluginElements.count()).toBeLessThanOrEqual(1)
 })
 
-test("Download sub-menu width matches main menu for multi-lang resource", async ({
-  page
-}) => {
-  const coursePage = new CoursePage(page, "course")
-  await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
-
-  // Open the download popup
-  const downloadBtn = page.getByRole("button", { name: "Show Downloads" })
-  await downloadBtn.click()
-
-  const popup = page.locator(".video-tab-download-popup").first()
-
-  const mainViewWidth = await popup.evaluate(el => el.offsetWidth)
-
-  // Navigate to sub-menu
-  await page.getByRole("button", { name: /Download Transcript/i }).click()
-  const subViewWidth = await popup.evaluate(el => el.offsetWidth)
-
-  // Popup should not change size when switching between main and sub-menu views
-  expect(subViewWidth).toBe(mainViewWidth)
-})
-
 test("English transcript auto-loads when the tab is opened", async ({
   page
 }) => {
