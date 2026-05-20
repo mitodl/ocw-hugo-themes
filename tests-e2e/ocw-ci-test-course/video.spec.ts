@@ -15,17 +15,24 @@ test("Start time exists and transcript section can be expanded", async ({
   page
 }) => {
   const course = new CoursePage(page, "course")
-  const videoElement = new VideoElement(page)
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
   const src = await page.locator("iframe.vjs-tech").getAttribute("src")
   expect(src).toMatch(/.*?start=13.*/)
 
-  await videoElement.tab({ name: "Transcript", exact: true }).click()
-  await expect(
-    videoElement.tab({ name: "Transcript", expanded: true, exact: true })
-  ).toBeVisible()
-  await videoElement.downloadButton().click()
-  await expect(videoElement.downloadTranscript()).toBeVisible()
+  // Open the transcript tab and select the only language option.
+  // The pane stays empty until a language is explicitly selected.
+  const videoElement = new VideoElement(page)
+  await videoElement.tab({ name: /Transcript/i, exact: false }).click()
+  await page.waitForSelector(".video-tab.container.transcript.show", {
+    state: "attached"
+  })
+  await page.locator(".transcript-lang-dropdown-btn").click()
+  await page.locator(".transcript-lang-option").first().click()
+
+  const transcriptLine = page.locator('.transcript-line[data-begin="12.06"]')
+  await expect(transcriptLine).toContainText(
+    "so here's our runner, and here's our road"
+  )
 })
 
 test("End time exists", async ({ page }) => {

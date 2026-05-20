@@ -7,7 +7,7 @@ import { offlineFileUrl, expectLocalPackageHref } from "../util"
  * The page contains:
  *  - Two `resource_link` shortcodes to Google.com (external, has_external_license_warning: true)
  *  - A `resource_link` shortcode to a broken/missing external resource
- *  - A `resource_link` shortcode to example_jpg (internal resource → local link)
+ *  - A `resource_link` shortcode to first-test-page-title (internal page → local link)
  *  - A plain markdown `https://google.com` link
  *  - A `resource_link` to OCW main (ocw.mit.edu, has_external_license_warning: false)
  */
@@ -127,12 +127,11 @@ test.describe("offline-v3 external resources", () => {
   }) => {
     await page.goto(offlineFileUrl(EXTERNAL_RESOURCES_PAGE))
 
-    // The first paragraph has: resource_link "this" (internal) then [this](https://google.com)
-    // Use the first "this" link which is the internal resource_link
+    // The paragraph contains: resource_link to first-test-page-title (internal)
     const link = page
       .locator("p")
-      .filter({ hasText: "this is an internal link" })
-      .getByRole("link", { name: "this" })
+      .filter({ hasText: "is an internal link" })
+      .getByRole("link", { name: "First Test Page (internal link)" })
       .first()
 
     const href = await expectLocalPackageHref(link)
