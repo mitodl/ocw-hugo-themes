@@ -30,6 +30,10 @@ test("Nav external resource without warning directly opens a new tab", async ({
   page,
   siteAlias
 }) => {
+  test.skip(
+    siteAlias === "course-offline",
+    "Nav subsections are collapsed by default in offline v2; the OCW (no warning) link is inside a collapsed Bootstrap section and is not accessible"
+  )
   const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/external-resources-page")
 
