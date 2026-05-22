@@ -4,18 +4,31 @@ import { Locator, expect } from "@playwright/test"
 import { fromRoot } from "../LocalOcw"
 import { TEST_SITES } from "./test_sites"
 
-const OFFLINE_V3_BUILD_ROOT = fromRoot("./test-sites/tmp/dist")
+const OFFLINE_BUILD_ROOT = fromRoot("./test-sites/tmp/dist")
+/** @deprecated Use OFFLINE_BUILD_ROOT */
+const OFFLINE_V3_BUILD_ROOT = OFFLINE_BUILD_ROOT
 
 const site = TEST_SITES["course-v3-offline"]
+const siteV2 = TEST_SITES["course-offline"]
 
 /**
  * Absolute path to the built offline-v3 course site root.
  * The site is built by global-setup before any worker starts.
  */
 export const offlineV3SiteDir = path.join(
-  OFFLINE_V3_BUILD_ROOT,
+  OFFLINE_BUILD_ROOT,
   "courses",
   site.name
+)
+
+/**
+ * Absolute path to the built offline-v2 course site root.
+ * The site is built by global-setup before any worker starts.
+ */
+export const offlineV2SiteDir = path.join(
+  OFFLINE_BUILD_ROOT,
+  "courses",
+  siteV2.name
 )
 
 /**
@@ -28,6 +41,19 @@ export const offlineFileUrl = (route = "/"): string => {
   const filePath = trimmed ?
     path.join(offlineV3SiteDir, trimmed, "index.html") :
     path.join(offlineV3SiteDir, "index.html")
+  return pathToFileURL(filePath).href
+}
+
+/**
+ * Construct a `file://` URL for a route within the built offline-v2 site.
+ *
+ * @param route  Site-root-relative path, e.g. "/" or "/pages/assignments"
+ */
+export const offlineV2FileUrl = (route = "/"): string => {
+  const trimmed = route.replace(/^\//, "").replace(/\/$/, "")
+  const filePath = trimmed ?
+    path.join(offlineV2SiteDir, trimmed, "index.html") :
+    path.join(offlineV2SiteDir, "index.html")
   return pathToFileURL(filePath).href
 }
 
