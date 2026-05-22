@@ -1,9 +1,9 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 test.describe("MIT Learn Header", () => {
-  test("Header is visible and contains MIT Learn logo", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Header is visible and contains MIT Learn logo", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/")
 
     const header = page.locator("#mit-learn-header")
@@ -14,8 +14,8 @@ test.describe("MIT Learn Header", () => {
     await expect(logo).toHaveAttribute("alt", "MIT Learn")
   })
 
-  test("Header contains MIT logo linking to mit.edu", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Header contains MIT logo linking to mit.edu", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/")
 
     const mitLogoLink = page.locator(".mit-logo-link").first()
@@ -23,8 +23,8 @@ test.describe("MIT Learn Header", () => {
     await expect(mitLogoLink).toHaveAttribute("target", "_blank")
   })
 
-  test("Search button links to search page", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Search button links to search page", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/")
 
     const searchButton = page.locator(".mit-learn-search-button").first()
@@ -33,8 +33,8 @@ test.describe("MIT Learn Header", () => {
     await expect(searchButton).toHaveAttribute("href", /\/search$/)
   })
 
-  test("Menu button opens navigation drawer", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Menu button opens navigation drawer", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/")
 
     const navDrawer = page.locator("#mit-learn-nav-drawer")
@@ -52,9 +52,10 @@ test.describe("MIT Learn Header", () => {
   })
 
   test("Navigation drawer contains Learn section with correct links", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/")
 
     // Open drawer
@@ -91,8 +92,8 @@ test.describe("MIT Learn Header", () => {
     )
   })
 
-  test("Close button closes navigation drawer", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Close button closes navigation drawer", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/")
 
     // Open drawer
@@ -113,8 +114,8 @@ test.describe("MIT Learn Header", () => {
     await expect(navDrawer).toHaveAttribute("inert", "")
   })
 
-  test("Clicking backdrop closes navigation drawer", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Clicking backdrop closes navigation drawer", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/")
 
     // Open drawer
@@ -136,10 +137,11 @@ test.describe("MIT Learn Header", () => {
   })
 
   test("Mobile course menu is sticky and closed by default", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const mobileMenuWrapper = page.locator(".mobile-nav-div")
@@ -152,10 +154,11 @@ test.describe("MIT Learn Header", () => {
   })
 
   test("Mobile course menu has high z-index for sticky layering", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const mobileMenuWrapper = page.locator(".mobile-nav-div")
@@ -164,10 +167,11 @@ test.describe("MIT Learn Header", () => {
   })
 
   test("Mobile course menu is closed by default on every page", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
 
     // Check on the syllabus page
     await course.goto("/pages/syllabus")
@@ -181,10 +185,11 @@ test.describe("MIT Learn Header", () => {
   })
 
   test("Mobile course menu resets to closed after navigation", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const menuToggle = page.locator("#mobile-course-menu-toggle-v3")
@@ -199,10 +204,11 @@ test.describe("MIT Learn Header", () => {
   })
 
   test("Mobile course menu toggles open and closed on button click", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const menuToggle = page.locator("#mobile-course-menu-toggle-v3")
@@ -216,10 +222,11 @@ test.describe("MIT Learn Header", () => {
   })
 
   test("Mobile course menu collapses when clicking outside", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const menuToggle = page.locator("#mobile-course-menu-toggle-v3")
@@ -232,10 +239,11 @@ test.describe("MIT Learn Header", () => {
   })
 
   test("Mobile course menu handles multiple rapid toggles", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const menuToggle = page.locator("#mobile-course-menu-toggle-v3")
