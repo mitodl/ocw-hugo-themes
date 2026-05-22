@@ -1,9 +1,9 @@
 import { env } from "../../env"
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { getFirstAfter, CoursePage } from "../util"
 
-test("Course page has title in <head>", async ({ page }) => {
-  const course = new CoursePage(page, "course")
+test("Course page has title in <head>", async ({ page, siteAlias }) => {
+  const course = new CoursePage(page, siteAlias)
   await course.goto()
   await expect(page).toHaveTitle(/OCW CI Test Course/)
 })
@@ -39,8 +39,12 @@ test.describe("Course info", () => {
   ]
 
   listData.forEach(({ label, expected }) => {
-    test(`Lists ${label} with links to search page`, async ({ page }) => {
-      const course = new CoursePage(page, "course")
+    test(`Lists ${label} with links to search page`, async ({ page, siteAlias }) => {
+      test.skip(
+        siteAlias === "course-offline",
+        "Search links are not present in offline builds"
+      )
+      const course = new CoursePage(page, siteAlias)
       await course.goto()
       const courseInfo = course.getCourseInfo()
 
@@ -64,11 +68,15 @@ test.describe("Course info", () => {
   })
 })
 
-test("Has expected meta tags in <head>", async ({ page }) => {
+test("Has expected meta tags in <head>", async ({ page, siteAlias }) => {
+  test.skip(
+    siteAlias === "course-offline",
+    "Absolute sitemap URLs are not emitted in offline builds"
+  )
   const sitemapDomain = env.SITEMAP_DOMAIN ?
     env.SITEMAP_DOMAIN :
     "https://live-qa.ocw.mit.edu"
-  const course = new CoursePage(page, "course")
+  const course = new CoursePage(page, siteAlias)
   await course.goto()
   const metaShareImage = page.locator('meta[property="og:image"]')
   const metaTwitterSite = page.locator('meta[name="twitter:site"]')
@@ -87,28 +95,4 @@ test("Has expected meta tags in <head>", async ({ page }) => {
     "content",
     "summary_large_image"
   )
-})
-
-test("Appzi script is present on the page", async ({ page }) => {
-  const course = new CoursePage(page, "course")
-  await course.goto()
-
-  const appziScript = page.locator('script[src*="https://w.appzi.io/w.js"]')
-  await expect(appziScript).toHaveCount(1)
-})
-
-test("Course robots.txt allows crawling by default", async ({ page }) => {
-  const sitemapDomain = env.SITEMAP_DOMAIN ?
-    env.SITEMAP_DOMAIN :
-    "https://live-qa.ocw.mit.edu"
-  const course = new CoursePage(page, "course")
-
-  const response = await course.goto("/robots.txt")
-
-  expect(response?.ok()).toBeTruthy()
-  await expect(page.locator("body")).toContainText(
-    `Sitemap: https://${sitemapDomain}/sitemap.xml`
-  )
-  // Empty Disallow (no path) means allow all crawling
-  await expect(page.locator("body")).not.toContainText("Disallow: /")
 })

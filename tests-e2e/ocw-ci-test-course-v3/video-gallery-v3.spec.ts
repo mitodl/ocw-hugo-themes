@@ -1,14 +1,15 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 test.describe("Course v3 Video Gallery Page", () => {
-  test.beforeEach(async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test.beforeEach(async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/video_galleries/lecture-videos/")
   })
 
   test("Video gallery page renders with correct structure", async ({
-    page
+    page,
+    siteAlias
   }) => {
     // Check the video gallery page container exists
     const galleryPage = page.locator(".video-gallery-page-v3")
@@ -20,7 +21,7 @@ test.describe("Course v3 Video Gallery Page", () => {
     await expect(title).toHaveText("Lecture Videos")
   })
 
-  test("Video gallery cards container styles are correct", async ({ page }) => {
+  test("Video gallery cards container styles are correct", async ({ page, siteAlias }) => {
     const cardsContainer = page.locator(".video-gallery-cards-container")
     await expect(cardsContainer).toBeVisible()
     await expect(cardsContainer).toHaveCSS("display", "flex")
@@ -28,13 +29,13 @@ test.describe("Course v3 Video Gallery Page", () => {
     await expect(cardsContainer).toHaveCSS("gap", "16px")
   })
 
-  test("Video gallery card has no text decoration", async ({ page }) => {
+  test("Video gallery card has no text decoration", async ({ page, siteAlias }) => {
     const videoCard = page.locator(".video-gallery-card").first()
     await expect(videoCard).toBeVisible()
     await expect(videoCard).toHaveCSS("text-decoration-line", "none")
   })
 
-  test("Video gallery card thumbnail styles are correct", async ({ page }) => {
+  test("Video gallery card thumbnail styles are correct", async ({ page, siteAlias }) => {
     const thumbnail = page.locator(".video-gallery-card-thumbnail").first()
     await expect(thumbnail).toBeVisible()
     await expect(thumbnail).toHaveCSS("width", "104px")
@@ -42,7 +43,7 @@ test.describe("Course v3 Video Gallery Page", () => {
     await expect(thumbnail).toHaveCSS("border-radius", "4px")
   })
 
-  test("Video gallery card title styles are correct", async ({ page }) => {
+  test("Video gallery card title styles are correct", async ({ page, siteAlias }) => {
     const title = page.locator(".video-gallery-card-title").first()
     await expect(title).toBeVisible()
     await expect(title).toHaveCSS("font-size", "14px")
@@ -51,7 +52,7 @@ test.describe("Course v3 Video Gallery Page", () => {
     await expect(title).toHaveCSS("color", "rgb(0, 0, 0)")
   })
 
-  test("Video gallery card displays image when available", async ({ page }) => {
+  test("Video gallery card displays image when available", async ({ page, siteAlias }) => {
     // Look for a thumbnail with an actual image
     const thumbnailImage = page
       .locator(".video-gallery-card-thumbnail img")
@@ -60,7 +61,8 @@ test.describe("Course v3 Video Gallery Page", () => {
   })
 
   test("Video gallery card displays YouTube logo when no thumbnail", async ({
-    page
+    page,
+    siteAlias
   }) => {
     // Look for YouTube logo overlay (for videos without thumbnail)
     const youtubeLogos = page.locator(
@@ -75,7 +77,7 @@ test.describe("Course v3 Video Gallery Page", () => {
     }
   })
 
-  test("Video gallery card links to correct video pages", async ({ page }) => {
+  test("Video gallery card links to correct video pages", async ({ page, siteAlias }) => {
     const videoCard = page.locator(".video-gallery-card").first()
     const href = await videoCard.getAttribute("href")
 
@@ -83,7 +85,7 @@ test.describe("Course v3 Video Gallery Page", () => {
     expect(href).toContain("/resources/")
   })
 
-  test("Video gallery card hover state changes styles", async ({ page }) => {
+  test("Video gallery card hover state changes styles", async ({ page, siteAlias }) => {
     const videoCard = page.locator(".video-gallery-card").first()
 
     // Hover and check styles change
@@ -100,7 +102,7 @@ test.describe("Course v3 Video Gallery Page", () => {
     await expect(title).toHaveCSS("text-decoration-line", "none")
   })
 
-  test("Video gallery cards take full width of container", async ({ page }) => {
+  test("Video gallery cards take full width of container", async ({ page, siteAlias }) => {
     const cardsContainer = page.locator(".video-gallery-cards-container")
     const videoCard = page.locator(".video-gallery-card").first()
 

@@ -30,15 +30,74 @@ const config: PlaywrightTestConfig = {
     trace:         "on-first-retry"
   },
   projects: [
+    // ── v2 course tests (ocw-ci-test-course/) ──────────────────────────────
+    // Online variant
     {
-      name: "firefox",
-      use:  {
+      name:      "course-v2-online-firefox",
+      testMatch: ["**/ocw-ci-test-course/*.spec.ts"],
+      use:       { ...devices["Desktop Firefox"], siteAlias: "course" }
+    },
+    {
+      name:      "course-v2-online-chrome",
+      testMatch: ["**/ocw-ci-test-course/*.spec.ts"],
+      use:       { ...devices["Desktop Chrome"], channel: "chrome", siteAlias: "course" }
+    },
+    // Offline variant
+    {
+      name:      "course-v2-offline-firefox",
+      testMatch: ["**/ocw-ci-test-course/*.spec.ts"],
+      use:       { ...devices["Desktop Firefox"], siteAlias: "course-offline" }
+    },
+    {
+      name:      "course-v2-offline-chrome",
+      testMatch: ["**/ocw-ci-test-course/*.spec.ts"],
+      use:       { ...devices["Desktop Chrome"], channel: "chrome", siteAlias: "course-offline" }
+    },
+
+    // ── v3 course tests (ocw-ci-test-course-v3/) ───────────────────────────
+    // Online variant
+    {
+      name:      "course-v3-online-firefox",
+      testMatch: ["**/ocw-ci-test-course-v3/*.spec.ts"],
+      use:       { ...devices["Desktop Firefox"], siteAlias: "course-v3" }
+    },
+    {
+      name:      "course-v3-online-chrome",
+      testMatch: ["**/ocw-ci-test-course-v3/*.spec.ts"],
+      use:       { ...devices["Desktop Chrome"], channel: "chrome", siteAlias: "course-v3" }
+    },
+    // Offline variant
+    {
+      name:      "course-v3-offline-firefox",
+      testMatch: ["**/ocw-ci-test-course-v3/*.spec.ts"],
+      use:       { ...devices["Desktop Firefox"], siteAlias: "course-v3-offline" }
+    },
+    {
+      name:      "course-v3-offline-chrome",
+      testMatch: ["**/ocw-ci-test-course-v3/*.spec.ts"],
+      use:       { ...devices["Desktop Chrome"], channel: "chrome", siteAlias: "course-v3-offline" }
+    },
+
+    // ── All other tests (www, fixtures, dedicated offline spec dirs) ────────
+    // These are run by the general projects which exclude the directories
+    // handled by the course-specific projects above.
+    {
+      name:       "firefox",
+      testIgnore: [
+        "**/ocw-ci-test-course/*.spec.ts",
+        "**/ocw-ci-test-course-v3/*.spec.ts"
+      ],
+      use: {
         ...devices["Desktop Firefox"]
       }
     },
     {
-      name: "Google Chrome",
-      use:  { ...devices["Desktop Chrome"], channel: "chrome" }
+      name:       "Google Chrome",
+      testIgnore: [
+        "**/ocw-ci-test-course/*.spec.ts",
+        "**/ocw-ci-test-course-v3/*.spec.ts"
+      ],
+      use: { ...devices["Desktop Chrome"], channel: "chrome" }
     }
   ]
 }

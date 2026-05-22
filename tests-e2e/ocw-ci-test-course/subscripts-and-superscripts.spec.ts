@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 /**
@@ -26,9 +26,14 @@ const simplifyInnerHtmlWhitespace = (innherHTML: string) => {
  * tags.
  */
 test("Subscripts and superscripts in markdown should render in HTML.", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const course = new CoursePage(page, "course")
+  test.skip(
+    siteAlias === "course-offline",
+    "Expected HTML contains absolute /courses/... hrefs that differ in offline builds"
+  )
+  const course = new CoursePage(page, siteAlias)
   await course.goto("pages/subscripts-and-superscripts")
   const paragraphs = await course
     .withinContent()
@@ -52,8 +57,8 @@ test("Subscripts and superscripts in markdown should render in HTML.", async ({
   expect(actuals).toEqual(expected)
 })
 
-test("Subscripts and superscripts render in tables", async ({ page }) => {
-  const course = new CoursePage(page, "course")
+test("Subscripts and superscripts render in tables", async ({ page, siteAlias }) => {
+  const course = new CoursePage(page, siteAlias)
   await course.goto("pages/subscripts-and-superscripts")
   const actuals = await course
     .withinContent()

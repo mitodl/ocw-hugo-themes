@@ -1,7 +1,7 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
-test("Resource list shows correct resource categories", async ({ page }) => {
+test("Resource list shows correct resource categories", async ({ page, siteAlias }) => {
   const expectedResources = [
     {
       title:            "file.mp4",
@@ -29,7 +29,7 @@ test("Resource list shows correct resource categories", async ({ page }) => {
     }
   ]
 
-  const course = new CoursePage(page, "course")
+  const course = new CoursePage(page, siteAlias)
   await course.goto("/lists/a-resource-list")
 
   for (const expectedResource of expectedResources) {
