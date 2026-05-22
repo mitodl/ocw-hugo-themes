@@ -1,15 +1,23 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
-test("Download button exists for test course", async ({ page }) => {
-  const course = new CoursePage(page, "course")
+test("Download button exists for test course", async ({ page, siteAlias }) => {
+  test.skip(
+    siteAlias === "course-offline",
+    "Offline builds show 'Browse Resources' instead of 'Download course'"
+  )
+  const course = new CoursePage(page, siteAlias)
   await course.goto("/download")
   const downloadButton = page.getByRole("link", { name: "Download course" })
   await expect(downloadButton).toBeVisible()
 })
 
-test("List of resources appears on download page", async ({ page }) => {
-  const course = new CoursePage(page, "course")
+test("List of resources appears on download page", async ({ page, siteAlias }) => {
+  test.skip(
+    siteAlias === "course-offline",
+    "Resource hrefs are relative in offline builds, not absolute /courses/... paths"
+  )
+  const course = new CoursePage(page, siteAlias)
   await course.goto("/download")
   const tab = page.getByRole("link", { name: "Activity Assignments" })
   await tab.click()

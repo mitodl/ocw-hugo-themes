@@ -1,14 +1,22 @@
 import { env } from "../../env"
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 import { VideoElement } from "../util/VideoElement"
 
 const resourceBaseUrl = env.RESOURCE_BASE_URL
 
+test.beforeEach(({ siteAlias }) => {
+  test.skip(
+    siteAlias === "course-offline",
+    "Video tab tests check remote RESOURCE_BASE_URL download hrefs not present in offline builds"
+  )
+})
+
 test("that the Download Button works for multiple embed videos in a page", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("pages/multiple-videos-series-overview/")
   const videoElementsCount = await new VideoElement(page).count()
   expect(videoElementsCount).toBe(3)
@@ -35,7 +43,8 @@ test("that the Download Button works for multiple embed videos in a page", async
 })
 
 test("Verify that the 'Download video' and 'Download transcript' links are keyboard navigable and have the correct download URLs", async ({
-  page
+  page,
+  siteAlias
 }) => {
   /**
    * ALERT MAC USERS
@@ -46,7 +55,7 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
    * See https://github.com/mitodl/ocw-hugo-themes/issues/1283#issuecomment-1833883368
    * for more context.
    */
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
   const downloadLinks = [
     new URL(
@@ -79,9 +88,10 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
 })
 
 test("Embed video redirects to video page using keyboard navigation", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("pages/video-series-overview/")
   const videoRedirectLink = page.getByRole("link", {
     name: "View video page"
@@ -95,7 +105,7 @@ test("Embed video redirects to video page using keyboard navigation", async ({
     "resources/ocw_test_course_mit8_01f16_l01v01_360p"
   )
 })
-test("Video tabs content (links) are keyoard navigable", async ({ page }) => {
+test("Video tabs content (links) are keyoard navigable", async ({ page, siteAlias }) => {
   const tabs = [
     {
       title: "Related Resources",
@@ -107,7 +117,7 @@ test("Video tabs content (links) are keyoard navigable", async ({ page }) => {
     }
   ]
   for (const tab of tabs) {
-    const coursePage = new CoursePage(page, "course")
+    const coursePage = new CoursePage(page, siteAlias)
     await coursePage.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
     const videoPage = new VideoElement(page)
     const tabButton = videoPage.tab({
@@ -125,9 +135,10 @@ test("Video tabs content (links) are keyoard navigable", async ({ page }) => {
   }
 })
 test("Expand and collapse video tabs using keyboard navigation", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
   const videoPage = new VideoElement(page)
 
@@ -162,9 +173,10 @@ test("Expand and collapse video tabs using keyboard navigation", async ({
 })
 
 test("A page without a transcript has the proper tab titles and contents", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l01v01_360p")
   const videoPage = new VideoElement(page)
 
@@ -193,8 +205,8 @@ test("A page without a transcript has the proper tab titles and contents", async
   )
 })
 
-test("A page with a transcript has a transcript tab", async ({ page }) => {
-  const coursePage = new CoursePage(page, "course")
+test("A page with a transcript has a transcript tab", async ({ page, siteAlias }) => {
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l01v02_360p")
   const videoPage = new VideoElement(page)
   await expect(videoPage.tab({})).toHaveText(/Transcript\s*/)
