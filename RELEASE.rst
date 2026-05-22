@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.150.0
+---------------
+
+- Fix MathJax loading for display equations (#1810)
+- Support Learn GTM env params in course-v3 (#1809)
+- Update dependency @sentry/browser to v10.53.1 (#1803)
+- Update dependency posthog-js to v1.374.0 (#1805)
+- chore: fixed flaky test (#1807)
+
 Version 1.149.0 (Released May 13, 2026)
 ---------------
 
