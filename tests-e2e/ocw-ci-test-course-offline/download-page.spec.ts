@@ -3,7 +3,7 @@ import { offlineV2FileUrl, expectLocalPackageHref } from "../util/offline-build"
 
 test("Browse Resources CTA is present on download page", async ({ page }) => {
   await page.goto(offlineV2FileUrl("/download"))
-  const browseLink = page.locator(".download-course-link-button")
+  const browseLink = page.locator(".download-course-link-button").first()
   await expect(browseLink).toBeVisible()
 })
 
