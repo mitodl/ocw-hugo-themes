@@ -2,6 +2,7 @@ import { env } from "../../env"
 import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 import { VideoElement } from "../util/VideoElement"
+import { TEST_SITES } from "../util/test_sites"
 
 const resourceBaseUrl = env.RESOURCE_BASE_URL
 
@@ -118,14 +119,11 @@ test("Embed video redirects to video page using keyboard navigation", async ({
     "resources/ocw_test_course_mit8_01f16_l01v01_360p"
   )
 })
-test("Video tabs content (links) are keyoard navigable", async ({
+test("Video tabs content (links) are keyboard navigable", async ({
   page,
   siteAlias
 }) => {
-  const courseName =
-    siteAlias === "course-offline" ?
-      "ocw-ci-test-course-offline" :
-      "ocw-ci-test-course"
+  const courseName = TEST_SITES[siteAlias].name
   const tabs = [
     {
       title: "Related Resources",

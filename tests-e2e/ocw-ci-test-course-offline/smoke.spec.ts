@@ -26,6 +26,6 @@ test("Page loads v2 offline bundle, not v3 bundle", async ({ page }) => {
   await page.goto(offlineV2FileUrl("/"))
   const v2Bundle = page.locator("script[src*='course_offline']")
   const v3Bundle = page.locator("script[src*='course_offline_v3']")
-  await expect(v2Bundle.first()).toBeAttached()
+  await expect(v2Bundle).toHaveCount(1)
   await expect(v3Bundle).toHaveCount(0)
 })
