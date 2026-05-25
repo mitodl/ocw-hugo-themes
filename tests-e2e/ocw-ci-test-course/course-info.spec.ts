@@ -18,7 +18,10 @@ test("Course info section can be toggled", async ({ page, siteAlias }) => {
   await expect(heading).toBeVisible()
 })
 
-test("Toggling topics does not affect drawer layout", async ({ page, siteAlias }) => {
+test("Toggling topics does not affect drawer layout", async ({
+  page,
+  siteAlias
+}) => {
   const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/section-1")
 

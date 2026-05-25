@@ -29,10 +29,6 @@ test("Subscripts and superscripts in markdown should render in HTML.", async ({
   page,
   siteAlias
 }) => {
-  test.skip(
-    siteAlias === "course-offline",
-    "Expected HTML contains absolute /courses/... hrefs that differ in offline builds"
-  )
   const course = new CoursePage(page, siteAlias)
   await course.goto("pages/subscripts-and-superscripts")
   const paragraphs = await course
@@ -42,6 +38,11 @@ test("Subscripts and superscripts in markdown should render in HTML.", async ({
   const actuals = paragraphs
     .map(simplifyInnerHtmlWhitespace)
     .filter(p => p.startsWith("Example"))
+  // Offline builds use relative hrefs; online builds use absolute /courses/... hrefs
+  const internalHref =
+    siteAlias === "course-offline" ?
+      "../../../../courses/ocw-ci-test-course-offline/pages/subscripts-and-superscripts/index.html" :
+      "/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/"
   const expected = [
     "Example, Normal: Lorem ipsum dolor sit<sub>abc 123</sub> amet consectetur. Lorem ipsum dolor sit<sup>abc 123</sup> amet consectetur.",
     "Example, Bold: <strong>Lorem ipsum dolor sit<sub>abc 123</sub> amet consectetur. Lorem ipsum dolor sit<sup>abc 123</sup> amet consectetur.</strong>",
@@ -50,14 +51,17 @@ test("Subscripts and superscripts in markdown should render in HTML.", async ({
     "Example, Interior italic: Lorem ipsum dolor sit<sub>abc <em>123</em></sub> amet consectetur. Lorem ipsum dolor sit<sup>abc <em>123</em></sup> amet consectetur.",
     'Example, Links in scripts: Lorem ipsum dolor sit<sub><a class="external-link " target="_blank" href="https://mit.edu" aria-label="abc 123 (opens in a new tab)">abc 123</a></sub> amet consectetur. Lorem ipsum dolor sit<sup><a class="external-link " target="_blank" href="https://mit.edu" aria-label="abc 123 (opens in a new tab)">abc 123</a></sup> amet consectetur.',
     'Example, Scripts in Links: Lorem ipsum dolor <a class="external-link " target="_blank" href="https://mit.edu" aria-label="sitabc 123 amet (opens in a new tab)">sit<sub>abc 123</sub> amet</a> consectetur. Lorem ipsum dolor <a class="external-link " target="_blank" href="https://mit.edu" aria-label="sitabc 123 amet (opens in a new tab)">sit<sup>abc 123</sup> amet</a> amet consectetur.',
-    'Example, Resource Links in scripts: Lorem ipsum dolor sit<sub><a href="/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/">abc 123</a></sub> amet consectetur. Lorem ipsum dolor sit<sup><a href="/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/">abc 123</a></sup> amet consectetur.',
-    'Example, Scripts in Resource Links: Lorem ipsum dolor <a href="/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/">sit<sub>abc 123</sub> amet</a> consectetur. Lorem ipsum dolor <a href="/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/">sit<sup>abc 123</sup> amet</a> consectetur.'
+    `Example, Resource Links in scripts: Lorem ipsum dolor sit<sub><a href="${internalHref}">abc 123</a></sub> amet consectetur. Lorem ipsum dolor sit<sup><a href="${internalHref}">abc 123</a></sup> amet consectetur.`,
+    `Example, Scripts in Resource Links: Lorem ipsum dolor <a href="${internalHref}">sit<sub>abc 123</sub> amet</a> consectetur. Lorem ipsum dolor <a href="${internalHref}">sit<sup>abc 123</sup> amet</a> consectetur.`
   ]
 
   expect(actuals).toEqual(expected)
 })
 
-test("Subscripts and superscripts render in tables", async ({ page, siteAlias }) => {
+test("Subscripts and superscripts render in tables", async ({
+  page,
+  siteAlias
+}) => {
   const course = new CoursePage(page, siteAlias)
   await course.goto("pages/subscripts-and-superscripts")
   const actuals = await course

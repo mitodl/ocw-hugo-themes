@@ -2,16 +2,14 @@ import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 import { VideoElement } from "../util/VideoElement"
 
-test.beforeEach(({ siteAlias }) => {
-  test.skip(
-    siteAlias === "course-offline",
-    "Video tests check YouTube iframe attributes not present in offline builds"
-  )
-})
-
 test("Start and end times does not exist", async ({ page, siteAlias }) => {
   const course = new CoursePage(page, siteAlias)
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v02_360p")
+  if (siteAlias === "course-offline") {
+    // Offline builds replace the YouTube player with an offline warning
+    await expect(page.locator(".show-offline")).toBeVisible()
+    return
+  }
   const src = await page.locator("iframe.vjs-tech").getAttribute("src")
 
   expect(src).not.toMatch(/.*?start=.*/)
@@ -25,8 +23,13 @@ test("Start time exists and transcript section can be expanded", async ({
   const course = new CoursePage(page, siteAlias)
   const videoElement = new VideoElement(page)
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
-  const src = await page.locator("iframe.vjs-tech").getAttribute("src")
-  expect(src).toMatch(/.*?start=13.*/)
+  if (siteAlias === "course-offline") {
+    // Offline builds replace the YouTube player with an offline warning
+    await expect(page.locator(".show-offline")).toBeVisible()
+  } else {
+    const src = await page.locator("iframe.vjs-tech").getAttribute("src")
+    expect(src).toMatch(/.*?start=13.*/)
+  }
 
   await videoElement.tab({ name: "Transcript", exact: true }).click()
   await expect(
@@ -39,6 +42,11 @@ test("Start time exists and transcript section can be expanded", async ({
 test("End time exists", async ({ page, siteAlias }) => {
   const course = new CoursePage(page, siteAlias)
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
+  if (siteAlias === "course-offline") {
+    // Offline builds replace the YouTube player with an offline warning
+    await expect(page.locator(".show-offline")).toBeVisible()
+    return
+  }
   const src = await page.locator("iframe.vjs-tech").getAttribute("src")
   expect(src).toMatch(/.*?end=50.*/)
 })
@@ -49,6 +57,11 @@ test("Start and end time exists", async ({ page, siteAlias }) => {
   const expectedEndTime = "50"
 
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
+  if (siteAlias === "course-offline") {
+    // Offline builds replace the YouTube player with an offline warning
+    await expect(page.locator(".show-offline")).toBeVisible()
+    return
+  }
   const src = await page.locator("iframe.vjs-tech").getAttribute("src")
 
   const urlParams = new URLSearchParams(src || "")

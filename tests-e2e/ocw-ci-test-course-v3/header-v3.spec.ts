@@ -2,7 +2,10 @@ import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 test.describe("MIT Learn Header", () => {
-  test("Header is visible and contains MIT Learn logo", async ({ page, siteAlias }) => {
+  test("Header is visible and contains MIT Learn logo", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/")
 
@@ -14,7 +17,10 @@ test.describe("MIT Learn Header", () => {
     await expect(logo).toHaveAttribute("alt", "MIT Learn")
   })
 
-  test("Header contains MIT logo linking to mit.edu", async ({ page, siteAlias }) => {
+  test("Header contains MIT logo linking to mit.edu", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/")
 
@@ -114,7 +120,10 @@ test.describe("MIT Learn Header", () => {
     await expect(navDrawer).toHaveAttribute("inert", "")
   })
 
-  test("Clicking backdrop closes navigation drawer", async ({ page, siteAlias }) => {
+  test("Clicking backdrop closes navigation drawer", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/")
 

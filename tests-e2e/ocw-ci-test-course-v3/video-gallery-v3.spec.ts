@@ -8,8 +8,7 @@ test.describe("Course v3 Video Gallery Page", () => {
   })
 
   test("Video gallery page renders with correct structure", async ({
-    page,
-    siteAlias
+    page
   }) => {
     // Check the video gallery page container exists
     const galleryPage = page.locator(".video-gallery-page-v3")
@@ -21,7 +20,7 @@ test.describe("Course v3 Video Gallery Page", () => {
     await expect(title).toHaveText("Lecture Videos")
   })
 
-  test("Video gallery cards container styles are correct", async ({ page, siteAlias }) => {
+  test("Video gallery cards container styles are correct", async ({ page }) => {
     const cardsContainer = page.locator(".video-gallery-cards-container")
     await expect(cardsContainer).toBeVisible()
     await expect(cardsContainer).toHaveCSS("display", "flex")
@@ -29,13 +28,13 @@ test.describe("Course v3 Video Gallery Page", () => {
     await expect(cardsContainer).toHaveCSS("gap", "16px")
   })
 
-  test("Video gallery card has no text decoration", async ({ page, siteAlias }) => {
+  test("Video gallery card has no text decoration", async ({ page }) => {
     const videoCard = page.locator(".video-gallery-card").first()
     await expect(videoCard).toBeVisible()
     await expect(videoCard).toHaveCSS("text-decoration-line", "none")
   })
 
-  test("Video gallery card thumbnail styles are correct", async ({ page, siteAlias }) => {
+  test("Video gallery card thumbnail styles are correct", async ({ page }) => {
     const thumbnail = page.locator(".video-gallery-card-thumbnail").first()
     await expect(thumbnail).toBeVisible()
     await expect(thumbnail).toHaveCSS("width", "104px")
@@ -43,7 +42,7 @@ test.describe("Course v3 Video Gallery Page", () => {
     await expect(thumbnail).toHaveCSS("border-radius", "4px")
   })
 
-  test("Video gallery card title styles are correct", async ({ page, siteAlias }) => {
+  test("Video gallery card title styles are correct", async ({ page }) => {
     const title = page.locator(".video-gallery-card-title").first()
     await expect(title).toBeVisible()
     await expect(title).toHaveCSS("font-size", "14px")
@@ -52,7 +51,7 @@ test.describe("Course v3 Video Gallery Page", () => {
     await expect(title).toHaveCSS("color", "rgb(0, 0, 0)")
   })
 
-  test("Video gallery card displays image when available", async ({ page, siteAlias }) => {
+  test("Video gallery card displays image when available", async ({ page }) => {
     // Look for a thumbnail with an actual image
     const thumbnailImage = page
       .locator(".video-gallery-card-thumbnail img")
@@ -61,8 +60,7 @@ test.describe("Course v3 Video Gallery Page", () => {
   })
 
   test("Video gallery card displays YouTube logo when no thumbnail", async ({
-    page,
-    siteAlias
+    page
   }) => {
     // Look for YouTube logo overlay (for videos without thumbnail)
     const youtubeLogos = page.locator(
@@ -77,7 +75,7 @@ test.describe("Course v3 Video Gallery Page", () => {
     }
   })
 
-  test("Video gallery card links to correct video pages", async ({ page, siteAlias }) => {
+  test("Video gallery card links to correct video pages", async ({ page }) => {
     const videoCard = page.locator(".video-gallery-card").first()
     const href = await videoCard.getAttribute("href")
 
@@ -85,7 +83,7 @@ test.describe("Course v3 Video Gallery Page", () => {
     expect(href).toContain("/resources/")
   })
 
-  test("Video gallery card hover state changes styles", async ({ page, siteAlias }) => {
+  test("Video gallery card hover state changes styles", async ({ page }) => {
     const videoCard = page.locator(".video-gallery-card").first()
 
     // Hover and check styles change
@@ -102,7 +100,7 @@ test.describe("Course v3 Video Gallery Page", () => {
     await expect(title).toHaveCSS("text-decoration-line", "none")
   })
 
-  test("Video gallery cards take full width of container", async ({ page, siteAlias }) => {
+  test("Video gallery cards take full width of container", async ({ page }) => {
     const cardsContainer = page.locator(".video-gallery-cards-container")
     const videoCard = page.locator(".video-gallery-card").first()
 

@@ -2,7 +2,12 @@ import { env } from "../../env"
 
 const LOCAL_OCW_PORT = 3010
 
-type TestSiteAlias = "course" | "course-offline" | "course-v3" | "course-v3-offline" | "www"
+type TestSiteAlias =
+  | "course"
+  | "course-offline"
+  | "course-v3"
+  | "course-v3-offline"
+  | "www"
 type TestSite = {
   name: string
   contentDir: string

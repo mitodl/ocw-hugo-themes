@@ -40,7 +40,11 @@ const config: PlaywrightTestConfig = {
     {
       name:      "course-v2-online-chrome",
       testMatch: ["**/ocw-ci-test-course/*.spec.ts"],
-      use:       { ...devices["Desktop Chrome"], channel: "chrome", siteAlias: "course" }
+      use:       {
+        ...devices["Desktop Chrome"],
+        channel:   "chrome",
+        siteAlias: "course"
+      }
     },
     // Offline variant
     {
@@ -51,7 +55,11 @@ const config: PlaywrightTestConfig = {
     {
       name:      "course-v2-offline-chrome",
       testMatch: ["**/ocw-ci-test-course/*.spec.ts"],
-      use:       { ...devices["Desktop Chrome"], channel: "chrome", siteAlias: "course-offline" }
+      use:       {
+        ...devices["Desktop Chrome"],
+        channel:   "chrome",
+        siteAlias: "course-offline"
+      }
     },
 
     // ── v3 course tests (ocw-ci-test-course-v3/) ───────────────────────────
@@ -64,7 +72,11 @@ const config: PlaywrightTestConfig = {
     {
       name:      "course-v3-online-chrome",
       testMatch: ["**/ocw-ci-test-course-v3/*.spec.ts"],
-      use:       { ...devices["Desktop Chrome"], channel: "chrome", siteAlias: "course-v3" }
+      use:       {
+        ...devices["Desktop Chrome"],
+        channel:   "chrome",
+        siteAlias: "course-v3"
+      }
     },
     // Offline variant
     {
@@ -75,7 +87,11 @@ const config: PlaywrightTestConfig = {
     {
       name:      "course-v3-offline-chrome",
       testMatch: ["**/ocw-ci-test-course-v3/*.spec.ts"],
-      use:       { ...devices["Desktop Chrome"], channel: "chrome", siteAlias: "course-v3-offline" }
+      use:       {
+        ...devices["Desktop Chrome"],
+        channel:   "chrome",
+        siteAlias: "course-v3-offline"
+      }
     },
 
     // ── All other tests (www, fixtures, dedicated offline spec dirs) ────────

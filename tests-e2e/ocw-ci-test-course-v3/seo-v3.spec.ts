@@ -3,13 +3,6 @@ import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 test.describe("Course v3 SEO", () => {
-  test.beforeEach(({ siteAlias }) => {
-    test.skip(
-      siteAlias === "course-v3-offline",
-      "SEO tests check absolute sitemap URLs and domain-specific meta tags; not applicable to offline builds"
-    )
-  })
-
   test("Course v3 homepage emits expected social metadata", async ({
     page,
     siteAlias
@@ -47,7 +40,10 @@ test.describe("Course v3 SEO", () => {
     )
   })
 
-  test("Course v3 robots.txt allows crawling by default", async ({ page, siteAlias }) => {
+  test("Course v3 robots.txt allows crawling by default", async ({
+    page,
+    siteAlias
+  }) => {
     const sitemapDomain = env.SITEMAP_DOMAIN ?
       env.SITEMAP_DOMAIN :
       "live-qa.ocw.mit.edu"
