@@ -39,11 +39,10 @@ test.describe("Course info", () => {
   ]
 
   listData.forEach(({ label, expected }) => {
-    test(`Lists ${label} with links to search page`, async ({ page, siteAlias }) => {
-      test.skip(
-        siteAlias === "course-offline",
-        "Search links are not present in offline builds"
-      )
+    test(`Lists ${label} with links to search page`, async ({
+      page,
+      siteAlias
+    }) => {
       const course = new CoursePage(page, siteAlias)
       await course.goto()
       const courseInfo = course.getCourseInfo()
@@ -69,10 +68,6 @@ test.describe("Course info", () => {
 })
 
 test("Has expected meta tags in <head>", async ({ page, siteAlias }) => {
-  test.skip(
-    siteAlias === "course-offline",
-    "Absolute sitemap URLs are not emitted in offline builds"
-  )
   const sitemapDomain = env.SITEMAP_DOMAIN ?
     env.SITEMAP_DOMAIN :
     "https://live-qa.ocw.mit.edu"

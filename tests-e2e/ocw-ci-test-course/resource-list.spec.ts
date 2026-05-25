@@ -1,7 +1,10 @@
 import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
-test("Resource list shows correct resource categories", async ({ page, siteAlias }) => {
+test("Resource list shows correct resource categories", async ({
+  page,
+  siteAlias
+}) => {
   const expectedResources = [
     {
       title:            "file.mp4",

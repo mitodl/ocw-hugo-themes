@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test"
 import { offlineV2FileUrl } from "../util/offline-build"
 
-test("Image gallery container has data-base-url attribute", async ({ page }) => {
+test("Image gallery container has data-base-url attribute", async ({
+  page
+}) => {
   await page.goto(offlineV2FileUrl("/pages/image-gallery"))
   const gallery = page.locator(".image-gallery[data-base-url]").first()
   await expect(gallery).toBeAttached()

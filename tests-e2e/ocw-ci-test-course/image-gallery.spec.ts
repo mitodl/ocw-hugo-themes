@@ -1,7 +1,10 @@
 import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
-test("Image gallery displays thumbnail and opens viewer", async ({ page, siteAlias }) => {
+test("Image gallery displays thumbnail and opens viewer", async ({
+  page,
+  siteAlias
+}) => {
   const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/image-gallery")
 

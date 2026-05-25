@@ -11,7 +11,10 @@ test.describe("Course v3 Single Resource Page", () => {
     await expect(container).toHaveClass(/w-100/)
   })
 
-  test("Resource page displays thumbnail correctly", async ({ page, siteAlias }) => {
+  test("Resource page displays thumbnail correctly", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
@@ -33,7 +36,10 @@ test.describe("Course v3 Single Resource Page", () => {
     )
   })
 
-  test("Resource page displays download button correctly", async ({ page, siteAlias }) => {
+  test("Resource page displays download button correctly", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 

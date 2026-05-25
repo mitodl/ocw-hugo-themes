@@ -28,7 +28,10 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(th).toHaveCSS("line-height", "22px")
   })
 
-  test("Paragraph blocks use 24px spacing globally", async ({ page, siteAlias }) => {
+  test("Paragraph blocks use 24px spacing globally", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/subscripts-and-superscripts")
 
@@ -69,7 +72,10 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(firstParagraph).toHaveCSS("margin-top", "8px")
   })
 
-  test("Syllabus paragraph-to-table uses global 40px gap", async ({ page, siteAlias }) => {
+  test("Syllabus paragraph-to-table uses global 40px gap", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/syllabus")
 
@@ -121,7 +127,10 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(gradingHeading).toHaveCSS("margin-top", "40px")
   })
 
-  test("Syllabus section heading weights are consistent", async ({ page, siteAlias }) => {
+  test("Syllabus section heading weights are consistent", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/syllabus")
 
@@ -166,7 +175,10 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(nestedHeading).toHaveCSS("font-weight", "700")
   })
 
-  test("Mobile content blocks use 24px spacing globally", async ({ page, siteAlias }) => {
+  test("Mobile content blocks use 24px spacing globally", async ({
+    page,
+    siteAlias
+  }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/subscripts-and-superscripts")
@@ -196,7 +208,10 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(calendarTable).toHaveCSS("margin-top", "16px")
   })
 
-  test("Mobile syllabus uses 24px global section spacing", async ({ page, siteAlias }) => {
+  test("Mobile syllabus uses 24px global section spacing", async ({
+    page,
+    siteAlias
+  }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/syllabus")
@@ -255,7 +270,10 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(link).toHaveCSS("color", "rgb(163, 31, 52)")
   })
 
-  test("Course info topic links use red on hover", async ({ page, siteAlias }) => {
+  test("Course info topic links use red on hover", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("")
 
@@ -298,7 +316,10 @@ test.describe("Course v3 content typography and spacing", () => {
     await expect(showSolutionButton).toHaveCSS("color", "rgb(255, 255, 255)")
   })
 
-  test("Table cell text does not use red link color", async ({ page, siteAlias }) => {
+  test("Table cell text does not use red link color", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/subscripts-and-superscripts")
 

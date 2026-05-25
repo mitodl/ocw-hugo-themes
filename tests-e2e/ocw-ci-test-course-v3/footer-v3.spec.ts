@@ -9,14 +9,10 @@ const FOOTER_LINKS = [
   ["Contact Us", /^https:\/\/mitocw\.zendesk\.com\//]
 ]
 
-test.beforeEach(({ siteAlias }) => {
-  test.skip(
-    siteAlias === "course-v3-offline",
-    "Footer link hrefs are relative in offline builds; absolute path regex assertions do not apply"
-  )
-})
-
-test("Footer links exist and point to the expected pages", async ({ page, siteAlias }) => {
+test("Footer links exist and point to the expected pages", async ({
+  page,
+  siteAlias
+}) => {
   const course = new CoursePage(page, siteAlias)
   await course.goto()
 
@@ -25,6 +21,9 @@ test("Footer links exist and point to the expected pages", async ({ page, siteAl
       .getByRole("contentinfo")
       .getByRole("link", { name, exact: true })
     await expect(link).toBeVisible()
-    await expect(link).toHaveAttribute("href", url)
+    // Offline builds use relative or localhost URLs for internal footer links
+    if (siteAlias !== "course-v3-offline") {
+      await expect(link).toHaveAttribute("href", url)
+    }
   }
 })
