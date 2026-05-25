@@ -5,8 +5,6 @@ import { fromRoot } from "../LocalOcw"
 import { TEST_SITES } from "./test_sites"
 
 const OFFLINE_BUILD_ROOT = fromRoot("./test-sites/tmp/dist")
-/** @deprecated Use OFFLINE_BUILD_ROOT */
-const OFFLINE_V3_BUILD_ROOT = OFFLINE_BUILD_ROOT
 
 const site = TEST_SITES["course-v3-offline"]
 const siteV2 = TEST_SITES["course-offline"]
