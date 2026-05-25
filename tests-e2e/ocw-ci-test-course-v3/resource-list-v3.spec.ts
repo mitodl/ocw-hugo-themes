@@ -2,7 +2,10 @@ import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 test.describe("Course v3 Resource List", () => {
-  test("Resource list container spans full width", async ({ page, siteAlias }) => {
+  test("Resource list container spans full width", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
@@ -11,7 +14,10 @@ test.describe("Course v3 Resource List", () => {
     await expect(wrapper).toBeVisible()
   })
 
-  test("Resource cards container has correct styling", async ({ page, siteAlias }) => {
+  test("Resource cards container has correct styling", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
@@ -23,7 +29,10 @@ test.describe("Course v3 Resource List", () => {
     await expect(container).toHaveCSS("overflow", "hidden")
   })
 
-  test("Resource cards display with correct structure", async ({ page, siteAlias }) => {
+  test("Resource cards display with correct structure", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
@@ -38,7 +47,10 @@ test.describe("Course v3 Resource List", () => {
     await expect(title).toBeVisible()
   })
 
-  test("Resource cards show correct file type badges", async ({ page, siteAlias }) => {
+  test("Resource cards show correct file type badges", async ({
+    page,
+    siteAlias
+  }) => {
     const expectedResources = [
       {
         title:            "file.mp4",
@@ -85,7 +97,10 @@ test.describe("Course v3 Resource List", () => {
     }
   })
 
-  test("PDF file type badge has correct red background", async ({ page, siteAlias }) => {
+  test("PDF file type badge has correct red background", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
@@ -103,7 +118,10 @@ test.describe("Course v3 Resource List", () => {
     )
   })
 
-  test("File type badge has correct blue background", async ({ page, siteAlias }) => {
+  test("File type badge has correct blue background", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
@@ -159,7 +177,10 @@ test.describe("Course v3 Resource List", () => {
     }
   })
 
-  test("Resource card download icon is visible", async ({ page, siteAlias }) => {
+  test("Resource card download icon is visible", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
@@ -172,7 +193,10 @@ test.describe("Course v3 Resource List", () => {
     }
   })
 
-  test("Resource card includes hover transition styling", async ({ page, siteAlias }) => {
+  test("Resource card includes hover transition styling", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
@@ -207,7 +231,10 @@ test.describe("Course v3 Resource List", () => {
     expect(titleText).toBeTruthy()
   })
 
-  test("Resource cards have proper spacing and gap", async ({ page, siteAlias }) => {
+  test("Resource cards have proper spacing and gap", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
@@ -298,7 +325,10 @@ test.describe("Course v3 Resource List", () => {
     }
   })
 
-  test("Resource list container displays multiple cards", async ({ page, siteAlias }) => {
+  test("Resource list container displays multiple cards", async ({
+    page,
+    siteAlias
+  }) => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 

@@ -5,13 +5,6 @@ import { VideoElement } from "../util/VideoElement"
 
 const resourceBaseUrl = env.RESOURCE_BASE_URL
 
-test.beforeEach(({ siteAlias }) => {
-  test.skip(
-    siteAlias === "course-offline",
-    "Video tab tests check remote RESOURCE_BASE_URL download hrefs not present in offline builds"
-  )
-})
-
 test("that the Download Button works for multiple embed videos in a page", async ({
   page,
   siteAlias
@@ -23,22 +16,35 @@ test("that the Download Button works for multiple embed videos in a page", async
 
   for (let i = 0; i < videoElementsCount; i++) {
     const videoElement = new VideoElement(page, i)
-    await videoElement.downloadButton().click()
-    expect(videoElement.downloadVideo()).toHaveAttribute(
-      "href",
-      new URL(
-        "/courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
-        resourceBaseUrl
-      ).href
-    )
-    expect(videoElement.downloadTranscript()).toHaveAttribute(
-      "href",
-      new URL(
-        "/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf",
-        resourceBaseUrl
-      ).href
-    )
-    await videoElement.downloadButton().click()
+    if (siteAlias === "course-offline") {
+      // In offline v2, initVideoDownloadPopup is not in the bundle so clicking
+      // Show Downloads won't open the popup. Verify links in the DOM directly.
+      const videoHref = await videoElement.container
+        .locator('[aria-label="Download video"]')
+        .getAttribute("href")
+      expect(videoHref).toMatch(/static_resources\/.*\.mp4/)
+      const transcriptHref = await videoElement.container
+        .locator('[aria-label="Download transcript"]')
+        .getAttribute("href")
+      expect(transcriptHref).toMatch(/static_resources\/.*\.pdf/)
+    } else {
+      await videoElement.downloadButton().click()
+      expect(videoElement.downloadVideo()).toHaveAttribute(
+        "href",
+        new URL(
+          "/courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
+          resourceBaseUrl
+        ).href
+      )
+      expect(videoElement.downloadTranscript()).toHaveAttribute(
+        "href",
+        new URL(
+          "/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf",
+          resourceBaseUrl
+        ).href
+      )
+      await videoElement.downloadButton().click()
+    }
   }
 })
 
@@ -57,16 +63,19 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
    */
   const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
-  const downloadLinks = [
-    new URL(
-      "/courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
-      resourceBaseUrl
-    ).href,
-    new URL(
-      "/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf",
-      resourceBaseUrl
-    ).href
-  ]
+  const downloadLinks =
+    siteAlias === "course-offline" ?
+      [/static_resources\/.*\.mp4/, /static_resources\/.*\.pdf/] :
+      [
+        new URL(
+          "/courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
+          resourceBaseUrl
+        ).href,
+        new URL(
+          "/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf",
+          resourceBaseUrl
+        ).href
+      ]
   const downloadButton = page.getByRole("button", {
     name: `Show Downloads`
   })
@@ -83,7 +92,11 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
     await expect(downloadLinksArr[i]).toBeVisible()
     await page.keyboard.press("Tab")
     const hrefAttribute = await page.locator(":focus").getAttribute("href")
-    expect(hrefAttribute).toBe(downloadLinks[i])
+    if (siteAlias === "course-offline") {
+      expect(hrefAttribute).toMatch(downloadLinks[i] as RegExp)
+    } else {
+      expect(hrefAttribute).toBe(downloadLinks[i] as string)
+    }
   }
 })
 
@@ -105,15 +118,22 @@ test("Embed video redirects to video page using keyboard navigation", async ({
     "resources/ocw_test_course_mit8_01f16_l01v01_360p"
   )
 })
-test("Video tabs content (links) are keyoard navigable", async ({ page, siteAlias }) => {
+test("Video tabs content (links) are keyoard navigable", async ({
+  page,
+  siteAlias
+}) => {
+  const courseName =
+    siteAlias === "course-offline" ?
+      "ocw-ci-test-course-offline" :
+      "ocw-ci-test-course"
   const tabs = [
     {
       title: "Related Resources",
-      url:   "courses/ocw-ci-test-course/resources/example_pdf/"
+      url:   `courses/${courseName}/resources/example_pdf/`
     },
     {
       title: "Optional Tab",
-      url:   "courses/ocw-ci-test-course/resources/example_notes/"
+      url:   `courses/${courseName}/resources/example_notes/`
     }
   ]
   for (const tab of tabs) {
@@ -197,15 +217,23 @@ test("A page without a transcript has the proper tab titles and contents", async
 
   expect(emptyTabHTML).toMatch("")
   expect(relatedResourcesHTML).toContain("Practice problems")
-  expect(relatedResourcesHTML).toContain(
-    '<a href="/courses/ocw-ci-test-course/resources/example_pdf/">(PDF)</a>'
-  )
-  expect(optionalTabHTML).toContain(
-    '<a href="/courses/ocw-ci-test-course/resources/example_notes/">(PDF)</a>'
-  )
+  if (siteAlias === "course-offline") {
+    expect(relatedResourcesHTML).toMatch(/href="[^"]*example_pdf[^"]*">/)
+    expect(optionalTabHTML).toMatch(/href="[^"]*example_notes[^"]*">/)
+  } else {
+    expect(relatedResourcesHTML).toContain(
+      '<a href="/courses/ocw-ci-test-course/resources/example_pdf/">(PDF)</a>'
+    )
+    expect(optionalTabHTML).toContain(
+      '<a href="/courses/ocw-ci-test-course/resources/example_notes/">(PDF)</a>'
+    )
+  }
 })
 
-test("A page with a transcript has a transcript tab", async ({ page, siteAlias }) => {
+test("A page with a transcript has a transcript tab", async ({
+  page,
+  siteAlias
+}) => {
   const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l01v02_360p")
   const videoPage = new VideoElement(page)

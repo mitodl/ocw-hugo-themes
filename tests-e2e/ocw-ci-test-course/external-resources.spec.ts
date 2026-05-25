@@ -30,13 +30,17 @@ test("Nav external resource without warning directly opens a new tab", async ({
   page,
   siteAlias
 }) => {
-  test.skip(
-    siteAlias === "course-offline",
-    "Nav subsections are collapsed by default in offline v2; the OCW (no warning) link is inside a collapsed Bootstrap section and is not accessible"
-  )
   const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/external-resources-page")
 
+  if (siteAlias === "course-offline") {
+    // In offline v2, nav sections don't auto-expand (relative hrefs don't match pathname);
+    // expand the External Resources subsection manually
+    await page
+      .getByRole("button", { name: "Subsections for External Resources" })
+      .first()
+      .click()
+  }
   const link = page.getByRole("link", { name: "OCW (no warning)" })
   await expect(link).toBeVisible()
 
@@ -47,7 +51,10 @@ test("Nav external resource without warning directly opens a new tab", async ({
   expect(classAttribute).not.toContain("external-link")
 })
 
-test("External resource in page opens a new tab", async ({ page, siteAlias }) => {
+test("External resource in page opens a new tab", async ({
+  page,
+  siteAlias
+}) => {
   const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/external-resources-page")
 
@@ -64,7 +71,10 @@ test("External resource in page opens a new tab", async ({ page, siteAlias }) =>
   )
 })
 
-test("External resource opens confirmation modal", async ({ page, siteAlias }) => {
+test("External resource opens confirmation modal", async ({
+  page,
+  siteAlias
+}) => {
   const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/external-resources-page")
 
