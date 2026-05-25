@@ -1,7 +1,7 @@
 import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
-test(`Verify accesibility and semantic structure of headings`, async ({
+test(`Verify accessibility and semantic structure of headings`, async ({
   page,
   siteAlias
 }) => {

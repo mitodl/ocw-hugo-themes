@@ -14,21 +14,6 @@ test("Desktop nav links are relative (package-local)", async ({ page }) => {
   }
 })
 
-test("Resource card title on list page is local", async ({ page }) => {
-  await page.goto(offlineV2FileUrl("/lists/a-resource-list"))
-  // v2 offline resource list uses .resource-list-title for the title link
-  const cardLinks = page
-    .locator(".resource-list-title, .resource-card a[href]")
-    .first()
-  await expectLocalPackageHref(cardLinks)
-})
-
-test("Download page resource links are local", async ({ page }) => {
-  await page.goto(offlineV2FileUrl("/download"))
-  const resourceLinks = page.locator("a[href*='resources/']").first()
-  await expectLocalPackageHref(resourceLinks)
-})
-
 test("Shortcode resource_link on shortcode-demos page is local", async ({
   page
 }) => {

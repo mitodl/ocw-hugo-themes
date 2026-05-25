@@ -91,3 +91,38 @@ test("Has expected meta tags in <head>", async ({ page, siteAlias }) => {
     "summary_large_image"
   )
 })
+
+test("Course v2 online includes Appzi feedback script", async ({
+  page,
+  siteAlias
+}) => {
+  test.skip(siteAlias !== "course", "Online only")
+
+  const course = new CoursePage(page, siteAlias)
+  await course.goto()
+
+  await expect(page.locator('script[src*="w.appzi.io/w.js"]')).toHaveCount(1)
+})
+
+test("Course v2 online robots.txt allows crawling by default", async ({
+  page,
+  siteAlias
+}) => {
+  test.skip(siteAlias !== "course", "Online only")
+
+  const sitemapDomain = env.SITEMAP_DOMAIN ?
+    env.SITEMAP_DOMAIN :
+    "live-qa.ocw.mit.edu"
+  const course = new CoursePage(page, siteAlias)
+
+  const response = await course.goto("/robots.txt")
+
+  expect(response?.ok()).toBeTruthy()
+  const body = page.locator("body")
+  await expect(body).toContainText(
+    `Sitemap: https://${sitemapDomain}/sitemap.xml`
+  )
+  const bodyText = await body.innerText()
+  expect(bodyText).toContain("User-agent: *")
+  expect(/Allow:\s*\/|Disallow:\s*$/m.test(bodyText)).toBeTruthy()
+})
