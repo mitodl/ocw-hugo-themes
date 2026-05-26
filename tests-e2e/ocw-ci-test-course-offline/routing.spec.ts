@@ -18,10 +18,10 @@ test("Shortcode resource_link on shortcode-demos page is local", async ({
   page
 }) => {
   await page.goto(offlineV2FileUrl("/pages/shortcode-demos"))
-  await expect(page.locator("body")).toBeVisible()
-  const resourceLinks = page.locator("a[href*='resources/']")
-  const count = await resourceLinks.count()
-  if (count > 0) {
-    await expectLocalPackageHref(resourceLinks.first())
-  }
+  // resource_link shortcode generates a page link, not a resources/ URL
+  const resourceLink = page.getByRole("link", {
+    name: "Resource link to First Test Page"
+  })
+  const href = await expectLocalPackageHref(resourceLink)
+  expect(href).toContain("first-test-page-title")
 })
