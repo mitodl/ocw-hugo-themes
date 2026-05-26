@@ -1,8 +1,9 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
-test(`Verify accesibility and semantic structure of headings`, async ({
-  page
+test(`Verify accessibility and semantic structure of headings`, async ({
+  page,
+  siteAlias
 }) => {
   const headingsData = [
     {
@@ -42,7 +43,7 @@ test(`Verify accesibility and semantic structure of headings`, async ({
       expectedHeadingLevel: "H3"
     }
   ]
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("pages/assignments")
 
   for (const { label, expectedHeadingLevel } of headingsData) {

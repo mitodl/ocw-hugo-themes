@@ -1,9 +1,9 @@
 import { env } from "../../env"
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { getFirstAfter, CoursePage } from "../util"
 
-test("Course page has title in <head>", async ({ page }) => {
-  const course = new CoursePage(page, "course")
+test("Course page has title in <head>", async ({ page, siteAlias }) => {
+  const course = new CoursePage(page, siteAlias)
   await course.goto()
   await expect(page).toHaveTitle(/OCW CI Test Course/)
 })
@@ -39,8 +39,11 @@ test.describe("Course info", () => {
   ]
 
   listData.forEach(({ label, expected }) => {
-    test(`Lists ${label} with links to search page`, async ({ page }) => {
-      const course = new CoursePage(page, "course")
+    test(`Lists ${label} with links to search page`, async ({
+      page,
+      siteAlias
+    }) => {
+      const course = new CoursePage(page, siteAlias)
       await course.goto()
       const courseInfo = course.getCourseInfo()
 
@@ -64,11 +67,11 @@ test.describe("Course info", () => {
   })
 })
 
-test("Has expected meta tags in <head>", async ({ page }) => {
+test("Has expected meta tags in <head>", async ({ page, siteAlias }) => {
   const sitemapDomain = env.SITEMAP_DOMAIN ?
     env.SITEMAP_DOMAIN :
     "https://live-qa.ocw.mit.edu"
-  const course = new CoursePage(page, "course")
+  const course = new CoursePage(page, siteAlias)
   await course.goto()
   const metaShareImage = page.locator('meta[property="og:image"]')
   const metaTwitterSite = page.locator('meta[name="twitter:site"]')
@@ -89,26 +92,38 @@ test("Has expected meta tags in <head>", async ({ page }) => {
   )
 })
 
-test("Appzi script is present on the page", async ({ page }) => {
-  const course = new CoursePage(page, "course")
+test("Course v2 online includes Appzi feedback script", async ({
+  page,
+  siteAlias
+}) => {
+  test.skip(siteAlias !== "course", "Online only")
+
+  const course = new CoursePage(page, siteAlias)
   await course.goto()
 
-  const appziScript = page.locator('script[src*="https://w.appzi.io/w.js"]')
-  await expect(appziScript).toHaveCount(1)
+  await expect(page.locator('script[src*="w.appzi.io/w.js"]')).toHaveCount(1)
 })
 
-test("Course robots.txt allows crawling by default", async ({ page }) => {
+test("Course v2 online robots.txt allows crawling by default", async ({
+  page,
+  siteAlias
+}) => {
+  test.skip(siteAlias !== "course", "Online only")
+
   const sitemapDomain = env.SITEMAP_DOMAIN ?
     env.SITEMAP_DOMAIN :
-    "https://live-qa.ocw.mit.edu"
-  const course = new CoursePage(page, "course")
+    "live-qa.ocw.mit.edu"
+  const course = new CoursePage(page, siteAlias)
 
   const response = await course.goto("/robots.txt")
 
   expect(response?.ok()).toBeTruthy()
-  await expect(page.locator("body")).toContainText(
+  const body = page.locator("body")
+  await expect(body).toContainText(
     `Sitemap: https://${sitemapDomain}/sitemap.xml`
   )
-  // Empty Disallow (no path) means allow all crawling
-  await expect(page.locator("body")).not.toContainText("Disallow: /")
+  const bodyText = await body.innerText()
+  expect(bodyText).toContain("User-agent: *")
+  // Disallowing "/" blocks all crawling; ensure that is not the default.
+  expect(bodyText).not.toMatch(/^Disallow:\s*\/\s*$/m)
 })

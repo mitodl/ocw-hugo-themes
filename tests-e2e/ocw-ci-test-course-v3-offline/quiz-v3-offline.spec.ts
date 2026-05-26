@@ -1,16 +1,16 @@
 import { test, expect } from "@playwright/test"
-import { offlineFileUrl } from "../util"
+import { offlineV3FileUrl } from "../util"
 
 test.describe("offline-v3 quiz page", () => {
   test("quiz page loads with quiz content", async ({ page }) => {
-    await page.goto(offlineFileUrl("/pages/quiz-demo"))
+    await page.goto(offlineV3FileUrl("/pages/quiz-demo"))
 
     expect(page.url()).toContain("pages/quiz-demo/index.html")
     await expect(page.locator("body")).toContainText("Multiple Choice Quiz")
   })
 
   test("quiz answer options are present and interactive", async ({ page }) => {
-    await page.goto(offlineFileUrl("/pages/quiz-demo"))
+    await page.goto(offlineV3FileUrl("/pages/quiz-demo"))
 
     // The quiz has two choices: 3 (wrong) and 4 (correct)
     const option3 = page.locator(".multiple-choice-div", { hasText: "3" })
@@ -24,7 +24,7 @@ test.describe("offline-v3 quiz page", () => {
   })
 
   test("check answer button works", async ({ page }) => {
-    await page.goto(offlineFileUrl("/pages/quiz-demo"))
+    await page.goto(offlineV3FileUrl("/pages/quiz-demo"))
 
     // Select the correct answer (4)
     await page.locator(".multiple-choice-div", { hasText: "4" }).click()
@@ -41,7 +41,7 @@ test.describe("offline-v3 quiz page", () => {
   })
 
   test("show solution button is present", async ({ page }) => {
-    await page.goto(offlineFileUrl("/pages/quiz-demo"))
+    await page.goto(offlineV3FileUrl("/pages/quiz-demo"))
 
     // The solution button may be initially hidden or toggled; just verify DOM presence
     // Don't assert count > 0 since it may be conditionally rendered; just
@@ -50,7 +50,7 @@ test.describe("offline-v3 quiz page", () => {
   })
 
   test("quiz uses v3 offline assets (not v2)", async ({ page }) => {
-    await page.goto(offlineFileUrl("/pages/quiz-demo"))
+    await page.goto(offlineV3FileUrl("/pages/quiz-demo"))
 
     await expect(page.locator('script[src*="course_offline_v3"]')).toHaveCount(
       1
