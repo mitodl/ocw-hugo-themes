@@ -18,8 +18,6 @@ test("Online 'Download course' CTA is absent on download page", async ({
 test("Resource links on download page are local", async ({ page }) => {
   await page.goto(offlineV2FileUrl("/download"))
   const resourceLinks = page.locator("a[href*='resources/']")
-  const count = await resourceLinks.count()
-  if (count > 0) {
-    await expectLocalPackageHref(resourceLinks.first())
-  }
+  expect(await resourceLinks.count()).toBeGreaterThan(0)
+  await expectLocalPackageHref(resourceLinks.first())
 })

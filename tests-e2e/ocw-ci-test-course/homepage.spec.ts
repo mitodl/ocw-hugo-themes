@@ -124,5 +124,6 @@ test("Course v2 online robots.txt allows crawling by default", async ({
   )
   const bodyText = await body.innerText()
   expect(bodyText).toContain("User-agent: *")
-  expect(/Allow:\s*\/|Disallow:\s*$/m.test(bodyText)).toBeTruthy()
+  // Disallowing "/" blocks all crawling; ensure that is not the default.
+  expect(bodyText).not.toMatch(/^Disallow:\s*\/\s*$/m)
 })

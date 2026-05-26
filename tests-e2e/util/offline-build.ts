@@ -34,7 +34,7 @@ export const offlineV2SiteDir = path.join(
  *
  * @param route  Site-root-relative path, e.g. "/" or "/pages/assignments"
  */
-export const offlineFileUrl = (route = "/"): string => {
+export const offlineV3FileUrl = (route = "/"): string => {
   const trimmed = route.replace(/^\//, "").replace(/\/$/, "")
   const filePath = trimmed ?
     path.join(offlineV3SiteDir, trimmed, "index.html") :
