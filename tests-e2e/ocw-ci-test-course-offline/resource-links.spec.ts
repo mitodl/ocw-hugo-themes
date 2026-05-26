@@ -27,8 +27,6 @@ test("Image resource card link is present and local", async ({ page }) => {
   const pngCard = page.locator(
     ".resource-list-title[href*='file_png'], .resource-card a[href*='file_png']"
   )
-  const count = await pngCard.count()
-  if (count > 0) {
-    await expectLocalPackageHref(pngCard.first())
-  }
+  expect(await pngCard.count()).toBeGreaterThan(0)
+  await expectLocalPackageHref(pngCard.first())
 })

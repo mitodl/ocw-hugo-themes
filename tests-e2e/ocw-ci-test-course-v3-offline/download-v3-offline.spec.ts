@@ -1,11 +1,11 @@
 import { test, expect } from "@playwright/test"
-import { offlineFileUrl, expectLocalPackageHref } from "../util"
+import { offlineV3FileUrl, expectLocalPackageHref } from "../util"
 
 test.describe("offline-v3 download / browse page", () => {
   test("download page loads with Browse Resources heading", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl("/download"))
+    await page.goto(offlineV3FileUrl("/download"))
 
     expect(page.url()).toContain("download/index.html")
     // Offline header replaces the online "Download" heading
@@ -13,7 +13,7 @@ test.describe("offline-v3 download / browse page", () => {
   })
 
   test("no online Download Course CTA is present", async ({ page }) => {
-    await page.goto(offlineFileUrl("/download"))
+    await page.goto(offlineV3FileUrl("/download"))
 
     // The online "Download course" button text must not appear
     await expect(page.locator('a:has-text("Download course")')).toHaveCount(0)
@@ -22,7 +22,7 @@ test.describe("offline-v3 download / browse page", () => {
   test("Browse Resources CTA button is present and local", async ({ page }) => {
     // The browse resources CTA appears on the home page panel / course-info
     // areas — not on the /download page itself (which IS the browse page)
-    await page.goto(offlineFileUrl("/"))
+    await page.goto(offlineV3FileUrl("/"))
 
     const browseBtn = page.locator(
       '.download-course-button-v3, a:has-text("Browse Resources")'
@@ -35,7 +35,7 @@ test.describe("offline-v3 download / browse page", () => {
   })
 
   test("grouped resource lists render on download page", async ({ page }) => {
-    await page.goto(offlineFileUrl("/download"))
+    await page.goto(offlineV3FileUrl("/download"))
 
     // At least one collapsible resource list should be present
     const toggleLinks = page.locator(".resource-list-toggle-link")
@@ -45,7 +45,7 @@ test.describe("offline-v3 download / browse page", () => {
   test("resource items inside expanded group resolve locally", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl("/download"))
+    await page.goto(offlineV3FileUrl("/download"))
 
     // Expand a collapsed group
     const collapsed = page
@@ -63,7 +63,7 @@ test.describe("offline-v3 download / browse page", () => {
   })
 
   test("no online download course language remains", async ({ page }) => {
-    await page.goto(offlineFileUrl("/download"))
+    await page.goto(offlineV3FileUrl("/download"))
 
     const bodyText = await page.locator("body").textContent()
     // These phrases are only in the online version of resources_header

@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test"
-import { offlineFileUrl, expectLocalPackageHref } from "../util"
+import { offlineV3FileUrl, expectLocalPackageHref } from "../util"
 
 /**
  * Acceptance route: /pages/external-resources-page
@@ -20,7 +20,7 @@ test.describe("offline-v3 external resources", () => {
   // ---------------------------------------------------------------------------
 
   test("external-resources page loads", async ({ page }) => {
-    await page.goto(offlineFileUrl(EXTERNAL_RESOURCES_PAGE))
+    await page.goto(offlineV3FileUrl(EXTERNAL_RESOURCES_PAGE))
 
     expect(page.url()).toContain("external-resources-page/index.html")
     await expect(page.locator("body")).toContainText("External Resources Page")
@@ -33,7 +33,7 @@ test.describe("offline-v3 external resources", () => {
   test("external link with warning has correct classes and target", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl(EXTERNAL_RESOURCES_PAGE))
+    await page.goto(offlineV3FileUrl(EXTERNAL_RESOURCES_PAGE))
 
     const link = page.getByRole("link", { name: "Google.com" }).first()
     await expect(link).toBeVisible()
@@ -55,7 +55,7 @@ test.describe("offline-v3 external resources", () => {
   // ---------------------------------------------------------------------------
 
   test("external-link-modal is present in the DOM", async ({ page }) => {
-    await page.goto(offlineFileUrl(EXTERNAL_RESOURCES_PAGE))
+    await page.goto(offlineV3FileUrl(EXTERNAL_RESOURCES_PAGE))
 
     const modal = page.locator("#external-link-modal")
     await expect(modal).toBeAttached()
@@ -64,7 +64,7 @@ test.describe("offline-v3 external resources", () => {
   })
 
   test("modal contains the warning heading", async ({ page }) => {
-    await page.goto(offlineFileUrl(EXTERNAL_RESOURCES_PAGE))
+    await page.goto(offlineV3FileUrl(EXTERNAL_RESOURCES_PAGE))
 
     await expect(page.locator(".modal-title")).toContainText(
       "You are leaving MIT OpenCourseWare"
@@ -72,7 +72,7 @@ test.describe("offline-v3 external resources", () => {
   })
 
   test("modal has Stay Here and Continue action elements", async ({ page }) => {
-    await page.goto(offlineFileUrl(EXTERNAL_RESOURCES_PAGE))
+    await page.goto(offlineV3FileUrl(EXTERNAL_RESOURCES_PAGE))
 
     // Stay Here button dismisses via data-dismiss="modal"; use text locator since
     // the modal has aria-hidden="true" (getByRole respects it)
@@ -90,7 +90,7 @@ test.describe("offline-v3 external resources", () => {
   test("warning link has onClick=event.preventDefault() so JS can intercept", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl(EXTERNAL_RESOURCES_PAGE))
+    await page.goto(offlineV3FileUrl(EXTERNAL_RESOURCES_PAGE))
 
     const link = page
       .locator("p")
@@ -107,7 +107,7 @@ test.describe("offline-v3 external resources", () => {
   // ---------------------------------------------------------------------------
 
   test("OCW link does not have external-link class", async ({ page }) => {
-    await page.goto(offlineFileUrl(EXTERNAL_RESOURCES_PAGE))
+    await page.goto(offlineV3FileUrl(EXTERNAL_RESOURCES_PAGE))
 
     const link = page
       .locator("p")
@@ -125,7 +125,7 @@ test.describe("offline-v3 external resources", () => {
   test("internal resource_link resolves to a local file:// path", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl(EXTERNAL_RESOURCES_PAGE))
+    await page.goto(offlineV3FileUrl(EXTERNAL_RESOURCES_PAGE))
 
     // The first paragraph includes a resource_link to an internal course page.
     const link = page
@@ -145,7 +145,7 @@ test.describe("offline-v3 external resources", () => {
   test("nav external resource link (Google.com) is a true external link", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl(EXTERNAL_RESOURCES_PAGE))
+    await page.goto(offlineV3FileUrl(EXTERNAL_RESOURCES_PAGE))
 
     // Both desktop and mobile nav render the expand button — use first (desktop)
     const expandBtn = page
@@ -173,7 +173,7 @@ test.describe("offline-v3 external resources", () => {
   test("plain markdown external link is present and points to google.com", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl(EXTERNAL_RESOURCES_PAGE))
+    await page.goto(offlineV3FileUrl(EXTERNAL_RESOURCES_PAGE))
 
     // "And [this](https://google.com) is a plain markdown link." — plain <a> with no external class
     const link = page

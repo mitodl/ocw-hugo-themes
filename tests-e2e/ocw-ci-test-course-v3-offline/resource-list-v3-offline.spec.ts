@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test"
-import { offlineFileUrl, expectLocalPackageHref } from "../util"
+import { offlineV3FileUrl, expectLocalPackageHref } from "../util"
 
 test.describe("offline-v3 resource list page", () => {
   test("resource list page loads with v3 card structure", async ({ page }) => {
-    await page.goto(offlineFileUrl("/lists/a-resource-list"))
+    await page.goto(offlineV3FileUrl("/lists/a-resource-list"))
 
     expect(page.url()).toContain("lists/a-resource-list/index.html")
     await expect(page.locator("body")).toContainText("A resource list")
@@ -13,7 +13,7 @@ test.describe("offline-v3 resource list page", () => {
   test("resource card titles navigate to local resource pages", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl("/lists/a-resource-list"))
+    await page.goto(offlineV3FileUrl("/lists/a-resource-list"))
 
     const cardTitles = page.locator(".resource-card-title")
     const count = await cardTitles.count()
@@ -30,7 +30,7 @@ test.describe("offline-v3 resource list page", () => {
   test("resource card download links point to local static_resources", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl("/lists/a-resource-list"))
+    await page.goto(offlineV3FileUrl("/lists/a-resource-list"))
 
     // Download links are the thumbnail-link anchors that have the `download` attribute
     const downloadLinks = page.locator(
@@ -46,7 +46,7 @@ test.describe("offline-v3 resource list page", () => {
   })
 
   test("resource card structure is v3-consistent", async ({ page }) => {
-    await page.goto(offlineFileUrl("/lists/a-resource-list"))
+    await page.goto(offlineV3FileUrl("/lists/a-resource-list"))
 
     // V3 resource cards have badge, thumbnail, and title areas
     const firstCard = page.locator(".resource-card").first()
@@ -55,7 +55,7 @@ test.describe("offline-v3 resource list page", () => {
   })
 
   test("See all link on download page is package-local", async ({ page }) => {
-    await page.goto(offlineFileUrl("/download"))
+    await page.goto(offlineV3FileUrl("/download"))
 
     // Expand a section to reveal See all link if it exists
     const seeAll = page.locator(".see-all-link").first()
