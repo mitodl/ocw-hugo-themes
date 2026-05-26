@@ -21,9 +21,15 @@
 {{- end -}}
 
 {{- if .Params.file -}}
+    {{- $src := partial "resource_url.html" (dict "context" . "url" .Params.file) -}}
+    {{- $canOptimize := or (hasPrefix $src "http://") (hasPrefix $src "https://") (hasPrefix $src "/") -}}
+    {{- if $canOptimize -}}
+        {{- $sep := cond (strings.Contains $src "?") "&" "?" -}}
+        {{- $src = printf "%s%sformat=auto&quality=75" $src $sep -}}
+    {{- end -}}
     <div class="row">
         <div class="col-12">
-            {{ partial "picture_element.html" (dict "src" (partial "resource_url.html" (dict "context" . "url" .Params.file)) "alt" (index (.Params.image_metadata | default dict) "image-alt" | default "") "class" "mw-100 mt-2" "sizes" "100vw") }}
+            <img class="mw-100 mt-2" src="{{ $src }}" alt="{{ index (.Params.image_metadata | default dict) "image-alt" | default "" }}" loading="eager" />
         </div>
     </div>
 {{- end -}}

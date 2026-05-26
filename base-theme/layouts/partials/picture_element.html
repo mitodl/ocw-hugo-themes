@@ -9,12 +9,13 @@
   Fastly IO is configured with webp=True in image_optimizer_default_settings.
 
   Parameters (via dict):
-    .src      — required — already-resolved image URL (from resource_url.html or similar)
-    .alt      — optional — alt text (default "")
-    .class    — optional — CSS class(es) for the <img> element
-    .sizes    — optional — sizes attribute (default "100vw")
-    .loading  — optional — loading attribute (default "lazy")
-    .decoding — optional — decoding attribute (default "async")
+    .src           — required — already-resolved image URL (from resource_url.html or similar)
+    .alt           — optional — alt text (default "")
+    .class         — optional — CSS class(es) for the <img> element
+    .sizes         — optional — sizes attribute (default "100vw")
+    .loading       — optional — loading attribute (default "lazy")
+    .decoding      — optional — decoding attribute (default "async")
+    .fetchpriority — optional — fetchpriority hint ("high", "low", "auto")
 
   Optimization is applied when the src is an absolute URL (http(s)://) or a root-relative
   path (/images/...). Both will be served through Fastly in production.
@@ -38,12 +39,13 @@
   retina displays natively — no Fastly dpr= param or extra <source> elements are needed.
 */}}
 
-{{- $src      := .src | default "" -}}
-{{- $alt      := .alt | default "" -}}
-{{- $class    := .class | default "" -}}
-{{- $sizes    := .sizes | default "100vw" -}}
-{{- $loading  := .loading | default "lazy" -}}
-{{- $decoding := .decoding | default "async" -}}
+{{- $src           := .src | default "" -}}
+{{- $alt           := .alt | default "" -}}
+{{- $class         := .class | default "" -}}
+{{- $sizes         := .sizes | default "100vw" -}}
+{{- $loading       := .loading | default "lazy" -}}
+{{- $decoding      := .decoding | default "async" -}}
+{{- $fetchpriority := .fetchpriority | default "" -}}
 
 {{- if $src -}}
   {{/* Optimize absolute URLs and root-relative paths; skip relative paths (offline) */}}
@@ -56,8 +58,8 @@
     {{- $w1920 := printf "%s%sformat=auto&quality=75&width=1920 1920w" $src $separator -}}
     {{- $w2560 := printf "%s%sformat=auto&quality=75&width=2560 2560w" $src $separator -}}
     {{- $w3840 := printf "%s%sformat=auto&quality=75&width=3840 3840w" $src $separator -}}
-<img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} srcset="{{ $w480 }}, {{ $w800 }}, {{ $w1280 }}, {{ $w1920 }}, {{ $w2560 }}, {{ $w3840 }}" sizes="{{ $sizes }}" loading="{{ $loading }}" decoding="{{ $decoding }}" />
+<img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} srcset="{{ $w480 }}, {{ $w800 }}, {{ $w1280 }}, {{ $w1920 }}, {{ $w2560 }}, {{ $w3840 }}" sizes="{{ $sizes }}" loading="{{ $loading }}" decoding="{{ $decoding }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} />
   {{- else -}}
-<img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}" />
+<img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} />
   {{- end -}}
 {{- end -}}
