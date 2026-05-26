@@ -2,7 +2,7 @@
 <div class="staff-card">
   <div class="staff-picture d-flex justify-content-center align-item-center overflow-hidden">
   {{- if .Params.image -}}
-    <img class="flex-shrink-0" src="{{ .Params.image }}" alt="{{ $fullName }}" />
+    {{ partial "picture_element.html" (dict "src" .Params.image "alt" $fullName "class" "flex-shrink-0" "sizes" "(min-width: 768px) 200px, 50vw") }}
   {{- end -}}
   </div>
   <h3>{{ $fullName }}</h3>

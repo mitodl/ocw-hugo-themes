@@ -48,3 +48,43 @@ function setOrGetLocalStorageItemHelper(
     return false
   }
 }
+
+/**
+ * Appends Fastly Image Optimizer query params to an image URL.
+ * Only applies to absolute (http/https) or root-relative (/) URLs;
+ * relative paths (offline builds) are returned unchanged.
+ */
+export function fastlyOptimizedUrl(
+  url: string,
+  params: Record<string, string>
+): string {
+  if (!url || (!/^https?:\/\//.test(url) && !url.startsWith("/"))) return url
+  const separator = url.includes("?") ? "&" : "?"
+  const qs = new URLSearchParams(params).toString()
+  return `${url}${separator}${qs}`
+}
+
+/**
+ * Resolves gallery item hrefs against an online gallery base URL before adding
+ * Fastly params. Relative offline paths are intentionally left unchanged.
+ */
+export function fastlyOptimizedGalleryUrl(
+  url: string,
+  baseUrl: string,
+  params: Record<string, string>
+): string {
+  let resolvedUrl = url
+
+  if (url && !/^https?:\/\//.test(url) && !url.startsWith("/")) {
+    if (/^https?:\/\//.test(baseUrl)) {
+      resolvedUrl = new URL(
+        url,
+        baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`
+      ).toString()
+    } else if (baseUrl.startsWith("/")) {
+      resolvedUrl = `${baseUrl.replace(/\/?$/, "/")}${url.replace(/^\/+/, "")}`
+    }
+  }
+
+  return fastlyOptimizedUrl(resolvedUrl, params)
+}

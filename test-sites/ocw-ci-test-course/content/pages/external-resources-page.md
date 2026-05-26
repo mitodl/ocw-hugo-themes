@@ -10,3 +10,5 @@ This is an external resource {{% resource_link "8ef7f3de-f238-4b3f-afb1-2d11a16f
 This link opens a warning dialog: {{% resource_link "8ef7f3de-f238-4b3f-afb1-2d11a16f7247" "Google.com" %}}
 
 This link DOES NOT open a warning dialog: {{% resource_link "4de28921-ab79-4ac4-933f-bbc0f4c99647" "OCW main" %}}
+
+{{% resource_link "5388b0c3-c599-4c42-8a3c-f89beed7c154" "this" %}} is an internal link to example_jpg resource. And [this](https://google.com) is an external link.
