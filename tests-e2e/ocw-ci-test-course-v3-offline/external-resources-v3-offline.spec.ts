@@ -127,12 +127,11 @@ test.describe("offline-v3 external resources", () => {
   }) => {
     await page.goto(offlineFileUrl(EXTERNAL_RESOURCES_PAGE))
 
-    // The paragraph contains: resource_link to first-test-page-title (internal)
+    // The first paragraph includes a resource_link to an internal course page.
     const link = page
       .locator("p")
-      .filter({ hasText: "is an internal link" })
+      .filter({ hasText: "For reference" })
       .getByRole("link", { name: "First Test Page (internal link)" })
-      .first()
 
     const href = await expectLocalPackageHref(link)
     // Internal resource should resolve inside the course package

@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.149.0 (Released May 13, 2026)
+---------------
+
+- fix: flaky test in ResourceCollection.test.tsx (#1800)
+- Umar/10568 offline v3 theme pages (#1784)
+- feat: Lighthouse Green performance and best practices (#1743)
+- Add script for testing prefixed v3 builds (#1799)
+
 Version 1.148.3 (Released May 06, 2026)
 ---------------
 
