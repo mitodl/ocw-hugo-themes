@@ -1,9 +1,9 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 test.describe("Course v3 Video View Page", () => {
-  test.beforeEach(async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test.beforeEach(async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/ocw_test_course_mit8_01f16_l01v01_360p")
   })
 
@@ -103,10 +103,11 @@ test.describe("Course v3 Video View Page", () => {
 
 test.describe("Course v3 Video View Page - No Instructor", () => {
   test("Description has no bottom margin when instructor is missing", async ({
-    page
+    page,
+    siteAlias
   }) => {
     // Use a video without instructor
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p")
 
     // When instructor is missing, description becomes the last meta block

@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test"
-import { offlineFileUrl, expectLocalPackageHref } from "../util"
+import { offlineV3FileUrl, expectLocalPackageHref } from "../util"
 
 test.describe("offline-v3 non-video resource pages", () => {
   // ---------------------------------------------------------------------------
@@ -7,7 +7,7 @@ test.describe("offline-v3 non-video resource pages", () => {
   // ---------------------------------------------------------------------------
 
   test("file_pdf resource page loads with v3 structure", async ({ page }) => {
-    await page.goto(offlineFileUrl("/resources/file_pdf"))
+    await page.goto(offlineV3FileUrl("/resources/file_pdf"))
 
     expect(page.url()).toContain("resources/file_pdf/index.html")
     await expect(page.locator("body")).toContainText("file.pdf")
@@ -15,7 +15,7 @@ test.describe("offline-v3 non-video resource pages", () => {
   })
 
   test("file_pdf download link is package-local", async ({ page }) => {
-    await page.goto(offlineFileUrl("/resources/file_pdf"))
+    await page.goto(offlineV3FileUrl("/resources/file_pdf"))
 
     const downloadBtn = page
       .locator(".resource-download-button, .resource-single-thumbnail-link")
@@ -29,7 +29,7 @@ test.describe("offline-v3 non-video resource pages", () => {
   // ---------------------------------------------------------------------------
 
   test("example_pdf resource page loads", async ({ page }) => {
-    await page.goto(offlineFileUrl("/resources/example_pdf"))
+    await page.goto(offlineV3FileUrl("/resources/example_pdf"))
 
     expect(page.url()).toContain("resources/example_pdf/index.html")
     await expect(page.locator("body")).toContainText(
@@ -38,7 +38,7 @@ test.describe("offline-v3 non-video resource pages", () => {
   })
 
   test("example_pdf download button is package-local", async ({ page }) => {
-    await page.goto(offlineFileUrl("/resources/example_pdf"))
+    await page.goto(offlineV3FileUrl("/resources/example_pdf"))
 
     const downloadBtn = page.locator(".resource-download-button").first()
     if ((await downloadBtn.count()) > 0) {
@@ -56,14 +56,14 @@ test.describe("offline-v3 non-video resource pages", () => {
   // ---------------------------------------------------------------------------
 
   test("example_jpg image resource page loads", async ({ page }) => {
-    await page.goto(offlineFileUrl("/resources/example_jpg"))
+    await page.goto(offlineV3FileUrl("/resources/example_jpg"))
 
     expect(page.url()).toContain("resources/example_jpg/index.html")
     await expect(page.locator("body")).toContainText("example_jpg.jpg")
   })
 
   test("example_jpg image displays from local path", async ({ page }) => {
-    await page.goto(offlineFileUrl("/resources/example_jpg"))
+    await page.goto(offlineV3FileUrl("/resources/example_jpg"))
 
     // The resource image should reference a local path, not an absolute one
     const resourceImg = page
@@ -80,14 +80,14 @@ test.describe("offline-v3 non-video resource pages", () => {
   // ---------------------------------------------------------------------------
 
   test("example_notes resource page loads", async ({ page }) => {
-    await page.goto(offlineFileUrl("/resources/example_notes"))
+    await page.goto(offlineV3FileUrl("/resources/example_notes"))
 
     expect(page.url()).toContain("resources/example_notes/index.html")
     await expect(page.locator("body")).toContainText("9.9 Solid State")
   })
 
   test("non-video resource pages use v3 offline bundle", async ({ page }) => {
-    await page.goto(offlineFileUrl("/resources/file_pdf"))
+    await page.goto(offlineV3FileUrl("/resources/file_pdf"))
 
     await expect(page.locator('script[src*="course_offline_v3"]')).toHaveCount(
       1

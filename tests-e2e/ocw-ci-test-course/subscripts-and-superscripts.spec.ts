@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 /**
@@ -26,9 +26,10 @@ const simplifyInnerHtmlWhitespace = (innherHTML: string) => {
  * tags.
  */
 test("Subscripts and superscripts in markdown should render in HTML.", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const course = new CoursePage(page, "course")
+  const course = new CoursePage(page, siteAlias)
   await course.goto("pages/subscripts-and-superscripts")
   const paragraphs = await course
     .withinContent()
@@ -37,6 +38,18 @@ test("Subscripts and superscripts in markdown should render in HTML.", async ({
   const actuals = paragraphs
     .map(simplifyInnerHtmlWhitespace)
     .filter(p => p.startsWith("Example"))
+  // Offline builds use relative hrefs; online builds use absolute /courses/... hrefs.
+  // For offline: read the actual href from the DOM rather than hardcoding the relative
+  // path (which depends on build output depth). The dedicated routing specs verify
+  // that internal hrefs are package-local.
+  const internalHref =
+    siteAlias === "course-offline" ?
+      (await course
+        .withinContent()
+        .locator("p a:not([target='_blank'])")
+        .first()
+        .getAttribute("href")) ?? "" :
+      "/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/"
   const expected = [
     "Example, Normal: Lorem ipsum dolor sit<sub>abc 123</sub> amet consectetur. Lorem ipsum dolor sit<sup>abc 123</sup> amet consectetur.",
     "Example, Bold: <strong>Lorem ipsum dolor sit<sub>abc 123</sub> amet consectetur. Lorem ipsum dolor sit<sup>abc 123</sup> amet consectetur.</strong>",
@@ -45,15 +58,18 @@ test("Subscripts and superscripts in markdown should render in HTML.", async ({
     "Example, Interior italic: Lorem ipsum dolor sit<sub>abc <em>123</em></sub> amet consectetur. Lorem ipsum dolor sit<sup>abc <em>123</em></sup> amet consectetur.",
     'Example, Links in scripts: Lorem ipsum dolor sit<sub><a class="external-link " target="_blank" href="https://mit.edu" aria-label="abc 123 (opens in a new tab)">abc 123</a></sub> amet consectetur. Lorem ipsum dolor sit<sup><a class="external-link " target="_blank" href="https://mit.edu" aria-label="abc 123 (opens in a new tab)">abc 123</a></sup> amet consectetur.',
     'Example, Scripts in Links: Lorem ipsum dolor <a class="external-link " target="_blank" href="https://mit.edu" aria-label="sitabc 123 amet (opens in a new tab)">sit<sub>abc 123</sub> amet</a> consectetur. Lorem ipsum dolor <a class="external-link " target="_blank" href="https://mit.edu" aria-label="sitabc 123 amet (opens in a new tab)">sit<sup>abc 123</sup> amet</a> amet consectetur.',
-    'Example, Resource Links in scripts: Lorem ipsum dolor sit<sub><a href="/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/">abc 123</a></sub> amet consectetur. Lorem ipsum dolor sit<sup><a href="/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/">abc 123</a></sup> amet consectetur.',
-    'Example, Scripts in Resource Links: Lorem ipsum dolor <a href="/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/">sit<sub>abc 123</sub> amet</a> consectetur. Lorem ipsum dolor <a href="/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/">sit<sup>abc 123</sup> amet</a> consectetur.'
+    `Example, Resource Links in scripts: Lorem ipsum dolor sit<sub><a href="${internalHref}">abc 123</a></sub> amet consectetur. Lorem ipsum dolor sit<sup><a href="${internalHref}">abc 123</a></sup> amet consectetur.`,
+    `Example, Scripts in Resource Links: Lorem ipsum dolor <a href="${internalHref}">sit<sub>abc 123</sub> amet</a> consectetur. Lorem ipsum dolor <a href="${internalHref}">sit<sup>abc 123</sup> amet</a> consectetur.`
   ]
 
   expect(actuals).toEqual(expected)
 })
 
-test("Subscripts and superscripts render in tables", async ({ page }) => {
-  const course = new CoursePage(page, "course")
+test("Subscripts and superscripts render in tables", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
   await course.goto("pages/subscripts-and-superscripts")
   const actuals = await course
     .withinContent()
