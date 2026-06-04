@@ -1,6 +1,17 @@
 Release Notes
 =============
 
+Version 1.151.0
+---------------
+
+- fix: issues with learn-deployed v3 theme (#1797)
+- Update dependency webpack-dev-server to v5.2.4 [SECURITY] (#1808)
+- Fix MathJax loading for display equations (#1810)
+- Support Learn GTM env params in course-v3 (#1809)
+- Update dependency @sentry/browser to v10.53.1 (#1803)
+- Update dependency posthog-js to v1.374.0 (#1805)
+- chore: fixed flaky test (#1807)
+
 Version 1.149.0 (Released May 13, 2026)
 ---------------
 
