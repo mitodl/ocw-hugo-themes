@@ -1,7 +1,15 @@
 {{ $youtubeKey := trim .Params.video_metadata.youtube_id " "}}
 {{ $archiveUrl := .Params.video_files.archive_url }}
-{{ $captionsLocation := partial "video_captions_file_url.html" (dict "context" . "url" .Params.video_files.video_captions_file) }}
-{{ $transcriptPdfLocation := partial "resource_url.html" (dict "context" . "url" .Params.video_files.video_transcript_file) }}
+{{ $captionTracks := partial "video_caption_tracks.html" (dict "context" . "captionsFile" .Params.video_files.video_captions_file) }}
+{{ $captionsLocation := "" }}
+{{ if gt (len $captionTracks) 0 }}
+  {{ $captionsLocation = (index $captionTracks 0).src }}
+{{ end }}
+{{ $transcriptLinks := partial "video_transcript_links.html" (dict "context" . "transcriptFile" .Params.video_files.video_transcript_file) }}
+{{ $transcriptPdfLocation := "" }}
+{{ if gt (len $transcriptLinks) 0 }}
+  {{ $transcriptPdfLocation = (index $transcriptLinks 0).href }}
+{{ end }}
 {{ $downloadLink := .Params.file }}
 {{ $relatedResourses := .Params.related_resources_text | default "" }}
 {{ $optionalTabTitle := .Params.optional_tab_title | default "" }}
@@ -18,9 +26,9 @@
 
 <div class="video-page">
   <div class="video-player-wrapper">
-    {{ partial "video_player.html" (dict "context" $context "youtubeKey" $youtubeKey "archiveUrl" $archiveUrl "captionsLocation" $captionsLocation "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation)}}
-    {{ if $transcriptPdfLocation }}
-      {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "transcript" "tabTitle" "Transcript" "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation) }}
+    {{ partial "video_player.html" (dict "context" $context "youtubeKey" $youtubeKey "archiveUrl" $archiveUrl "captionsLocation" $captionsLocation "captionTracks" $captionTracks "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation)}}
+    {{ if or (gt (len $transcriptLinks) 0) (gt (len $captionTracks) 0) }}
+      {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "transcript" "tabTitle" "Transcript" "downloadLink" $downloadLink "transcriptLinks" $transcriptLinks) }}
     {{ end }}
 
     {{ if $relatedResourses }}

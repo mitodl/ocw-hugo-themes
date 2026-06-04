@@ -1,5 +1,6 @@
 {{ $isEmbedVideo := eq .tabTitle "View video page" }}
 {{ $videoHasTranscript := eq .tabTitle "Transcript" }}
+{{ $hasTranscriptLinks := and $videoHasTranscript .transcriptLinks (gt (len .transcriptLinks) 0) }}
 <div class="video-tab-toggle-section pointer">
   <div class="video-tab-header d-flex">
     {{ if .tabTitle }}
@@ -27,20 +28,78 @@
     {{ end }}
   </div>
   <div class="video-tab-download-popup hidden">
-    <ul>
-      {{ if .downloadLink }}
+    {{/* Main menu view */}}
+    <div class="download-menu-main">
+      <ul>
+        {{ if .downloadLink }}
+          <li>
+            <a href="{{ .downloadLink }}" target="_blank" aria-label="Download video">Download video</a>
+          </li>
+        {{ end }}
+        {{ if .transcriptLinks }}
+          <li>
+            <button class="download-transcript-submenu-btn" aria-haspopup="true">
+              Download Transcript<i class="material-icons" aria-hidden="true">chevron_right</i>
+            </button>
+          </li>
+        {{ else if .transcriptLink }}
+          <li>
+            <a href="{{ .transcriptLink }}" target="_blank" aria-label="Download transcript">Download transcript</a>
+          </li>
+        {{ end }}
+      </ul>
+    </div>
+    {{/* Sub-menu view — shown when transcript links present */}}
+    {{ if .transcriptLinks }}
+    <div class="download-menu-submenu">
+      <ul>
         <li>
-          <a href="{{ .downloadLink }}" target="_blank" aria-label="Download video">Download video</a>
+          <button class="download-submenu-back-btn">
+            <i class="material-icons" aria-hidden="true">chevron_left</i> Back
+          </button>
         </li>
-      {{ end }}
-      {{ if .transcriptLink }}
+        {{ range .transcriptLinks }}
         <li>
-          <a href="{{ .transcriptLink }}" target="_blank" aria-label="Download transcript">Download transcript</a>
+          <a href="{{ .href }}" target="_blank" lang="{{ if .locale }}{{ .language }}-{{ .locale }}{{ else }}{{ .language }}{{ end }}" aria-label="{{ .label }}">{{ .label }}</a>
         </li>
-      {{ end }}
-    </ul>
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
   </div>
 </div>
+{{ if $hasTranscriptLinks }}
+{{- $defaultLabel := "" -}}
+{{- range .transcriptLinks -}}
+  {{- if and (not $defaultLabel) .isDefault -}}
+    {{- $defaultLabel = .label -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $defaultLabel -}}
+  {{- with index .transcriptLinks 0 -}}{{- $defaultLabel = .label -}}{{- end -}}
+{{- end -}}
+<div class="transcript-lang-bar">
+  <span class="transcript-lang-label">Select language:</span>
+  <div class="transcript-lang-dropdown">
+    <button class="transcript-lang-dropdown-btn" aria-haspopup="listbox" aria-expanded="false">
+      <span class="transcript-lang-btn-text">{{ $defaultLabel }}</span>
+      <i class="material-icons" aria-hidden="true">expand_more</i>
+    </button>
+    <div class="transcript-lang-dropdown-menu hidden" role="listbox">
+      <ul>
+        {{ range $tl := .transcriptLinks }}
+        <li>
+          <button class="transcript-lang-option{{ if $tl.isDefault }} active{{ end }}"
+                  data-lang="{{ if $tl.locale }}{{ $tl.language }}-{{ $tl.locale }}{{ else }}{{ $tl.language }}{{ end }}"
+                  role="option"
+                  aria-selected="{{ if $tl.isDefault }}true{{ else }}false{{ end }}">{{ $tl.label }}</button>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</div>
+{{ end }}
 <div class="video-tab container collapse pr-0 {{ .tabClass }}" role="tabpanel">
   <div class="video-tab-content-section">
     {{ .context.RenderString .tabContent }}

@@ -32,6 +32,11 @@
   padding-top: 5px;
   padding-bottom: 7px;
 }
+// Hide background/padding on the transcript collapse panel when closed.
+.video-tab.transcript:not(.show) {
+  padding: 0;
+  background-color: transparent;
+}
 .video-tab-content-section > a {
   display: inline-block;
   margin-top: 5px;
@@ -240,6 +245,7 @@ a.video-download-button:visited {
   padding: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 999 !important; // Need a higher z-index than active transcript line
+  width: max-content; // Size to content; prevents empty space in both main and sub-menu views
 }
 .video-tab-download-popup.hidden {
   visibility: hidden;
@@ -259,6 +265,178 @@ a.video-download-button:visited {
 
 .video-tab-download-popup a:hover {
   background-color: $light-gray;
+}
+
+// Both views fill the full popup width for consistent sizing
+.video-tab-download-popup .download-menu-main,
+.video-tab-download-popup .download-menu-submenu {
+  width: 100%;
+}
+
+// Submenu is hidden by default; shown when popup has data-view="submenu"
+.video-tab-download-popup .download-menu-submenu {
+  display: none;
+}
+
+.video-tab-download-popup[data-view="submenu"] .download-menu-main {
+  display: none;
+}
+
+.video-tab-download-popup[data-view="submenu"] .download-menu-submenu {
+  display: block;
+  animation: popup-slide-in 0.18s ease;
+}
+
+@keyframes popup-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.download-transcript-submenu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 5px 5px 5px 5px;
+  cursor: pointer;
+  color: $black;
+  font-size: inherit;
+  text-align: left;
+
+  i {
+    font-size: 1.1rem;
+  }
+
+  &:hover {
+    background-color: $light-gray;
+  }
+}
+
+.download-submenu-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 5px;
+  margin-bottom: 3px;
+  cursor: pointer;
+  color: $black;
+  font-size: inherit;
+
+  i {
+    font-size: 1.1rem;
+  }
+
+  &:hover {
+    background-color: $light-gray;
+  }
+}
+
+// Lang bar is a sibling of .video-tab-toggle-section (before the collapse panel).
+.transcript-lang-bar {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 6%;
+  background-color: darken($light-gray, 4%);
+  border-bottom: 1px solid #d0d0d0;
+  position: relative;
+}
+
+// Show when the transcript tab is expanded.
+// Primary: CSS :has() for modern browsers (Firefox 121+, Chrome, Safari).
+// Fallback: .transcript-tab-expanded class toggled by JS (video_transcript_track.js)
+// for Firefox < 121 which does not support :has().
+// stylelint-disable-next-line selector-pseudo-class-no-unknown
+.video-tab-toggle-section:has(button[aria-expanded="true"])
+  ~ .transcript-lang-bar,
+.video-tab-toggle-section.transcript-tab-expanded ~ .transcript-lang-bar {
+  display: flex;
+}
+
+.transcript-lang-label {
+  margin: 0;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.transcript-lang-dropdown {
+  position: relative;
+  min-width: 160px; // Wide enough for "English (Default)" style labels
+  font-size: 0.85rem; // Match the "Select language:" label; inherited by btn and options
+}
+
+.transcript-lang-dropdown-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; // Keep icon pinned to right even as label changes
+  gap: 2px;
+  width: 100%; // Fill dropdown container so btn and menu share the same width
+  background: $white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 4px 8px;
+  cursor: pointer;
+  color: $black;
+
+  i.material-icons {
+    font-size: 1.1rem;
+    transition: transform 0.15s;
+  }
+
+  &[aria-expanded="true"] i.material-icons {
+    transform: rotate(180deg);
+  }
+}
+
+.transcript-lang-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 999;
+  background: $white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 100%; // Match the button exactly (not just a minimum)
+
+  &.hidden {
+    visibility: hidden;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 5px;
+  }
+}
+
+.transcript-lang-option {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 5px 40px 5px 5px;
+  text-align: left;
+  color: $black;
+  cursor: pointer;
+  font-size: inherit;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: $light-gray;
+  }
 }
 
 .youtube-container .vjs-poster,
