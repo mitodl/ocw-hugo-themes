@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.151.0
+Version 1.151.0 (Released June 08, 2026)
 ---------------
 
 - fix: issues with learn-deployed v3 theme (#1797)
