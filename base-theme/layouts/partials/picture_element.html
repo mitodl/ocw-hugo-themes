@@ -1,0 +1,75 @@
+{{/*
+  Renders a responsive <img> with Fastly Image Optimizer.
+
+  Uses format=auto so Fastly serves WebP to browsers that accept it (via the Accept
+  request header) and the original format to browsers that do not. This is semantically
+  equivalent to a <picture><source type="image/webp"> fallback, but emits a plain <img>
+  so the DOM structure is unchanged and existing CSS selectors keep working.
+
+  Fastly IO is configured with webp=True in image_optimizer_default_settings.
+
+  Parameters (via dict):
+    .src           — required — already-resolved image URL (from resource_url.html or similar)
+    .alt           — optional — alt text (default "")
+    .class         — optional — CSS class(es) for the <img> element
+    .sizes         — optional — sizes attribute; when provided, a full srcset is emitted so
+                                Fastly serves the most appropriate width for each viewport.
+                                When omitted, only format=auto&quality=75 is applied to src
+                                (format optimization without size variants). Callers should
+                                only pass sizes when the display width is known.
+    .loading       — optional — loading attribute (default "lazy")
+    .decoding      — optional — decoding attribute (default "async")
+    .fetchpriority — optional — fetchpriority hint ("high", "low", "auto")
+
+  Optimization is applied when the src is an absolute URL (http(s)://) or a root-relative
+  path (/images/...). Both will be served through Fastly in production.
+
+  When the src is a relative path (e.g. ../../static_resources/..., used in offline builds),
+  the partial emits a plain <img> without optimization.
+
+  Output (when optimizable, sizes provided):
+    <img src="<src>"
+         srcset="<src>?format=auto&quality=75&width=480 480w,
+                 <src>?format=auto&quality=75&width=800 800w,
+                 <src>?format=auto&quality=75&width=1280 1280w,
+                 <src>?format=auto&quality=75&width=1920 1920w"
+         sizes="..."
+         alt="..." ...>
+
+  Output (when optimizable, no sizes):
+    <img src="<src>?format=auto&quality=75" alt="..." ...>
+
+  DPR handling: browsers using `w` descriptors already factor in devicePixelRatio when
+  selecting a srcset candidate. 1920w is the maximum — images wider than 1920px are
+  uncommon in the OCW content library, and 1920w already covers a 2x retina display
+  at up to 960px CSS width.
+*/}}
+
+{{- $src           := .src | default "" -}}
+{{- $alt           := .alt | default "" -}}
+{{- $class         := .class | default "" -}}
+{{- $sizes         := .sizes | default "" -}}
+{{- $loading       := .loading | default "lazy" -}}
+{{- $decoding      := .decoding | default "async" -}}
+{{- $fetchpriority := .fetchpriority | default "" -}}
+
+{{- if $src -}}
+  {{/* Optimize absolute URLs and root-relative paths; skip relative paths (offline) */}}
+  {{- $canOptimize := or (hasPrefix $src "http://") (hasPrefix $src "https://") (hasPrefix $src "/") -}}
+  {{- if $canOptimize -}}
+    {{- $separator := cond (strings.Contains $src "?") "&" "?" -}}
+    {{- if $sizes -}}
+      {{/* sizes provided: emit full srcset so browser picks the right width */}}
+      {{- $w480  := printf "%s%sformat=auto&quality=75&width=480 480w"   $src $separator -}}
+      {{- $w800  := printf "%s%sformat=auto&quality=75&width=800 800w"   $src $separator -}}
+      {{- $w1280 := printf "%s%sformat=auto&quality=75&width=1280 1280w" $src $separator -}}
+      {{- $w1920 := printf "%s%sformat=auto&quality=75&width=1920 1920w" $src $separator -}}
+<img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} srcset="{{ $w480 }}, {{ $w800 }}, {{ $w1280 }}, {{ $w1920 }}" sizes="{{ $sizes }}" loading="{{ $loading }}" decoding="{{ $decoding }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} />
+    {{- else -}}
+      {{- $optimizedSrc := printf "%s%sformat=auto&quality=75" $src $separator -}}
+<img src="{{ $optimizedSrc }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} />
+    {{- end -}}
+  {{- else -}}
+<img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} />
+  {{- end -}}
+{{- end -}}
