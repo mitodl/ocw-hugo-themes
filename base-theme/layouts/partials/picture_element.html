@@ -32,9 +32,7 @@
          srcset="<src>?format=auto&quality=75&width=480 480w,
                  <src>?format=auto&quality=75&width=800 800w,
                  <src>?format=auto&quality=75&width=1280 1280w,
-                 <src>?format=auto&quality=75&width=1920 1920w,
-                 <src>?format=auto&quality=75&width=2560 2560w,
-                 <src>?format=auto&quality=75&width=3840 3840w"
+                 <src>?format=auto&quality=75&width=1920 1920w"
          sizes="..."
          alt="..." ...>
 
@@ -42,8 +40,9 @@
     <img src="<src>?format=auto&quality=75" alt="..." ...>
 
   DPR handling: browsers using `w` descriptors already factor in devicePixelRatio when
-  selecting a srcset candidate. The extended breakpoints (2560w, 3840w) cover 2x and 3x
-  retina displays natively — no Fastly dpr= param or extra <source> elements are needed.
+  selecting a srcset candidate. 1920w is the maximum — images wider than 1920px are
+  uncommon in the OCW content library, and 1920w already covers a 2x retina display
+  at up to 960px CSS width.
 */}}
 
 {{- $src           := .src | default "" -}}
@@ -65,9 +64,7 @@
       {{- $w800  := printf "%s%sformat=auto&quality=75&width=800 800w"   $src $separator -}}
       {{- $w1280 := printf "%s%sformat=auto&quality=75&width=1280 1280w" $src $separator -}}
       {{- $w1920 := printf "%s%sformat=auto&quality=75&width=1920 1920w" $src $separator -}}
-      {{- $w2560 := printf "%s%sformat=auto&quality=75&width=2560 2560w" $src $separator -}}
-      {{- $w3840 := printf "%s%sformat=auto&quality=75&width=3840 3840w" $src $separator -}}
-<img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} srcset="{{ $w480 }}, {{ $w800 }}, {{ $w1280 }}, {{ $w1920 }}, {{ $w2560 }}, {{ $w3840 }}" sizes="{{ $sizes }}" loading="{{ $loading }}" decoding="{{ $decoding }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} />
+<img src="{{ $src }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} srcset="{{ $w480 }}, {{ $w800 }}, {{ $w1280 }}, {{ $w1920 }}" sizes="{{ $sizes }}" loading="{{ $loading }}" decoding="{{ $decoding }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} />
     {{- else -}}
       {{- $optimizedSrc := printf "%s%sformat=auto&quality=75" $src $separator -}}
 <img src="{{ $optimizedSrc }}" alt="{{ $alt }}"{{ with $class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="{{ $decoding }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} />
