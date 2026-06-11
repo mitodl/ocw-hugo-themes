@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.152.0
+---------------
+
+- fix: v3 netlify resources (#1816)
+- add download attribute to download video anchor tag (#1814)
+- feat: added image picture partial and migrated existing images to it (#1791)
+
 Version 1.151.0 (Released June 08, 2026)
 ---------------
 
