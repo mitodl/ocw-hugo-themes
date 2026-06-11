@@ -17,10 +17,7 @@
       <div class="testimonial standard-width mx-auto d-flex align-items-center">
         <div class="single-testimonial-image-wrapper">
           <div class="img-container single-testimonial-page">
-            <img
-              src="{{ partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $story.Params.image.content).Params.file) }}"
-              alt=""
-            />
+            {{ partial "picture_element.html" (dict "src" (partial "resource_url.html" (dict "context" . "url" (partial "resource_metadata.html" $story.Params.image.content).Params.file)) "sizes" "(min-width: 768px) 33vw, 100vw") }}
           </div>
         </div>
         <div class="detail d-flex flex-column flex-nowrap justify-content-center">

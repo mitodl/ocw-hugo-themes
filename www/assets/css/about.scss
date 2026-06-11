@@ -372,6 +372,13 @@
             width: 100% !important;
           }
         }
+
+        @include media-breakpoint-up(lg) {
+          img {
+            width: 900px;
+            height: auto;
+          }
+        }
       }
 
       #presidents-message {
