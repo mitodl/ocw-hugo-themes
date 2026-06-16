@@ -29,13 +29,13 @@ video_files:
       language: en
     - file: /courses/8-01sc-physics-i/resources/lecture1_transcript_fr_pdf
       language: fr
-  video_captions_resource:
+  video_captions_resources:
     content:
       - abc123-text-id-1
       - abc123-text-id-2
       - abc123-text-id-3
     website: 8-01sc-physics-i
-  video_transcript_resource:
+  video_transcript_resources:
     content:
       - abc123-text-id-4
       - abc123-text-id-5
@@ -50,7 +50,7 @@ video_metadata:
 
 `video_captions_file` and `video_transcript_file` are **always arrays**.  After migration 0073/0074, Studio never writes a bare string into these fields.  Themes may still encounter a `null` or absent value (video has no captions yet), so treat `null` and missing as an empty list.
 
-`video_captions_resource` and `video_transcript_resource` hold relation-widget metadata only.  **Hugo templates must not read the `content` list directly** — use the `_file` arrays for all rendering logic.
+`video_captions_resources` and `video_transcript_resources` hold relation-widget metadata only.  **Hugo templates must not read the `content` list directly** — use the `_file` arrays (or the resolved `_resources` arrays after `full_metadata()` runs) for all rendering logic.
 
 ---
 

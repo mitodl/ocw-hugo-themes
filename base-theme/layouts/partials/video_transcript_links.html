@@ -1,12 +1,14 @@
 {{/*
   video_transcript_links.html
 
-  Resolves video_transcript_file into a slice of transcript link dicts.
+  Resolves transcript data into a slice of transcript link dicts.
+  Primary source: video_transcript_resources (resolved by full_metadata to array-of-objects).
+  Fallback source: video_transcript_file (legacy string or array-of-objects format).
   Handles both legacy (string) and new (array of objects) formats.
 
   Input: dict with:
     - "context" : page context (for resource_url resolution)
-    - "transcriptFile" : .Params.video_files.video_transcript_file (string or array)
+    - "transcriptFile" : video_transcript_resources | default video_transcript_file (string or array)
 
   Returns: slice of dicts with keys: "href", "language", "locale", "label"
 */}}
@@ -33,7 +35,7 @@
       {{- $lang := .language | default "en" -}}
       {{- $locale := .locale | default "" -}}
       {{- $href := partial "resource_url.html" (dict "context" $context "url" $file) -}}
-      {{- $baseLabel := partial "human_language.html" $lang -}}
+      {{- $baseLabel := partial "human_language.html" (dict "language" $lang "locale" $locale) -}}
       {{- $isDefault := false -}}
       {{- if $hasEnglish -}}
         {{- if and (eq $lang "en") (not $firstEnglishDone) -}}
@@ -47,8 +49,6 @@
       {{- $label := $baseLabel -}}
       {{- if $isDefault -}}
         {{- $label = printf "%s (Default)" $baseLabel -}}
-      {{- else if $locale -}}
-        {{- $label = printf "%s (%s)" $baseLabel (upper $locale) -}}
       {{- end -}}
       {{- $links = $links | append (dict "href" $href "language" $lang "locale" $locale "label" $label "isDefault" $isDefault) -}}
     {{- end -}}

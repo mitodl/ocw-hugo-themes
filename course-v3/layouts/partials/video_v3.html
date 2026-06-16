@@ -1,11 +1,13 @@
 {{ $youtubeKey := trim .Params.video_metadata.youtube_id " "}}
 {{ $archiveUrl := .Params.video_files.archive_url }}
-{{ $captionTracks := partial "video_caption_tracks.html" (dict "context" . "captionsFile" .Params.video_files.video_captions_file) }}
+{{ $captionsSource := .Params.video_files.video_captions_resources | default .Params.video_files.video_captions_file }}
+{{ $captionTracks := partial "video_caption_tracks.html" (dict "context" . "captionsFile" $captionsSource) }}
 {{ $captionsLocation := "" }}
 {{ if gt (len $captionTracks) 0 }}
   {{ $captionsLocation = (index $captionTracks 0).src }}
 {{ end }}
-{{ $transcriptLinks := partial "video_transcript_links.html" (dict "context" . "transcriptFile" .Params.video_files.video_transcript_file) }}
+{{ $transcriptSource := .Params.video_files.video_transcript_resources | default .Params.video_files.video_transcript_file }}
+{{ $transcriptLinks := partial "video_transcript_links.html" (dict "context" . "transcriptFile" $transcriptSource) }}
 {{ $transcriptPdfLocation := "" }}
 {{ if gt (len $transcriptLinks) 0 }}
   {{ $transcriptPdfLocation = (index $transcriptLinks 0).href }}

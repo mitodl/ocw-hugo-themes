@@ -111,11 +111,11 @@
       "video_captions_file": "",
       "video_thumbnail_file": "",
       "video_transcript_file": "",
-      "video_transcript_resource": {
+      "video_transcript_resources": {
         "content": "",
         "website": "ocw-ci-test-course"
       },
-      "video_captions_resource": {
+      "video_captions_resources": {
         "content": "",
         "website": "ocw-ci-test-course"
       }
