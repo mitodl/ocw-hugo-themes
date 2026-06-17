@@ -16,7 +16,7 @@ test("that the Download Button works for multiple embed videos in a page", async
   for (let i = 0; i < videoElementsCount; i++) {
     const videoElement = new VideoElement(page, i)
     await videoElement.downloadButton().click()
-    expect(videoElement.downloadVideo()).toHaveAttribute(
+    await expect(videoElement.downloadVideo()).toHaveAttribute(
       "href",
       new URL(
         "/courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",

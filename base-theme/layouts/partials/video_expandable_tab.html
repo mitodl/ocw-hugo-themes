@@ -33,7 +33,7 @@
       <ul>
         {{ if .downloadLink }}
           <li>
-            <a href="{{ .downloadLink }}" target="_blank" aria-label="Download video">Download video</a>
+            <a href="{{ .downloadLink }}" target="_blank" rel="noopener noreferrer" aria-label="Download video" download>Download video</a>
           </li>
         {{ end }}
         {{ if .transcriptLinks }}
@@ -44,7 +44,7 @@
           </li>
         {{ else if .transcriptLink }}
           <li>
-            <a href="{{ .transcriptLink }}" target="_blank" aria-label="Download transcript">Download transcript</a>
+            <a href="{{ .transcriptLink }}" target="_blank" rel="noopener noreferrer" aria-label="Download transcript" download>Download transcript</a>
           </li>
         {{ end }}
       </ul>
@@ -60,7 +60,7 @@
         </li>
         {{ range .transcriptLinks }}
         <li>
-          <a href="{{ .href }}" target="_blank" lang="{{ if .locale }}{{ .language }}-{{ .locale }}{{ else }}{{ .language }}{{ end }}" aria-label="{{ .label }}">{{ .label }}</a>
+          <a href="{{ .href }}" target="_blank" rel="noopener noreferrer" lang="{{ if .locale }}{{ .language }}-{{ .locale }}{{ else }}{{ .language }}{{ end }}" aria-label="Download transcript: {{ .label }}" download>{{ .label }}</a>
         </li>
         {{ end }}
       </ul>
