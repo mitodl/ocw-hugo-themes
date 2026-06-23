@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.152.0
+Version 1.152.0 (Released June 23, 2026)
 ---------------
 
 - fix: v3 netlify resources (#1816)
