@@ -49,10 +49,13 @@ test("Subscripts and superscripts in markdown should render in HTML.", async ({
       .locator("p a:not([target='_blank'])")
       .first()
       .getAttribute("href")
-    if (!rawHref) throw new Error("Could not read internal href from offline page")
+    if (!rawHref) {
+      throw new Error("Could not read internal href from offline page")
+    }
     internalHref = rawHref
   } else {
-    internalHref = "/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/"
+    internalHref =
+      "/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/"
   }
   const expected = [
     "Example, Normal: Lorem ipsum dolor sit<sub>abc 123</sub> amet consectetur. Lorem ipsum dolor sit<sup>abc 123</sup> amet consectetur.",
