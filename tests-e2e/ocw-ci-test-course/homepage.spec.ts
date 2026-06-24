@@ -70,7 +70,7 @@ test.describe("Course info", () => {
 test("Has expected meta tags in <head>", async ({ page, siteAlias }) => {
   const sitemapDomain = env.SITEMAP_DOMAIN ?
     env.SITEMAP_DOMAIN :
-    "https://live-qa.ocw.mit.edu"
+    "live-qa.ocw.mit.edu"
   const course = new CoursePage(page, siteAlias)
   await course.goto()
   const metaShareImage = page.locator('meta[property="og:image"]')
