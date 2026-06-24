@@ -42,14 +42,18 @@ test("Subscripts and superscripts in markdown should render in HTML.", async ({
   // For offline: read the actual href from the DOM rather than hardcoding the relative
   // path (which depends on build output depth). The dedicated routing specs verify
   // that internal hrefs are package-local.
-  const internalHref =
-    siteAlias === "course-offline" ?
-      (await course
-        .withinContent()
-        .locator("p a:not([target='_blank'])")
-        .first()
-        .getAttribute("href")) ?? "" :
-      "/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/"
+  let internalHref: string
+  if (siteAlias === "course-offline") {
+    const rawHref = await course
+      .withinContent()
+      .locator("p a:not([target='_blank'])")
+      .first()
+      .getAttribute("href")
+    if (!rawHref) throw new Error("Could not read internal href from offline page")
+    internalHref = rawHref
+  } else {
+    internalHref = "/courses/ocw-ci-test-course/pages/subscripts-and-superscripts/"
+  }
   const expected = [
     "Example, Normal: Lorem ipsum dolor sit<sub>abc 123</sub> amet consectetur. Lorem ipsum dolor sit<sup>abc 123</sup> amet consectetur.",
     "Example, Bold: <strong>Lorem ipsum dolor sit<sub>abc 123</sub> amet consectetur. Lorem ipsum dolor sit<sup>abc 123</sup> amet consectetur.</strong>",
