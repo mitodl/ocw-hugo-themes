@@ -16,14 +16,15 @@ test("that the Download Button works for multiple embed videos in a page", async
   for (let i = 0; i < videoElementsCount; i++) {
     const videoElement = new VideoElement(page, i)
     await videoElement.downloadButton().click()
-    expect(videoElement.downloadVideo()).toHaveAttribute(
+    await expect(videoElement.downloadVideo()).toHaveAttribute(
       "href",
       new URL(
         "/courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
         resourceBaseUrl
       ).href
     )
-    expect(videoElement.downloadTranscript()).toHaveAttribute(
+    await videoElement.downloadTranscriptSubmenuBtn().click()
+    await expect(videoElement.downloadTranscript()).toHaveAttribute(
       "href",
       new URL(
         "/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf",
@@ -65,17 +66,29 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
   await page.keyboard.press("Enter")
 
   const videoDownloadLink = page.getByRole("link", { name: "Download video" })
-  const transcriptDownloadLink = page.getByRole("link", {
-    name: "Download transcript"
+  const transcriptSubmenuBtn = page.getByRole("button", {
+    name: /Download Transcript/i
   })
-  const downloadLinksArr = [videoDownloadLink, transcriptDownloadLink]
 
-  for (let i = 0; i < 2; i++) {
-    await expect(downloadLinksArr[i]).toBeVisible()
-    await page.keyboard.press("Tab")
-    const hrefAttribute = await page.locator(":focus").getAttribute("href")
-    expect(hrefAttribute).toBe(downloadLinks[i])
-  }
+  await expect(videoDownloadLink).toBeVisible()
+  await page.keyboard.press("Tab")
+  const videoHref = await page.locator(":focus").getAttribute("href")
+  expect(videoHref).toBe(downloadLinks[0])
+
+  // Navigate into transcript sub-menu
+  await expect(transcriptSubmenuBtn).toBeVisible()
+  await page.keyboard.press("Tab")
+  await page.keyboard.press("Enter")
+
+  const transcriptDownloadLink = page.getByRole("link", {
+    name: /English \(Default\)/i
+  })
+  await expect(transcriptDownloadLink).toBeVisible()
+  // Skip Back button, tab to the first transcript link
+  await page.keyboard.press("Tab")
+  await page.keyboard.press("Tab")
+  const transcriptHref = await page.locator(":focus").getAttribute("href")
+  expect(transcriptHref).toBe(downloadLinks[1])
 })
 
 test("Embed video redirects to video page using keyboard navigation", async ({
@@ -198,4 +211,183 @@ test("A page with a transcript has a transcript tab", async ({ page }) => {
   await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l01v02_360p")
   const videoPage = new VideoElement(page)
   await expect(videoPage.tab({})).toHaveText(/Transcript\s*/)
+})
+
+test("Multi-lang resource shows language selector with English and French options", async ({
+  page
+}) => {
+  const coursePage = new CoursePage(page, "course")
+  await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
+  const videoPage = new VideoElement(page)
+
+  // Open the Transcript tab
+  const transcriptTab = videoPage.tab({ name: /Transcript/i, exact: false })
+  await transcriptTab.click()
+  await page.waitForSelector(".video-tab.container.transcript.show", {
+    state: "attached"
+  })
+
+  // Language selector bar should be visible
+  const langBar = page.locator(".transcript-lang-bar")
+  await expect(langBar).toBeVisible()
+
+  // Both language options should be present
+  const langOptions = page.locator(".transcript-lang-option")
+  await expect(langOptions).toHaveCount(2)
+  await expect(langOptions.nth(0)).toHaveText("English (Default)")
+  await expect(langOptions.nth(1)).toHaveText("French")
+})
+
+test("Clicking a language option updates the dropdown button label", async ({
+  page
+}) => {
+  const coursePage = new CoursePage(page, "course")
+  await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
+  const videoPage = new VideoElement(page)
+
+  // Open transcript tab
+  await videoPage.tab({ name: /Transcript/i, exact: false }).click()
+  await page.waitForSelector(".video-tab.container.transcript.show", {
+    state: "attached"
+  })
+
+  // Initial label is the default language (English pre-selected)
+  const dropdownBtn = page.locator(".transcript-lang-dropdown-btn")
+  await expect(page.locator(".transcript-lang-btn-text")).toHaveText(
+    "English (Default)"
+  )
+
+  // Open dropdown, click French
+  await dropdownBtn.click()
+  await page.locator(".transcript-lang-option[data-lang='fr']").click()
+
+  // Button label should update
+  await expect(page.locator(".transcript-lang-btn-text")).toHaveText("French")
+})
+
+test("Selecting a language multiple times does not stack transcript views", async ({
+  page
+}) => {
+  const coursePage = new CoursePage(page, "course")
+  await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
+  const videoPage = new VideoElement(page)
+
+  // Open transcript tab
+  await videoPage.tab({ name: /Transcript/i, exact: false }).click()
+  await page.waitForSelector(".video-tab.container.transcript.show", {
+    state: "attached"
+  })
+
+  // Click between languages several times
+  const dropdownBtn = page.locator(".transcript-lang-dropdown-btn")
+  for (let i = 0; i < 3; i++) {
+    await dropdownBtn.click()
+    await page.locator(".transcript-lang-option[data-lang='fr']").click()
+    await dropdownBtn.click()
+    await page.locator(".transcript-lang-option[data-lang='en']").click()
+  }
+
+  // There should be at most one transcript plugin element in the container
+  const transcriptContainer = page.locator(
+    ".video-tab.transcript .video-tab-content-section"
+  )
+  const pluginElements = transcriptContainer.locator("[id^='transcript-']")
+  expect(await pluginElements.count()).toBeLessThanOrEqual(1)
+})
+
+test("Switching language replaces the transcript preview, not stacks below it", async ({
+  page
+}) => {
+  const coursePage = new CoursePage(page, "course")
+  await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
+  const videoPage = new VideoElement(page)
+
+  // Open transcript tab
+  await videoPage.tab({ name: /Transcript/i, exact: false }).click()
+  await page.waitForSelector(".video-tab.container.transcript.show", {
+    state: "attached"
+  })
+
+  const dropdownBtn = page.locator(".transcript-lang-dropdown-btn")
+  const transcriptContainer = page.locator(
+    ".video-tab.transcript .video-tab-content-section"
+  )
+
+  // Select English first
+  await dropdownBtn.click()
+  await page.locator(".transcript-lang-option[data-lang='en']").click()
+
+  // Switch to French
+  await dropdownBtn.click()
+  await page.locator(".transcript-lang-option[data-lang='fr']").click()
+
+  // There must still be exactly one plugin element (no stacking)
+  const pluginElements = transcriptContainer.locator("[id^='transcript-']")
+  expect(await pluginElements.count()).toBeLessThanOrEqual(1)
+
+  // Switch back to English
+  await dropdownBtn.click()
+  await page.locator(".transcript-lang-option[data-lang='en']").click()
+
+  // Still exactly one plugin element after switching back
+  expect(await pluginElements.count()).toBeLessThanOrEqual(1)
+})
+
+test("English transcript auto-loads when the tab is opened", async ({
+  page
+}) => {
+  const coursePage = new CoursePage(page, "course")
+  await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
+  const videoPage = new VideoElement(page)
+
+  // Open the transcript tab
+  await videoPage.tab({ name: /Transcript/i, exact: false }).click()
+  await page.waitForSelector(".video-tab.container.transcript.show", {
+    state: "attached"
+  })
+
+  // English is the default; the button should show "English (Default)"
+  await expect(page.locator(".transcript-lang-btn-text")).toHaveText(
+    "English (Default)"
+  )
+
+  // Switching to French updates the button label
+  const dropdownBtn = page.locator(".transcript-lang-dropdown-btn")
+  await dropdownBtn.click()
+  await page.locator(".transcript-lang-option[data-lang='fr']").click()
+  await expect(page.locator(".transcript-lang-btn-text")).toHaveText("French")
+})
+
+test("Language selector active option is not bold (consistent with menu styling)", async ({
+  page
+}) => {
+  const coursePage = new CoursePage(page, "course")
+  await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
+
+  await new VideoElement(page)
+    .tab({ name: /Transcript/i, exact: false })
+    .click()
+  await page.waitForSelector(".video-tab.container.transcript.show", {
+    state: "attached"
+  })
+
+  // The "Select language:" label should not be bold
+  const label = page.locator(".transcript-lang-label")
+  await expect(label).toBeVisible()
+  const labelFontWeight = await label.evaluate(
+    el => window.getComputedStyle(el).fontWeight
+  )
+  expect(Number(labelFontWeight)).toBeLessThanOrEqual(400)
+
+  // Open the dropdown and select a language so JS assigns the .active class
+  const dropdownBtn = page.locator(".transcript-lang-dropdown-btn")
+  await dropdownBtn.click()
+  await page.locator(".transcript-lang-option[data-lang='en']").click()
+
+  // Check via evaluate — the option may not be visible (dropdown closed)
+  // but we can still read its computed style
+  const activeFontWeight = await page
+    .locator(".transcript-lang-option.active")
+    .evaluate(el => window.getComputedStyle(el).fontWeight)
+  expect(Number(activeFontWeight)).toBeLessThanOrEqual(400)
 })

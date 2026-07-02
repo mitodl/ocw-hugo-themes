@@ -18,12 +18,12 @@ uid: 5388b0c3-c599-4c42-8a3c-f89beed7c154
 video_files:
   archive_url: ''
   video_captions_file: ''
-  video_captions_resource:
+  video_captions_resources:
     content: ''
     website: ocw-ci-test-course
   video_thumbnail_file: ''
   video_transcript_file: ''
-  video_transcript_resource:
+  video_transcript_resources:
     content: ''
     website: ocw-ci-test-course
 video_metadata:

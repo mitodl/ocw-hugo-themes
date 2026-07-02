@@ -15,9 +15,17 @@ resourcetype: Video
 title: ocw_test_course_MIT8_01F16_L26v02_360p.mp4
 uid: e3054073-f401-4909-9794-3f281eae7a10
 video_files:
-  video_captions_file: /courses/ocw-ci-test-course/11wFKJb61wRWKOSOxmtjDlWPXf6MiVpIQ_transcript.webvtt
+  video_captions_file:
+    - file: /courses/ocw-ci-test-course/11wFKJb61wRWKOSOxmtjDlWPXf6MiVpIQ_transcript.webvtt
+      language: en
+    - file: /courses/ocw-ci-test-course/11wFKJb61wRWKOSOxmtjDlWPXf6MiVpIQ_transcript_fr.webvtt
+      language: fr
+  video_transcript_file:
+    - file: /courses/ocw-ci-test-course/11wFKJb61wRWKOSOxmtjDlWPXf6MiVpIQ_transcript.pdf
+      language: en
+    - file: /courses/ocw-ci-test-course/11wFKJb61wRWKOSOxmtjDlWPXf6MiVpIQ_transcript_fr.pdf
+      language: fr
   video_thumbnail_file: https://img.youtube.com/vi/NwQm2aSPiNE/default.jpg
-  video_transcript_file: /courses/ocw-ci-test-course/11wFKJb61wRWKOSOxmtjDlWPXf6MiVpIQ_transcript.pdf
 video_metadata:
   video_speakers: ''
   video_tags: ''

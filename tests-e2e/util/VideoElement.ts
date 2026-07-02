@@ -41,10 +41,17 @@ export class VideoElement {
     })
   }
 
-  downloadTranscript(): Locator {
-    return this.container.getByRole("link", {
-      name: `Download transcript`
+  downloadTranscriptSubmenuBtn(): Locator {
+    return this.container.getByRole("button", {
+      name: /Download Transcript/i
     })
+  }
+
+  downloadTranscript(): Locator {
+    return this.container
+      .locator(".download-menu-submenu")
+      .getByRole("link")
+      .first()
   }
 
   /**
