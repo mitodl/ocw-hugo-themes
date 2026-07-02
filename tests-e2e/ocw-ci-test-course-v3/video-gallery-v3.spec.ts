@@ -1,9 +1,9 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 test.describe("Course v3 Video Gallery Page", () => {
-  test.beforeEach(async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test.beforeEach(async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/video_galleries/lecture-videos/")
   })
 

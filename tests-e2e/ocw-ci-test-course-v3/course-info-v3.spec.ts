@@ -1,0 +1,45 @@
+import { test, expect } from "../util/fixtures"
+import { CoursePage } from "../util"
+
+const DESKTOP_COURSE_DRAWER_ID = "desktop-course-drawer"
+const DESKTOP_COURSE_DRAWER_COLUMN = "div.desktop-course-info"
+const MAIN_COURSE_SECTION_ID = "course-content-section"
+
+test("Course info section can be toggled (v3)", async ({ page, siteAlias }) => {
+  const course = new CoursePage(page, siteAlias)
+  await course.goto("/pages/section-1")
+
+  const heading = page.getByRole("heading", { name: "Course Info" })
+  const button = page.getByRole("button", { name: "Course Info" })
+
+  await expect(heading).toBeVisible()
+  await button.click()
+  await expect(heading).toBeHidden()
+  await button.click()
+  await expect(heading).toBeVisible()
+})
+
+test("Toggling topics does not affect drawer layout (v3)", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
+  await course.goto("/pages/section-1")
+
+  const heading = page.getByRole("heading", { name: "Course Info" })
+  const topicCollapseButton = page.getByRole("button", {
+    name: "Engineering subtopics"
+  })
+
+  await expect(heading).toBeVisible()
+  await expect(topicCollapseButton).toHaveAttribute("aria-expanded", "true")
+
+  await topicCollapseButton.click()
+  const mainSection = page.locator(`#${MAIN_COURSE_SECTION_ID}`)
+  const drawer = page.locator(`#${DESKTOP_COURSE_DRAWER_ID}`)
+  const drawerColumn = page.locator(DESKTOP_COURSE_DRAWER_COLUMN)
+
+  await expect(mainSection).toHaveClass(/.*course-detail.*/)
+  await expect(drawer).toHaveClass(/.*collapse.*/)
+  await expect(drawerColumn).toHaveClass(/.*col-lg-3.*/)
+})

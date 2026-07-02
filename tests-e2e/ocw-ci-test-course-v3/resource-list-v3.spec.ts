@@ -1,9 +1,12 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 test.describe("Course v3 Resource List", () => {
-  test("Resource list container spans full width", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource list container spans full width", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     // The wrapper div should have w-100 class
@@ -11,8 +14,11 @@ test.describe("Course v3 Resource List", () => {
     await expect(wrapper).toBeVisible()
   })
 
-  test("Resource cards container has correct styling", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource cards container has correct styling", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     const container = page.locator(".resource-cards-container")
@@ -23,8 +29,11 @@ test.describe("Course v3 Resource List", () => {
     await expect(container).toHaveCSS("overflow", "hidden")
   })
 
-  test("Resource cards display with correct structure", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource cards display with correct structure", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     const resourceCard = page.locator(".resource-card").first()
@@ -38,7 +47,10 @@ test.describe("Course v3 Resource List", () => {
     await expect(title).toBeVisible()
   })
 
-  test("Resource cards show correct file type badges", async ({ page }) => {
+  test("Resource cards show correct file type badges", async ({
+    page,
+    siteAlias
+  }) => {
     const expectedResources = [
       {
         title:            "file.mp4",
@@ -66,7 +78,7 @@ test.describe("Course v3 Resource List", () => {
       }
     ]
 
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     for (const expectedResource of expectedResources) {
@@ -85,8 +97,11 @@ test.describe("Course v3 Resource List", () => {
     }
   })
 
-  test("PDF file type badge has correct red background", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("PDF file type badge has correct red background", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     const pdfCard = page.locator(".resource-card", {
@@ -103,8 +118,11 @@ test.describe("Course v3 Resource List", () => {
     )
   })
 
-  test("File type badge has correct blue background", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("File type badge has correct blue background", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     const fileCard = page.locator(".resource-card", {
@@ -122,9 +140,10 @@ test.describe("Course v3 Resource List", () => {
   })
 
   test("Video file type badge has correct dark background", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     const videoCard = page.locator(".resource-card", {
@@ -141,8 +160,8 @@ test.describe("Course v3 Resource List", () => {
     )
   })
 
-  test("Resource card displays file size", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource card displays file size", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     const resourceCard = page.locator(".resource-card").first()
@@ -158,8 +177,11 @@ test.describe("Course v3 Resource List", () => {
     }
   })
 
-  test("Resource card download icon is visible", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource card download icon is visible", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     const resourceCard = page.locator(".resource-card").first()
@@ -171,8 +193,11 @@ test.describe("Course v3 Resource List", () => {
     }
   })
 
-  test("Resource card includes hover transition styling", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource card includes hover transition styling", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     const resourceCard = page.locator(".resource-card").first()
@@ -190,9 +215,10 @@ test.describe("Course v3 Resource List", () => {
   })
 
   test("Resource card title is clickable and navigates to resource page", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     const resourceCard = page.locator(".resource-card").first()
@@ -205,8 +231,11 @@ test.describe("Course v3 Resource List", () => {
     expect(titleText).toBeTruthy()
   })
 
-  test("Resource cards have proper spacing and gap", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource cards have proper spacing and gap", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     const resourceCard = page.locator(".resource-card").first()
@@ -218,8 +247,8 @@ test.describe("Course v3 Resource List", () => {
     await expect(resourceCard).toHaveCSS("padding", "8px")
   })
 
-  test("File type badge text is uppercase", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("File type badge text is uppercase", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     const typeBadge = page.locator(".resource-card-type").first()
@@ -229,8 +258,8 @@ test.describe("Course v3 Resource List", () => {
     await expect(typeBadge).toHaveCSS("text-transform", "uppercase")
   })
 
-  test("Resource thumbnail has fixed width", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource thumbnail has fixed width", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     const thumbnail = page.locator(".resource-card-thumbnail").first()
@@ -244,9 +273,10 @@ test.describe("Course v3 Resource List", () => {
   })
 
   test("Resource cards have proper borders with collapsed spacing", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     const firstCard = page.locator(".resource-card").first()
@@ -261,9 +291,10 @@ test.describe("Course v3 Resource List", () => {
   })
 
   test("Download links have download attribute and target blank", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     const downloadableLink = page
@@ -294,8 +325,11 @@ test.describe("Course v3 Resource List", () => {
     }
   })
 
-  test("Resource list container displays multiple cards", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource list container displays multiple cards", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/lists/a-resource-list")
 
     const cards = page.locator(".resource-card")

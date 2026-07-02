@@ -123,6 +123,13 @@ const envSchema = {
       "../ocw-hugo-projects/ocw-course-v3/config-offline.yaml"
     )
   }),
+  COURSE_OFFLINE_HUGO_CONFIG_PATH: envalid.str({
+    desc:       "Path to the offline ocw-course-v2 Hugo configuration file",
+    devDefault: path.resolve(
+      __dirname,
+      "../ocw-hugo-projects/ocw-course-v2/config-offline.yaml"
+    )
+  }),
   WWW_HUGO_CONFIG_PATH: envalid.str({
     desc:       "Path to the ocw-www Hugo configuration file",
     devDefault: path.resolve(
