@@ -149,7 +149,7 @@ $mit-learn-font-weight-bold: 700;
 
 .mit-learn-menu-button-text {
   @include mit-learn-subtitle2;
-  font-weight: $mit-learn-font-weight-roman;
+  font-weight: $mit-learn-font-weight-medium;
   color: $mit-learn-white;
 
   @include media-breakpoint-down(md) {

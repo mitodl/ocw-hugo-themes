@@ -1,5 +1,4 @@
 {{ $homeUrl := partial "home_url.html" }}
-{{ $searchUrl := "https://rc.learn.mit.edu" }}
 
 <header id="mit-learn-header" class="mit-learn-header" role="banner">
   <div class="mit-learn-header-bar">
@@ -30,7 +29,7 @@
       </div>
       {{/* Right side: RightSide (from Figma) */}}
       <div class="mit-learn-header-right">
-        <a href="{{ $searchUrl }}/search" class="mit-learn-search-button" aria-label="Search">
+        <a href="/search" class="mit-learn-search-button" aria-label="Search">
           {{- partial "icon.html" "ri-search-line" -}}
         </a>
         {{/* User menu container - React will render UserMenu here if learn integration is enabled */}}
@@ -69,7 +68,7 @@
         />
       </a>
       <div class="mit-learn-header-spacer"></div>
-      <a href="{{ $searchUrl }}/search" class="mit-learn-search-button" aria-label="Search">
+      <a href="/search" class="mit-learn-search-button" aria-label="Search">
         {{- partial "icon.html" "ri-search-line" -}}
       </a>
       <div class="mit-learn-user-menu-container"></div>
@@ -101,7 +100,7 @@
           </button>
         </div>
         <div class="mit-learn-nav-items">
-          <a href="{{ $searchUrl }}/search?resource_type=course" class="mit-learn-nav-item">
+          <a href="/search?resource_type=course" class="mit-learn-nav-item">
             <div class="mit-learn-nav-icon-container with-description">
               {{- partial "icon.html" "ri-school-fill" -}}
             </div>
@@ -110,7 +109,7 @@
               <span class="mit-learn-nav-item-description">Single courses on a specific subject, taught by MIT instructors</span>
             </div>
           </a>
-          <a href="{{ $searchUrl }}/search?resource_type=program" class="mit-learn-nav-item">
+          <a href="/search?resource_type=program" class="mit-learn-nav-item">
             <div class="mit-learn-nav-icon-container with-description">
               {{- partial "icon.html" "ri-stack-line" -}}
             </div>
@@ -119,7 +118,7 @@
               <span class="mit-learn-nav-item-description">A series of courses for in-depth learning across a range of topics</span>
             </div>
           </a>
-          <a href="{{ $searchUrl }}/search?resource_type=learning_material" class="mit-learn-nav-item">
+          <a href="/search?resource_type=learning_material" class="mit-learn-nav-item">
             <div class="mit-learn-nav-icon-container with-description">
               {{- partial "icon.html" "ri-book-2-line" -}}
             </div>
@@ -137,7 +136,7 @@
           <span>BROWSE</span>
         </div>
         <div class="mit-learn-nav-items">
-          <a href="{{ $searchUrl }}/topics" class="mit-learn-nav-item">
+          <a href="/topics" class="mit-learn-nav-item">
             <div class="mit-learn-nav-icon-container">
               {{- partial "icon.html" "ri-slideshow-3-line" -}}
             </div>
@@ -145,7 +144,7 @@
               <span class="mit-learn-nav-item-title">By Topic</span>
             </div>
           </a>
-          <a href="{{ $searchUrl }}/departments" class="mit-learn-nav-item">
+          <a href="/departments" class="mit-learn-nav-item">
             <div class="mit-learn-nav-icon-container">
               {{- partial "icon.html" "ri-layout-column-line" -}}
             </div>
@@ -153,7 +152,7 @@
               <span class="mit-learn-nav-item-title">By Department</span>
             </div>
           </a>
-          <a href="{{ $searchUrl }}/units" class="mit-learn-nav-item">
+          <a href="/units" class="mit-learn-nav-item">
             <div class="mit-learn-nav-icon-container">
               {{- partial "icon.html" "ri-verified-badge-fill" -}}
             </div>
@@ -170,7 +169,7 @@
           <span>DISCOVER LEARNING RESOURCES</span>
         </div>
         <div class="mit-learn-nav-items">
-          <a href="{{ $searchUrl }}/search?sortby=new" class="mit-learn-nav-item">
+          <a href="/search?sortby=new" class="mit-learn-nav-item">
             <div class="mit-learn-nav-icon-container">
               {{- partial "icon.html" "ri-file-add-line" -}}
             </div>
@@ -178,7 +177,7 @@
               <span class="mit-learn-nav-item-title">Recently Added</span>
             </div>
           </a>
-          <a href="{{ $searchUrl }}/search?sortby=-views" class="mit-learn-nav-item">
+          <a href="/search?sortby=-views" class="mit-learn-nav-item">
             <div class="mit-learn-nav-icon-container">
               {{- partial "icon.html" "ri-thumb-up-line" -}}
             </div>
@@ -186,7 +185,7 @@
               <span class="mit-learn-nav-item-title">Popular</span>
             </div>
           </a>
-          <a href="{{ $searchUrl }}/search?sortby=upcoming" class="mit-learn-nav-item">
+          <a href="/search?sortby=upcoming" class="mit-learn-nav-item">
             <div class="mit-learn-nav-icon-container">
               {{- partial "icon.html" "ri-time-line" -}}
             </div>
@@ -194,7 +193,7 @@
               <span class="mit-learn-nav-item-title">Upcoming</span>
             </div>
           </a>
-          <a href="{{ $searchUrl }}/search?free=true" class="mit-learn-nav-item">
+          <a href="/search?free=true" class="mit-learn-nav-item">
             <div class="mit-learn-nav-icon-container">
               {{- partial "icon.html" "ri-price-tag-3-line" -}}
             </div>
@@ -202,7 +201,7 @@
               <span class="mit-learn-nav-item-title">Free</span>
             </div>
           </a>
-          <a href="{{ $searchUrl }}/search?certification=true" class="mit-learn-nav-item">
+          <a href="/search?certification=true" class="mit-learn-nav-item">
             <div class="mit-learn-nav-icon-container">
               {{- partial "icon.html" "ri-bookmark-line" -}}
             </div>
