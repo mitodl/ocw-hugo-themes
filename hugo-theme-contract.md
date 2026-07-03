@@ -8,7 +8,7 @@ This document defines the data contract that OCW Hugo themes (`ocw-course-v2` an
 
 ## 1. Front-Matter Format
 
-Every video resource YAML front-matter file contains a `video_files` object.  After the Studio multi-language migration, the caption and transcript sub-fields are **arrays of objects**, not strings.
+Every video resource YAML front-matter file contains a `video_files` object.  `video_captions_resources` and `video_transcript_resources` are **arrays of objects**, not strings — this is the sole caption/transcript field; there is no separate `_file` field.
 
 ```yaml
 # content/resources/lecture1_video.md
@@ -17,40 +17,31 @@ uid: abc123-…
 title: "Lecture 1: Introduction"
 content_type: video_resource
 video_files:
-  video_captions_file:
+  video_captions_resources:
     - file: /courses/8-01sc-physics-i/resources/lecture1_captions_vtt
       language: en
     - file: /courses/8-01sc-physics-i/resources/lecture1_captions_fr_vtt
       language: fr
     - file: /courses/8-01sc-physics-i/resources/lecture1_captions_zh_vtt
       language: zh
-  video_transcript_file:
+  video_transcript_resources:
     - file: /courses/8-01sc-physics-i/resources/lecture1_transcript_pdf
       language: en
     - file: /courses/8-01sc-physics-i/resources/lecture1_transcript_fr_pdf
       language: fr
-  video_captions_resources:
-    content:
-      - abc123-text-id-1
-      - abc123-text-id-2
-      - abc123-text-id-3
-    website: 8-01sc-physics-i
-  video_transcript_resources:
-    content:
-      - abc123-text-id-4
-      - abc123-text-id-5
-    website: 8-01sc-physics-i
   video_thumbnail_file: null
 video_metadata:
   youtube_id: dQw4w9WgXcQ
 ---
 ```
 
+### Studio-side vs. built-frontmatter shape
+
+In Studio's CMS, `video_captions_resources`/`video_transcript_resources` are relation-widget fields storing `{"content": [text_id, ...], "website": name}` — a list of content IDs, not resolved file paths. At git-sync time, Studio's `full_metadata()` **resolves** this relation into the array shown above (`[{"file": ..., "language": ...}, ...]`) and writes that resolved array into the built Hugo frontmatter under the *same field name*. Themes only ever see the resolved array form — never the raw `{"content": [...], "website": ...}` relation dict.
+
 ### Array guarantee
 
-`video_captions_file` and `video_transcript_file` are **always arrays**.  After migration 0073/0074, Studio never writes a bare string into these fields.  Themes may still encounter a `null` or absent value (video has no captions yet), so treat `null` and missing as an empty list.
-
-`video_captions_resources` and `video_transcript_resources` hold relation-widget metadata only.  **Hugo templates must not read the `content` list directly** — use the `_file` arrays (or the resolved `_resources` arrays after `full_metadata()` runs) for all rendering logic.
+`video_captions_resources` and `video_transcript_resources`, as they appear in built Hugo frontmatter, are **always arrays** of `{"file": ..., "language": ...}` objects. Themes may still encounter a `null` or absent value (video has no captions yet), so treat `null` and missing as an empty list.
 
 ---
 
@@ -77,12 +68,12 @@ Access the build-time variable inside Hugo shortcodes / partials as:
 
 ## 3. Language Codes
 
-The `language` field on every `_file` entry is an ISO 639-1 two-letter code (e.g. `"en"`, `"fr"`, `"zh"`, `"es"`).
+The `language` field on every entry is an ISO 639-1 two-letter code (e.g. `"en"`, `"fr"`, `"zh"`, `"es"`).
 
 An optional `locale` field may also be present — an ISO 3166-1 alpha-2 uppercase region code (e.g. `"US"`, `"GB"`).  When present, the full BCP-47 tag is `{language}-{locale}` (e.g. `"en-US"`, `"fr-FR"`).
 
 ```yaml
-video_captions_file:
+video_captions_resources:
   - file: /courses/…/lecture1_captions_vtt
     language: en
   - file: /courses/…/lecture1_captions_en_us_vtt
@@ -98,12 +89,12 @@ Use `language` (and `locale` when present) for the HTML `srclang` attribute on `
 
 ## 4. HTML Output Requirements
 
-### 4.1 Caption Tracks (`video_captions_file`)
+### 4.1 Caption Tracks (`video_captions_resources`)
 
 Iterate the array and emit one `<track>` element per entry.
 
 ```html
-<!-- Rendered by Hugo from the video_captions_file array -->
+<!-- Rendered by Hugo from the video_captions_resources array -->
 <track
   kind="captions"
   src="{{ $base }}{{ .file }}"
@@ -120,14 +111,14 @@ Rules:
 - Mark the English track `default` (or the first track if no English entry exists).
 - Do **not** show `kind="captions"` tracks as dropdown-visible tabs on their own — that is the browser's job.  Theme controls should let the user switch the active track via JS.
 
-### 4.2 Transcript Downloads (`video_transcript_file`)
+### 4.2 Transcript Downloads (`video_transcript_resources`)
 
 Iterate the array and emit one download link per entry.
 
 ```html
 <!-- Shown beneath the video player or in a Resources panel -->
 <ul class="ocw-transcript-list">
-  {{ range .Params.video_files.video_transcript_file }}
+  {{ range .Params.video_files.video_transcript_resources }}
   <li lang="{{ .language }}">
     <a
       href="{{ $base }}{{ .file }}"
@@ -196,7 +187,7 @@ Fall back to displaying the raw code in uppercase (`EN`, `FR`) when the code is 
 
 These must still render correctly:
 
-| Case | `video_captions_file` value | Expected behaviour |
+| Case | `video_captions_resources` value | Expected behaviour |
 |---|---|---|
 | No captions | `null` or absent | No `<track>` elements; no CC button |
 | Single English caption | `[{file: "…", language: "en"}]` | Single `<track>` element, marked default |
@@ -207,14 +198,17 @@ These must still render correctly:
 
 ---
 
-## 7. Shortcode / Partial Boundary
+## 7. Partial Boundary (as actually implemented)
 
-Studio does not dictate the internal decomposition of Hugo templates.  However the following boundaries are recommended:
+Studio does not dictate the internal decomposition of Hugo templates, but this is the actual current structure:
 
 | Partial | Inputs | Responsibility |
 |---|---|---|
-| `video-player.html` | Full page `.Params` | Renders the `<video>`/`<iframe>` element and iterates `video_captions_file` to emit `<track>` elements |
-| `video-transcripts.html` | `video_files.video_transcript_file` array | Renders the transcript download list; receives the array directly so it is testable in isolation |
+| `video.html` / `video_v3.html` / `video_embed.html` | Full page `.Params` (or `$resource.Params` for the embed variant) | Top-level entry point per theme/context; reads `video_files.video_captions_resources`/`video_transcript_resources` directly and passes them into the two partials below |
+| `video_caption_tracks.html` | `dict "context" ... "captionsFile" <resolved video_captions_resources array>` | Resolves the array into a slice of caption-track dicts (`src`, `srclang`, `label`, `isDefault`) |
+| `video_transcript_links.html` | `dict "context" ... "transcriptFile" <resolved video_transcript_resources array>` | Resolves the array into a slice of transcript-link dicts (`href`, `language`, `locale`, `label`) |
+| `video_player.html` | Resolved caption/transcript locations + tracks | Renders the `<video>`/`<iframe>` element and `<track>` elements |
+| `video_expandable_tab.html` | Pre-built `transcriptLinks`/`captionTracks` dicts | Renders the collapsible transcript tab and language-selector UI |
 
 Each partial should be callable with an empty or nil array and produce no output (not an HTML error).
 
@@ -224,11 +218,11 @@ Each partial should be callable with an empty or nil array and produce no output
 
 Theme developers should add Hugo test fixtures that exercise:
 
-1. **Empty arrays** — `video_captions_file: []` → no `<track>` elements in output
+1. **Empty arrays** — `video_captions_resources: []` → no `<track>` elements in output
 2. **Single English** — array with one `{language: "en"}` entry → one `<track default>` element
 3. **Multi-language** — array with `en` + `fr` entries → two `<track>` elements; English is `default`; French has `srclang="fr"`
 4. **Locale present** — `{language: "en", locale: "US"}` → `srclang="en-US"` or `"en"` (both acceptable)
-5. **Transcript section hidden** — when `video_transcript_file` is absent
+5. **Transcript section hidden** — when `video_transcript_resources` is absent
 6. **Transcript multi-language** — two entries produce two links with distinct labels
 
 ---
@@ -239,10 +233,10 @@ This section is informational — themes do not need to replicate this logic.
 
 | Source | Field written | Language detection |
 |---|---|---|
-| Google Drive VTT file | `video_captions_file` | `parse_caption_language_locale(filename)` — from filename suffix `_captions_{lang}_vtt` |
-| Google Drive PDF file | `video_transcript_file` | `parse_caption_language_locale(filename)` — from filename suffix `_transcript_{lang}_pdf` |
-| 3Play (English only) | `video_captions_file` + `video_transcript_file` | Hardcoded `"en"` |
-| API save (`sync_video_relation_urls`) | Derives `_file` from `_resource.content` | `"en"` for all (known limitation; to be fixed) |
+| Google Drive VTT file | `video_captions_resources` (relation), resolved to array at git-sync time | `parse_caption_language_locale(filename)` — from filename suffix `_captions_{lang}_vtt` |
+| Google Drive PDF file | `video_transcript_resources` (relation), resolved to array at git-sync time | `parse_caption_language_locale(filename)` — from filename suffix `_transcript_{lang}_pdf` |
+| 3Play | `video_captions_resources` / `video_transcript_resources` (relation) | Hardcoded `"en"` — 3Play only ever provides English |
+| Studio UI save (`auto_link_video_captions_transcript`) | Merges matching resources into the relation's `content` list by filename convention | Language resolved per-resource at git-sync time via `resource_file_paths`/`parse_caption_language_locale`, not hardcoded |
 
 The canonical filename convention for GDrive caption/transcript resources is:
 
@@ -254,15 +248,3 @@ The canonical filename convention for GDrive caption/transcript resources is:
 ```
 
 `{lang}` is always a lowercase ISO 639-1 two-letter code.
-
----
-
-## 10. Known Limitation — `sync_video_relation_urls` Language Passthrough
-
-When a user edits a video resource through the Studio UI and saves, `sync_video_relation_urls` rebuilds the `_file` array from the `_resource` relation widget.  In the current implementation this function hardcodes `"language": "en"` for every resource, discarding multi-language tags.
-
-**Impact on themes:** a video edited through the UI after multi-language captions have been ingested from GDrive will have all caption entries reset to `language: "en"` in the front-matter until this is fixed.
-
-**Workaround for themes:** implement correct rendering when multiple entries share the same `language` value (i.e. do not assume `language` is unique per entry).  The theme should not crash or produce duplicate tracks.
-
-This limitation is tracked and will be fixed in a follow-on Studio change that uses `parse_caption_language_locale(resource.filename)` inside `sync_video_relation_urls`.
