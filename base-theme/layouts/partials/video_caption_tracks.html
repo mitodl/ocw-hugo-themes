@@ -2,13 +2,11 @@
   video_caption_tracks.html
 
   Resolves caption data into a slice of caption track dicts.
-  Primary source: video_captions_resources (resolved by full_metadata to array-of-objects).
-  Fallback source: video_captions_file (legacy string or array-of-objects format).
-  Handles both legacy (string) and new (array of objects) formats.
+  Source: video_captions_resources (resolved by full_metadata to array-of-objects).
 
   Input: dict with:
     - "context" : page context (for resource_url resolution)
-    - "captionsFile" : video_captions_resources | default video_captions_file (string or array)
+    - "captionsFile" : video_captions_resources, an array of {"file": ..., "language": ...}
 
   Returns: slice of dicts with keys: "src", "srclang", "label", "isDefault"
 */}}

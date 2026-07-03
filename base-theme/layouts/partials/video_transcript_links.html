@@ -2,13 +2,11 @@
   video_transcript_links.html
 
   Resolves transcript data into a slice of transcript link dicts.
-  Primary source: video_transcript_resources (resolved by full_metadata to array-of-objects).
-  Fallback source: video_transcript_file (legacy string or array-of-objects format).
-  Handles both legacy (string) and new (array of objects) formats.
+  Source: video_transcript_resources (resolved by full_metadata to array-of-objects).
 
   Input: dict with:
     - "context" : page context (for resource_url resolution)
-    - "transcriptFile" : video_transcript_resources | default video_transcript_file (string or array)
+    - "transcriptFile" : video_transcript_resources, an array of {"file": ..., "language": ...}
 
   Returns: slice of dicts with keys: "href", "language", "locale", "label"
 */}}
