@@ -15,47 +15,38 @@
 {{- $links := slice -}}
 
 {{- if $transcriptFile -}}
-  {{- $type := printf "%T" $transcriptFile -}}
-  {{- if or (eq $type "[]interface {}") (eq $type "[]map[string]interface {}") -}}
-    {{/* New array format: [{file: "...", language: "en", locale?: "US"}, ...] */}}
-    {{/* First pass: check whether any English track exists */}}
-    {{- $hasEnglish := false -}}
-    {{- range $transcriptFile -}}
-      {{- if eq (.language | default "en") "en" -}}
-        {{- $hasEnglish = true -}}
-      {{- end -}}
+  {{/* video_transcript_resources is always an array of {file, language, locale?} objects */}}
+  {{/* First pass: check whether any English track exists */}}
+  {{- $hasEnglish := false -}}
+  {{- range $transcriptFile -}}
+    {{- if eq (.language | default "en") "en" -}}
+      {{- $hasEnglish = true -}}
     {{- end -}}
-    {{/* Second pass: build links; first English (or first overall) is the default */}}
-    {{- $firstEnglishDone := false -}}
-    {{- $firstDone := false -}}
-    {{- range $transcriptFile -}}
-      {{- $file := .file -}}
-      {{- $lang := .language | default "en" -}}
-      {{- $locale := .locale | default "" -}}
-      {{- $href := partial "resource_url.html" (dict "context" $context "url" $file) -}}
-      {{- $baseLabel := partial "human_language.html" (dict "language" $lang "locale" $locale) -}}
-      {{- $isDefault := false -}}
-      {{- if $hasEnglish -}}
-        {{- if and (eq $lang "en") (not $firstEnglishDone) -}}
-          {{- $isDefault = true -}}
-          {{- $firstEnglishDone = true -}}
-        {{- end -}}
-      {{- else if not $firstDone -}}
+  {{- end -}}
+  {{/* Second pass: build links; first English (or first overall) is the default */}}
+  {{- $firstEnglishDone := false -}}
+  {{- $firstDone := false -}}
+  {{- range $transcriptFile -}}
+    {{- $file := .file -}}
+    {{- $lang := .language | default "en" -}}
+    {{- $locale := .locale | default "" -}}
+    {{- $href := partial "resource_url.html" (dict "context" $context "url" $file) -}}
+    {{- $baseLabel := partial "human_language.html" (dict "language" $lang "locale" $locale) -}}
+    {{- $isDefault := false -}}
+    {{- if $hasEnglish -}}
+      {{- if and (eq $lang "en") (not $firstEnglishDone) -}}
         {{- $isDefault = true -}}
-        {{- $firstDone = true -}}
+        {{- $firstEnglishDone = true -}}
       {{- end -}}
-      {{- $label := $baseLabel -}}
-      {{- if $isDefault -}}
-        {{- $label = printf "%s (Default)" $baseLabel -}}
-      {{- end -}}
-      {{- $links = $links | append (dict "href" $href "language" $lang "locale" $locale "label" $label "isDefault" $isDefault) -}}
+    {{- else if not $firstDone -}}
+      {{- $isDefault = true -}}
+      {{- $firstDone = true -}}
     {{- end -}}
-  {{- else -}}
-    {{/* Legacy string format: single file path */}}
-    {{- $href := partial "resource_url.html" (dict "context" $context "url" $transcriptFile) -}}
-    {{- if $href -}}
-      {{- $links = $links | append (dict "href" $href "language" "en" "locale" "" "label" "English (Default)" "isDefault" true) -}}
+    {{- $label := $baseLabel -}}
+    {{- if $isDefault -}}
+      {{- $label = printf "%s (Default)" $baseLabel -}}
     {{- end -}}
+    {{- $links = $links | append (dict "href" $href "language" $lang "locale" $locale "label" $label "isDefault" $isDefault) -}}
   {{- end -}}
 {{- end -}}
 
