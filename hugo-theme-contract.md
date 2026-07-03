@@ -6,6 +6,12 @@ This document defines the data contract that OCW Hugo themes (`ocw-course-v2` an
 
 ---
 
+## Deployment Note
+
+This theme branch removes the legacy `_file`-string fallback from the caption/transcript partials — `video_captions_resources`/`video_transcript_resources` are read directly, with no substitution from an older scalar field. **Do not deploy this theme branch until ocw-studio migration `0076_backfill_orphaned_caption_transcript_files` has run against production data.** That migration backfills `_resources` for any video whose captions/transcripts only ever existed under the old `_file` path. If this theme branch deploys first, those videos would silently lose their captions/transcripts (the fallback that used to catch them is gone). Migration 0076 itself is gated on `umar/5790-normalize-s3-keys-and-export-csv` shipping first — see that branch's design doc for why.
+
+---
+
 ## 1. Front-Matter Format
 
 Every video resource YAML front-matter file contains a `video_files` object.  `video_captions_resources` and `video_transcript_resources` are **arrays of objects**, not strings — this is the sole caption/transcript field; there is no separate `_file` field.
