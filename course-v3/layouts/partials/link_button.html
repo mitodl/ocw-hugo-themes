@@ -1,1 +1,1 @@
-<button id="{{ .id }}" type="button" class="btn btn-link link-button p-0 d-flex align-items-center">{{ .text }}</button>
+<button id="{{ .id }}" type="button" class="btn btn-link link-button p-0 {{ .displayClass | default "d-flex" }} align-items-center{{ with .class }} {{ . }}{{ end }}"{{ with .ariaExpanded }} aria-expanded="{{ . }}"{{ end }}{{ with .ariaControls }} aria-controls="{{ . }}"{{ end }}>{{ .text }}</button>
