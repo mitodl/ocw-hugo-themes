@@ -151,7 +151,7 @@ describe("initCourseDescriptionExpander", () => {
     setHeights(description, { scrollHeight: 80, clientHeight: 80 })
     Object.defineProperty(document, "fonts", {
       configurable: true,
-      value:        { ready: Promise.resolve(), addEventListener: () => {} }
+      value:        { ready: Promise.resolve(), addEventListener: jest.fn() }
     })
 
     initCourseDescriptionExpander(document)
