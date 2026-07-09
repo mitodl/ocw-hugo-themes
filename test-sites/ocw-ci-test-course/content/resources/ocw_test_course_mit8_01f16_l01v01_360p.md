@@ -27,9 +27,13 @@ start_time: 13
 title: ocw_test_course_MIT8_01F16_L01v01_360p.mp4
 uid: e95c5f3f-e4ba-4b8d-b505-824aa2a322d0
 video_files:
-  video_captions_file: /courses/ocw-ci-test-course/917263bef37857bd94ef67692405bcc9_erlp_sbca1s.vtt
+  video_captions_resources:
+    - file: /courses/ocw-ci-test-course/917263bef37857bd94ef67692405bcc9_erlp_sbca1s.vtt
+      language: en
   video_thumbnail_file: https://img.youtube.com/vi/YWyHAlAuRL0/default.jpg
-  video_transcript_file: /courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf
+  video_transcript_resources:
+    - file: /courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf
+      language: en
 video_metadata:
   video_speakers: 'Dr. Ana Bell'
   video_tags: ''
