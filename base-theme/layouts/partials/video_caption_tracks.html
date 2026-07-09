@@ -6,7 +6,7 @@
 
   Input: dict with:
     - "context" : page context (for resource_url resolution)
-    - "captionsFile" : video_captions_resources, an array of {"file": ..., "language": ...}
+    - "captionsFile" : video_captions_resources, an array of {"file": ..., "language": ..., "locale"?: ...}
 
   Returns: slice of dicts with keys: "src", "srclang", "label", "isDefault"
 */}}
@@ -15,7 +15,7 @@
 {{- $tracks := slice -}}
 
 {{- if $captionsFile -}}
-  {{/* video_captions_resources is always an array of {file, language} objects */}}
+  {{/* video_captions_resources is always an array of {file, language, locale?} objects */}}
   {{/* First pass: check whether any English track exists */}}
   {{- $hasEnglish := false -}}
   {{- range $captionsFile -}}
