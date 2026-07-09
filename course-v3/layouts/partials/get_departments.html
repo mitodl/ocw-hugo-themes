@@ -2,7 +2,7 @@
 {{ range . }}
   {{ $department := index site.Data.departments . }}
   {{ if $department }}
-    {{ $department := merge $department (dict "url" (partial "get_search_url.html" (dict "key" "department_numbers" "value" $department.title))) }}
+    {{ $department := merge $department (dict "url" (partial "get_search_url.html" (dict "key" "department_numbers" "value" .))) }}
     {{ $departments = $departments | append $department }}
   {{ end }}
 {{ end }}
