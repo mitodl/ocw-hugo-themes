@@ -8,7 +8,7 @@
     - "context" : page context (for resource_url resolution)
     - "transcriptFile" : video_transcript_resources, an array of {"file": ..., "language": ..., "locale"?: ...}
 
-  Returns: slice of dicts with keys: "href", "language", "locale", "label"
+  Returns: slice of dicts with keys: "href", "language", "locale", "label", "isDefault"
 */}}
 {{- $context := .context -}}
 {{- $transcriptFile := .transcriptFile -}}
