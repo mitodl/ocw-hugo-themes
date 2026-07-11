@@ -30,7 +30,7 @@ export function initImageGalleriesFromMarkup() {
     // root-relative (online). Passing itemsBaseURL in that case causes nanogallery2
     // to prepend it again, producing double-path URLs. Only pass it for relative
     // (offline) base URLs where items are left unresolved.
-    const isOnlineBase = /^https?:\/\//.test(baseUrl) || baseUrl.startsWith("/")
+    const isOnlineBase = /^https?:\/\//i.test(baseUrl) || baseUrl.startsWith("/")
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
