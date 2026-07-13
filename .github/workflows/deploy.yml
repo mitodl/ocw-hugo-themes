@@ -5,7 +5,7 @@ on:
     branches:
       - main
 env:
-  COURSE_V3_URL_SLUG: 3-a04-modern-blacksmithing-and-physical-metallurgy-fall-2008
+  COURSE_V3_URL_SLUG: 15-s21-nuts-and-bolts-of-business-plans-january-iap-2014
 
 jobs:
   build:
@@ -38,7 +38,7 @@ jobs:
         run: (cd ..; git clone git@github.mit.edu:ocw-content-rc/ocw-www.git ocw-www)
 
       - name: Clone ocw-course for content
-        run: (cd ..; git clone git@github.mit.edu:ocw-content-rc/3.A04-fall-2008.git ocw-course)
+        run: (cd ..; git clone git@github.mit.edu:umarh8/15.s21-january-iap-2014.git ocw-course)
 
       - name: Clone ocw-hugo-projects for config
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
