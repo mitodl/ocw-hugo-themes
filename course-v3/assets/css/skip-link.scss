@@ -1,8 +1,27 @@
+// Bootstrap's .sr-only utility hides content with a 1px x 1px clipped box, which
+// keeps a non-empty bounding rect. That's indistinguishable from "visible" to
+// several visibility checks (Playwright's toBeVisible() among them), even
+// though nothing is shown on screen. To make the hidden state unambiguous while
+// keeping the link in the keyboard tab order, collapse it to a true 0x0 box
+// instead and restore normal sizing on focus.
 .skip-to-main-content {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  white-space: nowrap;
+
   &:focus,
   &:focus-visible {
     z-index: 2000;
     display: inline-block;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    white-space: normal;
     padding: 0.75rem 1.5rem;
     background-color: $white;
     color: $black;

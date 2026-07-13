@@ -11,8 +11,10 @@ test.describe("Course v3 skip to main content link", () => {
     const skipLink = page.locator("a.skip-to-main-content")
     await expect(skipLink).toHaveAttribute("href", "#course-content-section")
     await expect(skipLink).toHaveText("Skip to main content")
+    await expect(skipLink).not.toBeVisible()
 
     await page.keyboard.press("Tab")
+    await expect(skipLink).toBeVisible()
     await expect(skipLink).toBeFocused()
 
     await page.keyboard.press("Enter")
