@@ -24,6 +24,14 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
   if (!isAuthenticated) return null
 
   const inUserList = (userListMemberships?.length ?? 0) > 0
+  const ariaLabel = resource?.title ?
+    inUserList ?
+      `Remove ${resource.title} from your list` :
+      `Add ${resource.title} to your list` :
+    inUserList ?
+      "Remove from list" :
+      "Add to list"
+
   return (
     <ActionButton
       className="bookmark-button"
@@ -31,6 +39,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
       size="small"
       variant={inUserList ? "primary" : "secondary"}
       color={inUserList ? undefined : "secondary"}
+      aria-label={ariaLabel}
       data-toggle="modal"
       data-target="#add-to-user-list-modal"
       data-resourcereadableid={resourceReadableId}
