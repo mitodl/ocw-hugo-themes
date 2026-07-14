@@ -312,6 +312,29 @@ $resource-card-text-primary: #212326; // Text Primary
   }
 }
 
+.resource-description {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 18px;
+  color: $black;
+
+  .resource-description-label {
+    font-weight: 500;
+  }
+
+  .resource-description-content {
+    p {
+      margin: 0;
+
+      & + p {
+        margin-top: 8px;
+      }
+    }
+  }
+}
+
 .resource-single-card {
   display: flex;
   align-items: center;

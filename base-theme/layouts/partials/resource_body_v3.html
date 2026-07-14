@@ -4,8 +4,8 @@
     <div class="resource-single-content">
       {{- if .Content -}}
         <div class="resource-description">
-          <strong>Description:</strong>
-          {{ .Content }}
+          <strong class="resource-description-label">Description:</strong>
+          <div class="resource-description-content">{{ .Content }}</div>
         </div>
       {{- end -}}
       {{- if .Params.learning_resource_types -}}
