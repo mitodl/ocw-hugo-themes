@@ -95,7 +95,10 @@
               return;
             }
             setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_CLOSED)
-            document.getElementById(COURSE_DRAWER_BTN_ID).focus()
+            const drawerBtn = document.getElementById(COURSE_DRAWER_BTN_ID)
+            if (drawerBtn) {
+              drawerBtn.focus()
+            }
           })
         })
       }
