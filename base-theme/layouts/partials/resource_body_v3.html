@@ -2,6 +2,12 @@
 <div class="resource-page-container w-100">
   {{- if ne .Params.resourcetype "Video" }}
     <div class="resource-single-content">
+      {{- if .Content -}}
+        <div class="resource-description">
+          <strong class="resource-description-label">Description:</strong>
+          <div class="resource-description-content">{{ .Content }}</div>
+        </div>
+      {{- end -}}
       {{- if .Params.learning_resource_types -}}
         <div class="resource-type-field">
           <span class="resource-type-label">Resource Type:</span>
