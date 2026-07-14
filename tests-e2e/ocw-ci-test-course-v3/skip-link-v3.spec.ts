@@ -17,13 +17,15 @@ async function assertSkipLinkWorks(page: Page, course: CoursePage) {
   // which only checks for a non-empty box + visibility != hidden and
   // would report this element as "visible" either way.
   const hiddenBox = await skipLink.boundingBox()
-  expect(hiddenBox?.width).toBeLessThanOrEqual(1)
-  expect(hiddenBox?.height).toBeLessThanOrEqual(1)
+  expect(hiddenBox).not.toBeNull()
+  expect(hiddenBox!.width).toBeLessThanOrEqual(1)
+  expect(hiddenBox!.height).toBeLessThanOrEqual(1)
 
   await page.keyboard.press("Tab")
   await expect(skipLink).toBeFocused()
   const focusedBox = await skipLink.boundingBox()
-  expect(focusedBox?.width).toBeGreaterThan(10)
+  expect(focusedBox).not.toBeNull()
+  expect(focusedBox!.width).toBeGreaterThan(10)
 
   await page.keyboard.press("Enter")
   await expect(course.withinContent()).toBeFocused()
