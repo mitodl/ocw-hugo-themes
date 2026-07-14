@@ -24,13 +24,11 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
   if (!isAuthenticated) return null
 
   const inUserList = (userListMemberships?.length ?? 0) > 0
+  const prefix = inUserList ? "Remove" : "Add"
+  const preposition = inUserList ? "from" : "to"
   const ariaLabel = resource?.title ?
-    inUserList ?
-      `Remove ${resource.title} from your list` :
-      `Add ${resource.title} to your list` :
-    inUserList ?
-      "Remove from list" :
-      "Add to list"
+    `${prefix} ${resource.title} ${preposition} your list` :
+    `${prefix} ${preposition} list`
 
   return (
     <ActionButton
