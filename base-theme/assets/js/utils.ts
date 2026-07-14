@@ -58,7 +58,7 @@ export function fastlyOptimizedUrl(
   url: string,
   params: Record<string, string>
 ): string {
-  if (!url || (!/^https?:\/\//.test(url) && !url.startsWith("/"))) return url
+  if (!url || (!/^https?:\/\//i.test(url) && !url.startsWith("/"))) return url
   const separator = url.includes("?") ? "&" : "?"
   const qs = new URLSearchParams(params).toString()
   return `${url}${separator}${qs}`
@@ -75,8 +75,8 @@ export function fastlyOptimizedGalleryUrl(
 ): string {
   let resolvedUrl = url
 
-  if (url && !/^https?:\/\//.test(url) && !url.startsWith("/")) {
-    if (/^https?:\/\//.test(baseUrl)) {
+  if (url && !/^https?:\/\//i.test(url) && !url.startsWith("/")) {
+    if (/^https?:\/\//i.test(baseUrl)) {
       resolvedUrl = new URL(
         url,
         baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`
