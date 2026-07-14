@@ -6,18 +6,25 @@ declare global {
   }
 }
 
-export function initPostHog(): typeof posthog {
+export interface InitPostHogOptions {
+  apiKey: string | undefined
+  enabled: boolean
+}
+
+export function initPostHog(options: InitPostHogOptions): typeof posthog {
   const posthogEnv = process.env.POSTHOG_ENV
-  const posthogEnabled = process.env.POSTHOG_ENABLED === "true"
+  const posthogEnabled = options.enabled
   const posthogApiHost = process.env.POSTHOG_API_HOST
-  const posthogApiKey = process.env.POSTHOG_PROJECT_API_KEY
+  const posthogUiHost = process.env.POSTHOG_UI_HOST || process.env.POSTHOG_API_HOST
+  const posthogApiKey = options.apiKey
 
   if (posthogEnabled && posthogApiKey) {
     posthog.init(posthogApiKey, {
       api_host:                     posthogApiHost,
+      ui_host:                      posthogUiHost,
       capture_pageview:             true,
       autocapture:                  true,
-      opt_out_capturing_by_default: true,
+      opt_out_capturing_by_default: false,
       persistence:                  "localStorage+cookie",
       person_profiles:              "always",
       loaded:                       function() {

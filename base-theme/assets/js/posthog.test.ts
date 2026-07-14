@@ -27,18 +27,21 @@ describe("initPostHog", () => {
 
   test("should initialize PostHog when enabled with valid API key", () => {
     Object.assign(process.env, {
-      POSTHOG_ENABLED:         "true",
-      POSTHOG_API_HOST:        "https://app.posthog.com",
-      POSTHOG_PROJECT_API_KEY: "test-api-key", // pragma: allowlist secret
-      POSTHOG_ENV:             "test"
+      POSTHOG_API_HOST: "https://app.posthog.com",
+      POSTHOG_UI_HOST:  "https://us.posthog.com",
+      POSTHOG_ENV:      "test"
     })
 
-    const result = initPostHog()
+    const result = initPostHog({
+      apiKey:  "test-api-key", // pragma: allowlist secret
+      enabled: true
+    })
 
     expect(posthog.init).toHaveBeenCalledWith(
       "test-api-key",
       expect.objectContaining({
         api_host:         "https://app.posthog.com",
+        ui_host:          "https://us.posthog.com",
         capture_pageview: true,
         autocapture:      true,
         persistence:      "localStorage+cookie",
@@ -56,11 +59,20 @@ describe("initPostHog", () => {
   })
 
   test("should log warning when PostHog is enabled but API key is missing", () => {
-    process.env.POSTHOG_ENABLED = "true"
     process.env.POSTHOG_API_HOST = "https://app.posthog.com"
-    process.env.POSTHOG_PROJECT_API_KEY = ""
 
-    initPostHog()
+    initPostHog({ apiKey: "", enabled: true })
+
+    expect(posthog.init).not.toHaveBeenCalled()
+    expect(console.warn).toHaveBeenCalledWith(
+      "PostHog enabled but API key is missing"
+    )
+  })
+
+  test("should log warning when PostHog is enabled but API key is undefined", () => {
+    process.env.POSTHOG_API_HOST = "https://app.posthog.com"
+
+    initPostHog({ apiKey: undefined, enabled: true })
 
     expect(posthog.init).not.toHaveBeenCalled()
     expect(console.warn).toHaveBeenCalledWith(
@@ -69,20 +81,37 @@ describe("initPostHog", () => {
   })
 
   test("should log proper message when PostHog is disabled", () => {
-    process.env.POSTHOG_ENABLED = "false"
-
-    initPostHog()
+    initPostHog({
+      apiKey:  "test-api-key", // pragma: allowlist secret
+      enabled: false
+    })
 
     expect(posthog.init).not.toHaveBeenCalled()
     expect(console.log).toHaveBeenCalledWith("PostHog disabled")
   })
 
-  test("should not register environment when POSTHOG_ENV is not provided", () => {
-    process.env.POSTHOG_ENABLED = "true"
+  test("should fall back to the API host when POSTHOG_UI_HOST is empty", () => {
     process.env.POSTHOG_API_HOST = "https://app.posthog.com"
-    process.env.POSTHOG_PROJECT_API_KEY = "test-api-key" // pragma: allowlist secret
+    process.env.POSTHOG_UI_HOST = ""
 
-    initPostHog()
+    initPostHog({
+      apiKey:  "test-api-key", // pragma: allowlist secret
+      enabled: true
+    })
+
+    expect(posthog.init).toHaveBeenCalledWith(
+      "test-api-key",
+      expect.objectContaining({ ui_host: "https://app.posthog.com" })
+    )
+  })
+
+  test("should not register environment when POSTHOG_ENV is not provided", () => {
+    process.env.POSTHOG_API_HOST = "https://app.posthog.com"
+
+    initPostHog({
+      apiKey:  "test-api-key", // pragma: allowlist secret
+      enabled: true
+    })
 
     expect(posthog.init).toHaveBeenCalled()
     expect(posthog.register).toHaveBeenCalledWith({ environment: undefined })

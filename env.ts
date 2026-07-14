@@ -138,6 +138,14 @@ const envSchema = {
     desc:    "PostHog API URL",
     default: "https://app.posthog.com"
   }),
+  POSTHOG_COURSE_V3_ENABLED: envalid.bool({
+    desc:    "Whether PostHog analytics are enabled for the course-v3 theme",
+    default: true
+  }),
+  POSTHOG_COURSE_V3_PROJECT_API_KEY: envalid.str({
+    desc:    "PostHog project API key for the course-v3 theme",
+    default: ""
+  }),
   POSTHOG_ENABLED: envalid.bool({
     desc:    "Whether PostHog analytics are enabled",
     default: true
@@ -148,6 +156,11 @@ const envSchema = {
   }),
   POSTHOG_PROJECT_API_KEY: envalid.str({
     desc:    "PostHog project API key",
+    default: ""
+  }),
+  POSTHOG_UI_HOST: envalid.str({
+    // str, not url, to allow for ""
+    desc:    "PostHog UI host, used when POSTHOG_API_HOST is a reverse proxy. When empty, PostHog falls back to the API host.",
     default: ""
   }),
   /**

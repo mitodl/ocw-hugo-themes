@@ -37,7 +37,10 @@ window.Popper = Popper
 const history = createBrowserHistory()
 
 $(function() {
-  window.posthog = initPostHog()
+  window.posthog = initPostHog({
+    apiKey:  process.env.POSTHOG_PROJECT_API_KEY,
+    enabled: process.env.POSTHOG_ENABLED === "true"
+  })
 
   const userMenuContainers = document.querySelectorAll(".user-menu-container")
   if (userMenuContainers && isFeatureEnabled("ocw-learn-integration")) {
