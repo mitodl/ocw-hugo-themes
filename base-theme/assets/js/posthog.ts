@@ -15,7 +15,8 @@ export function initPostHog(options: InitPostHogOptions): typeof posthog {
   const posthogEnv = process.env.POSTHOG_ENV
   const posthogEnabled = options.enabled
   const posthogApiHost = process.env.POSTHOG_API_HOST
-  const posthogUiHost = process.env.POSTHOG_UI_HOST || process.env.POSTHOG_API_HOST
+  const posthogUiHost =
+    process.env.POSTHOG_UI_HOST || process.env.POSTHOG_API_HOST
   const posthogApiKey = options.apiKey
 
   if (posthogEnabled && posthogApiKey) {
