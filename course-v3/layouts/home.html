@@ -36,6 +36,27 @@
               <div class="col-12 col-md-4 col-lg-3 p-0 course-image-section">
                 {{ partialCached "course_image_section.html" . }}
               </div>
+              <script>
+                // Pre-paint overflow check. This mirrors updateToggleVisibility in
+                // course-v3/assets/js/course_expander.ts (which owns all interaction
+                // and keeps re-checking on resize/font load) so the toggle is part
+                // of the first painted frame instead of popping in when the bundle
+                // runs. Body scripts execute after earlier stylesheets apply, so the
+                // clamp is measurable here. The 2px tolerance absorbs sub-pixel
+                // rounding.
+                (function () {
+                  var description = document.getElementById("course-description-text")
+                  var toggle = document.getElementById("toggle-description")
+                  if (
+                    description &&
+                    toggle &&
+                    description.scrollHeight - description.clientHeight > 2
+                  ) {
+                    toggle.classList.remove("d-none")
+                    toggle.classList.add("d-flex")
+                  }
+                })()
+              </script>
             </div>
             <div class="bottom-download-button align-self-stretch">
               {{ partial "download_course_link_button.html" (dict "context" . "inPanel" false) }}

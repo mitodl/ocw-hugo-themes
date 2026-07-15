@@ -41,32 +41,64 @@ const initCourseInfoExpander = document => {
   }
 }
 
+const COLLAPSED_CLASS = "description-collapsed"
+
+// Absorbs sub-pixel rounding: scrollHeight and clientHeight are rounded to
+// integers independently, so at fractional zoom levels they can disagree by
+// a pixel with nothing actually clipped. Genuine clamp overflow is at least
+// one line box (~22px), far above this tolerance.
+const OVERFLOW_TOLERANCE_PX = 2
+
 const initCourseDescriptionExpander = document => {
-  const courseDescription = document.getElementById("course-description")
-  if (courseDescription) {
-    const collapsedDescription = courseDescription.querySelector(
-      "#collapsed-description"
-    )
-    const expandedDescription = courseDescription?.querySelector(
-      "#expanded-description"
-    )
-    if (collapsedDescription && expandedDescription) {
-      const expandLink = collapsedDescription.querySelector(
-        "#expand-description"
-      )
-      const collapseLink = expandedDescription.querySelector(
-        "#collapse-description"
-      )
-      expandLink.addEventListener("click", () => {
-        collapsedDescription.classList.add("d-none")
-        expandedDescription.classList.remove("d-none")
-      })
-      collapseLink.addEventListener("click", () => {
-        collapsedDescription.classList.remove("d-none")
-        expandedDescription.classList.add("d-none")
-      })
+  const description = document.getElementById("course-description-text")
+  const toggleButton = document.getElementById("toggle-description")
+  if (!description || !toggleButton) {
+    return
+  }
+
+  const updateToggleVisibility = () => {
+    // Only auto-hide while collapsed; when expanded the button must
+    // stay visible so the user can collapse again.
+    if (description.classList.contains(COLLAPSED_CLASS)) {
+      const isOverflowing =
+        description.scrollHeight - description.clientHeight >
+        OVERFLOW_TOLERANCE_PX
+      // d-flex must be swapped together with d-none: both are !important
+      // display utilities and .d-flex overrides .d-none in Bootstrap 4's
+      // source order, so an element with both classes stays visible.
+      toggleButton.classList.toggle("d-none", !isOverflowing)
+      toggleButton.classList.toggle("d-flex", isOverflowing)
     }
   }
+
+  toggleButton.addEventListener("click", () => {
+    const collapsed = description.classList.toggle(COLLAPSED_CLASS)
+    toggleButton.textContent = collapsed ? "Show more" : "Show less"
+    toggleButton.setAttribute("aria-expanded", String(!collapsed))
+    updateToggleVisibility()
+  })
+
+  if (typeof ResizeObserver !== "undefined") {
+    new ResizeObserver(updateToggleVisibility).observe(description)
+  } else {
+    description.ownerDocument.defaultView.addEventListener(
+      "resize",
+      updateToggleVisibility
+    )
+  }
+  // A webfont swap can change the wrapped line count without changing the
+  // clamped element's height (e.g. six fallback-font lines becoming exactly
+  // five), which the ResizeObserver cannot see — re-check once fonts land.
+  // `ready` alone is not enough: the Typekit stylesheet is fetched and
+  // injected by script (extrahead.html), so its faces can start loading
+  // after `ready` has already resolved. `loadingdone` fires for every
+  // completed batch of font loads, whenever it happens.
+  // document.fonts is absent in jsdom, hence the guard.
+  if (document.fonts) {
+    document.fonts.ready.then(updateToggleVisibility)
+    document.fonts.addEventListener("loadingdone", updateToggleVisibility)
+  }
+  updateToggleVisibility()
 }
 
 export { initCourseInfoExpander, initCourseDescriptionExpander }
