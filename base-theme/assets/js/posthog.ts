@@ -6,13 +6,9 @@ declare global {
   }
 }
 
-export interface InitPostHogOptions {
-  enabled: boolean
-}
-
-export function initPostHog(options: InitPostHogOptions): typeof posthog {
+export function initPostHog(): typeof posthog {
   const posthogEnv = process.env.POSTHOG_ENV
-  const posthogEnabled = options.enabled
+  const posthogEnabled = process.env.PUBLISH_POSTHOG_ENABLED === "true"
   const posthogApiHost = process.env.POSTHOG_API_HOST
   const posthogUiHost =
     process.env.POSTHOG_UI_HOST || process.env.POSTHOG_API_HOST

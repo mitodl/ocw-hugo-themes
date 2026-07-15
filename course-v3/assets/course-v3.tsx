@@ -35,9 +35,7 @@ export interface OCWWindow extends Window {
 declare let window: OCWWindow
 
 $(function() {
-  window.posthog = initPostHog({
-    enabled: process.env.POSTHOG_COURSE_V3_ENABLED === "true"
-  })
+  window.posthog = initPostHog()
   initMITLearnHeader()
   initCourseDescriptionExpander(document)
   initCourseInfoExpander(document)
