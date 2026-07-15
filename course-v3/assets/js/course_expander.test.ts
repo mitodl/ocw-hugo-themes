@@ -145,6 +145,56 @@ describe("initCourseDescriptionExpander", () => {
     assertToggleVisible(toggle, false)
   })
 
+  it("re-checks overflow when the ResizeObserver fires", () => {
+    const description = document.getElementById("course-description-text")
+    const toggle = document.getElementById("toggle-description")
+    setHeights(description, { scrollHeight: 80, clientHeight: 80 })
+
+    // jsdom does not implement ResizeObserver, so stub it to exercise the
+    // primary (non-fallback) code path and capture its callback/target.
+    let resizeCallback
+    let observedTarget
+    global.ResizeObserver = class {
+      constructor(callback) {
+        resizeCallback = callback
+      }
+      observe(target) {
+        observedTarget = target
+      }
+      unobserve() {}
+      disconnect() {}
+    }
+
+    initCourseDescriptionExpander(document)
+    assertToggleVisible(toggle, false)
+    expect(observedTarget).toBe(description)
+
+    // A layout change grows the clamped element past its clamp; the observer
+    // callback must re-check and reveal the toggle.
+    setHeights(description, { scrollHeight: 200, clientHeight: 110 })
+    resizeCallback()
+    assertToggleVisible(toggle, true)
+
+    delete global.ResizeObserver
+  })
+
+  it("re-checks overflow on window resize when ResizeObserver is unavailable", () => {
+    // jsdom provides no ResizeObserver, so init takes the window-resize
+    // fallback branch.
+    expect(typeof ResizeObserver).toBe("undefined")
+
+    const description = document.getElementById("course-description-text")
+    const toggle = document.getElementById("toggle-description")
+    setHeights(description, { scrollHeight: 80, clientHeight: 80 })
+
+    initCourseDescriptionExpander(document)
+    assertToggleVisible(toggle, false)
+
+    setHeights(description, { scrollHeight: 200, clientHeight: 110 })
+    window.dispatchEvent(new Event("resize"))
+    assertToggleVisible(toggle, true)
+  })
+
   it("re-checks overflow once webfonts are ready", async () => {
     const description = document.getElementById("course-description-text")
     const toggle = document.getElementById("toggle-description")
