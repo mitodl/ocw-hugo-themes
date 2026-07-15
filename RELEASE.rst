@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.153.0
+Version 1.153.0 (Released July 15, 2026)
 ---------------
 
 - feat: added support for multi-language captions and transcripts (#1801)
