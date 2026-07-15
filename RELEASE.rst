@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+Version 1.154.0
+---------------
+
+- Add resource description to v3 theme (#1829)
+- fix: department search links in v3 (#1827)
+- fix: prevent double-path gallery image URLs from Fastly base URL resolution (#1828)
+
 Version 1.153.0 (Released July 15, 2026)
 ---------------
 
