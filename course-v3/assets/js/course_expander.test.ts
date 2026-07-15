@@ -152,8 +152,7 @@ describe("initCourseDescriptionExpander", () => {
 
     // jsdom does not implement ResizeObserver, so stub it to exercise the
     // primary (non-fallback) code path and capture its callback/target.
-    let resizeCallback
-    let observedTarget
+    let resizeCallback, observedTarget
     global.ResizeObserver = class {
       constructor(callback) {
         resizeCallback = callback
@@ -161,7 +160,9 @@ describe("initCourseDescriptionExpander", () => {
       observe(target) {
         observedTarget = target
       }
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       unobserve() {}
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       disconnect() {}
     }
 
