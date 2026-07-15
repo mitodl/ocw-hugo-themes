@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.153.0 (Released July 15, 2026)
+---------------
+
+- feat: added support for multi-language captions and transcripts (#1801)
+- Update header/footer links and MIT logos (#1823)
+
 Version 1.152.0 (Released June 23, 2026)
 ---------------
 
