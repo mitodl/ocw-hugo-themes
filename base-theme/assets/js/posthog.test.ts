@@ -31,7 +31,7 @@ describe("initPostHog", () => {
       POSTHOG_UI_HOST:         "https://us.posthog.com",
       POSTHOG_ENV:             "test",
       POSTHOG_PROJECT_API_KEY: "test-api-key", // pragma: allowlist secret
-      POSTHOG_ENABLED: "true"
+      POSTHOG_ENABLED:         "true"
     })
 
     const result = initPostHog()
