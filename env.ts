@@ -142,10 +142,6 @@ const envSchema = {
     desc:    "Whether PostHog analytics are enabled for the course-v3 theme",
     default: true
   }),
-  POSTHOG_COURSE_V3_PROJECT_API_KEY: envalid.str({
-    desc:    "PostHog project API key for the course-v3 theme",
-    default: ""
-  }),
   POSTHOG_ENABLED: envalid.bool({
     desc:    "Whether PostHog analytics are enabled",
     default: true

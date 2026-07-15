@@ -36,7 +36,6 @@ declare let window: OCWWindow
 
 $(function() {
   window.posthog = initPostHog({
-    apiKey:  process.env.POSTHOG_COURSE_V3_PROJECT_API_KEY,
     enabled: process.env.POSTHOG_COURSE_V3_ENABLED === "true"
   })
   initMITLearnHeader()

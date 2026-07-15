@@ -203,7 +203,6 @@ To further explain the various environment variables and what they do:
 | `POSTHOG_PROJECT_API_KEY` | `www`, `course` | `api-key` | API key for PostHog |
 | `POSTHOG_UI_HOST` | `www`, `course` | `https://us.posthog.com` | PostHog UI host, used when `POSTHOG_API_HOST` is a reverse proxy. When empty, PostHog falls back to the API host |
 | `POSTHOG_COURSE_V3_ENABLED` | `course` | `true` | Whether PostHog analytics are enabled for the `course` theme |
-| `POSTHOG_COURSE_V3_PROJECT_API_KEY` | `course` | `api-key` | API key for the PostHog project used by the `course` theme |
 | `CSRF_COOKIE_DOMAIN` | N/A | N/A | The cookie domain to use in Axios when communicating with the `mit-learn` API |
 | `MIT_LEARN_BASE_URL` | N/A | `http://learn.odl.local:8062` | The base URL for the frontend of an instance of [`mit-learn`](https://github.com/mitodl/mit-learn) |
 | `MIT_LEARN_API_BASE_URL` | N/A | `http://learn.odl.local:8065` | The base URL for the API gateway (APISIX) of an instance of [`mit-learn`](https://github.com/mitodl/mit-learn) |

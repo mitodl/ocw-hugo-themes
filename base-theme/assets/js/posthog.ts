@@ -7,7 +7,6 @@ declare global {
 }
 
 export interface InitPostHogOptions {
-  apiKey: string | undefined
   enabled: boolean
 }
 
@@ -17,7 +16,7 @@ export function initPostHog(options: InitPostHogOptions): typeof posthog {
   const posthogApiHost = process.env.POSTHOG_API_HOST
   const posthogUiHost =
     process.env.POSTHOG_UI_HOST || process.env.POSTHOG_API_HOST
-  const posthogApiKey = options.apiKey
+  const posthogApiKey = process.env.POSTHOG_PROJECT_API_KEY
 
   if (posthogEnabled && posthogApiKey) {
     posthog.init(posthogApiKey, {
