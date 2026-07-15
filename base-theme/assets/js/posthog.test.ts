@@ -31,7 +31,7 @@ describe("initPostHog", () => {
       POSTHOG_UI_HOST:         "https://us.posthog.com",
       POSTHOG_ENV:             "test",
       POSTHOG_PROJECT_API_KEY: "test-api-key", // pragma: allowlist secret
-      PUBLISH_POSTHOG_ENABLED: "true"
+      POSTHOG_ENABLED: "true"
     })
 
     const result = initPostHog()
@@ -60,7 +60,7 @@ describe("initPostHog", () => {
   test("should log warning when PostHog is enabled but API key is missing", () => {
     process.env.POSTHOG_API_HOST = "https://app.posthog.com"
     process.env.POSTHOG_PROJECT_API_KEY = ""
-    process.env.PUBLISH_POSTHOG_ENABLED = "true"
+    process.env.POSTHOG_ENABLED = "true"
 
     initPostHog()
 
@@ -73,7 +73,7 @@ describe("initPostHog", () => {
   test("should log warning when PostHog is enabled but API key is undefined", () => {
     process.env.POSTHOG_API_HOST = "https://app.posthog.com"
     delete process.env.POSTHOG_PROJECT_API_KEY
-    process.env.PUBLISH_POSTHOG_ENABLED = "true"
+    process.env.POSTHOG_ENABLED = "true"
 
     initPostHog()
 
@@ -85,7 +85,7 @@ describe("initPostHog", () => {
 
   test("should log proper message when PostHog is disabled", () => {
     process.env.POSTHOG_PROJECT_API_KEY = "test-api-key" // pragma: allowlist secret
-    process.env.PUBLISH_POSTHOG_ENABLED = "false"
+    process.env.POSTHOG_ENABLED = "false"
     initPostHog()
 
     expect(posthog.init).not.toHaveBeenCalled()
@@ -96,7 +96,7 @@ describe("initPostHog", () => {
     process.env.POSTHOG_API_HOST = "https://app.posthog.com"
     process.env.POSTHOG_UI_HOST = ""
     process.env.POSTHOG_PROJECT_API_KEY = "test-api-key" // pragma: allowlist secret
-    process.env.PUBLISH_POSTHOG_ENABLED = "true"
+    process.env.POSTHOG_ENABLED = "true"
 
     initPostHog()
 
@@ -109,7 +109,7 @@ describe("initPostHog", () => {
   test("should not register environment when POSTHOG_ENV is not provided", () => {
     process.env.POSTHOG_API_HOST = "https://app.posthog.com"
     process.env.POSTHOG_PROJECT_API_KEY = "test-api-key" // pragma: allowlist secret
-    process.env.PUBLISH_POSTHOG_ENABLED = "true"
+    process.env.POSTHOG_ENABLED = "true"
 
     initPostHog()
 
