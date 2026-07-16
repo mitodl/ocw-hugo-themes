@@ -150,6 +150,11 @@ const envSchema = {
     desc:    "PostHog project API key",
     default: ""
   }),
+  POSTHOG_UI_HOST: envalid.str({
+    // str, not url, to allow for ""
+    desc:    "PostHog UI host, used when POSTHOG_API_HOST is a reverse proxy. When empty, PostHog falls back to the API host.",
+    default: ""
+  }),
   /**
    * The following are URLs to the MIT Learn API.
    */
