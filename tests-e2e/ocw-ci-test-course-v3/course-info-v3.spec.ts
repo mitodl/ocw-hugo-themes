@@ -23,4 +23,22 @@ test.describe("Course v3 Course Info drawer focus management", () => {
     await closeButton.click()
     await expect(openButton).toBeFocused()
   })
+
+  test("moves focus to the close button when opened", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/resources/file_pdf")
+
+    const openButton = page.locator("#desktop-course-drawer-button")
+    const closeButton = page.locator(
+      "#desktop-course-drawer #desktop-course-drawer-button-close"
+    )
+
+    // Close it first since the drawer is open by default, then reopen it.
+    await closeButton.click()
+    await expect(openButton).toBeFocused()
+
+    await openButton.click()
+    await expect(closeButton).toBeFocused()
+  })
 })

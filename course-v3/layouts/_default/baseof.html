@@ -64,6 +64,7 @@
     // IDs of elements
     const DESKTOP_COURSE_DRAWER_ID = "desktop-course-drawer"
     const COURSE_DRAWER_BTN_ID = "desktop-course-drawer-button"
+    const COURSE_DRAWER_CLOSE_BTN_ID = "desktop-course-drawer-button-close"
 
     try{
 
@@ -88,6 +89,13 @@
               return;
             }
             setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
+            // course_info.html renders this id in both the desktop and mobile
+            // drawer markup, so scope the lookup to the desktop drawer to
+            // avoid focusing the mobile copy.
+            const closeBtn = document.querySelector(`#${DESKTOP_COURSE_DRAWER_ID} #${COURSE_DRAWER_CLOSE_BTN_ID}`)
+            if (closeBtn) {
+              closeBtn.focus()
+            }
           })
       
           drawer.on("hidden.bs.collapse", (event) => {
