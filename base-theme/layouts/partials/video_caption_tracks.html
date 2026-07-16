@@ -2,13 +2,11 @@
   video_caption_tracks.html
 
   Resolves caption data into a slice of caption track dicts.
-  Primary source: video_captions_resources (resolved by full_metadata to array-of-objects).
-  Fallback source: video_captions_file (legacy string or array-of-objects format).
-  Handles both legacy (string) and new (array of objects) formats.
+  Source: video_captions_resources (resolved by full_metadata to array-of-objects).
 
   Input: dict with:
     - "context" : page context (for resource_url resolution)
-    - "captionsFile" : video_captions_resources | default video_captions_file (string or array)
+    - "captionsFile" : video_captions_resources, an array of {"file": ..., "language": ..., "locale"?: ...}
 
   Returns: slice of dicts with keys: "src", "srclang", "label", "isDefault"
 */}}
@@ -17,47 +15,38 @@
 {{- $tracks := slice -}}
 
 {{- if $captionsFile -}}
-  {{- $type := printf "%T" $captionsFile -}}
-  {{- if or (eq $type "[]interface {}") (eq $type "[]map[string]interface {}") -}}
-    {{/* New array format: [{file: "...", language: "en"}, ...] */}}
-    {{/* First pass: check whether any English track exists */}}
-    {{- $hasEnglish := false -}}
-    {{- range $captionsFile -}}
-      {{- if eq (.language | default "en") "en" -}}
-        {{- $hasEnglish = true -}}
-      {{- end -}}
+  {{/* video_captions_resources is always an array of {file, language, locale?} objects */}}
+  {{/* First pass: check whether any English track exists */}}
+  {{- $hasEnglish := false -}}
+  {{- range $captionsFile -}}
+    {{- if eq (.language | default "en") "en" -}}
+      {{- $hasEnglish = true -}}
     {{- end -}}
-    {{/* Second pass: build tracks; when no English exists, first track gets default */}}
-    {{- $firstDone := false -}}
-    {{- $firstEnglishDone := false -}}
-    {{- range $captionsFile -}}
-      {{- $file := .file -}}
-      {{- $lang := .language | default "en" -}}
-      {{- $locale := .locale | default "" -}}
-      {{- $srclang := $lang -}}
-      {{- if $locale -}}
-        {{- $srclang = printf "%s-%s" $lang $locale -}}
-      {{- end -}}
-      {{- $src := partial "video_captions_file_url.html" (dict "context" $context "url" $file) -}}
-      {{- $label := partial "human_language.html" (dict "language" $lang "locale" $locale) -}}
-      {{- $isDefault := false -}}
-      {{- if $hasEnglish -}}
-        {{- if and (eq $lang "en") (not $firstEnglishDone) -}}
-          {{- $isDefault = true -}}
-          {{- $firstEnglishDone = true -}}
-        {{- end -}}
-      {{- else if not $firstDone -}}
+  {{- end -}}
+  {{/* Second pass: build tracks; when no English exists, first track gets default */}}
+  {{- $firstDone := false -}}
+  {{- $firstEnglishDone := false -}}
+  {{- range $captionsFile -}}
+    {{- $file := .file -}}
+    {{- $lang := .language | default "en" -}}
+    {{- $locale := .locale | default "" -}}
+    {{- $srclang := $lang -}}
+    {{- if $locale -}}
+      {{- $srclang = printf "%s-%s" $lang $locale -}}
+    {{- end -}}
+    {{- $src := partial "video_captions_file_url.html" (dict "context" $context "url" $file) -}}
+    {{- $label := partial "human_language.html" (dict "language" $lang "locale" $locale) -}}
+    {{- $isDefault := false -}}
+    {{- if $hasEnglish -}}
+      {{- if and (eq $lang "en") (not $firstEnglishDone) -}}
         {{- $isDefault = true -}}
-        {{- $firstDone = true -}}
+        {{- $firstEnglishDone = true -}}
       {{- end -}}
-      {{- $tracks = $tracks | append (dict "src" $src "srclang" $srclang "label" $label "isDefault" $isDefault) -}}
+    {{- else if not $firstDone -}}
+      {{- $isDefault = true -}}
+      {{- $firstDone = true -}}
     {{- end -}}
-  {{- else -}}
-    {{/* Legacy string format: single file path */}}
-    {{- $src := partial "video_captions_file_url.html" (dict "context" $context "url" $captionsFile) -}}
-    {{- if $src -}}
-      {{- $tracks = $tracks | append (dict "src" $src "srclang" "en" "label" "English" "isDefault" true) -}}
-    {{- end -}}
+    {{- $tracks = $tracks | append (dict "src" $src "srclang" $srclang "label" $label "isDefault" $isDefault) -}}
   {{- end -}}
 {{- end -}}
 
