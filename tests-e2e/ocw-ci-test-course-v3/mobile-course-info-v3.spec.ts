@@ -2,6 +2,14 @@ import { test, expect } from "@playwright/test"
 import { CoursePage } from "../util"
 
 test.describe("Mobile Course Info drawer", () => {
+  test("Toggle button is absent on the home page", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/")
+
+    await expect(page.locator("#mobile-course-info-toggle")).toHaveCount(0)
+  })
+
   test("Toggle button opens the drawer on mobile viewports", async ({
     page
   }) => {
