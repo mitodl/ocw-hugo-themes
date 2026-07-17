@@ -247,4 +247,66 @@ test.describe("MIT Learn Header", () => {
 
     await expect(menuToggle).toHaveAttribute("aria-expanded", "true")
   })
+
+  test("Mobile course menu items are actually hidden when collapsed and visible when expanded", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const menuToggle = page.locator("#mobile-course-menu-toggle-v3")
+    const menuItems = page.locator("#mobile-course-menu-items")
+
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "false")
+    await expect(menuItems).toBeHidden()
+
+    await menuToggle.click()
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "true")
+    await expect(menuItems).toBeVisible()
+  })
+
+  test("Mobile course menu toggle and info button change background color on hover", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const menuToggle = page.locator("#mobile-course-menu-toggle-v3")
+    await menuToggle.hover()
+    await expect(menuToggle).toHaveCSS("background-color", "rgb(74, 80, 86)")
+
+    const infoToggle = page.locator("#mobile-course-info-toggle")
+    await infoToggle.hover()
+    await expect(infoToggle).toHaveCSS(
+      "background-color",
+      "rgb(108, 116, 125)"
+    )
+  })
+
+  test("Mobile course menu toggle and info button show a focus outline on keyboard focus", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const menuToggle = page.locator("#mobile-course-menu-toggle-v3")
+    const infoToggle = page.locator("#mobile-course-info-toggle")
+
+    // Tab/Shift+Tab are real keyboard transitions, so the newly focused
+    // element always matches :focus-visible, regardless of how the
+    // previously focused element got focus.
+    await menuToggle.focus()
+    await page.keyboard.press("Tab")
+    await expect(infoToggle).toBeFocused()
+    await expect(infoToggle).toHaveCSS("outline-color", "rgb(255, 255, 255)")
+    await expect(infoToggle).toHaveCSS("outline-style", "solid")
+
+    await page.keyboard.press("Shift+Tab")
+    await expect(menuToggle).toBeFocused()
+    await expect(menuToggle).toHaveCSS("outline-color", "rgb(255, 255, 255)")
+    await expect(menuToggle).toHaveCSS("outline-style", "solid")
+  })
 })
