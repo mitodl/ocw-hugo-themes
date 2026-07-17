@@ -7,6 +7,12 @@
   }
 }
 
+#course-info-drawer {
+  // The MIT Learn header is fixed with z-index 1100; without this the
+  // drawer (and its close button) renders underneath it on mobile.
+  z-index: 1150;
+}
+
 #desktop-course-drawer {
   &.collapsing {
     -webkit-transition: none;
