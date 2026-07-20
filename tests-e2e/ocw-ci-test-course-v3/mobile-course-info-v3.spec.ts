@@ -56,4 +56,23 @@ test.describe("Mobile Course Info drawer", () => {
     const toggle = page.locator("#mobile-course-info-toggle")
     await expect(toggle).toBeHidden()
   })
+
+  test("Download button is removed from the mobile drawer but stays elsewhere on the page", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    // Bottom-of-page button + desktop drawer's own copy, both untouched by this task.
+    await expect(page.locator(".download-course-button-v3")).toHaveCount(2)
+
+    const toggle = page.locator("#mobile-course-info-toggle")
+    await toggle.click()
+
+    const drawer = page.locator("#course-info-drawer")
+    await expect(drawer).toHaveClass(/\bin\b/)
+    await expect(drawer.locator(".download-course-button-v3")).toHaveCount(0)
+    await expect(page.locator(".download-course-button-v3")).toHaveCount(2)
+  })
 })
