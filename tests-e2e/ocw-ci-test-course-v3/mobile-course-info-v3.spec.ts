@@ -91,5 +91,28 @@ test.describe("Mobile Course Info drawer", () => {
       .first()
     await expect(heading).toBeVisible()
     await expect(heading).toHaveCSS("font-size", "14px")
+    await expect(heading).toHaveCSS("font-weight", "500")
+  })
+
+  test("Course Info drawer has consistent padding and inter-section spacing", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const toggle = page.locator("#mobile-course-info-toggle")
+    await toggle.click()
+
+    const drawer = page.locator("#course-info-drawer")
+    await expect(drawer).toHaveCSS("padding-left", "16px")
+    await expect(drawer).toHaveCSS("padding-right", "16px")
+
+    // Direct children of the drawer: index 0 is the close-button row,
+    // index 1 is the Course Info section, which should pick up the
+    // 1.5rem inter-section gap from the `> * + *` rule.
+    const courseInfoSection = drawer.locator("> *").nth(1)
+    await expect(courseInfoSection).toBeVisible()
+    await expect(courseInfoSection).toHaveCSS("margin-top", "24px")
   })
 })
