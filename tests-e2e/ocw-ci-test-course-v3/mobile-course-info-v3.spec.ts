@@ -104,9 +104,14 @@ test.describe("Mobile Course Info drawer", () => {
     const toggle = page.locator("#mobile-course-info-toggle")
     await toggle.click()
 
+    // Matches the desktop drawer's own padding (Bootstrap's .p-4, 24px on
+    // all sides) so the two drawers read as the same component, not a
+    // narrower mobile knockoff.
     const drawer = page.locator("#course-info-drawer")
-    await expect(drawer).toHaveCSS("padding-left", "16px")
-    await expect(drawer).toHaveCSS("padding-right", "16px")
+    await expect(drawer).toHaveCSS("padding-top", "24px")
+    await expect(drawer).toHaveCSS("padding-right", "24px")
+    await expect(drawer).toHaveCSS("padding-bottom", "24px")
+    await expect(drawer).toHaveCSS("padding-left", "24px")
 
     // Direct children of the drawer: index 0 is the close-button row,
     // index 1 is the Course Info section, which should pick up the
