@@ -75,4 +75,21 @@ test.describe("Mobile Course Info drawer", () => {
     await expect(drawer.locator(".download-course-button-v3")).toHaveCount(0)
     await expect(page.locator(".download-course-button-v3")).toHaveCount(2)
   })
+
+  test("Course Info subsection headings use the homepage type scale inside the mobile drawer", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const toggle = page.locator("#mobile-course-info-toggle")
+    await toggle.click()
+
+    const heading = page
+      .locator("#course-info-drawer .course-subsection-heading")
+      .first()
+    await expect(heading).toBeVisible()
+    await expect(heading).toHaveCSS("font-size", "14px")
+  })
 })

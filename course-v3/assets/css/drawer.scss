@@ -11,6 +11,16 @@
   // The MIT Learn header is fixed with z-index 1100; without this the
   // drawer (and its close button) renders underneath it on mobile.
   z-index: 1150;
+
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  // .col-12 (the close-button row) expects a block-level parent for its
+  // Bootstrap grid math, so children are spaced with margin here instead
+  // of switching the drawer to a flex column.
+  > * + * {
+    margin-top: 1.5rem;
+  }
 }
 
 #desktop-course-drawer {
@@ -55,5 +65,23 @@
     .expand-drawer-img {
       display: block;
     }
+  }
+}
+
+#course-info-drawer,
+#desktop-course-drawer {
+  .course-section-heading {
+    font-size: 1.125rem !important;
+    line-height: 1.625rem !important;
+    font-weight: 500;
+    text-transform: none;
+    color: #000;
+  }
+
+  .course-subsection-heading {
+    font-size: 0.875rem !important;
+    line-height: 1.125rem !important;
+    font-weight: 500;
+    color: #000;
   }
 }
