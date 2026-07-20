@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.154.0
+Version 1.154.0 (Released July 20, 2026)
 ---------------
 
 - feat: enable posthog event capture by default (#1830)
