@@ -1,5 +1,3 @@
-$panel-course-info-text-color: #464646;
-
 .course-info {
   .course-section-heading {
     font-size: 1.125rem !important;
@@ -20,11 +18,6 @@ $panel-course-info-text-color: #464646;
   font-size: $course-heading-five-font !important;
   line-height: $course-heading-five-line-height !important;
   font-weight: 500 !important;
-}
-
-.panel-course-info-title {
-  text-transform: uppercase;
-  color: $panel-course-info-text-color !important;
 }
 
 .panel-course-info-text {
