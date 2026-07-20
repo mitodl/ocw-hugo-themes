@@ -12,8 +12,10 @@
   // drawer (and its close button) renders underneath it on mobile.
   z-index: 1150;
 
-  padding-left: 1rem;
-  padding-right: 1rem;
+  // Matches #desktop-course-drawer's own padding (its wrapper div uses
+  // Bootstrap's .p-4, i.e. 1.5rem on all sides) so the two drawers read as
+  // the same component at different widths, not a narrower mobile knockoff.
+  padding: 1.5rem;
 
   // .col-12 (the close-button row) expects a block-level parent for its
   // Bootstrap grid math, so children are spaced with margin here instead
