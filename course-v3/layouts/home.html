@@ -6,7 +6,7 @@
 {{ partial "head.html" . }}
 
 <body class="course-home-page has-mit-learn-header">
-  <a href="#course-content-section" class="skip-to-main-content sr-only sr-only-focusable">Skip to main content</a>
+  {{ partial "skip_link.html" }}
   {{ if $gtmId }}
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId | safeURL }}" height="0" width="0"

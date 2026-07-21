@@ -1,0 +1,14 @@
+<a href="#course-content-section" class="skip-to-main-content sr-only sr-only-focusable">Skip to main content</a>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const target = document.getElementById("course-content-section")
+    if (target) {
+      // scroll-margin-top keeps the fixed header from covering the content,
+      // but browsers don't consistently honor it for focus-triggered
+      // scrolling (Firefox doesn't, Chrome does), so scroll explicitly here.
+      target.addEventListener("focus", () => {
+        target.scrollIntoView()
+      })
+    }
+  })
+</script>
