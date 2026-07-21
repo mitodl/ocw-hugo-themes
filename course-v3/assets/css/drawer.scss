@@ -1,10 +1,11 @@
 .drawer {
   background: white;
-  max-width: 50% !important;
-
-  @include media-breakpoint-down(xs) {
-    max-width: 75% !important;
-  }
+  // Matches .mit-learn-nav-drawer's own mobile width rule
+  // (mit-learn-header.scss's `@include media-breakpoint-down(md) { width:
+  // 100%; max-width: 320px; }`) so the two drawers feel like the same
+  // component. offcanvas-bootstrap's own .navbar-offcanvas already sets
+  // width: 100%; this only needs to override its max-width: 250px default.
+  max-width: 320px !important;
 }
 
 #course-info-drawer {
@@ -14,10 +15,15 @@
 
   height: 100% !important;
 
-  // Matches #desktop-course-drawer's own padding (its wrapper div uses
-  // Bootstrap's .p-4, i.e. 1.5rem on all sides) so the two drawers read as
-  // the same component at different widths, not a narrower mobile knockoff.
-  padding: 1.5rem;
+  // Matches .mit-learn-nav-drawer's own shadow (mit-learn-header.scss),
+  // overriding offcanvas-bootstrap's generic default box-shadow.
+  box-shadow: 0px 6px 24px 0px rgba(37, 38, 43, 0.1);
+
+  // Horizontal value matches .mit-learn-nav-section's own left/right
+  // padding (mit-learn-header.scss) so the two drawers' content reads at
+  // the same distance from the edge. Vertical stays 24px, matching
+  // #desktop-course-drawer's own padding (Bootstrap's .p-4).
+  padding: 24px 32px;
 
   // .col-12 (the close-button row) expects a block-level parent for its
   // Bootstrap grid math, so children are spaced with margin here instead
@@ -91,5 +97,20 @@
     line-height: 1.125rem !important;
     font-weight: 500;
     color: #000;
+  }
+}
+
+// Mobile-only: the actual body text under each subsection heading
+// (instructor/department names, term/level values, topic links, learning
+// resource type labels), not the headings themselves. Scoped to
+// #course-info-drawer, not #desktop-course-drawer, matching this branch's
+// existing mobile-only precedent for the drawer's own text/layout tweaks.
+#course-info-drawer {
+  .panel-course-info-text {
+    font-size: 0.75rem;
+  }
+
+  .learning-resource-type-item span {
+    font-size: 0.75rem;
   }
 }
