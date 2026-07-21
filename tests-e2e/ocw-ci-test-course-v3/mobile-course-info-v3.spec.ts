@@ -94,6 +94,31 @@ test.describe("Mobile Course Info drawer", () => {
     await expect(heading).toHaveCSS("font-weight", "500")
   })
 
+  test("Mobile drawer body text is 12px, distinct from the 18px/14px headings above it", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const toggle = page.locator("#mobile-course-info-toggle")
+    await toggle.click()
+
+    const drawer = page.locator("#course-info-drawer")
+    await expect(
+      drawer.locator(".course-section-heading").first()
+    ).toHaveCSS("font-size", "18px")
+    await expect(
+      drawer.locator(".course-subsection-heading").first()
+    ).toHaveCSS("font-size", "14px")
+    await expect(
+      drawer.locator(".panel-course-info-text").first()
+    ).toHaveCSS("font-size", "12px")
+    await expect(
+      drawer.locator(".learning-resource-type-item span").last()
+    ).toHaveCSS("font-size", "12px")
+  })
+
   test("Course Info drawer has consistent padding and inter-section spacing", async ({
     page
   }) => {
@@ -104,14 +129,15 @@ test.describe("Mobile Course Info drawer", () => {
     const toggle = page.locator("#mobile-course-info-toggle")
     await toggle.click()
 
-    // Matches the desktop drawer's own padding (Bootstrap's .p-4, 24px on
-    // all sides) so the two drawers read as the same component, not a
-    // narrower mobile knockoff.
+    // Vertical matches the desktop drawer's own padding (Bootstrap's .p-4).
+    // Horizontal matches .mit-learn-nav-section's left/right padding (the
+    // Explore MIT nav drawer), so the two drawers read as the same
+    // component's content inset, not a narrower mobile knockoff.
     const drawer = page.locator("#course-info-drawer")
     await expect(drawer).toHaveCSS("padding-top", "24px")
-    await expect(drawer).toHaveCSS("padding-right", "24px")
+    await expect(drawer).toHaveCSS("padding-right", "32px")
     await expect(drawer).toHaveCSS("padding-bottom", "24px")
-    await expect(drawer).toHaveCSS("padding-left", "24px")
+    await expect(drawer).toHaveCSS("padding-left", "32px")
 
     // The close-button row (position: absolute, so it collapses to ~0
     // height) shouldn't add its own gap before Course Info. Topics is
@@ -149,5 +175,28 @@ test.describe("Mobile Course Info drawer", () => {
       el.style.height = "2000px"
     })
     await expect(drawer).toHaveCSS("height", "844px")
+  })
+
+  test("Drawer shell matches the Explore MIT nav drawer's shadow, width, and close icon", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const toggle = page.locator("#mobile-course-info-toggle")
+    await toggle.click()
+
+    const drawer = page.locator("#course-info-drawer")
+    await expect(drawer).toHaveCSS(
+      "box-shadow",
+      "rgba(37, 38, 43, 0.1) 0px 6px 24px 0px"
+    )
+    await expect(drawer).toHaveCSS("max-width", "320px")
+
+    const closeIcon = page.locator("#close-mobile-course-info-button svg")
+    await expect(closeIcon).toBeVisible()
+    await expect(closeIcon).toHaveCSS("width", "18px")
+    await expect(closeIcon).toHaveCSS("height", "18px")
   })
 })
