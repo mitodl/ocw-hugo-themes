@@ -113,11 +113,41 @@ test.describe("Mobile Course Info drawer", () => {
     await expect(drawer).toHaveCSS("padding-bottom", "24px")
     await expect(drawer).toHaveCSS("padding-left", "24px")
 
-    // Direct children of the drawer: index 0 is the close-button row,
-    // index 1 is the Course Info section, which should pick up the
-    // 1.5rem inter-section gap from the `> * + *` rule.
-    const courseInfoSection = drawer.locator("> *").nth(1)
+    // The close-button row (position: absolute, so it collapses to ~0
+    // height) shouldn't add its own gap before Course Info. Topics is
+    // targeted by class rather than position: course_info.html ends with
+    // an inline <script> tag that becomes a direct-child sibling once
+    // inlined here, shifting positional indices.
+    const courseInfoSection = drawer.locator("> .course-info")
+    const topicsSection = drawer.locator("> .course-topics-container")
     await expect(courseInfoSection).toBeVisible()
-    await expect(courseInfoSection).toHaveCSS("margin-top", "24px")
+    await expect(courseInfoSection).toHaveCSS("margin-top", "0px")
+    await expect(topicsSection).toBeVisible()
+    await expect(topicsSection).toHaveCSS("margin-top", "24px")
+  })
+
+  test("Drawer height stays viewport-sized even if something sets an inline height", async ({
+    page
+  }) => {
+    // offcanvas-bootstrap's Offcanvas._navbarHeight() sets an inline height
+    // via jQuery ($(window).outerHeight()) on every open. Under Chrome's
+    // device toolbar specifically, that call reports the real desktop
+    // window's height rather than the emulated viewport's, inflating the
+    // drawer's height so its own content stops overflowing it, so it can't
+    // scroll. Reproduce the inline-height side of that bug directly (rather
+    // than the outerHeight() misreport itself, which this harness can't
+    // control) and assert our external !important rule still wins.
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const toggle = page.locator("#mobile-course-info-toggle")
+    await toggle.click()
+
+    const drawer = page.locator("#course-info-drawer")
+    await drawer.evaluate(el => {
+      el.style.height = "2000px"
+    })
+    await expect(drawer).toHaveCSS("height", "844px")
   })
 })
