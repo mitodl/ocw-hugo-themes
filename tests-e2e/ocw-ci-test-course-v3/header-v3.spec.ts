@@ -279,10 +279,7 @@ test.describe("MIT Learn Header", () => {
 
     const infoToggle = page.locator("#mobile-course-info-toggle")
     await infoToggle.hover()
-    await expect(infoToggle).toHaveCSS(
-      "background-color",
-      "rgb(108, 116, 125)"
-    )
+    await expect(infoToggle).toHaveCSS("background-color", "rgb(108, 116, 125)")
   })
 
   test("Mobile course menu toggle and info button show a focus outline on keyboard focus", async ({
