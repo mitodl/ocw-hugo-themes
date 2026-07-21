@@ -12,6 +12,8 @@
   // drawer (and its close button) renders underneath it on mobile.
   z-index: 1150;
 
+  height: 100% !important;
+
   // Matches #desktop-course-drawer's own padding (its wrapper div uses
   // Bootstrap's .p-4, i.e. 1.5rem on all sides) so the two drawers read as
   // the same component at different widths, not a narrower mobile knockoff.
@@ -22,6 +24,10 @@
   // of switching the drawer to a flex column.
   > * + * {
     margin-top: 1.5rem;
+  }
+
+  > .col-12 + * {
+    margin-top: 0;
   }
 }
 
