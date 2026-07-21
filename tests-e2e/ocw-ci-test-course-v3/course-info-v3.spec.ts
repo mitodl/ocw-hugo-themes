@@ -14,7 +14,9 @@ test.describe("Course v3 Course Info drawer", () => {
     // drawer (mobile_course_info.html, also inPanel=true) rendered a
     // second element with the same id -- invalid HTML and an ambiguous
     // target for any id-based selector.
-    await expect(page.locator("#desktop-course-drawer-button-close")).toHaveCount(1)
+    await expect(
+      page.locator("#desktop-course-drawer-button-close")
+    ).toHaveCount(1)
 
     const mobileDrawer = page.locator("#course-info-drawer")
     await expect(

@@ -102,8 +102,10 @@
   // Primary: CSS :has() for modern browsers (Chrome, Safari, Firefox 121+).
   // Fallback: .mobile-course-menu-collapsed class toggled by JS
   // (mobile_course_menu_v3.ts) for Firefox < 121, which does not support :has().
-  .mobile-course-menu-bar:has(.mobile-course-menu-toggle[aria-expanded="false"]) + .mobile-course-menu-items,
-  .mobile-course-menu-bar.mobile-course-menu-collapsed + .mobile-course-menu-items {
+  .mobile-course-menu-bar:has(.mobile-course-menu-toggle[aria-expanded="false"])
+    + .mobile-course-menu-items,
+  .mobile-course-menu-bar.mobile-course-menu-collapsed
+    + .mobile-course-menu-items {
     display: none;
   }
 
