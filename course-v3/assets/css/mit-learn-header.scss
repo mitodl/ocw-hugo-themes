@@ -606,3 +606,14 @@ body.has-mit-learn-header {
     display: none !important;
   }
 }
+
+// The header is fixed, so scrolling #course-content-section flush to the
+// viewport top (e.g. via the skip link) would tuck its first ~header-height
+// of content behind it. scroll-margin-top leaves that space clear.
+#course-content-section {
+  scroll-margin-top: $mit-learn-header-height;
+
+  @include media-breakpoint-down(md) {
+    scroll-margin-top: $mit-learn-header-height-mobile;
+  }
+}
