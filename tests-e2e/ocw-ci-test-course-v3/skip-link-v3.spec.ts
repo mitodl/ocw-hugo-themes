@@ -29,6 +29,18 @@ async function assertSkipLinkWorks(page: Page, course: CoursePage) {
 
   await page.keyboard.press("Enter")
   await expect(course.withinContent()).toBeFocused()
+
+  // The MIT Learn header is position: fixed, so scrolling the content flush
+  // to the viewport top would tuck it behind the header. scroll-margin-top
+  // on #course-content-section should keep it clear. Poll rather than
+  // reading a single snapshot, since the focus-triggered scroll settles
+  // asynchronously (observed to lag behind the focus change in Firefox).
+  const headerBox = await page.locator("#mit-learn-header").boundingBox()
+  expect(headerBox).not.toBeNull()
+  const minContentY = headerBox!.y + headerBox!.height - 1
+  await expect
+    .poll(async () => (await course.withinContent().boundingBox())?.y ?? -Infinity)
+    .toBeGreaterThanOrEqual(minContentY)
 }
 
 test.describe("Course v3 skip to main content link", () => {
