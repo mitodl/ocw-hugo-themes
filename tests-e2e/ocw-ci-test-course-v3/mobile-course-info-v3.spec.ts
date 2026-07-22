@@ -176,7 +176,9 @@ test.describe("Mobile Course Info drawer", () => {
     await drawer.evaluate(el => {
       el.style.height = "2000px"
     })
-    await expect(drawer).toHaveCSS("height", "844px")
+    // 844px viewport minus the 60px mobile header height the drawer now
+    // starts below (calc(100% - $mit-learn-header-height-mobile)).
+    await expect(drawer).toHaveCSS("height", "784px")
   })
 
   test("Drawer shell matches the Explore MIT nav drawer's shadow, width, and close icon", async ({
@@ -200,5 +202,29 @@ test.describe("Mobile Course Info drawer", () => {
     await expect(closeIcon).toBeVisible()
     await expect(closeIcon).toHaveCSS("width", "18px")
     await expect(closeIcon).toHaveCSS("height", "18px")
+  })
+
+  test("Drawer starts below the MIT Learn header instead of overlaying it, matching the Explore MIT nav drawer", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const toggle = page.locator("#mobile-course-info-toggle")
+    await toggle.click()
+
+    const drawer = page.locator("#course-info-drawer")
+    const header = page.locator("#mit-learn-header")
+
+    const headerBox = await header.boundingBox()
+    const drawerBox = await drawer.boundingBox()
+
+    expect(headerBox).not.toBeNull()
+    expect(drawerBox).not.toBeNull()
+    // The drawer's top edge should sit exactly at the header's bottom edge,
+    // not underneath/behind it (which would need a higher z-index to
+    // render on top instead).
+    expect(Math.abs(drawerBox.y - (headerBox.y + headerBox.height))).toBeLessThan(1)
   })
 })

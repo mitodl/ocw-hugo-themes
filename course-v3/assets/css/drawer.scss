@@ -9,11 +9,15 @@
 }
 
 #course-info-drawer {
-  // The MIT Learn header is fixed with z-index 1100; without this the
-  // drawer (and its close button) renders underneath it on mobile.
-  z-index: 1150;
+  // Matches .mit-learn-nav-drawer's own positioning (mit-learn-header.scss):
+  // starts below the fixed MIT Learn header instead of overlaying it, so
+  // the two drawers behave the same way. Since the header is fixed with
+  // z-index 1100 and this drawer no longer occupies that same screen
+  // region at all, it no longer needs a higher z-index to render above it.
+  top: $mit-learn-header-height-mobile;
+  z-index: 1099;
 
-  height: 100% !important;
+  height: calc(100% - #{$mit-learn-header-height-mobile}) !important;
 
   // Matches .mit-learn-nav-drawer's own shadow (mit-learn-header.scss),
   // overriding offcanvas-bootstrap's generic default box-shadow.
