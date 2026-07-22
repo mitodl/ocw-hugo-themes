@@ -192,7 +192,7 @@ jobs:
       - run: mkdir -p ${{ github.workspace }}/tmp/artifacts
 
       - name: Run Lighthouse
-        uses: foo-software/lighthouse-check-action@master
+        uses: foo-software/lighthouse-check-action@a0b9f2d21433a2fb807adf9f83fbd3b4bec0a9d7 # master
         with:
           branch: ${{ github.ref }}
           outputDirectory: ${{ github.workspace }}/tmp/artifacts
