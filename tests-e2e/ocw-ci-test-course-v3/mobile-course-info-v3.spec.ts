@@ -105,15 +105,17 @@ test.describe("Mobile Course Info drawer", () => {
     await toggle.click()
 
     const drawer = page.locator("#course-info-drawer")
-    await expect(
-      drawer.locator(".course-section-heading").first()
-    ).toHaveCSS("font-size", "18px")
+    await expect(drawer.locator(".course-section-heading").first()).toHaveCSS(
+      "font-size",
+      "18px"
+    )
     await expect(
       drawer.locator(".course-subsection-heading").first()
     ).toHaveCSS("font-size", "14px")
-    await expect(
-      drawer.locator(".panel-course-info-text").first()
-    ).toHaveCSS("font-size", "12px")
+    await expect(drawer.locator(".panel-course-info-text").first()).toHaveCSS(
+      "font-size",
+      "12px"
+    )
     await expect(
       drawer.locator(".learning-resource-type-item span").last()
     ).toHaveCSS("font-size", "12px")
