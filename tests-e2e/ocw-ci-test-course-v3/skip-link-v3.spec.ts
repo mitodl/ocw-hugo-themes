@@ -59,4 +59,36 @@ test.describe("Course v3 skip to main content link", () => {
 
     await assertSkipLinkWorks(page, course)
   })
+
+  test("does not scroll when the content region is already visible", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/resources/file_pdf")
+
+    // Scroll so the content's top edge sits just below the header, computed
+    // precisely rather than via scrollIntoViewIfNeeded: for an element this
+    // tall, "nearest edge" scrolling can leave the top edge off-screen while
+    // a lower part of the element is already in view, which isn't the case
+    // this test means to set up.
+    const scrollYBefore = await page.evaluate(() => {
+      const target = document.getElementById("course-content-section")
+      const headerOffset = parseFloat(getComputedStyle(target).scrollMarginTop) || 0
+      const absoluteTop = target.getBoundingClientRect().top + window.scrollY
+      window.scrollTo(0, absoluteTop - headerOffset - 20)
+      return window.scrollY
+    })
+
+    // Dispatch a real click on the skip link itself, exercising its actual
+    // handler, without Tab/mouse actionability scrolling getting in the way.
+    await page.evaluate(() => {
+      document
+        .querySelector<HTMLElement>(".skip-to-main-content")
+        ?.click()
+    })
+
+    await expect(course.withinContent()).toBeFocused()
+    const scrollYAfter = await page.evaluate(() => window.scrollY)
+    expect(scrollYAfter).toBe(scrollYBefore)
+  })
 })

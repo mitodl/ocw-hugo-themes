@@ -1,13 +1,25 @@
 <a href="#course-content-section" class="skip-to-main-content sr-only sr-only-focusable">Skip to main content</a>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    const skipLink = document.querySelector(".skip-to-main-content")
     const target = document.getElementById("course-content-section")
-    if (target) {
-      // scroll-margin-top keeps the fixed header from covering the content,
-      // but browsers don't consistently honor it for focus-triggered
-      // scrolling (Firefox doesn't, Chrome does), so scroll explicitly here.
-      target.addEventListener("focus", () => {
-        target.scrollIntoView()
+    if (skipLink && target) {
+      // Browsers don't handle focus-triggered scrolling consistently here:
+      // Firefox ignores scroll-margin-top (tucking the content behind the
+      // fixed header) and still scrolls on its own even when the target is
+      // already fully visible. Take over entirely: suppress the native
+      // scroll-on-focus and only scroll ourselves when actually needed.
+      skipLink.addEventListener("click", event => {
+        event.preventDefault()
+        history.replaceState(null, "", "#course-content-section")
+
+        const rect = target.getBoundingClientRect()
+        const headerOffset = parseFloat(getComputedStyle(target).scrollMarginTop) || 0
+        const isVisible = rect.top >= headerOffset && rect.top < window.innerHeight
+        target.focus({ preventScroll: true })
+        if (!isVisible) {
+          target.scrollIntoView()
+        }
       })
     }
   })
