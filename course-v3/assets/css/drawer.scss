@@ -21,7 +21,30 @@
 
   // Matches .mit-learn-nav-drawer's own shadow (mit-learn-header.scss),
   // overriding offcanvas-bootstrap's generic default box-shadow.
-  box-shadow: 0px 6px 24px 0px rgba(37, 38, 43, 0.1);
+  box-shadow: 0px 6px 24px 0px rgba(37, 38, 43, 0.25);
+
+  // offcanvas-bootstrap ties its hidden-position offset (right, for the
+  // -right variant) to the same $offcanvas-width Sass variable as its width
+  // cap (see node_modules/offcanvas-bootstrap's bootstrap.offcanvas.scss),
+  // which base-theme sets to a viewport-relative 85vw. The `.drawer`
+  // max-width override above pins the actual rendered width to a flat
+  // 320px instead, but nothing previously repinned this offset to match, so
+  // below ~376px viewport width (where 85vw first drops under 320px) the
+  // drawer's true 320px-capped width started exceeding the hide offset and
+  // peeked in from the right edge. Matching it here keeps the two in sync
+  // at every width, same as the max-width override already assumes.
+  right: -320px;
+
+  // The open state (offcanvas-bootstrap's own `&.offcanvas-transform.in`
+  // rule) slides the drawer in by `translateX(-$offcanvas-width)` - the
+  // same 85vw variable as the closed offset above, so it only cancels out
+  // to a flush right:0 when both sides use the same number. Overriding just
+  // the closed offset above without this would leave the open drawer
+  // stopping short of (or past) the edge by however much 85vw and 320px
+  // disagree at the current viewport width.
+  &.in {
+    transform: translateX(-320px);
+  }
 
   // Horizontal value matches .mit-learn-nav-section's own left/right
   // padding (mit-learn-header.scss) so the two drawers' content reads at
