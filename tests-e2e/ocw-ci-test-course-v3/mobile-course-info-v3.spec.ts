@@ -227,4 +227,166 @@ test.describe("Mobile Course Info drawer", () => {
     // render on top instead).
     expect(Math.abs(drawerBox.y - (headerBox.y + headerBox.height))).toBeLessThan(1)
   })
+
+  test("Drawer background matches the Explore MIT nav drawer's background", async ({
+    page
+  }) => {
+    // Both drawers, and the page itself, should read as the same shade of
+    // white. Regression guard for the `bg-light`/`bg-faded` Bootstrap
+    // classes (which carried an `!important` background-color that beat the
+    // drawer's own un-`!important` `background: white` rule) having been
+    // removed from #course-info-drawer's markup.
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const toggle = page.locator("#mobile-course-info-toggle")
+    await toggle.click()
+
+    const infoDrawer = page.locator("#course-info-drawer")
+    await expect(infoDrawer).toHaveClass(/\bin\b/)
+    await expect(infoDrawer).toHaveCSS("background-color", "rgb(255, 255, 255)")
+
+    const closeButton = page.locator("#close-mobile-course-info-button")
+    await closeButton.click()
+
+    // Not .first(): at this 390px viewport only the mobile menu button is
+    // actually visible (the desktop one is display:none), and .first()
+    // isn't guaranteed to pick the visible one.
+    const menuButton = page.locator("#mit-learn-menu-button-mobile")
+    await menuButton.click()
+
+    const exploreDrawer = page.locator("#mit-learn-nav-drawer")
+    await expect(exploreDrawer).toHaveClass(/open/)
+    await expect(exploreDrawer).toHaveCSS(
+      "background-color",
+      "rgb(255, 255, 255)"
+    )
+  })
+})
+
+test.describe("Course Info / Explore MIT drawer mutual exclusion", () => {
+  // The two drawers are driven by completely independent systems (offcanvas-
+  // bootstrap for #course-info-drawer, mit_learn_header.ts's own custom
+  // open/close logic for #mit-learn-nav-drawer). Only one should ever be
+  // open at a time, regardless of which one was opened first.
+  test("Opening Explore MIT after Course Info closes Course Info and opens Explore MIT", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const infoToggle = page.locator("#mobile-course-info-toggle")
+    const infoDrawer = page.locator("#course-info-drawer")
+    const exploreButton = page.locator("#mit-learn-menu-button-mobile")
+    const exploreDrawer = page.locator("#mit-learn-nav-drawer")
+
+    await infoToggle.click()
+    await expect(infoDrawer).toHaveClass(/\bin\b/)
+
+    await exploreButton.click()
+
+    await expect(exploreDrawer).toHaveClass(/open/)
+    await expect(infoDrawer).not.toHaveClass(/\bin\b/)
+  })
+
+  test("Opening Course Info after Explore MIT closes Explore MIT and opens Course Info", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const infoToggle = page.locator("#mobile-course-info-toggle")
+    const infoDrawer = page.locator("#course-info-drawer")
+    const exploreButton = page.locator("#mit-learn-menu-button-mobile")
+    const exploreDrawer = page.locator("#mit-learn-nav-drawer")
+
+    await exploreButton.click()
+    await expect(exploreDrawer).toHaveClass(/open/)
+
+    // Explore's full-viewport backdrop visually sits on top of the Info
+    // toggle at this point, so a real tap at the toggle's screen position
+    // actually lands on the backdrop, not the button - `force: true` still
+    // dispatches a real, coordinate-based click that the browser routes via
+    // its own hit-testing (unlike a plain JS `.click()`), so this reproduces
+    // exactly what a real user's tap does here.
+    await infoToggle.click({ force: true })
+
+    await expect(infoDrawer).toHaveClass(/\bin\b/)
+    await expect(exploreDrawer).not.toHaveClass(/open/)
+  })
+
+  test("Opening Course Info alone does not disturb Explore MIT's own closed state", async ({
+    page
+  }) => {
+    // Regression guard: the mutual-exclusion coordination should be a
+    // no-op when the other drawer was never open, not just correct when it
+    // was.
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const infoToggle = page.locator("#mobile-course-info-toggle")
+    const infoDrawer = page.locator("#course-info-drawer")
+    const exploreButton = page.locator("#mit-learn-menu-button-mobile")
+    const exploreDrawer = page.locator("#mit-learn-nav-drawer")
+
+    await infoToggle.click()
+    await expect(infoDrawer).toHaveClass(/\bin\b/)
+
+    await expect(exploreDrawer).not.toHaveClass(/open/)
+    await expect(exploreDrawer).toHaveAttribute("inert", "")
+    await expect(exploreButton).toHaveAttribute("aria-expanded", "false")
+  })
+
+  test("Opening Explore MIT alone does not disturb Course Info's own closed state", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const infoDrawer = page.locator("#course-info-drawer")
+    const exploreButton = page.locator("#mit-learn-menu-button-mobile")
+    const exploreDrawer = page.locator("#mit-learn-nav-drawer")
+
+    await exploreButton.click()
+    await expect(exploreDrawer).toHaveClass(/open/)
+
+    await expect(infoDrawer).not.toHaveClass(/\bin\b/)
+  })
+
+  test("Each drawer still opens and closes normally on its own after the coordination module loads", async ({
+    page
+  }) => {
+    // Regression guard: adding cross-drawer coordination must not break the
+    // baseline single-drawer open/close behavior.
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/assignments")
+
+    const infoToggle = page.locator("#mobile-course-info-toggle")
+    const infoDrawer = page.locator("#course-info-drawer")
+
+    await infoToggle.click()
+    await expect(infoDrawer).toHaveClass(/\bin\b/)
+    await infoToggle.click()
+    await expect(infoDrawer).not.toHaveClass(/\bin\b/)
+
+    const exploreButton = page.locator("#mit-learn-menu-button-mobile")
+    const exploreDrawer = page.locator("#mit-learn-nav-drawer")
+
+    await exploreButton.click()
+    await expect(exploreDrawer).toHaveClass(/open/)
+    // Not re-clicking exploreButton: Explore's own full-viewport backdrop
+    // covers its trigger button once open (pre-existing mit_learn_header.ts
+    // behavior, unrelated to this branch - no existing test in this
+    // codebase closes Explore this way either, only via its close button or
+    // the backdrop itself), so close it the same way the rest of the suite
+    // does.
+    await page.locator("#mit-learn-nav-close").click()
+    await expect(exploreDrawer).not.toHaveClass(/open/)
+  })
 })
