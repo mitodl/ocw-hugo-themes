@@ -1,4 +1,9 @@
-.skip-to-main-content {
+// Qualified with the element type so this outranks Bootstrap's
+// .sr-only-focusable:focus rule on the tied position property: both
+// selectors are otherwise equally specific, and Bootstrap's copy is
+// duplicated into a separately-loaded bundle (common.css) that can win
+// the source-order tiebreak depending on <link> order.
+a.skip-to-main-content {
   &:focus,
   &:focus-visible {
     position: absolute;
