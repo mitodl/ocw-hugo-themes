@@ -225,7 +225,9 @@ test.describe("Mobile Course Info drawer", () => {
     // The drawer's top edge should sit exactly at the header's bottom edge,
     // not underneath/behind it (which would need a higher z-index to
     // render on top instead).
-    expect(Math.abs(drawerBox.y - (headerBox.y + headerBox.height))).toBeLessThan(1)
+    expect(
+      Math.abs(drawerBox.y - (headerBox.y + headerBox.height))
+    ).toBeLessThan(1)
   })
 
   test("Drawer background matches the Explore MIT nav drawer's background", async ({
