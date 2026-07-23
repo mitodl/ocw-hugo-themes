@@ -349,6 +349,52 @@ describe("SearchPage component", () => {
     expect(searchResults.length).toBe(DEFAULT_UI_PAGE_SIZE)
   })
 
+  test("expands aliased department facets in the search query", async () => {
+    const searchString = serializeSearchParams({
+      activeFacets: { department_name: ["Music"] }
+    })
+    renderComponent(searchString)
+    await resolveSearch()
+
+    expect(spySearch.mock.calls[0][0].activeFacets?.department_name).toEqual([
+      "Music",
+      "Music and Theater Arts"
+    ])
+  })
+
+  test("merges aliased department buckets into a single facet count", async () => {
+    renderComponent()
+    await resolveSearch({
+      aggregations: {
+        department_name: {
+          buckets: [
+            { key: "Mathematics", doc_count: 10 },
+            { key: "Music", doc_count: 5 },
+            { key: "Music and Theater Arts", doc_count: 3 }
+          ]
+        }
+      }
+    })
+
+    const departmentFacet = screen
+      .getByText("Departments")
+      .closest(".facets") as HTMLElement
+    expect(departmentFacet).toBeInTheDocument()
+
+    // the alias itself should not be shown
+    expect(
+      within(departmentFacet).queryByText("Music and Theater Arts")
+    ).toBeNull()
+
+    // the canonical department should show the combined count (5 + 3)
+    const canonicalItem = within(departmentFacet)
+      .getByText("Music")
+      .closest(".facet-visible") as HTMLElement
+    expect(
+      within(canonicalItem).getByText("8", { selector: ".facet-count" })
+    ).toBeInTheDocument()
+  })
+
   test("should render filterable facets", async () => {
     renderComponent()
     await resolveSearch()
