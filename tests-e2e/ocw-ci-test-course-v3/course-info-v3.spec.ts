@@ -41,4 +41,21 @@ test.describe("Course v3 Course Info drawer focus management", () => {
     await openButton.click()
     await expect(closeButton).toBeFocused()
   })
+
+  test("close button aria-expanded matches the restored initial state", async ({
+    page
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 800 })
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/resources/file_pdf")
+
+    // The drawer is open by default for first-time visitors (no stored
+    // preference), and the close button's initial aria-expanded is
+    // hardcoded "false" server-side, so this only passes if the client-side
+    // state restoration also syncs the close button, not just the toggle.
+    const closeButton = page.locator(
+      "#desktop-course-drawer #desktop-course-drawer-button-close"
+    )
+    await expect(closeButton).toHaveAttribute("aria-expanded", "true")
+  })
 })
