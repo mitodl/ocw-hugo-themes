@@ -20,7 +20,7 @@
       {{ block "header" . }}{{ partialCached "header" . }}{{ end }}
       {{ block "subheader" . }}{{ partial "course_banner.html" . }}{{ end }}
     </div>
-    <main>
+    <div>
       <div class="course-main-content-v3">
         <div class="container-v3">
           <div class="mobile-nav-div medium-and-below-only align-self-stretch">
@@ -31,9 +31,9 @@
               <div class="course-nav-desktop large-and-above-only p-0">
                 {{ partialCached "desktop_nav.html" . }}
               </div>
-              <div id="course-content-section" class="course-detail d-flex flex-column align-items-start align-self-stretch" tabindex="-1">
+              <main id="course-content-section" class="course-detail d-flex flex-column align-items-start align-self-stretch" tabindex="-1">
                 {{ partialCached "course_detail.html" . }}
-              </div>
+              </main>
               <div class="col-12 col-md-4 col-lg-3 p-0 course-image-section">
                 {{ partialCached "course_image_section.html" . }}
               </div>
@@ -66,7 +66,7 @@
           {{ partial "course_licensing.html" . }}
         </div>
       </div>
-    </main>
+    </div>
     {{ block "footer" . }}{{ partial "footer-v3" . }}{{end}}
     {{ partialCached "hide_offline_links.html" . }}
   </div>
