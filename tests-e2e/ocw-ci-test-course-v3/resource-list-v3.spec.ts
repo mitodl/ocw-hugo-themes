@@ -205,6 +205,29 @@ test.describe("Course v3 Resource List", () => {
     expect(titleText).toBeTruthy()
   })
 
+  test("Resource title link has an accessible name distinct from the download link", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/lists/a-resource-list")
+
+    const pdfCard = page.locator(".resource-card", {
+      has: page.locator(".resource-card-title", { hasText: "file.pdf" })
+    })
+
+    const titleLink = pdfCard.locator(".resource-card-title")
+    const downloadLink = pdfCard.locator(".resource-card-thumbnail-link")
+
+    await expect(downloadLink).toHaveAttribute(
+      "aria-label",
+      "Download file.pdf"
+    )
+    await expect(titleLink).toHaveAttribute(
+      "aria-label",
+      "View file.pdf details"
+    )
+  })
+
   test("Resource cards have proper spacing and gap", async ({ page }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/lists/a-resource-list")
