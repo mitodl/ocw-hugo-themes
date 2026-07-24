@@ -39,7 +39,9 @@ async function assertSkipLinkWorks(page: Page, course: CoursePage) {
   expect(headerBox).not.toBeNull()
   const minContentY = headerBox!.y + headerBox!.height - 1
   await expect
-    .poll(async () => (await course.withinContent().boundingBox())?.y ?? -Infinity)
+    .poll(
+      async () => (await course.withinContent().boundingBox())?.y ?? -Infinity
+    )
     .toBeGreaterThanOrEqual(minContentY)
 }
 
@@ -73,7 +75,8 @@ test.describe("Course v3 skip to main content link", () => {
     // this test means to set up.
     const scrollYBefore = await page.evaluate(() => {
       const target = document.getElementById("course-content-section")
-      const headerOffset = parseFloat(getComputedStyle(target).scrollMarginTop) || 0
+      const headerOffset =
+        parseFloat(getComputedStyle(target).scrollMarginTop) || 0
       const absoluteTop = target.getBoundingClientRect().top + window.scrollY
       window.scrollTo(0, absoluteTop - headerOffset - 20)
       return window.scrollY
@@ -82,9 +85,7 @@ test.describe("Course v3 skip to main content link", () => {
     // Dispatch a real click on the skip link itself, exercising its actual
     // handler, without Tab/mouse actionability scrolling getting in the way.
     await page.evaluate(() => {
-      document
-        .querySelector<HTMLElement>(".skip-to-main-content")
-        ?.click()
+      document.querySelector<HTMLElement>(".skip-to-main-content")?.click()
     })
 
     await expect(course.withinContent()).toBeFocused()
