@@ -3,6 +3,7 @@ import "promise-polyfill/src/polyfill.js"
 import "./css/course-v3.scss"
 import { initDivToggle } from "./js/div_toggle"
 import { initMITLearnHeader } from "./js/mit_learn_header"
+import { initDrawerMutualExclusion } from "./js/drawer_mutual_exclusion"
 import {
   initCourseInfoExpander,
   initCourseDescriptionExpander
@@ -37,6 +38,7 @@ declare let window: OCWWindow
 $(function() {
   window.posthog = initPostHog()
   initMITLearnHeader()
+  initDrawerMutualExclusion()
   initCourseDescriptionExpander(document)
   initCourseInfoExpander(document)
   initDivToggle()
