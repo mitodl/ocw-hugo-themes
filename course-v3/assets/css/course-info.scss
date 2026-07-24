@@ -64,6 +64,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  // Matches .mit-learn-nav-close-button's own nudge (mit-learn-header.scss)
+  transform: translateX(12px);
 
   &:hover {
     background: rgba(64, 70, 76, 0.06);
