@@ -17,11 +17,12 @@ jest.mock("@mitodl/smoot-design", () => ({
 const mockHooks = ({
   isAuthenticated = true,
   resourceId = undefined as number | undefined,
+  title = undefined as string | undefined,
   memberships = [] as string[]
 } = {}) => {
   jest.mocked(userHooks.useUserIsAuthenticated).mockReturnValue(isAuthenticated)
   jest.mocked(lrHooks.useLearningResourceByReadableId).mockReturnValue({
-    data:      resourceId !== undefined ? { id: resourceId } : undefined,
+    data:      resourceId !== undefined ? { id: resourceId, title } : undefined,
     isLoading: false
   } as ReturnType<typeof lrHooks.useLearningResourceByReadableId>)
   jest.mocked(ulHooks.useUserListMemberList).mockReturnValue({
@@ -62,4 +63,26 @@ test("shows filled bookmark when resource is in user list", () => {
   mockHooks({ resourceId: 42, memberships: ["1"] })
   render(<BookmarkButton resourceReadableId="6.001+fall_2024" />)
   expect(screen.getByRole("button")).toHaveAttribute("variant", "primary")
+})
+
+test("has a generic accessible name to add a resource before its title loads", () => {
+  mockHooks({ resourceId: 42 })
+  render(<BookmarkButton resourceReadableId="6.001+fall_2024" />)
+  expect(screen.getByRole("button")).toHaveAccessibleName("Add to list")
+})
+
+test("has a specific accessible name to add a resource once its title loads", () => {
+  mockHooks({ resourceId: 42, title: "Clip: Finale" })
+  render(<BookmarkButton resourceReadableId="6.001+fall_2024" />)
+  expect(screen.getByRole("button")).toHaveAccessibleName(
+    "Add Clip: Finale to your list"
+  )
+})
+
+test("has a specific accessible name to remove a resource already in a list", () => {
+  mockHooks({ resourceId: 42, title: "Clip: Finale", memberships: ["1"] })
+  render(<BookmarkButton resourceReadableId="6.001+fall_2024" />)
+  expect(screen.getByRole("button")).toHaveAccessibleName(
+    "Remove Clip: Finale from your list"
+  )
 })
