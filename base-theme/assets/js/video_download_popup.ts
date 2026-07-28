@@ -2,38 +2,39 @@ export const initVideoDownloadPopup = () => {
   const downloadIcons = document.querySelectorAll(".video-download-icons")
   const popups = document.querySelectorAll(".video-tab-download-popup")
   let activePopup: HTMLElement | null = null
-  let activePopupDownloadIconIndex = -1
+  let activeIcon: Element | null = null
 
   function resetPopupToMainMenu(popup: HTMLElement) {
     popup.removeAttribute("data-view")
   }
 
-  downloadIcons.forEach((downloadIcon, index) => {
-    const popup = popups[index] as HTMLElement
+  function closeActivePopup() {
+    if (!activePopup) return
+    activeIcon?.setAttribute("aria-expanded", "false")
+    activePopup.classList.add("hidden")
+    resetPopupToMainMenu(activePopup)
+    activePopup = null
+    activeIcon = null
+  }
+
+  downloadIcons.forEach(downloadIcon => {
+    // Resolve the popup from the icon's own tab section. Matching icons to popups
+    // by document index breaks as soon as a tab renders one without the other.
+    const popup = downloadIcon
+      .closest(".video-tab-toggle-section")
+      ?.querySelector(".video-tab-download-popup") as HTMLElement | null
+    if (!popup) return
+
     downloadIcon.addEventListener("click", event => {
       event.stopPropagation()
-      if (popup === activePopup) {
-        // Clicked on the same download button, toggle the popup
-        downloadIcon.setAttribute("aria-expanded", "false")
-        popup.classList.toggle("hidden")
-        resetPopupToMainMenu(popup)
-        activePopup = null
-      } else {
-        // Clicked on a different download button, close previous popup (if any) and toggle open new popup
-        if (activePopup) {
-          downloadIcons[activePopupDownloadIconIndex].setAttribute(
-            "aria-expanded",
-            "false"
-          )
-          activePopup.classList.add("hidden")
-          resetPopupToMainMenu(activePopup)
-        }
-        // Show the clicked popup
-        downloadIcon.setAttribute("aria-expanded", "true")
-        popup.classList.remove("hidden")
-        activePopup = popup
-        activePopupDownloadIconIndex = index
-      }
+      const wasActive = popup === activePopup
+      closeActivePopup()
+      // Clicking the open popup's own button just closes it
+      if (wasActive) return
+      downloadIcon.setAttribute("aria-expanded", "true")
+      popup.classList.remove("hidden")
+      activePopup = popup
+      activeIcon = downloadIcon
     })
   })
 
@@ -99,15 +100,7 @@ export const initVideoDownloadPopup = () => {
 
   // Click anywhere on page: close active popup and any open transcript dropdowns
   document.addEventListener("click", () => {
-    if (activePopup) {
-      downloadIcons[activePopupDownloadIconIndex].setAttribute(
-        "aria-expanded",
-        "false"
-      )
-      activePopup.classList.add("hidden")
-      resetPopupToMainMenu(activePopup)
-      activePopup = null
-    }
+    closeActivePopup()
     transcriptLangBtns.forEach(btn => {
       const htmlBtn = btn as HTMLElement
       const dropdown = btn.closest(".transcript-lang-dropdown") as HTMLElement
