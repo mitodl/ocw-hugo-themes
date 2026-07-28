@@ -1,6 +1,12 @@
 {{ $isEmbedVideo := eq .tabTitle "View video page" }}
 {{ $videoHasTranscript := eq .tabTitle "Transcript" }}
 {{ $hasTranscriptLinks := and $videoHasTranscript .transcriptLinks (gt (len .transcriptLinks) 0) }}
+{{/*  The download menu is only meaningful when there is something to download.
+  Without this gate the button opens an empty popup, which is what embedded videos
+  OCW did not produce look like: no file, no archive_url and no transcripts.
+  See https://github.com/mitodl/hq/issues/4188  */}}
+{{ $hasDownloads := or .downloadLink .transcriptLinks .transcriptLink }}
+{{ $showDownloads := and $hasDownloads (or $videoHasTranscript $isEmbedVideo (eq .tabTitle "")) }}
 <div class="video-tab-toggle-section pointer">
   <div class="video-tab-header d-flex">
     {{ if .tabTitle }}
@@ -16,9 +22,9 @@
         {{ end }}
       </span>
     {{ end }}
-    {{/*  If we have transcript or the video is embed video, show download button on those tabs.
-      Otherwise show download button in a standalone tab bar  */}}
-    {{ if or ($videoHasTranscript) ($isEmbedVideo) (eq .tabTitle "") }}
+    {{/*  The download button lives on the transcript and embed video tabs, or in a
+      standalone tab bar when there is no tab title  */}}
+    {{ if $showDownloads }}
       <div class="ml-auto">
         <button class="video-download-icons" aria-label="Show Downloads" aria-expanded="false">
           <img class="video-download-icon" src="{{ partial "get_asset_webpack_url.html" "images/videojs_download.svg" }}" aria-hidden="true"/>
@@ -27,6 +33,7 @@
       </div>
     {{ end }}
   </div>
+  {{ if $showDownloads }}
   <div class="video-tab-download-popup hidden">
     {{/* Main menu view */}}
     <div class="download-menu-main">
@@ -67,6 +74,7 @@
     </div>
     {{ end }}
   </div>
+  {{ end }}
 </div>
 {{ if $hasTranscriptLinks }}
 {{- $defaultLabel := "" -}}
