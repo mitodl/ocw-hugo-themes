@@ -29,7 +29,7 @@
     </div>
   </a>
   {{ end }}
-  <a class="resource-card-title" href="{{ partial "page_url.html" (dict "context" .context "url" .permalink) }}">
+  <a class="resource-card-title" href="{{ partial "page_url.html" (dict "context" .context "url" .permalink) }}" aria-label="View {{ .Params.title | plainify }} details">
     {{- .Params.title -}}
   </a>
 </div>

@@ -14,9 +14,13 @@ resourcetype: Video
 title: file.mp4
 uid: 7f1c9c9a-7dd8-4c6e-8592-fb43e1d7d363
 video_files:
-  video_captions_file: /courses/1-ht-test-site-spring-2023/1O2ibaxhTe_31s1vVUIz1YYRQGaRgguWY_transcript.webvtt
+  video_captions_resources:
+    - file: /courses/1-ht-test-site-spring-2023/1O2ibaxhTe_31s1vVUIz1YYRQGaRgguWY_transcript.webvtt
+      language: en
   video_thumbnail_file: https://img.youtube.com/vi/FNwzS2nCwS0/default.jpg
-  video_transcript_file: /courses/1-ht-test-site-spring-2023/1O2ibaxhTe_31s1vVUIz1YYRQGaRgguWY_transcript.pdf
+  video_transcript_resources:
+    - file: /courses/1-ht-test-site-spring-2023/1O2ibaxhTe_31s1vVUIz1YYRQGaRgguWY_transcript.pdf
+      language: en
 video_metadata:
   video_speakers: ''
   video_tags: ''

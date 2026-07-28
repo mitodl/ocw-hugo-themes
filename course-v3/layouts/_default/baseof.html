@@ -7,6 +7,7 @@
 {{ partial "head.html" . }}
 
 <body class="course-home-page has-mit-learn-header">
+  {{ partial "skip_link.html" }}
   {{ if $gtmId }}
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId | safeURL }}" height="0" width="0"
@@ -30,7 +31,7 @@
             <div class="course-nav-desktop large-and-above-only p-0">
               {{ partialCached "desktop_nav.html" . }}
             </div>
-            <main id="course-content-section" class="course-detail align-self-stretch">
+            <main id="course-content-section" class="course-detail align-self-stretch" tabindex="-1">
               {{ block "main" . }}{{ end }}
             </main>
             <div class="col-12 col-md-4 col-lg-3 p-0 desktop-course-info tablet-and-above-only">
@@ -63,6 +64,7 @@
     // IDs of elements
     const DESKTOP_COURSE_DRAWER_ID = "desktop-course-drawer"
     const COURSE_DRAWER_BTN_ID = "desktop-course-drawer-button"
+    const COURSE_DRAWER_CLOSE_BTN_ID = "desktop-course-drawer-button-close"
 
     try{
 
@@ -87,6 +89,13 @@
               return;
             }
             setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_OPENED)
+            // course_info.html renders this id in both the desktop and mobile
+            // drawer markup, so scope the lookup to the desktop drawer to
+            // avoid focusing the mobile copy.
+            const closeBtn = document.querySelector(`#${DESKTOP_COURSE_DRAWER_ID} #${COURSE_DRAWER_CLOSE_BTN_ID}`)
+            if (closeBtn) {
+              closeBtn.focus()
+            }
           })
       
           drawer.on("hidden.bs.collapse", (event) => {
@@ -94,6 +103,10 @@
               return;
             }
             setLocalStorageItem(COURSE_DRAWER_LOCAL_STORAGE_KEY, COURSE_DRAWER_CLOSED)
+            const drawerBtn = document.getElementById(COURSE_DRAWER_BTN_ID)
+            if (drawerBtn) {
+              drawerBtn.focus()
+            }
           })
         })
       }
@@ -101,13 +114,24 @@
       function showOrHideDesktopCourseDrawer(state) {
         const drawer = document.getElementById(DESKTOP_COURSE_DRAWER_ID)
         const button = document.getElementById(COURSE_DRAWER_BTN_ID)
+        // The close button lives inside the drawer and is a Bootstrap collapse
+        // trigger too, so keep its aria-expanded in sync here. This path sets
+        // the .show class directly (bypassing Bootstrap's API to avoid firing
+        // collapse events on load), so Bootstrap's own trigger-sync doesn't run.
+        const closeButton = drawer.querySelector(`#${COURSE_DRAWER_CLOSE_BTN_ID}`)
 
         if (state === COURSE_DRAWER_OPENED) {
           drawer.classList.add("show")
           button.setAttribute("aria-expanded", "true")
+          if (closeButton) {
+            closeButton.setAttribute("aria-expanded", "true")
+          }
         } else {
           drawer.classList.remove("show")
           button.setAttribute("aria-expanded", "false")
+          if (closeButton) {
+            closeButton.setAttribute("aria-expanded", "false")
+          }
         }
       }
 

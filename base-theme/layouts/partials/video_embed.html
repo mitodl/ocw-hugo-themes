@@ -2,7 +2,7 @@
 {{ $resource := .resource }}
 {{ $youtubeKey := trim $resource.Params.video_metadata.youtube_id " "}}
 {{ $archiveUrl := $resource.Params.video_files.archive_url }}
-{{ $captionsSource := cond (reflect.IsSlice $resource.Params.video_files.video_captions_resources) $resource.Params.video_files.video_captions_resources $resource.Params.video_files.video_captions_file }}
+{{ $captionsSource := $resource.Params.video_files.video_captions_resources }}
 {{ $captionTracks := partial "video_caption_tracks.html" (dict "context" $context "captionsFile" $captionsSource) }}
 {{ $captionsLocation := "" }}
 {{ if gt (len $captionTracks) 0 }}
@@ -12,7 +12,7 @@
 {{ $startTime := $resource.Params.start_time | default "" }}
 {{ $endTime := $resource.Params.end_time | default "" }}
 {{ $downloadLink := $resource.Params.file }}
-{{ $transcriptSource := cond (reflect.IsSlice $resource.Params.video_files.video_transcript_resources) $resource.Params.video_files.video_transcript_resources $resource.Params.video_files.video_transcript_file }}
+{{ $transcriptSource := $resource.Params.video_files.video_transcript_resources }}
 {{ $transcriptLinks := partial "video_transcript_links.html" (dict "context" $context "transcriptFile" $transcriptSource) }}
 {{ $transcriptPdfLocation := "" }}
 {{ if gt (len $transcriptLinks) 0 }}

@@ -19,7 +19,7 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
     {{ if $inPanel}}
     <button type="button" class="course-info-button tablet-and-above-only position-static border-0 bg-white"
       id="desktop-course-drawer-button-close" data-target="#desktop-course-drawer" data-toggle="collapse"
-      aria-label="Course Info" aria-controls="desktop-course-drawer" aria-expanded="false">
+      aria-label="Close Course Info" aria-controls="desktop-course-drawer" aria-expanded="false">
       <svg aria-hidden="true" class="collapse-drawer-img" xmlns="http://www.w3.org/2000/svg" width="13" height="13"
         viewBox="0 0 13 13" fill="none">
         <path
@@ -76,12 +76,15 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
             Level
           </h3>
           <div class="{{ if $inPanel }}panel-course-info-text{{ end }}">
+            {{ $levelValueMap := dict "Undergraduate" "undergraduate" "Graduate" "graduate" "Non-Credit" "noncredit" "High School" "high_school" }}
             {{ if eq (printf "%T" $courseData.level) "string" }} {{
-            $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
+            $levelValue := index $levelValueMap $courseData.level | default $courseData.level }} {{
+            $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $levelValue) }}
             {{- partial "link.html" (dict "href" $levelSearchUrl "text" $courseData.level "stripLinkOffline" true) -}}
             {{ else }}
             {{ range $courseData.level }}
-            {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) }}
+            {{ $levelValue := index $levelValueMap . | default . }}
+            {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $levelValue) }}
             {{- partial "link.html" (dict "href" $levelSearchUrl "text" . "stripLinkOffline" true) -}}<br />
             {{ end }}
             {{ end }}
