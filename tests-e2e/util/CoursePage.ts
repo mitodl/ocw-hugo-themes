@@ -20,9 +20,20 @@ class CoursePage {
     this.siteAlias = site
   }
 
-  async goto(route = ""): Promise<Response | null> {
+  /**
+   * Navigate to a route on this course site.
+   *
+   * Pass `waitUntil: "domcontentloaded"` when the test only inspects
+   * server-rendered markup. The default `load` waits on the cross-origin YouTube
+   * iframes embedded by the video player, which is slow and flaky on pages with
+   * several videos.
+   */
+  async goto(
+    route = "",
+    { waitUntil }: { waitUntil?: "load" | "domcontentloaded" } = {}
+  ): Promise<Response | null> {
     const fullRoute = siteUrl(this.siteAlias, route)
-    return this.page.goto(fullRoute)
+    return this.page.goto(fullRoute, { waitUntil })
   }
 
   /**
