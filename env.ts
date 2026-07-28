@@ -77,6 +77,10 @@ const envSchema = {
     desc:       "The domain used when writing fully qualified URLs into the sitemap",
     devDefault: "live-qa.ocw.mit.edu"
   }),
+  COURSE_V3_CANONICAL_DOMAIN: envalid.str({
+    desc:       "The domain used for canonical URLs in the course-v3 theme (e.g. learn.mit.edu)",
+    devDefault: "learn.mit.edu"
+  }),
   STATIC_API_BASE_URL: envalid.url({
     desc:       "URL of a deployed Hugo site with a static JSON API to query against",
     devDefault: "https://live-qa.ocw.mit.edu/"
