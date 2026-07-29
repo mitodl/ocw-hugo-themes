@@ -1,5 +1,8 @@
 {{- $text := default .title .text -}}
-{{- $href := default "" .external_url -}}
+{{- $rawHref := default "" .external_url -}}
+{{/* course-v3 rewrites OCW course URLs onto the v3 canonical domain and
+     /courses/o/ prefix; other themes pass the URL through unchanged. */}}
+{{- $href := partial "get_external_url.html" $rawHref -}}
 {{- $hasWarning := default true .has_external_license_warning -}}
 {{- $className := printf "%s %s" "external-link" (default "" .class) -}}
 {{- $onClick := "" -}}
@@ -10,7 +13,11 @@
   {{/* Prevents external links from being clicked before corresponding JS is fully loaded. */}}
   {{- $onClick = "event.preventDefault()" -}}
 {{- end -}}
-{{- if not (in $href "ocw.mit.edu") -}}
+{{/* Decide "is this an OCW link" from the authored URL, not the rewritten one:
+     COURSE_V3_CANONICAL_DOMAIN need not contain ocw.mit.edu, and a rewritten
+     host must not flip an internal link into an external one with a
+     leaving-OCW warning. */}}
+{{- if not (in $rawHref "ocw.mit.edu") -}}
   {{- partial "link" (dict
       "href" $href
       "text" $text
