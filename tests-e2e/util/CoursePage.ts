@@ -32,7 +32,9 @@ class CoursePage {
     route = "",
     {
       waitUntil
-    }: { waitUntil?: NonNullable<Parameters<Page["goto"]>[1]>["waitUntil"] } = {}
+    }: {
+      waitUntil?: NonNullable<Parameters<Page["goto"]>[1]>["waitUntil"]
+    } = {}
   ): Promise<Response | null> {
     const fullRoute = siteUrl(this.siteAlias, route)
     return this.page.goto(fullRoute, { waitUntil })
