@@ -19,7 +19,8 @@ export const initVideoDownloadPopup = () => {
 
   downloadIcons.forEach(downloadIcon => {
     // Resolve the popup from the icon's own tab section. Matching icons to popups
-    // by document index breaks as soon as a tab renders one without the other.
+    // by document index only held because icon-bearing tabs happen to be rendered
+    // first; resolving from the section removes that ordering dependency.
     const popup = downloadIcon
       .closest(".video-tab-toggle-section")
       ?.querySelector(".video-tab-download-popup") as HTMLElement | null

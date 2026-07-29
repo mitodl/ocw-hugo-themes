@@ -35,8 +35,9 @@ const render = (...sections: SectionSpec[]) => {
 
 describe("initVideoDownloadPopup", () => {
   it("opens the popup in the clicked icon's own section", () => {
-    // A tab that has a popup but no download button comes first, so pairing by
-    // document index would open the wrong popup.
+    // A tab with a popup but no download button comes first. The templates do not
+    // currently emit this order, so this guards the ordering assumption rather than
+    // reproducing a live bug: pairing by document index would open the wrong popup.
     const { icons, popups } = render(
       { icon: false, popup: true },
       { icon: true, popup: true }
