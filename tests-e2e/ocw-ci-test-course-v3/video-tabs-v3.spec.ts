@@ -218,10 +218,7 @@ const ARCHIVE_URL = "http://www.archive.org/download/MIT18.06S05_MP4/01.mp4"
 
 /**
  * These tests assert on server-rendered markup, so they navigate with
- * `domcontentloaded` rather than waiting on the embedded YouTube iframes. The
- * download popup's click behaviour is covered by the Jest tests in
- * base-theme/assets/js/video_download_popup.test.ts and by the interaction tests
- * above.
+ * `domcontentloaded` rather than waiting on the embedded YouTube iframes.
  */
 test.describe("Course v3 video download button visibility", () => {
   test("embedded videos with nothing to download have no download button", async ({
@@ -241,8 +238,7 @@ test.describe("Course v3 video download button visibility", () => {
       page.getByRole("link", { name: "View video page" })
     ).toHaveCount(3)
 
-    // Popups are gated on the same condition as the button, so the counts stay
-    // 1:1. video_download_popup.ts depends on finding a popup for every button.
+    // Buttons and popups stay 1:1.
     await expect(page.locator(".video-download-icons")).toHaveCount(1)
     await expect(page.locator(".video-tab-download-popup")).toHaveCount(1)
   })
@@ -254,8 +250,7 @@ test.describe("Course v3 video download button visibility", () => {
     await course.goto(NO_DOWNLOADS_PAGE, { waitUntil: "domcontentloaded" })
     const video = new VideoElement(page, 2)
 
-    // This resource has an empty `file` and a valid archive_url, so the fallback
-    // in get_video_download_link.html has to fire for it.
+    // Empty `file`, valid archive_url.
     await expect(video.downloadButton()).toHaveCount(1)
     await expect(video.downloadVideoLink()).toHaveAttribute("href", ARCHIVE_URL)
   })

@@ -1,16 +1,9 @@
 {{ $isEmbedVideo := eq .tabTitle "View video page" }}
 {{ $videoHasTranscript := eq .tabTitle "Transcript" }}
 {{ $hasTranscriptLinks := and $videoHasTranscript .transcriptLinks (gt (len .transcriptLinks) 0) }}
-{{/*  The download menu is only meaningful when there is something to download.
-  Without this gate the button opens an empty popup, which is what embedded videos
-  OCW did not produce look like: no file, no archive_url and no transcripts.
-  See https://github.com/mitodl/hq/issues/4188
-
-  The three terms below must mirror the item conditions in the popup body further
-  down (downloadLink, transcriptLinks, transcriptLink), so that the button appears
-  exactly when the popup would render at least one entry. transcriptLink is unused
-  by every current caller, but keep it here as long as the popup still branches on
-  it, otherwise the button and the menu can disagree.  */}}
+{{/*  These terms mirror the popup's item conditions below, so the button appears
+  exactly when the popup would render at least one entry. transcriptLink is unused by
+  current callers; keep it while the popup still branches on it.  */}}
 {{ $hasDownloads := or .downloadLink .transcriptLinks .transcriptLink }}
 {{ $showDownloads := and $hasDownloads (or $videoHasTranscript $isEmbedVideo (eq .tabTitle "")) }}
 <div class="video-tab-toggle-section pointer">

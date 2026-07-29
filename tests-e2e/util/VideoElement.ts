@@ -44,9 +44,9 @@ export class VideoElement {
   /**
    * The "Download video" link, located by attribute rather than by role.
    *
-   * A closed popup is `visibility: hidden`, which takes its contents out of the
-   * accessibility tree, so `downloadVideo()` only matches once the popup has been
-   * opened. Use this when asserting on the rendered href without clicking.
+   * A closed popup is `visibility: hidden`, so its contents sit outside the
+   * accessibility tree and `downloadVideo()` matches only once the popup is open.
+   * Use this to assert on the rendered href without clicking.
    */
   downloadVideoLink(): Locator {
     return this.container.locator('a[aria-label="Download video"]')

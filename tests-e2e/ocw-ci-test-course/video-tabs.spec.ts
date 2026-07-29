@@ -394,10 +394,7 @@ test("Language selector active option is not bold (consistent with menu styling)
 
 /**
  * The tests below assert on server-rendered markup, so they navigate with
- * `domcontentloaded` rather than waiting on the embedded YouTube iframes. The
- * download popup's click behaviour is covered by the Jest tests in
- * base-theme/assets/js/video_download_popup.test.ts and by the interaction tests
- * above.
+ * `domcontentloaded` rather than waiting on the embedded YouTube iframes.
  */
 test("that embedded videos with nothing to download have no download button", async ({
   page
@@ -408,8 +405,7 @@ test("that embedded videos with nothing to download have no download button", as
   })
 
   // Three embedded videos: two with nothing downloadable, one with only an
-  // archive_url. Only the last renders a button, and popups are gated on the
-  // same condition so the counts stay 1:1.
+  // archive_url. Buttons and popups stay 1:1.
   await expect(new VideoElement(page).container).toHaveCount(3)
   await expect(new VideoElement(page, 0).downloadButton()).toHaveCount(0)
   await expect(new VideoElement(page, 1).downloadButton()).toHaveCount(0)
@@ -426,8 +422,7 @@ test("that an embedded video with only an archive_url still offers a download", 
   })
   const video = new VideoElement(page, 2)
 
-  // Empty `file` plus a valid archive_url: the fallback in
-  // get_video_download_link.html has to fire for it.
+  // Empty `file`, valid archive_url.
   await expect(video.downloadButton()).toHaveCount(1)
   await expect(video.downloadVideoLink()).toHaveAttribute(
     "href",
