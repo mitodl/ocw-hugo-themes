@@ -4,7 +4,7 @@ import { offlineFileUrl, V3_CANONICAL_DOMAIN } from "../util"
 /**
  * Search and facet links (departments, topics, level, instructors) all funnel
  * through get_search_url.html. base-offline prefixes an absolute host because a
- * root-relative /search/ cannot resolve in an extracted package, and
+ * root-relative /search/ cannot resolve in an offline package, and
  * course-offline-v3 overrides search_base_url.html so that host is the v3
  * canonical domain rather than the static API host.
  *

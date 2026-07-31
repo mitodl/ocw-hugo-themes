@@ -5,7 +5,7 @@ import { offlineFileUrl, V3_CANONICAL_DOMAIN } from "../util"
  * Offline builds set relativeURLs: true, so Hugo rewrites any root-relative URL
  * in the output into a path relative to the current page. That keeps in-package
  * links working over file://, but it means a root-relative URL meant for the
- * live site turns into a dead path inside the extracted package.
+ * live site turns into a dead path inside the offline package.
  *
  * Links that leave the package therefore have to be fully qualified before Hugo
  * sees them — see course-offline-v3/layouts/partials/absolutize_course_url.html.
@@ -72,8 +72,10 @@ test.describe("offline-v3 legacy /courses/ link rewriting", () => {
 
     const link = page.getByRole("link", { name: "Own base path link" })
 
-    // canonical_course_url leaves an already-prefixed path alone, so no second
-    // prefix and no trailing slash is added — only the host.
+    // canonical_course_url leaves an already-prefixed path alone, so it gains no
+    // second prefix. absolutize_course_url still adds the host, which is what
+    // offline needs. (No trailing slash is added here, but that is true of every
+    // path now, not something specific to the already-prefixed case.)
     await expect(link).toHaveAttribute(
       "href",
       `${CANONICAL}/courses/o/ocw-ci-test-course/pages/second-test-page`

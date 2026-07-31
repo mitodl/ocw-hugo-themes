@@ -13,12 +13,25 @@ import { CoursePage, TEST_SITES } from "../util"
  * that populates site_url_path, so the served slug matches the authored one.
  */
 const PAGE = "/pages/legacy-course-links"
+
+/**
+ * What canonical_course_url.html produces for a link to this course. Kept as a
+ * literal on purpose: that partial hardcodes the /courses/o/ prefix and passes
+ * the authored slug straight through, so it never consults site.BaseURL.
+ * Deriving this from TEST_SITES[...].basePath would make a prefix change (say
+ * --base-url-prefix /courses/x) silently follow the harness instead of failing
+ * here, which is where the hardcoding actually lives.
+ */
+const REWRITTEN_SELF = "/courses/o/ocw-ci-test-course"
+
+/**
+ * The site's real base path, for links Hugo builds from RelPermalink. Those do
+ * track baseURL, so this one is derived.
+ */
 const SELF_PREFIX = `/${TEST_SITES["course-v3"].basePath}`
 
 test.describe("Course v3 legacy /courses/ link rewriting", () => {
-  test("Same-course link resolves against this site's baseURL", async ({
-    page
-  }) => {
+  test("Same-course link gains the /courses/o/ prefix", async ({ page }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto(PAGE)
 
@@ -28,7 +41,7 @@ test.describe("Course v3 legacy /courses/ link rewriting", () => {
     // slash and costs a 301 on click. Accepted.
     await expect(link).toHaveAttribute(
       "href",
-      `${SELF_PREFIX}/pages/first-test-page-title`
+      `${REWRITTEN_SELF}/pages/first-test-page-title`
     )
   })
 
@@ -40,15 +53,17 @@ test.describe("Course v3 legacy /courses/ link rewriting", () => {
 
     await page.getByRole("link", { name: "Self link", exact: true }).click()
 
+    // Tolerant of the trailing slash: the rewritten href omits it, and the
+    // server 301s to the slashed form. Landing on the page proves that works.
     await expect(page).toHaveURL(
-      new RegExp(`${SELF_PREFIX}/pages/first-test-page-title/?$`)
+      new RegExp(`${REWRITTEN_SELF}/pages/first-test-page-title/?$`)
     )
     await expect(page.locator("body")).toContainText(
       "This is the body of the first test page."
     )
   })
 
-  test("Same-course link keeps its fragment exactly once", async ({ page }) => {
+  test("Same-course link preserves its fragment", async ({ page }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto(PAGE)
 
@@ -56,7 +71,7 @@ test.describe("Course v3 legacy /courses/ link rewriting", () => {
 
     await expect(link).toHaveAttribute(
       "href",
-      `${SELF_PREFIX}/pages/first-test-page-title#a-section`
+      `${REWRITTEN_SELF}/pages/first-test-page-title#a-section`
     )
   })
 
@@ -68,12 +83,14 @@ test.describe("Course v3 legacy /courses/ link rewriting", () => {
 
     const link = page.getByRole("link", { name: "Self link to missing page" })
 
-    // Documents an accepted cost of dropping the site.GetPage lookup: this page
-    // does not exist, and the build says nothing about it. Nothing else in the
-    // pipeline catches dead internal links.
+    // Documentation, not coverage: with the site.GetPage lookup gone there is no
+    // code path that distinguishes an existing page from a missing one, so this
+    // shares its path with the self-link test above. It exists to record the
+    // accepted cost — the target does not exist, the build says nothing, and
+    // nothing else in the pipeline catches dead internal links.
     await expect(link).toHaveAttribute(
       "href",
-      `${SELF_PREFIX}/pages/deliberately-missing-page#a-section`
+      `${REWRITTEN_SELF}/pages/deliberately-missing-page#a-section`
     )
   })
 
@@ -125,7 +142,7 @@ test.describe("Course v3 legacy /courses/ link rewriting", () => {
     )
   })
 
-  test("Link already at this site's base path is left alone", async ({
+  test("An already-correct link is not rewritten a second time", async ({
     page
   }) => {
     const course = new CoursePage(page, "course-v3")
@@ -133,18 +150,18 @@ test.describe("Course v3 legacy /courses/ link rewriting", () => {
 
     const link = page.getByRole("link", { name: "Own base path link" })
 
-    // A link that is already correct must survive untouched — this is the shape
-    // resource_link shortcodes emit back into this same hook.
+    // Idempotency: this is the shape resource_link shortcodes emit back into the
+    // same hook, so it must survive untouched.
     //
-    // Two guards independently produce this result while the prefix is
-    // /courses/o: get_destination.html's $basePath check, and
-    // canonical_course_url.html's /courses/o/ check. Neutralizing either one
-    // alone still passes. The $basePath guard is the one that matters for a
-    // different prefix (--base-url-prefix /courses/x, say), where the
-    // normalizer would otherwise rewrite a correct self-link.
+    // Note this does not isolate get_destination.html's $basePath guard. While
+    // the prefix is /courses/o, that guard and canonical_course_url.html's
+    // /courses/o/ check each produce this result independently — neutralizing
+    // either one alone still passes. The $basePath guard only becomes load-
+    // bearing under a different prefix (--base-url-prefix /courses/x, say),
+    // where the normalizer would otherwise rewrite a correct self-link.
     await expect(link).toHaveAttribute(
       "href",
-      `${SELF_PREFIX}/pages/second-test-page`
+      `${REWRITTEN_SELF}/pages/second-test-page`
     )
   })
 

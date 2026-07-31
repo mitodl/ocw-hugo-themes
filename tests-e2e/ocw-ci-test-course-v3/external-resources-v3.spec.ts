@@ -9,6 +9,13 @@ import { CoursePage, V3_CANONICAL_DOMAIN } from "../util"
  * host changed.
  */
 const CANONICAL = `https://${V3_CANONICAL_DOMAIN}`
+
+/**
+ * The trailing slash here comes from the fixture's own external_url
+ * (test-sites/ocw-ci-test-course/content/external-resources/ocw-course-link.md),
+ * not from canonical_course_url.html — that partial no longer adds one. Do not
+ * "align" these with the slash-less expectations in legacy-course-links-v3.spec.ts.
+ */
 const REWRITTEN = `${CANONICAL}/courses/o/some-other-course-fall-2020/pages/syllabus/`
 
 test.describe("Course v3 external resource link rewriting", () => {
