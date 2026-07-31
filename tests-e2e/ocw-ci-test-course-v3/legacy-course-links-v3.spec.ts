@@ -24,11 +24,11 @@ test.describe("Course v3 legacy /courses/ link rewriting", () => {
 
     const link = page.getByRole("link", { name: "Self link", exact: true })
 
-    // canonical_course_url adds Hugo's canonical trailing slash, so this does
-    // not cost a redirect and matches what resource_link shortcodes emit.
+    // The path is passed through as authored, so it keeps the missing trailing
+    // slash and costs a 301 on click. Accepted.
     await expect(link).toHaveAttribute(
       "href",
-      `${SELF_PREFIX}/pages/first-test-page-title/`
+      `${SELF_PREFIX}/pages/first-test-page-title`
     )
   })
 
@@ -56,7 +56,7 @@ test.describe("Course v3 legacy /courses/ link rewriting", () => {
 
     await expect(link).toHaveAttribute(
       "href",
-      `${SELF_PREFIX}/pages/first-test-page-title/#a-section`
+      `${SELF_PREFIX}/pages/first-test-page-title#a-section`
     )
   })
 
@@ -73,7 +73,7 @@ test.describe("Course v3 legacy /courses/ link rewriting", () => {
     // pipeline catches dead internal links.
     await expect(link).toHaveAttribute(
       "href",
-      `${SELF_PREFIX}/pages/deliberately-missing-page/#a-section`
+      `${SELF_PREFIX}/pages/deliberately-missing-page#a-section`
     )
   })
 
@@ -91,7 +91,7 @@ test.describe("Course v3 legacy /courses/ link rewriting", () => {
     // destination starting with "http".
     await expect(link).toHaveAttribute(
       "href",
-      "/courses/o/some-other-course-fall-2020/pages/syllabus/"
+      "/courses/o/some-other-course-fall-2020/pages/syllabus"
     )
     await expect(link).not.toHaveAttribute("target", "_blank")
   })
@@ -104,7 +104,7 @@ test.describe("Course v3 legacy /courses/ link rewriting", () => {
 
     await expect(link).toHaveAttribute(
       "href",
-      "/courses/o/some-other-course-fall-2020/"
+      "/courses/o/some-other-course-fall-2020"
     )
   })
 

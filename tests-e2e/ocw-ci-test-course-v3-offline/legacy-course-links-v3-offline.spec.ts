@@ -24,7 +24,7 @@ test.describe("offline-v3 legacy /courses/ link rewriting", () => {
 
     await expect(link).toHaveAttribute(
       "href",
-      `${CANONICAL}/courses/o/ocw-ci-test-course/pages/first-test-page-title/`
+      `${CANONICAL}/courses/o/ocw-ci-test-course/pages/first-test-page-title`
     )
   })
 
@@ -35,7 +35,7 @@ test.describe("offline-v3 legacy /courses/ link rewriting", () => {
 
     await expect(link).toHaveAttribute(
       "href",
-      `${CANONICAL}/courses/o/ocw-ci-test-course/pages/first-test-page-title/#a-section`
+      `${CANONICAL}/courses/o/ocw-ci-test-course/pages/first-test-page-title#a-section`
     )
   })
 
@@ -48,7 +48,7 @@ test.describe("offline-v3 legacy /courses/ link rewriting", () => {
 
     await expect(link).toHaveAttribute(
       "href",
-      `${CANONICAL}/courses/o/some-other-course-fall-2020/pages/syllabus/`
+      `${CANONICAL}/courses/o/some-other-course-fall-2020/pages/syllabus`
     )
   })
 
@@ -61,7 +61,7 @@ test.describe("offline-v3 legacy /courses/ link rewriting", () => {
 
     await expect(link).toHaveAttribute(
       "href",
-      `${CANONICAL}/courses/o/some-other-course-fall-2020/`
+      `${CANONICAL}/courses/o/some-other-course-fall-2020`
     )
   })
 

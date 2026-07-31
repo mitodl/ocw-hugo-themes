@@ -11,6 +11,9 @@
   qualified URL gets a host, and then it moves to COURSE_V3_CANONICAL_DOMAIN
   because the v2 host does not serve /courses/o/.
 
+  The path is otherwise passed through as authored, including the absence of
+  Hugo's canonical trailing slash — the resulting 301 per link is accepted.
+
   Query strings and fragments are preserved.
 
   Anything that is not an OCW course path is returned untouched: other hosts,
@@ -35,13 +38,6 @@
 
 {{- if and $isOcwHost $isCoursePath -}}
   {{- $result = printf "/courses/o/%s" $slugAndRest -}}
-  {{/* Authored links overwhelmingly omit Hugo's canonical trailing slash, which
-       costs a redirect per link and leaves the same page reachable at two URLs
-       (resource_link output is already slashed). Add it, unless the target looks
-       like a file. */}}
-  {{- if not (or (strings.HasSuffix $result "/") (findRE "\\.[a-zA-Z0-9]{2,5}$" $result)) -}}
-    {{- $result = printf "%s/" $result -}}
-  {{- end -}}
   {{- with $url.Host -}}
     {{/* Authored as a fully qualified URL, so keep it one — on the domain that
          actually serves /courses/o/. */}}
