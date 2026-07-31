@@ -15,13 +15,19 @@ resourcetype: Video
 title: ocw_test_course_MIT8_01F16_L26v03_360p.mp4
 uid: abff96f9-6777-4e4e-be27-8a7b85fab93f
 video_files:
+  # Deliberately the unresolved CMS relation shape, not an array. Published
+  # content carries this whenever a video has no caption or transcript linked,
+  # and video_caption_tracks.html / video_transcript_links.html must skip it
+  # rather than range it. Without their slice check, building this site fails
+  # with "can't evaluate field language in type interface {}". Keep this
+  # resource on the relation shape so that failure is caught here.
   video_captions_resources:
-    - file: /courses/ocw-ci-test-course/1pCfBpsMPh5QT56DL7dvvxGr8WGsy0HGP_transcript.webvtt
-      language: en
+    content: ''
+    website: ocw-ci-test-course
   video_thumbnail_file: https://img.youtube.com/vi/ufuYLysOvcg/default.jpg
   video_transcript_resources:
-    - file: /courses/ocw-ci-test-course/1pCfBpsMPh5QT56DL7dvvxGr8WGsy0HGP_transcript.pdf
-      language: en
+    content: ''
+    website: ocw-ci-test-course
 video_metadata:
   video_speakers: ''
   video_tags: ''
