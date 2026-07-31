@@ -14,8 +14,15 @@
 {{- $transcriptFile := .transcriptFile -}}
 {{- $links := slice -}}
 
-{{- if $transcriptFile -}}
-  {{/* video_transcript_resources is always an array of {file, language, locale?} objects */}}
+{{/*
+  The slice check is load-bearing, do not remove it. When a video has no
+  transcript linked, or its linked resource has no uploaded file, older
+  content carries the CMS relation object {"content": ..., "website": ...}
+  here instead of an array. Ranging a map yields its values rather than
+  objects, so `.language` below then aborts the whole site build with
+  "can't evaluate field language in type interface {}".
+*/}}
+{{- if and $transcriptFile (reflect.IsSlice $transcriptFile) -}}
   {{/* First pass: check whether any English track exists */}}
   {{- $hasEnglish := false -}}
   {{- range $transcriptFile -}}
