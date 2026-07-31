@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test"
-import { CoursePage, V3_CANONICAL_DOMAIN } from "../util"
+import { CoursePage, COURSE_V3_CANONICAL_DOMAIN } from "../util"
 
 /**
  * External resources whose external_url points at an OCW course are rewritten
@@ -8,7 +8,7 @@ import { CoursePage, V3_CANONICAL_DOMAIN } from "../util"
  * OCW link must not start behaving like a third-party link just because its
  * host changed.
  */
-const CANONICAL = `https://${V3_CANONICAL_DOMAIN}`
+const CANONICAL = `https://${COURSE_V3_CANONICAL_DOMAIN}`
 
 /**
  * The trailing slash here comes from the fixture's own external_url

@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test"
-import { offlineFileUrl, V3_CANONICAL_DOMAIN } from "../util"
+import { offlineFileUrl, COURSE_V3_CANONICAL_DOMAIN } from "../util"
 
 /**
  * Search and facet links (departments, topics, level, instructors) all funnel
@@ -15,7 +15,7 @@ import { offlineFileUrl, V3_CANONICAL_DOMAIN } from "../util"
  * apply. They carry strip-link-offline, so hide_offline_links.html unwraps them
  * to plain text when the reader has no connectivity.
  */
-const CANONICAL = `https://${V3_CANONICAL_DOMAIN}`
+const CANONICAL = `https://${COURSE_V3_CANONICAL_DOMAIN}`
 
 const searchHrefs = (page: import("@playwright/test").Page) =>
   page.evaluate(() =>
@@ -49,16 +49,21 @@ test.describe("offline-v3 search and facet links", () => {
     }
   })
 
-  test("no search link points at the static API host or ocw.mit.edu", async ({
+  test("every search link is hosted on the v3 canonical domain", async ({
     page
   }) => {
     await page.goto(offlineFileUrl("/"))
 
     const hrefs = await searchHrefs(page)
 
+    // Pin the parsed host rather than blocklisting the hosts we do not want
+    // (ocw.mit.edu from base-theme's default, localhost from
+    // STATIC_API_BASE_URL). A blocklist can never be complete, and matching a
+    // substring of a URL is the weaker test.
     expect(hrefs.length).toBeGreaterThan(0)
-    expect(hrefs.filter(h => h.includes("ocw.mit.edu"))).toEqual([])
-    expect(hrefs.filter(h => h.includes("localhost"))).toEqual([])
+    for (const href of hrefs) {
+      expect(new URL(href).host).toBe(COURSE_V3_CANONICAL_DOMAIN)
+    }
   })
 
   test("search links are absolute, not relativized into the package", async ({

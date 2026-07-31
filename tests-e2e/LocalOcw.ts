@@ -9,7 +9,7 @@ import * as color from "ansi-colors"
 import {
   TEST_SITES,
   LOCAL_OCW_PORT,
-  V3_CANONICAL_DOMAIN,
+  COURSE_V3_CANONICAL_DOMAIN,
   siteUrl,
   TestSiteAlias
 } from "./util/test_sites"
@@ -154,21 +154,21 @@ class LocalOCW {
           ...stringifyEnv(
             cleanEnv({
               ...process.env,
-              OCW_STUDIO_BASE_URL:        `http://localhost:${this.fixturesPort}`,
-              SEARCH_API_URL:             "https://open.mit.edu/api/v0/search/",
-              RESOURCE_BASE_URL:          "https://live-qa.ocw.mit.edu/",
+              OCW_STUDIO_BASE_URL: `http://localhost:${this.fixturesPort}`,
+              SEARCH_API_URL:      "https://open.mit.edu/api/v0/search/",
+              RESOURCE_BASE_URL:   "https://live-qa.ocw.mit.edu/",
               /**
                * Pinned so specs can assert on the rewritten cross-course links
                * that course-v3 emits, rather than depending on the developer's
                * local environment.
                */
-              COURSE_V3_CANONICAL_DOMAIN: V3_CANONICAL_DOMAIN,
+              COURSE_V3_CANONICAL_DOMAIN,
               /**
                * When building test sites, use local server at fixturesPort for static
                * API requests. See test-sites/__fixtures__/README.md for more.
                */
-              STATIC_API_BASE_URL:        `http://localhost:${this.fixturesPort}`,
-              API_BEARER_TOKEN:           ""
+              STATIC_API_BASE_URL: `http://localhost:${this.fixturesPort}`,
+              API_BEARER_TOKEN:    ""
             })
           )
         }

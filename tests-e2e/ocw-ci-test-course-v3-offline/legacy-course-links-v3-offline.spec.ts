@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test"
-import { offlineFileUrl, V3_CANONICAL_DOMAIN } from "../util"
+import { offlineFileUrl, COURSE_V3_CANONICAL_DOMAIN } from "../util"
 
 /**
  * Offline builds set relativeURLs: true, so Hugo rewrites any root-relative URL
@@ -14,7 +14,7 @@ import { offlineFileUrl, V3_CANONICAL_DOMAIN } from "../util"
  * Fixture: test-sites/ocw-ci-test-course/content/pages/legacy-course-links.md
  */
 const PAGE = "/pages/legacy-course-links"
-const CANONICAL = `https://${V3_CANONICAL_DOMAIN}`
+const CANONICAL = `https://${COURSE_V3_CANONICAL_DOMAIN}`
 
 test.describe("offline-v3 legacy /courses/ link rewriting", () => {
   test("same-course link is prefixed and fully qualified", async ({ page }) => {

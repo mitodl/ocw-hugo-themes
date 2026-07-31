@@ -28,7 +28,9 @@
 {{- $url := urls.Parse $input -}}
 {{- $result := $input -}}
 
-{{- $isOcwHost := or (eq $url.Host "") (in $url.Host "ocw.mit.edu") -}}
+{{/* Empty host means root-relative, i.e. this site. Otherwise compare the
+     parsed host, so ocw.mit.edu.example.com is not taken for an OCW URL. */}}
+{{- $isOcwHost := or (eq $url.Host "") (partial "is_ocw_host.html" $input) -}}
 {{- $slugAndRest := strings.TrimPrefix "/courses/" $url.Path -}}
 {{- $isCoursePath := and
   (strings.HasPrefix $url.Path "/courses/")

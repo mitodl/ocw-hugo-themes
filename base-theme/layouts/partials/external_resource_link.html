@@ -16,8 +16,12 @@
 {{/* Decide "is this an OCW link" from the authored URL, not the rewritten one:
      COURSE_V3_CANONICAL_DOMAIN need not contain ocw.mit.edu, and a rewritten
      host must not flip an internal link into an external one with a
-     leaving-OCW warning. */}}
-{{- if not (in $rawHref "ocw.mit.edu") -}}
+     leaving-OCW warning.
+
+     Compare the parsed host, not the URL as a string — a URL that merely
+     mentions ocw.mit.edu in its path or query (https://evil.example.com/?next=
+     ocw.mit.edu) must not lose its warning and its new tab. */}}
+{{- if not (partial "is_ocw_host.html" $rawHref) -}}
   {{- partial "link" (dict
       "href" $href
       "text" $text

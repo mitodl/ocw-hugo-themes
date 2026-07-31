@@ -3,10 +3,14 @@ import { env } from "../../env"
 const LOCAL_OCW_PORT = 3010
 
 /**
- * COURSE_V3_CANONICAL_DOMAIN used when building test sites.
+ * The value `LocalOcw.buildSite` injects as the `COURSE_V3_CANONICAL_DOMAIN` env
+ * var, so specs can assert on the rewritten links course-v3 emits.
  *
+ * Deliberately not an ocw.mit.edu subdomain: it is distinct from
+ * STATIC_API_BASE_URL and SITEMAP_DOMAIN, so a spec failure tells you which of
+ * them produced a host.
  */
-const V3_CANONICAL_DOMAIN = "learn-test.mit.edu"
+const COURSE_V3_CANONICAL_DOMAIN = "learn-test.mit.edu"
 
 type TestSiteAlias = "course" | "course-v3" | "course-v3-offline" | "www"
 type TestSite = {
@@ -71,7 +75,7 @@ const TEST_SITES: Record<TestSiteAlias, TestSite> = {
  * siteUrl("www", "about") // "http://localhost:3010/about"
  * siteUrl("course", "pages/some/page") // "http://localhost:3010/courses/ocw-ci-test-course/pages/some/page"
  * siteUrl("course", ["pages", "some", "page"]) // "http://localhost:3010/courses/ocw-ci-test-course/pages/some/page"
- * siteUrl("course-v3", "pages/some/page") // "http://localhost:3010/courses/o/ocw-ci-test-course-v3/pages/some/page"
+ * siteUrl("course-v3", "pages/some/page") // "http://localhost:3010/courses/o/ocw-ci-test-course/pages/some/page"
  * ```
  */
 const siteUrl = (siteAlias: TestSiteAlias, ...relPath: string[]) => {
@@ -89,7 +93,7 @@ const siteUrl = (siteAlias: TestSiteAlias, ...relPath: string[]) => {
 export {
   TEST_SITES,
   LOCAL_OCW_PORT,
-  V3_CANONICAL_DOMAIN,
+  COURSE_V3_CANONICAL_DOMAIN,
   siteUrl,
   TestSiteAlias
 }

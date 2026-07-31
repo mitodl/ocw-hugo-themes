@@ -1,0 +1,14 @@
+{{/*
+  Whether a URL points at an OCW host: exactly ocw.mit.edu, or one of its
+  subdomains such as live-qa.ocw.mit.edu or old.ocw.mit.edu.
+
+  Compares the parsed host rather than substring-matching the URL, so
+  ocw.mit.edu.example.com and evil-ocw.mit.edu are correctly treated as third
+  party, and a URL that merely mentions ocw.mit.edu somewhere in its path or
+  query string is not mistaken for an OCW link.
+
+  A URL with no host — root-relative or empty — is not an OCW host. Callers that
+  treat root-relative paths as same-site check for that themselves.
+*/}}
+{{- $host := lower (index (split (urls.Parse .).Host ":") 0) -}}
+{{- return or (eq $host "ocw.mit.edu") (strings.HasSuffix $host ".ocw.mit.edu") -}}
