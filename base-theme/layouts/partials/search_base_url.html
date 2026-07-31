@@ -1,10 +1,1 @@
-{{/*
-  Host the offline themes prefix onto search/facet links, which cannot be
-  root-relative in an extracted package.
-
-  This default keeps the long-standing behaviour of pointing at the static API
-  host. course-offline-v3 overrides it to use the v3 canonical domain instead.
-  Deliberately does not read COURSE_V3_CANONICAL_DOMAIN: base-theme is in every
-  theme chain, and that variable is only allowlisted for the v3 configs.
-*/}}
 {{- return partial "static_api_base_url.html" -}}

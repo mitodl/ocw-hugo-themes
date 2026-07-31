@@ -1,11 +1,1 @@
-{{/*
-  The bare host serving course-v3 sites under /courses/o/, with any scheme and
-  trailing slash stripped so callers can printf it into "https://%s".
-
-  Lives in course-v3 rather than base-theme because COURSE_V3_CANONICAL_DOMAIN is
-  only allowlisted in security.funcs.getenv for the two ocw-course-v3 configs; a
-  non-allowlisted getenv is a hard build error, so this must stay unreachable
-  from the v2 and www theme chains. course-v3 is in both v3 chains (online and
-  offline) and neither v2 chain.
-*/}}
 {{- return strings.TrimSuffix "/" (replaceRE "^https?://" "" (getenv "COURSE_V3_CANONICAL_DOMAIN")) -}}

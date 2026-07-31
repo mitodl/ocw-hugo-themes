@@ -1,10 +1,1 @@
-{{/*
-  Search/facet links in the offline v3 package belong on the domain that serves
-  v3, not on the static API host. The query parameter names already come from
-  course-v3/data/search_query_keys.json, which are MIT Learn's.
-
-  base-offline defines get_search_url.html and precedes course-offline-v3 in the
-  theme chain, so that partial cannot be overridden here — this seam exists so
-  the host can be swapped without touching it.
-*/}}
 {{- return printf "https://%s" (partial "course_v3_canonical_domain.html") -}}
