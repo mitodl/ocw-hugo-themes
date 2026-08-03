@@ -254,7 +254,7 @@ allows CSRF to work between the sites, and `CSRF_COOKIE_NAME` is the name of the
 reads in order to send the `X-CSRFToken` header. In the following examples, we will assume you are running `mit-learn` locally with:
 
 - `CSRF_COOKIE_DOMAIN=.odl.local`
-- `CSRF_COOKIE_NAME=csrftoken`
+- `CSRF_COOKIE_NAME=csrftoken-local-learn`
 - `MIT_LEARN_BASE_URL=http://open.odl.local:8062`
 - `MIT_LEARN_API_BASE_URL=http://api.open.odl.local:8065`
 
