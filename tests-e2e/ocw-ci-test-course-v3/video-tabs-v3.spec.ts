@@ -208,3 +208,93 @@ test.describe("Course v3 video tab language selector", () => {
     expect(Number(activeFontWeight)).toBeLessThanOrEqual(400)
   })
 })
+
+const NO_DOWNLOADS_PAGE = "/pages/video-without-downloads"
+const NO_DOWNLOADS_RESOURCE = "/resources/video-no-downloads"
+const CAPTIONS_ONLY_RESOURCE = "/resources/video-captions-only"
+const DOWNLOADABLE_RESOURCE =
+  "/resources/ocw_test_course_mit8_01f16_l01v01_360p"
+const ARCHIVE_URL = "http://www.archive.org/download/MIT18.06S05_MP4/01.mp4"
+
+/**
+ * These tests assert on server-rendered markup, so they navigate with
+ * `domcontentloaded` rather than waiting on the embedded YouTube iframes.
+ */
+test.describe("Course v3 video download button visibility", () => {
+  test("embedded videos with nothing to download have no download button", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto(NO_DOWNLOADS_PAGE, { waitUntil: "domcontentloaded" })
+
+    // Three embedded videos: two with nothing downloadable, one with only an
+    // archive_url.
+    await expect(new VideoElement(page).container).toHaveCount(3)
+    await expect(new VideoElement(page, 0).downloadButton()).toHaveCount(0)
+    await expect(new VideoElement(page, 1).downloadButton()).toHaveCount(0)
+
+    // The tab itself still renders, linking through to the video's own page.
+    await expect(
+      page.getByRole("link", { name: "View video page" })
+    ).toHaveCount(3)
+
+    // Buttons and popups stay 1:1.
+    await expect(page.locator(".video-download-icons")).toHaveCount(1)
+    await expect(page.locator(".video-tab-download-popup")).toHaveCount(1)
+  })
+
+  test("an embedded video with only an archive_url still offers a download", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto(NO_DOWNLOADS_PAGE, { waitUntil: "domcontentloaded" })
+    const video = new VideoElement(page, 2)
+
+    // Empty `file`, valid archive_url.
+    await expect(video.downloadButton()).toHaveCount(1)
+    await expect(video.downloadVideoLink()).toHaveAttribute("href", ARCHIVE_URL)
+  })
+
+  test("resource page for a video with nothing to download has no Transcript tab or download button", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto(NO_DOWNLOADS_RESOURCE, { waitUntil: "domcontentloaded" })
+    const video = new VideoElement(page)
+
+    await expect(video.container).toHaveCount(1)
+    await expect(video.tab({ name: /Transcript/i, exact: false })).toHaveCount(
+      0
+    )
+    await expect(video.downloadButton()).toHaveCount(0)
+  })
+
+  test("captions-only resource page shows the Transcript tab but no download button", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto(CAPTIONS_ONLY_RESOURCE, { waitUntil: "domcontentloaded" })
+    const video = new VideoElement(page)
+
+    // Captions drive the in-page transcript panel, so the tab must still render.
+    await expect(video.tab({ name: /Transcript/i, exact: false })).toHaveCount(
+      1
+    )
+    // There is no transcript file and no video file, so nothing to download.
+    await expect(video.downloadButton()).toHaveCount(0)
+  })
+
+  test("video with a downloadable file still shows the download button", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto(DOWNLOADABLE_RESOURCE, { waitUntil: "domcontentloaded" })
+    const video = new VideoElement(page)
+
+    await expect(video.downloadButton()).toHaveCount(1)
+    await expect(video.downloadVideoLink()).toHaveAttribute(
+      "href",
+      /ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9\.mp4$/
+    )
+  })
+})
