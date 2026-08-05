@@ -13,3 +13,8 @@ repos:
           - --exclude-files
           - .yarn/releases/yarn-3.1.0.cjs
         exclude: .*_test.*|yarn\.lock
+  - repo: https://github.com/zizmorcore/zizmor-pre-commit
+    rev: v1.29.0
+    hooks:
+      - id: zizmor
+        args: [--no-progress, --min-severity=high, --min-confidence=medium]
