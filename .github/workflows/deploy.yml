@@ -7,9 +7,17 @@ on:
 env:
   COURSE_V3_URL_SLUG: 15-s21-nuts-and-bolts-of-business-plans-january-iap-2014
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      statuses: write
+      deployments: write
     steps:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@87a8f067114a8ce263df83e9ed5c849953548bc3 # v2.8.1
