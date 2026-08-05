@@ -28,7 +28,7 @@ function FilterableSearchFacet(props: Props) {
 
   // null is signal for no input yet or cleared input
   const [filteredList, setFilteredList] = useState<Bucket[] | null>(null)
-  const [searcher, setSearcher] = useState<Fuse<Bucket>>(new Fuse([]))
+  const [searcher, setSearcher] = useState<Fuse<Bucket>>(new Fuse<Bucket>([]))
 
   const [filterText, setFilterText] = useState("")
 
