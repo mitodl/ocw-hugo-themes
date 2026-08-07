@@ -1,0 +1,25 @@
+{{/*
+  v3 sites are served under a path prefix (e.g. /courses/o/<slug>/) rather than
+  /courses/<slug>/. Authored markdown predates that and contains site-absolute
+  links of the form /courses/<slug>/..., which resolve outside the site.
+
+  Every such link — to this course or another — is rewritten by
+  canonical_course_url.html, which inserts the /courses/o/ prefix. Links already
+  under this site's baseURL are left alone so the rewrite stays idempotent:
+  resource_link shortcodes emit baseURL-correct markdown that flows back through
+  this same hook.
+
+  Note this does not resolve links against Hugo's page tree, so a link to a page
+  that no longer exists is emitted as-is rather than reported at build time.
+*/}}
+{{- $destination := .Destination -}}
+{{- $basePath := strings.TrimSuffix "/" (urls.Parse site.BaseURL).Path -}}
+
+{{- if and
+  (strings.HasPrefix $destination "/courses/")
+  (not (and $basePath (strings.HasPrefix $destination (printf "%s/" $basePath))))
+-}}
+  {{- $destination = partial "canonical_course_url.html" $destination -}}
+{{- end -}}
+
+{{- return $destination -}}

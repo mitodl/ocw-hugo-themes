@@ -14,8 +14,7 @@ const site = TEST_SITES["course-v3-offline"]
  */
 export const offlineV3SiteDir = path.join(
   OFFLINE_V3_BUILD_ROOT,
-  "courses",
-  site.name
+  ...site.basePath.split("/")
 )
 
 /**
