@@ -11,8 +11,19 @@ export const initMobileCourseMenuV3 = () => {
     return
   }
 
+  const menuBar = toggleButton.closest(".mobile-course-menu-bar")
+
+  // Keep aria-expanded and .mobile-course-menu-collapsed in sync everywhere
+  // the menu's open/closed state changes. The class is a JS fallback for CSS
+  // :has(), which is not supported in Firefox < 121 (see
+  // mobile-course-menu-v3.scss for the paired CSS rule).
+  const setMenuExpanded = (expanded: boolean) => {
+    toggleButton.setAttribute("aria-expanded", expanded ? "true" : "false")
+    menuBar?.classList.toggle("mobile-course-menu-collapsed", !expanded)
+  }
+
   const closeMenu = () => {
-    toggleButton.setAttribute("aria-expanded", "false")
+    setMenuExpanded(false)
   }
 
   // Always start with a collapsed menu on page load/redirect.
@@ -25,7 +36,7 @@ export const initMobileCourseMenuV3 = () => {
     const isExpanded = toggleButton.getAttribute("aria-expanded") === "true"
 
     // Toggle aria-expanded attribute (CSS will handle visibility)
-    toggleButton.setAttribute("aria-expanded", isExpanded ? "false" : "true")
+    setMenuExpanded(!isExpanded)
   })
 
   // Close menu when clicking outside
@@ -39,7 +50,7 @@ export const initMobileCourseMenuV3 = () => {
       !menuItems.contains(target) &&
       !toggleButton.contains(target)
     ) {
-      toggleButton.setAttribute("aria-expanded", "false")
+      closeMenu()
     }
   })
 
