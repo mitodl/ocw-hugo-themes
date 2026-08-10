@@ -1,0 +1,26 @@
+{{/*
+  get_video_download_link.html
+
+  Returns the download URL for a video resource, or "" when there is nothing
+  downloadable. Prefers the resource's own file, falling back to the external
+  archive_url when the file is absent or empty.
+
+  Input: dict with:
+    - "context"  : the page the link is rendered on. The offline resource_url.html
+                   override needs it to compute the path back to the package root.
+    - "resource" : the video resource page.
+
+  These are the same page on a video resource page, and differ for a video embedded
+  through the `resource` shortcode, where the link is relative to the embedding page.
+
+  Returns: string
+*/}}
+{{- $context := .context -}}
+{{- $resource := .resource -}}
+{{- $downloadLink := "" -}}
+{{- with $resource.Params.file -}}
+  {{- $downloadLink = partial "resource_url.html" (dict "context" $context "url" .) -}}
+{{- else -}}
+  {{- $downloadLink = $resource.Params.video_files.archive_url | default "" -}}
+{{- end -}}
+{{- return $downloadLink -}}
