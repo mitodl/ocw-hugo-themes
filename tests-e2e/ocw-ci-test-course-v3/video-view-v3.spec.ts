@@ -101,6 +101,40 @@ test.describe("Course v3 Video View Page", () => {
   })
 })
 
+test.describe("Course v3 YouTube caption overlay", () => {
+  test("Video.js does not paint a second caption layer over the YouTube player", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
+
+    // YouTube renders captions itself inside its cross-origin iframe. The
+    // <track> elements we attach exist only to feed the transcript panel, so
+    // Video.js must not render them as a second, overlapping caption layer.
+    //
+    // This asserts the stylesheet rule against a synthetic node rather than the
+    // real player. youtube.com is unreachable from the test sandbox, so the
+    // YouTube tech never finishes initialising - Firefox leaves the player in
+    // vjs-error (whose own Video.js rule hides the overlay for the wrong
+    // reason) and Chrome never applies .vjs-youtube at all. A probe is the only
+    // form that is deterministic in both. It guards against the rule being
+    // deleted; the end-to-end behaviour needs a manual check against a dev
+    // server, where a real YouTube player can load.
+    const display = await page.evaluate(() => {
+      const player = document.createElement("div")
+      player.className = "vjs-ocw video-js vjs-youtube"
+      const overlay = document.createElement("div")
+      overlay.className = "vjs-text-track-display"
+      player.appendChild(overlay)
+      document.body.appendChild(player)
+      const computed = window.getComputedStyle(overlay).display
+      player.remove()
+      return computed
+    })
+    expect(display).toBe("none")
+  })
+})
+
 test.describe("Course v3 Video View Page - No Instructor", () => {
   test("Description has no bottom margin when instructor is missing", async ({
     page
