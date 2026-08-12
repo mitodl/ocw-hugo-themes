@@ -102,36 +102,43 @@ test.describe("Course v3 Video View Page", () => {
 })
 
 test.describe("Course v3 YouTube caption overlay", () => {
-  test("Video.js does not paint a second caption layer over the YouTube player", async ({
+  test("Video.js caption layer is hidden for the YouTube tech, kept for local video", async ({
     page
   }) => {
     const course = new CoursePage(page, "course-v3")
-    await course.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
-
-    // YouTube renders captions itself inside its cross-origin iframe. The
-    // <track> elements we attach exist only to feed the transcript panel, so
-    // Video.js must not render them as a second, overlapping caption layer.
-    //
-    // This asserts the stylesheet rule against a synthetic node rather than the
-    // real player. youtube.com is unreachable from the test sandbox, so the
-    // YouTube tech never finishes initialising - Firefox leaves the player in
-    // vjs-error (whose own Video.js rule hides the overlay for the wrong
-    // reason) and Chrome never applies .vjs-youtube at all. A probe is the only
-    // form that is deterministic in both. It guards against the rule being
-    // deleted; the end-to-end behaviour needs a manual check against a dev
-    // server, where a real YouTube player can load.
-    const display = await page.evaluate(() => {
-      const player = document.createElement("div")
-      player.className = "vjs-ocw video-js vjs-youtube"
-      const overlay = document.createElement("div")
-      overlay.className = "vjs-text-track-display"
-      player.appendChild(overlay)
-      document.body.appendChild(player)
-      const computed = window.getComputedStyle(overlay).display
-      player.remove()
-      return computed
+    await course.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4", {
+      waitUntil: "domcontentloaded"
     })
-    expect(display).toBe("none")
+
+    // videojs-youtube adds .vjs-youtube once it attaches to the player.
+    const player = page.locator(".vjs-ocw.vjs-youtube")
+    await expect(player).toHaveCount(1, { timeout: 15_000 })
+    await expect(player.locator(".vjs-text-track-display")).toHaveCount(1)
+
+    // youtube.com is unreachable from the test sandbox, so the player settles
+    // into vjs-error, and Video.js's own `.vjs-error .vjs-text-track-display`
+    // rule would hide the overlay for the wrong reason. Drop that class so both
+    // assertions below exercise our .vjs-youtube rule in the real cascade.
+    const display = await player.evaluate(el => {
+      el.classList.remove("vjs-error")
+      const overlay = el.querySelector(".vjs-text-track-display") as HTMLElement
+
+      // YouTube draws its own captions inside its iframe, and the <track>
+      // elements we attach exist only to feed the transcript panel, so
+      // Video.js must not paint them as a second, overlapping layer.
+      const onYoutubeTech = window.getComputedStyle(overlay).display
+
+      // Local and offline videos run on the HTML5 tech, where Video.js is the
+      // only thing that renders captions. The rule must stay scoped to
+      // .vjs-youtube so it never reaches them.
+      el.classList.remove("vjs-youtube")
+      const offYoutubeTech = window.getComputedStyle(overlay).display
+
+      return { onYoutubeTech, offYoutubeTech }
+    })
+
+    expect(display.onYoutubeTech).toBe("none")
+    expect(display.offYoutubeTech).not.toBe("none")
   })
 })
 
