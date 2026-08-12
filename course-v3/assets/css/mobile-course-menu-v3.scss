@@ -1,21 +1,27 @@
 .mobile-course-menu-v3 {
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
-  box-shadow: 0px 8px 20px 0px rgba(120, 147, 172, 0.1);
   position: relative;
   margin-bottom: 1.5rem;
+
+  .mobile-course-menu-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 4px;
+    box-shadow: 0px 8px 20px 0px rgba(120, 147, 172, 0.1);
+  }
 
   .mobile-course-menu-toggle {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: 8px;
-    width: 100%;
-    background-color: #40464c;
+    flex: 1;
+    background-color: $mit-learn-dark-gray-1;
     border: none;
     border-radius: 4px;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid $mit-learn-white;
     padding: 16px 16px 16px 12px;
     cursor: pointer;
     transition: background-color 0.2s ease, border-radius 0.2s ease;
@@ -26,12 +32,13 @@
       border-bottom-right-radius: 0;
     }
 
-    &[aria-expanded="false"] + .mobile-course-menu-items {
-      display: none;
-    }
-
     &:hover {
       background-color: #4a5056;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $mit-learn-white;
+      outline-offset: -2px;
     }
 
     .menu-icon {
@@ -43,10 +50,10 @@
     .menu-label {
       flex: 1;
       font-family: $mit-learn-font-family;
-      font-weight: 700;
+      font-weight: $mit-learn-font-weight-medium;
       font-size: 12px;
       line-height: 18px;
-      color: #ffffff;
+      color: $mit-learn-white;
       text-align: left;
       min-width: 0;
     }
@@ -61,6 +68,45 @@
     &[aria-expanded="true"] .arrow-icon {
       transform: rotate(180deg);
     }
+  }
+
+  .mobile-course-info-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    padding: 0 16px;
+    background-color: $mit-learn-silver-gray-dark;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #6c747d;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $mit-learn-white;
+      outline-offset: -2px;
+    }
+
+    svg {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  // Hide the dropdown when the menu toggle's aria-expanded state is false.
+  // Primary: CSS :has() for modern browsers (Chrome, Safari, Firefox 121+).
+  // Fallback: .mobile-course-menu-collapsed class toggled by JS
+  // (mobile_course_menu_v3.ts) for Firefox < 121, which does not support :has().
+  .mobile-course-menu-bar:has(.mobile-course-menu-toggle[aria-expanded="false"])
+    + .mobile-course-menu-items,
+  .mobile-course-menu-bar.mobile-course-menu-collapsed
+    + .mobile-course-menu-items {
+    display: none;
   }
 
   .mobile-course-menu-items {
