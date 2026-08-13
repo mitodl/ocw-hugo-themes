@@ -1,0 +1,17 @@
+{{/*
+  Gives a URL a host if it does not already have one.
+
+  Offline builds set relativeURLs: true, so Hugo's post-processor rewrites any
+  root-relative URL in the output into a path relative to the current page. That
+  is what keeps in-package links working when the zip is extracted and opened
+  over file://, but it also means a root-relative URL intended for the live site
+  becomes a dead path inside the package. Links that must leave the package
+  therefore have to be fully qualified before Hugo sees them.
+
+  Already-absolute URLs are returned untouched.
+*/}}
+{{- $url := . -}}
+{{- if strings.HasPrefix $url "/" -}}
+  {{- $url = printf "https://%s%s" (partial "course_v3_canonical_domain.html") $url -}}
+{{- end -}}
+{{- return $url -}}

@@ -1,0 +1,56 @@
+{{/*
+  Adds the v3 /courses/o/ prefix to an OCW course URL, preserving how the author
+  scoped it:
+
+    /courses/<slug>/...                 -> /courses/o/<slug>/...
+    https://ocw.mit.edu/courses/<slug>/ -> https://<canonical>/courses/o/<slug>/
+
+  A root-relative link stays root-relative, so it resolves against whichever
+  host serves the build (production, RC, local, offline preview) and keeps the
+  same-tab, same-origin behaviour it had under v2. Only an already fully
+  qualified URL gets a host, and then it moves to COURSE_V3_CANONICAL_DOMAIN
+  because the v2 host does not serve /courses/o/.
+
+  The path is otherwise passed through as authored, including the absence of
+  Hugo's canonical trailing slash — the resulting 301 per link is accepted.
+
+  Query strings and fragments are preserved.
+
+  Anything that is not an OCW course path is returned untouched: other hosts,
+  non-course paths such as /terms, the /courses/ listing itself, and URLs
+  already under /courses/o/.
+
+  COURSE_V3_CANONICAL_DOMAIN is only allowlisted in security.funcs.getenv for
+  the ocw-course-v3 configs, which is why this lives in course-v3 rather than
+  base-theme.
+*/}}
+{{- $input := . -}}
+{{- $url := urls.Parse $input -}}
+{{- $result := $input -}}
+
+{{/* Empty host means root-relative, i.e. this site. Otherwise compare the
+     parsed host, so ocw.mit.edu.example.com is not taken for an OCW URL. */}}
+{{- $isOcwHost := or (eq $url.Host "") (partial "is_ocw_host.html" $input) -}}
+{{- $slugAndRest := strings.TrimPrefix "/courses/" $url.Path -}}
+{{- $isCoursePath := and
+  (strings.HasPrefix $url.Path "/courses/")
+  (gt (len $slugAndRest) 0)
+  (not (or (eq $url.Path "/courses/o") (strings.HasPrefix $url.Path "/courses/o/")))
+-}}
+
+{{- if and $isOcwHost $isCoursePath -}}
+  {{- $result = printf "/courses/o/%s" $slugAndRest -}}
+  {{- with $url.Host -}}
+    {{/* Authored as a fully qualified URL, so keep it one — on the domain that
+         actually serves /courses/o/. */}}
+    {{- $result = printf "https://%s%s" (partial "course_v3_canonical_domain.html") $result -}}
+  {{- end -}}
+  {{- with $url.RawQuery -}}
+    {{- $result = printf "%s?%s" $result . -}}
+  {{- end -}}
+  {{- with $url.Fragment -}}
+    {{- $result = printf "%s#%s" $result . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- return $result -}}
