@@ -115,10 +115,12 @@ test.describe("Course v3 YouTube caption overlay", () => {
     await expect(player).toHaveCount(1, { timeout: 15_000 })
     await expect(player.locator(".vjs-text-track-display")).toHaveCount(1)
 
-    // youtube.com is unreachable from the test sandbox, so the player settles
-    // into vjs-error, and Video.js's own `.vjs-error .vjs-text-track-display`
-    // rule would hide the overlay for the wrong reason. Drop that class so both
-    // assertions below exercise our .vjs-youtube rule in the real cascade.
+    // The YouTube IFrame API does load here, but this fixture's video has
+    // embedding disabled by its owner, so the player reports error 1150 and
+    // lands in vjs-error. Video.js's own `.vjs-error .vjs-text-track-display`
+    // rule would then hide the overlay for the wrong reason. Drop the class so
+    // both assertions below exercise our .vjs-youtube rule in the real cascade.
+    // Harmless no-op if the fixture is ever pointed at an embeddable video.
     const display = await player.evaluate(el => {
       el.classList.remove("vjs-error")
       const overlay = el.querySelector(".vjs-text-track-display") as HTMLElement
