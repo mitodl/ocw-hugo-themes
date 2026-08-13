@@ -101,6 +101,49 @@ test.describe("Course v3 Video View Page", () => {
   })
 })
 
+test.describe("Course v3 YouTube caption overlay", () => {
+  test("Video.js caption layer is hidden for the YouTube tech, kept for local video", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4", {
+      waitUntil: "domcontentloaded"
+    })
+
+    // videojs-youtube adds .vjs-youtube once it attaches to the player.
+    const player = page.locator(".vjs-ocw.vjs-youtube")
+    await expect(player).toHaveCount(1, { timeout: 15_000 })
+    await expect(player.locator(".vjs-text-track-display")).toHaveCount(1)
+
+    // The YouTube IFrame API does load here, but this fixture's video has
+    // embedding disabled by its owner, so the player reports error 1150 and
+    // lands in vjs-error. Video.js's own `.vjs-error .vjs-text-track-display`
+    // rule would then hide the overlay for the wrong reason. Drop the class so
+    // both assertions below exercise our .vjs-youtube rule in the real cascade.
+    // Harmless no-op if the fixture is ever pointed at an embeddable video.
+    const display = await player.evaluate(el => {
+      el.classList.remove("vjs-error")
+      const overlay = el.querySelector(".vjs-text-track-display") as HTMLElement
+
+      // YouTube draws its own captions inside its iframe, and the <track>
+      // elements we attach exist only to feed the transcript panel, so
+      // Video.js must not paint them as a second, overlapping layer.
+      const onYoutubeTech = window.getComputedStyle(overlay).display
+
+      // Local and offline videos run on the HTML5 tech, where Video.js is the
+      // only thing that renders captions. The rule must stay scoped to
+      // .vjs-youtube so it never reaches them.
+      el.classList.remove("vjs-youtube")
+      const offYoutubeTech = window.getComputedStyle(overlay).display
+
+      return { onYoutubeTech, offYoutubeTech }
+    })
+
+    expect(display.onYoutubeTech).toBe("none")
+    expect(display.offYoutubeTech).not.toBe("none")
+  })
+})
+
 test.describe("Course v3 Video View Page - No Instructor", () => {
   test("Description has no bottom margin when instructor is missing", async ({
     page
