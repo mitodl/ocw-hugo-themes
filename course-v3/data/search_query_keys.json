@@ -2,5 +2,6 @@
   "instructors": "q",
   "department_numbers": "department",
   "level": "level",
-  "topic": "t"
+  "topic": "topic",
+  "text": "q"
 }

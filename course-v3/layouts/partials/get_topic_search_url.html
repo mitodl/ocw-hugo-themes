@@ -1,0 +1,17 @@
+{{/* Links an OCW topic to MIT Learn search.
+
+     OCW's topic vocabulary is much larger than Learn's, so mit_learn_topic_map.json
+     maps each OCW topic (lowercased) to the Learn topic(s) it corresponds to. When a
+     mapping exists we filter search by those topics; otherwise we fall back to a text
+     query on the OCW topic itself, which Learn indexes.
+
+     Takes the raw topic string from course.json, not a title-cased display value.
+
+     Only one return statement, because Hugo rewrites just the first one it finds
+     and would execute any others as a function call. */}}
+{{- $topic := . -}}
+{{- $args := dict "key" "text" "value" $topic -}}
+{{- with index site.Data.mit_learn_topic_map (lower $topic) -}}
+  {{- $args = dict "key" "topic" "value" . -}}
+{{- end -}}
+{{- return partial "get_search_url.html" $args -}}
