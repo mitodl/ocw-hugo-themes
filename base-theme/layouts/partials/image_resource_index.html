@@ -1,0 +1,31 @@
+{{/*
+  Returns a lookup of resource pages keyed by the basename of their `file` param,
+  e.g. "example_jpg.jpg" -> the resource Page.
+
+  Call it through partialCached so the index is built once per site rather than
+  once per lookup:
+
+    {{ $index := partialCached "image_resource_index.html" . "image-resource-index" }}
+    {{ $resource := index $index (path.Base $href) }}
+
+  This exists because looking a resource up with
+  `where .Site.Pages "Params.file" "like" (printf "%s$" $href)` is wrong in three
+  ways: the pattern is an unanchored regex (so "1.png" also matches "image1.png",
+  and "." matches any character), it scans every page in the site on every call,
+  and callers that assign inside the range end up with the last match rather than
+  the first.
+
+  Keyed on path.Base so both authored href shapes resolve: a bare filename
+  ("example_jpg.jpg") and a full resource path ("/courses/foo/example_jpg.jpg").
+*/}}
+
+{{- $index := dict -}}
+{{- range where .Site.Pages "Params.file" "!=" "" -}}
+  {{- $key := path.Base .Params.file -}}
+  {{/* First match wins: resource filenames are unique in practice, and if they
+       are not, preferring the earliest keeps the result stable across builds. */}}
+  {{- if not (index $index $key) -}}
+    {{- $index = merge $index (dict $key .) -}}
+  {{- end -}}
+{{- end -}}
+{{- return $index -}}

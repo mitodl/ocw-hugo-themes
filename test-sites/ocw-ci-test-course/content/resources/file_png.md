@@ -5,9 +5,9 @@ draft: false
 file: /courses/ocw-ci-test-course/image1.png
 file_type: image/png
 image_metadata:
-  caption: ''
+  caption: 'A caption from image metadata'
   credit: ''
-  image-alt: ''
+  image-alt: 'A diagram of a test pattern'
 learning_resource_types: []
 license: https://creativecommons.org/licenses/by-nc-sa/4.0/
 resourcetype: Image
