@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.155.0 (Released August 18, 2026)
+---------------
+
+- fix: OCW on Learn accessibility issues (skip link, focus management, accessible names) (#1831)
+- Update dependency webpack-dev-server to v5.2.6 [SECURITY] (#1822)
+- Update dependency sinon to v22 (#1820)
+- fix: level search links in v3 (#1835)
+- refactor: remove legacy _file fallback from caption/transcript partials (#1825)
+
 Version 1.154.0 (Released July 20, 2026)
 ---------------
 
