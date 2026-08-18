@@ -1,0 +1,6 @@
+{{/*
+  Overrides course-v3's version for the offline package. Same /courses/o/
+  rewriting, but the result is always fully qualified — see
+  absolutize_course_url.html for why root-relative cannot survive offline.
+*/}}
+{{- return partial "absolutize_course_url.html" (partial "canonical_course_url.html" .) -}}

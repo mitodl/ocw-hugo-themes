@@ -189,6 +189,7 @@ To further explain the various environment variables and what they do:
 | `WWW_HUGO_CONFIG_PATH`    | `www`                         | `/path/to/ocw-hugo-projects/ocw-www/config.yaml`    | A path to the `ocw-www` Hugo configuration file                                                                                                                                              |
 | `COURSE_HUGO_CONFIG_PATH` | `course`                      | `/path/to/ocw-hugo-projects/ocw-course/config.yaml` | A path to the `ocw-course` Hugo configuration file                                                                                                                                           |
 | `COURSE_V3_BASE_URL_PREFIX` | `course-v3`                  | `/courses/o`                                        | The base URL prefix used when deriving prefixed course-v3 build paths                                                                                                                        |
+| `COURSE_V3_CANONICAL_DOMAIN` | `course-v3`                 | `learn.mit.edu`                                     | The domain serving course-v3 sites under `/courses/o/`. Site-absolute `/courses/<slug>/` links authored for v2 are rewritten onto this domain.|
 | `WWW_CONTENT_PATH`        | `www`                         | `/path/to/ocw-content-rc/ocw-www`                   | A path to a Hugo site that will be rendered when running `yarn start www`                                                                                                                    |
 | `COURSE_CONTENT_PATH`     | `course`                      | `/path/to/ocw-content-rc/`                          | A path to a base folder containing `ocw-course` type Hugo sites                                                                                                                              |
 | `OCW_TEST_COURSE`         | `course`                      | `18.06-spring-2010`                                 | The name of a folder in `COURSE_CONTENT_PATH` containing a Hugo site that will be rendered when running `yarn start course`                                                                  |
@@ -203,6 +204,7 @@ To further explain the various environment variables and what they do:
 | `POSTHOG_PROJECT_API_KEY` | `www`, `course` | `api-key` | API key for PostHog |
 | `POSTHOG_UI_HOST` | `www`, `course` | `https://us.posthog.com` | PostHog UI host, used when `POSTHOG_API_HOST` is a reverse proxy. When empty, PostHog falls back to the API host |
 | `CSRF_COOKIE_DOMAIN` | N/A | N/A | The cookie domain to use in Axios when communicating with the `mit-learn` API |
+| `CSRF_COOKIE_NAME` | N/A | `csrftoken` | The name of the CSRF cookie that `mit-learn` sets; read by Axios to send the `X-CSRFToken` header |
 | `MIT_LEARN_BASE_URL` | N/A | `http://learn.odl.local:8062` | The base URL for the frontend of an instance of [`mit-learn`](https://github.com/mitodl/mit-learn) |
 | `MIT_LEARN_API_BASE_URL` | N/A | `http://learn.odl.local:8065` | The base URL for the API gateway (APISIX) of an instance of [`mit-learn`](https://github.com/mitodl/mit-learn) |
 
@@ -246,12 +248,14 @@ at the RC instances and temporarily disable CORS in your browser.
 #### MIT Learn integration
 
 One of the external API's that can be integrated into OCW sites is based on [MIT Learn](https://github.com/mitodl/mit-learn).
-There are three environment variables you can set related to this functionality;
-`CSRF_COOKIE_DOMAIN`, `MIT_LEARN_BASE_URL` and `MIT_LEARN_API_BASE_URL`. With the base URLs, the former is used to construct
+There are four environment variables you can set related to this functionality;
+`CSRF_COOKIE_DOMAIN`, `CSRF_COOKIE_NAME`, `MIT_LEARN_BASE_URL` and `MIT_LEARN_API_BASE_URL`. With the base URLs, the former is used to construct
 URLs to the login / logout pages, and the latter is used to construct calls to the API. The cookie domain setting is what
-allows CSRF to work between the sites. In the following examples, we will assume you are running `mit-learn` locally with:
+allows CSRF to work between the sites, and `CSRF_COOKIE_NAME` is the name of the CSRF cookie that `mit-learn` sets, which Axios
+reads in order to send the `X-CSRFToken` header. In the following examples, we will assume you are running `mit-learn` locally with:
 
 - `CSRF_COOKIE_DOMAIN=.odl.local`
+- `CSRF_COOKIE_NAME=csrftoken-local-learn`
 - `MIT_LEARN_BASE_URL=http://open.odl.local:8062`
 - `MIT_LEARN_API_BASE_URL=http://api.open.odl.local:8065`
 

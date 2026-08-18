@@ -20,6 +20,22 @@ $slider-color: $pink;
     display: none !important;
   }
 
+  // The YouTube embed draws its own captions inside its iframe. Our <track>
+  // elements are attached solely to feed the transcript panel, and the default
+  // one is left in "showing" mode because videojs-transcript-ac picks its active
+  // track by mode. Suppress Video.js's caption layer for the YouTube tech so
+  // those cues aren't painted a second time on top of YouTube's.
+  // Local/offline videos use the HTML5 tech and keep Video.js captions.
+  //
+  // This has to be done in CSS. Disabling the component instead (player option
+  // `textTrackDisplay: false`) also removes the tracks: in Video.js 8 the
+  // TextTrackDisplay constructor is what calls addRemoteTextTrack() for the
+  // tag's <track> elements, so turning it off leaves player.textTracks() empty
+  // and the transcript panel blank.
+  &.vjs-youtube .vjs-text-track-display {
+    display: none;
+  }
+
   // Default control bar positioning for local videos
   .vjs-control-bar {
     position: absolute;

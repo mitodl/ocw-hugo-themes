@@ -21,6 +21,10 @@ export function initPostHog(): typeof posthog {
       capture_pageview:             true,
       autocapture:                  true,
       opt_out_capturing_by_default: false,
+      // Scope the posthog cookie to this site's exact domain. Posthog defaults
+      // this to true, which sets the cookie on the root domain (e.g. mit.edu),
+      // sharing it with every other site there.
+      cross_subdomain_cookie:       false,
       persistence:                  "localStorage+cookie",
       person_profiles:              "always",
       loaded:                       function() {

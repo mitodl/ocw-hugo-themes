@@ -1,6 +1,29 @@
 Release Notes
 =============
 
+Version 1.156.0
+---------------
+
+- Update dependency posthog-js to v1.417.0 (#1857)
+- fix: skip caption/transcript partials when the value is not an array (#1843)
+- fix: remove the Video.js caption layer over YouTube videos (#1854)
+- fix: rewrite legacy /courses/ URLs for course-v3 and offline-v3 (#1842)
+- Add department 21T (Theater Arts) (#1837)
+- Umar/12333 course v3 mobile course info drawer (#1834)
+- fix: hide video download button when there is nothing to download (#1841)
+- Update dependency sass to v1.102.0 (#1851)
+- Update nwtgck/actions-netlify action to v4 (#1853)
+- Update peaceiris/actions-hugo action to v3.2.1 (#1852)
+- Update actions/checkout action to v7.0.1 (#1849)
+- Update actions/upload-artifact action to v7.0.1 (#1850)
+- Add zizmor GitHub Actions static analysis (#1848)
+- docs: document the CSRF_COOKIE_NAME variable (#1844)
+- Update dependency fuse.js to v7.5.0 (#1819)
+- Update Yarn to v4.18.0 (#1845)
+- Update actions/setup-node action to v7 (#1847)
+- Update actions/checkout action to v7 (#1846)
+- fix: set posthog cookie on site domain, not mit.edu (#1840)
+
 Version 1.155.0 (Released August 18, 2026)
 ---------------
 

@@ -77,6 +77,11 @@ const envSchema = {
     desc:       "The domain used when writing fully qualified URLs into the sitemap",
     devDefault: "live-qa.ocw.mit.edu"
   }),
+  COURSE_V3_CANONICAL_DOMAIN: envalid.str({
+    desc:       "The domain serving course-v3 sites under /courses/o/",
+    devDefault: "localhost:8000",
+    default:    "learn.mit.edu"
+  }),
   STATIC_API_BASE_URL: envalid.url({
     desc:       "URL of a deployed Hugo site with a static JSON API to query against",
     devDefault: "https://live-qa.ocw.mit.edu/"
@@ -165,6 +170,10 @@ const envSchema = {
   MIT_LEARN_API_BASE_URL: envalid.url({
     desc:       "The base URL of the MIT Learn API.",
     devDefault: "https://api.rc.learn.mit.edu"
+  }),
+  CSRF_COOKIE_NAME: envalid.str({
+    desc:       "Name of the CSRF cookie set by MIT Learn; read by Axios to send the X-CSRFToken header.",
+    devDefault: "csrftoken"
   }),
   FEATURE_ENABLE_LEARN_INTEGRATION: envalid.bool({
     desc:       "Enable MIT Learn integration (login, bookmarks, user lists)",

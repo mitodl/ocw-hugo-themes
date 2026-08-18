@@ -1,9 +1,21 @@
+{{/*
+  Markdown link destinations for the offline v3 package.
+
+  Course links (/courses/...) point at the live site: the package only contains
+  this one course, and even its own pages are reached through page_url.html
+  rather than from raw markdown paths. They get the v3 /courses/o/ prefix and are
+  then forced fully qualified, because relativeURLs: true would otherwise
+  rewrite a root-relative URL into a dead in-package path.
+
+  Everything else internal gets an explicit /index.html so it resolves over
+  file://. Absolute links pass through untouched.
+*/}}
 {{ $destination := .Destination }}
 {{ $isInternalLink := not (strings.HasPrefix $destination "http") }}
 {{ $isExternalCourseLink := strings.HasPrefix $destination "/courses" }}
 {{ if $isInternalLink }}
   {{ if $isExternalCourseLink }}
-    {{ $destination = partial "site_root_url.html" $destination }}
+    {{ $destination = partial "absolutize_course_url.html" (partial "canonical_course_url.html" $destination) }}
   {{ else }}
     {{ $destination = strings.TrimSuffix "/index.html" $destination }}
     {{ if not (strings.HasSuffix $destination ".html") }}

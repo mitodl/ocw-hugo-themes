@@ -11,18 +11,12 @@
 {{ $uid := $resource.Params.uid }}
 {{ $startTime := $resource.Params.start_time | default "" }}
 {{ $endTime := $resource.Params.end_time | default "" }}
-{{ $downloadLink := $resource.Params.file }}
+{{ $downloadLink := partial "get_video_download_link.html" (dict "context" $context "resource" $resource) }}
 {{ $transcriptSource := $resource.Params.video_files.video_transcript_resources }}
 {{ $transcriptLinks := partial "video_transcript_links.html" (dict "context" $context "transcriptFile" $transcriptSource) }}
 {{ $transcriptPdfLocation := "" }}
 {{ if gt (len $transcriptLinks) 0 }}
   {{ $transcriptPdfLocation = (index $transcriptLinks 0).href }}
-{{ end }}
-
-{{ if (eq $downloadLink nil) }}
-{{ $downloadLink = $resource.Params.video_files.archive_url }}
-{{ else }}
-{{ $downloadLink =  partial "resource_url.html" (dict "context" $context "url" $downloadLink) }}
 {{ end }}
 
 <div class="video-embed video-player-wrapper">
