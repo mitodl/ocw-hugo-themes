@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.155.0
+Version 1.155.0 (Released August 18, 2026)
 ---------------
 
 - fix: OCW on Learn accessibility issues (skip link, focus management, accessible names) (#1831)
