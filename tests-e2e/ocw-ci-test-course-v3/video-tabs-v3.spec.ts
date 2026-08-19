@@ -144,7 +144,8 @@ test.describe("Course v3 video tab language selector", () => {
 
     // Both language transcript links should be visible
     const transcriptLinks = page.getByRole("link", {
-      name: /English \(Default\)/i
+      name:  "Download transcript: English",
+      exact: true
     })
     await expect(transcriptLinks.first()).toBeVisible()
   })

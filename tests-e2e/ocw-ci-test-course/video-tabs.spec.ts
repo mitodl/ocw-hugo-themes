@@ -81,7 +81,8 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
   await page.keyboard.press("Enter")
 
   const transcriptDownloadLink = page.getByRole("link", {
-    name: /English \(Default\)/i
+    name:  "Download transcript: English",
+    exact: true
   })
   await expect(transcriptDownloadLink).toBeVisible()
   // Skip Back button, tab to the first transcript link
