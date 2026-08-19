@@ -234,7 +234,7 @@ test("Multi-lang resource shows language selector with English and French option
   // Both language options should be present
   const langOptions = page.locator(".transcript-lang-option")
   await expect(langOptions).toHaveCount(2)
-  await expect(langOptions.nth(0)).toHaveText("English (Default)")
+  await expect(langOptions.nth(0)).toHaveText("English")
   await expect(langOptions.nth(1)).toHaveText("French")
 })
 
@@ -253,9 +253,7 @@ test("Clicking a language option updates the dropdown button label", async ({
 
   // Initial label is the default language (English pre-selected)
   const dropdownBtn = page.locator(".transcript-lang-dropdown-btn")
-  await expect(page.locator(".transcript-lang-btn-text")).toHaveText(
-    "English (Default)"
-  )
+  await expect(page.locator(".transcript-lang-btn-text")).toHaveText("English")
 
   // Open dropdown, click French
   await dropdownBtn.click()
@@ -346,10 +344,8 @@ test("English transcript auto-loads when the tab is opened", async ({
     state: "attached"
   })
 
-  // English is the default; the button should show "English (Default)"
-  await expect(page.locator(".transcript-lang-btn-text")).toHaveText(
-    "English (Default)"
-  )
+  // English is the default; the button should show its caption-track label.
+  await expect(page.locator(".transcript-lang-btn-text")).toHaveText("English")
 
   // Switching to French updates the button label
   const dropdownBtn = page.locator(".transcript-lang-dropdown-btn")

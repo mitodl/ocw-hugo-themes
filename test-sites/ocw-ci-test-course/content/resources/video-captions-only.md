@@ -19,6 +19,8 @@ video_files:
   video_captions_resources:
     - file: /courses/ocw-ci-test-course/917263bef37857bd94ef67692405bcc9_erlp_sbca1s.vtt
       language: en
+    - file: /courses/ocw-ci-test-course/11wFKJb61wRWKOSOxmtjDlWPXf6MiVpIQ_transcript_fr.webvtt
+      language: fr
   video_thumbnail_file: https://img.youtube.com/vi/YWyHAlAuRL0/default.jpg
   video_transcript_file: null
 video_metadata:
