@@ -1,0 +1,8 @@
+{{- $readableId := .primary_course_number -}}
+{{- with .term -}}
+  {{- $readableId = printf "%s+%s" $readableId (urlize (lower .)) -}}
+{{- end -}}
+{{- with .year -}}
+  {{- $readableId = printf "%s_%v" $readableId . -}}
+{{- end -}}
+{{- return $readableId -}}
