@@ -1,6 +1,6 @@
 {{ $isEmbedVideo := eq .tabTitle "View video page" }}
 {{ $videoHasTranscript := eq .tabTitle "Transcript" }}
-{{ $hasTranscriptLinks := and $videoHasTranscript .transcriptLinks (gt (len .transcriptLinks) 0) }}
+{{ $hasCaptionTracks := and $videoHasTranscript .captionTracks (gt (len .captionTracks) 0) }}
 {{/*  These terms mirror the popup's item conditions below, so the button appears
   exactly when the popup would render at least one entry. transcriptLink is unused by
   current callers; keep it while the popup still branches on it.  */}}
@@ -45,7 +45,7 @@
         {{ if .transcriptLinks }}
           <li>
             <button class="download-transcript-submenu-btn" aria-haspopup="true">
-              Download Transcript<i class="material-icons" aria-hidden="true">chevron_right</i>
+              Download transcript<i class="material-icons" aria-hidden="true">chevron_right</i>
             </button>
           </li>
         {{ else if .transcriptLink }}
@@ -75,15 +75,15 @@
   </div>
   {{ end }}
 </div>
-{{ if $hasTranscriptLinks }}
+{{ if $hasCaptionTracks }}
 {{- $defaultLabel := "" -}}
-{{- range .transcriptLinks -}}
+{{- range .captionTracks -}}
   {{- if and (not $defaultLabel) .isDefault -}}
     {{- $defaultLabel = .label -}}
   {{- end -}}
 {{- end -}}
 {{- if not $defaultLabel -}}
-  {{- with index .transcriptLinks 0 -}}{{- $defaultLabel = .label -}}{{- end -}}
+  {{- with index .captionTracks 0 -}}{{- $defaultLabel = .label -}}{{- end -}}
 {{- end -}}
 <div class="transcript-lang-bar">
   <span class="transcript-lang-label">Select language:</span>
@@ -94,12 +94,12 @@
     </button>
     <div class="transcript-lang-dropdown-menu hidden" role="listbox">
       <ul>
-        {{ range $tl := .transcriptLinks }}
+        {{ range $track := .captionTracks }}
         <li>
-          <button class="transcript-lang-option{{ if $tl.isDefault }} active{{ end }}"
-                  data-lang="{{ if $tl.locale }}{{ $tl.language }}-{{ $tl.locale }}{{ else }}{{ $tl.language }}{{ end }}"
+          <button class="transcript-lang-option{{ if $track.isDefault }} active{{ end }}"
+                  data-lang="{{ $track.srclang }}"
                   role="option"
-                  aria-selected="{{ if $tl.isDefault }}true{{ else }}false{{ end }}">{{ $tl.label }}</button>
+                  aria-selected="{{ if $track.isDefault }}true{{ else }}false{{ end }}">{{ $track.label }}</button>
         </li>
         {{ end }}
       </ul>
