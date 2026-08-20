@@ -9,7 +9,8 @@ import { offlineFileUrl, COURSE_V3_CANONICAL_DOMAIN } from "../util"
  * canonical domain rather than the static API host.
  *
  * The query parameter names come from course-v3/data/search_query_keys.json,
- * which wins the data merge — they are MIT Learn's names (department, level, t, q).
+ * which wins the data merge — they are MIT Learn's names (department, level,
+ * topic, q).
  *
  * These links are intentionally absolute, so expectLocalPackageHref does not
  * apply. They carry strip-link-offline, so hide_offline_links.html unwraps them
@@ -47,6 +48,25 @@ test.describe("offline-v3 search and facet links", () => {
     for (const href of levels) {
       expect(href.startsWith(`${CANONICAL}/search/?`)).toBe(true)
     }
+  })
+
+  test("topic links use the v3 canonical domain and Learn topic names", async ({
+    page
+  }) => {
+    await page.goto(offlineFileUrl("/"))
+
+    const hrefs = await searchHrefs(page)
+    const topics = hrefs.filter(h => h.includes("topic="))
+
+    expect(topics.length).toBeGreaterThan(0)
+    for (const href of topics) {
+      expect(href.startsWith(`${CANONICAL}/search/?`)).toBe(true)
+    }
+    // An OCW topic can map to several Learn topics, in which case the param
+    // repeats rather than being collapsed to a single value.
+    expect(topics).toContain(
+      `${CANONICAL}/search/?topic=AI&topic=Machine+Learning`
+    )
   })
 
   test("every search link is hosted on the v3 canonical domain", async ({
