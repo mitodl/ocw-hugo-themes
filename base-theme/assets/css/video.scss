@@ -373,7 +373,7 @@ a.video-download-button:visited {
 
 .transcript-lang-dropdown {
   position: relative;
-  min-width: 160px; // Wide enough for "English (Default)" style labels
+  min-width: 160px; // Wide enough for language and locale labels
   font-size: 0.85rem; // Match the "Select language:" label; inherited by btn and options
 }
 

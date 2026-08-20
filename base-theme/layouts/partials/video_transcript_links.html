@@ -51,11 +51,7 @@
       {{- $isDefault = true -}}
       {{- $firstDone = true -}}
     {{- end -}}
-    {{- $label := $baseLabel -}}
-    {{- if $isDefault -}}
-      {{- $label = printf "%s (Default)" $baseLabel -}}
-    {{- end -}}
-    {{- $links = $links | append (dict "href" $href "language" $lang "locale" $locale "label" $label "isDefault" $isDefault) -}}
+    {{- $links = $links | append (dict "href" $href "language" $lang "locale" $locale "label" $baseLabel "isDefault" $isDefault) -}}
   {{- end -}}
 {{- end -}}
 

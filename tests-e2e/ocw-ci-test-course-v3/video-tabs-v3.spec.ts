@@ -26,7 +26,7 @@ test.describe("Course v3 video tab language selector", () => {
     // Both language options should be present
     const langOptions = page.locator(".transcript-lang-option")
     await expect(langOptions).toHaveCount(2)
-    await expect(langOptions.nth(0)).toHaveText("English (Default)")
+    await expect(langOptions.nth(0)).toHaveText("English")
     await expect(langOptions.nth(1)).toHaveText("French")
   })
 
@@ -45,7 +45,7 @@ test.describe("Course v3 video tab language selector", () => {
 
     // Initial label is the default language (English pre-selected)
     await expect(page.locator(".transcript-lang-btn-text")).toHaveText(
-      "English (Default)"
+      "English"
     )
 
     // Open dropdown, click French
@@ -144,7 +144,8 @@ test.describe("Course v3 video tab language selector", () => {
 
     // Both language transcript links should be visible
     const transcriptLinks = page.getByRole("link", {
-      name: /English \(Default\)/i
+      name:  "Download transcript: English",
+      exact: true
     })
     await expect(transcriptLinks.first()).toBeVisible()
   })
@@ -162,9 +163,9 @@ test.describe("Course v3 video tab language selector", () => {
       state: "attached"
     })
 
-    // English is the default; the button should show "English (Default)"
+    // English is the default; the button should show its caption-track label.
     await expect(page.locator(".transcript-lang-btn-text")).toHaveText(
-      "English (Default)"
+      "English"
     )
 
     // Switching to French updates the button label
@@ -269,19 +270,48 @@ test.describe("Course v3 video download button visibility", () => {
     await expect(video.downloadButton()).toHaveCount(0)
   })
 
-  test("captions-only resource page shows the Transcript tab but no download button", async ({
+  test("captions-only resource page switches transcript languages without a download button", async ({
     page
   }) => {
+    await page.route(/\.(?:vtt|webvtt)$/, async route => {
+      await route.fulfill({
+        body: [
+          "WEBVTT",
+          "",
+          "00:00:00.000 --> 00:00:05.000",
+          new URL(route.request().url()).pathname
+        ].join("\n"),
+        contentType: "text/vtt",
+        headers:     { "access-control-allow-origin": "*" }
+      })
+    })
+
     const course = new CoursePage(page, "course-v3")
     await course.goto(CAPTIONS_ONLY_RESOURCE, { waitUntil: "domcontentloaded" })
     const video = new VideoElement(page)
 
     // Captions drive the in-page transcript panel, so the tab must still render.
-    await expect(video.tab({ name: /Transcript/i, exact: false })).toHaveCount(
-      1
-    )
+    const transcriptTab = video.tab({ name: /Transcript/i, exact: false })
+    await expect(transcriptTab).toHaveCount(1)
     // There is no transcript file and no video file, so nothing to download.
     await expect(video.downloadButton()).toHaveCount(0)
+
+    await transcriptTab.click()
+    const langOptions = page.locator(".transcript-lang-option")
+    await expect(langOptions).toHaveText(["English", "French"])
+
+    const transcriptBody = page.locator(".transcript-body")
+    await expect(transcriptBody).toHaveAttribute("lang", "en")
+    const firstTranscript = await transcriptBody.textContent()
+    expect(firstTranscript).toBeTruthy()
+
+    const secondOption = langOptions.nth(1)
+    const secondLanguage = await secondOption.getAttribute("data-lang")
+    expect(secondLanguage).toBeTruthy()
+    await page.locator(".transcript-lang-dropdown-btn").click()
+    await secondOption.click()
+    await expect(transcriptBody).toHaveAttribute("lang", secondLanguage!)
+    expect(await transcriptBody.textContent()).not.toBe(firstTranscript)
   })
 
   test("video with a downloadable file still shows the download button", async ({
