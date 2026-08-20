@@ -1,0 +1,8 @@
+{{- if templates.Exists "partials/course_readable_id.html" -}}
+  {{- $courseData := dict
+    "primary_course_number" (.Get "number")
+    "term" (.Get "term")
+    "year" (.Get "year")
+  -}}
+  <span data-readable-id-case="{{ .Get "case" }}" data-readable-id="{{ partial "course_readable_id.html" $courseData }}"></span>
+{{- end -}}

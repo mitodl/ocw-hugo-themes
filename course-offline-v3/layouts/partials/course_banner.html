@@ -13,7 +13,7 @@
         <h1 class="course-title">
           {{ $courseData.course_title }}
         </h1>
-        {{- $readableId := printf "%s+%s_%s" $courseData.primary_course_number (lower $courseData.term) $courseData.year -}}
+        {{- $readableId := partial "course_readable_id.html" $courseData -}}
         <div class="bookmark-button-container" data-resourcereadableid="{{- $readableId -}}"></div>
       </div>
     </div>
