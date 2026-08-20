@@ -1,0 +1,228 @@
+// Image galleries and the lightbox that opens them.
+//
+// The thumbnail rail is a CSS grid rather than a JS-measured layout, which is why
+// no resize hook is needed when the Course Info drawer changes the content
+// column's width — auto-fill/minmax reflows natively.
+//
+// Colour pairs in the lightbox were measured with a WCAG contrast calculator, not
+// eyeballed; ratios are recorded inline so a later edit can tell what it breaks.
+
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  // Lets the grid shrink inside the flex content column. Replaces the old
+  // .course-detail:has(.image-gallery) { min-width: 0 } workaround, which existed
+  // because nanogallery2 forced a large min-content width.
+  min-width: 0;
+  margin-bottom: 1.5rem;
+}
+
+.image-gallery__figure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  min-width: 0;
+}
+
+.image-gallery__link {
+  display: block;
+  line-height: 0;
+  border: 1px solid $medium-gray;
+  border-radius: 3px;
+  overflow: hidden;
+  background: $white;
+
+  &:hover {
+    border-color: $black;
+  }
+
+  // $black is 21:1 on white. Deliberately not $link-blue (#32c5ff), which is only
+  // 1.99:1 there and would fail the 3:1 floor for a focus indicator (1.4.11).
+  &:focus-visible {
+    outline: 3px solid $black;
+    outline-offset: 3px;
+  }
+}
+
+.image-gallery__thumb {
+  width: 100%;
+  height: 150px;
+  // contain, not cover: these are course figures, and cropping one loses content.
+  object-fit: contain;
+  display: block;
+}
+
+.image-gallery__caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  // Long unbroken filenames in a narrow grid column would otherwise force the
+  // whole grid wider.
+  overflow-wrap: anywhere;
+}
+
+.image-gallery__credit {
+  font-size: 0.8125rem;
+  color: $dark-gray;
+}
+
+// Stop the page behind scrolling while the lightbox is open. showModal() does not
+// do this on its own, and doing it here avoids touching document styles from JS.
+html:has(dialog.image-gallery-lightbox[open]) {
+  overflow: hidden;
+}
+
+.image-gallery-lightbox {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+  background: #0b0f13;
+  color: #f7f9fb; // 17.8:1 on #0b0f13
+  overflow: hidden;
+  overscroll-behavior: contain;
+
+  &::backdrop {
+    background: rgba(6, 9, 12, 0.9);
+  }
+}
+
+.image-gallery-lightbox__stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // Room for the control row above and the caption bar below.
+  padding: 76px 88px 116px;
+}
+
+.image-gallery-lightbox__image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.image-gallery-lightbox__bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px 88px 20px;
+  text-align: center;
+  // Solid rather than a gradient fade, so caption contrast never depends on
+  // whichever pixel of the image sits underneath.
+  background: #0b0f13;
+  border-top: 1px solid #2e3841;
+}
+
+.image-gallery-lightbox__caption {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: #f7f9fb; // 17.8:1
+}
+
+.image-gallery-lightbox__counter {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  margin: 0;
+  font-size: 0.8125rem;
+  color: #afbcc7; // 9.9:1
+  font-variant-numeric: tabular-nums;
+}
+
+.image-gallery-lightbox__button {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  // 2.5.5 / 2.5.8 target size.
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0;
+  cursor: pointer;
+  color: #f7f9fb;
+  background: #1c242c;
+  // 4.4:1 against the #0b0f13 surround, for 1.4.11 non-text contrast. This border
+  // is what identifies the control, so it carries the ratio rather than the fill.
+  border: 1px solid #6c7a87;
+  border-radius: 4px;
+
+  &:hover {
+    background: #2a343e;
+    border-color: #93a2af;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $white; // 19.2:1 against the dialog ground
+    outline-offset: 3px;
+  }
+
+  .material-icons {
+    font-size: 24px;
+    line-height: 1;
+  }
+}
+
+.image-gallery-lightbox__prev {
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.image-gallery-lightbox__next {
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.image-gallery-lightbox__close {
+  right: 20px;
+  top: 20px;
+}
+
+// Reflow (1.4.10): at narrow widths or short heights the side padding starves the
+// image, so move the arrows into the bottom corners and reclaim the width.
+@media (max-width: 620px), (max-height: 450px) {
+  .image-gallery-lightbox__stage {
+    padding: 64px 12px 132px;
+  }
+
+  .image-gallery-lightbox__bar {
+    padding: 14px 16px 74px;
+  }
+
+  .image-gallery-lightbox__prev {
+    left: 16px;
+    top: auto;
+    bottom: 16px;
+    transform: none;
+  }
+
+  .image-gallery-lightbox__next {
+    right: 16px;
+    top: auto;
+    bottom: 16px;
+    transform: none;
+  }
+}
+
+// Windows High Contrast: keep the chrome visible when our colours are discarded.
+@media (forced-colors: active) {
+  .image-gallery-lightbox__button {
+    border: 1px solid ButtonBorder;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+
+  .image-gallery-lightbox__bar {
+    border-top: 1px solid CanvasText;
+  }
+}
