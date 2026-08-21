@@ -4909,17 +4909,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@videojs/vhs-utils@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "@videojs/vhs-utils@npm:4.1.1"
-  dependencies:
-    "@babel/runtime": "npm:^7.12.5"
-    global: "npm:^4.4.0"
-  checksum: 10c0/3b874ee5f66b54b5b158b85c27c86aef859ff90eb0da37cdf2e95b3757413c397a3680ddb37fcf5c33ea967d121b56a0f845ac311e0192fb4ef8e1a2936573c4
-  languageName: node
-  linkType: hard
-
-"@videojs/vhs-utils@npm:^4.1.2":
+"@videojs/vhs-utils@npm:^4.1.1, @videojs/vhs-utils@npm:^4.1.2":
   version: 4.1.2
   resolution: "@videojs/vhs-utils@npm:4.1.2"
   dependencies:
