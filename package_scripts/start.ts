@@ -57,7 +57,7 @@ const startWebpackAnd = ({
       }
     ],
     {
-      killOthers: ["failure", "success"]
+      killOthersOn: ["failure", "success"]
     }
   )
 
