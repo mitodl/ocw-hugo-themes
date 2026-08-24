@@ -7,12 +7,19 @@
       <span class="breadcrumb-text">
         {{ $courseData.primary_course_number }} | {{ $courseData.term }} {{ $courseData.year }}{{if $courseData.level }} | {{ delimit $courseData.level ", " }}{{ end }}
       </span>
-      <div class="course-title-row">
+      <div class="course-title-row{{ if $isHomepage }} flex-wrap{{ end }}">
         <h1 class="course-title">
           {{ $courseData.course_title }}
         </h1>
         {{- $readableId := partial "course_readable_id.html" $courseData -}}
+        {{ if $isHomepage }}
+        <div class="course-title-actions d-flex align-items-start flex-shrink-0">
+          <div id="ask-tim-container" class="pt-2" data-readable-id="{{- $readableId -}}" data-course-title="{{- $courseData.course_title -}}"></div>
+          <div class="bookmark-button-container" data-resourcereadableid="{{- $readableId -}}"></div>
+        </div>
+        {{ else }}
         <div class="bookmark-button-container" data-resourcereadableid="{{- $readableId -}}"></div>
+        {{ end }}
       </div>
     </div>
   </div>
