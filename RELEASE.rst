@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.157.0
+---------------
+
+- Update dependency concurrently to v10 (#1860)
+- Update dependency commander to v15 (#1859)
+- Update dependency video.js to v8.24.0 (#1858)
+- Update dependency mathjax to v4.1.3 (#1856)
+- Canonicalize course-v3 readable IDs (#1864)
+- Fix captions/transcript language selector (#1863)
+
 Version 1.156.0 (Released August 25, 2026)
 ---------------
 
