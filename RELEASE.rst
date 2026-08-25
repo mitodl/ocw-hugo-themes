@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.156.0
+Version 1.156.0 (Released August 25, 2026)
 ---------------
 
 - Update dependency posthog-js to v1.417.0 (#1857)
