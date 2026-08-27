@@ -1,6 +1,17 @@
 {{/*
-  Returns a lookup of resource pages keyed by the basename of their `file` param,
-  e.g. "example_jpg.jpg" -> the resource Page.
+  Returns a lookup of resource pages, keyed two ways:
+
+  1. path.Base of the resource's own `file` param, e.g. "example_jpg.jpg" -> the
+     resource Page. Matches hand-authored/legacy hrefs that are just the bare
+     filename or a full resource path ("/courses/foo/example_jpg.jpg").
+
+  2. "uid:" followed by the resource's own `uid` with dashes stripped and
+     lowercased, e.g. "uid:c3e2834174a42a89c56c3a1a5bcc0eff" -> the resource
+     Page. Real ocw-studio content authors gallery-item hrefs as
+     "<uid-without-dashes>_<original-filename>" — a different filename than the
+     resource's own `file` param, so key (1) never matches it. The "uid:" prefix
+     keeps this namespace disjoint from the filename keys, even if a filename
+     were itself 32 hex characters with no extension.
 
   Call it through partialCached so the index is built once per site rather than
   once per lookup:
@@ -14,18 +25,22 @@
   and "." matches any character), it scans every page in the site on every call,
   and callers that assign inside the range end up with the last match rather than
   the first.
-
-  Keyed on path.Base so both authored href shapes resolve: a bare filename
-  ("example_jpg.jpg") and a full resource path ("/courses/foo/example_jpg.jpg").
 */}}
 
 {{- $index := dict -}}
 {{- range where .Site.Pages "Params.file" "!=" "" -}}
+  {{- $page := . -}}
   {{- $key := path.Base .Params.file -}}
   {{/* First match wins: resource filenames are unique in practice, and if they
        are not, preferring the earliest keeps the result stable across builds. */}}
   {{- if not (index $index $key) -}}
-    {{- $index = merge $index (dict $key .) -}}
+    {{- $index = merge $index (dict $key $page) -}}
+  {{- end -}}
+  {{- with .Params.uid -}}
+    {{- $uidKey := printf "uid:%s" (lower (replace . "-" "")) -}}
+    {{- if not (index $index $uidKey) -}}
+      {{- $index = merge $index (dict $uidKey $page) -}}
+    {{- end -}}
   {{- end -}}
 {{- end -}}
 {{- return $index -}}

@@ -66,6 +66,12 @@
 }
 
 .image-gallery__credit {
+  // Block rather than the span default: the grid figcaption already stacks
+  // this via flex-column, but this same markup is reused verbatim inside the
+  // lightbox's plain <p> caption (see image_gallery_lightbox.ts), which isn't
+  // a flex container — without this the credit ran inline right after the
+  // caption text there instead of starting its own line.
+  display: block;
   font-size: 0.8125rem;
   color: $dark-gray;
 }
@@ -127,6 +133,40 @@ html:has(dialog.image-gallery-lightbox[open]) {
   margin: 0;
   font-size: 0.9375rem;
   color: #f7f9fb; // 17.8:1
+
+  // A credit link keeps its href here (see external_link_modal.ts for how its
+  // warning modal stays visible above this dialog). Underlined rather than
+  // solely recolored: color alone isn't a sufficient cue (1.4.1).
+  a {
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    &:focus-visible {
+      outline: 3px solid $white; // 19.2:1, matches the buttons' focus ring
+      outline-offset: 2px;
+    }
+  }
+
+  // Grays a credit's link specifically, so it reads as secondary to the
+  // caption text rather than matching it. Same gray as the counter below,
+  // not $dark-gray (the grid view's credit color): that one is tuned for a
+  // light background and is unreadable here.
+  //
+  // `color: inherit` is not enough: the site-wide `a:visited` rule (~2.4:1 on
+  // this background) ties this selector's specificity and wins by source
+  // order, and the unvisited `a` color fares little better (~3.15:1) — both
+  // fail 4.5:1. :link/:visited adds the specificity to win outright, and an
+  // explicit color (not `inherit`) keeps both states identical rather than
+  // depending on which one happens to cascade.
+  .image-gallery__credit a {
+    &:link,
+    &:visited {
+      color: #afbcc7; // 9.9:1
+    }
+  }
 }
 
 .image-gallery-lightbox__counter {

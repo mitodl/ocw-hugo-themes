@@ -106,6 +106,26 @@ describe("initImageGalleryLightbox", () => {
     ).toContain("Figure one")
   })
 
+  it("keeps a credit link as a real, focusable anchor inside the lightbox caption", () => {
+    renderGallery([
+      {
+        href:       "a.jpg",
+        alt:        "First",
+        caption:    "Cap",
+        creditHref: "https://google.com"
+      }
+    ])
+    links()[0].click()
+
+    // Regression test: an earlier version read figcaption.textContent, which
+    // flattened the credit's anchor to plain, unclickable text.
+    const creditLink = document.querySelector<HTMLAnchorElement>(
+      ".image-gallery-lightbox__caption a"
+    )
+    expect(creditLink).not.toBeNull()
+    expect(creditLink!.getAttribute("href")).toBe("https://google.com")
+  })
+
   it("reuses one dialog across galleries and repeat opens", () => {
     renderGallery([{ href: "a.jpg" }])
     renderGallery([{ href: "b.jpg" }])

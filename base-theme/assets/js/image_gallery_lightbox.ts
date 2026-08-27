@@ -23,7 +23,7 @@ interface Slide {
   href: string
   alt: string
   srcset: string
-  caption: string
+  captionHtml: string
 }
 
 interface Lightbox {
@@ -56,17 +56,18 @@ function supportsModalDialog(): boolean {
 /** Read a slide out of the server-rendered markup. */
 function toSlide(link: HTMLAnchorElement): Slide {
   const img = link.querySelector("img")
-  // The caption lives in a sibling <figcaption>. Take its text rather than
-  // cloning its markup: credits contain real anchors, and a modal <dialog> sits
-  // in the top layer where a Bootstrap modal could never paint above it, so a
-  // cloned external link would open a warning the user cannot see.
+  // The caption lives in a sibling <figcaption>. Its markup is reused as-is —
+  // including any credit link — rather than flattened to text, so the credit
+  // stays a real, focusable link inside the lightbox too. A credit link is
+  // still an external-link-warning link, and external_link_modal.ts is what
+  // makes that warning visible above this dialog's top layer.
   const figure = link.closest("figure")
   const figcaption = figure?.querySelector("figcaption")
   return {
-    href:    link.getAttribute("href") || "",
-    alt:     img?.getAttribute("alt") || "",
-    srcset:  img?.getAttribute("srcset") || "",
-    caption: figcaption?.textContent?.trim() || ""
+    href:        link.getAttribute("href") || "",
+    alt:         img?.getAttribute("alt") || "",
+    srcset:      img?.getAttribute("srcset") || "",
+    captionHtml: figcaption?.innerHTML.trim() || ""
   }
 }
 
@@ -154,8 +155,8 @@ function paint(index: number): string {
   image.src = slide.href
   image.alt = slide.alt
 
-  caption.textContent = slide.caption
-  caption.hidden = !slide.caption
+  caption.innerHTML = slide.captionHtml
+  caption.hidden = !slide.captionHtml
   counter.textContent = `${current + 1} / ${slides.length}`
 
   // hidden, not disabled: a disabled button is still announced and still occupies
