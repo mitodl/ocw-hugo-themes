@@ -8,7 +8,7 @@ import {
   initCourseInfoExpander,
   initCourseDescriptionExpander
 } from "./js/course_expander"
-import { initImageGalleriesFromMarkup } from "./js/init_image_galleries_from_markup"
+import { initImageGalleryLightbox } from "../../base-theme/assets/js/image_gallery_lightbox"
 import {
   clearSolution,
   checkAnswer,
@@ -29,7 +29,6 @@ import BookmarkButton from "../../base-theme/assets/js/components/BookmarkButton
 import { mountAskTim } from "./js/components/AskTim"
 
 export interface OCWWindow extends Window {
-  initNanogallery2: () => void
   setReadableResourceId: (value: string) => void
   posthog: typeof posthog
 }
@@ -49,6 +48,7 @@ $(function() {
   showSolution()
   initMobileCourseMenuV3()
   initTableRowspanBorders()
+  initImageGalleryLightbox()
   const queryClient = makeQueryClient()
   mountAskTim(document.querySelector("#ask-tim-container"), posthogClient)
   const userMenuContainers = document.querySelectorAll(
@@ -105,11 +105,3 @@ $(function() {
     )
   }
 })
-
-let nanogallery2Loaded = false
-
-window.initNanogallery2 = () => {
-  if (nanogallery2Loaded) return
-  import("./nanogallery2-imports.js").then(initImageGalleriesFromMarkup)
-  nanogallery2Loaded = true
-}

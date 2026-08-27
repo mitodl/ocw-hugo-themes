@@ -14,8 +14,7 @@ import {
   checkAnswer,
   showSolution
 } from "../../course-v3/assets/js/quiz_multiple_choice"
-import { initImageGalleriesFromMarkup } from "../../course-v3/assets/js/init_image_galleries_from_markup"
-import "../../course-v3/assets/nanogallery2-imports.js"
+import { initImageGalleryLightbox } from "../../base-theme/assets/js/image_gallery_lightbox"
 import { initMobileCourseMenuV3 } from "../../course-v3/assets/js/mobile_course_menu_v3"
 import { initTableRowspanBorders } from "../../course-v3/assets/js/table_rowspan_borders"
 import "videojs-youtube"
@@ -25,7 +24,6 @@ export interface OCWWindow extends Window {
   $: JQueryStatic
   jQuery: JQueryStatic
   videojs: typeof videojs
-  initNanogallery2: () => void
 }
 
 declare let window: OCWWindow
@@ -40,13 +38,6 @@ $(function() {
   showSolution()
   initMobileCourseMenuV3()
   initTableRowspanBorders()
+  initImageGalleryLightbox()
   window.videojs = videojs
 })
-
-let nanogallery2Initialized = false
-
-window.initNanogallery2 = () => {
-  if (nanogallery2Initialized) return
-  initImageGalleriesFromMarkup()
-  nanogallery2Initialized = true
-}

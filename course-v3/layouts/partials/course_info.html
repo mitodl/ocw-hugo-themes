@@ -103,15 +103,9 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
   </div>
 </div>
 
-<script>
-  window.addEventListener('DOMContentLoaded', function () {
-    document.addEventListener('click', function (e) {
-      const closestButton = e.target.closest('button')
-      if (closestButton && closestButton.classList.contains('course-info-button')) {
-        document.querySelectorAll('.image-gallery').forEach(gallery => {
-          $(gallery).nanogallery2('resize')
-        });
-      }
-  });
-});
-</script>
+{{/*
+  A script used to live here re-measuring image galleries whenever the Course Info
+  drawer changed the content column's width, because nanogallery2 laid its
+  thumbnails out with absolute positioning at init width. The gallery is now a CSS
+  grid, which reflows on its own, so no hook is needed.
+*/}}

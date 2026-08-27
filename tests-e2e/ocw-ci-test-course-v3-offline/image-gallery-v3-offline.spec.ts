@@ -27,14 +27,56 @@ test.describe("offline-v3 image gallery page", () => {
     expect(baseUrl).not.toMatch(/^https?:\/\//)
   })
 
-  test("gallery nanogallery2 init script is present on the page", async ({
-    page
-  }) => {
+  test("gallery items are server-rendered figures", async ({ page }) => {
     await page.goto(offlineFileUrl("/pages/image-gallery"))
 
-    // The gallery script fires window.initNanogallery2 on load
-    const pageContent = await page.content()
-    expect(pageContent).toContain("initNanogallery2")
+    // The markup no longer depends on JS to exist, which matters offline: the
+    // package is opened over file:// where bundle URLs may not resolve.
+    const figures = page.locator(".image-gallery .image-gallery__figure")
+    await expect(figures).toHaveCount(3)
+  })
+
+  test("gallery images and links are package-local", async ({ page }) => {
+    await page.goto(offlineFileUrl("/pages/image-gallery"))
+
+    const link = page.locator("a.image-gallery__link").first()
+    const href = await expectLocalPackageHref(link)
+    expect(href).toContain("static_resources/example_jpg.jpg")
+
+    const src = await page
+      .locator("img.image-gallery__thumb")
+      .first()
+      .getAttribute("src")
+    expect(src).toContain("static_resources/example_jpg.jpg")
+    expect(src).not.toMatch(/^https?:\/\//)
+
+    // picture_element.html skips Fastly optimization for relative paths, so
+    // offline serves the original file with no srcset. Parity with the old
+    // behaviour, not a regression.
+    const srcset = await page
+      .locator("img.image-gallery__thumb")
+      .first()
+      .getAttribute("srcset")
+    expect(srcset).toBeNull()
+  })
+
+  test("gallery links carry an accessible name", async ({ page }) => {
+    await page.goto(offlineFileUrl("/pages/image-gallery"))
+
+    // Asserted as attached rather than visible: these pages are opened over
+    // file:// with no stylesheet loaded (the bundle path resolves above the test
+    // output dir), so images have no intrinsic size and collapse to a zero box.
+    // First item's resource has an empty image-alt, so the link is labelled from
+    // data-ngdesc; the second is named by its real alt text.
+    await expect(
+      page.getByRole("link", { name: "A pretty dog", includeHidden: true })
+    ).toHaveCount(1)
+    await expect(
+      page.getByRole("link", {
+        name:          "A diagram of a test pattern",
+        includeHidden: true
+      })
+    ).toHaveCount(1)
   })
 
   test("gallery uses v3 offline bundle", async ({ page }) => {

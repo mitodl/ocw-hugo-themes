@@ -1,0 +1,133 @@
+{{/*
+  A single image-gallery item, rendered as semantic HTML.
+
+  Overrides base-theme's version for course-v3 and course-offline-v3 only. Neither
+  base-offline nor course-offline-v3 defines this shortcode, so course-v3's copy
+  wins in both v3 chains while course-v2 keeps base-theme's original.
+
+  Unlike the base-theme version — which emits a bare text link and lets
+  nanogallery2 rebuild the DOM from JS — this renders the real <img> server-side.
+  That means the gallery works with JavaScript disabled, carries alt text, and
+  gets Fastly srcsets from picture_element.html for free.
+
+  Accepts the same params ocw-studio authors, none of them newly required:
+    href         — resource filename or path
+    text         — caption (markdown)
+    data-ngdesc  — description; used as the link's accessible name when the
+                   resource has no image-alt
+  and reads `baseUrl` off the parent shortcode for the fallback path below.
+*/}}
+
+{{- $href := .Get "href" -}}
+{{- $textParam := .Get "text" | default "" -}}
+{{- $desc := .Get "data-ngdesc" | default "" -}}
+{{- $baseUrl := "" -}}
+{{- with .Parent -}}{{- $baseUrl = .Get "baseUrl" | default "" -}}{{- end -}}
+
+{{/* Resolve the resource page so we can read its file path and image metadata.
+     ocw-studio authors real gallery-item hrefs as
+     "<uid-without-dashes>_<original-filename>", where the leading 32 hex chars
+     are the resource's own uid with dashes stripped — not its filename. Try the
+     bare-filename key first (matches hand-authored/legacy hrefs, and the
+     resource's own filename), and only if that misses, extract that leading hex
+     run and look it up by uid. */}}
+{{- $index := partialCached "image_resource_index.html" . "image-resource-index" -}}
+{{- $resource := index $index (path.Base $href) -}}
+{{- if not $resource -}}
+  {{- $uidMatches := findRE "^[0-9a-fA-F]{32}" (path.Base $href) 1 -}}
+  {{- if $uidMatches -}}
+    {{- $resource = index $index (printf "uid:%s" (lower (index $uidMatches 0))) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $file := "" -}}
+{{- $alt := "" -}}
+{{- $caption := "" -}}
+{{- $credit := "" -}}
+
+{{- with $resource -}}
+  {{- $file = .Params.file -}}
+  {{- $metadata := .Params.image_metadata | default dict -}}
+  {{- $alt = index $metadata "image-alt" | default "" -}}
+  {{- $caption = index $metadata "caption" | default "" -}}
+  {{- $credit = index $metadata "credit" | default "" -}}
+{{- end -}}
+
+{{/*
+  Fallback when no resource page matches the href. Without this picture_element
+  receives an empty src and emits nothing at all, so the item would silently
+  vanish. Joining with the authored baseUrl matters because base-theme's
+  resource_url.html does not add a course prefix; for course-v3 and offline the
+  joined and bare forms resolve identically.
+*/}}
+{{- if not $file -}}
+  {{- $file = $href -}}
+  {{- with $baseUrl -}}
+    {{- $file = printf "%s/%s" (strings.TrimSuffix "/" .) (strings.TrimPrefix "/" $href) -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* Theme precedence picks the right resource_url.html: course-v3's online,
+     base-offline's in offline builds. base-offline's needs .context. */}}
+{{- $src := partial "resource_url.html" (dict "context" .Page "url" $file) -}}
+
+{{/*
+  The link wraps only the image, so with an empty alt it would have no accessible
+  name at all. The caption cannot go inside the anchor because `text` renders as
+  markdown and may itself contain a link. So label the anchor instead, and only
+  when alt is empty — otherwise the alt already names it and aria-label would
+  override the better text.
+*/}}
+{{- $linkName := "" -}}
+{{- if not $alt -}}
+  {{- $linkName = $desc -}}
+  {{- if not $linkName -}}
+    {{- $linkName = $textParam | markdownify | plainify | chomp -}}
+  {{- end -}}
+  {{- if not $linkName -}}
+    {{- with $resource -}}{{- $linkName = .Title -}}{{- end -}}
+  {{- end -}}
+  {{- if not $linkName -}}
+    {{/*
+      Last resort, when the resource has no alt, caption, title, and the item has
+      no description. .Ordinal is scoped per parent shortcode, so numbering alone
+      would give two galleries on one page identically named links; the filename
+      is the only distinguishing information available.
+    */}}
+    {{- $linkName = printf "Gallery image (%s)" (path.Base $href) -}}
+  {{- end -}}
+  {{- warnf "image-gallery-item: no image-alt for %q on %s — falling back to %q" $href .Page.RelPermalink $linkName -}}
+{{- end -}}
+
+{{/* Prefer the authored caption param over the resource's own caption. */}}
+{{- $captionHtml := "" -}}
+{{- if $textParam -}}
+  {{- $captionHtml = $textParam | .Page.RenderString -}}
+{{- else if $caption -}}
+  {{- $captionHtml = $caption | .Page.RenderString -}}
+{{- end -}}
+
+{{/* Credit is rendered as real HTML in the figcaption rather than escaped into an
+     attribute, so nested resource_link shortcodes become focusable links. */}}
+{{- $creditHtml := "" -}}
+{{- with $credit -}}
+  {{- $creditHtml = . | $resource.RenderString -}}
+{{- end -}}
+
+{{- $hasCaption := or $captionHtml $creditHtml -}}
+
+{{- if $hasCaption -}}
+<figure class="image-gallery__figure">
+  <a class="image-gallery__link" href="{{ $src }}"{{ with $linkName }} aria-label="{{ . }}"{{ end }}>
+    {{ partial "picture_element.html" (dict "src" $src "alt" $alt "class" "image-gallery__thumb" "sizes" "(min-width: 992px) 25vw, 45vw") }}
+  </a>
+  <figcaption class="image-gallery__caption">
+    {{- with $captionHtml }}<span class="image-gallery__caption-text">{{ . }}</span>{{ end -}}
+    {{- with $creditHtml }}<span class="image-gallery__credit">{{ . }}</span>{{ end -}}
+  </figcaption>
+</figure>
+{{- else -}}
+<a class="image-gallery__link" href="{{ $src }}"{{ with $linkName }} aria-label="{{ . }}"{{ end }}>
+  {{ partial "picture_element.html" (dict "src" $src "alt" $alt "class" "image-gallery__thumb" "sizes" "(min-width: 992px) 25vw, 45vw") }}
+</a>
+{{- end -}}
