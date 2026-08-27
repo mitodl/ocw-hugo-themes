@@ -17,6 +17,7 @@ import {
 import { initImageGalleriesFromMarkup } from "../../course-v3/assets/js/init_image_galleries_from_markup"
 import "../../course-v3/assets/nanogallery2-imports.js"
 import { initMobileCourseMenuV3 } from "../../course-v3/assets/js/mobile_course_menu_v3"
+import { initDrawerMutualExclusion } from "../../course-v3/assets/js/drawer_mutual_exclusion"
 import { initTableRowspanBorders } from "../../course-v3/assets/js/table_rowspan_borders"
 import "videojs-youtube"
 import videojs from "video.js"
@@ -32,6 +33,7 @@ declare let window: OCWWindow
 
 $(function() {
   initMITLearnHeader()
+  initDrawerMutualExclusion()
   initCourseDescriptionExpander(document)
   initCourseInfoExpander(document)
   initDivToggle()
