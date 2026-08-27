@@ -6,9 +6,12 @@ const DESKTOP_COURSE_DRAWER_COLUMN = "div.desktop-course-info"
 const MAIN_COURSE_SECTION_ID = "course-content-section"
 
 test.describe("Course v3 Course Info drawer focus management", () => {
-  test("returns focus to the toggle button when closed", async ({ page }) => {
+  test("returns focus to the toggle button when closed", async ({
+    page,
+    siteAlias
+  }) => {
     await page.setViewportSize({ width: 1280, height: 800 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     const openButton = page.locator("#desktop-course-drawer-button")
@@ -28,9 +31,12 @@ test.describe("Course v3 Course Info drawer focus management", () => {
     await expect(openButton).toBeFocused()
   })
 
-  test("moves focus to the close button when opened", async ({ page }) => {
+  test("moves focus to the close button when opened", async ({
+    page,
+    siteAlias
+  }) => {
     await page.setViewportSize({ width: 1280, height: 800 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     const openButton = page.locator("#desktop-course-drawer-button")
@@ -47,10 +53,11 @@ test.describe("Course v3 Course Info drawer focus management", () => {
   })
 
   test("close button aria-expanded matches the restored initial state", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 1280, height: 800 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     // The drawer is open by default for first-time visitors (no stored
@@ -66,10 +73,11 @@ test.describe("Course v3 Course Info drawer focus management", () => {
 
 test.describe("Course v3 Course Info drawer", () => {
   test("close button id is not duplicated between the desktop and mobile drawers", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 1280, height: 800 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     // Regression test: course_info.html used to render the desktop close

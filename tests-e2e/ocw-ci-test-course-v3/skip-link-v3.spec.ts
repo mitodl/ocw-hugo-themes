@@ -1,4 +1,5 @@
-import { Page, test, expect } from "@playwright/test"
+import { Page } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 /**
@@ -47,25 +48,27 @@ async function assertSkipLinkWorks(page: Page, course: CoursePage) {
 
 test.describe("Course v3 skip to main content link", () => {
   test("is the first focusable element and moves focus to main content when activated", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     await assertSkipLinkWorks(page, course)
   })
 
-  test("works on the course home page", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("works on the course home page", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto()
 
     await assertSkipLinkWorks(page, course)
   })
 
   test("does not scroll when the content region is already visible", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     // Scroll so the content's top edge sits just below the header, computed

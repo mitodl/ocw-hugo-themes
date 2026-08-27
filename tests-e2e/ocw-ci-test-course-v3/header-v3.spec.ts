@@ -323,4 +323,25 @@ test.describe("MIT Learn Header", () => {
     await expect(menuToggle).toHaveCSS("outline-color", "rgb(255, 255, 255)")
     await expect(menuToggle).toHaveCSS("outline-style", "solid")
   })
+
+  test("Opening the Explore MIT drawer closes an already-open Course Info drawer", async ({
+    page,
+    siteAlias
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/resources/file_pdf")
+
+    const infoDrawer = page.locator("#course-info-drawer")
+    const infoToggle = page.locator("#mobile-course-info-toggle")
+    await infoToggle.click({ force: true })
+    await expect(infoDrawer).toHaveClass(/in/)
+
+    const exploreDrawer = page.locator("#mit-learn-nav-drawer")
+    const exploreButton = page.locator("#mit-learn-menu-button-mobile")
+    await exploreButton.click({ force: true })
+
+    await expect(exploreDrawer).toHaveClass(/open/)
+    await expect(infoDrawer).not.toHaveClass(/in/)
+  })
 })
