@@ -6,7 +6,7 @@ const FOOTER_LINKS = [
   ["About Us", /^\/about\/?$/],
   ["Accessibility", /^\/accessibility\/?$/],
   ["Terms of Service", /^\/terms\/?$/],
-  ["Contact Us", /^https:\/\/mitocw\.zendesk\.com\//]
+  ["Help", /^https:\/\/support\.learn\.mit\.edu\//]
 ]
 
 test("Footer links exist and point to the expected pages", async ({
