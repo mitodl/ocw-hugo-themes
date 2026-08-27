@@ -23,12 +23,14 @@ test("Start time exists and transcript section can be expanded", async ({
   const course = new CoursePage(page, siteAlias)
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
   if (siteAlias === "course-offline") {
-    // Offline builds replace the YouTube player with an offline warning
+    // Offline builds replace the YouTube player with an offline warning, and
+    // the transcript-track JS that populates .transcript-line content isn't
+    // in the offline bundle, so the rest of this test doesn't apply.
     await expect(page.locator(".show-offline")).toBeVisible()
-  } else {
-    const src = await page.locator("iframe.vjs-tech").getAttribute("src")
-    expect(src).toMatch(/.*?start=13.*/)
+    return
   }
+  const src = await page.locator("iframe.vjs-tech").getAttribute("src")
+  expect(src).toMatch(/.*?start=13.*/)
 
   // Open the transcript tab and select the only language option.
   // The pane stays empty until a language is explicitly selected.

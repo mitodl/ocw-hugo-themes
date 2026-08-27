@@ -20,12 +20,15 @@ test("that the Download Button works for multiple embed videos in a page", async
     if (siteAlias === "course-offline") {
       // In offline v2, initVideoDownloadPopup is not in the bundle so clicking
       // Show Downloads won't open the popup. Verify links in the DOM directly.
+      // The transcript link lives in the language submenu (even for a single
+      // language), not behind a top-level "Download transcript" aria-label.
       const videoHref = await videoElement.container
         .locator('[aria-label="Download video"]')
         .getAttribute("href")
       expect(videoHref).toMatch(/static_resources\/.*\.mp4/)
       const transcriptHref = await videoElement.container
-        .locator('[aria-label="Download transcript"]')
+        .locator('.download-menu-submenu a[aria-label^="Download transcript"]')
+        .first()
         .getAttribute("href")
       expect(transcriptHref).toMatch(/static_resources\/.*\.pdf/)
     } else {
@@ -90,18 +93,23 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
   })
 
   if (siteAlias === "course-offline") {
-    // Offline v2's download popup has no submenu (single-language transcript),
-    // so both links are direct siblings, same as the pre-submenu online markup.
-    const transcriptDownloadLink = page.getByRole("link", {
-      name: "Download transcript"
-    })
-    const downloadLinksArr = [videoDownloadLink, transcriptDownloadLink]
-    for (let i = 0; i < 2; i++) {
-      await expect(downloadLinksArr[i]).toBeVisible()
-      await page.keyboard.press("Tab")
-      const hrefAttribute = await page.locator(":focus").getAttribute("href")
-      expect(hrefAttribute).toMatch(downloadLinks[i] as RegExp)
-    }
+    // Offline v2 has no popup JS, so the main download menu is reachable via
+    // Tab (the "hidden" class has no effect on it), but the transcript
+    // sub-menu panel stays CSS-hidden until JS reveals it, so its "Back"
+    // button and transcript link are not in the tab order. Verify the video
+    // link is keyboard-reachable, and check the transcript link's href
+    // directly in the DOM.
+    await expect(videoDownloadLink).toBeVisible()
+    await page.keyboard.press("Tab")
+    const videoHref = await page.locator(":focus").getAttribute("href")
+    expect(videoHref).toMatch(downloadLinks[0] as RegExp)
+
+    await expect(transcriptSubmenuBtn).toBeVisible()
+    const transcriptHref = await page
+      .locator('.download-menu-submenu a[aria-label^="Download transcript"]')
+      .first()
+      .getAttribute("href")
+    expect(transcriptHref).toMatch(downloadLinks[1] as RegExp)
   } else {
     await expect(videoDownloadLink).toBeVisible()
     await page.keyboard.press("Tab")
