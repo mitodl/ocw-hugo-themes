@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test"
-import { CoursePage } from "../util"
+import { CoursePage, expectTriggerToOpenANewTab } from "../util"
 
 /**
  * Coverage for the server-rendered image gallery and its <dialog> lightbox.
@@ -17,7 +17,7 @@ test.describe("v3 image gallery", () => {
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     const figures = page.locator(".image-gallery .image-gallery__figure")
-    await expect(figures).toHaveCount(2)
+    await expect(figures).toHaveCount(3)
 
     const firstImage = figures.first().locator("img.image-gallery__thumb")
     const src = await firstImage.getAttribute("src")
@@ -52,6 +52,15 @@ test.describe("v3 image gallery", () => {
     await expect(
       page.getByRole("link", { name: "A diagram of a test pattern" })
     ).toBeVisible()
+
+    // The third item's href is a hashed ocw-studio filename
+    // ("<uid>_2.Niepce.jpg") with no text/data-ngdesc param, so its accessible
+    // name must come entirely from the resource resolved via that hashed href.
+    await expect(
+      page.getByRole("link", {
+        name: "A faint grayscale image of a rooftop and outbuildings."
+      })
+    ).toBeVisible()
   })
 
   test("credit renders as a real link rather than attribute text", async ({
@@ -63,6 +72,36 @@ test.describe("v3 image gallery", () => {
     const credit = page.locator(".image-gallery__credit a")
     await expect(credit).toHaveAttribute("href", "https://google.com")
     await expect(credit).toHaveAccessibleName("Google (opens in a new tab)")
+  })
+
+  test("resolves credit, caption, and alt from the resource when the href is a hashed ocw-studio filename", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+
+    // Real ocw-studio content authors this href as "<uid-without-dashes>_<filename>"
+    // ("c3e2834174a42a89c56c3a1a5bcc0eff_2.Niepce.jpg"), which never basenames to
+    // match the resource's own filename ("2.Niepce.jpg"). Regression coverage for
+    // the lookup bug where image_resource_index.html only keyed on filename, so
+    // credit/caption/alt silently rendered empty for every real gallery item.
+    const figures = page.locator(".image-gallery .image-gallery__figure")
+    const thirdFigure = figures.nth(2)
+
+    await expect(
+      thirdFigure.locator("img.image-gallery__thumb")
+    ).toHaveAttribute(
+      "alt",
+      "A faint grayscale image of a rooftop and outbuildings."
+    )
+    await expect(
+      thirdFigure.locator(".image-gallery__caption-text")
+    ).toHaveText(
+      "An 1826 heliograph, believed to be the oldest surviving camera photograph."
+    )
+    await expect(thirdFigure.locator(".image-gallery__credit")).toHaveText(
+      "Courtesy of the Harry Ransom Center, University of Texas at Austin."
+    )
   })
 
   test("opens as a modal dialog from the keyboard and announces the slide", async ({
@@ -85,10 +124,10 @@ test.describe("v3 image gallery", () => {
     // the dialog is still display:none is never announced.
     // The first item has no image-alt, so the description half is empty.
     await expect(page.locator(".image-gallery-lightbox__status")).toHaveText(
-      /^Image 1 of 2\./
+      /^Image 1 of 3\./
     )
     await expect(page.locator(".image-gallery-lightbox__counter")).toHaveText(
-      "1 / 2"
+      "1 / 3"
     )
   })
 
@@ -137,10 +176,19 @@ test.describe("v3 image gallery", () => {
     await page.keyboard.press("ArrowRight")
     await expect(image).toHaveAttribute("src", /image1\.png$/)
     await expect(page.locator(".image-gallery-lightbox__counter")).toHaveText(
-      "2 / 2"
+      "2 / 3"
     )
     await expect(page.locator(".image-gallery-lightbox__status")).toHaveText(
-      "Image 2 of 2. A diagram of a test pattern"
+      "Image 2 of 3. A diagram of a test pattern"
+    )
+
+    await page.keyboard.press("ArrowRight")
+    await expect(image).toHaveAttribute("src", /2\.Niepce\.jpg$/)
+    await expect(page.locator(".image-gallery-lightbox__counter")).toHaveText(
+      "3 / 3"
+    )
+    await expect(page.locator(".image-gallery-lightbox__status")).toHaveText(
+      "Image 3 of 3. A faint grayscale image of a rooftop and outbuildings."
     )
 
     // Wraps rather than dead-ending.
@@ -160,6 +208,39 @@ test.describe("v3 image gallery", () => {
     await expect(page.locator("dialog.image-gallery-lightbox")).toHaveCount(0)
   })
 
+  test("a credit link inside the lightbox opens its warning modal above the dialog", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+
+    await page.getByRole("link", { name: "A pretty dog" }).click()
+    await expect(page.locator("dialog.image-gallery-lightbox")).toBeVisible()
+
+    // Regression test for two bugs together: an earlier version flattened the
+    // credit's anchor to plain text before painting it into the lightbox (so
+    // there was nothing to click), and even with the anchor preserved, the
+    // warning modal it opens is normally a descendant of <body> — outside the
+    // open dialog's top layer, where the dialog's own showModal() semantics
+    // make it inert. If either regresses, this click hangs and the test times
+    // out rather than reaching the modal at all.
+    const creditLink = page.locator(".image-gallery-lightbox__caption a")
+    await expect(creditLink).toHaveAccessibleName("Google (opens in a new tab)")
+    await creditLink.click()
+
+    const warningDialog = page.getByRole("dialog", {
+      name: "You are leaving MIT OpenCourseWare"
+    })
+    await expect(warningDialog).toBeVisible()
+
+    const continueButton = page.getByRole("button", { name: "Continue" })
+    await expectTriggerToOpenANewTab(
+      page,
+      "https://www.google.com/",
+      continueButton
+    )
+  })
+
   test("works with JavaScript disabled", async ({ browser }) => {
     const context = await browser.newContext({ javaScriptEnabled: false })
     const page = await context.newPage()
@@ -170,7 +251,7 @@ test.describe("v3 image gallery", () => {
     // the full image — progressive enhancement rather than a hard dependency.
     await expect(
       page.locator(".image-gallery .image-gallery__figure")
-    ).toHaveCount(2)
+    ).toHaveCount(3)
     await expect(page.locator("a.image-gallery__link").first()).toHaveAttribute(
       "href",
       /example_jpg\.jpg$/

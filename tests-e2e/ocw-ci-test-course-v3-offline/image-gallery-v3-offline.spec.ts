@@ -33,7 +33,7 @@ test.describe("offline-v3 image gallery page", () => {
     // The markup no longer depends on JS to exist, which matters offline: the
     // package is opened over file:// where bundle URLs may not resolve.
     const figures = page.locator(".image-gallery .image-gallery__figure")
-    await expect(figures).toHaveCount(2)
+    await expect(figures).toHaveCount(3)
   })
 
   test("gallery images and links are package-local", async ({ page }) => {

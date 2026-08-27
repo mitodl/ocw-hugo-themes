@@ -24,9 +24,21 @@
 {{- $baseUrl := "" -}}
 {{- with .Parent -}}{{- $baseUrl = .Get "baseUrl" | default "" -}}{{- end -}}
 
-{{/* Resolve the resource page so we can read its file path and image metadata. */}}
+{{/* Resolve the resource page so we can read its file path and image metadata.
+     ocw-studio authors real gallery-item hrefs as
+     "<uid-without-dashes>_<original-filename>", where the leading 32 hex chars
+     are the resource's own uid with dashes stripped — not its filename. Try the
+     bare-filename key first (matches hand-authored/legacy hrefs, and the
+     resource's own filename), and only if that misses, extract that leading hex
+     run and look it up by uid. */}}
 {{- $index := partialCached "image_resource_index.html" . "image-resource-index" -}}
 {{- $resource := index $index (path.Base $href) -}}
+{{- if not $resource -}}
+  {{- $uidMatches := findRE "^[0-9a-fA-F]{32}" (path.Base $href) 1 -}}
+  {{- if $uidMatches -}}
+    {{- $resource = index $index (printf "uid:%s" (lower (index $uidMatches 0))) -}}
+  {{- end -}}
+{{- end -}}
 
 {{- $file := "" -}}
 {{- $alt := "" -}}
