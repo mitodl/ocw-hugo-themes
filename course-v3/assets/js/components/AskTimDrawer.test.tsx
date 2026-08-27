@@ -36,11 +36,11 @@ const originalCsrfCookieName = process.env.CSRF_COOKIE_NAME
 const renderDrawer = (onClose = jest.fn()) => {
   const result = render(
     <AskTimDrawer
-      apiBaseUrl="https://api.test/root///"
       courseTitle="Structure and Interpretation"
       onClose={onClose}
       open
       readableId="6.001+fall_2024"
+      syllabusEndpoint="https://learn-ai.test/custom/syllabus/"
     />
   )
   return { ...result, onClose }
@@ -70,7 +70,7 @@ test("configures AiChat with the exact course conversation contract", () => {
   ])
   expect(props.conversationStarters).toBe(COURSE_CONVERSATION_STARTERS)
   expect(props.requestOpts).toMatchObject({
-    apiUrl:         "https://api.test/root/ai/http/syllabus_agent/",
+    apiUrl:         "https://learn-ai.test/custom/syllabus/",
     csrfCookieName: "ocw-csrf",
     csrfHeaderName: "X-CSRFToken",
     fetchOpts:      { credentials: "include" }

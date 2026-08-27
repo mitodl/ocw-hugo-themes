@@ -11,17 +11,17 @@ export const ASK_TIM_FEATURE_FLAG = "ocw-course-v3-ask-tim"
 export type AskTimPostHog = Pick<PostHog, "capture" | "onFeatureFlags">
 
 interface AskTimProps {
-  apiBaseUrl: string
   courseTitle: string
   posthog?: AskTimPostHog
   readableId: string
+  syllabusEndpoint: string
 }
 
 export const AskTim: React.FC<AskTimProps> = ({
-  apiBaseUrl,
   courseTitle,
   posthog,
-  readableId
+  readableId,
+  syllabusEndpoint
 }) => {
   const [enabled, setEnabled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -29,7 +29,7 @@ export const AskTim: React.FC<AskTimProps> = ({
 
   useEffect(() => {
     setEnabled(false)
-    if (!apiBaseUrl || !posthog?.onFeatureFlags) return
+    if (!syllabusEndpoint || !posthog?.onFeatureFlags) return
 
     return posthog.onFeatureFlags((flags, _variants, context) => {
       const nextEnabled =
@@ -37,7 +37,7 @@ export const AskTim: React.FC<AskTimProps> = ({
       setEnabled(nextEnabled)
       if (!nextEnabled) setOpen(false)
     })
-  }, [apiBaseUrl, posthog])
+  }, [posthog, syllabusEndpoint])
 
   if (!enabled) return null
 
@@ -56,23 +56,23 @@ export const AskTim: React.FC<AskTimProps> = ({
     <>
       <Button
         aria-label="Ask TIM about this course"
-        className="ask-tim-button mr-2"
+        className="mr-2"
         edge="rounded"
         onClick={handleOpen}
         size="small"
         startIcon={<RiSparkling2Line aria-hidden />}
         variant="bordered"
       >
-        Ask TIM
+        Ask<strong>TIM</strong>
       </Button>
       {hasOpened ? (
         <Suspense fallback={null}>
           <AskTimDrawer
-            apiBaseUrl={apiBaseUrl}
             courseTitle={courseTitle}
             onClose={() => setOpen(false)}
             open={open}
             readableId={readableId}
+            syllabusEndpoint={syllabusEndpoint}
           />
         </Suspense>
       ) : null}
@@ -83,9 +83,11 @@ export const AskTim: React.FC<AskTimProps> = ({
 export const mountAskTim = (
   container: Element | null,
   posthog?: AskTimPostHog,
-  apiBaseUrl = process.env.MIT_LEARN_API_BASE_URL
+  syllabusEndpoint = process.env.LEARN_AI_SYLLABUS_ENDPOINT
 ): void => {
-  if (!(container instanceof HTMLElement) || !posthog || !apiBaseUrl) return
+  if (!(container instanceof HTMLElement) || !posthog || !syllabusEndpoint) {
+    return
+  }
 
   const { courseTitle, readableId } = container.dataset
   if (!courseTitle || !readableId) return
@@ -93,10 +95,10 @@ export const mountAskTim = (
   createRoot(container).render(
     <ThemeProvider>
       <AskTim
-        apiBaseUrl={apiBaseUrl}
         courseTitle={courseTitle}
         posthog={posthog}
         readableId={readableId}
+        syllabusEndpoint={syllabusEndpoint}
       />
     </ThemeProvider>
   )

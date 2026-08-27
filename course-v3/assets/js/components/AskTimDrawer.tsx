@@ -14,24 +14,24 @@ export const COURSE_CONVERSATION_STARTERS = [
 ]
 
 interface AskTimDrawerProps {
-  apiBaseUrl: string
   courseTitle: string
   onClose: () => void
   open: boolean
   readableId: string
+  syllabusEndpoint: string
 }
 
 const AskTimDrawer: React.FC<AskTimDrawerProps> = ({
-  apiBaseUrl,
   courseTitle,
   onClose,
   open,
-  readableId
+  readableId,
+  syllabusEndpoint
 }) => {
   const titleId = useId()
   const requestOpts = useMemo<AiChatProps["requestOpts"]>(
     () => ({
-      apiUrl:         `${apiBaseUrl.replace(/\/+$/, "")}/ai/http/syllabus_agent/`,
+      apiUrl:         syllabusEndpoint,
       csrfCookieName: process.env.CSRF_COOKIE_NAME || "csrftoken",
       csrfHeaderName: "X-CSRFToken",
       fetchOpts:      { credentials: "include" },
@@ -50,7 +50,7 @@ const AskTimDrawer: React.FC<AskTimDrawerProps> = ({
         }
       }
     }),
-    [apiBaseUrl, readableId]
+    [readableId, syllabusEndpoint]
   )
 
   return (

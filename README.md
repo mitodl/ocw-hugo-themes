@@ -207,6 +207,7 @@ To further explain the various environment variables and what they do:
 | `CSRF_COOKIE_NAME` | N/A | `csrftoken` | The name of the CSRF cookie that `mit-learn` sets; read by Axios to send the `X-CSRFToken` header |
 | `MIT_LEARN_BASE_URL` | N/A | `http://learn.odl.local:8062` | The base URL for the frontend of an instance of [`mit-learn`](https://github.com/mitodl/mit-learn) |
 | `MIT_LEARN_API_BASE_URL` | N/A | `http://learn.odl.local:8065` | The base URL for the API gateway (APISIX) of an instance of [`mit-learn`](https://github.com/mitodl/mit-learn) |
+| `LEARN_AI_SYLLABUS_ENDPOINT` | `course-v3` | `https://api.rc.learn.mit.edu/ai/http/syllabus_agent/` | The full URL of the Learn AI syllabus agent endpoint used by AskTIM |
 
 
 ### Writing Tests

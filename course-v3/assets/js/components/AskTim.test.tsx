@@ -65,14 +65,14 @@ const makePostHog = () => {
 
 const renderAskTim = (
   posthog?: AskTimPostHog,
-  apiBaseUrl = "https://api.test"
+  syllabusEndpoint = "https://learn-ai.test/syllabus/"
 ) =>
   render(
     <AskTim
-      apiBaseUrl={apiBaseUrl}
       courseTitle="Structure and Interpretation"
       posthog={posthog}
       readableId="6.001+fall_2024"
+      syllabusEndpoint={syllabusEndpoint}
     />
   )
 
@@ -87,9 +87,12 @@ test("stays off by default and responds to asynchronous feature flags", async ()
   expect(screen.queryByRole("button", { name: /ask tim/i })).toBeNull()
 
   await sendFlags([ASK_TIM_FEATURE_FLAG])
-  expect(
-    screen.getByRole("button", { name: "Ask TIM about this course" })
-  ).toBeInTheDocument()
+  const trigger = screen.getByRole("button", {
+    name: "Ask TIM about this course"
+  })
+  expect(trigger).toBeInTheDocument()
+  expect(trigger).toHaveTextContent("AskTIM")
+  expect(screen.getByText("TIM").tagName).toBe("STRONG")
 })
 
 test("fails closed when PostHog reports a feature flag loading error", async () => {
@@ -101,7 +104,7 @@ test("fails closed when PostHog reports a feature flag loading error", async () 
   expect(screen.queryByRole("button", { name: /ask tim/i })).toBeNull()
 })
 
-test("does not subscribe or render without an API base URL", () => {
+test("does not subscribe or render without a syllabus endpoint", () => {
   const { posthog } = makePostHog()
   renderAskTim(posthog, "")
 

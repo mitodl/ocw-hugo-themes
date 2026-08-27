@@ -62,6 +62,7 @@ jobs:
         run: npm run build:webpack -- --output-path=../ocw-www/public/static_shared/
         env:
           FEATURE_ENABLE_LEARN_INTEGRATION: "true"
+          LEARN_AI_SYLLABUS_ENDPOINT: ${{ secrets.LEARN_AI_SYLLABUS_ENDPOINT }}
           MIT_LEARN_BASE_URL: ${{ secrets.MIT_LEARN_BASE_URL }}
           MIT_LEARN_API_BASE_URL: ${{ secrets.MIT_LEARN_API_BASE_URL }}
 

@@ -3,10 +3,7 @@ import { env } from "../../env"
 import { CoursePage, offlineFileUrl } from "../util"
 
 const FEATURE_FLAG = "ocw-course-v3-ask-tim"
-const ASK_TIM_ENDPOINT = `${env.MIT_LEARN_API_BASE_URL.replace(
-  /\/+$/,
-  ""
-)}/ai/http/syllabus_agent/`
+const ASK_TIM_ENDPOINT = env.LEARN_AI_SYLLABUS_ENDPOINT
 const ASK_TIM_TRIGGER_NAME = "Ask TIM about this course"
 const COURSE_READABLE_ID = "123+fall_2022"
 const CONVERSATION_STARTERS = [
@@ -52,7 +49,7 @@ const installFeatureFlag = async (
   mockResponse?: { body: string; status: number }
 ) => {
   await page.addInitScript(
-    ({ enabled, featureFlag, mockResponse }) => {
+    ({ enabled, featureFlag, mockResponse, syllabusEndpoint }) => {
       const testWindow = window as InstrumentedWindow
       const nativeFetch = window.fetch.bind(window)
       let posthog: InterceptedPostHog | undefined
@@ -70,7 +67,7 @@ const installFeatureFlag = async (
               input.href :
               input.url
 
-        if (url.includes("/ai/http/syllabus_agent/")) {
+        if (url === syllabusEndpoint) {
           const headers = new Headers(init?.headers ?? request?.headers)
           testWindow.__askTimFetches.push({
             body:        typeof init?.body === "string" ? init.body : null,
@@ -126,7 +123,12 @@ const installFeatureFlag = async (
         }
       })
     },
-    { enabled, featureFlag: FEATURE_FLAG, mockResponse }
+    {
+      enabled,
+      featureFlag:      FEATURE_FLAG,
+      mockResponse,
+      syllabusEndpoint: ASK_TIM_ENDPOINT
+    }
   )
 }
 
