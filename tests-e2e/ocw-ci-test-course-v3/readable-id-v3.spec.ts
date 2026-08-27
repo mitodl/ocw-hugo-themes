@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test"
-import { CoursePage, offlineFileUrl } from "../util"
+import { CoursePage, offlineV3FileUrl } from "../util"
 
 const cases = {
   fall:                   "6.001+fall_2024",
@@ -37,7 +37,7 @@ test("course-v3 bookmark markup uses the canonical readable ID", async ({
 test("course-offline-v3 bookmark markup uses the canonical readable ID", async ({
   page
 }) => {
-  await page.goto(offlineFileUrl("/"))
+  await page.goto(offlineV3FileUrl("/"))
 
   const bookmarkContainer = page.locator(".bookmark-button-container")
   await expect(bookmarkContainer).toHaveCount(1)
