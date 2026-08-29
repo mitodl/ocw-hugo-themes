@@ -1,0 +1,13 @@
+{{/* Builds the query string (no leading "?") for a search link.
+     .key   - a key of search_query_keys.json
+     .value - a single value, or a slice of values to repeat the param for */}}
+{{- $key := index site.Data.search_query_keys .key -}}
+{{- $values := .value -}}
+{{- if not (reflect.IsSlice $values) -}}
+  {{- $values = slice $values -}}
+{{- end -}}
+{{- $params := slice -}}
+{{- range $values -}}
+  {{- $params = $params | append $key . -}}
+{{- end -}}
+{{- return querify $params -}}

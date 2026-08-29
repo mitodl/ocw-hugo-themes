@@ -1,4 +1,4 @@
 {{/* Fully qualified because a root-relative /search/ cannot resolve in an
      offline package; the host itself comes from a per-theme seam. */}}
 {{ $baseUrl := partial "search_base_url.html" }}
-{{ return print (strings.TrimSuffix "/" $baseUrl) "/search/?" (querify (index site.Data.search_query_keys .key) .value) }}
+{{ return print (strings.TrimSuffix "/" $baseUrl) "/search/?" (partial "search_query_string.html" .) }}
