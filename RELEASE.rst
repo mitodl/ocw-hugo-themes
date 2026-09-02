@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.157.0
+Version 1.157.0 (Released September 02, 2026)
 ---------------
 
 - Update dependency concurrently to v10 (#1860)
