@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+Version 1.158.0
+---------------
+
+- Add AskTIM drawer to course-v3 (#1865)
+
 Version 1.157.0 (Released September 02, 2026)
 ---------------
 
