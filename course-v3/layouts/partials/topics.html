@@ -3,7 +3,7 @@
 {{ $scratch.Set "index" 0 }}
 {{ $inPanel := .inPanel }}
 {{ $device := .device }}
-{{ with $courseData.topics }}
+{{ with $courseData.mit_learn_topics }}
   {{ with partial "hierarchical_select_as_map.html" . }}
   <div class="d-flex flex-column course-topics-container">
     <h3 class="m-0 course-subsection-heading">
