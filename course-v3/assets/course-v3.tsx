@@ -26,6 +26,7 @@ import AddToUserListModal from "../../base-theme/assets/js/components/UserListMo
 import CreateUserListModal from "../../base-theme/assets/js/components/CreateUserListModal"
 import { ThemeProvider } from "@mitodl/smoot-design"
 import BookmarkButton from "../../base-theme/assets/js/components/BookmarkButton"
+import { mountAskTim } from "./js/components/AskTim"
 
 export interface OCWWindow extends Window {
   initNanogallery2: () => void
@@ -36,7 +37,8 @@ export interface OCWWindow extends Window {
 declare let window: OCWWindow
 
 $(function() {
-  window.posthog = initPostHog()
+  const posthogClient = initPostHog()
+  window.posthog = posthogClient
   initMITLearnHeader()
   initDrawerMutualExclusion()
   initCourseDescriptionExpander(document)
@@ -48,6 +50,7 @@ $(function() {
   initMobileCourseMenuV3()
   initTableRowspanBorders()
   const queryClient = makeQueryClient()
+  mountAskTim(document.querySelector("#ask-tim-container"), posthogClient)
   const userMenuContainers = document.querySelectorAll(
     ".user-menu-container, .mit-learn-user-menu-container"
   )
