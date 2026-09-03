@@ -477,4 +477,23 @@ export const FACET_OPTIONS: Facets = {
   resource_type:       RESOURCE_TYPES
 }
 
+/**
+ * Some facet values are returned by the search API but are not modeled as their
+ * own option in OCW. Each entry folds such an "alias" value into a canonical
+ * value: the alias's aggregation count is merged into the canonical bucket (so
+ * only the canonical value is shown in the UI), and selecting the canonical
+ * facet also filters the search by the alias value.
+ *
+ * Keyed by facet group, then alias value -> canonical value. For example,
+ * "Music and Theater Arts" is returned by the API but folded into the "Music"
+ * department.
+ */
+export const FACET_ALIASES: Partial<
+  Record<keyof Facets, Record<string, string>>
+> = {
+  department_name: {
+    "Music and Theater Arts": "Music"
+  }
+}
+
 export const STATIC_THUMBNAIL_PATH_PREFIX = "/static_shared/images"
