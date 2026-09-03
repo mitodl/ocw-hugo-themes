@@ -15,6 +15,8 @@
     </div>
   </div>
 
+  {{ partial "ask_tim_mount.html" (dict "context" . "mobile" false) }}
+
   <div class="w-100 download-button">
     {{ partial "download_course_link_button.html" (dict "context" . "inPanel" false) }}
   </div>

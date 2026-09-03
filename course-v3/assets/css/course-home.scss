@@ -95,3 +95,33 @@ $course-description-max-lines: 5;
   // is too roomy here, and a negative margin nets it down to 0.5rem.
   margin-top: -0.5rem;
 }
+
+.ask-tim-slot:not(:empty) {
+  margin-top: 1rem;
+}
+
+.ask-tim-slot .ask-tim-trigger {
+  padding: 15px;
+  border-radius: 4px;
+  border: 1px solid var(--Light-Gray-2, #dde1e6);
+  background: var(--white-mit-brand, #fff);
+  box-shadow: 0 4px 8px 0 rgba(19, 20, 21, 0.08);
+  color: var(--dark-gray-2-text-primary, #212326);
+
+  .ask-tim-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ask-tim-label {
+    font-weight: 400;
+    line-height: 18px;
+    white-space: nowrap;
+  }
+
+  svg {
+    color: $highlight-red;
+    flex: 0 0 auto;
+  }
+}

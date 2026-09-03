@@ -1,4 +1,4 @@
-import React, { useId, useMemo } from "react"
+import React, { useMemo, useState } from "react"
 import Box from "@mui/material/Box"
 import Drawer from "@mui/material/Drawer"
 import Typography from "@mui/material/Typography"
@@ -15,6 +15,7 @@ export const COURSE_CONVERSATION_STARTERS = [
 
 interface AskTimDrawerProps {
   courseTitle: string
+  mobile: boolean
   onClose: () => void
   open: boolean
   readableId: string
@@ -23,12 +24,15 @@ interface AskTimDrawerProps {
 
 const AskTimDrawer: React.FC<AskTimDrawerProps> = ({
   courseTitle,
+  mobile,
   onClose,
   open,
   readableId,
   syllabusEndpoint
 }) => {
-  const titleId = useId()
+  const [scrollElement, setScrollElement] = useState<HTMLDivElement | null>(
+    null
+  )
   const requestOpts = useMemo<AiChatProps["requestOpts"]>(
     () => ({
       apiUrl:         syllabusEndpoint,
@@ -53,6 +57,19 @@ const AskTimDrawer: React.FC<AskTimDrawerProps> = ({
     [readableId, syllabusEndpoint]
   )
 
+  const closeButton = (
+    <ActionButton
+      aria-label="Close Ask TIM"
+      autoFocus
+      edge="rounded"
+      onClick={onClose}
+      size="medium"
+      variant="tertiary"
+    >
+      <RiCloseLine aria-hidden />
+    </ActionButton>
+  )
+
   return (
     <Drawer
       anchor="right"
@@ -60,8 +77,9 @@ const AskTimDrawer: React.FC<AskTimDrawerProps> = ({
       open={open}
       slotProps={{
         paper: {
-          "aria-labelledby": titleId,
-          sx:                {
+          "aria-label": "Ask TIM",
+          sx:           {
+            boxSizing: "border-box",
             display:   "flex",
             maxWidth:  900,
             overflowX: "hidden",
@@ -72,43 +90,62 @@ const AskTimDrawer: React.FC<AskTimDrawerProps> = ({
     >
       <Box
         component="header"
-        sx={{
-          alignItems:     "center",
-          borderBottom:   1,
-          borderColor:    "divider",
-          display:        "flex",
-          flexShrink:     0,
-          gap:            2,
-          justifyContent: "space-between",
-          p:              2
-        }}
+        sx={theme =>
+          mobile ?
+            {
+              position: "absolute",
+              right:    theme.spacing(2),
+              top:      theme.spacing(2),
+              zIndex:   2
+            } :
+            {
+              alignItems:     "flex-start",
+              display:        "flex",
+              flexShrink:     0,
+              gap:            2,
+              justifyContent: "space-between",
+              pb:             2,
+              pt:             3,
+              px:             4,
+              position:       "relative",
+              zIndex:         2
+            }
+        }
       >
-        <Box sx={{ minWidth: 0 }}>
-          <Typography id={titleId} variant="h4">
-            Ask TIM
-          </Typography>
-          <Typography noWrap variant="body2">
-            {courseTitle}
-          </Typography>
+        {!mobile ? (
+          <Box sx={{ minWidth: 0 }}>
+            <Typography
+              component="div"
+              sx={{ color: "secondary.active" }}
+              variant="body2"
+            >
+              Course
+            </Typography>
+            <Typography
+              aria-level={2}
+              component="div"
+              noWrap
+              role="heading"
+              variant="h4"
+            >
+              {courseTitle}
+            </Typography>
+          </Box>
+        ) : null}
+        {/* Preserve the close button across breakpoint changes so autoFocus does not run again. */}
+        <Box key="close" sx={{ flexShrink: 0 }}>
+          {closeButton}
         </Box>
-        <ActionButton
-          aria-label="Close Ask TIM"
-          autoFocus
-          edge="circular"
-          onClick={onClose}
-          size="small"
-          variant="text"
-        >
-          <RiCloseLine aria-hidden />
-        </ActionButton>
       </Box>
       <Box
+        data-testid="ask-tim-scroll-container"
+        ref={setScrollElement}
         sx={{
-          flex:                                 1,
-          minHeight:                            0,
-          overflow:                             "hidden",
-          position:                             "relative",
-          "& .MitAiChat--entryScreenContainer": { overflowY: "auto" }
+          flex:      1,
+          minHeight: 0,
+          overflowX: "hidden",
+          overflowY: "auto",
+          position:  "relative"
         }}
       >
         <AiChat
@@ -116,6 +153,7 @@ const AskTimDrawer: React.FC<AskTimDrawerProps> = ({
           conversationStarters={COURSE_CONVERSATION_STARTERS}
           entryScreenTitle="What do you want to know about this course?"
           requestOpts={requestOpts}
+          scrollElement={scrollElement}
         />
       </Box>
     </Drawer>

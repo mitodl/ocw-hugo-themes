@@ -4,8 +4,9 @@ import { CoursePage, offlineFileUrl } from "../util"
 
 const FEATURE_FLAG = "ocw-course-v3-ask-tim"
 const ASK_TIM_ENDPOINT = env.LEARN_AI_SYLLABUS_ENDPOINT
-const ASK_TIM_TRIGGER_NAME = "Ask TIM about this course"
+const ASK_TIM_TRIGGER_NAME = "AskTIM about this course"
 const COURSE_READABLE_ID = "123+fall_2022"
+const COURSE_TITLE = "OCW CI Test Course"
 const CONVERSATION_STARTERS = [
   "What is this course about?",
   "What are the prerequisites for this course?",
@@ -171,18 +172,94 @@ test("disabled flag renders no trigger and never requests the lazy drawer", asyn
   expect(drawerChunkRequests).toEqual([])
 })
 
-test("enabled flag shows Ask TIM only on the homepage", async ({ page }) => {
+test("enabled flag shows AskTIM only on the homepage", async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 800 })
   await installFeatureFlag(page, true)
   const course = new CoursePage(page, "course-v3")
 
   await course.goto("/")
   await waitForFeatureFlag(page)
+  const trigger = page.getByRole("button", { name: ASK_TIM_TRIGGER_NAME })
+  await expect(trigger).toBeVisible()
+  await expect(trigger).toHaveText(ASK_TIM_TRIGGER_NAME)
+  await expect(trigger.locator(".ask-tim-label")).toHaveCSS(
+    "white-space",
+    "nowrap"
+  )
+  expect((await trigger.boundingBox())?.width).toBe(254)
+  await expect(trigger).toHaveCSS("height", "52px")
+  await expect(trigger).toHaveCSS("border-radius", "4px")
+  await expect(trigger).toHaveCSS("border", "1px solid rgb(221, 225, 230)")
+  await expect(trigger).toHaveCSS("background-color", "rgb(255, 255, 255)")
+  await expect(trigger).toHaveCSS(
+    "box-shadow",
+    "rgba(19, 20, 21, 0.08) 0px 4px 8px 0px"
+  )
+  const content = trigger.locator(".ask-tim-content")
+  await expect(content).toHaveCSS("gap", "8px")
+  await expect(trigger.locator("svg")).toHaveCSS("width", "20px")
+  await expect(trigger.locator("svg")).toHaveCSS("height", "20px")
+  await expect(trigger.locator(".ask-tim-label")).toHaveCSS(
+    "line-height",
+    "18px"
+  )
+  const triggerBox = await trigger.boundingBox()
+  const contentBox = await content.boundingBox()
+  expect(triggerBox).not.toBeNull()
+  expect(contentBox).not.toBeNull()
+  expect(contentBox!.y - triggerBox!.y).toBe(16)
+  expect(
+    triggerBox!.y + triggerBox!.height - contentBox!.y - contentBox!.height
+  ).toBe(16)
   await expect(
-    page.getByRole("button", { name: ASK_TIM_TRIGGER_NAME })
+    page.locator(".course-banner-v3 #ask-tim-container")
+  ).toHaveCount(0)
+  await expect(page.locator("#ask-tim-container")).toContainText(
+    ASK_TIM_TRIGGER_NAME
+  )
+
+  await page.setViewportSize({ width: 1676, height: 900 })
+  expect((await trigger.boundingBox())?.width).toBe(304)
+
+  await page.setViewportSize({ width: 767, height: 800 })
+  await expect(page.locator("#ask-tim-container")).toBeEmpty()
+  await expect(page.locator("#ask-tim-mobile-container")).toContainText(
+    ASK_TIM_TRIGGER_NAME
+  )
+  await expect(
+    page.locator(".course-image-section .download-course-section")
+  ).toBeHidden()
+  await expect(
+    page.locator(".bottom-download-button .download-course-section")
   ).toBeVisible()
+
+  await page.setViewportSize({ width: 768, height: 800 })
+  await expect(page.locator("#ask-tim-mobile-container")).toBeEmpty()
+  await expect(page.locator("#ask-tim-container")).toContainText(
+    ASK_TIM_TRIGGER_NAME
+  )
+  await expect(
+    page.locator(".course-image-section .download-course-section")
+  ).toBeVisible()
+  await expect(
+    page.locator(".bottom-download-button .download-course-section")
+  ).toBeHidden()
+  expect((await trigger.boundingBox())?.width).toBe(254)
+  await expect(trigger.locator(".ask-tim-label")).toHaveCSS(
+    "white-space",
+    "nowrap"
+  )
+  expect(
+    await page.evaluate(
+      () =>
+        document.documentElement.scrollWidth >
+        document.documentElement.clientWidth
+    )
+  ).toBe(false)
 
   await course.goto("/pages/assignments")
   await expect(page.locator("#ask-tim-container")).toHaveCount(0)
+  await expect(page.locator("#ask-tim-mobile-container")).toHaveCount(0)
   await expect(
     page.getByRole("button", { name: ASK_TIM_TRIGGER_NAME })
   ).toHaveCount(0)
@@ -196,12 +273,14 @@ test("Ask TIM is absent from course-v2 and course-offline-v3", async ({
   const v2Course = new CoursePage(page, "course")
   await v2Course.goto("/")
   await expect(page.locator("#ask-tim-container")).toHaveCount(0)
+  await expect(page.locator("#ask-tim-mobile-container")).toHaveCount(0)
   await expect(
     page.getByRole("button", { name: ASK_TIM_TRIGGER_NAME })
   ).toHaveCount(0)
 
   await page.goto(offlineFileUrl("/"))
   await expect(page.locator("#ask-tim-container")).toHaveCount(0)
+  await expect(page.locator("#ask-tim-mobile-container")).toHaveCount(0)
   await expect(
     page.getByRole("button", { name: ASK_TIM_TRIGGER_NAME })
   ).toHaveCount(0)
@@ -316,8 +395,16 @@ test("desktop drawer is capped at 900px and supports every close path", async ({
 
   const { drawer, trigger } = await openAskTim(page)
   const closeButton = drawer.getByRole("button", { name: "Close Ask TIM" })
+  const courseLabel = drawer.getByText("Course", { exact: true })
   await expect(drawer).toHaveCSS("max-width", "900px")
   await expect(drawer).toHaveCSS("width", "900px")
+  await expect(courseLabel).toBeVisible()
+  await expect(courseLabel).toHaveCSS("color", "rgb(98, 106, 115)")
+  await expect(
+    drawer.getByRole("heading", { name: COURSE_TITLE, exact: true })
+  ).toBeVisible()
+  await expect(closeButton).toHaveCSS("width", "40px")
+  await expect(closeButton).toHaveCSS("height", "40px")
   await expect(closeButton).toBeFocused()
 
   await page.keyboard.press("Shift+Tab")
@@ -344,6 +431,20 @@ test("desktop drawer is capped at 900px and supports every close path", async ({
     .click({ position: { x: 20, y: 20 } })
   await expect(drawer).toBeHidden()
   await expect(trigger).toBeFocused()
+
+  await trigger.click()
+  await expect(drawer).toBeVisible()
+  const prompt = drawer.getByRole("textbox", { name: "Ask a question" })
+  await prompt.focus()
+  await expect(prompt).toBeFocused()
+  await page.setViewportSize({ width: 390, height: 800 })
+  await expect(page.locator("#ask-tim-mobile-container")).toContainText(
+    ASK_TIM_TRIGGER_NAME
+  )
+  await expect(prompt).toBeFocused()
+  await closeButton.click()
+  await expect(drawer).toBeHidden()
+  await expect(trigger).toBeFocused()
 })
 
 test("mobile drawer fills the viewport and leaves existing drawers usable", async ({
@@ -355,10 +456,49 @@ test("mobile drawer fills the viewport and leaves existing drawers usable", asyn
   await course.goto("/")
   await waitForFeatureFlag(page)
 
+  const trigger = page.getByRole("button", { name: ASK_TIM_TRIGGER_NAME })
+  await expect(page.locator("#ask-tim-container")).toBeEmpty()
+  await expect(page.locator("#ask-tim-mobile-container")).toContainText(
+    ASK_TIM_TRIGGER_NAME
+  )
+  await expect(trigger).toBeVisible()
+
   const { drawer } = await openAskTim(page)
   await expect(drawer).toHaveCSS("width", "390px")
-  await drawer.getByRole("button", { name: "Close Ask TIM" }).click()
+  await expect(drawer.getByText("Course", { exact: true })).toHaveCount(0)
+  await expect(
+    drawer.getByRole("heading", { name: COURSE_TITLE, exact: true })
+  ).toHaveCount(0)
+  const closeButton = drawer.getByRole("button", { name: "Close Ask TIM" })
+  const drawerBox = await drawer.boundingBox()
+  const closeButtonBox = await closeButton.boundingBox()
+  expect(drawerBox).not.toBeNull()
+  expect(closeButtonBox).not.toBeNull()
+  expect(closeButtonBox!.y - drawerBox!.y).toBe(16)
+  expect(
+    drawerBox!.x + drawerBox!.width - closeButtonBox!.x - closeButtonBox!.width
+  ).toBe(16)
+
+  const scrollContainer = drawer.getByTestId("ask-tim-scroll-container")
+  await expect(scrollContainer).toHaveCSS("overflow-y", "auto")
+  await page.setViewportSize({ width: 390, height: 400 })
+  await expect
+    .poll(() =>
+      scrollContainer.evaluate(element =>
+        Math.round(element.scrollHeight - element.clientHeight)
+      )
+    )
+    .toBeGreaterThan(0)
+  await scrollContainer.evaluate(element => {
+    element.scrollTop = element.scrollHeight
+  })
+  await expect
+    .poll(() => scrollContainer.evaluate(element => element.scrollTop))
+    .toBeGreaterThan(0)
+
+  await closeButton.click()
   await expect(drawer).toBeHidden()
+  await page.setViewportSize({ width: 390, height: 844 })
 
   const exploreDrawer = page.locator("#mit-learn-nav-drawer")
   await page.locator("#mit-learn-menu-button-mobile").click()
