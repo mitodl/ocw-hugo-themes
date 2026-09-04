@@ -71,7 +71,9 @@
         }
       }
 
-      a {
+      // Direct children only: the UserMenu inside .user-menu-container brings
+      // its own typography and must not be uppercased.
+      > a {
         font-size: $font-sm;
         text-transform: uppercase;
 
