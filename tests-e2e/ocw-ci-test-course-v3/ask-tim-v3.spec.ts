@@ -254,7 +254,14 @@ test("click analytics, entry copy, and raw streaming request match the contract"
   await entry
     .getByRole("button", { name: CONVERSATION_STARTERS[0], exact: true })
     .click()
-  await expect(drawer.getByText(answer, { exact: true })).toBeVisible()
+  // Scoped to the assistant message: smoot also renders the finished answer
+  // into a visually hidden aria-live region for screen readers, so an
+  // unscoped text match resolves to two nodes.
+  await expect(
+    drawer
+      .locator('[data-chat-role="assistant"]')
+      .getByText(answer, { exact: true })
+  ).toBeVisible()
   await expect(
     drawer.getByRole("button", { name: "Good response" })
   ).toBeVisible()
