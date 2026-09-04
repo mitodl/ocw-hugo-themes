@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test"
-import { offlineFileUrl, COURSE_V3_CANONICAL_DOMAIN } from "../util"
+import { offlineV3FileUrl, COURSE_V3_CANONICAL_DOMAIN } from "../util"
 
 /**
  * Offline builds set relativeURLs: true, so Hugo rewrites any root-relative URL
@@ -18,7 +18,7 @@ const CANONICAL = `https://${COURSE_V3_CANONICAL_DOMAIN}`
 
 test.describe("offline-v3 legacy /courses/ link rewriting", () => {
   test("same-course link is prefixed and fully qualified", async ({ page }) => {
-    await page.goto(offlineFileUrl(PAGE))
+    await page.goto(offlineV3FileUrl(PAGE))
 
     const link = page.getByRole("link", { name: "Self link", exact: true })
 
@@ -29,7 +29,7 @@ test.describe("offline-v3 legacy /courses/ link rewriting", () => {
   })
 
   test("same-course link keeps its fragment", async ({ page }) => {
-    await page.goto(offlineFileUrl(PAGE))
+    await page.goto(offlineV3FileUrl(PAGE))
 
     const link = page.getByRole("link", { name: "Self link with anchor" })
 
@@ -42,7 +42,7 @@ test.describe("offline-v3 legacy /courses/ link rewriting", () => {
   test("cross-course link is prefixed and fully qualified", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl(PAGE))
+    await page.goto(offlineV3FileUrl(PAGE))
 
     const link = page.getByRole("link", { name: "Cross course link" })
 
@@ -55,7 +55,7 @@ test.describe("offline-v3 legacy /courses/ link rewriting", () => {
   test("cross-course link with no sub-path is prefixed and fully qualified", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl(PAGE))
+    await page.goto(offlineV3FileUrl(PAGE))
 
     const link = page.getByRole("link", { name: "Cross course bare link" })
 
@@ -68,7 +68,7 @@ test.describe("offline-v3 legacy /courses/ link rewriting", () => {
   test("link already under /courses/o/ gains a host but keeps its path", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl(PAGE))
+    await page.goto(offlineV3FileUrl(PAGE))
 
     const link = page.getByRole("link", { name: "Own base path link" })
 
@@ -83,7 +83,7 @@ test.describe("offline-v3 legacy /courses/ link rewriting", () => {
   })
 
   test("non-course ocw.mit.edu links are untouched", async ({ page }) => {
-    await page.goto(offlineFileUrl(PAGE))
+    await page.goto(offlineV3FileUrl(PAGE))
 
     await expect(
       page.getByRole("link", { name: "OCW terms link" })
@@ -95,7 +95,7 @@ test.describe("offline-v3 legacy /courses/ link rewriting", () => {
   })
 
   test("a /courses/ path on a non-OCW host is untouched", async ({ page }) => {
-    await page.goto(offlineFileUrl(PAGE))
+    await page.goto(offlineV3FileUrl(PAGE))
 
     await expect(
       page.getByRole("link", { name: "Third party courses link" })
@@ -106,7 +106,7 @@ test.describe("offline-v3 legacy /courses/ link rewriting", () => {
   })
 
   test("no link on the page is left root-relative", async ({ page }) => {
-    await page.goto(offlineFileUrl(PAGE))
+    await page.goto(offlineV3FileUrl(PAGE))
 
     // The regression guard: a root-relative href here would be rewritten by
     // relativeURLs into a path that dead-ends inside the package.
@@ -124,7 +124,7 @@ test.describe("offline-v3 external resources pointing at courses", () => {
   test("external resource page link is prefixed and fully qualified", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl("/external-resources/ocw-course-link"))
+    await page.goto(offlineV3FileUrl("/external-resources/ocw-course-link"))
 
     const link = page.getByRole("link", {
       name:  "OCW course link",
@@ -140,7 +140,7 @@ test.describe("offline-v3 external resources pointing at courses", () => {
   test("resource_link to an external resource is rewritten too", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl(PAGE))
+    await page.goto(offlineV3FileUrl(PAGE))
 
     // Reaches external_resource_link through resource_link.html — a different
     // call path than external-resources/single.html above.

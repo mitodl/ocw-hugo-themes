@@ -1,8 +1,11 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
-test("Image gallery displays thumbnail and opens viewer", async ({ page }) => {
-  const course = new CoursePage(page, "course")
+test("Image gallery displays thumbnail and opens viewer", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/image-gallery")
 
   const thumbnailTitle = page.getByText("A dog having fun")
@@ -16,9 +19,10 @@ test("Image gallery displays thumbnail and opens viewer", async ({ page }) => {
 
 test("Image gallery credit metadata contains external link warning markup", async ({
   page,
-  request
+  request,
+  siteAlias
 }) => {
-  const course = new CoursePage(page, "course")
+  const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/image-gallery")
   const response = await request.get(page.url())
   expect(response.ok()).toBeTruthy()

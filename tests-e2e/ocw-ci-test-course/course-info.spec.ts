@@ -1,11 +1,11 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 const DESKTOP_COURSE_DRAWER_ID = "desktop-course-drawer"
 const MAIN_COURSE_SECTION_ID = "main-course-section"
 
-test("Course info section can be toggled", async ({ page }) => {
-  const course = new CoursePage(page, "course")
+test("Course info section can be toggled", async ({ page, siteAlias }) => {
+  const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/section-1")
 
   const heading = await page.getByRole("heading", { name: "Course Info" })
@@ -18,8 +18,11 @@ test("Course info section can be toggled", async ({ page }) => {
   await expect(heading).toBeVisible()
 })
 
-test("Toggling topics does not affect drawer layout", async ({ page }) => {
-  const course = new CoursePage(page, "course")
+test("Toggling topics does not affect drawer layout", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/section-1")
 
   const heading = await page.getByRole("heading", { name: "Course Info" })

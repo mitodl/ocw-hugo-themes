@@ -1,10 +1,17 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
+const DESKTOP_COURSE_DRAWER_ID = "desktop-course-drawer"
+const DESKTOP_COURSE_DRAWER_COLUMN = "div.desktop-course-info"
+const MAIN_COURSE_SECTION_ID = "course-content-section"
+
 test.describe("Course v3 Course Info drawer focus management", () => {
-  test("returns focus to the toggle button when closed", async ({ page }) => {
+  test("returns focus to the toggle button when closed", async ({
+    page,
+    siteAlias
+  }) => {
     await page.setViewportSize({ width: 1280, height: 800 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     const openButton = page.locator("#desktop-course-drawer-button")
@@ -24,9 +31,12 @@ test.describe("Course v3 Course Info drawer focus management", () => {
     await expect(openButton).toBeFocused()
   })
 
-  test("moves focus to the close button when opened", async ({ page }) => {
+  test("moves focus to the close button when opened", async ({
+    page,
+    siteAlias
+  }) => {
     await page.setViewportSize({ width: 1280, height: 800 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     const openButton = page.locator("#desktop-course-drawer-button")
@@ -43,10 +53,11 @@ test.describe("Course v3 Course Info drawer focus management", () => {
   })
 
   test("close button aria-expanded matches the restored initial state", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 1280, height: 800 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     // The drawer is open by default for first-time visitors (no stored
@@ -62,10 +73,11 @@ test.describe("Course v3 Course Info drawer focus management", () => {
 
 test.describe("Course v3 Course Info drawer", () => {
   test("close button id is not duplicated between the desktop and mobile drawers", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 1280, height: 800 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     // Regression test: course_info.html used to render the desktop close
@@ -82,4 +94,43 @@ test.describe("Course v3 Course Info drawer", () => {
       mobileDrawer.locator("#desktop-course-drawer-button-close")
     ).toHaveCount(0)
   })
+})
+
+test("Course info section can be toggled (v3)", async ({ page, siteAlias }) => {
+  const course = new CoursePage(page, siteAlias)
+  await course.goto("/pages/section-1")
+
+  const heading = page.getByRole("heading", { name: "Course Info" })
+  const button = page.getByRole("button", { name: "Course Info" })
+
+  await expect(heading).toBeVisible()
+  await button.click()
+  await expect(heading).toBeHidden()
+  await button.click()
+  await expect(heading).toBeVisible()
+})
+
+test("Toggling topics does not affect drawer layout (v3)", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
+  await course.goto("/pages/section-1")
+
+  const heading = page.getByRole("heading", { name: "Course Info" })
+  const topicCollapseButton = page.getByRole("button", {
+    name: "Engineering subtopics"
+  })
+
+  await expect(heading).toBeVisible()
+  await expect(topicCollapseButton).toHaveAttribute("aria-expanded", "true")
+
+  await topicCollapseButton.click()
+  const mainSection = page.locator(`#${MAIN_COURSE_SECTION_ID}`)
+  const drawer = page.locator(`#${DESKTOP_COURSE_DRAWER_ID}`)
+  const drawerColumn = page.locator(DESKTOP_COURSE_DRAWER_COLUMN)
+
+  await expect(mainSection).toHaveClass(/.*course-detail.*/)
+  await expect(drawer).toHaveClass(/.*collapse.*/)
+  await expect(drawerColumn).toHaveClass(/.*col-lg-3.*/)
 })

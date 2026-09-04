@@ -1,16 +1,16 @@
 import { test, expect } from "@playwright/test"
-import { offlineFileUrl, expectLocalPackageHref } from "../util"
+import { offlineV3FileUrl, expectLocalPackageHref } from "../util"
 
 test.describe("offline-v3 video gallery page", () => {
   test("video gallery page loads with v3 layout", async ({ page }) => {
-    await page.goto(offlineFileUrl("/video_galleries/lecture-videos"))
+    await page.goto(offlineV3FileUrl("/video_galleries/lecture-videos"))
 
     expect(page.url()).toContain("video_galleries/lecture-videos/index.html")
     await expect(page.locator("body")).toContainText("Lecture Videos")
   })
 
   test("gallery card links are package-local", async ({ page }) => {
-    await page.goto(offlineFileUrl("/video_galleries/lecture-videos"))
+    await page.goto(offlineV3FileUrl("/video_galleries/lecture-videos"))
 
     const cards = page.locator(".video-gallery-card")
     const count = await cards.count()
@@ -24,7 +24,7 @@ test.describe("offline-v3 video gallery page", () => {
   })
 
   test("gallery card titles are present", async ({ page }) => {
-    await page.goto(offlineFileUrl("/video_galleries/lecture-videos"))
+    await page.goto(offlineV3FileUrl("/video_galleries/lecture-videos"))
 
     const titles = page.locator(".video-gallery-card-title")
     await expect(titles.first()).toBeVisible()
@@ -32,7 +32,7 @@ test.describe("offline-v3 video gallery page", () => {
   })
 
   test("gallery card thumbnails are present", async ({ page }) => {
-    await page.goto(offlineFileUrl("/video_galleries/lecture-videos"))
+    await page.goto(offlineV3FileUrl("/video_galleries/lecture-videos"))
 
     // The online v3 template shows the thumbnail if video_thumbnail_file is
     // set (including remote img.youtube.com URLs), falling back to the local
@@ -46,7 +46,7 @@ test.describe("offline-v3 video gallery page", () => {
   test("clicking a gallery card navigates to local video resource page", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl("/video_galleries/lecture-videos"))
+    await page.goto(offlineV3FileUrl("/video_galleries/lecture-videos"))
 
     const firstCard = page.locator(".video-gallery-card").first()
     const href = await firstCard.getAttribute("href")

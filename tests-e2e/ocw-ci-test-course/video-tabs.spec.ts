@@ -1,42 +1,61 @@
 import { env } from "../../env"
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 import { VideoElement } from "../util/VideoElement"
+import { TEST_SITES } from "../util/test_sites"
 
 const resourceBaseUrl = env.RESOURCE_BASE_URL
 
 test("that the Download Button works for multiple embed videos in a page", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("pages/multiple-videos-series-overview/")
   const videoElementsCount = await new VideoElement(page).count()
   expect(videoElementsCount).toBe(3)
 
   for (let i = 0; i < videoElementsCount; i++) {
     const videoElement = new VideoElement(page, i)
-    await videoElement.downloadButton().click()
-    await expect(videoElement.downloadVideo()).toHaveAttribute(
-      "href",
-      new URL(
-        "/courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
-        resourceBaseUrl
-      ).href
-    )
-    await videoElement.downloadTranscriptSubmenuBtn().click()
-    await expect(videoElement.downloadTranscript()).toHaveAttribute(
-      "href",
-      new URL(
-        "/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf",
-        resourceBaseUrl
-      ).href
-    )
-    await videoElement.downloadButton().click()
+    if (siteAlias === "course-offline") {
+      // In offline v2, initVideoDownloadPopup is not in the bundle so clicking
+      // Show Downloads won't open the popup. Verify links in the DOM directly.
+      // The transcript link lives in the language submenu (even for a single
+      // language), not behind a top-level "Download transcript" aria-label.
+      const videoHref = await videoElement.container
+        .locator('[aria-label="Download video"]')
+        .getAttribute("href")
+      expect(videoHref).toMatch(/static_resources\/.*\.mp4/)
+      const transcriptHref = await videoElement.container
+        .locator('.download-menu-submenu a[aria-label^="Download transcript"]')
+        .first()
+        .getAttribute("href")
+      expect(transcriptHref).toMatch(/static_resources\/.*\.pdf/)
+    } else {
+      await videoElement.downloadButton().click()
+      await expect(videoElement.downloadVideo()).toHaveAttribute(
+        "href",
+        new URL(
+          "/courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
+          resourceBaseUrl
+        ).href
+      )
+      await videoElement.downloadTranscriptSubmenuBtn().click()
+      await expect(videoElement.downloadTranscript()).toHaveAttribute(
+        "href",
+        new URL(
+          "/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf",
+          resourceBaseUrl
+        ).href
+      )
+      await videoElement.downloadButton().click()
+    }
   }
 })
 
 test("Verify that the 'Download video' and 'Download transcript' links are keyboard navigable and have the correct download URLs", async ({
-  page
+  page,
+  siteAlias
 }) => {
   /**
    * ALERT MAC USERS
@@ -47,18 +66,21 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
    * See https://github.com/mitodl/ocw-hugo-themes/issues/1283#issuecomment-1833883368
    * for more context.
    */
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
-  const downloadLinks = [
-    new URL(
-      "/courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
-      resourceBaseUrl
-    ).href,
-    new URL(
-      "/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf",
-      resourceBaseUrl
-    ).href
-  ]
+  const downloadLinks =
+    siteAlias === "course-offline" ?
+      [/static_resources\/.*\.mp4/, /static_resources\/.*\.pdf/] :
+      [
+        new URL(
+          "/courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
+          resourceBaseUrl
+        ).href,
+        new URL(
+          "/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf",
+          resourceBaseUrl
+        ).href
+      ]
   const downloadButton = page.getByRole("button", {
     name: `Show Downloads`
   })
@@ -70,32 +92,53 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
     name: /Download Transcript/i
   })
 
-  await expect(videoDownloadLink).toBeVisible()
-  await page.keyboard.press("Tab")
-  const videoHref = await page.locator(":focus").getAttribute("href")
-  expect(videoHref).toBe(downloadLinks[0])
+  if (siteAlias === "course-offline") {
+    // Offline v2 has no popup JS, so the main download menu is reachable via
+    // Tab (the "hidden" class has no effect on it), but the transcript
+    // sub-menu panel stays CSS-hidden until JS reveals it, so its "Back"
+    // button and transcript link are not in the tab order. Verify the video
+    // link is keyboard-reachable, and check the transcript link's href
+    // directly in the DOM.
+    await expect(videoDownloadLink).toBeVisible()
+    await page.keyboard.press("Tab")
+    const videoHref = await page.locator(":focus").getAttribute("href")
+    expect(videoHref).toMatch(downloadLinks[0] as RegExp)
 
-  // Navigate into transcript sub-menu
-  await expect(transcriptSubmenuBtn).toBeVisible()
-  await page.keyboard.press("Tab")
-  await page.keyboard.press("Enter")
+    await expect(transcriptSubmenuBtn).toBeVisible()
+    const transcriptHref = await page
+      .locator('.download-menu-submenu a[aria-label^="Download transcript"]')
+      .first()
+      .getAttribute("href")
+    expect(transcriptHref).toMatch(downloadLinks[1] as RegExp)
+  } else {
+    await expect(videoDownloadLink).toBeVisible()
+    await page.keyboard.press("Tab")
+    const videoHref = await page.locator(":focus").getAttribute("href")
+    expect(videoHref).toBe(downloadLinks[0])
 
-  const transcriptDownloadLink = page.getByRole("link", {
-    name:  "Download transcript: English",
-    exact: true
-  })
-  await expect(transcriptDownloadLink).toBeVisible()
-  // Skip Back button, tab to the first transcript link
-  await page.keyboard.press("Tab")
-  await page.keyboard.press("Tab")
-  const transcriptHref = await page.locator(":focus").getAttribute("href")
-  expect(transcriptHref).toBe(downloadLinks[1])
+    // Navigate into transcript sub-menu
+    await expect(transcriptSubmenuBtn).toBeVisible()
+    await page.keyboard.press("Tab")
+    await page.keyboard.press("Enter")
+
+    const transcriptDownloadLink = page.getByRole("link", {
+      name:  "Download transcript: English",
+      exact: true
+    })
+    await expect(transcriptDownloadLink).toBeVisible()
+    // Skip Back button, tab to the first transcript link
+    await page.keyboard.press("Tab")
+    await page.keyboard.press("Tab")
+    const transcriptHref = await page.locator(":focus").getAttribute("href")
+    expect(transcriptHref).toBe(downloadLinks[1])
+  }
 })
 
 test("Embed video redirects to video page using keyboard navigation", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("pages/video-series-overview/")
   const videoRedirectLink = page.getByRole("link", {
     name: "View video page"
@@ -109,19 +152,23 @@ test("Embed video redirects to video page using keyboard navigation", async ({
     "resources/ocw_test_course_mit8_01f16_l01v01_360p"
   )
 })
-test("Video tabs content (links) are keyoard navigable", async ({ page }) => {
+test("Video tabs content (links) are keyboard navigable", async ({
+  page,
+  siteAlias
+}) => {
+  const courseName = TEST_SITES[siteAlias].name
   const tabs = [
     {
       title: "Related Resources",
-      url:   "courses/ocw-ci-test-course/resources/example_pdf/"
+      url:   `courses/${courseName}/resources/example_pdf/`
     },
     {
       title: "Optional Tab",
-      url:   "courses/ocw-ci-test-course/resources/example_notes/"
+      url:   `courses/${courseName}/resources/example_notes/`
     }
   ]
   for (const tab of tabs) {
-    const coursePage = new CoursePage(page, "course")
+    const coursePage = new CoursePage(page, siteAlias)
     await coursePage.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
     const videoPage = new VideoElement(page)
     const tabButton = videoPage.tab({
@@ -139,9 +186,10 @@ test("Video tabs content (links) are keyoard navigable", async ({ page }) => {
   }
 })
 test("Expand and collapse video tabs using keyboard navigation", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
   const videoPage = new VideoElement(page)
 
@@ -176,9 +224,10 @@ test("Expand and collapse video tabs using keyboard navigation", async ({
 })
 
 test("A page without a transcript has the proper tab titles and contents", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l01v01_360p")
   const videoPage = new VideoElement(page)
 
@@ -199,16 +248,24 @@ test("A page without a transcript has the proper tab titles and contents", async
 
   expect(emptyTabHTML).toMatch("")
   expect(relatedResourcesHTML).toContain("Practice problems")
-  expect(relatedResourcesHTML).toContain(
-    '<a href="/courses/ocw-ci-test-course/resources/example_pdf/">(PDF)</a>'
-  )
-  expect(optionalTabHTML).toContain(
-    '<a href="/courses/ocw-ci-test-course/resources/example_notes/">(PDF)</a>'
-  )
+  if (siteAlias === "course-offline") {
+    expect(relatedResourcesHTML).toMatch(/href="[^"]*example_pdf[^"]*">/)
+    expect(optionalTabHTML).toMatch(/href="[^"]*example_notes[^"]*">/)
+  } else {
+    expect(relatedResourcesHTML).toContain(
+      '<a href="/courses/ocw-ci-test-course/resources/example_pdf/">(PDF)</a>'
+    )
+    expect(optionalTabHTML).toContain(
+      '<a href="/courses/ocw-ci-test-course/resources/example_notes/">(PDF)</a>'
+    )
+  }
 })
 
-test("A page with a transcript has a transcript tab", async ({ page }) => {
-  const coursePage = new CoursePage(page, "course")
+test("A page with a transcript has a transcript tab", async ({
+  page,
+  siteAlias
+}) => {
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l01v02_360p")
   const videoPage = new VideoElement(page)
   await expect(videoPage.tab({})).toHaveText(/Transcript\s*/)

@@ -1,9 +1,9 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 test.describe("Course v3 Single Resource Page", () => {
-  test("Resource page has correct width", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource page has correct width", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     const container = page.locator(".resource-page-container")
@@ -11,8 +11,11 @@ test.describe("Course v3 Single Resource Page", () => {
     await expect(container).toHaveClass(/w-100/)
   })
 
-  test("Resource page displays thumbnail correctly", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource page displays thumbnail correctly", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     const thumbnail = page.locator(
@@ -33,8 +36,11 @@ test.describe("Course v3 Single Resource Page", () => {
     )
   })
 
-  test("Resource page displays download button correctly", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource page displays download button correctly", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     const downloadButton = page.locator(".resource-download-button")
@@ -51,8 +57,8 @@ test.describe("Course v3 Single Resource Page", () => {
     expect(href).toMatch(/.pdf$/)
   })
 
-  test("Resource page displays metadata", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource page displays metadata", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     const title = page.locator(".resource-single-title")
