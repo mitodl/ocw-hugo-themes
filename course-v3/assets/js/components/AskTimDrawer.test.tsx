@@ -47,12 +47,11 @@ const { ThemeProvider } = jest.requireActual(
 ) as typeof import("@mitodl/smoot-design")
 const originalCsrfCookieName = process.env.CSRF_COOKIE_NAME
 
-const renderDrawer = (onClose = jest.fn(), mobile = false) => {
+const renderDrawer = (onClose = jest.fn()) => {
   const result = render(
     <ThemeProvider>
       <AskTimDrawer
         courseTitle="Structure and Interpretation"
-        mobile={mobile}
         onClose={onClose}
         open
         readableId="6.001+fall_2024"
@@ -127,27 +126,15 @@ test("labels the drawer, renders course context, and invokes close", async () =>
   const user = userEvent.setup()
   const { onClose } = renderDrawer()
 
-  expect(screen.getByRole("dialog", { name: "Ask TIM" })).toBeInTheDocument()
+  expect(screen.getByRole("dialog", { name: "AskTIM" })).toBeInTheDocument()
   expect(screen.getByText("Course", { exact: true })).toBeInTheDocument()
   expect(
     screen.getByRole("heading", { name: "Structure and Interpretation" })
   ).toBeInTheDocument()
-  const closeButton = screen.getByRole("button", { name: "Close Ask TIM" })
+  const closeButton = screen.getByRole("button", { name: "Close AskTIM" })
   expect(closeButton).toHaveFocus()
 
   await user.click(closeButton)
 
   expect(onClose).toHaveBeenCalledTimes(1)
-})
-
-test("renders only the close control on mobile", () => {
-  renderDrawer(jest.fn(), true)
-
-  expect(screen.queryByText("Course", { exact: true })).not.toBeInTheDocument()
-  expect(
-    screen.queryByRole("heading", { name: "Structure and Interpretation" })
-  ).not.toBeInTheDocument()
-  const closeButtons = screen.getAllByRole("button", { name: "Close Ask TIM" })
-  expect(closeButtons).toHaveLength(1)
-  expect(closeButtons[0]).toHaveFocus()
 })

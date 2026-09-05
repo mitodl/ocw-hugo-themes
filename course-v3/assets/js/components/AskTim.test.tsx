@@ -58,6 +58,8 @@ jest.mock("./AskTimDrawer", () => {
 
 type FeatureFlagsCallback = Parameters<AskTimPostHog["onFeatureFlags"]>[0]
 const useMediaQueryMock = jest.mocked(useMediaQuery)
+const TRIGGER_NAME = "AskTIM about this course"
+const SYLLABUS_ENDPOINT = "https://learn-ai.test/syllabus/"
 
 const makePostHog = () => {
   let callback: FeatureFlagsCallback | undefined
@@ -84,7 +86,7 @@ const makePostHog = () => {
 
 const renderAskTim = (
   posthog?: AskTimPostHog,
-  syllabusEndpoint = "https://learn-ai.test/syllabus/",
+  syllabusEndpoint = SYLLABUS_ENDPOINT,
   mobileContainer?: Element
 ) =>
   render(
@@ -101,28 +103,76 @@ beforeEach(() => {
   useMediaQueryMock.mockReturnValue(false)
 })
 
+test.each([
+  {
+    condition:        "the feature flag is enabled",
+    flags:            [ASK_TIM_FEATURE_FLAG],
+    expectedTriggers: 1
+  },
+  {
+    condition:        "the feature flag is disabled",
+    flags:            [],
+    expectedTriggers: 0
+  },
+  {
+    condition:        "feature flags fail to load",
+    flags:            [ASK_TIM_FEATURE_FLAG],
+    errorsLoading:    true,
+    expectedTriggers: 0
+  },
+  {
+    condition:        "the syllabus endpoint is missing",
+    flags:            [ASK_TIM_FEATURE_FLAG],
+    syllabusEndpoint: "",
+    expectedTriggers: 0
+  },
+  {
+    condition:        "PostHog is missing",
+    flags:            [ASK_TIM_FEATURE_FLAG],
+    hasPostHog:       false,
+    expectedTriggers: 0
+  }
+])(
+  "renders $expectedTriggers AskTIM buttons when $condition",
+  async ({
+    flags,
+    errorsLoading = false,
+    syllabusEndpoint = SYLLABUS_ENDPOINT,
+    hasPostHog = true,
+    expectedTriggers
+  }) => {
+    const { posthog, sendFlags } = makePostHog()
+    renderAskTim(hasPostHog ? posthog : undefined, syllabusEndpoint)
+
+    await sendFlags(flags, { errorsLoading })
+
+    expect(
+      screen.queryAllByRole("button", { name: TRIGGER_NAME })
+    ).toHaveLength(expectedTriggers)
+    if (hasPostHog) {
+      expect(posthog.onFeatureFlags).toHaveBeenCalledTimes(
+        syllabusEndpoint ? 1 : 0
+      )
+    }
+  }
+)
+
 test("stays off by default and responds to asynchronous feature flags", async () => {
   const { posthog, sendFlags } = makePostHog()
   renderAskTim(posthog)
 
   expect(posthog.onFeatureFlags).toHaveBeenCalledTimes(1)
-  expect(screen.queryByRole("button", { name: /ask tim/i })).toBeNull()
+  expect(screen.queryByRole("button", { name: TRIGGER_NAME })).toBeNull()
 
   await sendFlags([])
-  expect(screen.queryByRole("button", { name: /ask tim/i })).toBeNull()
+  expect(screen.queryByRole("button", { name: TRIGGER_NAME })).toBeNull()
 
   await sendFlags([ASK_TIM_FEATURE_FLAG])
-  const trigger = screen.getByRole("button", {
-    name: "AskTIM about this course"
-  })
+  const trigger = screen.getByRole("button", { name: TRIGGER_NAME })
   expect(trigger).toBeInTheDocument()
-  expect(trigger).toHaveClass("ask-tim-trigger", "w-100")
-  expect(trigger).toHaveTextContent("AskTIM about this course")
-  const tim = screen.getByText("TIM")
+  expect(trigger).toHaveTextContent(TRIGGER_NAME)
+  const tim = within(trigger).getByText("TIM")
   expect(tim.tagName).toBe("STRONG")
-  expect(tim.parentElement).toHaveClass("ask-tim-label")
-  expect(tim.parentElement).toHaveTextContent("AskTIM about this course")
-  expect(tim.parentElement?.parentElement).toHaveClass("ask-tim-content")
 })
 
 test("moves the trigger into the mobile layout without duplicating it", async () => {
@@ -132,7 +182,7 @@ test("moves the trigger into the mobile layout without duplicating it", async ()
   const { posthog, sendFlags } = makePostHog()
   const { container } = renderAskTim(
     posthog,
-    "https://learn-ai.test/syllabus/",
+    SYLLABUS_ENDPOINT,
     mobileContainer
   )
 
@@ -140,35 +190,14 @@ test("moves the trigger into the mobile layout without duplicating it", async ()
 
   expect(
     within(mobileContainer).getByRole("button", {
-      name: "AskTIM about this course"
+      name: TRIGGER_NAME
     })
   ).toBeInTheDocument()
-  expect(container.querySelector("button")).toBeNull()
+  expect(
+    within(container).queryByRole("button", { name: TRIGGER_NAME })
+  ).toBeNull()
 
   mobileContainer.remove()
-})
-
-test("fails closed when PostHog reports a feature flag loading error", async () => {
-  const { posthog, sendFlags } = makePostHog()
-  renderAskTim(posthog)
-
-  await sendFlags([ASK_TIM_FEATURE_FLAG], { errorsLoading: true })
-
-  expect(screen.queryByRole("button", { name: /ask tim/i })).toBeNull()
-})
-
-test("does not subscribe or render without a syllabus endpoint", () => {
-  const { posthog } = makePostHog()
-  renderAskTim(posthog, "")
-
-  expect(posthog.onFeatureFlags).not.toHaveBeenCalled()
-  expect(screen.queryByRole("button", { name: /ask tim/i })).toBeNull()
-})
-
-test("does not render without PostHog", () => {
-  renderAskTim(undefined)
-
-  expect(screen.queryByRole("button", { name: /ask tim/i })).toBeNull()
 })
 
 test("unsubscribes from feature flag updates on unmount", () => {
@@ -189,9 +218,7 @@ test("loads the drawer on first click and captures exact analytics", async () =>
   expect(mockDrawerModuleLoads).toBe(0)
   expect(screen.queryByTestId("ask-tim-drawer")).toBeNull()
 
-  await user.click(
-    screen.getByRole("button", { name: "AskTIM about this course" })
-  )
+  await user.click(screen.getByRole("button", { name: TRIGGER_NAME }))
 
   expect(await screen.findByTestId("ask-tim-drawer")).toBeInTheDocument()
   expect(mockDrawerModuleLoads).toBe(1)
@@ -210,9 +237,7 @@ test("does not reopen the drawer when a revoked flag is restored", async () => {
   renderAskTim(posthog)
   await sendFlags([ASK_TIM_FEATURE_FLAG])
 
-  await user.click(
-    screen.getByRole("button", { name: "AskTIM about this course" })
-  )
+  await user.click(screen.getByRole("button", { name: TRIGGER_NAME }))
   expect(await screen.findByTestId("ask-tim-drawer")).toBeInTheDocument()
 
   await sendFlags([])

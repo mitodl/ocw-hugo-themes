@@ -102,7 +102,6 @@ export const AskTim: React.FC<AskTimProps> = ({
         <Suspense fallback={null}>
           <AskTimDrawer
             courseTitle={courseTitle}
-            mobile={isMobile}
             onClose={handleClose}
             open={open}
             readableId={readableId}

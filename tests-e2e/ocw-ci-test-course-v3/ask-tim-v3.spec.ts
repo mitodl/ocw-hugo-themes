@@ -1,6 +1,6 @@
 import { expect, Page, test } from "@playwright/test"
 import { env } from "../../env"
-import { CoursePage, offlineFileUrl } from "../util"
+import { CoursePage, offlineFileUrl, siteUrl } from "../util"
 
 const FEATURE_FLAG = "ocw-course-v3-ask-tim"
 const ASK_TIM_ENDPOINT = env.LEARN_AI_SYLLABUS_ENDPOINT
@@ -146,10 +146,40 @@ const openAskTim = async (page: Page) => {
   await expect(trigger).toBeVisible()
   await trigger.click()
 
-  const drawer = page.getByRole("dialog", { name: "Ask TIM", exact: true })
+  const drawer = page.getByRole("dialog", { name: "AskTIM", exact: true })
   await expect(drawer).toBeVisible()
   return { drawer, trigger }
 }
+
+test("narrow trigger keeps its icon and label inside the button", async ({
+  page
+}) => {
+  await installFeatureFlag(page, true)
+  const course = new CoursePage(page, "course-v3")
+  await course.goto("/")
+  await waitForFeatureFlag(page)
+  const trigger = page.getByRole("button", { name: ASK_TIM_TRIGGER_NAME })
+
+  for (const width of [390, 320, 280, 240, 200]) {
+    await page.setViewportSize({ width, height: 800 })
+    await trigger.scrollIntoViewIfNeeded()
+    const contentFits = await trigger.evaluate(button => {
+      const bounds = button.getBoundingClientRect()
+      const range = document.createRange()
+      range.selectNodeContents(button)
+      return Array.from(range.getClientRects()).every(
+        rect =>
+          rect.left >= bounds.left &&
+          rect.right <= bounds.right &&
+          rect.top >= bounds.top &&
+          rect.bottom <= bounds.bottom
+      )
+    })
+    expect(contentFits, `Trigger content fits at viewport width ${width}`).toBe(
+      true
+    )
+  }
+})
 
 test("disabled flag renders no trigger and never requests the lazy drawer", async ({
   page
@@ -173,89 +203,14 @@ test("disabled flag renders no trigger and never requests the lazy drawer", asyn
 })
 
 test("enabled flag shows AskTIM only on the homepage", async ({ page }) => {
-  await page.setViewportSize({ width: 1024, height: 800 })
   await installFeatureFlag(page, true)
   const course = new CoursePage(page, "course-v3")
 
   await course.goto("/")
   await waitForFeatureFlag(page)
-  const trigger = page.getByRole("button", { name: ASK_TIM_TRIGGER_NAME })
-  await expect(trigger).toBeVisible()
-  await expect(trigger).toHaveText(ASK_TIM_TRIGGER_NAME)
-  await expect(trigger.locator(".ask-tim-label")).toHaveCSS(
-    "white-space",
-    "nowrap"
-  )
-  expect((await trigger.boundingBox())?.width).toBe(254)
-  await expect(trigger).toHaveCSS("height", "52px")
-  await expect(trigger).toHaveCSS("border-radius", "4px")
-  await expect(trigger).toHaveCSS("border", "1px solid rgb(221, 225, 230)")
-  await expect(trigger).toHaveCSS("background-color", "rgb(255, 255, 255)")
-  await expect(trigger).toHaveCSS(
-    "box-shadow",
-    "rgba(19, 20, 21, 0.08) 0px 4px 8px 0px"
-  )
-  const content = trigger.locator(".ask-tim-content")
-  await expect(content).toHaveCSS("gap", "8px")
-  await expect(trigger.locator("svg")).toHaveCSS("width", "20px")
-  await expect(trigger.locator("svg")).toHaveCSS("height", "20px")
-  await expect(trigger.locator(".ask-tim-label")).toHaveCSS(
-    "line-height",
-    "18px"
-  )
-  const triggerBox = await trigger.boundingBox()
-  const contentBox = await content.boundingBox()
-  expect(triggerBox).not.toBeNull()
-  expect(contentBox).not.toBeNull()
-  expect(contentBox!.y - triggerBox!.y).toBe(16)
-  expect(
-    triggerBox!.y + triggerBox!.height - contentBox!.y - contentBox!.height
-  ).toBe(16)
   await expect(
-    page.locator(".course-banner-v3 #ask-tim-container")
-  ).toHaveCount(0)
-  await expect(page.locator("#ask-tim-container")).toContainText(
-    ASK_TIM_TRIGGER_NAME
-  )
-
-  await page.setViewportSize({ width: 1676, height: 900 })
-  expect((await trigger.boundingBox())?.width).toBe(304)
-
-  await page.setViewportSize({ width: 767, height: 800 })
-  await expect(page.locator("#ask-tim-container")).toBeEmpty()
-  await expect(page.locator("#ask-tim-mobile-container")).toContainText(
-    ASK_TIM_TRIGGER_NAME
-  )
-  await expect(
-    page.locator(".course-image-section .download-course-section")
-  ).toBeHidden()
-  await expect(
-    page.locator(".bottom-download-button .download-course-section")
+    page.getByRole("button", { name: ASK_TIM_TRIGGER_NAME })
   ).toBeVisible()
-
-  await page.setViewportSize({ width: 768, height: 800 })
-  await expect(page.locator("#ask-tim-mobile-container")).toBeEmpty()
-  await expect(page.locator("#ask-tim-container")).toContainText(
-    ASK_TIM_TRIGGER_NAME
-  )
-  await expect(
-    page.locator(".course-image-section .download-course-section")
-  ).toBeVisible()
-  await expect(
-    page.locator(".bottom-download-button .download-course-section")
-  ).toBeHidden()
-  expect((await trigger.boundingBox())?.width).toBe(254)
-  await expect(trigger.locator(".ask-tim-label")).toHaveCSS(
-    "white-space",
-    "nowrap"
-  )
-  expect(
-    await page.evaluate(
-      () =>
-        document.documentElement.scrollWidth >
-        document.documentElement.clientWidth
-    )
-  ).toBe(false)
 
   await course.goto("/pages/assignments")
   await expect(page.locator("#ask-tim-container")).toHaveCount(0)
@@ -265,7 +220,51 @@ test("enabled flag shows AskTIM only on the homepage", async ({ page }) => {
   ).toHaveCount(0)
 })
 
-test("Ask TIM is absent from course-v2 and course-offline-v3", async ({
+test("responsive layout keeps one trigger and the appropriate download button visible", async ({
+  page
+}) => {
+  await installFeatureFlag(page, true)
+  const course = new CoursePage(page, "course-v3")
+  await course.goto("/")
+  await waitForFeatureFlag(page)
+
+  const trigger = page.getByRole("button", { name: ASK_TIM_TRIGGER_NAME })
+  const desktopContainer = page.locator("#ask-tim-container")
+  const mobileContainer = page.locator("#ask-tim-mobile-container")
+  const desktopDownload = page.locator(
+    ".course-image-section .download-course-section"
+  )
+  const mobileDownload = page.locator(
+    ".bottom-download-button .download-course-section"
+  )
+
+  for (const width of [1676, 1024, 767, 768, 390]) {
+    await page.setViewportSize({ width, height: 800 })
+    await expect(trigger).toHaveCount(1)
+    await expect(trigger).toBeVisible()
+
+    if (width < 768) {
+      await expect(desktopContainer).toBeEmpty()
+      await expect(mobileContainer).toContainText(ASK_TIM_TRIGGER_NAME)
+      await expect(desktopDownload).toBeHidden()
+      await expect(mobileDownload).toBeVisible()
+    } else {
+      await expect(mobileContainer).toBeEmpty()
+      await expect(desktopContainer).toContainText(ASK_TIM_TRIGGER_NAME)
+      await expect(desktopDownload).toBeVisible()
+      await expect(mobileDownload).toBeHidden()
+    }
+    expect(
+      await page.evaluate(
+        () =>
+          document.documentElement.scrollWidth >
+          document.documentElement.clientWidth
+      )
+    ).toBe(false)
+  }
+})
+
+test("AskTIM is absent from course-v2 and course-offline-v3", async ({
   page
 }) => {
   await installFeatureFlag(page, true)
@@ -384,7 +383,25 @@ test("a 500 response produces the generic chat error", async ({ page }) => {
   expect(requests.every(request => request.url === ASK_TIM_ENDPOINT)).toBe(true)
 })
 
-test("desktop drawer is capped at 900px and supports every close path", async ({
+test("desktop drawer stops growing on wider screens", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 })
+  await installFeatureFlag(page, true)
+  const course = new CoursePage(page, "course-v3")
+  await course.goto("/")
+  await waitForFeatureFlag(page)
+  const { drawer } = await openAskTim(page)
+
+  const drawerBox = await drawer.boundingBox()
+  expect(drawerBox).not.toBeNull()
+  expect(drawerBox!.width).toBeLessThan(page.viewportSize()!.width)
+
+  await page.setViewportSize({ width: 1676, height: 800 })
+  await expect
+    .poll(async () => (await drawer.boundingBox())?.width)
+    .toBe(drawerBox!.width)
+})
+
+test("desktop drawer supports every close path and restores focus", async ({
   page
 }) => {
   await page.setViewportSize({ width: 1280, height: 800 })
@@ -394,17 +411,12 @@ test("desktop drawer is capped at 900px and supports every close path", async ({
   await waitForFeatureFlag(page)
 
   const { drawer, trigger } = await openAskTim(page)
-  const closeButton = drawer.getByRole("button", { name: "Close Ask TIM" })
+  const closeButton = drawer.getByRole("button", { name: "Close AskTIM" })
   const courseLabel = drawer.getByText("Course", { exact: true })
-  await expect(drawer).toHaveCSS("max-width", "900px")
-  await expect(drawer).toHaveCSS("width", "900px")
   await expect(courseLabel).toBeVisible()
-  await expect(courseLabel).toHaveCSS("color", "rgb(98, 106, 115)")
   await expect(
     drawer.getByRole("heading", { name: COURSE_TITLE, exact: true })
   ).toBeVisible()
-  await expect(closeButton).toHaveCSS("width", "40px")
-  await expect(closeButton).toHaveCSS("height", "40px")
   await expect(closeButton).toBeFocused()
 
   await page.keyboard.press("Shift+Tab")
@@ -456,50 +468,25 @@ test("mobile drawer fills the viewport and leaves existing drawers usable", asyn
   await course.goto("/")
   await waitForFeatureFlag(page)
 
-  const trigger = page.getByRole("button", { name: ASK_TIM_TRIGGER_NAME })
-  await expect(page.locator("#ask-tim-container")).toBeEmpty()
-  await expect(page.locator("#ask-tim-mobile-container")).toContainText(
-    ASK_TIM_TRIGGER_NAME
-  )
-  await expect(trigger).toBeVisible()
-
   const { drawer } = await openAskTim(page)
-  await expect(drawer).toHaveCSS("width", "390px")
-  await expect(drawer.getByText("Course", { exact: true })).toHaveCount(0)
+  await expect
+    .poll(() => drawer.boundingBox())
+    .toEqual({
+      x: 0,
+      y: 0,
+      ...page.viewportSize()
+    })
+  await expect(drawer.getByText("Course", { exact: true })).toBeVisible()
   await expect(
-    drawer.getByRole("heading", { name: COURSE_TITLE, exact: true })
-  ).toHaveCount(0)
-  const closeButton = drawer.getByRole("button", { name: "Close Ask TIM" })
-  const drawerBox = await drawer.boundingBox()
-  const closeButtonBox = await closeButton.boundingBox()
-  expect(drawerBox).not.toBeNull()
-  expect(closeButtonBox).not.toBeNull()
-  expect(closeButtonBox!.y - drawerBox!.y).toBe(16)
-  expect(
-    drawerBox!.x + drawerBox!.width - closeButtonBox!.x - closeButtonBox!.width
-  ).toBe(16)
-
-  const scrollContainer = drawer.getByTestId("ask-tim-scroll-container")
-  await expect(scrollContainer).toHaveCSS("overflow-y", "auto")
-  await page.setViewportSize({ width: 390, height: 400 })
-  await expect
-    .poll(() =>
-      scrollContainer.evaluate(element =>
-        Math.round(element.scrollHeight - element.clientHeight)
-      )
-    )
-    .toBeGreaterThan(0)
-  await scrollContainer.evaluate(element => {
-    element.scrollTop = element.scrollHeight
-  })
-  await expect
-    .poll(() => scrollContainer.evaluate(element => element.scrollTop))
-    .toBeGreaterThan(0)
+    drawer.getByRole("heading", {
+      name:  COURSE_TITLE,
+      exact: true
+    })
+  ).toBeVisible()
+  const closeButton = drawer.getByRole("button", { name: "Close AskTIM" })
 
   await closeButton.click()
   await expect(drawer).toBeHidden()
-  await page.setViewportSize({ width: 390, height: 844 })
-
   const exploreDrawer = page.locator("#mit-learn-nav-drawer")
   await page.locator("#mit-learn-menu-button-mobile").click()
   await expect(exploreDrawer).toHaveClass(/open/)
@@ -514,4 +501,141 @@ test("mobile drawer fills the viewport and leaves existing drawers usable", asyn
   await expect(courseInfoDrawer).toHaveClass(/\bin\b/)
   await page.locator("#close-mobile-course-info-button").click()
   await expect(courseInfoDrawer).not.toHaveClass(/\bin\b/)
+})
+
+test("question starters keep their text inside the buttons on narrow screens", async ({
+  page
+}) => {
+  await page.setViewportSize({ width: 320, height: 800 })
+  await installFeatureFlag(page, true)
+  const course = new CoursePage(page, "course-v3")
+  await course.goto("/")
+  await waitForFeatureFlag(page)
+  const { drawer } = await openAskTim(page)
+  const entry = drawer.getByTestId("ai-chat-entry-screen")
+
+  for (const width of [600, 320, 200, 140]) {
+    await page.setViewportSize({ width, height: 800 })
+    for (const question of CONVERSATION_STARTERS) {
+      const button = entry.getByRole("button", { name: question, exact: true })
+      await button.scrollIntoViewIfNeeded()
+      const textFits = await button
+        .getByText(question, { exact: true })
+        .evaluate(element => {
+          const bounds = element.closest("button")!.getBoundingClientRect()
+          const range = document.createRange()
+          range.selectNodeContents(element)
+          return Array.from(range.getClientRects()).every(
+            rect =>
+              rect.left >= bounds.left &&
+              rect.right <= bounds.right &&
+              rect.top >= bounds.top &&
+              rect.bottom <= bounds.bottom
+          )
+        })
+      expect(
+        textFits,
+        `${question} fits its button at viewport width ${width}`
+      ).toBe(true)
+    }
+  }
+})
+
+test("long mobile course title fits beside the close button", async ({
+  page
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  const longCourseTitle =
+    "Advanced Topics in Applied Mathematics, Computer Science, and Engineering: " +
+    "An Interdisciplinary Introduction to Modeling Complex Systems"
+  await page.route(siteUrl("course-v3", "/"), async route => {
+    const response = await route.fetch()
+    const body = (await response.text()).replace(
+      /data-course-title="[^"]*"/,
+      `data-course-title="${longCourseTitle}"`
+    )
+    await route.fulfill({ response, body })
+  })
+  await installFeatureFlag(page, true)
+  const course = new CoursePage(page, "course-v3")
+  await course.goto("/")
+  await waitForFeatureFlag(page)
+  const { drawer } = await openAskTim(page)
+  const courseTitle = drawer.getByRole("heading", {
+    name:  longCourseTitle,
+    exact: true
+  })
+  await expect(courseTitle).toBeVisible()
+  const closeButton = drawer.getByRole("button", { name: "Close AskTIM" })
+  const closeButtonBox = await closeButton.boundingBox()
+  const courseTitleBox = await courseTitle.boundingBox()
+  expect(closeButtonBox).not.toBeNull()
+  expect(courseTitleBox).not.toBeNull()
+  expect(courseTitleBox!.x + courseTitleBox!.width).toBeLessThanOrEqual(
+    closeButtonBox!.x
+  )
+  expect(
+    await drawer.evaluate(element => element.scrollWidth > element.clientWidth)
+  ).toBe(false)
+})
+
+test("mobile header stays above scrolling entry and chat content", async ({
+  page
+}) => {
+  await page.setViewportSize({ width: 390, height: 400 })
+  const answer = "This is a long answer about the course."
+  await installFeatureFlag(page, true, {
+    body:   `${answer}\n\n`.repeat(30),
+    status: 200
+  })
+  const course = new CoursePage(page, "course-v3")
+  await course.goto("/")
+  await waitForFeatureFlag(page)
+  const { drawer } = await openAskTim(page)
+  const header = drawer.locator("header")
+  const headerBox = await header.boundingBox()
+  expect(headerBox).not.toBeNull()
+
+  const scrollContainer = drawer.getByTestId("ask-tim-scroll-container")
+  await scrollContainer.evaluate(element => {
+    element.scrollTop = element.scrollHeight
+  })
+  await expect
+    .poll(() => scrollContainer.evaluate(element => element.scrollTop))
+    .toBeGreaterThan(0)
+  await expect(
+    drawer.getByRole("button", { name: CONVERSATION_STARTERS[2], exact: true })
+  ).toBeInViewport()
+
+  await drawer
+    .getByRole("button", { name: CONVERSATION_STARTERS[0], exact: true })
+    .click()
+  const answers = drawer.getByText(answer, { exact: true })
+  await expect(answers).toHaveCount(30)
+
+  const firstMessage = drawer.getByText(CONVERSATION_STARTERS[0], {
+    exact: true
+  })
+  await scrollContainer.evaluate(element => {
+    element.scrollTop = 0
+  })
+  await expect(firstMessage).toBeInViewport()
+
+  await scrollContainer.evaluate(element => {
+    element.scrollTop = element.scrollHeight
+  })
+  await expect
+    .poll(() => scrollContainer.evaluate(element => element.scrollTop))
+    .toBeGreaterThan(0)
+  await expect(answers.last()).toBeInViewport()
+  expect((await header.boundingBox())?.y).toBe(headerBox!.y)
+  const scrollContainerBox = await scrollContainer.boundingBox()
+  expect(scrollContainerBox).not.toBeNull()
+  expect(scrollContainerBox!.y).toBeGreaterThanOrEqual(
+    headerBox!.y + headerBox!.height
+  )
+  const closeButton = drawer.getByRole("button", { name: "Close AskTIM" })
+  await expect(closeButton).toBeInViewport()
+  await closeButton.click()
+  await expect(drawer).toBeHidden()
 })
