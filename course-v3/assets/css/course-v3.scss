@@ -5,6 +5,11 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~offcanvas-bootstrap/src/sass/bootstrap.offcanvas";
 
+$course-layout-wide-breakpoint: 1400px;
+$course-layout-max-width: 79.75rem;
+$course-aside-width-tablet: 15.875rem;
+$course-aside-width-wide: 19rem;
+
 @import "mit-learn-header";
 @import "skip-link";
 @import "appzi";
@@ -125,7 +130,7 @@ h5 {
     padding: 2rem 2rem 2.5rem 2rem;
   }
 
-  @media (min-width: 1400px) {
+  @media (min-width: $course-layout-wide-breakpoint) {
     padding: 2.5rem 0 5rem 0;
     align-items: center;
   }
@@ -136,8 +141,8 @@ h5 {
   .container-v3 {
     display: flex;
     flex-direction: column;
-    @media (min-width: 1400px) {
-      width: 79.75rem;
+    @media (min-width: $course-layout-wide-breakpoint) {
+      width: $course-layout-max-width;
     }
   }
 
@@ -185,6 +190,17 @@ h5 {
     flex: 1 1 27%;
     position: sticky;
     top: 104px;
+
+    @media (min-width: 768px) {
+      flex: 0 0 $course-aside-width-tablet;
+      max-width: $course-aside-width-tablet;
+    }
+
+    @media (min-width: $course-layout-wide-breakpoint) {
+      flex: 0 0 $course-aside-width-wide;
+      max-width: $course-aside-width-wide;
+    }
+
     @media (max-width: 992px) {
       position: static;
       top: 0;
