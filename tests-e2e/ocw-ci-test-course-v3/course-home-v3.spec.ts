@@ -1,11 +1,12 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 test.describe("Course description", () => {
   test("clamps to a fixed number of lines with a working toggle", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/")
 
     const description = page.locator("#course-description-text")
@@ -42,9 +43,10 @@ test.describe("Course description", () => {
   })
 
   test("hides the toggle when the description does not overflow", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/")
 
     const description = page.locator("#course-description-text")
@@ -68,9 +70,10 @@ test.describe("Course description", () => {
   })
 
   test("re-checks overflow when a webfont finishes loading", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/")
 
     const description = page.locator("#course-description-text")
