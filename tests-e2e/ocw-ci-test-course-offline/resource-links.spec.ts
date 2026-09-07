@@ -1,6 +1,12 @@
 import { test, expect } from "@playwright/test"
 import { offlineV2FileUrl, expectLocalPackageHref } from "../util/offline-build"
 
+/**
+ * file://-only: these assert that relative-path resolution actually works
+ * with no server involved, which the HTTP-served siteAlias-unified specs
+ * cannot verify. No online counterpart - intentionally not unified.
+ */
+
 test("Resource card title links are local", async ({ page }) => {
   await page.goto(offlineV2FileUrl("/lists/a-resource-list"))
   // v2 offline resource list uses .resource-list-title for the title link

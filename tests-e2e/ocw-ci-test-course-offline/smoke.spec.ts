@@ -1,6 +1,12 @@
 import { test, expect } from "@playwright/test"
 import { offlineV2FileUrl } from "../util/offline-build"
 
+/**
+ * file://-only: these assert that relative-path resolution actually works
+ * with no server involved, which the HTTP-served siteAlias-unified specs
+ * cannot verify. No online counterpart - intentionally not unified.
+ */
+
 test("Homepage loads with course title", async ({ page }) => {
   await page.goto(offlineV2FileUrl("/"))
   const title = page.locator("h1, .course-title").first()
