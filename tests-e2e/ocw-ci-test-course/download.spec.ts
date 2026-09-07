@@ -2,17 +2,26 @@ import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 test("Download button exists for test course", async ({ page, siteAlias }) => {
-  // Offline v2 replaces the download CTA with a "Browse Resources" button;
-  // that behavior is covered by the dedicated ocw-ci-test-course-offline/download-page.spec.ts.
-  test.skip(
-    siteAlias === "course-offline",
-    "Covered by dedicated offline specs"
-  )
-
   const course = new CoursePage(page, siteAlias)
   await course.goto("/download")
-  const downloadButton = page.getByRole("link", { name: "Download course" })
-  await expect(downloadButton).toBeVisible()
+
+  if (siteAlias === "course-offline") {
+    // Offline v2 replaces the download CTA with a "Browse Resources" button.
+    await expect(
+      page.getByRole("link", { name: "Download course" })
+    ).toHaveCount(0)
+    // Rendered as `<a role="button" ...>` (Bootstrap's pattern for a link
+    // styled as a button), so its accessible role is "button", not "link".
+    const browseButton = page.getByRole("button", {
+      name: "Browse Resources"
+    })
+    await expect(browseButton).toBeVisible()
+    const href = await browseButton.getAttribute("href")
+    expect(href).not.toMatch(/^https?:\/\//)
+  } else {
+    const downloadButton = page.getByRole("link", { name: "Download course" })
+    await expect(downloadButton).toBeVisible()
+  }
 })
 
 test("List of resources appears on download page", async ({
