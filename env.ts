@@ -161,7 +161,7 @@ const envSchema = {
     default: ""
   }),
   /**
-   * The following are URLs to the MIT Learn API.
+   * The following are URLs for MIT Learn and Learn AI services.
    */
   MIT_LEARN_BASE_URL: envalid.url({
     desc:       "The base URL of the MIT Learn API.",
@@ -170,6 +170,11 @@ const envSchema = {
   MIT_LEARN_API_BASE_URL: envalid.url({
     desc:       "The base URL of the MIT Learn API.",
     devDefault: "https://api.rc.learn.mit.edu"
+  }),
+  LEARN_AI_SYLLABUS_ENDPOINT: envalid.str({
+    desc:       "The full URL of the Learn AI syllabus agent endpoint.",
+    devDefault: "https://api.rc.learn.mit.edu/ai/http/syllabus_agent/",
+    default:    ""
   }),
   CSRF_COOKIE_NAME: envalid.str({
     desc:       "Name of the CSRF cookie set by MIT Learn; read by Axios to send the X-CSRFToken header.",

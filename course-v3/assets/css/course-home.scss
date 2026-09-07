@@ -95,3 +95,78 @@ $course-description-max-lines: 5;
   // is too roomy here, and a negative margin nets it down to 0.5rem.
   margin-top: -0.5rem;
 }
+
+.ask-tim-slot:not(:empty) {
+  margin-top: 1rem;
+}
+
+.ask-tim-slot .ask-tim-trigger {
+  padding: 15px;
+  border: 1px solid $mit-learn-light-gray-2;
+  box-shadow: 0 4px 8px 0 rgba(19, 20, 21, 0.08);
+  color: $mit-learn-dark-gray-2;
+
+  .ask-tim-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ask-tim-label {
+    font-weight: 400;
+    line-height: 18px;
+    text-wrap: balance;
+  }
+
+  svg {
+    color: $highlight-red;
+    flex: 0 0 auto;
+  }
+}
+
+.ask-tim-drawer {
+  box-sizing: border-box;
+  display: flex;
+  max-width: 900px;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.ask-tim-drawer-header {
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+
+  @include media-breakpoint-up(md) {
+    padding: 1.5rem 2rem 1rem;
+  }
+}
+
+.ask-tim-course-context {
+  min-width: 0;
+}
+
+.ask-tim-course-label {
+  color: $mit-learn-silver-gray-dark;
+}
+
+.ask-tim-scroll-container {
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+}
+
+.ask-tim-drawer .MitAiChat--entryScreenContainer {
+  @include media-breakpoint-down(sm) {
+    padding-top: 2rem;
+  }
+
+  button {
+    overflow-wrap: anywhere;
+  }
+}

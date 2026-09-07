@@ -13,9 +13,22 @@ const config: Config.InitialOptions = {
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   testPathIgnorePatterns: ["/node_modules/", "tests-e2e/"],
-  preset:                 "ts-jest",
   testEnvironment:        "jsdom",
-  moduleNameMapper:       { "^sinon$": "sinon/lib/sinon.js" }
+  moduleNameMapper:       { "^sinon$": "sinon/lib/sinon.js" },
+  transform:              {
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
+        tsconfig: {
+          paths: {
+            "@mitodl/smoot-design/ai": [
+              "./node_modules/@mitodl/smoot-design/dist/cjs/ai.d.ts"
+            ]
+          }
+        }
+      }
+    ]
+  }
 }
 
 export default config

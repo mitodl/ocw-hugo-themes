@@ -6,8 +6,7 @@
 {{ if not (eq .subtopics nil) }}
 {{ $subtopics = .subtopics }}
 {{ end }}
-{{ $scratch := newScratch }}
-<div class="position-relative {{ if gt (len $subtopics) 0 }} pl-0 {{ else }} pl-1 {{ end }}">
+<div class="position-relative {{ if gt (len $subtopics) 0 }} pl-0 has-subtopics {{ else }} pl-1 {{ end }}">
   {{ if gt (len $subtopics) 0 }}
   <button
     type="button"
@@ -32,45 +31,15 @@
   id="subtopic-container_{{ $device }}_{{ $index }}"
   aria-label="Subtopics"
 >
-  {{ $scratch.Set "index" 0 }}
-  {{ range $subtopic, $specialities := $subtopics }}
-  {{ $subtopicIndex := $scratch.Get "index" }}
+  {{ range $subtopic, $ignore := $subtopics }}
   <li>
-    <div class="position-relative {{ if gt (len ($specialities | default slice)) 0 }} pl-0 {{ else }} pl-2 {{ end }}">
-      {{ if gt (len ($specialities | default slice)) 0 }}
-      <button
-        class="topic-toggle border-0 bg-transparent pl-0"
-        data-target="#speciality-container_{{ $device }}_{{ $index }}_{{ $subtopicIndex }}"
-        data-toggle="collapse"
-        aria-controls="speciality-container_{{ $device }}_{{ $index }}_{{ $subtopicIndex }}"
-        aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}"
-        aria-label="{{ $subtopic }} specialties"
-      >
-        {{ partial "icon.html" "chevron" }}
-      </button>
-      {{ end }}
+    <div class="position-relative pl-2">
       <span class="topic-text-wrapper">
         {{ $subTopicTitle := title $subtopic }}
         {{ $subTopicUrl := partial "get_search_url.html" (dict "key" "topic" "value" $subTopicTitle) }}
         {{- partial "link.html" (dict "href" $subTopicUrl "class" "text-black course-info-topic" "text" $subTopicTitle "stripLinkOffline" true) -}}
       </span>
     </div>
-    <ul
-      class="collapse{{if eq $index 0 }} show{{ end }} list-unstyled"
-      id="speciality-container_{{ $device }}_{{ $index }}_{{ $subtopicIndex }}"
-      aria-label="Specialties"
-    >
-      {{ range $speciality, $ignore := $specialities }}
-      <li class="pl-5">
-        <span class="topic-text-wrapper">
-          {{ $specialityTitle := title $speciality }}
-          {{ $specialityUrl := partial "get_search_url.html" (dict "key" "topic" "value" $specialityTitle) }}
-          {{- partial "link.html" (dict "href" $specialityUrl "class" "text-black course-info-topic" "text" $specialityTitle "stripLinkOffline" true) -}}
-        </span>
-      </li>
-      {{ end }}
-    </ul>
-    {{ $scratch.Set "index" (add 1 ($scratch.Get "index")) }}
   </li>
   {{ end }}
 </ul>

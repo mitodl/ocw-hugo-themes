@@ -1,0 +1,7 @@
+{{- if .mobile -}}
+<div id="ask-tim-mobile-container" class="ask-tim-slot"></div>
+{{- else -}}
+{{- $courseData := .context.Site.Data.course -}}
+{{- $readableId := partial "course_readable_id.html" $courseData -}}
+<div id="ask-tim-container" class="ask-tim-slot w-100" data-readable-id="{{- $readableId -}}" data-course-title="{{- $courseData.course_title -}}"></div>
+{{- end -}}

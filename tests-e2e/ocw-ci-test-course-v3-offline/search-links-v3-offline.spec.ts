@@ -9,7 +9,8 @@ import { offlineFileUrl, COURSE_V3_CANONICAL_DOMAIN } from "../util"
  * canonical domain rather than the static API host.
  *
  * The query parameter names come from course-v3/data/search_query_keys.json,
- * which wins the data merge — they are MIT Learn's names (department, level, t, q).
+ * which wins the data merge — they are MIT Learn's names (department, level,
+ * topic, q).
  *
  * These links are intentionally absolute, so expectLocalPackageHref does not
  * apply. They carry strip-link-offline, so hide_offline_links.html unwraps them
