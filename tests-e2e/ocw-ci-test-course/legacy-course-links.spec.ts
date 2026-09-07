@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test"
-import { CoursePage } from "../util"
+import { test, expect } from "../util/fixtures"
+import { CoursePage, FIXTURES_PORT } from "../util"
 
 /**
  * The /courses/ rewriting is course-v3 only. v2 is served at /courses/<slug>/,
@@ -12,48 +12,56 @@ import { CoursePage } from "../util"
  * the v2 or www configs, so a leak would break those builds outright.
  */
 const PAGE = "/pages/legacy-course-links"
+const STATIC_API_ORIGIN = `http://localhost:${FIXTURES_PORT}`
 
 test.describe("Course v2 leaves legacy /courses/ links alone", () => {
-  test("Same-course link is unchanged", async ({ page }) => {
-    const course = new CoursePage(page, "course")
+  test("Same-course link is unchanged", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto(PAGE)
 
+    const expectedHref =
+      siteAlias === "course-offline" ?
+        `${STATIC_API_ORIGIN}/courses/ocw-ci-test-course/pages/first-test-page-title` :
+        "/courses/ocw-ci-test-course/pages/first-test-page-title"
     await expect(
       page.getByRole("link", { name: "Self link", exact: true })
-    ).toHaveAttribute(
-      "href",
-      "/courses/ocw-ci-test-course/pages/first-test-page-title"
-    )
+    ).toHaveAttribute("href", expectedHref)
   })
 
-  test("Same-course link with a fragment is unchanged", async ({ page }) => {
-    const course = new CoursePage(page, "course")
+  test("Same-course link with a fragment is unchanged", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto(PAGE)
 
+    const expectedHref =
+      siteAlias === "course-offline" ?
+        `${STATIC_API_ORIGIN}/courses/ocw-ci-test-course/pages/first-test-page-title#a-section` :
+        "/courses/ocw-ci-test-course/pages/first-test-page-title#a-section"
     await expect(
       page.getByRole("link", { name: "Self link with anchor" })
-    ).toHaveAttribute(
-      "href",
-      "/courses/ocw-ci-test-course/pages/first-test-page-title#a-section"
-    )
+    ).toHaveAttribute("href", expectedHref)
   })
 
-  test("Cross-course link is unchanged", async ({ page }) => {
-    const course = new CoursePage(page, "course")
+  test("Cross-course link is unchanged", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto(PAGE)
 
+    const expectedHref =
+      siteAlias === "course-offline" ?
+        `${STATIC_API_ORIGIN}/courses/some-other-course-fall-2020/pages/syllabus` :
+        "/courses/some-other-course-fall-2020/pages/syllabus"
     await expect(
       page.getByRole("link", { name: "Cross course link" })
-    ).toHaveAttribute(
-      "href",
-      "/courses/some-other-course-fall-2020/pages/syllabus"
-    )
+    ).toHaveAttribute("href", expectedHref)
   })
 
   test("External resource pointing at a course is unchanged", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/external-resources/ocw-course-link")
 
     const link = page.getByRole("link", { name: "OCW course link" })
@@ -66,23 +74,26 @@ test.describe("Course v2 leaves legacy /courses/ links alone", () => {
   })
 
   test("A /courses/o/ link is left alone rather than rewritten back", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course")
+    const course = new CoursePage(page, siteAlias)
     await course.goto(PAGE)
 
+    const expectedHref =
+      siteAlias === "course-offline" ?
+        `${STATIC_API_ORIGIN}/courses/o/ocw-ci-test-course/pages/second-test-page` :
+        "/courses/o/ocw-ci-test-course/pages/second-test-page"
     await expect(
       page.getByRole("link", { name: "Own base path link" })
-    ).toHaveAttribute(
-      "href",
-      "/courses/o/ocw-ci-test-course/pages/second-test-page"
-    )
+    ).toHaveAttribute("href", expectedHref)
   })
 
   test("External resource requesting a warning still gets none, and keeps its URL", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/external-resources/ocw-course-link-warned")
 
     const link = page.getByRole("link", { name: "OCW course link warned" })

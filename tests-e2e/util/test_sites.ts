@@ -1,6 +1,7 @@
 import { env } from "../../env"
 
 const LOCAL_OCW_PORT = 3010
+const FIXTURES_PORT = 4321
 
 /**
  * The value `LocalOcw.buildSite` injects as the `COURSE_V3_CANONICAL_DOMAIN` env
@@ -104,6 +105,7 @@ const siteUrl = (siteAlias: TestSiteAlias, ...relPath: string[]) => {
 export {
   TEST_SITES,
   LOCAL_OCW_PORT,
+  FIXTURES_PORT,
   COURSE_V3_CANONICAL_DOMAIN,
   siteUrl,
   TestSiteAlias
