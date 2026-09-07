@@ -64,4 +64,47 @@ test.describe("Course v3 Single Resource Page", () => {
     const title = page.locator(".resource-single-title")
     await expect(title).toHaveText("file.pdf")
   })
+
+  test("Resource page download link is package-local when offline", async ({
+    page,
+    siteAlias
+  }) => {
+    test.skip(
+      siteAlias !== "course-v3-offline",
+      "Package-local paths only exist in the offline build"
+    )
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/resources/file_pdf")
+
+    const downloadBtn = page
+      .locator(".resource-download-button, .resource-single-thumbnail-link")
+      .first()
+    const href = await downloadBtn.getAttribute("href")
+    expect(href).not.toMatch(/^https?:\/\//)
+    expect(href).toContain("static_resources/")
+  })
+
+  test.describe("additional resource types", () => {
+    const cases: { route: string; bodyText: string }[] = [
+      {
+        route:    "/resources/example_pdf",
+        bodyText: "8.01 Classical Mechanics Pset 1"
+      },
+      { route: "/resources/example_jpg", bodyText: "example_jpg.jpg" },
+      { route: "/resources/example_notes", bodyText: "9.9 Solid State" }
+    ]
+
+    for (const { route, bodyText } of cases) {
+      test(`${route} loads with expected content`, async ({
+        page,
+        siteAlias
+      }) => {
+        const course = new CoursePage(page, siteAlias)
+        await course.goto(route)
+
+        await expect(page.locator("body")).toContainText(bodyText)
+        await expect(page.locator(".resource-page-container")).toBeVisible()
+      })
+    }
+  })
 })
