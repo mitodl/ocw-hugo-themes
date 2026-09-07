@@ -2,11 +2,16 @@ import { test, expect } from "../util/fixtures"
 import { CoursePage, FIXTURES_PORT } from "../util"
 
 /**
- * The /courses/ rewriting is course-v3 only. v2 is served at /courses/<slug>/,
- * so these links are already correct there and must be left exactly as
- * authored. base-theme's get_destination.html and get_external_url.html are
- * both passthroughs; these tests guard against the v3 behaviour leaking into
- * base-theme, where it would also reach www.
+ * course-v3's /courses/ rewriting (canonical-domain + /courses/o/ prefix)
+ * never applies here. v2 online is served at /courses/<slug>/, so these
+ * links are already correct there and stay exactly as authored -- these
+ * tests guard against the v3 behaviour leaking into base-theme, where it
+ * would also reach www.
+ *
+ * v2 OFFLINE is different: course-offline/get_destination.html rewrites any
+ * /courses-prefixed destination to an absolute STATIC_API_BASE_URL-prefixed
+ * URL (see site_root_url.html). That's a separate, unrelated rewrite, also
+ * asserted below via the siteAlias branch.
  *
  * COURSE_V3_CANONICAL_DOMAIN is not allowlisted in security.funcs.getenv for
  * the v2 or www configs, so a leak would break those builds outright.
