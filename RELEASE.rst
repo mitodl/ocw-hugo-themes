@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.159.0
+---------------
+
+- Update AskTIM UX design (#1869)
+- feat: use mit_learn_topics in v3 (#1867)
+- Rename Music and Theater Arts department to Music (+ facet aliasing) (#1838)
+- Add AskTIM drawer to course-v3 (#1865)
+
 Version 1.157.0 (Released September 02, 2026)
 ---------------
 
