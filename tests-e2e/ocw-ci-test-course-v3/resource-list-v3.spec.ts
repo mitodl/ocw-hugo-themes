@@ -367,4 +367,47 @@ test.describe("Course v3 Resource List", () => {
       await expect(cards.nth(i)).toBeVisible()
     }
   })
+
+  test("Resource card download links point to local static_resources when offline", async ({
+    page,
+    siteAlias
+  }) => {
+    test.skip(
+      siteAlias !== "course-v3-offline",
+      "Package-local static_resources paths only exist in the offline build"
+    )
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/lists/a-resource-list")
+
+    const downloadLinks = page.locator(
+      ".resource-card-thumbnail-link[download]"
+    )
+    const count = await downloadLinks.count()
+    expect(count).toBeGreaterThan(0)
+
+    for (let i = 0; i < count; i++) {
+      const href = await downloadLinks.nth(i).getAttribute("href")
+      expect(href).not.toMatch(/^https?:\/\//)
+      expect(href).toContain("static_resources/")
+    }
+  })
+
+  test("See all link on the download page is package-local when offline", async ({
+    page,
+    siteAlias
+  }) => {
+    test.skip(
+      siteAlias !== "course-v3-offline",
+      "Package-local paths only exist in the offline build"
+    )
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/download")
+
+    const seeAll = page.locator(".see-all-link").first()
+    if ((await seeAll.count()) > 0) {
+      const href = await seeAll.getAttribute("href")
+      expect(href).not.toMatch(/^https?:\/\//)
+      expect(href).not.toMatch(/^\//)
+    }
+  })
 })
