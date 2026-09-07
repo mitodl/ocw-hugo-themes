@@ -1,20 +1,24 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 test.describe("Mobile Course Info drawer", () => {
-  test("Toggle button is absent on the home page", async ({ page }) => {
+  test("Toggle button is absent on the home page", async ({
+    page,
+    siteAlias
+  }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/")
 
     await expect(page.locator("#mobile-course-info-toggle")).toHaveCount(0)
   })
 
   test("Toggle button opens the drawer on mobile viewports", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const toggle = page.locator("#mobile-course-info-toggle")
@@ -31,9 +35,9 @@ test.describe("Mobile Course Info drawer", () => {
     ).toBeVisible()
   })
 
-  test("Close button closes the drawer", async ({ page }) => {
+  test("Close button closes the drawer", async ({ page, siteAlias }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const toggle = page.locator("#mobile-course-info-toggle")
@@ -48,9 +52,12 @@ test.describe("Mobile Course Info drawer", () => {
     await expect(drawer).not.toHaveClass(/\bin\b/)
   })
 
-  test("Toggle button is hidden on desktop viewports", async ({ page }) => {
+  test("Toggle button is hidden on desktop viewports", async ({
+    page,
+    siteAlias
+  }) => {
     await page.setViewportSize({ width: 1280, height: 900 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const toggle = page.locator("#mobile-course-info-toggle")
@@ -58,10 +65,11 @@ test.describe("Mobile Course Info drawer", () => {
   })
 
   test("Download button is removed from the mobile drawer but stays elsewhere on the page", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     // Bottom-of-page button + desktop drawer's own copy, both untouched by this task.
@@ -77,10 +85,11 @@ test.describe("Mobile Course Info drawer", () => {
   })
 
   test("Course Info subsection headings use the homepage type scale inside the mobile drawer", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const toggle = page.locator("#mobile-course-info-toggle")
@@ -95,10 +104,11 @@ test.describe("Mobile Course Info drawer", () => {
   })
 
   test("Mobile drawer body text is 12px, distinct from the 18px/14px headings above it", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const toggle = page.locator("#mobile-course-info-toggle")
@@ -122,10 +132,11 @@ test.describe("Mobile Course Info drawer", () => {
   })
 
   test("Course Info drawer has consistent padding and inter-section spacing", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const toggle = page.locator("#mobile-course-info-toggle")
@@ -155,7 +166,8 @@ test.describe("Mobile Course Info drawer", () => {
   })
 
   test("Drawer height stays viewport-sized even if something sets an inline height", async ({
-    page
+    page,
+    siteAlias
   }) => {
     // offcanvas-bootstrap's Offcanvas._navbarHeight() sets an inline height
     // via jQuery ($(window).outerHeight()) on every open. Under Chrome's
@@ -166,7 +178,7 @@ test.describe("Mobile Course Info drawer", () => {
     // than the outerHeight() misreport itself, which this harness can't
     // control) and assert our external !important rule still wins.
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const toggle = page.locator("#mobile-course-info-toggle")
@@ -182,10 +194,11 @@ test.describe("Mobile Course Info drawer", () => {
   })
 
   test("Drawer shell matches the Explore MIT nav drawer's shadow, width, and close icon", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const toggle = page.locator("#mobile-course-info-toggle")
@@ -205,10 +218,11 @@ test.describe("Mobile Course Info drawer", () => {
   })
 
   test("Drawer starts below the MIT Learn header instead of overlaying it, matching the Explore MIT nav drawer", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const toggle = page.locator("#mobile-course-info-toggle")
@@ -231,7 +245,8 @@ test.describe("Mobile Course Info drawer", () => {
   })
 
   test("Drawer background matches the Explore MIT nav drawer's background", async ({
-    page
+    page,
+    siteAlias
   }) => {
     // Both drawers, and the page itself, should read as the same shade of
     // white. Regression guard for the `bg-light`/`bg-faded` Bootstrap
@@ -239,7 +254,7 @@ test.describe("Mobile Course Info drawer", () => {
     // drawer's own un-`!important` `background: white` rule) having been
     // removed from #course-info-drawer's markup.
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const toggle = page.locator("#mobile-course-info-toggle")
@@ -273,10 +288,11 @@ test.describe("Course Info / Explore MIT drawer mutual exclusion", () => {
   // open/close logic for #mit-learn-nav-drawer). Only one should ever be
   // open at a time, regardless of which one was opened first.
   test("Opening Explore MIT after Course Info closes Course Info and opens Explore MIT", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const infoToggle = page.locator("#mobile-course-info-toggle")
@@ -294,10 +310,11 @@ test.describe("Course Info / Explore MIT drawer mutual exclusion", () => {
   })
 
   test("Opening Course Info after Explore MIT closes Explore MIT and opens Course Info", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const infoToggle = page.locator("#mobile-course-info-toggle")
@@ -321,13 +338,14 @@ test.describe("Course Info / Explore MIT drawer mutual exclusion", () => {
   })
 
   test("Opening Course Info alone does not disturb Explore MIT's own closed state", async ({
-    page
+    page,
+    siteAlias
   }) => {
     // Regression guard: the mutual-exclusion coordination should be a
     // no-op when the other drawer was never open, not just correct when it
     // was.
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const infoToggle = page.locator("#mobile-course-info-toggle")
@@ -344,10 +362,11 @@ test.describe("Course Info / Explore MIT drawer mutual exclusion", () => {
   })
 
   test("Opening Explore MIT alone does not disturb Course Info's own closed state", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const infoDrawer = page.locator("#course-info-drawer")
@@ -361,12 +380,13 @@ test.describe("Course Info / Explore MIT drawer mutual exclusion", () => {
   })
 
   test("Each drawer still opens and closes normally on its own after the coordination module loads", async ({
-    page
+    page,
+    siteAlias
   }) => {
     // Regression guard: adding cross-drawer coordination must not break the
     // baseline single-drawer open/close behavior.
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const infoToggle = page.locator("#mobile-course-info-toggle")
