@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test"
-import { CoursePage, offlineV3FileUrl } from "../util"
+import { test, expect } from "../util/fixtures"
+import { CoursePage } from "../util"
 
 const cases = {
   fall:                   "6.001+fall_2024",
@@ -9,8 +9,8 @@ const cases = {
   "without-term-or-year": "6.001"
 }
 
-test("course-v3 canonicalizes readable IDs", async ({ page }) => {
-  const course = new CoursePage(page, "course-v3")
+test("readable IDs are canonicalized", async ({ page, siteAlias }) => {
+  const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/readable-id-cases")
 
   for (const [name, readableId] of Object.entries(cases)) {
@@ -20,24 +20,12 @@ test("course-v3 canonicalizes readable IDs", async ({ page }) => {
   }
 })
 
-test("course-v3 bookmark markup uses the canonical readable ID", async ({
-  page
+test("bookmark markup uses the canonical readable ID", async ({
+  page,
+  siteAlias
 }) => {
-  const course = new CoursePage(page, "course-v3")
+  const course = new CoursePage(page, siteAlias)
   await course.goto("/")
-
-  const bookmarkContainer = page.locator(".bookmark-button-container")
-  await expect(bookmarkContainer).toHaveCount(1)
-  await expect(bookmarkContainer).toHaveAttribute(
-    "data-resourcereadableid",
-    "123+fall_2022"
-  )
-})
-
-test("course-offline-v3 bookmark markup uses the canonical readable ID", async ({
-  page
-}) => {
-  await page.goto(offlineV3FileUrl("/"))
 
   const bookmarkContainer = page.locator(".bookmark-button-container")
   await expect(bookmarkContainer).toHaveCount(1)
