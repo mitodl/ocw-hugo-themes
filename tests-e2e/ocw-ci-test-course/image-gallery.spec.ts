@@ -17,6 +17,27 @@ test("Image gallery displays thumbnail and opens viewer", async ({
   await expect(viewer).toBeVisible()
 })
 
+test("Gallery data-base-url is package-appropriate", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
+  await course.goto("/pages/image-gallery")
+
+  const gallery = page.locator(".image-gallery[data-base-url]").first()
+  await expect(gallery).toBeAttached()
+  const baseUrl = await gallery.getAttribute("data-base-url")
+  expect(baseUrl).not.toBeNull()
+
+  if (siteAlias === "course-offline") {
+    // Offline builds resolve gallery images from the package-local
+    // static_resources directory, not an absolute URL.
+    expect(baseUrl).not.toMatch(/^https?:\/\//)
+    expect(baseUrl).not.toMatch(/^\//)
+    expect(baseUrl).toContain("static_resources")
+  }
+})
+
 test("Image gallery credit metadata contains external link warning markup", async ({
   page,
   request,
