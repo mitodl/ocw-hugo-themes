@@ -1,6 +1,12 @@
 import { test, expect } from "@playwright/test"
 import { offlineV3FileUrl, expectLocalPackageHref } from "../util"
 
+/**
+ * file://-only: package-local path resolution and offline-build page
+ * generation have no online counterpart to unify with. Intentionally
+ * kept separate.
+ */
+
 test.describe("offline-v3 routing", () => {
   test("shortcode-generated resource links stay package-local", async ({
     page

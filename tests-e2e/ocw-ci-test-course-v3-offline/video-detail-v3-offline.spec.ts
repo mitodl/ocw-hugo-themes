@@ -1,6 +1,18 @@
 import { test, expect } from "@playwright/test"
 import { offlineV3FileUrl, expectLocalPackageHref } from "../util"
 
+/**
+ * Deliberately NOT merged into video-view-v3.spec.ts / video-tabs-v3.spec.ts
+ * in this pass. Those files test UI structure/behavior generically; this file
+ * pins two specific fixtures (l01v01: local MP4 + captions + transcript;
+ * l26v02: YouTube-only, no captions) that render genuinely different subtrees
+ * offline (a real <video> vs a .show-offline warning div) rather than the
+ * same subtree with different data. Merging is possible but requires
+ * restructuring those files' fixture parameterization, which is a larger,
+ * separate change - left as a follow-up rather than folded silently into
+ * this pass.
+ */
+
 const VIDEO_L01 = "/resources/ocw_test_course_mit8_01f16_l01v01_360p"
 const VIDEO_L26 = "/resources/ocw_test_course_mit8_01f16_l26v02_360p"
 

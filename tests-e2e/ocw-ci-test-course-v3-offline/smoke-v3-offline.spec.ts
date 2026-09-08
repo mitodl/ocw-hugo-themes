@@ -1,6 +1,12 @@
 import { test, expect } from "@playwright/test"
 import { offlineV3FileUrl } from "../util"
 
+/**
+ * file://-only: package-local path resolution and offline-build page
+ * generation have no online counterpart to unify with. Intentionally
+ * kept separate.
+ */
+
 test.describe("offline-v3 smoke", () => {
   test("offline-v3 home page loads offline-v3 assets", async ({ page }) => {
     await page.goto(offlineV3FileUrl("/"))

@@ -2,6 +2,13 @@ import { test, expect } from "@playwright/test"
 import { offlineV3FileUrl, COURSE_V3_CANONICAL_DOMAIN } from "../util"
 
 /**
+ * The offline rewrite rule here is different from (not a weaker version of)
+ * the online one - see legacy-course-links-v3.spec.ts for the online rule.
+ * Intentionally kept as a separate file per the "decorate as offline-only"
+ * pattern, not unmerged duplication.
+ */
+
+/**
  * Offline builds set relativeURLs: true, so Hugo rewrites any root-relative URL
  * in the output into a path relative to the current page. That keeps in-package
  * links working over file://, but it means a root-relative URL meant for the

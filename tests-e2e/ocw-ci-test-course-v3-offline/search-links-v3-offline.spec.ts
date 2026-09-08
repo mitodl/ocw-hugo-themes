@@ -2,6 +2,13 @@ import { test, expect } from "@playwright/test"
 import { offlineV3FileUrl, COURSE_V3_CANONICAL_DOMAIN } from "../util"
 
 /**
+ * Offline-only business logic, no online counterpart: canonical-domain
+ * rewriting and strip-link-offline degradation only apply to search links
+ * in the offline build. There is no equivalent online test to unify with,
+ * so this stays a separate file rather than unmerged duplication.
+ */
+
+/**
  * Search and facet links (departments, topics, level, instructors) all funnel
  * through get_search_url.html. base-offline prefixes an absolute host because a
  * root-relative /search/ cannot resolve in an offline package, and
