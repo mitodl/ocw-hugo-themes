@@ -118,4 +118,36 @@ test.describe("Course v3 Video Gallery Page", () => {
     // Card should be approximately full width (accounting for borders)
     expect(cardWidth).toBeGreaterThan(containerWidth - 10)
   })
+
+  test("Video gallery card links to a real video resource page", async ({
+    page,
+    siteAlias
+  }) => {
+    const firstCard = page.locator(".video-gallery-card").first()
+    const href = await firstCard.getAttribute("href")
+    expect(href).toBeTruthy()
+
+    await firstCard.click()
+    await expect(page).toHaveURL(/\/resources\//)
+    await expect(page.locator("body")).not.toBeEmpty()
+  })
+
+  test("Video gallery card links are package-local when offline", async ({
+    page,
+    siteAlias
+  }) => {
+    test.skip(
+      siteAlias !== "course-v3-offline",
+      "Package-local paths only exist in the offline build"
+    )
+    const cards = page.locator(".video-gallery-card")
+    const count = await cards.count()
+    expect(count).toBeGreaterThan(0)
+
+    for (let i = 0; i < count; i++) {
+      const href = await cards.nth(i).getAttribute("href")
+      expect(href).not.toMatch(/^https?:\/\//)
+      expect(href).toContain("resources/")
+    }
+  })
 })
