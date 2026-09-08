@@ -1,6 +1,6 @@
 import { expect, Page, test } from "@playwright/test"
 import { env } from "../../env"
-import { CoursePage, offlineFileUrl, siteUrl } from "../util"
+import { CoursePage, offlineV3FileUrl, siteUrl } from "../util"
 
 const FEATURE_FLAG = "ocw-course-v3-ask-tim"
 const ASK_TIM_ENDPOINT = env.LEARN_AI_SYLLABUS_ENDPOINT
