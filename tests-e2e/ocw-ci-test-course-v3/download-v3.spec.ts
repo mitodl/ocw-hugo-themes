@@ -70,14 +70,12 @@ test.describe("Course v3 download page", () => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/")
 
-    const browseBtn = page.locator(
-      '.download-course-button-v3, a:has-text("Browse Resources")'
-    )
-    const count = await browseBtn.count()
-    if (count > 0) {
-      const href = await browseBtn.first().getAttribute("href")
-      expect(href).not.toMatch(/^https?:\/\//)
-      expect(href).toContain("download")
-    }
+    const browseBtn = page
+      .locator('.download-course-button-v3, a:has-text("Browse Resources")')
+      .first()
+    await expect(browseBtn).toBeVisible()
+    const href = await browseBtn.getAttribute("href")
+    expect(href).not.toMatch(/^https?:\/\//)
+    expect(href).toContain("download")
   })
 })

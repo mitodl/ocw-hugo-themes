@@ -392,26 +392,10 @@ test.describe("Course v3 Resource List", () => {
       expect(href).toContain("static_resources/")
     }
   })
-
-  test("See all link on the download page is package-local when offline", async ({
-    page,
-    siteAlias
-  }) => {
-    // resource_list_collapsible.html only renders see_all.html when a
-    // resource-list group exceeds $numberOfResourcesLimit (10) items -- this
-    // fixture's groups never do, so .see-all-link never appears here. Skip
-    // rather than assert-if-present, which would silently pass without ever
-    // running its assertions.
-    test.skip(
-      true,
-      "This fixture's resource-list groups never exceed the 10-item limit that renders a See all link"
-    )
-    const course = new CoursePage(page, siteAlias)
-    await course.goto("/download")
-
-    const seeAll = page.locator(".see-all-link").first()
-    const href = await seeAll.getAttribute("href")
-    expect(href).not.toMatch(/^https?:\/\//)
-    expect(href).not.toMatch(/^\//)
-  })
 })
+
+// A "See all" link (see_all.html) only renders when a resource-list group
+// exceeds resource_list_collapsible.html's 10-item limit. No fixture group
+// in this test course reaches that, so there is no way to exercise it with
+// current content -- removed rather than kept as a permanently-skipped
+// placeholder. Revisit if a large-enough fixture group is ever added.

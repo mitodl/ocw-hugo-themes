@@ -25,17 +25,13 @@ test("Fallback iframe container is absent on offline video page", async ({
   await expect(fallbackContainer).toHaveCount(0)
 })
 
-test("Transcript link is local if present", async ({ page }) => {
+test("Transcript link is local", async ({ page }) => {
   await page.goto(
-    offlineV2FileUrl("/resources/ocw_test_course_mit8_01f16_l01v01_360p")
+    offlineV2FileUrl("/resources/ocw_test_course_mit8_01f16_l01v02_360p_mp4")
   )
   const transcriptLink = page.locator(
     "a[href*='transcript'], a[href*='captions']"
   )
-  // The test video fixture does not include a transcript file;
-  // assert locality only when the link is actually present.
-  const count = await transcriptLink.count()
-  if (count > 0) {
-    await expectLocalPackageHref(transcriptLink.first())
-  }
+  await expect(transcriptLink.first()).toBeAttached()
+  await expectLocalPackageHref(transcriptLink.first())
 })
