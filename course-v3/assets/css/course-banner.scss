@@ -10,7 +10,7 @@
     padding: 1.5rem 2rem;
   }
 
-  @media (min-width: 1400px) {
+  @media (min-width: $course-layout-wide-breakpoint) {
     padding: 3rem 0;
     align-items: center;
   }
@@ -32,8 +32,8 @@
     display: flex;
     position: relative;
 
-    @media (min-width: 1400px) {
-      width: 79.75rem;
+    @media (min-width: $course-layout-wide-breakpoint) {
+      width: $course-layout-max-width;
     }
 
     align-items: center;
@@ -46,7 +46,7 @@
       @media (min-width: 992px) {
         max-width: 72.5%;
       }
-      @media (min-width: 1400px) {
+      @media (min-width: $course-layout-wide-breakpoint) {
         width: 59.5rem;
       }
     }

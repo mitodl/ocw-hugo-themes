@@ -17,6 +17,7 @@ import Loading, { Spinner } from "./Loading"
 
 import { search } from "../lib/api"
 import { searchResultToLearningResource } from "../lib/search"
+import { expandFacetAliases, mergeAliasedAggregations } from "../lib/facets"
 import {
   COURSENUM_SORT_FIELD,
   CONTACT_URL,
@@ -86,7 +87,7 @@ export default function SearchPage(props: SearchPageProps) {
       const newResults = await search({
         text,
         from,
-        activeFacets,
+        activeFacets: expandFacetAliases(activeFacets),
         size:         pageSize,
         sort:         sort,
         aggregations: allowedAggregations
@@ -119,7 +120,11 @@ export default function SearchPage(props: SearchPageProps) {
         setSuggestions([])
       }
 
-      setAggregations(new Map(Object.entries(newResults.aggregations ?? {})))
+      setAggregations(
+        new Map(
+          Object.entries(mergeAliasedAggregations(newResults.aggregations))
+        )
+      )
 
       setSearchResults(results =>
         from === 0 ?

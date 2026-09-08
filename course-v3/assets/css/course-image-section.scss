@@ -10,7 +10,7 @@
   }
 
   .download-button {
-    @media (max-width: 768px) {
+    @include media-breakpoint-down(sm) {
       display: none;
     }
   }

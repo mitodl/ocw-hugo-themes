@@ -1,5 +1,4 @@
-import React, { useId, useMemo } from "react"
-import Box from "@mui/material/Box"
+import React, { useMemo, useState } from "react"
 import Drawer from "@mui/material/Drawer"
 import Typography from "@mui/material/Typography"
 import { ActionButton } from "@mitodl/smoot-design"
@@ -28,7 +27,9 @@ const AskTimDrawer: React.FC<AskTimDrawerProps> = ({
   readableId,
   syllabusEndpoint
 }) => {
-  const titleId = useId()
+  const [scrollElement, setScrollElement] = useState<HTMLDivElement | null>(
+    null
+  )
   const requestOpts = useMemo<AiChatProps["requestOpts"]>(
     () => ({
       apiUrl:         syllabusEndpoint,
@@ -60,64 +61,57 @@ const AskTimDrawer: React.FC<AskTimDrawerProps> = ({
       open={open}
       slotProps={{
         paper: {
-          "aria-labelledby": titleId,
-          sx:                {
-            display:   "flex",
-            maxWidth:  900,
-            overflowX: "hidden",
-            width:     "100%"
-          }
+          "aria-label": "AskTIM",
+          className:    "ask-tim-drawer"
         }
       }}
     >
-      <Box
-        component="header"
-        sx={{
-          alignItems:     "center",
-          borderBottom:   1,
-          borderColor:    "divider",
-          display:        "flex",
-          flexShrink:     0,
-          gap:            2,
-          justifyContent: "space-between",
-          p:              2
-        }}
-      >
-        <Box sx={{ minWidth: 0 }}>
-          <Typography id={titleId} variant="h4">
-            Ask TIM
+      <header className="ask-tim-drawer-header">
+        <div className="ask-tim-course-context">
+          <Typography
+            className="ask-tim-course-label"
+            component="div"
+            variant="body2"
+          >
+            Course
           </Typography>
-          <Typography noWrap variant="body2">
+          {/* Preserve Smoot typography despite the theme's global h2 overrides. */}
+          <Typography
+            aria-level={2}
+            component="div"
+            noWrap
+            role="heading"
+            title={courseTitle}
+            variant="h4"
+          >
             {courseTitle}
           </Typography>
-        </Box>
+        </div>
         <ActionButton
-          aria-label="Close Ask TIM"
+          aria-label="Close AskTIM"
           autoFocus
-          edge="circular"
+          className="flex-shrink-0"
+          edge="rounded"
           onClick={onClose}
-          size="small"
-          variant="text"
+          size="medium"
+          variant="tertiary"
         >
           <RiCloseLine aria-hidden />
         </ActionButton>
-      </Box>
-      <Box
-        sx={{
-          flex:                                 1,
-          minHeight:                            0,
-          overflow:                             "hidden",
-          position:                             "relative",
-          "& .MitAiChat--entryScreenContainer": { overflowY: "auto" }
-        }}
+      </header>
+      <div
+        className="ask-tim-scroll-container"
+        data-testid="ask-tim-scroll-container"
+        ref={setScrollElement}
       >
         <AiChat
           chatId={readableId}
           conversationStarters={COURSE_CONVERSATION_STARTERS}
           entryScreenTitle="What do you want to know about this course?"
           requestOpts={requestOpts}
+          scrollElement={scrollElement}
         />
-      </Box>
+      </div>
     </Drawer>
   )
 }
