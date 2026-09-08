@@ -80,15 +80,23 @@ const config: PlaywrightTestConfig<SiteAliasOptions> = {
       }
     },
     // Offline variant
+    // ask-tim-v3.spec.ts is excluded here: it hardcodes CoursePage(page,
+    // "course-v3") throughout and doesn't use the siteAlias fixture at all,
+    // since AskTIM isn't in the offline bundle yet (see that file's own
+    // header comment). Its one offline-relevant test asserts absence via
+    // offlineV3FileUrl() directly, independent of project, so it still runs
+    // under the online projects below without needing this file at all.
     {
-      name:      "course-v3-offline-firefox",
-      testMatch: ["**/ocw-ci-test-course-v3/*.spec.ts"],
-      use:       { ...devices["Desktop Firefox"], siteAlias: "course-v3-offline" }
+      name:       "course-v3-offline-firefox",
+      testMatch:  ["**/ocw-ci-test-course-v3/*.spec.ts"],
+      testIgnore: ["**/ask-tim-v3.spec.ts"],
+      use:        { ...devices["Desktop Firefox"], siteAlias: "course-v3-offline" }
     },
     {
-      name:      "course-v3-offline-chrome",
-      testMatch: ["**/ocw-ci-test-course-v3/*.spec.ts"],
-      use:       {
+      name:       "course-v3-offline-chrome",
+      testMatch:  ["**/ocw-ci-test-course-v3/*.spec.ts"],
+      testIgnore: ["**/ask-tim-v3.spec.ts"],
+      use:        {
         ...devices["Desktop Chrome"],
         channel:   "chrome",
         siteAlias: "course-v3-offline"
