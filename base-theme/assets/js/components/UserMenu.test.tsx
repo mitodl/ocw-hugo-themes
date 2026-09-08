@@ -35,6 +35,13 @@ beforeEach(() => {
   process.env.MIT_LEARN_API_BASE_URL = API_BASE_URL
 })
 
+// process.env is per worker, so these would otherwise outlive this file and
+// reach anything else reading them, e.g. UserListModal.
+afterEach(() => {
+  delete process.env.MIT_LEARN_BASE_URL
+  delete process.env.MIT_LEARN_API_BASE_URL
+})
+
 test("renders nothing while the user is loading", () => {
   mockUser({ isLoading: true })
   const { container } = renderMenu()
