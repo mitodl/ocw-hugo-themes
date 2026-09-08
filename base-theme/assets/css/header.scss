@@ -17,12 +17,6 @@
       font-size: $material-icon-font-lg;
     }
   }
-
-  div.user-menu-container {
-    .user-menu-display-name {
-      display: none;
-    }
-  }
 }
 
 #desktop-header {
@@ -77,7 +71,9 @@
         }
       }
 
-      a {
+      // Direct children only: the UserMenu inside .user-menu-container brings
+      // its own typography and must not be uppercased.
+      > a {
         font-size: $font-sm;
         text-transform: uppercase;
 
@@ -90,25 +86,6 @@
             height: 13px;
             margin-bottom: 1px;
           }
-        }
-      }
-
-      div.user-menu-container {
-        #login-button {
-          height: 100%;
-        }
-        #user-menu-button {
-          border: 1px solid $white;
-          border-radius: 4px;
-        }
-        .dropdown-item {
-          text-decoration: none;
-        }
-        .dropdown-item:hover,
-        .dropdown-item:focus {
-          color: $black;
-          background-color: $white;
-          text-decoration: underline;
         }
       }
     }

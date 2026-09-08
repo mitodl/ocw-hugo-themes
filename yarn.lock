@@ -2519,9 +2519,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mitodl/smoot-design@npm:^6.0.1":
-  version: 6.26.0
-  resolution: "@mitodl/smoot-design@npm:6.26.0"
+"@mitodl/smoot-design@npm:^6.36.0":
+  version: 6.36.0
+  resolution: "@mitodl/smoot-design@npm:6.36.0"
   dependencies:
     "@ai-sdk/react": "npm:1.2.12"
     "@emotion/cache": "npm:^11.14.0"
@@ -2546,7 +2546,7 @@ __metadata:
     "@remixicon/react": ^4.2.0
     react: ^18 || ^19
     react-dom: ^18 || ^19
-  checksum: 10c0/b1e572669e9e0a668f61302afd49cfa58f2fe12805b31d0cc157edd8c4e27e7c438874119db723ca9951fd91cd909e36ab3ad6008bb012bab2c192abb8007851
+  checksum: 10c0/4d56492ca2e447b1e2820d3be0f81db51f48239bbfdc0fc9867db2d30645b262855c6f87292cccd6bca9f74641ab233c5313af53a1de7a9cce8c6cc4b9f3feb2
   languageName: node
   linkType: hard
 
@@ -13661,7 +13661,7 @@ __metadata:
     "@mitodl/course-search-utils": "npm:^2.3.3"
     "@mitodl/mit-learn-api-axios": "npm:^2026.3.31"
     "@mitodl/ocw-to-hugo": "npm:1.36.0"
-    "@mitodl/smoot-design": "npm:^6.0.1"
+    "@mitodl/smoot-design": "npm:^6.36.0"
     "@mui/lab": "npm:^7.0.0"
     "@mui/material": "npm:^7.0.1"
     "@playwright/test": "npm:^1.56.0"

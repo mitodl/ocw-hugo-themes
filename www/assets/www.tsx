@@ -21,6 +21,7 @@ import {
 import { makeQueryClient } from "../../base-theme/assets/js/clients"
 import { QueryClientProvider } from "@tanstack/react-query"
 import UserMenu from "../../base-theme/assets/js/components/UserMenu"
+import { ThemeProvider } from "@mitodl/smoot-design"
 export interface OCWWindow extends Window {
   $: JQueryStatic
   jQuery: JQueryStatic
@@ -46,7 +47,15 @@ $(function() {
       const root = createRoot(userMenuContainer)
       root.render(
         <QueryClientProvider client={queryClient}>
-          <UserMenu />
+          <ThemeProvider>
+            <UserMenu
+              variant={
+                (userMenuContainer as HTMLElement).dataset.variant === "mobile" ?
+                  "mobile" :
+                  "desktop"
+              }
+            />
+          </ThemeProvider>
         </QueryClientProvider>
       )
     }
