@@ -272,9 +272,10 @@ test("A page with a transcript has a transcript tab", async ({
 })
 
 test("Multi-lang resource shows language selector with English and French options", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
   const videoPage = new VideoElement(page)
 
@@ -297,9 +298,10 @@ test("Multi-lang resource shows language selector with English and French option
 })
 
 test("Clicking a language option updates the dropdown button label", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
   const videoPage = new VideoElement(page)
 
@@ -322,9 +324,10 @@ test("Clicking a language option updates the dropdown button label", async ({
 })
 
 test("Selecting a language multiple times does not stack transcript views", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
   const videoPage = new VideoElement(page)
 
@@ -352,9 +355,10 @@ test("Selecting a language multiple times does not stack transcript views", asyn
 })
 
 test("Switching language replaces the transcript preview, not stacks below it", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
   const videoPage = new VideoElement(page)
 
@@ -390,9 +394,10 @@ test("Switching language replaces the transcript preview, not stacks below it", 
 })
 
 test("English transcript auto-loads when the tab is opened", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
   const videoPage = new VideoElement(page)
 
@@ -413,9 +418,10 @@ test("English transcript auto-loads when the tab is opened", async ({
 })
 
 test("Language selector active option is not bold (consistent with menu styling)", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4")
 
   await new VideoElement(page)
@@ -451,9 +457,10 @@ test("Language selector active option is not bold (consistent with menu styling)
  * `domcontentloaded` rather than waiting on the embedded YouTube iframes.
  */
 test("that embedded videos with nothing to download have no download button", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("pages/video-without-downloads/", {
     waitUntil: "domcontentloaded"
   })
@@ -468,9 +475,10 @@ test("that embedded videos with nothing to download have no download button", as
 })
 
 test("that an embedded video with only an archive_url still offers a download", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("pages/video-without-downloads/", {
     waitUntil: "domcontentloaded"
   })
@@ -485,9 +493,10 @@ test("that an embedded video with only an archive_url still offers a download", 
 })
 
 test("that a video resource page with nothing to download has no download button", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("resources/video-no-downloads/", {
     waitUntil: "domcontentloaded"
   })
@@ -499,9 +508,10 @@ test("that a video resource page with nothing to download has no download button
 })
 
 test("that a captions-only video shows the Transcript tab without a download button", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const coursePage = new CoursePage(page, "course")
+  const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("resources/video-captions-only/", {
     waitUntil: "domcontentloaded"
   })
