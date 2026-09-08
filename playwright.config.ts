@@ -1,6 +1,7 @@
 import { PlaywrightTestConfig } from "@playwright/test"
 import { devices } from "@playwright/test"
 import * as path from "path"
+import { SiteAliasOptions } from "./tests-e2e/util/fixtures"
 
 let testsIgnore: string[] = ["**/jest/**"]
 if (process.env.TESTS_IGNORE) {
@@ -12,7 +13,7 @@ if (process.env.TESTS_IGNORE) {
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-const config: PlaywrightTestConfig = {
+const config: PlaywrightTestConfig<SiteAliasOptions> = {
   testDir:    "./tests-e2e",
   testIgnore: testsIgnore,
   /* Maximum time one test can run for. */
