@@ -390,4 +390,47 @@ test.describe("Course v3 video download button visibility", () => {
     const links = page.getByRole("link", { name: "View video page" })
     await expect(links).toHaveCount(3)
   })
+
+  test("embedded video's download link is package-local when offline", async ({
+    page,
+    siteAlias
+  }) => {
+    test.skip(
+      siteAlias !== "course-v3-offline",
+      "Package-local paths only exist in the offline build"
+    )
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/video-series-overview", {
+      waitUntil: "domcontentloaded"
+    })
+
+    const downloadLink = page.locator('a[aria-label="Download video"]').first()
+    const href = await downloadLink.getAttribute("href")
+    expect(href).not.toMatch(/^https?:\/\//)
+    expect(href).toContain("static_resources/")
+  })
+
+  test("all embedded videos' View video page links are package-local when offline", async ({
+    page,
+    siteAlias
+  }) => {
+    test.skip(
+      siteAlias !== "course-v3-offline",
+      "Package-local paths only exist in the offline build"
+    )
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/multiple-videos-series-overview", {
+      waitUntil: "domcontentloaded"
+    })
+
+    const links = page.getByRole("link", { name: "View video page" })
+    const count = await links.count()
+    expect(count).toBe(3)
+
+    for (let i = 0; i < count; i++) {
+      const href = await links.nth(i).getAttribute("href")
+      expect(href).not.toMatch(/^https?:\/\//)
+      expect(href).toContain("resources/ocw_test_course_mit8_01f16_l01v01_360p")
+    }
+  })
 })
