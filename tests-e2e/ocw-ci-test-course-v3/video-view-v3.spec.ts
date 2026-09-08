@@ -103,9 +103,17 @@ test.describe("Course v3 Video View Page", () => {
 
 test.describe("Course v3 YouTube caption overlay", () => {
   test("Video.js caption layer is hidden for the YouTube tech, kept for local video", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    // Online-only: this fixture has no local MP4, so offline shows
+    // .show-offline instead of attaching a .vjs-youtube player at all -
+    // there is no YouTube-tech cascade to inspect there.
+    test.skip(
+      siteAlias === "course-v3-offline",
+      "No .vjs-youtube player renders offline for a video with no local MP4"
+    )
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p_mp4", {
       waitUntil: "domcontentloaded"
     })

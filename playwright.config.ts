@@ -100,7 +100,7 @@ const config: PlaywrightTestConfig = {
     {
       name:       "firefox",
       testIgnore: [
-        "**/jest/**",
+        ...testsIgnore,
         "**/ocw-ci-test-course/*.spec.ts",
         "**/ocw-ci-test-course-v3/*.spec.ts"
       ],
@@ -111,7 +111,7 @@ const config: PlaywrightTestConfig = {
     {
       name:       "Google Chrome",
       testIgnore: [
-        "**/jest/**",
+        ...testsIgnore,
         "**/ocw-ci-test-course/*.spec.ts",
         "**/ocw-ci-test-course-v3/*.spec.ts"
       ],

@@ -1,10 +1,6 @@
 import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
-const DESKTOP_COURSE_DRAWER_ID = "desktop-course-drawer"
-const DESKTOP_COURSE_DRAWER_COLUMN = "div.desktop-course-info"
-const MAIN_COURSE_SECTION_ID = "course-content-section"
-
 test.describe("Course v3 Course Info drawer focus management", () => {
   test("returns focus to the toggle button when closed", async ({
     page,
@@ -104,17 +100,21 @@ test.describe("Course v3 Topics", () => {
    * levels deep (topic -> subtopic), so topic.html renders no third tier.
    *
    */
-  const gotoWithDrawer = async (page: import("@playwright/test").Page) => {
+  const gotoWithDrawer = async (
+    page: import("@playwright/test").Page,
+    siteAlias: import("../util").TestSiteAlias
+  ) => {
     await page.setViewportSize({ width: 1280, height: 800 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
     return page.locator("#desktop-course-drawer .course-topics-container")
   }
 
   test("renders mit_learn_topics rather than the legacy topics key", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const topics = await gotoWithDrawer(page)
+    const topics = await gotoWithDrawer(page, siteAlias)
 
     await expect(
       topics.getByRole("link", { name: "Art, Design & Architecture" })
@@ -138,8 +138,11 @@ test.describe("Course v3 Topics", () => {
     await expect(topicLinks.filter({ hasText: "Science" })).toHaveCount(0)
   })
 
-  test("only the two-level topic gets a collapse toggle", async ({ page }) => {
-    const topics = await gotoWithDrawer(page)
+  test("only the two-level topic gets a collapse toggle", async ({
+    page,
+    siteAlias
+  }) => {
+    const topics = await gotoWithDrawer(page, siteAlias)
 
     // "Art, Design & Architecture" is a one-element path, so it has no
     // subtopics and therefore no chevron.
@@ -166,9 +169,10 @@ test.describe("Course v3 Topics", () => {
   })
 
   test("topic links use the topic search param, not the legacy t", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const topics = await gotoWithDrawer(page)
+    const topics = await gotoWithDrawer(page, siteAlias)
 
     const hrefs = await topics
       .locator("a.course-info-topic")

@@ -266,10 +266,11 @@ test.describe("MIT Learn Header", () => {
   })
 
   test("Mobile course menu items are actually hidden when collapsed and visible when expanded", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const menuToggle = page.locator("#mobile-course-menu-toggle-v3")
@@ -284,10 +285,11 @@ test.describe("MIT Learn Header", () => {
   })
 
   test("Mobile course menu toggle and info button change background color on hover", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const menuToggle = page.locator("#mobile-course-menu-toggle-v3")
@@ -300,10 +302,11 @@ test.describe("MIT Learn Header", () => {
   })
 
   test("Mobile course menu toggle and info button show a focus outline on keyboard focus", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/assignments")
 
     const menuToggle = page.locator("#mobile-course-menu-toggle-v3")
