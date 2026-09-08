@@ -2,6 +2,19 @@ import { expect, Page, test } from "@playwright/test"
 import { env } from "../../env"
 import { CoursePage, offlineV3FileUrl } from "../util"
 
+/**
+ * AskTIM is still in dev and out of scope for offline coverage
+ * (course-v3.tsx's mountAskTim() is not imported by
+ * course-offline-v3/assets/course-offline.ts at all). 6 of the 7 tests below
+ * are intentionally online-only and, as an accepted tradeoff, still run a
+ * second, redundant time under the course-v3-offline-* projects (this file
+ * doesn't use the siteAlias fixture at all, so there's no cheap per-test
+ * guard). "Ask TIM is absent from course-v2 and course-offline-v3" is the
+ * exception - it already asserts the offline-v3 negative case directly via
+ * offlineV3FileUrl(), independent of whichever project runs it. Revisit the
+ * redundant-run tradeoff once AskTIM ships to the offline bundle.
+ */
+
 const FEATURE_FLAG = "ocw-course-v3-ask-tim"
 const ASK_TIM_ENDPOINT = env.LEARN_AI_SYLLABUS_ENDPOINT
 const ASK_TIM_TRIGGER_NAME = "Ask TIM about this course"
