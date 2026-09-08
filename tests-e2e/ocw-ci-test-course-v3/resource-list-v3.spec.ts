@@ -388,6 +388,7 @@ test.describe("Course v3 Resource List", () => {
     for (let i = 0; i < count; i++) {
       const href = await downloadLinks.nth(i).getAttribute("href")
       expect(href).not.toMatch(/^https?:\/\//)
+      expect(href).not.toMatch(/^\//)
       expect(href).toContain("static_resources/")
     }
   })
@@ -396,18 +397,21 @@ test.describe("Course v3 Resource List", () => {
     page,
     siteAlias
   }) => {
+    // resource_list_collapsible.html only renders see_all.html when a
+    // resource-list group exceeds $numberOfResourcesLimit (10) items -- this
+    // fixture's groups never do, so .see-all-link never appears here. Skip
+    // rather than assert-if-present, which would silently pass without ever
+    // running its assertions.
     test.skip(
-      siteAlias !== "course-v3-offline",
-      "Package-local paths only exist in the offline build"
+      true,
+      "This fixture's resource-list groups never exceed the 10-item limit that renders a See all link"
     )
     const course = new CoursePage(page, siteAlias)
     await course.goto("/download")
 
     const seeAll = page.locator(".see-all-link").first()
-    if ((await seeAll.count()) > 0) {
-      const href = await seeAll.getAttribute("href")
-      expect(href).not.toMatch(/^https?:\/\//)
-      expect(href).not.toMatch(/^\//)
-    }
+    const href = await seeAll.getAttribute("href")
+    expect(href).not.toMatch(/^https?:\/\//)
+    expect(href).not.toMatch(/^\//)
   })
 })

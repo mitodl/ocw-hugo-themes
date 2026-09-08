@@ -120,8 +120,7 @@ test.describe("Course v3 Video Gallery Page", () => {
   })
 
   test("Video gallery card links to a real video resource page", async ({
-    page,
-    siteAlias
+    page
   }) => {
     const firstCard = page.locator(".video-gallery-card").first()
     const href = await firstCard.getAttribute("href")
@@ -147,6 +146,7 @@ test.describe("Course v3 Video Gallery Page", () => {
     for (let i = 0; i < count; i++) {
       const href = await cards.nth(i).getAttribute("href")
       expect(href).not.toMatch(/^https?:\/\//)
+      expect(href).not.toMatch(/^\//)
       expect(href).toContain("resources/")
     }
   })

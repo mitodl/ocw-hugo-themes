@@ -81,6 +81,7 @@ test.describe("Course v3 Single Resource Page", () => {
       .first()
     const href = await downloadBtn.getAttribute("href")
     expect(href).not.toMatch(/^https?:\/\//)
+    expect(href).not.toMatch(/^\//)
     expect(href).toContain("static_resources/")
   })
 
