@@ -1,5 +1,12 @@
 import { test, expect } from "@playwright/test"
-import { offlineFileUrl, COURSE_V3_CANONICAL_DOMAIN } from "../util"
+import { offlineV3FileUrl, COURSE_V3_CANONICAL_DOMAIN } from "../util"
+
+/**
+ * Offline-only business logic, no online counterpart: canonical-domain
+ * rewriting and strip-link-offline degradation only apply to search links
+ * in the offline build. There is no equivalent online test to unify with,
+ * so this stays a separate file rather than unmerged duplication.
+ */
 
 /**
  * Search and facet links (departments, topics, level, instructors) all funnel
@@ -27,7 +34,7 @@ const searchHrefs = (page: import("@playwright/test").Page) =>
 
 test.describe("offline-v3 search and facet links", () => {
   test("department links use the v3 canonical domain", async ({ page }) => {
-    await page.goto(offlineFileUrl("/"))
+    await page.goto(offlineV3FileUrl("/"))
 
     const hrefs = await searchHrefs(page)
     const departments = hrefs.filter(h => h.includes("department="))
@@ -39,7 +46,7 @@ test.describe("offline-v3 search and facet links", () => {
   })
 
   test("level links use the v3 canonical domain", async ({ page }) => {
-    await page.goto(offlineFileUrl("/"))
+    await page.goto(offlineV3FileUrl("/"))
 
     const hrefs = await searchHrefs(page)
     const levels = hrefs.filter(h => h.includes("level="))
@@ -53,7 +60,7 @@ test.describe("offline-v3 search and facet links", () => {
   test("every search link is hosted on the v3 canonical domain", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl("/"))
+    await page.goto(offlineV3FileUrl("/"))
 
     const hrefs = await searchHrefs(page)
 
@@ -70,7 +77,7 @@ test.describe("offline-v3 search and facet links", () => {
   test("search links are absolute, not relativized into the package", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl("/"))
+    await page.goto(offlineV3FileUrl("/"))
 
     const hrefs = await searchHrefs(page)
 
@@ -83,7 +90,7 @@ test.describe("offline-v3 search and facet links", () => {
   test("facet links carry strip-link-offline so they degrade without a network", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl("/"))
+    await page.goto(offlineV3FileUrl("/"))
 
     const stripped = await page.evaluate(
       () =>

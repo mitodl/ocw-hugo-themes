@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 import { VideoElement } from "../util/VideoElement"
 
@@ -7,9 +7,10 @@ const MULTI_LANG_RESOURCE =
 
 test.describe("Course v3 video tab language selector", () => {
   test("multi-lang resource shows language selector with English and French options", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto(MULTI_LANG_RESOURCE)
     const videoPage = new VideoElement(page)
 
@@ -31,9 +32,10 @@ test.describe("Course v3 video tab language selector", () => {
   })
 
   test("clicking a language option updates the dropdown button label", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto(MULTI_LANG_RESOURCE)
     const videoPage = new VideoElement(page)
 
@@ -57,9 +59,10 @@ test.describe("Course v3 video tab language selector", () => {
   })
 
   test("selecting a language multiple times does not stack transcript views", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto(MULTI_LANG_RESOURCE)
     const videoPage = new VideoElement(page)
 
@@ -87,9 +90,10 @@ test.describe("Course v3 video tab language selector", () => {
   })
 
   test("switching language replaces the transcript preview, not stacks below it", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto(MULTI_LANG_RESOURCE)
     const videoPage = new VideoElement(page)
 
@@ -125,9 +129,10 @@ test.describe("Course v3 video tab language selector", () => {
   })
 
   test("download sub-menu is visible when transcript links present", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto(MULTI_LANG_RESOURCE)
 
     // Open download popup
@@ -151,9 +156,10 @@ test.describe("Course v3 video tab language selector", () => {
   })
 
   test("English transcript auto-loads when the tab is opened", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto(MULTI_LANG_RESOURCE)
     const videoPage = new VideoElement(page)
 
@@ -176,9 +182,10 @@ test.describe("Course v3 video tab language selector", () => {
   })
 
   test("language selector active option is not bold (consistent with menu styling)", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto(MULTI_LANG_RESOURCE)
 
     await new VideoElement(page)
@@ -223,9 +230,10 @@ const ARCHIVE_URL = "http://www.archive.org/download/MIT18.06S05_MP4/01.mp4"
  */
 test.describe("Course v3 video download button visibility", () => {
   test("embedded videos with nothing to download have no download button", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto(NO_DOWNLOADS_PAGE, { waitUntil: "domcontentloaded" })
 
     // Three embedded videos: two with nothing downloadable, one with only an
@@ -245,9 +253,10 @@ test.describe("Course v3 video download button visibility", () => {
   })
 
   test("an embedded video with only an archive_url still offers a download", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto(NO_DOWNLOADS_PAGE, { waitUntil: "domcontentloaded" })
     const video = new VideoElement(page, 2)
 
@@ -257,9 +266,10 @@ test.describe("Course v3 video download button visibility", () => {
   })
 
   test("resource page for a video with nothing to download has no Transcript tab or download button", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto(NO_DOWNLOADS_RESOURCE, { waitUntil: "domcontentloaded" })
     const video = new VideoElement(page)
 
@@ -271,7 +281,8 @@ test.describe("Course v3 video download button visibility", () => {
   })
 
   test("captions-only resource page switches transcript languages without a download button", async ({
-    page
+    page,
+    siteAlias
   }) => {
     await page.route(/\.(?:vtt|webvtt)$/, async route => {
       await route.fulfill({
@@ -286,7 +297,7 @@ test.describe("Course v3 video download button visibility", () => {
       })
     })
 
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto(CAPTIONS_ONLY_RESOURCE, { waitUntil: "domcontentloaded" })
     const video = new VideoElement(page)
 
@@ -315,9 +326,10 @@ test.describe("Course v3 video download button visibility", () => {
   })
 
   test("video with a downloadable file still shows the download button", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto(DOWNLOADABLE_RESOURCE, { waitUntil: "domcontentloaded" })
     const video = new VideoElement(page)
 
@@ -326,5 +338,99 @@ test.describe("Course v3 video download button visibility", () => {
       "href",
       /ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9\.mp4$/
     )
+  })
+
+  test("embedded video on a content page shows the offline warning, not a YouTube iframe", async ({
+    page,
+    siteAlias
+  }) => {
+    test.skip(
+      siteAlias !== "course-v3-offline",
+      "The offline warning only ever renders in the offline build"
+    )
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/video-series-overview", {
+      waitUntil: "domcontentloaded"
+    })
+
+    await expect(page.locator(".show-offline")).toBeVisible()
+    await expect(page.locator('iframe[src*="youtube.com"]')).toHaveCount(0)
+  })
+
+  test("embedded video's View video page link navigates to a real resource page", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/video-series-overview", {
+      waitUntil: "domcontentloaded"
+    })
+
+    const link = page.getByRole("link", { name: "View video page" })
+    await link.click()
+    await expect(page).toHaveURL(
+      /resources\/ocw_test_course_mit8_01f16_l01v01_360p/
+    )
+  })
+
+  test("multiple embedded videos on a page each render their own offline warning", async ({
+    page,
+    siteAlias
+  }) => {
+    test.skip(
+      siteAlias !== "course-v3-offline",
+      "The offline warning only ever renders in the offline build"
+    )
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/multiple-videos-series-overview", {
+      waitUntil: "domcontentloaded"
+    })
+
+    await expect(page.locator(".show-offline")).toHaveCount(3)
+    const links = page.getByRole("link", { name: "View video page" })
+    await expect(links).toHaveCount(3)
+  })
+
+  test("embedded video's download link is package-local when offline", async ({
+    page,
+    siteAlias
+  }) => {
+    test.skip(
+      siteAlias !== "course-v3-offline",
+      "Package-local paths only exist in the offline build"
+    )
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/video-series-overview", {
+      waitUntil: "domcontentloaded"
+    })
+
+    const downloadLink = page.locator('a[aria-label="Download video"]').first()
+    const href = await downloadLink.getAttribute("href")
+    expect(href).not.toMatch(/^https?:\/\//)
+    expect(href).toContain("static_resources/")
+  })
+
+  test("all embedded videos' View video page links are package-local when offline", async ({
+    page,
+    siteAlias
+  }) => {
+    test.skip(
+      siteAlias !== "course-v3-offline",
+      "Package-local paths only exist in the offline build"
+    )
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/multiple-videos-series-overview", {
+      waitUntil: "domcontentloaded"
+    })
+
+    const links = page.getByRole("link", { name: "View video page" })
+    const count = await links.count()
+    expect(count).toBe(3)
+
+    for (let i = 0; i < count; i++) {
+      const href = await links.nth(i).getAttribute("href")
+      expect(href).not.toMatch(/^https?:\/\//)
+      expect(href).toContain("resources/ocw_test_course_mit8_01f16_l01v01_360p")
+    }
   })
 })

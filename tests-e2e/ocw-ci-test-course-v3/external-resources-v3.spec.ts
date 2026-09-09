@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage, COURSE_V3_CANONICAL_DOMAIN } from "../util"
 
 /**
@@ -20,9 +20,10 @@ const REWRITTEN = `${CANONICAL}/courses/o/some-other-course-fall-2020/pages/syll
 
 test.describe("Course v3 external resource link rewriting", () => {
   test("External resource page rewrites an OCW course URL", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/external-resources/ocw-course-link")
 
     const link = page.getByRole("link", { name: "OCW course link" })
@@ -31,9 +32,10 @@ test.describe("Course v3 external resource link rewriting", () => {
   })
 
   test("Rewritten OCW course URL keeps internal-link treatment", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/external-resources/ocw-course-link")
 
     const link = page.getByRole("link", { name: "OCW course link" })
@@ -47,9 +49,10 @@ test.describe("Course v3 external resource link rewriting", () => {
   })
 
   test("Rewritten OCW course URL stays warning-free even when the resource asks for a warning", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/external-resources/ocw-course-link-warned")
 
     const link = page.getByRole("link", { name: "OCW course link warned" })
@@ -74,9 +77,10 @@ test.describe("Course v3 external resource link rewriting", () => {
   })
 
   test("resource_link to an external resource is rewritten too", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/legacy-course-links")
 
     // Reaches external_resource_link via resource_link.html, a different call
@@ -87,9 +91,10 @@ test.describe("Course v3 external resource link rewriting", () => {
   })
 
   test("An ocw.mit.edu URL that is not a course path is untouched", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/external-resources-page")
 
     const link = page.getByRole("link", { name: "OCW main" })
@@ -99,9 +104,10 @@ test.describe("Course v3 external resource link rewriting", () => {
   })
 
   test("Genuinely external links still get the warning treatment", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/external-resources-page")
 
     const link = page.getByRole("link", { name: "Google.com" }).first()
@@ -109,5 +115,60 @@ test.describe("Course v3 external resource link rewriting", () => {
     await expect(link).toHaveAttribute("href", "https://google.com")
     await expect(link).toHaveAttribute("target", "_blank")
     await expect(link).toHaveClass(/external-link-warning/)
+  })
+})
+
+test.describe("Course v3 external-link warning modal (real interaction)", () => {
+  test("clicking a warned external link opens the leaving-OCW modal", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/external-resources-page")
+
+    const link = page.getByRole("link", { name: "Google.com" }).first()
+    await link.click()
+
+    await expect(
+      page.getByRole("heading", { name: "You are leaving MIT OpenCourseWare" })
+    ).toBeVisible()
+  })
+
+  test("Stay Here dismisses the modal without navigating away", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/external-resources-page")
+
+    await page.getByRole("link", { name: "Google.com" }).first().click()
+    await page
+      .locator("#external-link-modal button")
+      .filter({ hasText: "Stay Here" })
+      .click()
+
+    await expect(
+      page.getByRole("heading", { name: "You are leaving MIT OpenCourseWare" })
+    ).toBeHidden()
+    await expect(page).toHaveURL(/external-resources-page/)
+  })
+
+  test("an internal resource_link navigates directly, without the warning modal", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/external-resources-page")
+
+    const link = page
+      .locator("p")
+      .filter({ hasText: "For reference" })
+      .getByRole("link", { name: "First Test Page (internal link)" })
+    await link.click()
+
+    await expect(page).toHaveURL(/first-test-page-title/)
+    await expect(
+      page.getByRole("heading", { name: "You are leaving MIT OpenCourseWare" })
+    ).toBeHidden()
   })
 })

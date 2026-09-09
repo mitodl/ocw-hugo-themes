@@ -1,9 +1,9 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 test.describe("Course v3 Single Resource Page", () => {
-  test("Resource page has correct width", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource page has correct width", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     const container = page.locator(".resource-page-container")
@@ -11,8 +11,11 @@ test.describe("Course v3 Single Resource Page", () => {
     await expect(container).toHaveClass(/w-100/)
   })
 
-  test("Resource page displays thumbnail correctly", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource page displays thumbnail correctly", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     const thumbnail = page.locator(
@@ -33,8 +36,11 @@ test.describe("Course v3 Single Resource Page", () => {
     )
   })
 
-  test("Resource page displays download button correctly", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource page displays download button correctly", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     const downloadButton = page.locator(".resource-download-button")
@@ -51,11 +57,55 @@ test.describe("Course v3 Single Resource Page", () => {
     expect(href).toMatch(/.pdf$/)
   })
 
-  test("Resource page displays metadata", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("Resource page displays metadata", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/file_pdf")
 
     const title = page.locator(".resource-single-title")
     await expect(title).toHaveText("file.pdf")
+  })
+
+  test("Resource page download link is package-local when offline", async ({
+    page,
+    siteAlias
+  }) => {
+    test.skip(
+      siteAlias !== "course-v3-offline",
+      "Package-local paths only exist in the offline build"
+    )
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/resources/file_pdf")
+
+    const downloadBtn = page
+      .locator(".resource-download-button, .resource-single-thumbnail-link")
+      .first()
+    const href = await downloadBtn.getAttribute("href")
+    expect(href).not.toMatch(/^https?:\/\//)
+    expect(href).not.toMatch(/^\//)
+    expect(href).toContain("static_resources/")
+  })
+
+  test.describe("additional resource types", () => {
+    const cases: { route: string; bodyText: string }[] = [
+      {
+        route:    "/resources/example_pdf",
+        bodyText: "8.01 Classical Mechanics Pset 1"
+      },
+      { route: "/resources/example_jpg", bodyText: "example_jpg.jpg" },
+      { route: "/resources/example_notes", bodyText: "9.9 Solid State" }
+    ]
+
+    for (const { route, bodyText } of cases) {
+      test(`${route} loads with expected content`, async ({
+        page,
+        siteAlias
+      }) => {
+        const course = new CoursePage(page, siteAlias)
+        await course.goto(route)
+
+        await expect(page.locator("body")).toContainText(bodyText)
+        await expect(page.locator(".resource-page-container")).toBeVisible()
+      })
+    }
   })
 })

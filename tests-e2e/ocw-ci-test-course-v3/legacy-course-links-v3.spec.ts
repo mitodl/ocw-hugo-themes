@@ -1,5 +1,20 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage, TEST_SITES } from "../util"
+
+/**
+ * Online-only: this file pins course-v3's online rewrite rule specifically.
+ * The offline build applies a different rule (fully-qualified rewriting) -
+ * see legacy-course-links-v3-offline.spec.ts. Every test below stays
+ * hardcoded to siteAlias "course-v3" internally on purpose; this beforeEach
+ * just stops the file from wastefully re-running those online-only
+ * assertions a second time under the offline project.
+ */
+test.beforeEach(({ siteAlias }) => {
+  test.skip(
+    siteAlias === "course-v3-offline",
+    "Covered separately by legacy-course-links-v3-offline.spec.ts"
+  )
+})
 
 /**
  * course-v3 sites are served under a path prefix, but a lot of authored

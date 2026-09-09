@@ -1,9 +1,9 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 
 test.describe("Course v3 Video Gallery Page", () => {
-  test.beforeEach(async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test.beforeEach(async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/video_galleries/lecture-videos/")
   })
 
@@ -117,5 +117,37 @@ test.describe("Course v3 Video Gallery Page", () => {
     )
     // Card should be approximately full width (accounting for borders)
     expect(cardWidth).toBeGreaterThan(containerWidth - 10)
+  })
+
+  test("Video gallery card links to a real video resource page", async ({
+    page
+  }) => {
+    const firstCard = page.locator(".video-gallery-card").first()
+    const href = await firstCard.getAttribute("href")
+    expect(href).toBeTruthy()
+
+    await firstCard.click()
+    await expect(page).toHaveURL(/\/resources\//)
+    await expect(page.locator("body")).not.toBeEmpty()
+  })
+
+  test("Video gallery card links are package-local when offline", async ({
+    page,
+    siteAlias
+  }) => {
+    test.skip(
+      siteAlias !== "course-v3-offline",
+      "Package-local paths only exist in the offline build"
+    )
+    const cards = page.locator(".video-gallery-card")
+    const count = await cards.count()
+    expect(count).toBeGreaterThan(0)
+
+    for (let i = 0; i < count; i++) {
+      const href = await cards.nth(i).getAttribute("href")
+      expect(href).not.toMatch(/^https?:\/\//)
+      expect(href).not.toMatch(/^\//)
+      expect(href).toContain("resources/")
+    }
   })
 })

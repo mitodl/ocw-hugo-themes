@@ -1,11 +1,12 @@
 import { env, localPort } from "../env"
 import LocalOCW, { fromRoot } from "./LocalOcw"
+import { FIXTURES_PORT } from "./util/test_sites"
 
 const setupTests = async () => {
   if (env.PLAYWRIGHT_BASE_URL === `http://localhost:${localPort}`) {
     const ocw = new LocalOCW({
       rootDestinationDir: fromRoot("./test-sites/tmp/dist"),
-      fixturesPort:       4321
+      fixturesPort:       FIXTURES_PORT
     })
 
     await ocw.rmrfTmp()
