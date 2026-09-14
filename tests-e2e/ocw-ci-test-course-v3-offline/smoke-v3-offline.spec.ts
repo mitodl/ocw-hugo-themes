@@ -1,9 +1,15 @@
 import { test, expect } from "@playwright/test"
-import { offlineFileUrl } from "../util"
+import { offlineV3FileUrl } from "../util"
+
+/**
+ * file://-only: package-local path resolution and offline-build page
+ * generation have no online counterpart to unify with. Intentionally
+ * kept separate.
+ */
 
 test.describe("offline-v3 smoke", () => {
   test("offline-v3 home page loads offline-v3 assets", async ({ page }) => {
-    await page.goto(offlineFileUrl("/"))
+    await page.goto(offlineV3FileUrl("/"))
 
     await expect(page.locator("body")).toContainText("OCW CI Test Course")
     await expect(page.locator('link[href*="course_offline_v3"]')).toHaveCount(1)
@@ -13,21 +19,21 @@ test.describe("offline-v3 smoke", () => {
   })
 
   test("offline-v3 generic page loads", async ({ page }) => {
-    await page.goto(offlineFileUrl("/pages/assignments"))
+    await page.goto(offlineV3FileUrl("/pages/assignments"))
 
     expect(page.url()).toContain("pages/assignments/index.html")
     await expect(page.locator("body")).toContainText("Section 2")
   })
 
   test("offline-v3 resource list page loads", async ({ page }) => {
-    await page.goto(offlineFileUrl("/lists/a-resource-list"))
+    await page.goto(offlineV3FileUrl("/lists/a-resource-list"))
 
     expect(page.url()).toContain("lists/a-resource-list/index.html")
     await expect(page.locator("body")).toContainText("A resource list")
   })
 
   test("offline-v3 resource page loads", async ({ page }) => {
-    await page.goto(offlineFileUrl("/resources/file_pdf"))
+    await page.goto(offlineV3FileUrl("/resources/file_pdf"))
 
     expect(page.url()).toContain("resources/file_pdf/index.html")
     await expect(page.locator("body")).toContainText("file.pdf")

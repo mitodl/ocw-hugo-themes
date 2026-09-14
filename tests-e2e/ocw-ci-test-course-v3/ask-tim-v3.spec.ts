@@ -1,6 +1,6 @@
 import { expect, Page, test } from "@playwright/test"
 import { env } from "../../env"
-import { CoursePage, offlineFileUrl, siteUrl } from "../util"
+import { CoursePage, offlineV3FileUrl, siteUrl } from "../util"
 
 const FEATURE_FLAG = "ocw-course-v3-ask-tim"
 const ASK_TIM_ENDPOINT = env.LEARN_AI_SYLLABUS_ENDPOINT
@@ -277,7 +277,7 @@ test("AskTIM is absent from course-v2 and course-offline-v3", async ({
     page.getByRole("button", { name: ASK_TIM_TRIGGER_NAME })
   ).toHaveCount(0)
 
-  await page.goto(offlineFileUrl("/"))
+  await page.goto(offlineV3FileUrl("/"))
   await expect(page.locator("#ask-tim-container")).toHaveCount(0)
   await expect(page.locator("#ask-tim-mobile-container")).toHaveCount(0)
   await expect(
