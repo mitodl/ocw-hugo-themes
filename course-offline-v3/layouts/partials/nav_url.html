@@ -1,9 +1,10 @@
-{{/* Offline-v3 nav URL: strip the baseURL path prefix so the URL is
-     site-relative, then append /index.html for file:// access.
+{{/* Offline-v3 nav URL: resolve the entry, strip the baseURL path prefix so the
+     URL is site-relative, then append /index.html for file:// access.
      Hugo's relativeURLs post-processor converts these absolute paths
      per-page AFTER partialCached renders, keeping them compatible with
-     cached desktop nav. */}}
-{{ $url := .menuItem.URL }}
+     cached desktop nav. External resources resolve to an absolute http(s) URL
+     and are left alone. */}}
+{{ $url := partial "nav_menu_url.html" . }}
 {{ $noHttpPrefix := not (strings.HasPrefix $url "http") }}
 {{ $noHtmlSuffix := not (strings.HasSuffix $url ".html") }}
 {{ if and $url $noHttpPrefix $noHtmlSuffix }}
