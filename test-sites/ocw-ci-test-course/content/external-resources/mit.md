@@ -1,4 +1,7 @@
 ---
+_build:
+  list: true
+  render: false
 content_type: external-resource
 external_url: https://mit.edu
 has_external_license_warning: false

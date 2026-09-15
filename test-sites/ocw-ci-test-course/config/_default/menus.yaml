@@ -23,10 +23,6 @@ leftnav:
   name: Multiple Videos Series Overview
   pageRef: /pages/multiple-videos-series-overview
   weight: 60
-- identifier: 79392061-a205-4e93-83f2-276dbc9668e6
-  name: Resource List
-  pageRef: /lists/a-resource-list
-  weight: 70
 - identifier: 2f9c424e-c9ba-4d1e-b1f6-e89de1bf682a
   name: External Resources
   pageRef: /pages/external-resources-page
@@ -60,3 +56,32 @@ leftnav:
   pageRef: /external-resources/broken-googlecom
   parent: 2f9c424e-c9ba-4d1e-b1f6-e89de1bf682a
   weight: 30
+- identifier: 35f9045e-0fc6-4957-80ec-f1447945138a
+  name: Nested Menu Demo
+  pageRef: /pages/second-test-page
+  weight: 100
+- identifier: 24f3f26a-303f-4f90-b39f-672f367f0f57
+  name: Nested Page Child
+  pageRef: /pages/syllabus
+  parent: 35f9045e-0fc6-4957-80ec-f1447945138a
+  weight: 10
+- identifier: 12345678-1234-1234-1234-123456789abc
+  name: Nested Video Gallery Child
+  pageRef: /video_galleries/lecture-videos
+  parent: 35f9045e-0fc6-4957-80ec-f1447945138a
+  weight: 20
+- identifier: 79392061-a205-4e93-83f2-276dbc9668e6
+  name: Resource List
+  pageRef: /lists/a-resource-list
+  parent: 35f9045e-0fc6-4957-80ec-f1447945138a
+  weight: 30
+- identifier: 15c4e4f1-c7dd-4e2f-af6e-c59210f7710f
+  name: Nested External Child
+  pageRef: /external-resources/mit
+  parent: 35f9045e-0fc6-4957-80ec-f1447945138a
+  weight: 40
+- identifier: 8c797ae1-d349-4fdb-9ea0-371d969b89e0
+  name: Nested External Grandchild
+  pageRef: /external-resources/ocw-studio
+  parent: 15c4e4f1-c7dd-4e2f-af6e-c59210f7710f
+  weight: 10
