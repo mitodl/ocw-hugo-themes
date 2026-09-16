@@ -322,6 +322,31 @@ your local `ocw-www` site and not visiting other sites. Here is a link that
 shows how to do this in various browsers:
 https://medium.com/swlh/avoiding-cors-errors-on-localhost-in-2020-5a656ed8cefa
 
+### Testing with a logged-in session
+
+`yarn start` serves the site at https://localhost:3000, which is all you need
+for ordinary frontend work. It cannot exercise anything that depends on being
+signed in to MIT Learn, though: bookmarks, the user menu, or any other call the
+theme makes to the MIT Learn API as a real user.
+
+The reason is cookie scope rather than CORS. MIT Learn issues its `csrftoken`
+cookie with `Domain=.learn.<root domain>`, and the theme reads that cookie out
+of `document.cookie` through axios (`xsrfCookieName`, see
+`base-theme/assets/js/axios.ts`). A page served from `localhost` cannot read
+another domain's cookie, so it never sends the `X-CSRFToken` header and every
+write is rejected. The gateway's own session cookie is `SameSite=Lax` and
+host-only on `api.learn.<root domain>`, so it is not sent from a cross-site
+origin either and you are treated as anonymous.
+
+If you are running the [local-dev
+cluster](https://github.com/mitodl/ol-infrastructure/tree/main/local-dev), it
+publishes the dev server at `https://ocw-dev.learn.<root domain>` (by default
+`https://ocw-dev.learn.mit.dev`). Start the dev server exactly as usual and open
+that hostname instead of `localhost:3000`; it proxies to the same process on
+port 3000, and because the origin sits inside `.learn.<root domain>` both
+cookies behave the way they do in a deployed environment. Run the cluster's
+`setup.sh` if the hostname does not resolve yet.
+
 ### Managing icon fonts
 
 Please refer to [these docs](./base-theme/assets/fonts/material-design-icons/README.md).
