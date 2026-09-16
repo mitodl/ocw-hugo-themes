@@ -1,24 +1,19 @@
-{{/* Resolve where a leftnav menu entry points, whatever content type it points
-     at. Shared by every theme so that "can this entry be linked?" has one
-     answer across the online and offline builds.
+{{/* Resolve where a leftnav menu entry points.
 
-     ocw-studio adds entries with a `pageRef` rather than a `url`, and Hugo only
-     fills in `.URL` for content it actually renders. External resources are
-     built with `render: false`, so their entries arrive here with an empty
-     `.URL` and their destination sitting in the referenced page's
-     `external_url` param instead. Older courses predate that flag and still
-     render an external resource page, so both shapes have to resolve.
+     ocw-studio adds entries with a `pageRef` rather than a `url`, and Hugo
+     fills in `.URL` from the referenced page whenever that page has a
+     permalink. External resources are built with `render: false`, so they have
+     no permalink: their entries arrive here with an empty `.URL` and their
+     destination sitting in the page's `external_url` param instead.
 
-     Themes that rewrite nav URLs (the offline builds) call this first and
-     rewrite the result, rather than reading `.menuItem.URL` themselves. */}}
+     `nav_url.html` is the per-theme hook that presents this result; the offline
+     themes override it to rewrite the path, and call this first rather than
+     reading `.menuItem.URL` themselves. */}}
 {{- $url := .menuItem.URL -}}
 {{- if not $url -}}
   {{- with .menuItem.PageRef -}}
     {{- with site.GetPage . -}}
-      {{- $url = .RelPermalink -}}
-      {{- if not $url -}}
-        {{- $url = .Params.external_url | default "" -}}
-      {{- end -}}
+      {{- $url = .Params.external_url | default "" -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}

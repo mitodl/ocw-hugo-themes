@@ -1,21 +1,19 @@
-{{/* Reports whether any descendant of these menu entries can be linked, which
-     is what decides whether the section gets an expand toggle. Without a toggle
-     its children stay inside a collapsed <ul> forever, so an entry that is
-     reachable must count here.
+{{ $hasOneValidChild := false }}
 
-     An entry counts as soon as it resolves to a URL of its own; only entries
-     that resolve to nothing fall through to their own children. */}}
-{{- $hasOneValidChild := false -}}
+{{ range . }}
+  {{ $url := partial "nav_url.html" (dict "menuItem" .) }}
 
-{{- range . -}}
-  {{- if partial "nav_url.html" (dict "menuItem" .) -}}
-    {{- $hasOneValidChild = true -}}
-  {{- else if .HasChildren -}}
-    {{- $hasOneValidChild = partial "nav_item_has_child.html" .Children -}}
-  {{- end -}}
-  {{- if $hasOneValidChild -}}
-    {{- break -}}
-  {{- end -}}
-{{- end -}}
+  {{ if .HasChildren }}
+    {{ $hasOneValidChild = partial "nav_item_has_child.html" .Children }}
+    {{ if $hasOneValidChild }}
+      {{ break }}
+    {{ end }}
+  {{ else }}
+    {{ if $url }}
+      {{ $hasOneValidChild = true }}
+      {{ break }}
+    {{ end }}
+  {{ end }}
+{{ end }}
 
-{{- return $hasOneValidChild -}}
+{{ return $hasOneValidChild }}
