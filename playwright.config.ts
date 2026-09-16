@@ -89,13 +89,13 @@ const config: PlaywrightTestConfig<SiteAliasOptions> = {
     {
       name:       "course-v3-offline-firefox",
       testMatch:  ["**/ocw-ci-test-course-v3/*.spec.ts"],
-      testIgnore: ["**/ask-tim-v3.spec.ts"],
+      testIgnore: [...testsIgnore, "**/ask-tim-v3.spec.ts"],
       use:        { ...devices["Desktop Firefox"], siteAlias: "course-v3-offline" }
     },
     {
       name:       "course-v3-offline-chrome",
       testMatch:  ["**/ocw-ci-test-course-v3/*.spec.ts"],
-      testIgnore: ["**/ask-tim-v3.spec.ts"],
+      testIgnore: [...testsIgnore, "**/ask-tim-v3.spec.ts"],
       use:        {
         ...devices["Desktop Chrome"],
         channel:   "chrome",
