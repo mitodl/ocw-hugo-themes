@@ -1,11 +1,22 @@
-{{- $parsedUrl := urls.Parse . -}}
+{{/*
+  Returns the relative path from a page back to its site root, e.g. "../../".
+
+  Depth is measured against the site's own home page rather than the raw slash
+  count of the page URL, so a baseURL carrying a path prefix does not inflate
+  it. Production offline packages are built with a baseURL of "/", where
+  site.Home.RelPermalink contributes a single slash and this yields exactly the
+  same result as counting slashes directly. The e2e harness builds every test
+  site under a path prefix so they share one output root, and without this the
+  emitted paths climb above the package root and no asset resolves.
+*/}}
 {{- $slashCount := strings.Count "/" . -}}
-{{- $pathToRoot := "" -}}
-{{- if gt $slashCount 1 -}}
-  {{- range seq (sub $slashCount 1) -}}
+{{- $rootSlashCount := strings.Count "/" site.Home.RelPermalink -}}
+{{- $depth := sub $slashCount $rootSlashCount -}}
+{{- $pathToRoot := "./" -}}
+{{- if gt $depth 0 -}}
+  {{- $pathToRoot = "" -}}
+  {{- range seq $depth -}}
     {{- $pathToRoot = $pathToRoot | print "../" -}}
   {{- end -}}
-{{- else -}}
-  {{- $pathToRoot = "./" -}}
 {{- end -}}
 {{ return $pathToRoot }}
