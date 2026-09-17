@@ -36,7 +36,12 @@ blockquote {
   margin-left: 2em;
 }
 
-a {
+// Excludes anchors rendered by smoot-design (MUI ButtonBase: menu items,
+// link buttons). Those carry their own colors on an emotion class, and are
+// often portaled onto <body> outside any OCW container, where `a:hover`
+// (0-1-1) outranks `.css-hash` (0-1-0) and repaints them black. Skipping them
+// here lets the component's own styling win.
+a:not(.MuiButtonBase-root) {
   color: black;
   text-decoration: underline;
 
@@ -46,6 +51,19 @@ a {
 
   &:hover {
     color: black;
+  }
+}
+
+// Bootstrap ships its own `a:hover` at the same 0-1-1 specificity, and it is
+// vendored, so the exclusion above cannot reach it. Smoot's user menu is the
+// one place an OCW anchor sits on a dark surface, so pin it back to white
+// rather than letting the link palette bleed in.
+.MuiMenu-paper a.MuiMenuItem-root {
+  &:hover,
+  &:visited,
+  &:focus,
+  &:active {
+    color: $white;
   }
 }
 

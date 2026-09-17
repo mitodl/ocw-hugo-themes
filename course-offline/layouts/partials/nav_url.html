@@ -1,7 +1,10 @@
-{{ $url := .menuItem.URL }}
+{{/* Offline nav URL: resolve the entry, then append /index.html for file://
+     access. External resources resolve to an absolute http(s) URL and are left
+     alone. */}}
+{{ $url := partial "nav_menu_url.html" . }}
 {{ $noHttpPrefix := not (strings.HasPrefix $url "http") }}
 {{ $noHtmlSuffix := not (strings.HasSuffix $url ".html") }}
-{{ if and $noHttpPrefix $noHtmlSuffix }}
+{{ if and $url $noHttpPrefix $noHtmlSuffix }}
   {{ $url = printf "%s/index.html" (strings.TrimSuffix "/" $url) }}
 {{ end }}
 {{ return $url }}
