@@ -1,4 +1,7 @@
 ---
+_build:
+  list: true
+  render: false
 content_type: external-resource
 external_url: https://ocw-studio-rc.odl.mit.edu/sites/ocw-ci-test-course
 has_external_license_warning: false

@@ -1,0 +1,20 @@
+{{/* Resolve where a leftnav menu entry points.
+
+     ocw-studio adds entries with a `pageRef` rather than a `url`, and Hugo
+     fills in `.URL` from the referenced page whenever that page has a
+     permalink. External resources are built with `render: false`, so they have
+     no permalink: their entries arrive here with an empty `.URL` and their
+     destination sitting in the page's `external_url` param instead.
+
+     `nav_url.html` is the per-theme hook that presents this result; the offline
+     themes override it to rewrite the path, and call this first rather than
+     reading `.menuItem.URL` themselves. */}}
+{{- $url := .menuItem.URL -}}
+{{- if not $url -}}
+  {{- with .menuItem.PageRef -}}
+    {{- with site.GetPage . -}}
+      {{- $url = .Params.external_url | default "" -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $url -}}

@@ -1,4 +1,7 @@
 ---
+_build:
+  list: true
+  render: false
 backup_url: ''
 content_type: external-resource
 external_url: https://ocw.mit.edu
