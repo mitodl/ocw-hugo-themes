@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.160.0
+---------------
+
+- fix: resolve nav urls from page content so nested menu items appear (#1872)
+- Use the shared smoot-design UserMenu (#1870)
+
 Version 1.159.0
 ---------------
 
