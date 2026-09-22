@@ -1,8 +1,18 @@
+{{/*
+  Builds a package-local URL to another page, e.g. "../../pages/foo/index.html".
+
+  .url arrives either site-prefixed (a .RelPermalink or .Permalink) or bare
+  (a literal like "/download"), so the site's own base path is trimmed before
+  the result is joined onto the path back to the package root. Production
+  offline packages are built with a baseURL of "/", where that trim removes a
+  single slash exactly as the plain leading-slash trim below always did.
+*/}}
 {{ $pathToRoot := partial "path_to_root.html" .context.RelPermalink }}
 {{ $pagePath := .url }}
 {{ if strings.HasPrefix $pagePath "http" }}
 	{{ $pagePath = (urls.Parse $pagePath).Path }}
 {{ end }}
+{{ $pagePath = strings.TrimPrefix site.Home.RelPermalink $pagePath }}
 {{ $pagePath = strings.TrimPrefix "/" $pagePath }}
 {{ $pagePath = strings.TrimSuffix "/index.html" $pagePath }}
 {{ $pagePath = strings.TrimSuffix "/" $pagePath }}

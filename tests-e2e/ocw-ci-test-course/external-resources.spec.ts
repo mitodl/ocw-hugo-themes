@@ -1,10 +1,10 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage, expectTriggerToOpenANewTab } from "../util"
 
 const EXTERNAL_LINK_DIALOG_TITLE = "You are leaving MIT OpenCourseWare"
 
-test("Nav external resource open in a new tab", async ({ page }) => {
-  const course = new CoursePage(page, "course")
+test("Nav external resource open in a new tab", async ({ page, siteAlias }) => {
+  const course = new CoursePage(page, siteAlias)
   await course.goto()
 
   const expandButton = page.getByRole("button", {
@@ -27,11 +27,20 @@ test("Nav external resource open in a new tab", async ({ page }) => {
 })
 
 test("Nav external resource without warning directly opens a new tab", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const course = new CoursePage(page, "course")
+  const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/external-resources-page")
 
+  if (siteAlias === "course-offline") {
+    // In offline v2, nav sections don't auto-expand (relative hrefs don't match pathname);
+    // expand the External Resources subsection manually
+    await page
+      .getByRole("button", { name: "Subsections for External Resources" })
+      .first()
+      .click()
+  }
   const link = page.getByRole("link", { name: "OCW (no warning)" })
   await expect(link).toBeVisible()
 
@@ -42,8 +51,11 @@ test("Nav external resource without warning directly opens a new tab", async ({
   expect(classAttribute).not.toContain("external-link")
 })
 
-test("External resource in page opens a new tab", async ({ page }) => {
-  const course = new CoursePage(page, "course")
+test("External resource in page opens a new tab", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/external-resources-page")
 
   const link = page.getByRole("link", { name: "Google.com" }).nth(1)
@@ -59,8 +71,11 @@ test("External resource in page opens a new tab", async ({ page }) => {
   )
 })
 
-test("External resource opens confirmation modal", async ({ page }) => {
-  const course = new CoursePage(page, "course")
+test("External resource opens confirmation modal", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/external-resources-page")
 
   const link = page
@@ -83,9 +98,10 @@ test("External resource opens confirmation modal", async ({ page }) => {
 })
 
 test("External resource without warning does not open confirmation modal", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const course = new CoursePage(page, "course")
+  const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/external-resources-page")
 
   const link = page
@@ -107,8 +123,8 @@ test("External resource without warning does not open confirmation modal", async
   await expect(modalTitle).toBeHidden()
 })
 
-test("Modal's close buttons close modal", async ({ page }) => {
-  const course = new CoursePage(page, "course")
+test("Modal's close buttons close modal", async ({ page, siteAlias }) => {
+  const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/external-resources-page")
   const link = page
     .locator("p")
@@ -142,9 +158,10 @@ test("Modal's close buttons close modal", async ({ page }) => {
 })
 
 test("Modal's continue button opens a new tab and closes the dialog", async ({
-  page
+  page,
+  siteAlias
 }) => {
-  const course = new CoursePage(page, "course")
+  const course = new CoursePage(page, siteAlias)
   await course.goto("/pages/external-resources-page")
 
   const link = page
