@@ -41,7 +41,13 @@ blockquote {
 // often portaled onto <body> outside any OCW container, where `a:hover`
 // (0-1-1) outranks `.css-hash` (0-1-0) and repaints them black. Skipping them
 // here lets the component's own styling win.
-a:not(.MuiButtonBase-root) {
+//
+// The exclusion is wrapped in `:where()`, which contributes no specificity, so
+// this stays at 0-0-1 like the bare `a` it replaced. A plain
+// `:not(.MuiButtonBase-root)` scores 0-1-1 and beats every single-class rule
+// that turns link styling off, which underlined and blackened the course nav,
+// the header logo and the download buttons.
+a:not(:where(.MuiButtonBase-root)) {
   color: black;
   text-decoration: underline;
 
