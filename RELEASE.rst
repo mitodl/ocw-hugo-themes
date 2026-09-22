@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+Version 1.161.0
+---------------
+
+- fix: keep the global link rule from outranking chrome link styles (#1874)
+- test: added tests for course-v2 and course-v3 offline theme (#1811)
+- fix: resolve nav urls from page content so nested menu items appear (#1872)
+- Use the shared smoot-design UserMenu (#1870)
+
 Version 1.159.0
 ---------------
 
