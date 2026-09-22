@@ -116,7 +116,7 @@ test.describe("v3 image gallery", () => {
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
     await page.getByRole("link", { name: "A pretty dog" }).click()
 
-    const counter = page.locator(".image-gallery-lightbox__counter")
+    const counter = page.locator(".image-gallery-lightbox__counter-glyph")
     await expect(counter).toHaveText("1 / 3")
 
     // Focus the credit link, as clicking it or tabbing to it would.
@@ -255,9 +255,9 @@ test.describe("v3 image gallery", () => {
     await expect(page.locator(".image-gallery-lightbox__status")).toHaveText(
       /^Image 1 of 3\./
     )
-    await expect(page.locator(".image-gallery-lightbox__counter")).toHaveText(
-      "1 / 3"
-    )
+    await expect(
+      page.locator(".image-gallery-lightbox__counter-glyph")
+    ).toHaveText("1 / 3")
   })
 
   test("makes the page behind inert and returns focus to the trigger", async ({
@@ -346,18 +346,18 @@ test.describe("v3 image gallery", () => {
 
     await page.keyboard.press("ArrowRight")
     await expect(image).toHaveAttribute("src", /image1\.png$/)
-    await expect(page.locator(".image-gallery-lightbox__counter")).toHaveText(
-      "2 / 3"
-    )
+    await expect(
+      page.locator(".image-gallery-lightbox__counter-glyph")
+    ).toHaveText("2 / 3")
     await expect(page.locator(".image-gallery-lightbox__status")).toHaveText(
       "Image 2 of 3. A diagram of a test pattern"
     )
 
     await page.keyboard.press("ArrowRight")
     await expect(image).toHaveAttribute("src", /2\.Niepce\.jpg$/)
-    await expect(page.locator(".image-gallery-lightbox__counter")).toHaveText(
-      "3 / 3"
-    )
+    await expect(
+      page.locator(".image-gallery-lightbox__counter-glyph")
+    ).toHaveText("3 / 3")
     await expect(page.locator(".image-gallery-lightbox__status")).toHaveText(
       "Image 3 of 3. A faint grayscale image of a rooftop and outbuildings."
     )
@@ -433,9 +433,9 @@ test.describe("v3 image gallery", () => {
 
     await drag(right, left)
     await expect(image).toHaveAttribute("src", /image1\.png$/)
-    await expect(page.locator(".image-gallery-lightbox__counter")).toHaveText(
-      "2 / 3"
-    )
+    await expect(
+      page.locator(".image-gallery-lightbox__counter-glyph")
+    ).toHaveText("2 / 3")
     await expect(page.locator(".image-gallery-lightbox__status")).toHaveText(
       "Image 2 of 3. A diagram of a test pattern"
     )
@@ -443,9 +443,9 @@ test.describe("v3 image gallery", () => {
     // Back the other way.
     await drag(left, right)
     await expect(image).toHaveAttribute("src", /example_jpg\.jpg$/)
-    await expect(page.locator(".image-gallery-lightbox__counter")).toHaveText(
-      "1 / 3"
-    )
+    await expect(
+      page.locator(".image-gallery-lightbox__counter-glyph")
+    ).toHaveText("1 / 3")
 
     // The buttons remain: the swipe is an addition, not a replacement, which
     // is what keeps this compliant with 2.5.1 Pointer Gestures.
@@ -464,7 +464,7 @@ test.describe("v3 image gallery", () => {
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     await page.getByRole("link", { name: "A pretty dog" }).click()
-    const counter = page.locator(".image-gallery-lightbox__counter")
+    const counter = page.locator(".image-gallery-lightbox__counter-glyph")
     await expect(counter).toHaveText("1 / 3")
 
     // The delegated listener matches a.image-gallery__link specifically; a
@@ -513,7 +513,7 @@ test.describe("v3 image gallery", () => {
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
     await page.getByRole("link", { name: "A pretty dog" }).click()
 
-    const counter = page.locator(".image-gallery-lightbox__counter")
+    const counter = page.locator(".image-gallery-lightbox__counter-glyph")
     await expect(counter).toHaveText("1 / 3")
     await page.locator(".image-gallery-lightbox__caption a").click()
     await expect(
@@ -559,9 +559,9 @@ test.describe("v3 image gallery", () => {
     ).toBeHidden()
 
     await page.keyboard.press("ArrowRight")
-    await expect(page.locator(".image-gallery-lightbox__counter")).toHaveText(
-      "2 / 3"
-    )
+    await expect(
+      page.locator(".image-gallery-lightbox__counter-glyph")
+    ).toHaveText("2 / 3")
   })
 
   test("the warning reads at the page's own text colour", async ({ page }) => {

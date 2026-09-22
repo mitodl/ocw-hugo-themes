@@ -74,8 +74,11 @@ const status = () =>
   document.querySelector<HTMLElement>(".image-gallery-lightbox__status")
 const image = () =>
   document.querySelector<HTMLImageElement>(".image-gallery-lightbox__image")
+/** The visible "2 / 3". Its spoken twin is counterLabel() below. */
 const counter = () =>
-  document.querySelector<HTMLElement>(".image-gallery-lightbox__counter")
+  document.querySelector<HTMLElement>(".image-gallery-lightbox__counter-glyph")
+const counterLabel = () =>
+  document.querySelector<HTMLElement>(".image-gallery-lightbox__counter-label")
 const links = () =>
   Array.from(
     document.querySelectorAll<HTMLAnchorElement>("a.image-gallery__link")
@@ -431,6 +434,33 @@ describe("initImageGalleryLightbox", () => {
     expect(prev.hidden).toBe(true)
     expect(next.hidden).toBe(true)
     expect(prev.disabled).toBe(false)
+  })
+
+  it("spells the position out for screen readers, and keeps it readable", () => {
+    renderGallery([
+      { href: "a.jpg", alt: "First" },
+      { href: "b.jpg", alt: "Second" },
+      { href: "c.jpg", alt: "Third" }
+    ])
+    links()[1].click()
+
+    // The compact form is hidden from assistive tech because "2 / 3" is read
+    // out as "2 slash 3", or with the slash dropped, depending on the screen
+    // reader's symbol level.
+    expect(counter()!.textContent).toBe("2 / 3")
+    expect(counter()!.getAttribute("aria-hidden")).toBe("true")
+
+    // But the position itself stays in the accessibility tree. The live region
+    // announces once and cannot be re-read, so this is the only durable answer
+    // to "which image am I on?" — hiding the whole paragraph would remove it.
+    expect(counterLabel()!.textContent).toBe("Image 2 of 3")
+    expect(counterLabel()!.getAttribute("aria-hidden")).toBeNull()
+
+    document
+      .querySelector<HTMLButtonElement>(".image-gallery-lightbox__next")!
+      .click()
+    expect(counter()!.textContent).toBe("3 / 3")
+    expect(counterLabel()!.textContent).toBe("Image 3 of 3")
   })
 
   it("holds the image back until its own bitmap is what would be painted", () => {

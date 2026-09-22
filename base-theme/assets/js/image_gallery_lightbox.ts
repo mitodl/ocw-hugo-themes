@@ -57,7 +57,10 @@ interface Lightbox {
   dialog: HTMLDialogElement
   image: HTMLImageElement
   caption: HTMLElement
-  counter: HTMLElement
+  /** The compact "2 / 8", for eyes only — see build() for why it is split. */
+  counterGlyph: HTMLElement
+  /** The same position spelled out, for screen readers. */
+  counterLabel: HTMLElement
   status: HTMLElement
   prev: HTMLButtonElement
   next: HTMLButtonElement
@@ -131,7 +134,7 @@ function build(): Lightbox {
   // Controls-then-caption matches how the viewer reads top to bottom, and
   // every focusable inside the dialog is now reached before focus leaves it.
   dialog.innerHTML = `
-    <p class="image-gallery-lightbox__counter"></p>
+    <p class="image-gallery-lightbox__counter"><span class="image-gallery-lightbox__counter-glyph" aria-hidden="true"></span><span class="image-gallery-lightbox__counter-label sr-only"></span></p>
     <button class="image-gallery-lightbox__button image-gallery-lightbox__close" type="button" aria-label="Close image viewer" autofocus>
       <span class="material-icons" aria-hidden="true">close</span>
     </button>
@@ -152,12 +155,17 @@ function build(): Lightbox {
 
   const box: Lightbox = {
     dialog,
-    image:   dialog.querySelector(".image-gallery-lightbox__image")!,
-    caption: dialog.querySelector(".image-gallery-lightbox__caption")!,
-    counter: dialog.querySelector(".image-gallery-lightbox__counter")!,
-    status:  dialog.querySelector(".image-gallery-lightbox__status")!,
-    prev:    dialog.querySelector(".image-gallery-lightbox__prev")!,
-    next:    dialog.querySelector(".image-gallery-lightbox__next")!
+    image:        dialog.querySelector(".image-gallery-lightbox__image")!,
+    caption:      dialog.querySelector(".image-gallery-lightbox__caption")!,
+    counterGlyph: dialog.querySelector(
+      ".image-gallery-lightbox__counter-glyph"
+    )!,
+    counterLabel: dialog.querySelector(
+      ".image-gallery-lightbox__counter-label"
+    )!,
+    status: dialog.querySelector(".image-gallery-lightbox__status")!,
+    prev:   dialog.querySelector(".image-gallery-lightbox__prev")!,
+    next:   dialog.querySelector(".image-gallery-lightbox__next")!
   }
 
   // Reveal as soon as this slide's own bitmap is what would be painted. On
@@ -312,7 +320,7 @@ function paint(index: number): string {
   const box = lightbox!
   current = (index + slides.length) % slides.length
   const slide = slides[current]
-  const { image, caption, counter, prev, next } = box
+  const { image, caption, counterGlyph, counterLabel, prev, next } = box
 
   // Deliberately no srcset here, even though the thumbnail has one. Those
   // candidates carry Fastly width descriptors ("...&width=1280 1280w"), but
@@ -366,7 +374,15 @@ function paint(index: number): string {
   }
   caption.innerHTML = slide.captionHtml
   caption.hidden = !slide.captionHtml
-  counter.textContent = `${current + 1} / ${slides.length}`
+  // Two copies of the position on purpose, not a duplicate. The live region
+  // below announces the slide once as it changes and cannot be re-read, so
+  // this paragraph is the only durable answer to "which one am I on?" — which
+  // is exactly why it must stay in the accessibility tree rather than being
+  // aria-hidden wholesale. What is hidden is only the compact glyph: "2 / 8"
+  // is fine to see and poor to hear, since the slash is read out or dropped
+  // depending on the screen reader's symbol level.
+  counterGlyph.textContent = `${current + 1} / ${slides.length}`
+  counterLabel.textContent = `Image ${current + 1} of ${slides.length}`
 
   // The dialog scrolls when a long caption and a usable image cannot share the
   // viewport (400% zoom). Start each slide at the top, so arrowing onward shows
