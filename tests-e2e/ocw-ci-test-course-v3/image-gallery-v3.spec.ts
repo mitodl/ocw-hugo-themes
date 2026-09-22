@@ -233,6 +233,38 @@ test.describe("v3 image gallery", () => {
     )
   })
 
+  test("takes the caption from the resource's image_metadata, not the item's text param", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+
+    const captionOf = (index: number) =>
+      page
+        .locator(".image-gallery a.image-gallery__link")
+        .nth(index)
+        .evaluate(
+          link =>
+            link
+              .querySelector<HTMLTemplateElement>("template")
+              ?.content.querySelector(".image-gallery__caption-text")
+              ?.textContent ?? null
+        )
+
+    // The caption belongs to the image, so it is read from the resource the
+    // item points at rather than from the string copied into this particular
+    // gallery. Item 2 is authored with text="Second image" while image1.png's
+    // own metadata says something else — the resource has to win, otherwise
+    // two galleries showing one image could caption it differently and editing
+    // the image's metadata would silently change nothing.
+    expect(await captionOf(1)).toBe("A caption from image metadata")
+
+    // Item 1 is the other half of the same rule: text="A dog having fun" but
+    // example_jpg.jpg has an empty caption, so no caption element is emitted
+    // at all. Its credit still is, which is what keeps the <template> present.
+    expect(await captionOf(0)).toBeNull()
+  })
+
   test("opens as a modal dialog from the keyboard and announces the slide", async ({
     page
   }) => {

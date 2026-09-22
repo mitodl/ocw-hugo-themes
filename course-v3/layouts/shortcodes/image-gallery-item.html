@@ -13,7 +13,10 @@
   Accepts the same params ocw-studio authors, none of them newly required:
     uuid         — the target resource's uid; the authoritative pointer
     href         — resource filename or path; only a fallback pointer now
-    text         — caption (markdown)
+    text         — no longer the caption. The caption is read from the
+                   resource's image_metadata.caption, so it stays with the
+                   image rather than being copied into each gallery. Still
+                   consulted as one fallback for the link's accessible name.
     data-ngdesc  — description; used as the link's accessible name when the
                    resource has no image-alt
   and reads `baseUrl` off the parent shortcode for the fallback path below.
@@ -118,12 +121,17 @@
   {{- warnf "image-gallery-item: no image-alt for %q on %s — falling back to %q" $href .Page.RelPermalink $linkName -}}
 {{- end -}}
 
-{{/* Prefer the authored caption param over the resource's own caption. */}}
+{{/* Caption comes from the resource's own image_metadata.caption, the same
+     place and the same way the credit below does — one source of truth per
+     image, maintained where the image is, rather than copied into every
+     gallery that happens to use it.
+
+     Rendered with $resource.RenderString, not .Page.RenderString: a caption
+     may contain a resource_link, and those uids resolve against the resource
+     page. */}}
 {{- $captionHtml := "" -}}
-{{- if $textParam -}}
-  {{- $captionHtml = $textParam | .Page.RenderString -}}
-{{- else if $caption -}}
-  {{- $captionHtml = $caption | .Page.RenderString -}}
+{{- with $caption -}}
+  {{- $captionHtml = . | $resource.RenderString -}}
 {{- end -}}
 
 {{/* Credit is real HTML rather than text escaped into an attribute, so a nested
