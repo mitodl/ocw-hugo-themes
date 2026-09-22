@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "../util/fixtures"
 import { CoursePage, expectTriggerToOpenANewTab } from "../util"
 
 /**
@@ -8,12 +8,24 @@ import { CoursePage, expectTriggerToOpenANewTab } from "../util"
  * resource_url.html (it strips the leading courses/<slug>/ segment and prepends
  * the Hugo baseURL path), so a URL-shape regression here would be invisible
  * everywhere else.
+ *
+ * Runs against both builds via siteAlias. The offline package ships this whole
+ * feature — course-offline-v3's bundle calls initImageGalleryLightbox, and the
+ * item shortcode and the native <dialog> warning modal both resolve to
+ * course-v3's copies because base-offline defines neither — so the behaviour
+ * below is worth asserting there too. Three tests branch, because the offline
+ * build legitimately differs: relative image URLs with no Fastly srcset, and
+ * base-offline's wrapper keeping the (inert) nanogallery2 bootstrap.
+ *
+ * Path resolution as the package is actually opened from disk is a separate
+ * concern, covered over file:// by image-gallery-v3-offline.spec.ts.
  */
 test.describe("v3 image gallery", () => {
   test("renders a thumbnail rail with correctly resolved URLs", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     const items = page.locator(".image-gallery a.image-gallery__link")
@@ -21,16 +33,29 @@ test.describe("v3 image gallery", () => {
 
     const firstImage = items.first().locator("img.image-gallery__thumb")
     const src = await firstImage.getAttribute("src")
-    expect(src).toBe(
-      "https://live-qa.ocw.mit.edu/courses/o/ocw-ci-test-course/example_jpg.jpg"
-    )
-
-    // Fastly variants come from picture_element.html, not from JS.
     const srcset = await firstImage.getAttribute("srcset")
-    expect(srcset).toContain("format=auto&quality=75&width=1920 1920w")
+
+    if (siteAlias === "course-v3-offline") {
+      // The offline package has to carry its own copy of every image, so the
+      // URL is relative to the page rather than absolute, and
+      // picture_element.html only builds Fastly variants for src values
+      // starting http://, https:// or / — a relative one gets no srcset at
+      // all. That is the intended offline shape, not a missing optimization.
+      expect(src).not.toMatch(/^https?:\/\//)
+      expect(src).not.toMatch(/^\//)
+      expect(src).toContain("static_resources/example_jpg.jpg")
+      expect(srcset).toBeNull()
+    } else {
+      expect(src).toBe(
+        "https://live-qa.ocw.mit.edu/courses/o/ocw-ci-test-course/example_jpg.jpg"
+      )
+
+      // Fastly variants come from picture_element.html, not from JS.
+      expect(srcset).toContain("format=auto&quality=75&width=1920 1920w")
+    }
 
     // The href is the unparameterized original, which is what the no-JS path
-    // navigates to and what the lightbox loads.
+    // navigates to and what the lightbox loads. True in both builds.
     await expect(items.first()).toHaveAttribute("href", src!)
 
     // Deliberately no fetch of `src`: test-sites ships no image bytes, so a
@@ -39,9 +64,10 @@ test.describe("v3 image gallery", () => {
   })
 
   test("resolves the resource by uuid in preference to href", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     // The second item is authored with a uuid that points at image1.png and a
@@ -50,10 +76,20 @@ test.describe("v3 image gallery", () => {
     // to href, the resource would miss and src would carry the bogus filename
     // with no alt text.
     const second = page.locator(".image-gallery a.image-gallery__link").nth(1)
-    await expect(second).toHaveAttribute(
-      "href",
-      "https://live-qa.ocw.mit.edu/courses/o/ocw-ci-test-course/image1.png"
-    )
+    if (siteAlias === "course-v3-offline") {
+      const href = await second.getAttribute("href")
+      expect(href).not.toMatch(/^https?:\/\//)
+      expect(href).toContain("static_resources/image1.png")
+    } else {
+      await expect(second).toHaveAttribute(
+        "href",
+        "https://live-qa.ocw.mit.edu/courses/o/ocw-ci-test-course/image1.png"
+      )
+    }
+
+    // The lookup itself is identical in both theme chains, so these two carry
+    // the actual regression guard: the alt text only exists on the resource
+    // the uuid points at, and the bogus href must appear nowhere.
     await expect(second.locator("img")).toHaveAttribute(
       "alt",
       "A diagram of a test pattern"
@@ -61,8 +97,11 @@ test.describe("v3 image gallery", () => {
     expect(await page.content()).not.toContain("this-file-does-not-exist")
   })
 
-  test("shows no caption or credit in the grid", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("shows no caption or credit in the grid", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     // They live in an inert <template> and surface only in the lightbox. Using
@@ -76,8 +115,11 @@ test.describe("v3 image gallery", () => {
     ).toHaveCount(3)
   })
 
-  test("no stray text node takes up a grid cell", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("no stray text node takes up a grid cell", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     // The fixture deliberately carries a line of non-breaking spaces between
@@ -110,9 +152,10 @@ test.describe("v3 image gallery", () => {
   })
 
   test("arrow keys keep working after focus has been in the caption", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
     await page.getByRole("link", { name: "A pretty dog" }).click()
 
@@ -139,23 +182,49 @@ test.describe("v3 image gallery", () => {
     }
   })
 
-  test("carries no nanogallery2 bootstrap", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("drops the nanogallery2 bootstrap online, keeps base-offline's offline", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
-    // course-v3 overrides the wrapper shortcode to drop base-theme's two
-    // nanogallery2 hooks: the data-base-url it built thumbnail URLs from (read
-    // only by course-v2's init script, which never loads here) and an inline
-    // <script> a CSP would otherwise have to allow. base-theme keeps both for
-    // course-v2.
-    await expect(page.locator(".image-gallery")).not.toHaveAttribute(
-      "data-base-url"
-    )
-    expect(await page.content()).not.toContain("initNanogallery2")
+    const gallery = page.locator(".image-gallery")
+
+    if (siteAlias === "course-v3-offline") {
+      // The offline chain is ["base-offline", "course-offline-v3",
+      // "course-v3", "base-theme"], so base-offline's wrapper outranks
+      // course-v3's and both hooks survive. That is deliberate and documented
+      // in course-v3/layouts/shortcodes/image-gallery.html: base-offline's
+      // copy has to stay for the v2 offline chain, and the cost of leaving it
+      // for v3 is nil.
+      await expect(gallery).toHaveAttribute("data-base-url", /.+/)
+      expect(await page.content()).toContain("initNanogallery2")
+
+      // ...nil precisely because the bundle no longer defines the global the
+      // inline script calls, so the script is inert. If this ever becomes
+      // defined, the offline bundle has started pulling nanogallery2 back in.
+      expect(
+        await page.evaluate(
+          () => (window as unknown as Record<string, unknown>).initNanogallery2
+        )
+      ).toBeUndefined()
+    } else {
+      // course-v3 overrides the wrapper shortcode to drop base-theme's two
+      // nanogallery2 hooks: the data-base-url it built thumbnail URLs from
+      // (read only by course-v2's init script, which never loads here) and an
+      // inline <script> a CSP would otherwise have to allow. base-theme keeps
+      // both for course-v2.
+      await expect(gallery).not.toHaveAttribute("data-base-url")
+      expect(await page.content()).not.toContain("initNanogallery2")
+    }
   })
 
-  test("every gallery link has an accessible name", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("every gallery link has an accessible name", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     // The first item's resource has an empty image-alt, so the shortcode falls
@@ -178,9 +247,10 @@ test.describe("v3 image gallery", () => {
   })
 
   test("credit is stored as real markup rather than attribute text", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     // Read inside the template: its content is a parsed but inert fragment, so
@@ -199,9 +269,10 @@ test.describe("v3 image gallery", () => {
   })
 
   test("resolves credit, caption, and alt from the resource when the href is a hashed ocw-studio filename", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     // Real ocw-studio content authors this href as "<uid-without-dashes>_<filename>"
@@ -234,9 +305,10 @@ test.describe("v3 image gallery", () => {
   })
 
   test("takes the caption from the resource's image_metadata, not the item's text param", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     const captionOf = (index: number) =>
@@ -266,9 +338,10 @@ test.describe("v3 image gallery", () => {
   })
 
   test("opens as a modal dialog from the keyboard and announces the slide", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     const link = page.getByRole("link", { name: "A pretty dog" })
@@ -293,9 +366,10 @@ test.describe("v3 image gallery", () => {
   })
 
   test("makes the page behind inert and returns focus to the trigger", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     const link = page.getByRole("link", { name: "A pretty dog" })
@@ -325,8 +399,8 @@ test.describe("v3 image gallery", () => {
     await expect(link).toBeFocused()
   })
 
-  test("leaves nothing behind once closed", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("leaves nothing behind once closed", async ({ page, siteAlias }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     const heightBefore = await page.evaluate(
@@ -367,8 +441,11 @@ test.describe("v3 image gallery", () => {
     expect(after.height).toBe(heightBefore)
   })
 
-  test("arrow keys move between slides and re-announce", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("arrow keys move between slides and re-announce", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     await page.getByRole("link", { name: "A pretty dog" }).click()
@@ -400,9 +477,10 @@ test.describe("v3 image gallery", () => {
   })
 
   test("the stage yields the vertical axis to the browser", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
     await page.getByRole("link", { name: "A pretty dog" }).click()
 
@@ -419,7 +497,8 @@ test.describe("v3 image gallery", () => {
 
   test("swiping moves between slides on a touch device", async ({
     browser,
-    browserName
+    browserName,
+    siteAlias
   }) => {
     // page.touchscreen.tap() emits touchstart + touchend with no touchmove, so
     // it cannot express a swipe. CDP gives a genuine one, and CDP is Chromium
@@ -429,7 +508,7 @@ test.describe("v3 image gallery", () => {
 
     const context = await browser.newContext({ hasTouch: true })
     const page = await context.newPage()
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
     await page.getByRole("link", { name: "A pretty dog" }).click()
 
@@ -490,9 +569,10 @@ test.describe("v3 image gallery", () => {
   })
 
   test("a credit link inside the lightbox is not treated as a slide", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     await page.getByRole("link", { name: "A pretty dog" }).click()
@@ -509,9 +589,10 @@ test.describe("v3 image gallery", () => {
   })
 
   test("a credit link inside the lightbox opens its warning modal above the dialog", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     await page.getByRole("link", { name: "A pretty dog" }).click()
@@ -540,8 +621,11 @@ test.describe("v3 image gallery", () => {
     )
   })
 
-  test("the warning makes the gallery behind it inert", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("the warning makes the gallery behind it inert", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
     await page.getByRole("link", { name: "A pretty dog" }).click()
 
@@ -571,9 +655,10 @@ test.describe("v3 image gallery", () => {
   })
 
   test("dismissing the warning returns focus and revives the arrows", async ({
-    page
+    page,
+    siteAlias
   }) => {
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
     await page.getByRole("link", { name: "A pretty dog" }).click()
 
@@ -596,8 +681,11 @@ test.describe("v3 image gallery", () => {
     ).toHaveText("2 / 3")
   })
 
-  test("the warning reads at the page's own text colour", async ({ page }) => {
-    const course = new CoursePage(page, "course-v3")
+  test("the warning reads at the page's own text colour", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
     await page.getByRole("link", { name: "A pretty dog" }).click()
     await page.locator(".image-gallery-lightbox__caption a").click()
@@ -617,10 +705,10 @@ test.describe("v3 image gallery", () => {
     }
   })
 
-  test("works with JavaScript disabled", async ({ browser }) => {
+  test("works with JavaScript disabled", async ({ browser, siteAlias }) => {
     const context = await browser.newContext({ javaScriptEnabled: false })
     const page = await context.newPage()
-    const course = new CoursePage(page, "course-v3")
+    const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
     // No lightbox, but the thumbnails are still rendered and each link still

@@ -1,39 +1,21 @@
 import { test, expect } from "@playwright/test"
 import { offlineV3FileUrl, expectLocalPackageHref } from "../util"
 
-test.describe("offline-v3 image gallery page", () => {
+/**
+ * file://-only: the gallery's markup, lightbox and warning dialog are covered
+ * by the unified image-gallery-v3.spec.ts (siteAlias "course-v3-offline",
+ * served over HTTP). This file exists only to verify that the URLs resolve
+ * against the package as it is actually opened from disk, which the
+ * HTTP-served test cannot exercise — every site is served from one shared
+ * root there, so a relative path that climbs too high lands back inside that
+ * root and still resolves.
+ */
+test.describe("offline-v3 image gallery — file:// path resolution", () => {
   test("image gallery page loads", async ({ page }) => {
     await page.goto(offlineV3FileUrl("/pages/image-gallery"))
 
     expect(page.url()).toContain("pages/image-gallery/index.html")
     await expect(page.locator("body")).toContainText("Image Gallery")
-  })
-
-  test("image gallery container is present", async ({ page }) => {
-    await page.goto(offlineV3FileUrl("/pages/image-gallery"))
-
-    const gallery = page.locator(".image-gallery")
-    await expect(gallery).toBeVisible()
-  })
-
-  test("gallery data-base-url is a local relative path", async ({ page }) => {
-    await page.goto(offlineV3FileUrl("/pages/image-gallery"))
-
-    const gallery = page.locator(".image-gallery")
-    const baseUrl = await gallery.getAttribute("data-base-url")
-
-    expect(baseUrl).toBeTruthy()
-    // Must not be an absolute http URL — must be local/relative
-    expect(baseUrl).not.toMatch(/^https?:\/\//)
-  })
-
-  test("gallery items are server-rendered thumbnails", async ({ page }) => {
-    await page.goto(offlineV3FileUrl("/pages/image-gallery"))
-
-    // The markup no longer depends on JS to exist, which matters offline: the
-    // package is opened over file:// where bundle URLs may not resolve.
-    const items = page.locator(".image-gallery a.image-gallery__link")
-    await expect(items).toHaveCount(3)
   })
 
   test("gallery images and links are package-local", async ({ page }) => {
@@ -58,25 +40,6 @@ test.describe("offline-v3 image gallery page", () => {
       .first()
       .getAttribute("srcset")
     expect(srcset).toBeNull()
-  })
-
-  test("gallery links carry an accessible name", async ({ page }) => {
-    await page.goto(offlineV3FileUrl("/pages/image-gallery"))
-
-    // Asserted as attached rather than visible: these pages are opened over
-    // file:// with no stylesheet loaded (the bundle path resolves above the test
-    // output dir), so images have no intrinsic size and collapse to a zero box.
-    // First item's resource has an empty image-alt, so the link is labelled from
-    // data-ngdesc; the second is named by its real alt text.
-    await expect(
-      page.getByRole("link", { name: "A pretty dog", includeHidden: true })
-    ).toHaveCount(1)
-    await expect(
-      page.getByRole("link", {
-        name:          "A diagram of a test pattern",
-        includeHidden: true
-      })
-    ).toHaveCount(1)
   })
 
   test("gallery uses v3 offline bundle", async ({ page }) => {
