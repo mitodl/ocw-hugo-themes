@@ -27,13 +27,13 @@ test.describe("offline-v3 image gallery page", () => {
     expect(baseUrl).not.toMatch(/^https?:\/\//)
   })
 
-  test("gallery items are server-rendered figures", async ({ page }) => {
+  test("gallery items are server-rendered thumbnails", async ({ page }) => {
     await page.goto(offlineFileUrl("/pages/image-gallery"))
 
     // The markup no longer depends on JS to exist, which matters offline: the
     // package is opened over file:// where bundle URLs may not resolve.
-    const figures = page.locator(".image-gallery .image-gallery__figure")
-    await expect(figures).toHaveCount(3)
+    const items = page.locator(".image-gallery a.image-gallery__link")
+    await expect(items).toHaveCount(3)
   })
 
   test("gallery images and links are package-local", async ({ page }) => {

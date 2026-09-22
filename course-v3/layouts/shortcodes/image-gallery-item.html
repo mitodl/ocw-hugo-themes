@@ -11,33 +11,52 @@
   gets Fastly srcsets from picture_element.html for free.
 
   Accepts the same params ocw-studio authors, none of them newly required:
-    href         — resource filename or path
+    uuid         — the target resource's uid; the authoritative pointer
+    href         — resource filename or path; only a fallback pointer now
     text         — caption (markdown)
     data-ngdesc  — description; used as the link's accessible name when the
                    resource has no image-alt
   and reads `baseUrl` off the parent shortcode for the fallback path below.
+
+  Caption and credit are NOT rendered into the grid — they go into an inert
+  <template> that the lightbox reads on open. See the markup at the bottom.
 */}}
 
 {{- $href := .Get "href" -}}
+{{- $uuid := .Get "uuid" | default "" -}}
 {{- $textParam := .Get "text" | default "" -}}
 {{- $desc := .Get "data-ngdesc" | default "" -}}
 {{- $baseUrl := "" -}}
 {{- with .Parent -}}{{- $baseUrl = .Get "baseUrl" | default "" -}}{{- end -}}
 
-{{/* Resolve the resource page so we can read its file path and image metadata.
-     ocw-studio authors real gallery-item hrefs as
-     "<uid-without-dashes>_<original-filename>", where the leading 32 hex chars
-     are the resource's own uid with dashes stripped — not its filename. Try the
-     bare-filename key first (matches hand-authored/legacy hrefs, and the
-     resource's own filename), and only if that misses, extract that leading hex
-     run and look it up by uid. */}}
+{{/* Resolve the resource page, so the URL and the metadata both come from the
+     resource itself rather than from whatever string the item was authored with.
+
+     `uuid` is the real pointer: ocw-studio writes it on every gallery item and
+     it survives a file being renamed or re-uploaded, which `href` does not.
+     Prefer it, and treat href purely as a fallback for hand-authored or legacy
+     items that predate the param.
+
+     Two href fallbacks, in order: the bare filename (matches a resource's own
+     `file`), then the leading 32 hex characters, because ocw-studio writes
+     hrefs as "<uid-without-dashes>_<original-filename>" — a string that never
+     basenames to the resource's own filename. */}}
 {{- $index := partialCached "image_resource_index.html" . "image-resource-index" -}}
-{{- $resource := index $index (path.Base $href) -}}
+{{- $resource := "" -}}
+{{- with $uuid -}}
+  {{- $resource = index $index (printf "uid:%s" (lower (replace . "-" ""))) -}}
+{{- end -}}
+{{- if not $resource -}}
+  {{- $resource = index $index (path.Base $href) -}}
+{{- end -}}
 {{- if not $resource -}}
   {{- $uidMatches := findRE "^[0-9a-fA-F]{32}" (path.Base $href) 1 -}}
   {{- if $uidMatches -}}
     {{- $resource = index $index (printf "uid:%s" (lower (index $uidMatches 0))) -}}
   {{- end -}}
+{{- end -}}
+{{- if and $uuid (not $resource) -}}
+  {{- warnf "image-gallery-item: uuid %q on %s matches no image resource — falling back to href %q" $uuid .Page.RelPermalink $href -}}
 {{- end -}}
 
 {{- $file := "" -}}
@@ -107,27 +126,38 @@
   {{- $captionHtml = $caption | .Page.RenderString -}}
 {{- end -}}
 
-{{/* Credit is rendered as real HTML in the figcaption rather than escaped into an
-     attribute, so nested resource_link shortcodes become focusable links. */}}
+{{/* Credit is real HTML rather than text escaped into an attribute, so a nested
+     resource_link stays a focusable link once the lightbox adopts it. */}}
 {{- $creditHtml := "" -}}
 {{- with $credit -}}
   {{- $creditHtml = . | $resource.RenderString -}}
 {{- end -}}
 
-{{- $hasCaption := or $captionHtml $creditHtml -}}
+{{/*
+  Caption and credit live in a <template>, not a <figcaption>: the grid is now
+  a plain thumbnail rail and shows neither, they appear only in the lightbox.
 
-{{- if $hasCaption -}}
-<figure class="image-gallery__figure">
-  <a class="image-gallery__link" href="{{ $src }}"{{ with $linkName }} aria-label="{{ . }}"{{ end }}>
-    {{ partial "picture_element.html" (dict "src" $src "alt" $alt "class" "image-gallery__thumb" "sizes" "(min-width: 992px) 25vw, 45vw") }}
-  </a>
-  <figcaption class="image-gallery__caption">
+  <template> rather than a visually-hidden figcaption because its content is
+  parsed into an inert fragment — not rendered, not in the accessibility tree,
+  not focusable, not findable. So the grid reads identically to a sighted user
+  and to a screen reader, which is the point: hiding text visually while still
+  exposing it to assistive tech would make the two experiences disagree. The
+  link keeps its own accessible name (alt, else $linkName above), so nothing
+  is left unnamed.
+
+  <template> rather than a data-* attribute because markup survives: escaping
+  the credit into an attribute is what used to turn its resource_link into
+  dead text.
+
+  Every item is now the same shape — a bare anchor — so a caption-less item no
+  longer stretches to the height of a captioned neighbour in the grid.
+*/}}
+<a class="image-gallery__link" href="{{ $src }}"{{ with $linkName }} aria-label="{{ . }}"{{ end }}>
+  {{ partial "picture_element.html" (dict "src" $src "alt" $alt "class" "image-gallery__thumb" "sizes" "(min-width: 992px) 22vw, 45vw") }}
+  {{- if or $captionHtml $creditHtml -}}
+  <template class="image-gallery__caption-data">
     {{- with $captionHtml }}<span class="image-gallery__caption-text">{{ . }}</span>{{ end -}}
     {{- with $creditHtml }}<span class="image-gallery__credit">{{ . }}</span>{{ end -}}
-  </figcaption>
-</figure>
-{{- else -}}
-<a class="image-gallery__link" href="{{ $src }}"{{ with $linkName }} aria-label="{{ . }}"{{ end }}>
-  {{ partial "picture_element.html" (dict "src" $src "alt" $alt "class" "image-gallery__thumb" "sizes" "(min-width: 992px) 25vw, 45vw") }}
+  </template>
+  {{- end -}}
 </a>
-{{- end -}}

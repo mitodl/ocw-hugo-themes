@@ -10,16 +10,16 @@ import { CoursePage, expectTriggerToOpenANewTab } from "../util"
  * everywhere else.
  */
 test.describe("v3 image gallery", () => {
-  test("renders semantic figures with correctly resolved URLs", async ({
+  test("renders a thumbnail rail with correctly resolved URLs", async ({
     page
   }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
-    const figures = page.locator(".image-gallery .image-gallery__figure")
-    await expect(figures).toHaveCount(3)
+    const items = page.locator(".image-gallery a.image-gallery__link")
+    await expect(items).toHaveCount(3)
 
-    const firstImage = figures.first().locator("img.image-gallery__thumb")
+    const firstImage = items.first().locator("img.image-gallery__thumb")
     const src = await firstImage.getAttribute("src")
     expect(src).toBe(
       "https://live-qa.ocw.mit.edu/courses/o/ocw-ci-test-course/example_jpg.jpg"
@@ -30,14 +30,128 @@ test.describe("v3 image gallery", () => {
     expect(srcset).toContain("format=auto&quality=75&width=1920 1920w")
 
     // The href is the unparameterized original, which is what the no-JS path
-    // navigates to and what the lightbox falls back to when srcset is empty.
-    await expect(
-      figures.first().locator("a.image-gallery__link")
-    ).toHaveAttribute("href", src!)
+    // navigates to and what the lightbox loads.
+    await expect(items.first()).toHaveAttribute("href", src!)
 
     // Deliberately no fetch of `src`: test-sites ships no image bytes, so a
     // status assertion would only be testing live-QA's content, not this code.
     // The exact-URL assertion above is the actual resource_url regression guard.
+  })
+
+  test("resolves the resource by uuid in preference to href", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+
+    // The second item is authored with a uuid that points at image1.png and a
+    // deliberately bogus href. uuid is the pointer ocw-studio maintains and it
+    // survives a rename or re-upload, so it has to win: if the lookup fell back
+    // to href, the resource would miss and src would carry the bogus filename
+    // with no alt text.
+    const second = page.locator(".image-gallery a.image-gallery__link").nth(1)
+    await expect(second).toHaveAttribute(
+      "href",
+      "https://live-qa.ocw.mit.edu/courses/o/ocw-ci-test-course/image1.png"
+    )
+    await expect(second.locator("img")).toHaveAttribute(
+      "alt",
+      "A diagram of a test pattern"
+    )
+    expect(await page.content()).not.toContain("this-file-does-not-exist")
+  })
+
+  test("shows no caption or credit in the grid", async ({ page }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+
+    // They live in an inert <template> and surface only in the lightbox. Using
+    // a template rather than a visually-hidden figcaption keeps the sighted and
+    // screen-reader views of the grid identical — the link's own accessible
+    // name is what identifies it, and that is asserted separately below.
+    await expect(page.locator(".image-gallery__caption-text")).toHaveCount(0)
+    await expect(page.locator(".image-gallery__credit")).toHaveCount(0)
+    await expect(
+      page.locator(".image-gallery template.image-gallery__caption-data")
+    ).toHaveCount(3)
+  })
+
+  test("no stray text node takes up a grid cell", async ({ page }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+
+    // The fixture deliberately carries a line of non-breaking spaces between
+    // two items, the shape ocw-studio authoring leaves behind. The grid spec
+    // wraps a run of child text in an anonymous grid item unless it is
+    // entirely white space, and U+00A0 is not white space for that rule — so
+    // unsanitised it renders as an empty cell in the middle of the gallery.
+    // Compared by code point, not by a \\u00A0 escape or a literal character:
+    // prettier rewrites the escape into the raw character, which is then both
+    // invisible in review and a no-irregular-whitespace lint error.
+    const NBSP = 0x00a0
+    const strays = await page
+      .locator(".image-gallery")
+      .first()
+      .evaluate(
+        (grid, nbsp) =>
+          [...grid.childNodes].filter(
+            n =>
+              n.nodeType === Node.TEXT_NODE &&
+              [...(n.textContent ?? "")].some(c => c.charCodeAt(0) === nbsp)
+          ).length,
+        NBSP
+      )
+    expect(strays).toBe(0)
+
+    // …and the items themselves survived the sanitising.
+    await expect(
+      page.locator(".image-gallery a.image-gallery__link")
+    ).toHaveCount(3)
+  })
+
+  test("arrow keys keep working after focus has been in the caption", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await page.getByRole("link", { name: "A pretty dog" }).click()
+
+    const counter = page.locator(".image-gallery-lightbox__counter")
+    await expect(counter).toHaveText("1 / 3")
+
+    // Focus the credit link, as clicking it or tabbing to it would.
+    await page.locator(".image-gallery-lightbox__caption a").focus()
+
+    // Changing slide replaces the caption and destroys that link. Focus used
+    // to fall to <body>, outside the dialog, after which key events no longer
+    // reached the dialog's keydown handler — the first press worked and every
+    // later one did nothing.
+    for (const expected of ["2 / 3", "3 / 3", "1 / 3"]) {
+      await page.keyboard.press("ArrowRight")
+      await expect(counter).toHaveText(expected)
+      expect(
+        await page.evaluate(() =>
+          document
+            .querySelector("dialog.image-gallery-lightbox")!
+            .contains(document.activeElement)
+        )
+      ).toBe(true)
+    }
+  })
+
+  test("carries no nanogallery2 bootstrap", async ({ page }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+
+    // course-v3 overrides the wrapper shortcode to drop base-theme's two
+    // nanogallery2 hooks: the data-base-url it built thumbnail URLs from (read
+    // only by course-v2's init script, which never loads here) and an inline
+    // <script> a CSP would otherwise have to allow. base-theme keeps both for
+    // course-v2.
+    await expect(page.locator(".image-gallery")).not.toHaveAttribute(
+      "data-base-url"
+    )
+    expect(await page.content()).not.toContain("initNanogallery2")
   })
 
   test("every gallery link has an accessible name", async ({ page }) => {
@@ -63,15 +177,25 @@ test.describe("v3 image gallery", () => {
     ).toBeVisible()
   })
 
-  test("credit renders as a real link rather than attribute text", async ({
+  test("credit is stored as real markup rather than attribute text", async ({
     page
   }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
-    const credit = page.locator(".image-gallery__credit a")
-    await expect(credit).toHaveAttribute("href", "https://google.com")
-    await expect(credit).toHaveAccessibleName("Google (opens in a new tab)")
+    // Read inside the template: its content is a parsed but inert fragment, so
+    // the anchor is a real element the lightbox can adopt. Escaping it into a
+    // data-* attribute is what used to flatten it into unclickable text.
+    const creditHref = await page
+      .locator(".image-gallery a.image-gallery__link")
+      .first()
+      .evaluate(link =>
+        link
+          .querySelector<HTMLTemplateElement>("template")!
+          .content.querySelector("a")!
+          .getAttribute("href")
+      )
+    expect(creditHref).toBe("https://google.com")
   })
 
   test("resolves credit, caption, and alt from the resource when the href is a hashed ocw-studio filename", async ({
@@ -82,24 +206,29 @@ test.describe("v3 image gallery", () => {
 
     // Real ocw-studio content authors this href as "<uid-without-dashes>_<filename>"
     // ("c3e2834174a42a89c56c3a1a5bcc0eff_2.Niepce.jpg"), which never basenames to
-    // match the resource's own filename ("2.Niepce.jpg"). Regression coverage for
+    // match the resource's own filename ("2.Niepce.jpg"). This item carries no
+    // uuid, so it exercises the href fallback chain — regression coverage for
     // the lookup bug where image_resource_index.html only keyed on filename, so
     // credit/caption/alt silently rendered empty for every real gallery item.
-    const figures = page.locator(".image-gallery .image-gallery__figure")
-    const thirdFigure = figures.nth(2)
+    const third = page.locator(".image-gallery a.image-gallery__link").nth(2)
 
-    await expect(
-      thirdFigure.locator("img.image-gallery__thumb")
-    ).toHaveAttribute(
+    await expect(third.locator("img.image-gallery__thumb")).toHaveAttribute(
       "alt",
       "A faint grayscale image of a rooftop and outbuildings."
     )
-    await expect(
-      thirdFigure.locator(".image-gallery__caption-text")
-    ).toHaveText(
+    const stored = await third.evaluate(link => {
+      const fragment =
+        link.querySelector<HTMLTemplateElement>("template")!.content
+      return {
+        caption: fragment.querySelector(".image-gallery__caption-text")
+          ?.textContent,
+        credit: fragment.querySelector(".image-gallery__credit")?.textContent
+      }
+    })
+    expect(stored.caption).toBe(
       "An 1826 heliograph, believed to be the oldest surviving camera photograph."
     )
-    await expect(thirdFigure.locator(".image-gallery__credit")).toHaveText(
+    expect(stored.credit).toBe(
       "Courtesy of the Harry Ransom Center, University of Texas at Austin."
     )
   })
@@ -164,6 +293,48 @@ test.describe("v3 image gallery", () => {
     await expect(link).toBeFocused()
   })
 
+  test("leaves nothing behind once closed", async ({ page }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+
+    const heightBefore = await page.evaluate(
+      () => document.documentElement.scrollHeight
+    )
+
+    await page.getByRole("link", { name: "A pretty dog" }).click()
+    await expect(page.locator("dialog.image-gallery-lightbox")).toBeVisible()
+    await page.keyboard.press("Escape")
+
+    // `dialog.open === false` is not enough, and asserting only that is how
+    // this shipped broken once: the dialog styles itself `display: flex` for
+    // its column layout, and an unconditional rule beat the user agent's
+    // `dialog:not([open]) { display: none }` — author origin wins over UA
+    // whatever the specificity. The closed dialog stayed rendered as a
+    // viewport-sized block at the foot of the page, and because its controls
+    // are position: fixed the arrows hung over the document permanently.
+    const after = await page.evaluate(() => {
+      const d = document.querySelector<HTMLDialogElement>(
+        "dialog.image-gallery-lightbox"
+      )!
+      const next = d.querySelector(".image-gallery-lightbox__next")!
+      return {
+        open:      d.open,
+        display:   getComputedStyle(d).display,
+        height:    document.documentElement.scrollHeight,
+        arrowBox:  next.getBoundingClientRect().width,
+        dialogBox: d.getBoundingClientRect().width
+      }
+    })
+
+    expect(after.open).toBe(false)
+    expect(after.display).toBe("none")
+    // display: none collapses every box in the subtree, fixed ones included.
+    expect(after.dialogBox).toBe(0)
+    expect(after.arrowBox).toBe(0)
+    // The stray dialog added its own full height to the page.
+    expect(after.height).toBe(heightBefore)
+  })
+
   test("arrow keys move between slides and re-announce", async ({ page }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
@@ -196,16 +367,113 @@ test.describe("v3 image gallery", () => {
     await expect(image).toHaveAttribute("src", /example_jpg\.jpg$/)
   })
 
-  test("clicking a credit link does not open the lightbox", async ({
+  test("the stage yields the vertical axis to the browser", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await page.getByRole("link", { name: "A pretty dog" }).click()
+
+    // pan-y is what lets the swipe listeners stay passive: the browser keeps
+    // vertical panning (which the dialog needs at 400% zoom, where it becomes
+    // a scroll container) while the horizontal axis goes to the gesture. If
+    // this regresses to `none` the dialog stops scrolling; to `auto`, a
+    // sideways drag triggers the browser's own back/forward overscroll.
+    await expect(page.locator(".image-gallery-lightbox__stage")).toHaveCSS(
+      "touch-action",
+      "pan-y"
+    )
+  })
+
+  test("swiping moves between slides on a touch device", async ({
+    browser,
+    browserName
+  }) => {
+    // page.touchscreen.tap() emits touchstart + touchend with no touchmove, so
+    // it cannot express a swipe. CDP gives a genuine one, and CDP is Chromium
+    // only — the gesture logic itself is covered cross-browser by the unit
+    // tests in base-theme/assets/js/image_gallery_lightbox.test.ts.
+    test.skip(browserName !== "chromium", "needs CDP for a real touch drag")
+
+    const context = await browser.newContext({ hasTouch: true })
+    const page = await context.newPage()
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await page.getByRole("link", { name: "A pretty dog" }).click()
+
+    const image = page.locator(".image-gallery-lightbox__image")
+    await expect(image).toHaveAttribute("src", /example_jpg\.jpg$/)
+
+    const stage = await page
+      .locator(".image-gallery-lightbox__stage")
+      .boundingBox()
+    const y = stage!.y + stage!.height / 2
+    const cdp = await context.newCDPSession(page)
+    const drag = async (fromX: number, toX: number) => {
+      await cdp.send("Input.dispatchTouchEvent", {
+        type:        "touchStart",
+        touchPoints: [{ x: fromX, y }]
+      })
+      // Intermediate points: the handler decides the gesture's axis from
+      // touchmove, so a start-to-end jump would never establish one.
+      for (const x of [fromX + (toX - fromX) / 2, toX]) {
+        await cdp.send("Input.dispatchTouchEvent", {
+          type:        "touchMove",
+          touchPoints: [{ x, y }]
+        })
+      }
+      await cdp.send("Input.dispatchTouchEvent", {
+        type:        "touchEnd",
+        touchPoints: []
+      })
+    }
+
+    const right = stage!.x + stage!.width - 40
+    const left = stage!.x + 40
+
+    await drag(right, left)
+    await expect(image).toHaveAttribute("src", /image1\.png$/)
+    await expect(page.locator(".image-gallery-lightbox__counter")).toHaveText(
+      "2 / 3"
+    )
+    await expect(page.locator(".image-gallery-lightbox__status")).toHaveText(
+      "Image 2 of 3. A diagram of a test pattern"
+    )
+
+    // Back the other way.
+    await drag(left, right)
+    await expect(image).toHaveAttribute("src", /example_jpg\.jpg$/)
+    await expect(page.locator(".image-gallery-lightbox__counter")).toHaveText(
+      "1 / 3"
+    )
+
+    // The buttons remain: the swipe is an addition, not a replacement, which
+    // is what keeps this compliant with 2.5.1 Pointer Gestures.
+    await expect(page.getByRole("button", { name: "Next image" })).toBeVisible()
+    await expect(
+      page.getByRole("button", { name: "Previous image" })
+    ).toBeVisible()
+
+    await context.close()
+  })
+
+  test("a credit link inside the lightbox is not treated as a slide", async ({
     page
   }) => {
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
-    // The external-link modal intercepts the navigation, so this is safe to click.
-    await page.locator(".image-gallery__credit a").click()
+    await page.getByRole("link", { name: "A pretty dog" }).click()
+    const counter = page.locator(".image-gallery-lightbox__counter")
+    await expect(counter).toHaveText("1 / 3")
 
-    await expect(page.locator("dialog.image-gallery-lightbox")).toHaveCount(0)
+    // The delegated listener matches a.image-gallery__link specifically; a
+    // plain a[href] would have advanced the gallery from under the reader.
+    // The external-link modal intercepts the navigation, so this is safe.
+    await page.locator(".image-gallery-lightbox__caption a").click()
+
+    await expect(counter).toHaveText("1 / 3")
+    await expect(page.locator("dialog.image-gallery-lightbox")).toHaveCount(1)
   })
 
   test("a credit link inside the lightbox opens its warning modal above the dialog", async ({
@@ -219,11 +487,10 @@ test.describe("v3 image gallery", () => {
 
     // Regression test for two bugs together: an earlier version flattened the
     // credit's anchor to plain text before painting it into the lightbox (so
-    // there was nothing to click), and even with the anchor preserved, the
-    // warning modal it opens is normally a descendant of <body> — outside the
-    // open dialog's top layer, where the dialog's own showModal() semantics
-    // make it inert. If either regresses, this click hangs and the test times
-    // out rather than reaching the modal at all.
+    // there was nothing to click), and a Bootstrap modal under <body> is inert
+    // while a modal <dialog> is open, so it could not be reached at all. v3
+    // makes the warning its own <dialog>: nested modals stack in the top
+    // layer. If either regresses, this click hangs and the test times out.
     const creditLink = page.locator(".image-gallery-lightbox__caption a")
     await expect(creditLink).toHaveAccessibleName("Google (opens in a new tab)")
     await creditLink.click()
@@ -241,16 +508,95 @@ test.describe("v3 image gallery", () => {
     )
   })
 
+  test("the warning makes the gallery behind it inert", async ({ page }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await page.getByRole("link", { name: "A pretty dog" }).click()
+
+    const counter = page.locator(".image-gallery-lightbox__counter")
+    await expect(counter).toHaveText("1 / 3")
+    await page.locator(".image-gallery-lightbox__caption a").click()
+    await expect(
+      page.getByRole("dialog", { name: "You are leaving MIT OpenCourseWare" })
+    ).toBeVisible()
+
+    // The warning is a modal <dialog> of its own, so the browser makes
+    // everything below it — the lightbox included — inert. Previously the
+    // warning was re-parented *into* the lightbox, which put it inside the
+    // lightbox's DOM subtree, and arrow keys typed at the warning bubbled
+    // into the gallery's own handler and changed slide behind it.
+    await page.keyboard.press("ArrowRight")
+    await expect(counter).toHaveText("1 / 3")
+    expect(
+      await page.evaluate(() => {
+        const next = document.querySelector<HTMLButtonElement>(
+          ".image-gallery-lightbox__next"
+        )!
+        next.focus()
+        return document.activeElement === next
+      })
+    ).toBe(false)
+  })
+
+  test("dismissing the warning returns focus and revives the arrows", async ({
+    page
+  }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await page.getByRole("link", { name: "A pretty dog" }).click()
+
+    const creditLink = page.locator(".image-gallery-lightbox__caption a")
+    await creditLink.click()
+    await page.keyboard.press("Escape")
+
+    // close() on a <dialog> restores focus to whatever was focused when it
+    // opened. Bootstrap 4 only does that for [data-toggle="modal"] triggers,
+    // which this never was — so focus used to land on <body>, outside the
+    // lightbox, and its arrow handler stopped seeing key events entirely.
+    await expect(creditLink).toBeFocused()
+    await expect(
+      page.getByRole("dialog", { name: "You are leaving MIT OpenCourseWare" })
+    ).toBeHidden()
+
+    await page.keyboard.press("ArrowRight")
+    await expect(page.locator(".image-gallery-lightbox__counter")).toHaveText(
+      "2 / 3"
+    )
+  })
+
+  test("the warning reads at the page's own text colour", async ({ page }) => {
+    const course = new CoursePage(page, "course-v3")
+    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await page.getByRole("link", { name: "A pretty dog" }).click()
+    await page.locator(".image-gallery-lightbox__caption a").click()
+
+    // Bootstrap sets no colour on .modal-content, so the old re-parented modal
+    // inherited the lightbox's near-white #f7f9fb and rendered white on white
+    // — about 1.05:1. As its own dialog it is no longer a child of the
+    // lightbox, and the colour is set explicitly rather than inherited.
+    const bodyColor = await page.evaluate(
+      () => getComputedStyle(document.body).color
+    )
+    for (const sel of [".modal-body", ".btn-outline-primary"]) {
+      await expect(page.locator(`#external-link-modal ${sel}`)).toHaveCSS(
+        "color",
+        bodyColor
+      )
+    }
+  })
+
   test("works with JavaScript disabled", async ({ browser }) => {
     const context = await browser.newContext({ javaScriptEnabled: false })
     const page = await context.newPage()
     const course = new CoursePage(page, "course-v3")
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
-    // No lightbox, but the figure is still rendered and the link still points at
-    // the full image — progressive enhancement rather than a hard dependency.
+    // No lightbox, but the thumbnails are still rendered and each link still
+    // points at the full image — progressive enhancement rather than a hard
+    // dependency. (Caption and credit are unreachable without JS, since they
+    // live in a template the lightbox reads.)
     await expect(
-      page.locator(".image-gallery .image-gallery__figure")
+      page.locator(".image-gallery a.image-gallery__link")
     ).toHaveCount(3)
     await expect(page.locator("a.image-gallery__link").first()).toHaveAttribute(
       "href",
