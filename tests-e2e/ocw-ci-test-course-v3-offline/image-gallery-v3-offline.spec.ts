@@ -1,23 +1,23 @@
 import { test, expect } from "@playwright/test"
-import { offlineFileUrl, expectLocalPackageHref } from "../util"
+import { offlineV3FileUrl, expectLocalPackageHref } from "../util"
 
 test.describe("offline-v3 image gallery page", () => {
   test("image gallery page loads", async ({ page }) => {
-    await page.goto(offlineFileUrl("/pages/image-gallery"))
+    await page.goto(offlineV3FileUrl("/pages/image-gallery"))
 
     expect(page.url()).toContain("pages/image-gallery/index.html")
     await expect(page.locator("body")).toContainText("Image Gallery")
   })
 
   test("image gallery container is present", async ({ page }) => {
-    await page.goto(offlineFileUrl("/pages/image-gallery"))
+    await page.goto(offlineV3FileUrl("/pages/image-gallery"))
 
     const gallery = page.locator(".image-gallery")
     await expect(gallery).toBeVisible()
   })
 
   test("gallery data-base-url is a local relative path", async ({ page }) => {
-    await page.goto(offlineFileUrl("/pages/image-gallery"))
+    await page.goto(offlineV3FileUrl("/pages/image-gallery"))
 
     const gallery = page.locator(".image-gallery")
     const baseUrl = await gallery.getAttribute("data-base-url")
@@ -28,7 +28,7 @@ test.describe("offline-v3 image gallery page", () => {
   })
 
   test("gallery items are server-rendered thumbnails", async ({ page }) => {
-    await page.goto(offlineFileUrl("/pages/image-gallery"))
+    await page.goto(offlineV3FileUrl("/pages/image-gallery"))
 
     // The markup no longer depends on JS to exist, which matters offline: the
     // package is opened over file:// where bundle URLs may not resolve.
@@ -37,7 +37,7 @@ test.describe("offline-v3 image gallery page", () => {
   })
 
   test("gallery images and links are package-local", async ({ page }) => {
-    await page.goto(offlineFileUrl("/pages/image-gallery"))
+    await page.goto(offlineV3FileUrl("/pages/image-gallery"))
 
     const link = page.locator("a.image-gallery__link").first()
     const href = await expectLocalPackageHref(link)
@@ -61,7 +61,7 @@ test.describe("offline-v3 image gallery page", () => {
   })
 
   test("gallery links carry an accessible name", async ({ page }) => {
-    await page.goto(offlineFileUrl("/pages/image-gallery"))
+    await page.goto(offlineV3FileUrl("/pages/image-gallery"))
 
     // Asserted as attached rather than visible: these pages are opened over
     // file:// with no stylesheet loaded (the bundle path resolves above the test
@@ -80,7 +80,7 @@ test.describe("offline-v3 image gallery page", () => {
   })
 
   test("gallery uses v3 offline bundle", async ({ page }) => {
-    await page.goto(offlineFileUrl("/pages/image-gallery"))
+    await page.goto(offlineV3FileUrl("/pages/image-gallery"))
 
     await expect(page.locator('script[src*="course_offline_v3"]')).toHaveCount(
       1
@@ -90,7 +90,7 @@ test.describe("offline-v3 image gallery page", () => {
   test("shortcode resource links on shortcode-demos are package-local", async ({
     page
   }) => {
-    await page.goto(offlineFileUrl("/pages/shortcode-demos"))
+    await page.goto(offlineV3FileUrl("/pages/shortcode-demos"))
 
     const resourceLink = page.getByRole("link", {
       name: "Resource link to First Test Page"
