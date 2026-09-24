@@ -29,8 +29,8 @@ $course-aside-width-wide: 19rem;
 @import "course-banner";
 @import "video-gallery";
 @import "video-view";
-@import "image-gallery";
-@import "external-link-dialog";
+@import "../../../base-theme/assets/css/image-gallery";
+@import "../../../base-theme/assets/css/external-link-dialog";
 
 html,
 body {

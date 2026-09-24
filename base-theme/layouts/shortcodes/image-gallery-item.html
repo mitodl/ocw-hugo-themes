@@ -1,8 +1,188 @@
-{{ $href := .Get "href" }}
-{{ $credit := "" }}
+{{/*
+  A single image-gallery item, rendered as semantic HTML.
 
-{{- range where $.Site.Pages "Params.file" "like" (printf "%s$" $href) -}}
-  {{ $credit = .Params.image_metadata.credit | .RenderString | safeHTMLAttr }}
+  Shared by every course build — course-v2, course-v3 and both offline
+  packages. None of course-v2, course-v3, course-offline, course-offline-v3 or
+  base-offline defines this shortcode, so this copy wins in all four chains.
+
+  Renders the real <img> server-side, so the gallery works with JavaScript
+  disabled and gets Fastly srcsets from picture_element.html for free. The
+  lightbox in base-theme/assets/js/image_gallery_lightbox.ts enhances it.
+
+  Accepts the params ocw-studio authors, none of them required:
+    href         — the image's filename, joined onto the wrapper's baseUrl
+    text         — the caption, as markdown
+    uuid         — the image resource's uid, used to locate the resource
+    data-ngdesc  — description; the link's accessible name when the resource
+                   has no image-alt
+  and reads `baseUrl` off the parent image-gallery shortcode.
+
+  What the item authors wins; the image resource fills in only what the item
+  leaves out. Every existing gallery therefore shows the data it always has,
+  while an item authored without an href or a caption still gets one:
+
+    image URL  baseUrl + href; the resource's `file` only when href is empty
+    caption    text; the resource's image_metadata.caption only when text is empty
+    credit     the resource's image_metadata.credit (the item has no such param)
+    alt        the resource's image_metadata.image-alt (the item has no such param)
+
+  Caption and credit are NOT rendered into the grid — they go into an inert
+  <template> that the lightbox reads on open. See the markup at the bottom.
+*/}}
+
+{{- $href := .Get "href" | default "" -}}
+{{- $uuid := .Get "uuid" | default "" -}}
+{{- $textParam := .Get "text" | default "" -}}
+{{- $desc := .Get "data-ngdesc" | default "" -}}
+{{- $baseUrl := "" -}}
+{{- with .Parent -}}{{- $baseUrl = .Get "baseUrl" | default "" -}}{{- end -}}
+
+{{/* Resolve the image resource: it supplies the credit and alt, the caption
+     when the item has no text, and the URL when the item has no href.
+
+     uuid first — ocw-studio writes it on every item, and it survives a file
+     being renamed or re-uploaded. Then the href's bare filename, which matches
+     the resource's own `file` for ocw-studio content, where both carry the same
+     "<uid-without-dashes>_" prefix. Last, the href's leading 32 hex characters,
+     for a hand-authored item whose href keeps that prefix while the resource's
+     `file` does not. */}}
+{{- $index := partialCached "image_resource_index.html" . "image-resource-index" -}}
+{{- $resource := "" -}}
+{{- with $uuid -}}
+  {{- $resource = index $index (printf "uid:%s" (lower (replace . "-" ""))) -}}
+{{- end -}}
+{{- if and (not $resource) $href -}}
+  {{- $resource = index $index (path.Base $href) -}}
+{{- end -}}
+{{- if and (not $resource) $href -}}
+  {{- $uidMatches := findRE "^[0-9a-fA-F]{32}" (path.Base $href) 1 -}}
+  {{- if $uidMatches -}}
+    {{- $resource = index $index (printf "uid:%s" (lower (index $uidMatches 0))) -}}
+  {{- end -}}
+{{- end -}}
+{{- if and $uuid (not $resource) -}}
+  {{- warnf "image-gallery-item: uuid %q on %s matches no image resource" $uuid .Page.RelPermalink -}}
 {{- end -}}
 
-<a href="{{ $href }}" data-credit="{{ $credit }}" data-ngdsc="{{ .Get "data-ngdesc" }}">{{ .Get "text" | .Page.RenderString }}</a>
+{{- $alt := "" -}}
+{{- $caption := "" -}}
+{{- $credit := "" -}}
+{{- with $resource -}}
+  {{- $metadata := .Params.image_metadata | default dict -}}
+  {{- $alt = index $metadata "image-alt" | default "" -}}
+  {{- $caption = index $metadata "caption" | default "" -}}
+  {{- $credit = index $metadata "credit" | default "" -}}
+{{- end -}}
+
+{{/*
+  Image URL: baseUrl + href, the way course-v2 has always built it. A non-empty
+  href is used even if it no longer matches a resource, so what an item authors
+  is what it shows. Only an item with no href at all takes the resource's `file`.
+
+  The join matters because base-theme's resource_url.html prefixes
+  RESOURCE_BASE_URL onto the path as-is, without adding a course segment or a
+  separating slash — hence the leading "/" below for a gallery with no baseUrl.
+  course-v3's and base-offline's resource_url.html normalise the path
+  themselves, so the joined and bare forms resolve identically there.
+*/}}
+{{- $file := "" -}}
+{{- if $href -}}
+  {{- $file = $href -}}
+  {{- with $baseUrl -}}
+    {{- $file = printf "%s/%s" (strings.TrimSuffix "/" .) (strings.TrimPrefix "/" $href) -}}
+  {{- end -}}
+  {{- if not (or (hasPrefix $file "/") (strings.Contains $file "://")) -}}
+    {{- $file = printf "/%s" $file -}}
+  {{- end -}}
+{{- else -}}
+  {{- with $resource -}}{{- $file = .Params.file | default "" -}}{{- end -}}
+{{- end -}}
+
+{{/* Theme precedence picks the right resource_url.html: base-theme's for
+     course-v2, course-v3's online, base-offline's in both offline builds.
+     base-offline's needs .context. */}}
+{{- $src := partial "resource_url.html" (dict "context" .Page "url" $file) -}}
+{{- if not $src -}}
+  {{- warnf "image-gallery-item on %s has no href and no image resource to take a file from; rendering nothing" .Page.RelPermalink -}}
+{{- end -}}
+
+{{/*
+  The link wraps only the image, so with an empty alt it would have no accessible
+  name at all. The caption cannot go inside the anchor because `text` renders as
+  markdown and may itself contain a link. So label the anchor instead, and only
+  when alt is empty — otherwise the alt already names it and aria-label would
+  override the better text.
+*/}}
+{{- $linkName := "" -}}
+{{- if and $src (not $alt) -}}
+  {{- $linkName = $desc -}}
+  {{- if not $linkName -}}
+    {{- $linkName = $textParam | markdownify | plainify | chomp -}}
+  {{- end -}}
+  {{- if not $linkName -}}
+    {{- with $resource -}}{{- $linkName = .Title -}}{{- end -}}
+  {{- end -}}
+  {{- if not $linkName -}}
+    {{/*
+      Last resort, when the resource has no alt, caption, title, and the item has
+      no description. .Ordinal is scoped per parent shortcode, so numbering alone
+      would give two galleries on one page identically named links; the filename
+      is the only distinguishing information available. Taken from the resolved
+      file rather than href, which may be empty.
+    */}}
+    {{- $linkName = printf "Gallery image (%s)" (path.Base $file) -}}
+  {{- end -}}
+  {{- warnf "image-gallery-item: no image-alt for %q on %s — falling back to %q" (path.Base $file) .Page.RelPermalink $linkName -}}
+{{- end -}}
+
+{{/* Caption: the item's own text param, rendered against this page as course-v2
+     always has. Only when it is empty, the resource's image_metadata.caption,
+     rendered against the resource page — the same way the credit below is, and
+     the way course-v2 has always rendered credit. */}}
+{{- $captionHtml := "" -}}
+{{- with $textParam -}}
+  {{- $captionHtml = . | $.Page.RenderString -}}
+{{- else -}}
+  {{- with $caption -}}
+    {{- $captionHtml = . | $resource.RenderString -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* Credit is real HTML rather than text escaped into an attribute, so a nested
+     resource_link stays a focusable link once the lightbox adopts it. */}}
+{{- $creditHtml := "" -}}
+{{- with $credit -}}
+  {{- $creditHtml = . | $resource.RenderString -}}
+{{- end -}}
+
+{{/*
+  Caption and credit live in a <template>, not a <figcaption>: the grid is a
+  plain thumbnail rail and shows neither; they appear only in the lightbox.
+
+  <template> rather than a visually-hidden figcaption because its content is
+  parsed into an inert fragment — not rendered, not in the accessibility tree,
+  not focusable, not findable. So the grid reads identically to a sighted user
+  and to a screen reader, which is the point: hiding text visually while still
+  exposing it to assistive tech would make the two experiences disagree. The
+  link keeps its own accessible name (alt, else $linkName above), so nothing
+  is left unnamed.
+
+  <template> rather than a data-* attribute because markup survives: escaping
+  the credit into an attribute is what used to turn its resource_link into
+  dead text.
+
+  Every item is the same shape — a bare anchor — so a caption-less item does
+  not stretch to the height of a captioned neighbour in the grid. An item with
+  no URL renders nothing, rather than an empty link that would still take focus.
+*/}}
+{{- with $src -}}
+<a class="image-gallery__link" href="{{ . }}"{{ with $linkName }} aria-label="{{ . }}"{{ end }}>
+  {{ partial "picture_element.html" (dict "src" . "alt" $alt "class" "image-gallery__thumb" "sizes" "(min-width: 992px) 22vw, 45vw") }}
+  {{- if or $captionHtml $creditHtml -}}
+  <template class="image-gallery__caption-data">
+    {{- with $captionHtml }}<span class="image-gallery__caption-text">{{ . }}</span>{{ end -}}
+    {{- with $creditHtml }}<span class="image-gallery__credit">{{ . }}</span>{{ end -}}
+  </template>
+  {{- end -}}
+</a>
+{{- end -}}

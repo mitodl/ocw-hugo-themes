@@ -159,6 +159,6 @@ $course-heading-five-line-height: 2rem; /* 28px */
 $material-icon-font-normal: 1.5rem; /* Preferred icon size = 24px */
 $material-icon-font-lg: 1.75rem; /* 28px */
 
-// z-index values to ensure external links modal is on top of nanogallery
-$z-index-nanogallery: 1000;
-$z-index-external-links-modal: $z-index-nanogallery + 100;
+// Keeps base-theme's Bootstrap external-link modal, which www uses, above
+// Bootstrap's own modal and backdrop layers (1050 and 1040).
+$z-index-external-links-modal: 1100;

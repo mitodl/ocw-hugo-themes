@@ -16,7 +16,8 @@
 @import "topic";
 @import "learning-resource-types";
 @import "course-image-section";
-@import "nanogallery2-viewer";
+@import "../../../base-theme/assets/css/image-gallery";
+@import "../../../base-theme/assets/css/external-link-dialog";
 
 html {
   font-size: $course-font-root !important;

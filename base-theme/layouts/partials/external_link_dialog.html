@@ -1,11 +1,12 @@
 {{/*
-  The leaving-OCW confirmation, as a native <dialog>. Overrides base-theme's
-  Bootstrap-modal version for v3 only.
+  The leaving-OCW confirmation, as a native <dialog>, for the course themes.
 
-  Theme precedence puts course-v3 ahead of base-theme in ["course-v3",
-  "base-theme"], and neither base-offline nor course-offline-v3 defines this
-  partial, so this copy serves both v3 chains. course-v2 and www never include
-  course-v3, so they keep base-theme's Bootstrap markup untouched.
+  It has its own name rather than overriding external_link_modal.html, because
+  that partial is base-theme's Bootstrap-modal version and www still uses it.
+  course-v2's and course-v3's home.html and baseof.html include this one
+  instead; nothing in either offline chain includes the modal itself, so their
+  baseof templates reach this through course-v2 and course-v3. www's baseof
+  includes external_link_modal and is unaffected.
 
   Why native: showModal() promotes the element into the top layer, which paints
   above everything in the normal document and makes the rest of the page inert.
