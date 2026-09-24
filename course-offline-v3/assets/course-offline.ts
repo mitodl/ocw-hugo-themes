@@ -29,6 +29,12 @@ export interface OCWWindow extends Window {
 
 declare let window: OCWWindow
 
+// Not in the ready callback below: the lightbox only registers a delegated
+// listener on document, so it can attach as soon as this deferred bundle runs.
+// Waiting for DOMContentLoaded left a window in which a thumbnail click fell
+// through to the image URL instead of opening the lightbox.
+initImageGalleryLightbox()
+
 $(function() {
   initMITLearnHeader()
   initDrawerMutualExclusion()
@@ -40,6 +46,5 @@ $(function() {
   showSolution()
   initMobileCourseMenuV3()
   initTableRowspanBorders()
-  initImageGalleryLightbox()
   window.videojs = videojs
 })
