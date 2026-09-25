@@ -1,12 +1,36 @@
-{{ $baseUrl := .Get "baseUrl" }}
-<div id="{{ .Get "id" }}" class="image-gallery" data-base-url='{{ partial "resource_url.html" (dict "context" .Page "url" $baseUrl) }}'>
-  {{ .Inner }}
-</div>
+{{/*
+  The gallery wrapper, shared by every course build — course-v2, course-v3 and
+  both offline packages. No other theme in any course chain defines it.
 
-<script>
-  window.addEventListener('load', function() {
-    if (window.initNanogallery2) {
-      window.initNanogallery2()
-    }
-  })
-</script>
+  Before this implementation it existed to bootstrap nanogallery2: it emitted a
+  data-base-url for the JS to build image URLs from, and an inline script that
+  called window.initNanogallery2 on load. Neither is needed now —
+  image-gallery-item.html renders the <img> server-side with a fully resolved
+  URL, and image_gallery_lightbox.ts is a delegated listener that needs no init
+  pass — so both are gone, along with the inline script a CSP would otherwise
+  have to allow.
+
+  The wrapper still accepts `baseUrl`, but only for image-gallery-item.html to
+  read off .Parent when joining it onto an item's href.
+*/}}
+{{/*
+  The container is a CSS grid, and the grid spec wraps each contiguous run of
+  child text in an anonymous grid item — skipped only if the run is entirely
+  white space. U+00A0 is not white space for that rule, so a stray
+  non-breaking space between two items becomes a real, empty cell. ocw-studio
+  authoring leaves them behind routinely (a line of nothing but NBSP where a
+  blank line was meant), so the fix belongs here rather than in any one course.
+
+  Only a gap that contains at least one NBSP is collapsed: ordinary
+  whitespace-only gaps are already ignored by the grid and are left exactly as
+  authored, and text like "Fig.<NBSP>1" inside a caption is untouched because
+  it is not framed by > and <.
+
+  safeHTML is load-bearing. .Inner arrives as template.HTML; piping it through
+  a string filter degrades it to a plain string, which would then be escaped
+  and the whole gallery would render as visible markup. Same idiom as
+  course-v3/layouts/pages/section.html and partials/icon.html.
+*/}}
+<div id="{{ .Get "id" }}" class="image-gallery">
+  {{- .Inner | replaceRE "(?s)>[\\s\\x{00A0}]*\\x{00A0}[\\s\\x{00A0}]*<" "><" | safeHTML -}}
+</div>
