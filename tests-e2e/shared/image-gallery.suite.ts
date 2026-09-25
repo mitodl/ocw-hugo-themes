@@ -566,8 +566,14 @@ export function imageGallerySuite(): void {
         })
       }
 
-      const right = stage!.x + stage!.width - 40
-      const left = stage!.x + 40
+      // Across the middle of the stage, well clear of the Previous and Next
+      // buttons fixed at its edges. A drag that starts close to one of them
+      // does not register as a swipe even when its start point is over the
+      // stage, and how close the stage's vertical centre sits to them depends
+      // on the caption bar's height, so on font metrics. Anchored 40px from
+      // the edges, CI's fonts put course-v2's drag within that range.
+      const right = stage!.x + stage!.width * 0.75
+      const left = stage!.x + stage!.width * 0.25
 
       await drag(right, left)
       await expect(image).toHaveAttribute("src", /image1\.png$/)
