@@ -238,6 +238,11 @@ html:has(dialog.image-gallery-lightbox[open]) {
   // warning modal stays visible above this dialog). Underlined rather than
   // solely recolored: color alone isn't a sufficient cue (1.4.1).
   a {
+    // !important because main.scss's global link rule recolours :visited and
+    // :hover links black at this rule's own 0-1-1 specificity, and it ships in
+    // common.css, which loads after the course stylesheet and so wins the tie.
+    // Without it a visited or hovered link would vanish into this bar.
+    color: $white !important; // 19.2:1
     text-decoration: underline;
 
     &:hover {
