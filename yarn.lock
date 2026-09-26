@@ -4177,7 +4177,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.2.14":
+"@types/react-dom@npm:18.3.7":
   version: 18.3.7
   resolution: "@types/react-dom@npm:18.3.7"
   peerDependencies:
@@ -4213,7 +4213,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.2.14":
+"@types/react@npm:18.3.28":
   version: 18.3.28
   resolution: "@types/react@npm:18.3.28"
   dependencies:
@@ -13683,8 +13683,8 @@ __metadata:
     "@types/lodash.uppercase": "npm:^4.3.6"
     "@types/promise-polyfill": "npm:^6.0.4"
     "@types/ramda": "npm:^0.27.62"
-    "@types/react": "npm:^18.2.14"
-    "@types/react-dom": "npm:^18.2.14"
+    "@types/react": "npm:18.3.28"
+    "@types/react-dom": "npm:18.3.7"
     "@types/react-infinite-scroller": "npm:^1.2.5"
     "@types/serve-handler": "npm:^6.1.1"
     "@types/sinon": "npm:^22.0.0"
