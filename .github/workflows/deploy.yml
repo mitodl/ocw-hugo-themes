@@ -136,7 +136,7 @@ jobs:
           alias: ocw-hugo-themes-course-v2-pr-${{ github.event.number }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_SITE_ID: invalid
 
       - name: Deploy v3 Course Preview to Netlify
         id: deploy-course-v3
