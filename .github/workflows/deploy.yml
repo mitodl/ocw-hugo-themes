@@ -13,6 +13,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      previews-deployed: ${{ steps.deploy-www.outcome == 'success' && steps.deploy-course-v2.outcome == 'success' && steps.deploy-course-v3.outcome == 'success' }}
     permissions:
       contents: read
       pull-requests: write
@@ -99,9 +101,13 @@ jobs:
           STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL_V3 }}
 
+      # Netlify previews are best-effort, so a Netlify outage cannot block merging
       - name: Deploy www Preview to Netlify
+        id: deploy-www
         uses: nwtgck/actions-netlify@d22a32a27c918fe470bbc562e984f80ec48c2668 # v4.0
         if: ${{ github.event_name == 'pull_request' }}
+        continue-on-error: true
+        timeout-minutes: 5
         with:
           publish-dir: "../ocw-www/public"
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -115,8 +121,11 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
       - name: Deploy v2 Course Preview to Netlify
+        id: deploy-course-v2
         uses: nwtgck/actions-netlify@d22a32a27c918fe470bbc562e984f80ec48c2668 # v4.0
         if: ${{ github.event_name == 'pull_request' }}
+        continue-on-error: true
+        timeout-minutes: 5
         with:
           publish-dir: "../ocw-course/public-v2"
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -130,8 +139,11 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
       - name: Deploy v3 Course Preview to Netlify
+        id: deploy-course-v3
         uses: nwtgck/actions-netlify@d22a32a27c918fe470bbc562e984f80ec48c2668 # v4.0
         if: ${{ github.event_name == 'pull_request' }}
+        continue-on-error: true
+        timeout-minutes: 5
         with:
           publish-dir: "../ocw-course/public-v3"
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -192,7 +204,7 @@ jobs:
   lighthouse:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' }}
+    if: ${{ github.event_name == 'pull_request' && needs.build.outputs.previews-deployed == 'true' }}
     permissions:
       contents: read
       pull-requests: write
