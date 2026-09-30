@@ -219,6 +219,7 @@ test.describe("Course v3 video tab language selector", () => {
 
 const NO_DOWNLOADS_PAGE = "/pages/video-without-downloads"
 const NO_DOWNLOADS_RESOURCE = "/resources/video-no-downloads"
+const ARCHIVE_ONLY_RESOURCE = "/resources/video-archive-url-only"
 const CAPTIONS_ONLY_RESOURCE = "/resources/video-captions-only"
 const DOWNLOADABLE_RESOURCE =
   "/resources/ocw_test_course_mit8_01f16_l01v01_360p"
@@ -263,6 +264,35 @@ test.describe("Course v3 video download button visibility", () => {
     // Empty `file`, valid archive_url.
     await expect(video.downloadButton()).toHaveCount(1)
     await expect(video.downloadVideoLink()).toHaveAttribute("href", ARCHIVE_URL)
+  })
+
+  test("resource page without transcripts or captions still offers a download", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
+    await course.goto(ARCHIVE_ONLY_RESOURCE, { waitUntil: "domcontentloaded" })
+    const video = new VideoElement(page)
+
+    await expect(video.downloadButton()).toHaveCount(1)
+    await expect(video.downloadVideoLink()).toHaveAttribute("href", ARCHIVE_URL)
+    await expect(video.tab({ name: /Transcript/i, exact: false })).toHaveCount(
+      0
+    )
+    await expect(video.container.locator(".download-menu-submenu")).toHaveCount(
+      0
+    )
+
+    if (siteAlias === "course-v3") {
+      // Wait for jQuery ready handlers to attach the popup listener
+      await page.evaluate(
+        () => new Promise<void>(resolve => {
+          $(() => resolve())
+        })
+      )
+      await video.downloadButton().click()
+      await expect(video.downloadVideo()).toBeVisible()
+    }
   })
 
   test("resource page for a video with nothing to download has no Transcript tab or download button", async ({

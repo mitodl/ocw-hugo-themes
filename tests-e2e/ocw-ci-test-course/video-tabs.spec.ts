@@ -492,6 +492,36 @@ test("that an embedded video with only an archive_url still offers a download", 
   )
 })
 
+test("that a video resource page without transcripts or captions still offers a download", async ({
+  page,
+  siteAlias
+}) => {
+  const coursePage = new CoursePage(page, siteAlias)
+  await coursePage.goto("resources/video-archive-url-only/", {
+    waitUntil: "domcontentloaded"
+  })
+  const video = new VideoElement(page)
+
+  await expect(video.downloadButton()).toHaveCount(1)
+  await expect(video.downloadVideoLink()).toHaveAttribute(
+    "href",
+    "http://www.archive.org/download/MIT18.06S05_MP4/01.mp4"
+  )
+  await expect(video.tab({ name: /Transcript/i, exact: false })).toHaveCount(0)
+  await expect(video.container.locator(".download-menu-submenu")).toHaveCount(0)
+
+  if (siteAlias !== "course-offline") {
+    // Wait for jQuery ready handlers to attach the popup listener
+    await page.evaluate(
+      () => new Promise<void>(resolve => {
+        $(() => resolve())
+      })
+    )
+    await video.downloadButton().click()
+    await expect(video.downloadVideo()).toBeVisible()
+  }
+})
+
 test("that a video resource page with nothing to download has no download button", async ({
   page,
   siteAlias
