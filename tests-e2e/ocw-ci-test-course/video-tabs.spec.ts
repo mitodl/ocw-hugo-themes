@@ -513,9 +513,10 @@ test("that a video resource page without transcripts or captions still offers a 
   if (siteAlias !== "course-offline") {
     // Wait for jQuery ready handlers to attach the popup listener
     await page.evaluate(
-      () => new Promise<void>(resolve => {
-        $(() => resolve())
-      })
+      () =>
+        new Promise<void>(resolve => {
+          $(() => resolve())
+        })
     )
     await video.downloadButton().click()
     await expect(video.downloadVideo()).toBeVisible()

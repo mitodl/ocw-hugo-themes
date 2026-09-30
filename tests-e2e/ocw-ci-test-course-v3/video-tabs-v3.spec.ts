@@ -286,9 +286,10 @@ test.describe("Course v3 video download button visibility", () => {
     if (siteAlias === "course-v3") {
       // Wait for jQuery ready handlers to attach the popup listener
       await page.evaluate(
-        () => new Promise<void>(resolve => {
-          $(() => resolve())
-        })
+        () =>
+          new Promise<void>(resolve => {
+            $(() => resolve())
+          })
       )
       await video.downloadButton().click()
       await expect(video.downloadVideo()).toBeVisible()
