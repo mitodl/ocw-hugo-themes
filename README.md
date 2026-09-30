@@ -107,6 +107,19 @@ You will also need git access to clone repos from
 https://github.mit.edu/ocw-content-rc, so make sure your command line `git`
 interface is configured to do so.
 
+### Code checks
+
+[prek](https://prek.j178.dev/) runs the hooks in `.pre-commit-config.yaml`.
+After `yarn install`, install the git hook and run the checks locally:
+
+```bash
+npx prek install -f      # replaces an existing pre-commit git hook
+npx prek run --all-files
+```
+
+The `prek` check runs the same hooks on pull requests and pushes to `main`.
+[autofix.ci](https://autofix.ci/) commits fixable changes on pull requests.
+
 ### Running Sites (courses and ocw-www)
 
 After installing dependences and ensuring git access to content repositories, you need only run `yarn start www` or `yarn start course`. The site should then be available at https://localhost:3000.
