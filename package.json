@@ -85,6 +85,7 @@
     "yup": "^1.6.1"
   },
   "devDependencies": {
+    "@j178/prek": "0.5.3",
     "@mitodl/ocw-to-hugo": "1.36.0",
     "@playwright/test": "^1.56.0",
     "@rrweb/types": "2.0.0-alpha.17",
