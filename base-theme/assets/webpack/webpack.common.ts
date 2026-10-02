@@ -72,16 +72,6 @@ const config: webpack.Configuration = {
   module: {
     rules: [
       {
-        test: /nanogallery2(?!.*\.(woff|woff2)$)/,
-        use:  {
-          loader:  "imports-loader",
-          options: {
-            additionalCode:
-              "var module = (module || {}); module.exports = undefined; var exports = undefined;"
-          }
-        }
-      },
-      {
         test:      /\.(?:jpg|png|svg|gif)$/,
         type:      "asset/resource",
         generator: {
@@ -89,23 +79,11 @@ const config: webpack.Configuration = {
         }
       },
       {
-        test:  /\.(woff|ttf|woff2|eot)$/,
-        oneOf: [
-          {
-            test:      /nanogallery2/,
-            type:      "asset/resource",
-            generator: {
-              filename:   "fonts/[contenthash][ext]",
-              outputPath: "css"
-            }
-          },
-          {
-            type:      "asset/resource",
-            generator: {
-              filename: "fonts/[contenthash][ext]"
-            }
-          }
-        ]
+        test:      /\.(woff|ttf|woff2|eot)$/,
+        type:      "asset/resource",
+        generator: {
+          filename: "fonts/[contenthash][ext]"
+        }
       },
       {
         test:    /\.(t|j)sx?$/,

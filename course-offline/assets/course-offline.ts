@@ -14,9 +14,7 @@ import {
   checkAnswer,
   showSolution
 } from "../../course-v2/assets/js/quiz_multiple_choice"
-import { initImageGalleriesFromMarkup } from "../../course-v2/assets/js/init_image_galleries_from_markup"
-import "nanogallery2/src/jquery.nanogallery2.core.js"
-import "nanogallery2/src/css/nanogallery2.css"
+import { initImageGalleryLightbox } from "../../base-theme/assets/js/image_gallery_lightbox"
 import "videojs-youtube"
 import videojs from "video.js"
 
@@ -24,10 +22,15 @@ export interface OCWWindow extends Window {
   $: JQueryStatic
   jQuery: JQueryStatic
   videojs: typeof videojs
-  initNanogallery2: () => void
 }
 
 declare let window: OCWWindow
+
+// Not in the ready callback below: the lightbox only registers a delegated
+// listener on document, so it can attach as soon as this deferred bundle runs.
+// Waiting for DOMContentLoaded left a window in which a thumbnail click fell
+// through to the image URL instead of opening the lightbox.
+initImageGalleryLightbox()
 
 $(function() {
   initCourseDescriptionExpander(document)
@@ -39,11 +42,3 @@ $(function() {
   initCourseDrawersClosingViaSwiping()
   window.videojs = videojs
 })
-
-let nanogallery2Loaded = false
-
-window.initNanogallery2 = () => {
-  if (nanogallery2Loaded) return
-  initImageGalleriesFromMarkup()
-  nanogallery2Loaded = true
-}

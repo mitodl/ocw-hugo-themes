@@ -1,0 +1,403 @@
+// Image galleries and the lightbox that opens them.
+//
+// The thumbnail rail is a CSS grid rather than a JS-measured layout, which is why
+// no resize hook is needed when the Course Info drawer changes the content
+// column's width — auto-fill/minmax reflows natively.
+//
+// Colour pairs in the lightbox were measured with a WCAG contrast calculator, not
+// eyeballed; ratios are recorded inline so a later edit can tell what it breaks.
+//
+// The lightbox is a flex column — counter, stage, caption bar — rather than a
+// caption absolutely positioned over a full-bleed stage. The old arrangement
+// meant the stage had to reserve a fixed padding-bottom for a bar whose height
+// is content-dependent, and any number picked there is a guess: a caption that
+// wrapped to three lines grew past the reservation and painted over the image.
+// As flex items the bar takes exactly the height it needs and the stage takes
+// what is left, so there is nothing to keep in sync.
+//
+// The dialog itself scrolls as a last resort. At 400% zoom (a 320x256 viewport,
+// WCAG 1.4.10) a long caption genuinely cannot share the screen with a usable
+// image, and vertical scrolling is what 1.4.10 asks for in that case — what it
+// forbids is content cut off with no way to reach it.
+
+.image-gallery {
+  display: grid;
+  // The min() is what keeps a phone at two columns. auto-fill steps in whole
+  // columns, so a flat minmax(210px, 1fr) would also drop a ~360px column
+  // from two tiles to one, turning a ten-image gallery into a long scroll
+  // instead of a sheet you can scan. Below about 450px, 47% of the column is
+  // under 210px and becomes the floor, so the two-up survives; on wider
+  // columns the 210px governs and the tiles grow.
+  //
+  // A percentage rather than a media query on purpose: the gallery is sized
+  // by the content column, which the Course Info drawer can change without
+  // the viewport changing at all.
+  grid-template-columns: repeat(auto-fill, minmax(min(210px, 47%), 1fr));
+  // A hairline gutter — the tiles read as one contact sheet rather than as
+  // separate cards. Note this leaves no room outside a tile for a focus ring,
+  // which is why __link draws its ring inward instead; the two are a pair.
+  gap: 0.125rem;
+  // Lets the grid shrink inside the flex content column. Replaces the old
+  // .course-detail:has(.image-gallery) { min-width: 0 } workaround, which existed
+  // because nanogallery2 forced a large min-content width.
+  min-width: 0;
+  margin-bottom: 1.5rem;
+}
+
+.image-gallery__link {
+  display: block;
+  line-height: 0;
+  // A tinted surface rather than white: images are letterboxed into the tile
+  // (see __thumb), and on white the padding read as part of the photo, so a
+  // pale landscape looked like it had been cropped oddly. A faint ground makes
+  // the tile the frame and the image the content.
+  background: #f3f4f6;
+  border: 1px solid $medium-gray;
+  overflow: hidden;
+  // Colour and shadow only — no transform. Scaling a tile would shift its
+  // neighbours' apparent position and nudge the pointer target out from under
+  // the cursor mid-click.
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    border-color: $black;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+  }
+
+  // Drawn inward, not outward. The gutter is 2px, so an outward ring would
+  // spill onto the neighbouring tile — and since that neighbour is a later
+  // sibling it paints over the spill, leaving the indicator visibly chopped.
+  //
+  // Two tones, white then black, so the indicator never depends on the
+  // photograph behind it: the black band's adjacent colour is our own white
+  // band at 21:1, which is what 1.4.11 asks of a focus indicator. A single
+  // black ring inset over a dark photo would have no guaranteed ratio at all.
+  // $link-blue (#32c5ff) is unusable for this — 1.99:1 on white.
+  //
+  // Geometry: white occupies 0–3px in from the tile edge (inset shadow),
+  // black 3–6px (outline at a -3px offset). Contiguous, and nothing escapes
+  // the tile.
+  &:focus-visible {
+    outline: 3px solid $black;
+    outline-offset: -3px;
+    box-shadow: inset 0 0 0 3px $white;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.image-gallery__thumb {
+  width: 100%;
+  // contain, not cover: these are course figures, and cropping one loses content.
+  object-fit: contain;
+  display: block;
+  // A ratio rather than a fixed height, so tiles keep their proportions as the
+  // column count changes instead of growing wider without growing taller. An
+  // explicit height would win over aspect-ratio, so the fallback for targets
+  // without it (UC, Chrome < 88) has to be swapped out rather than layered.
+  height: 150px;
+
+  @supports (aspect-ratio: 4 / 3) {
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+// Stop the page behind scrolling while the lightbox is open. showModal() does not
+// do this on its own, and doing it here avoids touching document styles from JS.
+html:has(dialog.image-gallery-lightbox[open]) {
+  overflow: hidden;
+}
+
+.image-gallery-lightbox {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  max-width: 100vw;
+  // dvh, not vh: on mobile Safari and Chrome, 100vh is the *large* viewport —
+  // the height the page gets once the URL bar has retracted — so a fixed
+  // full-height element runs under the browser chrome while the bar is showing,
+  // taking the caption bar and the bottom-corner arrows off screen with it.
+  // The vh pair stays first as the fallback for browserslist targets without
+  // dvh (Chrome < 108, UC): they drop the declaration they cannot parse.
+  height: 100vh;
+  max-height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
+  background: #0b0f13;
+  color: #f7f9fb; // 17.8:1 on #0b0f13
+  // Engages only when the stage's floor plus the caption exceed the viewport,
+  // which in practice means 400% zoom. overscroll-behavior keeps that scroll
+  // from chaining to the page underneath.
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  // The dialog takes focus programmatically when paint() is about to destroy
+  // whatever held it (see image_gallery_lightbox.ts). :focus-visible is
+  // inherited across a scripted focus move, so arriving from a link the user
+  // had tabbed to painted the UA's ring around the whole 100vw × 100dvh
+  // element — a blue box framing the entire screen.
+  //
+  // Suppressing it is safe here, and only here: this is a container with
+  // tabindex="-1" that is never in the tab order, so no one can navigate to
+  // it and need to be told where they are. The live region announces the
+  // slide instead. Every actual control keeps its 3px ring above.
+  &:focus-visible {
+    outline: none;
+  }
+
+  // Gated on [open], and it has to stay that way. The browser hides a closed
+  // dialog with `dialog:not([open]) { display: none }` in its own stylesheet,
+  // and author declarations beat user-agent ones whatever the specificity —
+  // the cascade compares origin first. An unconditional `display: flex` here
+  // therefore kept the closed dialog rendered: no longer :modal, so it lost
+  // the UA's position: fixed, fell back to absolute, and sat as a
+  // viewport-sized block at the end of <body> (the page grew by its height)
+  // while its position: fixed controls stayed pinned over the page.
+  &[open] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &::backdrop {
+    background: rgba(6, 9, 12, 0.9);
+  }
+}
+
+.image-gallery-lightbox__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // Grows into the space the caption does not use, but never shrinks below the
+  // floor: without it, a caption long enough to fill the viewport would squeeze
+  // the image to nothing rather than push itself below the fold.
+  flex: 1 0 auto;
+  min-height: 35vh;
+  min-height: 35dvh;
+  // Top padding clears the counter and close button, which are fixed.
+  padding: 76px 88px 16px;
+  // Claims the horizontal axis for the swipe handler in
+  // image_gallery_lightbox.ts, so a sideways drag cannot instead trigger the
+  // browser's own overscroll back/forward gesture. pan-y, not none: vertical
+  // panning stays with the browser, which the dialog needs at 400% zoom where
+  // it becomes a scroll container. This is also what lets the swipe listeners
+  // be passive — they never have to call preventDefault.
+  touch-action: pan-y;
+}
+
+.image-gallery-lightbox__image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  // Most OCW originals are well under 1000px and are shown at their true size
+  // (no upscaling — it only blurs them), so on a large screen the image sits in
+  // a lot of empty ground. A hairline edge gives it a boundary so it reads as
+  // deliberately presented rather than adrift. Inset, so it never adds to the
+  // measured box and cannot reintroduce an overlap with the caption bar.
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(247, 249, 251, 0.14);
+
+  // Set by image_gallery_lightbox.ts while the element still holds a previous
+  // slide's bitmap, so an empty stage is shown rather than the wrong picture.
+  // Not visibility/display: either would take the alt text out of the
+  // accessibility tree along with the pixels.
+  &--loading {
+    opacity: 0;
+  }
+}
+
+.image-gallery-lightbox__bar {
+  // Takes its natural height: nothing here is ever clipped or scrolled away.
+  flex: 0 0 auto;
+  padding: 20px 88px 24px;
+  text-align: center;
+  // Solid rather than a gradient fade, so caption contrast never depends on
+  // whichever pixel of the image sits underneath.
+  background: #0b0f13;
+  // A hairline instead of the old 1px #2e3841 rule: with the caption no longer
+  // duplicated under every thumbnail, the bar is the only text on screen and
+  // does not need a hard edge to separate it from the image.
+  border-top: 1px solid rgba(247, 249, 251, 0.1);
+}
+
+.image-gallery-lightbox__caption {
+  // Measure-capped and centred: full-bleed prose across a 1280px viewport is
+  // a ~150-character line, well past comfortable reading, and the caption is
+  // now the only place this text appears.
+  max-width: 68ch;
+  margin: 0 auto;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #f7f9fb; // 17.8:1
+
+  // A credit link keeps its href here (see external_link_modal.ts for how its
+  // warning modal stays visible above this dialog). Underlined rather than
+  // solely recolored: color alone isn't a sufficient cue (1.4.1).
+  a {
+    // !important because main.scss's global link rule recolours :visited and
+    // :hover links black at this rule's own 0-1-1 specificity, and it ships in
+    // common.css, which loads after the course stylesheet and so wins the tie.
+    // Without it a visited or hovered link would vanish into this bar.
+    color: $white !important; // 19.2:1
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    &:focus-visible {
+      outline: 3px solid $white; // 19.2:1, matches the buttons' focus ring
+      outline-offset: 2px;
+    }
+  }
+
+  // The credit renders only here — the grid shows no caption or credit — so
+  // this is the whole of its styling. Block, because the caption is a plain
+  // <p>, not a flex container, and the credit would otherwise run on from the
+  // end of the caption text instead of starting its own line.
+  //
+  // Not $dark-gray (#3d3d3d), which is what this used to inherit from a rule
+  // written for the grid's white background: over #0b0f13 that is 1.77:1, a
+  // 1.4.3 failure on every plain-text credit — which is nearly all of them.
+  .image-gallery__credit {
+    display: block;
+    margin-top: 0.375rem;
+    font-size: 0.8125rem;
+    color: #afbcc7; // 9.9:1 on #0b0f13
+  }
+
+  // Grays a credit's link specifically, so it reads as secondary to the
+  // caption text rather than matching it. Same gray as the counter below,
+  // not $dark-gray (the grid view's credit color): that one is tuned for a
+  // light background and is unreadable here.
+  //
+  // `color: inherit` is not enough: the site-wide `a:visited` rule (~2.4:1 on
+  // this background) ties this selector's specificity and wins by source
+  // order, and the unvisited `a` color fares little better (~3.15:1) — both
+  // fail 4.5:1. :link/:visited adds the specificity to win outright, and an
+  // explicit color (not `inherit`) keeps both states identical rather than
+  // depending on which one happens to cascade.
+  .image-gallery__credit a {
+    &:link,
+    &:visited {
+      color: #afbcc7; // 9.9:1
+    }
+  }
+}
+
+.image-gallery-lightbox__counter {
+  // fixed, not absolute: the dialog is itself a scroll container now, and an
+  // absolutely-positioned child scrolls away with the content. Fixed resolves
+  // against the viewport, which the dialog fills.
+  position: fixed;
+  top: 20px;
+  left: 24px;
+  margin: 0;
+  font-size: 0.8125rem;
+  color: #afbcc7; // 9.9:1
+  font-variant-numeric: tabular-nums;
+}
+
+.image-gallery-lightbox__button {
+  // fixed for the same reason as the counter: the controls stay reachable
+  // while a long caption scrolls past them.
+  position: fixed;
+  display: grid;
+  place-items: center;
+  // 2.5.5 / 2.5.8 target size.
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0;
+  cursor: pointer;
+  color: #f7f9fb;
+  background: #1c242c;
+  // 4.4:1 against the #0b0f13 surround, for 1.4.11 non-text contrast. This border
+  // is what identifies the control, so it carries the ratio rather than the fill.
+  border: 1px solid #6c7a87;
+  border-radius: 4px;
+
+  &:hover {
+    background: #2a343e;
+    border-color: #93a2af;
+  }
+
+  // Scoped to the dialog purely for specificity: base-theme's main.scss has
+  // `button:focus:not(.focus-visible) { outline: revert }` (0,2,1), a Bootstrap 4
+  // workaround keyed to the old focus-visible *class* polyfill, which nothing
+  // adds to these buttons — so :not(.focus-visible) always matches them. A bare
+  // `&:focus-visible` is (0,2,0) and loses, leaving the browser's default 1px
+  // ring (~2.6:1 on this button fill, i.e. failing 1.4.11 — the exact thing the
+  // ratio below is here to guarantee). The extra ancestor makes it (0,3,0).
+  // A tie would not be enough: this file is emitted before main.scss.
+  .image-gallery-lightbox &:focus-visible {
+    outline: 3px solid $white; // 19.2:1 against the dialog ground
+    outline-offset: 3px;
+  }
+
+  .material-icons {
+    font-size: 24px;
+    line-height: 1;
+  }
+}
+
+.image-gallery-lightbox__prev {
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.image-gallery-lightbox__next {
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.image-gallery-lightbox__close {
+  right: 20px;
+  top: 20px;
+}
+
+// Reflow (1.4.10): at narrow widths or short heights the side padding starves the
+// image, so move the arrows into the bottom corners and reclaim the width.
+@media (max-width: 620px), (max-height: 450px) {
+  .image-gallery-lightbox__stage {
+    padding: 64px 12px 12px;
+  }
+
+  .image-gallery-lightbox__bar {
+    // 74px of bottom padding keeps the last line of the caption clear of the
+    // arrows, which are fixed into the bottom corners at this breakpoint.
+    padding: 14px 16px 74px;
+  }
+
+  .image-gallery-lightbox__prev {
+    left: 16px;
+    top: auto;
+    bottom: 16px;
+    transform: none;
+  }
+
+  .image-gallery-lightbox__next {
+    right: 16px;
+    top: auto;
+    bottom: 16px;
+    transform: none;
+  }
+}
+
+// Windows High Contrast: keep the chrome visible when our colours are discarded.
+@media (forced-colors: active) {
+  .image-gallery-lightbox__button {
+    border: 1px solid ButtonBorder;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+
+  .image-gallery-lightbox__bar {
+    border-top: 1px solid CanvasText;
+  }
+}

@@ -7,7 +7,7 @@ import {
   initCourseDescriptionExpander
 } from "./js/course_expander"
 import { initCourseDrawersClosingViaSwiping } from "./js/mobile_course_drawers"
-import { initImageGalleriesFromMarkup } from "./js/init_image_galleries_from_markup"
+import { initImageGalleryLightbox } from "../../base-theme/assets/js/image_gallery_lightbox"
 import {
   clearSolution,
   checkAnswer,
@@ -17,12 +17,17 @@ import posthog from "posthog-js"
 import { initPostHog } from "../../base-theme/assets/js/posthog"
 
 export interface OCWWindow extends Window {
-  initNanogallery2: () => void
   setReadableResourceId: (value: string) => void
   posthog: typeof posthog
 }
 
 declare let window: OCWWindow
+
+// Not in the ready callback below: the lightbox only registers a delegated
+// listener on document, so it can attach as soon as this deferred bundle runs.
+// Waiting for DOMContentLoaded left a window in which a thumbnail click fell
+// through to the image URL instead of opening the lightbox.
+initImageGalleryLightbox()
 
 $(function() {
   window.posthog = initPostHog()
@@ -34,11 +39,3 @@ $(function() {
   showSolution()
   initCourseDrawersClosingViaSwiping()
 })
-
-let nanogallery2Loaded = false
-
-window.initNanogallery2 = () => {
-  if (nanogallery2Loaded) return
-  import("./nanogallery2-imports.js").then(initImageGalleriesFromMarkup)
-  nanogallery2Loaded = true
-}
