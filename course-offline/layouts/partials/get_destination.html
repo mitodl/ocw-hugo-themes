@@ -1,14 +1,12 @@
 {{ $destination := .Destination }}
-{{ $isInternalLink := not (strings.HasPrefix $destination "http") }}
+{{/* A URL scheme (http, https, mailto, ftp, ...) means the link is not a path into the package. */}}
+{{ $isInternalLink := not (findRE `^[A-Za-z][A-Za-z0-9+.-]*:` $destination) }}
 {{ $isExternalCourseLink := strings.HasPrefix $destination "/courses" }}
 {{ if $isInternalLink }}
   {{ if $isExternalCourseLink }}
     {{ $destination = partial "site_root_url.html" $destination }}
   {{ else }}
-    {{ $destination = strings.TrimSuffix "/index.html" $destination }}
-    {{ if not (strings.HasSuffix $destination ".html") }}
-      {{ $destination = printf "%s/index.html" (strings.TrimSuffix "/" $destination) }}
-    {{ end }}
+    {{ $destination = partial "explicit_index_url.html" $destination }}
   {{ end }}
 {{ end }}
 {{ return $destination }}

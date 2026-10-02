@@ -1,0 +1,25 @@
+{{/*
+  Gives an in-package path an explicit /index.html so it resolves over file://,
+  where a directory URL opens a file listing instead of the page.
+
+  Only the path takes the /index.html. A #fragment or ?query is split off first
+  and put back at the very end, so "lecture-1/#Video1" becomes
+  "lecture-1/index.html#Video1" and never "lecture-1/#Video1/index.html". A
+  destination with no path, like "#Video1", has nothing to resolve and comes
+  back as it went in.
+
+  Expects a path into the package, not a URL with a scheme. get_destination.html
+  keeps those (http, mailto, ftp, ...) away from here.
+*/}}
+{{ $url := . }}
+{{ $parts := findRESubmatch `(?s)^([^?#]*)(.*)$` $url }}
+{{ $path := index $parts 0 1 }}
+{{ $suffix := index $parts 0 2 }}
+{{ if $path }}
+  {{ $path = strings.TrimSuffix "/index.html" $path }}
+  {{ if not (strings.HasSuffix $path ".html") }}
+    {{ $path = printf "%s/index.html" (strings.TrimSuffix "/" $path) }}
+  {{ end }}
+  {{ $url = print $path $suffix }}
+{{ end }}
+{{ return $url }}
