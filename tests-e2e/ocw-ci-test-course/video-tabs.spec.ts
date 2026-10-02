@@ -17,22 +17,11 @@ test("that the Download Button works for multiple embed videos in a page", async
 
   for (let i = 0; i < videoElementsCount; i++) {
     const videoElement = new VideoElement(page, i)
+    await videoElement.openDownloads()
     if (siteAlias === "course-offline") {
-      // In offline v2, initVideoDownloadPopup is not in the bundle so clicking
-      // Show Downloads won't open the popup. Verify links in the DOM directly.
-      // The transcript link lives in the language submenu (even for a single
-      // language), not behind a top-level "Download transcript" aria-label.
-      const videoHref = await videoElement.container
-        .locator('[aria-label="Download video"]')
-        .getAttribute("href")
-      expect(videoHref).toMatch(/static_resources\/.*\.mp4/)
-      const transcriptHref = await videoElement.container
-        .locator('.download-menu-submenu a[aria-label^="Download transcript"]')
-        .first()
-        .getAttribute("href")
-      expect(transcriptHref).toMatch(/static_resources\/.*\.pdf/)
+      // This fixture's MP4 is not included in the offline package
+      await expect(videoElement.downloadVideoLink()).toHaveCount(0)
     } else {
-      await videoElement.downloadButton().click()
       await expect(videoElement.downloadVideo()).toHaveAttribute(
         "href",
         new URL(
@@ -40,16 +29,19 @@ test("that the Download Button works for multiple embed videos in a page", async
           resourceBaseUrl
         ).href
       )
-      await videoElement.downloadTranscriptSubmenuBtn().click()
-      await expect(videoElement.downloadTranscript()).toHaveAttribute(
-        "href",
+    }
+    await videoElement.downloadTranscriptSubmenuBtn().click()
+    await expect(videoElement.downloadTranscript()).toBeVisible()
+    await expect(videoElement.downloadTranscript()).toHaveAttribute(
+      "href",
+      siteAlias === "course-offline" ?
+        /static_resources\/.*\.pdf/ :
         new URL(
           "/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf",
           resourceBaseUrl
         ).href
-      )
-      await videoElement.downloadButton().click()
-    }
+    )
+    await videoElement.downloadButton().click()
   }
 })
 
@@ -68,19 +60,17 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
    */
   const coursePage = new CoursePage(page, siteAlias)
   await coursePage.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
-  const downloadLinks =
+  const videoDownloadUrl = new URL(
+    "/courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
+    resourceBaseUrl
+  ).href
+  const transcriptDownloadUrl =
     siteAlias === "course-offline" ?
-      [/static_resources\/.*\.mp4/, /static_resources\/.*\.pdf/] :
-      [
-        new URL(
-          "/courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9.mp4",
-          resourceBaseUrl
-        ).href,
-        new URL(
-          "/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf",
-          resourceBaseUrl
-        ).href
-      ]
+      /static_resources\/.*\.pdf/ :
+      new URL(
+        "/courses/8-01sc-classical-mechanics-fall-2016/33f61131009a6cd12d9a4c0e42eb7f44_ErlP_SBcA1s.pdf",
+        resourceBaseUrl
+      ).href
   const downloadButton = page.getByRole("button", {
     name: `Show Downloads`
   })
@@ -92,46 +82,34 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
     name: /Download Transcript/i
   })
 
-  if (siteAlias === "course-offline") {
-    // Offline v2 has no popup JS, so the main download menu is reachable via
-    // Tab (the "hidden" class has no effect on it), but the transcript
-    // sub-menu panel stays CSS-hidden until JS reveals it, so its "Back"
-    // button and transcript link are not in the tab order. Verify the video
-    // link is keyboard-reachable, and check the transcript link's href
-    // directly in the DOM.
+  await expect(downloadButton).toHaveAttribute("aria-expanded", "true")
+  if (siteAlias !== "course-offline") {
     await expect(videoDownloadLink).toBeVisible()
     await page.keyboard.press("Tab")
-    const videoHref = await page.locator(":focus").getAttribute("href")
-    expect(videoHref).toMatch(downloadLinks[0] as RegExp)
-
-    await expect(transcriptSubmenuBtn).toBeVisible()
-    const transcriptHref = await page
-      .locator('.download-menu-submenu a[aria-label^="Download transcript"]')
-      .first()
-      .getAttribute("href")
-    expect(transcriptHref).toMatch(downloadLinks[1] as RegExp)
+    await expect(videoDownloadLink).toBeFocused()
+    await expect(videoDownloadLink).toHaveAttribute("href", videoDownloadUrl)
   } else {
-    await expect(videoDownloadLink).toBeVisible()
-    await page.keyboard.press("Tab")
-    const videoHref = await page.locator(":focus").getAttribute("href")
-    expect(videoHref).toBe(downloadLinks[0])
-
-    // Navigate into transcript sub-menu
-    await expect(transcriptSubmenuBtn).toBeVisible()
-    await page.keyboard.press("Tab")
-    await page.keyboard.press("Enter")
-
-    const transcriptDownloadLink = page.getByRole("link", {
-      name:  "Download transcript: English",
-      exact: true
-    })
-    await expect(transcriptDownloadLink).toBeVisible()
-    // Skip Back button, tab to the first transcript link
-    await page.keyboard.press("Tab")
-    await page.keyboard.press("Tab")
-    const transcriptHref = await page.locator(":focus").getAttribute("href")
-    expect(transcriptHref).toBe(downloadLinks[1])
+    await expect(new VideoElement(page).downloadVideoLink()).toHaveCount(0)
   }
+
+  await expect(transcriptSubmenuBtn).toBeVisible()
+  await page.keyboard.press("Tab")
+  await expect(transcriptSubmenuBtn).toBeFocused()
+  await page.keyboard.press("Enter")
+
+  const transcriptDownloadLink = page.getByRole("link", {
+    name:  "Download transcript: English",
+    exact: true
+  })
+  await expect(transcriptDownloadLink).toBeVisible()
+  // Skip Back button, tab to the first transcript link
+  await page.keyboard.press("Tab")
+  await page.keyboard.press("Tab")
+  await expect(transcriptDownloadLink).toBeFocused()
+  await expect(transcriptDownloadLink).toHaveAttribute(
+    "href",
+    transcriptDownloadUrl
+  )
 })
 
 test("Embed video redirects to video page using keyboard navigation", async ({
@@ -452,10 +430,7 @@ test("Language selector active option is not bold (consistent with menu styling)
   expect(Number(activeFontWeight)).toBeLessThanOrEqual(400)
 })
 
-/**
- * The tests below assert on server-rendered markup, so they navigate with
- * `domcontentloaded` rather than waiting on the embedded YouTube iframes.
- */
+// Use domcontentloaded to avoid waiting on embedded YouTube iframes
 test("that embedded videos with nothing to download have no download button", async ({
   page,
   siteAlias
@@ -492,6 +467,52 @@ test("that an embedded video with only an archive_url still offers a download", 
   )
 })
 
+for (const fixture of [
+  {
+    resource:        "video-archive-url-only",
+    href:            "http://www.archive.org/download/MIT18.06S05_MP4/01.mp4",
+    offlineDownload: true
+  },
+  {
+    resource: "ocw_test_course_mit8_01f16_l26v02_360p",
+    href:     new URL(
+      "/courses/ocw-ci-test-course/ocw_test_course_mit8_01f16_l26v02_360p_360p_16_9.mp4",
+      resourceBaseUrl
+    ).href,
+    offlineDownload: false
+  }
+]) {
+  test(`video without transcripts or captions offers only available downloads: ${fixture.resource}`, async ({
+    page,
+    siteAlias
+  }) => {
+    const coursePage = new CoursePage(page, siteAlias)
+    await coursePage.goto(`resources/${fixture.resource}/`, {
+      waitUntil: "domcontentloaded"
+    })
+    const video = new VideoElement(page)
+
+    await expect(video.tab({ includeHidden: true })).toHaveCount(0)
+    await expect(video.container.locator(".download-menu-submenu")).toHaveCount(
+      0
+    )
+    if (siteAlias === "course-offline" && !fixture.offlineDownload) {
+      // The file-backed fixture has no bundled MP4 or archive fallback
+      await expect(video.downloadButton()).toHaveCount(0)
+      await expect(video.downloadVideoLink()).toHaveCount(0)
+      return
+    }
+
+    await expect(video.downloadButton()).toHaveCount(1)
+    await expect(video.downloadVideoLink()).toHaveAttribute(
+      "href",
+      fixture.href
+    )
+    await video.openDownloads()
+    await expect(video.downloadVideo()).toBeVisible()
+  })
+}
+
 test("that a video resource page with nothing to download has no download button", async ({
   page,
   siteAlias
@@ -503,7 +524,7 @@ test("that a video resource page with nothing to download has no download button
   const video = new VideoElement(page)
 
   await expect(video.container).toHaveCount(1)
-  await expect(video.tab({ name: /Transcript/i, exact: false })).toHaveCount(0)
+  await expect(video.tab({ includeHidden: true })).toHaveCount(0)
   await expect(video.downloadButton()).toHaveCount(0)
 })
 

@@ -1,0 +1,14 @@
+{{ $context := .context }}
+{{ if or .transcriptLinks .captionTracks }}
+  {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "transcript" "tabTitle" "Transcript" "downloadLink" .downloadLink "transcriptLinks" .transcriptLinks "captionTracks" .captionTracks) }}
+{{ else if .downloadLink }}
+  {{ partial "video_expandable_tab.html" (dict "context" $context "tabTitle" "" "downloadLink" .downloadLink) }}
+{{ end }}
+
+{{ with $context.Params.related_resources_text }}
+  {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" .) }}
+{{ end }}
+
+{{ if and $context.Params.optional_tab_title $context.Params.optional_text }}
+  {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "optional-tab" "tabTitle" $context.Params.optional_tab_title "tabContent" $context.Params.optional_text) }}
+{{ end }}

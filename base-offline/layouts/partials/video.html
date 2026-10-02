@@ -13,9 +13,6 @@
   {{ $transcriptPdfLocation = (index $transcriptLinks 0).href }}
 {{ end }}
 {{ $downloadLink := partial "get_video_download_link.html" (dict "context" . "resource" .) }}
-{{ $relatedResourses := .Params.related_resources_text | default "" }}
-{{ $optionalTabTitle := .Params.optional_tab_title | default "" }}
-{{ $optionalTabContent := .Params.optional_text | default ""}}
 {{ $startTime := .Params.start_time | default "" }}
 {{ $endTime := .Params.end_time | default "" }}
 {{ $context := . }}
@@ -26,16 +23,6 @@
   	</div>
 	<div class="video-player-wrapper">
 		{{ partial "video_player.html" (dict "context" $context "youtubeKey" $youtubeKey "archiveUrl" $archiveUrl "captionsLocation" $captionsLocation "captionTracks" $captionTracks "startTime" $startTime "endTime" $endTime "downloadLink" $downloadLink "transcriptLink" $transcriptPdfLocation) }}
-		{{ if or (gt (len $transcriptLinks) 0) (gt (len $captionTracks) 0) }}
-			{{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "transcript" "tabTitle" "Transcript" "downloadLink" $downloadLink "transcriptLinks" $transcriptLinks "captionTracks" $captionTracks) }}
-		{{ end }}
-
-		{{ if $relatedResourses }}
-		{{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "related-resource" "tabTitle" "Related Resources" "tabContent" $relatedResourses) }}
-		{{ end }}
-
-		{{ if and $optionalTabTitle $optionalTabContent }}
-			{{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "optional-tab" "tabTitle" $optionalTabTitle "tabContent" $optionalTabContent) }}
-		{{ end }}
+		{{ partial "video_tabs.html" (dict "context" $context "downloadLink" $downloadLink "transcriptLinks" $transcriptLinks "captionTracks" $captionTracks) }}
 	</div>
 </div>
