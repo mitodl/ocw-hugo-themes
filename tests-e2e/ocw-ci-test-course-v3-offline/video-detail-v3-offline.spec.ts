@@ -67,14 +67,12 @@ test.describe("offline-v3 video detail pages", () => {
     ).toBeVisible()
   })
 
-  test("l01v01 download link in tab is package-local", async ({ page }) => {
+  test("l01v01 omits the video download when the MP4 is not bundled", async ({
+    page
+  }) => {
     await page.goto(offlineV3FileUrl(VIDEO_L01))
 
-    const downloadLink = page.locator('a[aria-label="Download video"]').first()
-    if ((await downloadLink.count()) > 0) {
-      const href = await expectLocalPackageHref(downloadLink)
-      expect(href).toContain("static_resources/")
-    }
+    await expect(page.locator('a[aria-label="Download video"]')).toHaveCount(0)
   })
 
   test("l01v01 transcript link in tab is package-local", async ({ page }) => {

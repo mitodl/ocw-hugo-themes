@@ -35,6 +35,21 @@ export class VideoElement {
     })
   }
 
+  async openDownloads(): Promise<void> {
+    // DOMContentLoaded can precede jQuery's ready handlers
+    await this.page.evaluate(
+      () =>
+        new Promise<void>(resolve => {
+          $(() => resolve())
+        })
+    )
+    await this.downloadButton().click()
+    await expect(this.downloadButton()).toHaveAttribute("aria-expanded", "true")
+    await expect(
+      this.container.locator(".video-tab-download-popup")
+    ).toBeVisible()
+  }
+
   downloadVideo(): Locator {
     return this.container.getByRole("link", {
       name: `Download video`
