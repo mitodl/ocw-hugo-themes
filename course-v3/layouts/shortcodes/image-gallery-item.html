@@ -40,10 +40,11 @@
      Prefer it, and treat href purely as a fallback for hand-authored or legacy
      items that predate the param.
 
-     Two href fallbacks, in order: the bare filename (matches a resource's own
-     `file`), then the leading 32 hex characters, because ocw-studio writes
-     hrefs as "<uid-without-dashes>_<original-filename>" — a string that never
-     basenames to the resource's own filename. */}}
+     Two href fallbacks, in order: the bare filename, then the leading 32 hex
+     characters. ocw-studio writes hrefs as
+     "<uid-without-dashes>_<original-filename>" and gives the resource's `file`
+     the same prefix, so for real content the bare filename already matches.
+     The uid prefix covers an href whose resource `file` lacks it. */}}
 {{- $index := partialCached "image_resource_index.html" . "image-resource-index" -}}
 {{- $resource := "" -}}
 {{- with $uuid -}}

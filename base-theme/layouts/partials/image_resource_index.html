@@ -2,16 +2,17 @@
   Returns a lookup of resource pages, keyed two ways:
 
   1. path.Base of the resource's own `file` param, e.g. "example_jpg.jpg" -> the
-     resource Page. Matches hand-authored/legacy hrefs that are just the bare
-     filename or a full resource path ("/courses/foo/example_jpg.jpg").
+     resource Page. Matches an href that is the bare filename or a full resource
+     path ("/courses/foo/example_jpg.jpg"). For ocw-studio content that is every
+     item: its hrefs are "<uid-without-dashes>_<original-filename>", and the
+     resource's `file` carries the same prefix.
 
   2. "uid:" followed by the resource's own `uid` with dashes stripped and
      lowercased, e.g. "uid:c3e2834174a42a89c56c3a1a5bcc0eff" -> the resource
-     Page. Real ocw-studio content authors gallery-item hrefs as
-     "<uid-without-dashes>_<original-filename>" — a different filename than the
-     resource's own `file` param, so key (1) never matches it. The "uid:" prefix
-     keeps this namespace disjoint from the filename keys, even if a filename
-     were itself 32 hex characters with no extension.
+     Page. Serves an item's `uuid` param, and an href whose leading 32 hex
+     characters are a uid even though the resource's `file` does not carry that
+     prefix. The "uid:" prefix keeps this namespace disjoint from the filename
+     keys, even if a filename were itself 32 hex characters with no extension.
 
   Call it through partialCached so the index is built once per site rather than
   once per lookup:

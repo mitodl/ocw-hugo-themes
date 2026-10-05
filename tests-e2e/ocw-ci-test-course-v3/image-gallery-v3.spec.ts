@@ -275,12 +275,12 @@ test.describe("v3 image gallery", () => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
 
-    // Real ocw-studio content authors this href as "<uid-without-dashes>_<filename>"
-    // ("c3e2834174a42a89c56c3a1a5bcc0eff_2.Niepce.jpg"), which never basenames to
-    // match the resource's own filename ("2.Niepce.jpg"). This item carries no
-    // uuid, so it exercises the href fallback chain — regression coverage for
-    // the lookup bug where image_resource_index.html only keyed on filename, so
-    // credit/caption/alt silently rendered empty for every real gallery item.
+    // The href has ocw-studio's "<uid-without-dashes>_<filename>" shape
+    // ("c3e2834174a42a89c56c3a1a5bcc0eff_2.Niepce.jpg"), but the fixture's
+    // resource `file` deliberately lacks the prefix ("2.Niepce.jpg"), so the
+    // bare-filename key misses. Real ocw-studio resources carry the prefix in
+    // `file` too, so they match on that key; this item carries no uuid and
+    // exists to exercise the uid-prefix fallback behind it.
     const third = page.locator(".image-gallery a.image-gallery__link").nth(2)
 
     await expect(third.locator("img.image-gallery__thumb")).toHaveAttribute(
@@ -539,8 +539,14 @@ test.describe("v3 image gallery", () => {
       })
     }
 
-    const right = stage!.x + stage!.width - 40
-    const left = stage!.x + 40
+    // Across the middle of the stage, well clear of the Previous and Next
+    // buttons fixed at its edges. A drag that starts close to one of them
+    // does not register as a swipe even when its start point is over the
+    // stage, and how close the stage's vertical centre sits to them depends
+    // on the caption bar's height, so on font metrics. Anchored 40px from
+    // the edges, CI's fonts put the drag within that range.
+    const right = stage!.x + stage!.width * 0.75
+    const left = stage!.x + stage!.width * 0.25
 
     await drag(right, left)
     await expect(image).toHaveAttribute("src", /image1\.png$/)
