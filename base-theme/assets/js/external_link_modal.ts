@@ -2,46 +2,33 @@ import { MOBILE_COURSE_NAV_DRAWER_ID } from "../../../course-v2/assets/js/mobile
 
 export const EXTERNAL_LINK_MODAL_ID = "external-link-modal"
 
-/** Where the "Continue" link sends the reader, set per click. */
-const CONTINUE_SELECTOR = "a.btn-continue"
-
 /**
- * Close the mobile nav drawer, if one is open, before showing the warning.
- * Shared by both implementations below.
- */
-function closeMobileDrawer(): void {
-  $(`#${MOBILE_COURSE_NAV_DRAWER_ID}`).trigger("offcanvas.close")
-}
-
-function targetUrlOf(event: JQuery.ClickEvent): string {
-  const targetUrl = $(event.currentTarget).attr("href")
-  if (!targetUrl) {
-    throw Error("External link does not have a target.")
-  }
-  return targetUrl
-}
-
-/**
- * The v3 implementation: the markup is a native <dialog>, so showModal() does
- * the work. See course-v3/layouts/partials/external_link_modal.html for why.
+ * The course-v3 implementation. course-v3 overrides external_link_modal.html
+ * with a native <dialog> (see that partial for why), so showModal() does the
+ * work: the top layer paints it above an open image-gallery lightbox without
+ * re-parenting; the rest of the page — the lightbox included — goes inert, so
+ * the gallery's arrow keys cannot fire behind it; Escape closes it; and
+ * close() restores focus to whatever was focused before showModal().
  *
- * Everything this used to need code for is now the platform's job. The top
- * layer paints it above an open image-gallery lightbox without re-parenting;
- * the rest of the page — the lightbox included — goes inert, so the gallery's
- * arrow keys cannot fire behind it; Escape closes it; and close() restores
- * focus to whatever was focused before showModal().
+ * Self-contained on purpose. Every other theme runs the Bootstrap code in
+ * initExternalLinkModal() below, and that code is left exactly as it was.
  */
 function initExternalLinkDialog(dialog: HTMLDialogElement): void {
-  const continueLink =
-    dialog.querySelector<HTMLAnchorElement>(CONTINUE_SELECTOR)
+  const continueLink = dialog.querySelector<HTMLAnchorElement>("a.btn-continue")
   if (!continueLink) {
     throw Error("Continue button was not found on the modal.")
   }
 
   $(document).on("click", "a.external-link-warning", event => {
     event.preventDefault()
-    closeMobileDrawer()
-    continueLink.setAttribute("href", targetUrlOf(event))
+
+    $(`#${MOBILE_COURSE_NAV_DRAWER_ID}`).trigger("offcanvas.close")
+
+    const targetUrl = $(event.currentTarget).attr("href")
+    if (!targetUrl) {
+      throw Error("External link does not have a target.")
+    }
+    continueLink.setAttribute("href", targetUrl)
 
     // Focus the trigger before showModal(). close() restores focus to whatever
     // was focused at the moment it opened, and preventDefault() above stops
@@ -66,20 +53,39 @@ function initExternalLinkDialog(dialog: HTMLDialogElement): void {
   continueLink.addEventListener("click", () => dialog.close())
 }
 
-/**
- * The v2/www implementation, unchanged in behaviour: a Bootstrap 4 modal.
- */
-function initExternalLinkBootstrapModal(): void {
+export function initExternalLinkModal() {
+  // base-theme/assets/index.ts is in every bundle, so the implementation is
+  // picked from the markup on the page rather than a build flag. Only
+  // course-v3's override is a <dialog>; course-v2 and www render base-theme's
+  // Bootstrap markup and fall through to the code below, unchanged.
+  const dialog = document.getElementById(EXTERNAL_LINK_MODAL_ID)
+  if (
+    dialog instanceof HTMLDialogElement &&
+    typeof dialog.showModal === "function"
+  ) {
+    initExternalLinkDialog(dialog)
+    return
+  }
+
   $(document).on("click", "a.external-link-warning", event => {
     event.preventDefault()
-    closeMobileDrawer()
+
+    $(`#${MOBILE_COURSE_NAV_DRAWER_ID}`).trigger("offcanvas.close")
+
+    const targetUrl = $(event.currentTarget).attr("href")
+    if (!targetUrl) {
+      throw Error("External link does not have a target.")
+    }
 
     const modal = $(`#${EXTERNAL_LINK_MODAL_ID}`)
-    const continueButton = modal.find(CONTINUE_SELECTOR)
+
+    // Set the modal's "continue" link to the targetUrl.
+    const continueButton = modal.find("a.btn-continue")
     if (!continueButton) {
       throw Error("Continue button was not found on the modal.")
     }
-    continueButton.attr("href", targetUrlOf(event))
+
+    continueButton.attr("href", targetUrl)
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -91,22 +97,4 @@ function initExternalLinkBootstrapModal(): void {
     // @ts-ignore
     $(`#${EXTERNAL_LINK_MODAL_ID}`).modal("hide")
   })
-}
-
-/**
- * Picks an implementation from the markup that is actually on the page, rather
- * than from a build flag: course-v3 overrides the partial with a <dialog>,
- * every other theme keeps base-theme's Bootstrap markup. base-theme/assets
- * /index.ts is in every bundle, so this one entry point has to serve both.
- */
-export function initExternalLinkModal(): void {
-  const modal = document.getElementById(EXTERNAL_LINK_MODAL_ID)
-  if (
-    modal instanceof HTMLDialogElement &&
-    typeof modal.showModal === "function"
-  ) {
-    initExternalLinkDialog(modal)
-    return
-  }
-  initExternalLinkBootstrapModal()
 }
