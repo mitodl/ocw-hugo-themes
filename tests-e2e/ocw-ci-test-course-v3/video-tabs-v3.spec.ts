@@ -219,15 +219,13 @@ test.describe("Course v3 video tab language selector", () => {
 
 const NO_DOWNLOADS_PAGE = "/pages/video-without-downloads"
 const NO_DOWNLOADS_RESOURCE = "/resources/video-no-downloads"
+const ARCHIVE_ONLY_RESOURCE = "/resources/video-archive-url-only"
 const CAPTIONS_ONLY_RESOURCE = "/resources/video-captions-only"
 const DOWNLOADABLE_RESOURCE =
   "/resources/ocw_test_course_mit8_01f16_l01v01_360p"
 const ARCHIVE_URL = "http://www.archive.org/download/MIT18.06S05_MP4/01.mp4"
 
-/**
- * These tests assert on server-rendered markup, so they navigate with
- * `domcontentloaded` rather than waiting on the embedded YouTube iframes.
- */
+// Use domcontentloaded to avoid waiting on embedded YouTube iframes
 test.describe("Course v3 video download button visibility", () => {
   test("embedded videos with nothing to download have no download button", async ({
     page,
@@ -265,6 +263,47 @@ test.describe("Course v3 video download button visibility", () => {
     await expect(video.downloadVideoLink()).toHaveAttribute("href", ARCHIVE_URL)
   })
 
+  for (const fixture of [
+    {
+      resource:        ARCHIVE_ONLY_RESOURCE,
+      href:            ARCHIVE_URL,
+      offlineDownload: true
+    },
+    {
+      resource:        "/resources/ocw_test_course_mit8_01f16_l26v02_360p",
+      href:            /\/ocw_test_course_mit8_01f16_l26v02_360p_360p_16_9\.mp4$/,
+      offlineDownload: false
+    }
+  ]) {
+    test(`resource without transcripts or captions offers only available downloads: ${fixture.resource}`, async ({
+      page,
+      siteAlias
+    }) => {
+      const course = new CoursePage(page, siteAlias)
+      await course.goto(fixture.resource, { waitUntil: "domcontentloaded" })
+      const video = new VideoElement(page)
+
+      await expect(video.tab({ includeHidden: true })).toHaveCount(0)
+      await expect(
+        video.container.locator(".download-menu-submenu")
+      ).toHaveCount(0)
+      if (siteAlias === "course-v3-offline" && !fixture.offlineDownload) {
+        // The file-backed fixture has no bundled MP4 or archive fallback
+        await expect(video.downloadButton()).toHaveCount(0)
+        await expect(video.downloadVideoLink()).toHaveCount(0)
+        return
+      }
+
+      await expect(video.downloadButton()).toHaveCount(1)
+      await expect(video.downloadVideoLink()).toHaveAttribute(
+        "href",
+        fixture.href
+      )
+      await video.openDownloads()
+      await expect(video.downloadVideo()).toBeVisible()
+    })
+  }
+
   test("resource page for a video with nothing to download has no Transcript tab or download button", async ({
     page,
     siteAlias
@@ -274,9 +313,7 @@ test.describe("Course v3 video download button visibility", () => {
     const video = new VideoElement(page)
 
     await expect(video.container).toHaveCount(1)
-    await expect(video.tab({ name: /Transcript/i, exact: false })).toHaveCount(
-      0
-    )
+    await expect(video.tab({ includeHidden: true })).toHaveCount(0)
     await expect(video.downloadButton()).toHaveCount(0)
   })
 
@@ -325,7 +362,7 @@ test.describe("Course v3 video download button visibility", () => {
     expect(await transcriptBody.textContent()).not.toBe(firstTranscript)
   })
 
-  test("video with a downloadable file still shows the download button", async ({
+  test("video with transcripts retains its available download options", async ({
     page,
     siteAlias
   }) => {
@@ -334,6 +371,11 @@ test.describe("Course v3 video download button visibility", () => {
     const video = new VideoElement(page)
 
     await expect(video.downloadButton()).toHaveCount(1)
+    if (siteAlias === "course-v3-offline") {
+      // The transcript remains downloadable, but the MP4 is not bundled
+      await expect(video.downloadVideoLink()).toHaveCount(0)
+      return
+    }
     await expect(video.downloadVideoLink()).toHaveAttribute(
       "href",
       /ocw_test_course_mit8_01f16_l01v01_360p_360p_16_9\.mp4$/
@@ -391,23 +433,21 @@ test.describe("Course v3 video download button visibility", () => {
     await expect(links).toHaveCount(3)
   })
 
-  test("embedded video's download link is package-local when offline", async ({
+  test("embedded video omits its unbundled MP4 download when offline", async ({
     page,
     siteAlias
   }) => {
     test.skip(
       siteAlias !== "course-v3-offline",
-      "Package-local paths only exist in the offline build"
+      "The MP4 is only omitted from the offline build"
     )
     const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/video-series-overview", {
       waitUntil: "domcontentloaded"
     })
 
-    const downloadLink = page.locator('a[aria-label="Download video"]').first()
-    const href = await downloadLink.getAttribute("href")
-    expect(href).not.toMatch(/^https?:\/\//)
-    expect(href).toContain("static_resources/")
+    const video = new VideoElement(page)
+    await expect(video.downloadVideoLink()).toHaveCount(0)
   })
 
   test("all embedded videos' View video page links are package-local when offline", async ({

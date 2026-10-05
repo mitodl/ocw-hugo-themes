@@ -7,20 +7,19 @@
   then forced fully qualified, because relativeURLs: true would otherwise
   rewrite a root-relative URL into a dead in-package path.
 
-  Everything else internal gets an explicit /index.html so it resolves over
-  file://. Absolute links pass through untouched.
+  Everything else internal gets an explicit /index.html on its path, ahead of
+  any #fragment or ?query, so it resolves over file://. Links with a URL scheme
+  (http, https, mailto, ftp, ...) pass through untouched.
 */}}
 {{ $destination := .Destination }}
-{{ $isInternalLink := not (strings.HasPrefix $destination "http") }}
+{{/* A URL scheme (http, https, mailto, ftp, ...) means the link is not a path into the package. */}}
+{{ $isInternalLink := not (findRE `^[A-Za-z][A-Za-z0-9+.-]*:` $destination) }}
 {{ $isExternalCourseLink := strings.HasPrefix $destination "/courses" }}
 {{ if $isInternalLink }}
   {{ if $isExternalCourseLink }}
     {{ $destination = partial "absolutize_course_url.html" (partial "canonical_course_url.html" $destination) }}
   {{ else }}
-    {{ $destination = strings.TrimSuffix "/index.html" $destination }}
-    {{ if not (strings.HasSuffix $destination ".html") }}
-      {{ $destination = printf "%s/index.html" (strings.TrimSuffix "/" $destination) }}
-    {{ end }}
+    {{ $destination = partial "explicit_index_url.html" $destination }}
   {{ end }}
 {{ end }}
 {{ return $destination }}

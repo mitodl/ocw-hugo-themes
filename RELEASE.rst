@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.162.0
+---------------
+
+- Update dependency core-js to v3.50.0 (#1881)
+- Display video download even if captions missing (#1877)
+- Add Haitian Creole (#1880)
+- fix: keep fragments, queries and mailto links intact in offline packages (#1878)
+- ci: run hooks with prek and autofix.ci (#1879)
+- fix: make netlify preview deploys non-blocking with a 5 minute timeout (#1876)
+
 Version 1.161.0
 ---------------
 

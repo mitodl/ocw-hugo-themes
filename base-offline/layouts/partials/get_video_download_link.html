@@ -1,0 +1,12 @@
+{{- $context := .context -}}
+{{- $downloadLink := .resource.Params.video_files.archive_url | default "" -}}
+{{- with .resource.Params.file -}}
+  {{- $file := . -}}
+  {{- $filename := path.Base (urls.Parse $file).Path -}}
+  {{- with site.GetPage "/static_resources" -}}
+    {{- with .Resources.GetMatch $filename -}}
+      {{- $downloadLink = partial "resource_url.html" (dict "context" $context "url" $file) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $downloadLink -}}
