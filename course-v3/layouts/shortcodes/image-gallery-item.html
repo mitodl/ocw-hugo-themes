@@ -127,19 +127,22 @@
      image, maintained where the image is, rather than copied into every
      gallery that happens to use it.
 
-     Rendered with $resource.RenderString, not .Page.RenderString: a caption
-     may contain a resource_link, and those uids resolve against the resource
-     page. */}}
+     Rendered with .Page.RenderString, the gallery's page: a caption may
+     contain a resource_link, which finds its uid site-wide but builds its path
+     from the page it is rendered against. Offline, that path is relative, so
+     rendering against the resource page made it relative to /resources/<name>/
+     and broke it on any gallery page at a different depth. */}}
 {{- $captionHtml := "" -}}
 {{- with $caption -}}
-  {{- $captionHtml = . | $resource.RenderString -}}
+  {{- $captionHtml = . | $.Page.RenderString -}}
 {{- end -}}
 
 {{/* Credit is real HTML rather than text escaped into an attribute, so a nested
-     resource_link stays a focusable link once the lightbox adopts it. */}}
+     resource_link stays a focusable link once the lightbox adopts it. Rendered
+     against the gallery's page for the same reason as the caption. */}}
 {{- $creditHtml := "" -}}
 {{- with $credit -}}
-  {{- $creditHtml = . | $resource.RenderString -}}
+  {{- $creditHtml = . | $.Page.RenderString -}}
 {{- end -}}
 
 {{/*

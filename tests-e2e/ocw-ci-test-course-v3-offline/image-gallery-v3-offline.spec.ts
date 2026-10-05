@@ -42,6 +42,28 @@ test.describe("offline-v3 image gallery — file:// path resolution", () => {
     expect(srcset).toBeNull()
   })
 
+  test("a credit link in a nested page's gallery resolves inside the package", async ({
+    page
+  }) => {
+    // The child page sits a level deeper than the /resources/<name>/ page a
+    // credit's resource_link would be built against if it were rendered in the
+    // resource's context rather than the gallery page's.
+    await page.goto(offlineV3FileUrl("/pages/gallery-section/gallery-child"))
+
+    const href = await page
+      .locator("a.image-gallery__link")
+      .first()
+      .evaluate(link =>
+        link
+          .querySelector<HTMLTemplateElement>("template")!
+          .content.querySelector(".image-gallery__credit a")!
+          .getAttribute("href")
+      )
+    expect(new URL(href!, page.url()).href).toBe(
+      offlineV3FileUrl("/pages/first-test-page-title")
+    )
+  })
+
   test("gallery uses v3 offline bundle", async ({ page }) => {
     await page.goto(offlineV3FileUrl("/pages/image-gallery-v3"))
 
