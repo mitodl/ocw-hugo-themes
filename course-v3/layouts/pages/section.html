@@ -4,11 +4,20 @@
     {{ range .Pages }}
       <div class="mb-2">
         <article class="content pt-3 mt-1">
-          {{/* 
-            The replaceRE is needed to adjust relative paths for
-            image galleries in the offline theme.
+          {{/*
+            Each child's content was rendered for the child's own page, a
+            level deeper than this one, so offline every relative path in it
+            is one ../ too deep here: gallery thumbnails and links, resource
+            links in their captions and credits, and any other link the
+            child carries. Strip one ../ from each relative src and href.
+            data-base-url is the same correction for base-offline's gallery
+            wrapper. Online paths are absolute or root-relative, so neither
+            rewrite matches.
           */}}
-          {{- .Content | replaceRE `data-base-url='\.\.\/([^']*)'` `data-base-url='$1'` | safeHTML -}}
+          {{- .Content
+            | replaceRE `data-base-url='\.\.\/([^']*)'` `data-base-url='$1'`
+            | replaceRE `(\s(?:src|href)=["'])\.\./` `$1`
+            | safeHTML -}}
         </article>
       </div>  
     {{ end }}
