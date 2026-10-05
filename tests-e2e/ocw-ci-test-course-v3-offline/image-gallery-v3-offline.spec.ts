@@ -12,14 +12,14 @@ import { offlineV3FileUrl, expectLocalPackageHref } from "../util"
  */
 test.describe("offline-v3 image gallery — file:// path resolution", () => {
   test("image gallery page loads", async ({ page }) => {
-    await page.goto(offlineV3FileUrl("/pages/image-gallery"))
+    await page.goto(offlineV3FileUrl("/pages/image-gallery-v3"))
 
-    expect(page.url()).toContain("pages/image-gallery/index.html")
+    expect(page.url()).toContain("pages/image-gallery-v3/index.html")
     await expect(page.locator("body")).toContainText("Image Gallery")
   })
 
   test("gallery images and links are package-local", async ({ page }) => {
-    await page.goto(offlineV3FileUrl("/pages/image-gallery"))
+    await page.goto(offlineV3FileUrl("/pages/image-gallery-v3"))
 
     const link = page.locator("a.image-gallery__link").first()
     const href = await expectLocalPackageHref(link)
@@ -43,7 +43,7 @@ test.describe("offline-v3 image gallery — file:// path resolution", () => {
   })
 
   test("gallery uses v3 offline bundle", async ({ page }) => {
-    await page.goto(offlineV3FileUrl("/pages/image-gallery"))
+    await page.goto(offlineV3FileUrl("/pages/image-gallery-v3"))
 
     await expect(page.locator('script[src*="course_offline_v3"]')).toHaveCount(
       1

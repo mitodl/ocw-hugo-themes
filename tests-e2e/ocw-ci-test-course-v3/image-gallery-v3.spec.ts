@@ -26,7 +26,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
     const items = page.locator(".image-gallery a.image-gallery__link")
     await expect(items).toHaveCount(3)
@@ -68,22 +70,24 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
-    // The second item is authored with a uuid that points at image1.png and a
-    // deliberately bogus href. uuid is the pointer ocw-studio maintains and it
-    // survives a rename or re-upload, so it has to win: if the lookup fell back
-    // to href, the resource would miss and src would carry the bogus filename
-    // with no alt text.
+    // The second item is authored with a uuid that points at gallery_test.png
+    // and a deliberately bogus href. uuid is the pointer ocw-studio maintains
+    // and it survives a rename or re-upload, so it has to win: if the lookup
+    // fell back to href, the resource would miss and src would carry the bogus
+    // filename with no alt text.
     const second = page.locator(".image-gallery a.image-gallery__link").nth(1)
     if (siteAlias === "course-v3-offline") {
       const href = await second.getAttribute("href")
       expect(href).not.toMatch(/^https?:\/\//)
-      expect(href).toContain("static_resources/image1.png")
+      expect(href).toContain("static_resources/gallery_test.png")
     } else {
       await expect(second).toHaveAttribute(
         "href",
-        "https://live-qa.ocw.mit.edu/courses/o/ocw-ci-test-course/image1.png"
+        "https://live-qa.ocw.mit.edu/courses/o/ocw-ci-test-course/gallery_test.png"
       )
     }
 
@@ -102,7 +106,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
     // They live in an inert <template> and surface only in the lightbox. Using
     // a template rather than a visually-hidden figcaption keeps the sighted and
@@ -124,7 +130,9 @@ test.describe("v3 image gallery", () => {
       "v3 offline resolves to base-offline's wrapper, shared with v2 offline and left as on main, which does not collapse NBSP runs"
     )
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
     // The fixture deliberately carries a line of non-breaking spaces between
     // two items, the shape ocw-studio authoring leaves behind. The grid spec
@@ -160,7 +168,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
     await page.getByRole("link", { name: "A pretty dog" }).click()
 
     const counter = page.locator(".image-gallery-lightbox__counter-glyph")
@@ -191,7 +201,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
     const gallery = page.locator(".image-gallery")
 
@@ -229,7 +241,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
     // The first item's resource has an empty image-alt, so the shortcode falls
     // back to labelling the link from data-ngdesc.
@@ -255,7 +269,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
     // Read inside the template: its content is a parsed but inert fragment, so
     // the anchor is a real element the lightbox can adopt. Escaping it into a
@@ -277,7 +293,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
     // The href has ocw-studio's "<uid-without-dashes>_<filename>" shape
     // ("c3e2834174a42a89c56c3a1a5bcc0eff_2.Niepce.jpg"), but the fixture's
@@ -313,7 +331,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
     const captionOf = (index: number) =>
       page
@@ -329,10 +349,10 @@ test.describe("v3 image gallery", () => {
 
     // The caption belongs to the image, so it is read from the resource the
     // item points at rather than from the string copied into this particular
-    // gallery. Item 2 is authored with text="Second image" while image1.png's
-    // own metadata says something else — the resource has to win, otherwise
-    // two galleries showing one image could caption it differently and editing
-    // the image's metadata would silently change nothing.
+    // gallery. Item 2 is authored with text="Second image" while its
+    // resource's own metadata says something else — the resource has to win,
+    // otherwise two galleries showing one image could caption it differently
+    // and editing the image's metadata would silently change nothing.
     expect(await captionOf(1)).toBe("A caption from image metadata")
 
     // Item 1 is the other half of the same rule: text="A dog having fun" but
@@ -346,7 +366,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
     const link = page.getByRole("link", { name: "A pretty dog" })
     await link.focus()
@@ -374,7 +396,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
     const link = page.getByRole("link", { name: "A pretty dog" })
     await link.click()
@@ -405,7 +429,9 @@ test.describe("v3 image gallery", () => {
 
   test("leaves nothing behind once closed", async ({ page, siteAlias }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
     const heightBefore = await page.evaluate(
       () => document.documentElement.scrollHeight
@@ -450,7 +476,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
     await page.getByRole("link", { name: "A pretty dog" }).click()
 
@@ -458,7 +486,7 @@ test.describe("v3 image gallery", () => {
     await expect(image).toHaveAttribute("src", /example_jpg\.jpg$/)
 
     await page.keyboard.press("ArrowRight")
-    await expect(image).toHaveAttribute("src", /image1\.png$/)
+    await expect(image).toHaveAttribute("src", /gallery_test\.png$/)
     await expect(
       page.locator(".image-gallery-lightbox__counter-glyph")
     ).toHaveText("2 / 3")
@@ -485,7 +513,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
     await page.getByRole("link", { name: "A pretty dog" }).click()
 
     // pan-y is what lets the swipe listeners stay passive: the browser keeps
@@ -513,7 +543,9 @@ test.describe("v3 image gallery", () => {
     const context = await browser.newContext({ hasTouch: true })
     const page = await context.newPage()
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
     await page.getByRole("link", { name: "A pretty dog" }).click()
 
     const image = page.locator(".image-gallery-lightbox__image")
@@ -553,7 +585,7 @@ test.describe("v3 image gallery", () => {
     const left = stage!.x + stage!.width * 0.25
 
     await drag(right, left)
-    await expect(image).toHaveAttribute("src", /image1\.png$/)
+    await expect(image).toHaveAttribute("src", /gallery_test\.png$/)
     await expect(
       page.locator(".image-gallery-lightbox__counter-glyph")
     ).toHaveText("2 / 3")
@@ -583,7 +615,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
     await page.getByRole("link", { name: "A pretty dog" }).click()
     const counter = page.locator(".image-gallery-lightbox__counter-glyph")
@@ -603,7 +637,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
     await page.getByRole("link", { name: "A pretty dog" }).click()
     await expect(page.locator("dialog.image-gallery-lightbox")).toBeVisible()
@@ -636,7 +672,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
     await page.getByRole("link", { name: "A pretty dog" }).click()
 
     const counter = page.locator(".image-gallery-lightbox__counter-glyph")
@@ -669,7 +707,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
     await page.getByRole("link", { name: "A pretty dog" }).click()
 
     const creditLink = page.locator(".image-gallery-lightbox__caption a")
@@ -696,7 +736,9 @@ test.describe("v3 image gallery", () => {
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
     await page.getByRole("link", { name: "A pretty dog" }).click()
     await page.locator(".image-gallery-lightbox__caption a").click()
 
@@ -719,7 +761,9 @@ test.describe("v3 image gallery", () => {
     const context = await browser.newContext({ javaScriptEnabled: false })
     const page = await context.newPage()
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/pages/image-gallery", { waitUntil: "domcontentloaded" })
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
 
     // No lightbox, but the thumbnails are still rendered and each link still
     // points at the full image — progressive enhancement rather than a hard
