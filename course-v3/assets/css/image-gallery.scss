@@ -172,10 +172,17 @@ html:has(dialog.image-gallery-lightbox[open]) {
   display: flex;
   align-items: center;
   justify-content: center;
-  // Grows into the space the caption does not use, but never shrinks below the
-  // floor: without it, a caption long enough to fill the viewport would squeeze
-  // the image to nothing rather than push itself below the fold.
-  flex: 1 0 auto;
+  // Sized by the space the caption leaves, not by the image: a zero basis, then
+  // grow into what remains. With an auto basis the stage took the image's
+  // natural height, so the image's max-height: 100% never bound and a tall
+  // image pushed the caption below the fold even at 100% zoom. It shrinks only
+  // as far as the floor below: past that, as at 400% zoom with a long caption,
+  // the dialog scrolls rather than squeezing the image to nothing.
+  flex: 1 1 0;
+  // content-box so the floor measures the image area itself. Measured with the
+  // padding in, it left the image 14px tall at 400% zoom: the floor was 90px
+  // and the narrow-screen padding alone takes 76px of it.
+  box-sizing: content-box;
   min-height: 35vh;
   min-height: 35dvh;
   // Top padding clears the counter and close button, which are fixed.

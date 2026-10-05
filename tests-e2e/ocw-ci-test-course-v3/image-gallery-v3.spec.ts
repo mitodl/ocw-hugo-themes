@@ -535,6 +535,88 @@ test.describe("v3 image gallery", () => {
     )
   })
 
+  test("fits a tall image and its caption into a short viewport", async ({
+    page,
+    siteAlias
+  }) => {
+    // A landscape phone, with an image taller than the whole screen. test-sites
+    // ship no image bytes, so serve one of a known size.
+    await page.setViewportSize({ width: 844, height: 390 })
+    await page.route("**/example_jpg.jpg*", route =>
+      route.fulfill({
+        contentType: "image/svg+xml",
+        body:
+          '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600">' +
+          '<rect width="400" height="600" fill="#888"/></svg>'
+      })
+    )
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
+    await page.getByRole("link", { name: "A pretty dog" }).click()
+
+    const image = page.locator(".image-gallery-lightbox__image")
+    await expect
+      .poll(() =>
+        image.evaluate(img => (img as HTMLImageElement).naturalHeight)
+      )
+      .toBe(600)
+
+    // The image scales down to the space the caption leaves, rather than
+    // pushing the caption below the fold at its natural height.
+    const imageBox = (await image.boundingBox())!
+    const barBox = (await page
+      .locator(".image-gallery-lightbox__bar")
+      .boundingBox())!
+    expect(imageBox.height).toBeLessThan(600)
+    expect(barBox.y + barBox.height).toBeLessThanOrEqual(390)
+  })
+
+  test("at 400% zoom, scrolls rather than squeezing the image", async ({
+    page,
+    siteAlias
+  }) => {
+    // 1280x1024 at 400%. With a caption this long, the image's floor and the
+    // caption cannot share the screen, so the dialog has to scroll (1.4.10)
+    // and the image keeps a usable size instead of the caption crushing it.
+    await page.setViewportSize({ width: 320, height: 256 })
+    await page.route("**/example_jpg.jpg*", route =>
+      route.fulfill({
+        contentType: "image/svg+xml",
+        body:
+          '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600">' +
+          '<rect width="400" height="600" fill="#888"/></svg>'
+      })
+    )
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
+    await page.evaluate(() => {
+      document
+        .querySelector<HTMLTemplateElement>("a.image-gallery__link template")!
+        .content.querySelector(".image-gallery__credit")!.textContent =
+        "A long credit line. ".repeat(40)
+    })
+    await page.getByRole("link", { name: "A pretty dog" }).click()
+
+    const image = page.locator(".image-gallery-lightbox__image")
+    await expect
+      .poll(() =>
+        image.evaluate(img => (img as HTMLImageElement).naturalHeight)
+      )
+      .toBe(600)
+
+    // The floor is 35% of the viewport for the image area itself: 89.6px.
+    expect((await image.boundingBox())!.height).toBeGreaterThanOrEqual(89)
+    expect(
+      await page
+        .locator("dialog.image-gallery-lightbox")
+        .evaluate(d => d.scrollHeight > d.clientHeight)
+    ).toBe(true)
+  })
+
   test("the stage yields the vertical axis and pinch-zoom to the browser", async ({
     page,
     siteAlias
