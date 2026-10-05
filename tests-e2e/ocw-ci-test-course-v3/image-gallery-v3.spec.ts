@@ -20,6 +20,20 @@ import { CoursePage, expectTriggerToOpenANewTab } from "../util"
  * Path resolution as the package is actually opened from disk is a separate
  * concern, covered over file:// by image-gallery-v3-offline.spec.ts.
  */
+
+/**
+ * What the lightbox should load for the slide whose file is `file`: online, the
+ * href through Fastly's format and quality conversion (see paint() in
+ * base-theme/assets/js/image_gallery_lightbox.ts); offline, the package-relative
+ * href exactly as authored.
+ */
+const lightboxSrc = (siteAlias: string, file: string) =>
+  new RegExp(
+    `${file.replace(/\./g, "\\.")}${
+      siteAlias === "course-v3-offline" ? "" : "\\?format=auto&quality=75"
+    }$`
+  )
+
 test.describe("v3 image gallery", () => {
   test("renders a thumbnail rail with correctly resolved URLs", async ({
     page,
@@ -57,7 +71,8 @@ test.describe("v3 image gallery", () => {
     }
 
     // The href is the unparameterized original, which is what the no-JS path
-    // navigates to and what the lightbox loads. True in both builds.
+    // navigates to. True in both builds; the lightbox adds Fastly's format and
+    // quality parameters to it online, which lightboxSrc() above checks.
     await expect(items.first()).toHaveAttribute("href", src!)
 
     // Deliberately no fetch of `src`: test-sites ships no image bytes, so a
@@ -483,10 +498,16 @@ test.describe("v3 image gallery", () => {
     await page.getByRole("link", { name: "A pretty dog" }).click()
 
     const image = page.locator(".image-gallery-lightbox__image")
-    await expect(image).toHaveAttribute("src", /example_jpg\.jpg$/)
+    await expect(image).toHaveAttribute(
+      "src",
+      lightboxSrc(siteAlias, "example_jpg.jpg")
+    )
 
     await page.keyboard.press("ArrowRight")
-    await expect(image).toHaveAttribute("src", /gallery_test\.png$/)
+    await expect(image).toHaveAttribute(
+      "src",
+      lightboxSrc(siteAlias, "gallery_test.png")
+    )
     await expect(
       page.locator(".image-gallery-lightbox__counter-glyph")
     ).toHaveText("2 / 3")
@@ -495,7 +516,10 @@ test.describe("v3 image gallery", () => {
     )
 
     await page.keyboard.press("ArrowRight")
-    await expect(image).toHaveAttribute("src", /2\.Niepce\.jpg$/)
+    await expect(image).toHaveAttribute(
+      "src",
+      lightboxSrc(siteAlias, "2.Niepce.jpg")
+    )
     await expect(
       page.locator(".image-gallery-lightbox__counter-glyph")
     ).toHaveText("3 / 3")
@@ -505,7 +529,10 @@ test.describe("v3 image gallery", () => {
 
     // Wraps rather than dead-ending.
     await page.keyboard.press("ArrowRight")
-    await expect(image).toHaveAttribute("src", /example_jpg\.jpg$/)
+    await expect(image).toHaveAttribute(
+      "src",
+      lightboxSrc(siteAlias, "example_jpg.jpg")
+    )
   })
 
   test("the stage yields the vertical axis to the browser", async ({
@@ -549,7 +576,10 @@ test.describe("v3 image gallery", () => {
     await page.getByRole("link", { name: "A pretty dog" }).click()
 
     const image = page.locator(".image-gallery-lightbox__image")
-    await expect(image).toHaveAttribute("src", /example_jpg\.jpg$/)
+    await expect(image).toHaveAttribute(
+      "src",
+      lightboxSrc(siteAlias, "example_jpg.jpg")
+    )
 
     const stage = await page
       .locator(".image-gallery-lightbox__stage")
@@ -585,7 +615,10 @@ test.describe("v3 image gallery", () => {
     const left = stage!.x + stage!.width * 0.25
 
     await drag(right, left)
-    await expect(image).toHaveAttribute("src", /gallery_test\.png$/)
+    await expect(image).toHaveAttribute(
+      "src",
+      lightboxSrc(siteAlias, "gallery_test.png")
+    )
     await expect(
       page.locator(".image-gallery-lightbox__counter-glyph")
     ).toHaveText("2 / 3")
@@ -595,7 +628,10 @@ test.describe("v3 image gallery", () => {
 
     // Back the other way.
     await drag(left, right)
-    await expect(image).toHaveAttribute("src", /example_jpg\.jpg$/)
+    await expect(image).toHaveAttribute(
+      "src",
+      lightboxSrc(siteAlias, "example_jpg.jpg")
+    )
     await expect(
       page.locator(".image-gallery-lightbox__counter-glyph")
     ).toHaveText("1 / 3")

@@ -1,3 +1,5 @@
+import { fastlyOptimizedUrl } from "./utils"
+
 /**
  * Accessible image-gallery lightbox built on the native <dialog> element.
  *
@@ -8,8 +10,9 @@
  * an accessible name on the dialog, and real alt text.
  *
  * The gallery markup is rendered server-side by
- * course-v3/layouts/shortcodes/image-gallery-item.html, so this file constructs no
- * URLs: it loads the anchor's own href, which is the unoptimized original.
+ * course-v3/layouts/shortcodes/image-gallery-item.html, so this file builds no
+ * URLs of its own: it loads the anchor's href, adding only Fastly's format and
+ * quality parameters (see paint()).
  *
  * One dialog per document, built on first open, driven by a single delegated
  * listener. There is no init pass over the DOM and no cached slide list.
@@ -336,12 +339,15 @@ function paint(index: number): string {
   // descriptor overstates what comes back. The browser divides descriptor by
   // slot width to get a density, and lays the image out at naturalWidth/density
   // — on a 390px phone at DPR 3 that turned a 500px original into a 152px box,
-  // smaller than the 171px thumbnail that opened it. The href is the
-  // unoptimized original (the same URL the no-JS path navigates to), so its
-  // intrinsic size is simply true.
+  // smaller than the 171px thumbnail that opened it.
+  //
+  // Fastly's format and quality conversion is kept, though, as nanogallery2
+  // had it: with no width parameter Fastly returns the original dimensions, so
+  // the intrinsic size stays true while the browser still gets WebP or AVIF.
+  // fastlyOptimizedUrl leaves offline packages' relative paths untouched.
   image.removeAttribute("srcset")
   image.removeAttribute("sizes")
-  image.src = slide.href
+  image.src = fastlyOptimizedUrl(slide.href, { format: "auto", quality: "75" })
   image.alt = slide.alt
 
   // Assigning src starts a *pending* request; per the spec the element keeps

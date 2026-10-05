@@ -744,6 +744,20 @@ describe("initImageGalleryLightbox", () => {
     proto.showModal = saved
   })
 
+  it("serves an online image through Fastly's format and quality conversion", () => {
+    renderGallery([
+      { href: "https://ocw.mit.edu/courses/x/a.jpg", alt: "Online" }
+    ])
+    links()[0].click()
+
+    // No width: Fastly then keeps the original dimensions, so the intrinsic
+    // size stays true and the density problem that ruled out srcset can't
+    // come back, while the browser still gets WebP or AVIF where it can.
+    expect(image()!.getAttribute("src")).toBe(
+      "https://ocw.mit.edu/courses/x/a.jpg?format=auto&quality=75"
+    )
+  })
+
   it("handles offline items, whose relative hrefs are already unoptimized", () => {
     renderGallery([
       { href: "../../static_resources/a.jpg", alt: "Offline", srcset: "" }
