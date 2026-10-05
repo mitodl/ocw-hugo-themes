@@ -256,8 +256,11 @@ function attachSwipe(dialog: HTMLDialogElement): void {
   stage.addEventListener(
     "touchstart",
     event => {
-      // A second finger means pinch-zoom. Never a slide change.
-      armed = event.touches.length === 1 && slides.length > 1
+      // A second finger means pinch-zoom. Never a slide change. Nor is a drag
+      // once the page is zoomed in: the stage allows pinch-zoom, and a reader
+      // zoomed into the image drags to pan across it.
+      const zoomed = (window.visualViewport?.scale ?? 1) > 1
+      armed = event.touches.length === 1 && slides.length > 1 && !zoomed
       if (!armed) return
       startX = event.touches[0].clientX
       startY = event.touches[0].clientY

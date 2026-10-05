@@ -326,6 +326,32 @@ describe("initImageGalleryLightbox", () => {
       expect(counter()!.textContent).toBe("1 / 3")
     })
 
+    it("leaves a drag on a pinch-zoomed page to the browser", () => {
+      openThreeSlideGallery()
+      // A reader zoomed in on the image drags sideways to pan across it, not
+      // to change slide.
+      Object.defineProperty(window, "visualViewport", {
+        configurable: true,
+        value:        { scale: 2 }
+      })
+      try {
+        swipe([
+          [200, 100],
+          [80, 100]
+        ])
+        expect(counter()!.textContent).toBe("1 / 3")
+      } finally {
+        delete (window as { visualViewport?: unknown }).visualViewport
+      }
+
+      // Back at 1:1, the same drag pages again.
+      swipe([
+        [200, 100],
+        [80, 100]
+      ])
+      expect(counter()!.textContent).toBe("2 / 3")
+    })
+
     it("wraps at both ends, like the arrows do", () => {
       openThreeSlideGallery()
 

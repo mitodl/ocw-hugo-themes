@@ -186,7 +186,14 @@ html:has(dialog.image-gallery-lightbox[open]) {
   // panning stays with the browser, which the dialog needs at 400% zoom where
   // it becomes a scroll container. This is also what lets the swipe listeners
   // be passive — they never have to call preventDefault.
+  //
+  // pinch-zoom too: the image is where readers most want to zoom, and pan-y on
+  // its own disables it. The swipe handler stands down while the page is
+  // zoomed, so a drag then pans the image instead of paging. The bare pan-y
+  // stays first as the fallback for any browser without pinch-zoom, which drops
+  // the declaration it cannot parse.
   touch-action: pan-y;
+  touch-action: pan-y pinch-zoom;
 }
 
 .image-gallery-lightbox__image {

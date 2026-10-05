@@ -535,7 +535,7 @@ test.describe("v3 image gallery", () => {
     )
   })
 
-  test("the stage yields the vertical axis to the browser", async ({
+  test("the stage yields the vertical axis and pinch-zoom to the browser", async ({
     page,
     siteAlias
   }) => {
@@ -549,10 +549,11 @@ test.describe("v3 image gallery", () => {
     // vertical panning (which the dialog needs at 400% zoom, where it becomes
     // a scroll container) while the horizontal axis goes to the gesture. If
     // this regresses to `none` the dialog stops scrolling; to `auto`, a
-    // sideways drag triggers the browser's own back/forward overscroll.
+    // sideways drag triggers the browser's own back/forward overscroll; to
+    // bare `pan-y`, readers can no longer pinch-zoom into the image.
     await expect(page.locator(".image-gallery-lightbox__stage")).toHaveCSS(
       "touch-action",
-      "pan-y"
+      "pan-y pinch-zoom"
     )
   })
 
