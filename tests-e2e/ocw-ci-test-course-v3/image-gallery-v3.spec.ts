@@ -21,6 +21,11 @@ import { CoursePage, expectTriggerToOpenANewTab } from "../util"
  * concern, covered over file:// by image-gallery-v3-offline.spec.ts.
  */
 
+/** Escape every character a RegExp treats as syntax, backslash included. */
+function escapeRegExp(text: string): string {
+  return text.replace(/[\\^$.*+?()[\]{}|]/g, "\\$&")
+}
+
 /**
  * What the lightbox should load for the slide whose file is `file`: online, the
  * href through Fastly's format and quality conversion (see paint() in
@@ -29,7 +34,7 @@ import { CoursePage, expectTriggerToOpenANewTab } from "../util"
  */
 const lightboxSrc = (siteAlias: string, file: string) =>
   new RegExp(
-    `${file.replace(/\./g, "\\.")}${
+    `${escapeRegExp(file)}${
       siteAlias === "course-v3-offline" ? "" : "\\?format=auto&quality=75"
     }$`
   )
