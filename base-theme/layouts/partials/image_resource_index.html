@@ -33,13 +33,22 @@
      in the number of resources. */}}
 {{- $s := newScratch -}}
 {{- $s.Set "index" dict -}}
-{{- range where .Site.Pages "Params.file" "!=" "" -}}
+{{/* Image resources only. `where "Params.file" "!=" ""` used to admit every
+     page with no file at all (nil is not ""), and path.Base of nothing is ".",
+     so the first such page became the "." entry — which an item with an empty
+     href then resolved to, taking that page's title as its accessible name.
+     Restricting to images also stops a uuid that belongs to, say, a PDF from
+     matching. `with .Params.file` keys only resources that have a file, nil or
+     empty alike. */}}
+{{- range where .Site.Pages "Params.resourcetype" "Image" -}}
   {{- $page := . -}}
-  {{- $key := path.Base .Params.file -}}
-  {{/* First match wins: resource filenames are unique in practice, and if they
-       are not, preferring the earliest keeps the result stable across builds. */}}
-  {{- if not (index ($s.Get "index") $key) -}}
-    {{- $s.SetInMap "index" $key $page -}}
+  {{- with .Params.file -}}
+    {{- $key := path.Base . -}}
+    {{/* First match wins: resource filenames are unique in practice, and if
+         they are not, preferring the earliest keeps the result stable. */}}
+    {{- if not (index ($s.Get "index") $key) -}}
+      {{- $s.SetInMap "index" $key $page -}}
+    {{- end -}}
   {{- end -}}
   {{- with .Params.uid -}}
     {{- $uidKey := printf "uid:%s" (lower (replace . "-" "")) -}}

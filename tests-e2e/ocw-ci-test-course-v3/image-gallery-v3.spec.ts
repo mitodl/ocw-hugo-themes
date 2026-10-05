@@ -116,6 +116,32 @@ test.describe("v3 image gallery", () => {
     expect(await page.content()).not.toContain("this-file-does-not-exist")
   })
 
+  test("resolves only image resources, and nothing for an item with no href", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/gallery-section/gallery-child", {
+      waitUntil: "domcontentloaded"
+    })
+    const edgeCases = page
+      .locator(".image-gallery")
+      .nth(1)
+      .locator("a.image-gallery__link")
+
+    // This uuid belongs to a PDF. The lookup has to skip non-image resources
+    // and fall back to the href, which names a real image.
+    await expect(edgeCases.nth(0)).toHaveAttribute("href", /example_jpg\.jpg$/)
+
+    // path.Base of an empty href is ".", which used to be the index key of
+    // whichever file-less page came first, so this item took that page's
+    // title as its accessible name. It must resolve to nothing instead.
+    await expect(edgeCases.nth(1)).toHaveAttribute(
+      "aria-label",
+      /^Gallery image/
+    )
+  })
+
   test("shows no caption or credit in the grid", async ({
     page,
     siteAlias
