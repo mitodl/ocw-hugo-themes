@@ -30,6 +30,50 @@ function stubDialog() {
   }
 }
 
+/**
+ * jsdom never fetches images: naturalWidth stays 0, complete false and
+ * currentSrc "", so every frame looks like a load still in flight and the
+ * lightbox's loading gate can only ever take one branch. Simulate the state a
+ * browser exposes instead — which URL an element is presenting (currentSrc) and
+ * whether that request succeeded — and let each test settle requests itself.
+ */
+const presenting = new WeakMap<HTMLImageElement, { url: string; ok: boolean }>()
+
+function stubImageLoading() {
+  Object.defineProperties(HTMLImageElement.prototype, {
+    currentSrc: {
+      configurable: true,
+      get(this: HTMLImageElement) {
+        return presenting.get(this)?.url ?? ""
+      }
+    },
+    naturalWidth: {
+      configurable: true,
+      get(this: HTMLImageElement) {
+        return presenting.get(this)?.ok ? 640 : 0
+      }
+    },
+    complete: {
+      configurable: true,
+      get(this: HTMLImageElement) {
+        return presenting.get(this)?.url === this.src
+      }
+    }
+  })
+}
+
+/** The browser finishes fetching the element's current src, then fires load. */
+function settleLoad(img: HTMLImageElement) {
+  presenting.set(img, { url: img.src, ok: true })
+  img.dispatchEvent(new Event("load"))
+}
+
+/** The fetch fails: the broken request becomes the one presented. */
+function settleError(img: HTMLImageElement) {
+  presenting.set(img, { url: img.src, ok: false })
+  img.dispatchEvent(new Event("error"))
+}
+
 /** Build the markup the image-gallery-item shortcode renders. */
 function renderGallery(
   items: {
@@ -74,6 +118,8 @@ const status = () =>
   document.querySelector<HTMLElement>(".image-gallery-lightbox__status")
 const image = () =>
   document.querySelector<HTMLImageElement>(".image-gallery-lightbox__image")
+const isLoading = () =>
+  image()!.classList.contains("image-gallery-lightbox__image--loading")
 /** The visible "2 / 3". Its spoken twin is counterLabel() below. */
 const counter = () =>
   document.querySelector<HTMLElement>(".image-gallery-lightbox__counter-glyph")
@@ -127,6 +173,7 @@ describe("initImageGalleryLightbox", () => {
   beforeEach(() => {
     document.body.innerHTML = ""
     stubDialog()
+    stubImageLoading()
     initImageGalleryLightbox()
   })
 
@@ -498,32 +545,41 @@ describe("initImageGalleryLightbox", () => {
       { href: "b.jpg", alt: "Second" }
     ])
     links()[0].click()
+    settleLoad(image()!)
     dialog()!.close()
     links()[1].click()
 
     // Regression test: the dialog is one reused element, so without this the
     // first painted frame of a reopen was the previous slide's bitmap sitting
-    // under the new slide's caption and counter.
-    expect(
-      image()!.classList.contains("image-gallery-lightbox__image--loading")
-    ).toBe(true)
+    // under the new slide's caption and counter. The element is still
+    // presenting a.jpg at this point, which is exactly the frame to hide.
+    expect(isLoading()).toBe(true)
     // Hidden with opacity, so the alt text stays in the accessibility tree.
     expect(image()!.getAttribute("alt")).toBe("Second")
 
-    image()!.dispatchEvent(new Event("load"))
-    expect(
-      image()!.classList.contains("image-gallery-lightbox__image--loading")
-    ).toBe(false)
+    settleLoad(image()!)
+    expect(isLoading()).toBe(false)
+  })
+
+  it("reopens an already-loaded slide without hiding it", () => {
+    renderGallery([{ href: "a.jpg", alt: "First" }])
+    links()[0].click()
+    settleLoad(image()!)
+    dialog()!.close()
+
+    // Nothing new to fetch, so there is no wrong picture to hide, and holding
+    // the image back would only make it flicker.
+    links()[0].click()
+    expect(isLoading()).toBe(false)
   })
 
   it("reveals a broken image so its alt text is shown", () => {
     renderGallery([{ href: "gone.jpg", alt: "Missing" }])
     links()[0].click()
+    expect(isLoading()).toBe(true)
 
-    image()!.dispatchEvent(new Event("error"))
-    expect(
-      image()!.classList.contains("image-gallery-lightbox__image--loading")
-    ).toBe(false)
+    settleError(image()!)
+    expect(isLoading()).toBe(false)
   })
 
   it("keeps focus in the dialog when the caption it is in is replaced", () => {
