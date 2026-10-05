@@ -182,6 +182,9 @@ function build(): Lightbox {
     .addEventListener("click", () => dialog.close())
 
   dialog.addEventListener("keydown", event => {
+    // Modified arrows belong to the browser: Alt+Left/Right is Back/Forward on
+    // Windows and Linux, Cmd+Left/Right on macOS.
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return
     if (event.key === "ArrowLeft") {
       event.preventDefault()
       go(current - 1)

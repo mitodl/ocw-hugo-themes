@@ -386,6 +386,35 @@ describe("initImageGalleryLightbox", () => {
     })
   })
 
+  it("pages on bare arrow keys but leaves modified ones to the browser", () => {
+    renderGallery([
+      { href: "a.jpg", alt: "First" },
+      { href: "b.jpg", alt: "Second" }
+    ])
+    links()[0].click()
+    const press = (init: KeyboardEventInit) => {
+      const event = new KeyboardEvent("keydown", {
+        key:        "ArrowRight",
+        bubbles:    true,
+        cancelable: true,
+        ...init
+      })
+      dialog()!.dispatchEvent(event)
+      return event
+    }
+
+    // Alt+Left/Right is Back/Forward on Windows and Linux, Cmd+Left/Right on
+    // macOS. Paging on them would trap the reader in the gallery.
+    for (const modifier of ["altKey", "metaKey", "ctrlKey", "shiftKey"]) {
+      const event = press({ [modifier]: true })
+      expect(event.defaultPrevented).toBe(false)
+      expect(counter()!.textContent).toBe("1 / 2")
+    }
+
+    expect(press({}).defaultPrevented).toBe(true)
+    expect(counter()!.textContent).toBe("2 / 2")
+  })
+
   it("wraps at both ends when navigating", () => {
     renderGallery([
       { href: "a.jpg", alt: "First" },
