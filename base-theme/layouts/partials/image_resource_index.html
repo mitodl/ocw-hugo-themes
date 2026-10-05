@@ -28,20 +28,24 @@
   the first.
 */}}
 
-{{- $index := dict -}}
+{{/* A scratch map filled in place with SetInMap, not merge: merge returns a
+     fresh copy of the whole map each time, which made building this quadratic
+     in the number of resources. */}}
+{{- $s := newScratch -}}
+{{- $s.Set "index" dict -}}
 {{- range where .Site.Pages "Params.file" "!=" "" -}}
   {{- $page := . -}}
   {{- $key := path.Base .Params.file -}}
   {{/* First match wins: resource filenames are unique in practice, and if they
        are not, preferring the earliest keeps the result stable across builds. */}}
-  {{- if not (index $index $key) -}}
-    {{- $index = merge $index (dict $key $page) -}}
+  {{- if not (index ($s.Get "index") $key) -}}
+    {{- $s.SetInMap "index" $key $page -}}
   {{- end -}}
   {{- with .Params.uid -}}
     {{- $uidKey := printf "uid:%s" (lower (replace . "-" "")) -}}
-    {{- if not (index $index $uidKey) -}}
-      {{- $index = merge $index (dict $uidKey $page) -}}
+    {{- if not (index ($s.Get "index") $uidKey) -}}
+      {{- $s.SetInMap "index" $uidKey $page -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
-{{- return $index -}}
+{{- return $s.Get "index" -}}
