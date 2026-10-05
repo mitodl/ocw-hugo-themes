@@ -582,6 +582,28 @@ describe("initImageGalleryLightbox", () => {
     expect(isLoading()).toBe(false)
   })
 
+  it("ignores a load still queued for the previous slide", () => {
+    renderGallery([
+      { href: "a.jpg", alt: "First" },
+      { href: "b.jpg", alt: "Second" }
+    ])
+    links()[0].click()
+    settleLoad(image()!)
+    document
+      .querySelector<HTMLButtonElement>(".image-gallery-lightbox__next")!
+      .click()
+    expect(isLoading()).toBe(true)
+
+    // Paging fast: a.jpg's load was already queued when src moved on to b.jpg,
+    // so it dispatches now, while the element is still presenting a.jpg.
+    // Revealing on it would show a.jpg under b.jpg's caption.
+    image()!.dispatchEvent(new Event("load"))
+    expect(isLoading()).toBe(true)
+
+    settleLoad(image()!)
+    expect(isLoading()).toBe(false)
+  })
+
   it("keeps focus in the dialog when the caption it is in is replaced", () => {
     renderGallery([
       {

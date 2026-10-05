@@ -170,8 +170,13 @@ function build(): Lightbox {
 
   // Reveal as soon as this slide's own bitmap is what would be painted. On
   // error too, so a broken image falls back to showing its alt text rather
-  // than staying invisible forever.
-  const reveal = () => box.image.classList.remove(LOADING_CLASS)
+  // than staying invisible forever. Paging fast can leave the previous slide's
+  // load still queued; it dispatches while the element is presenting that
+  // slide's bitmap, so check currentSrc before trusting it.
+  const reveal = () => {
+    if (box.image.currentSrc !== box.image.src) return
+    box.image.classList.remove(LOADING_CLASS)
+  }
   box.image.addEventListener("load", reveal)
   box.image.addEventListener("error", reveal)
 
