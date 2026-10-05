@@ -64,6 +64,52 @@ test.describe("offline-v3 image gallery — file:// path resolution", () => {
     )
   })
 
+  test("a section page's inlined galleries resolve inside the package", async ({
+    page
+  }) => {
+    // show_section_pages renders each child page's content inline, a level
+    // shallower than the child it was rendered for, so every relative path in
+    // it comes out one ../ too deep unless the section page corrects it.
+    await page.goto(offlineV3FileUrl("/pages/gallery-section"))
+    const packageRoot = offlineV3FileUrl("/").replace(/index\.html$/, "")
+
+    const urls = await page
+      .locator("a.image-gallery__link")
+      .evaluateAll(links =>
+        links.flatMap(link => [
+          link.getAttribute("href")!,
+          link.querySelector("img")!.getAttribute("src")!,
+          ...Array.from(
+            link
+              .querySelector<HTMLTemplateElement>("template")
+              ?.content.querySelectorAll("a[href]") ?? []
+          ).map(a => a.getAttribute("href")!)
+        ])
+      )
+    // Relative paths only: a credit can link off-site, and that is meant to
+    // leave the package.
+    const relative = urls.filter(url => !/^[a-z][a-z\d+.-]*:/i.test(url))
+    expect(relative.length).toBeGreaterThan(0)
+    for (const url of relative) {
+      expect(new URL(url, page.url()).href.startsWith(packageRoot), url).toBe(
+        true
+      )
+    }
+
+    const creditHref = await page
+      .locator("a.image-gallery__link")
+      .first()
+      .evaluate(link =>
+        link
+          .querySelector<HTMLTemplateElement>("template")!
+          .content.querySelector(".image-gallery__credit a")!
+          .getAttribute("href")
+      )
+    expect(new URL(creditHref!, page.url()).href).toBe(
+      offlineV3FileUrl("/pages/first-test-page-title")
+    )
+  })
+
   test("gallery uses v3 offline bundle", async ({ page }) => {
     await page.goto(offlineV3FileUrl("/pages/image-gallery-v3"))
 
