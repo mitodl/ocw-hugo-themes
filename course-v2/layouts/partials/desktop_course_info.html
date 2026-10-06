@@ -21,7 +21,7 @@
 </button>
 
 <div class="collapse border-left p-0 large-and-above-only col-3" id="desktop-course-drawer">
-  {{ partial "course_info.html" (dict "context" . "inPanel" true "isDesktopCourseDrawer" true) }}
+  {{ partial "search_variant_copies.html" (dict "partial" "course_info.html" "params" (dict "context" . "inPanel" true "isDesktopCourseDrawer" true)) }}
   <div class="px-3">
     {{ partial "topics.html" (dict "context" . "inPanel" true "device" "desktop") }}
     {{ partial "learning_resource_types.html" (dict "context" . "inPanel" true) }}

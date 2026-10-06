@@ -1,3 +1,8 @@
+{{- /* searchVariant picks the OCW or MIT Learn copy of the search links; see
+       search_variant_copies.html. */ -}}
+{{- $searchVariant := .searchVariant | default "ocw" -}}
+{{- $isLearn := eq $searchVariant "learn" -}}
+{{- $idSuffix := cond $isLearn "-learn" "" -}}
 {{ $courseData := .context.Site.Data.course }} {{ $inPanel := .inPanel }} {{
 $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
 
@@ -13,19 +18,37 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
         {{ with $courseData.instructors.content }}
         <div class="">
           {{ $instructors := partial "get_instructors.html" . }}
+          {{- if $isLearn -}}
+            {{- $learnInstructors := slice -}}
+            {{- range $instructors -}}
+              {{- $url := partial "get_learn_search_url.html" (dict "key" "instructors" "value" (title .title)) -}}
+              {{- $learnInstructors = $learnInstructors | append (merge . (dict "url" $url)) -}}
+            {{- end -}}
+            {{- $instructors = $learnInstructors -}}
+          {{- end }}
           <h3 class="course-info-section-label {{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
             {{ if eq (len $instructors) 1 }}Instructor{{ else }}Instructors{{
             end }}
             </h3>
           <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
             {{ partial "partial_collapse_list.html" (dict "list" $instructors
-            "id" "instructors" "key" "title" "klass" "course-info-instructor"
+            "id" (print "instructors" $idSuffix) "key" "title" "klass" "course-info-instructor"
             "showCollapse" $inPanel) }}
           </div>
         </div>
         {{ end }}
         {{ with $courseData.department_numbers }}
           {{ $departments := partial "get_departments.html" . }}
+          {{- if $isLearn -}}
+            {{- /* Learn search filters departments by number, not title. */ -}}
+            {{- $departments = slice -}}
+            {{- range $number := . -}}
+              {{- with index site.Data.departments $number -}}
+                {{- $url := partial "get_learn_search_url.html" (dict "key" "department_numbers" "value" $number) -}}
+                {{- $departments = $departments | append (merge . (dict "url" $url)) -}}
+              {{- end -}}
+            {{- end -}}
+          {{- end }}
           {{ if $departments }}
             <div class="mt-4">
               <h3 class="course-info-section-label {{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
@@ -33,7 +56,7 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
               </h3>
               <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
                 {{ partial "partial_collapse_list.html" (dict "list" $departments
-                "id" "departments" "key" "title" "klass" "course-info-department"
+                "id" (print "departments" $idSuffix) "key" "title" "klass" "course-info-department"
                 "useLinks" true) }}
               </div>
             </div>
@@ -58,11 +81,11 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
           </h3>
           <div class="course-info-content {{ if $inPanel }}panel-course-info-text{{ end }}">
             {{ if eq (printf "%T" $courseData.level) "string" }} {{
-            $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" $courseData.level) }}
+            $levelSearchUrl := partial "get_variant_search_url.html" (dict "searchVariant" $searchVariant "key" "level" "value" $courseData.level) }}
             {{- partial "link.html" (dict "href" $levelSearchUrl "text" $courseData.level "stripLinkOffline" true) -}}
             {{ else }}
               {{ range $courseData.level }}
-                {{ $levelSearchUrl := partial "get_search_url.html" (dict "key" "level" "value" .) }}
+                {{ $levelSearchUrl := partial "get_variant_search_url.html" (dict "searchVariant" $searchVariant "key" "level" "value" .) }}
                 {{- partial "link.html" (dict "href" $levelSearchUrl "text" . "stripLinkOffline" true) -}}<br />
               {{ end }}
             {{ end }}

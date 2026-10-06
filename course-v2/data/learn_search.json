@@ -1,0 +1,14 @@
+{
+  "query_keys": {
+    "instructors": "q",
+    "department_numbers": "department",
+    "level": "level",
+    "topic": "topic"
+  },
+  "level_values": {
+    "Undergraduate": "undergraduate",
+    "Graduate": "graduate",
+    "Non-Credit": "noncredit",
+    "High School": "high_school"
+  }
+}

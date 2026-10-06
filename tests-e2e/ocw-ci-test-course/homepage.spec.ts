@@ -49,7 +49,8 @@ test.describe("Course info", () => {
 
       const list = await getFirstAfter(
         courseInfo.getByRole("list"),
-        courseInfo.getByText(label)
+        // The hidden MIT Learn copy of the course info has the same labels.
+        courseInfo.getByText(label).filter({ visible: true })
       )
       const items = list.getByRole("listitem")
       const links = list.getByRole("link")
