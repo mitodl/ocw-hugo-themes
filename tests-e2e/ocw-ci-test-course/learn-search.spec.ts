@@ -290,6 +290,53 @@ test.describe("Learn copy of the topics", () => {
   }
 })
 
+test.describe("Learn copy of the header search icon", () => {
+  test.beforeEach(({ siteAlias }) => {
+    test.skip(siteAlias !== "course", "Online only")
+  })
+
+  /**
+   * Hrefs of the header's search links whose own computed display isn't
+   * `none`. The links' own display is checked, rather than visibility, because
+   * the mobile menu is collapsed and the desktop header is hidden on small
+   * screens. `.search-icon { display: flex }` must not beat the hide rule.
+   */
+  const shownSearchLinks = (header: Locator) =>
+    header
+      .locator("a.search-icon")
+      .evaluateAll(links =>
+        links
+          .filter(link => getComputedStyle(link).display !== "none")
+          .map(link => link.getAttribute("href"))
+      )
+
+  const modes = [
+    { name: "OCW", learn: false, href: "/search/" },
+    {
+      name:  "Learn",
+      learn: true,
+      href:  `https://${COURSE_V3_CANONICAL_DOMAIN}/search/?offered_by=ocw`
+    }
+  ]
+  for (const mode of modes) {
+    test(`in ${mode.name} mode each header shows one search icon, linked to ${mode.name} search`, async ({
+      page,
+      siteAlias
+    }) => {
+      const course = new CoursePage(page, siteAlias)
+      await course.goto("")
+      if (mode.learn) await showLearnCopy(page)
+
+      expect(await shownSearchLinks(page.locator("#desktop-header"))).toEqual([
+        mode.href
+      ])
+      expect(await shownSearchLinks(page.locator("#mobile-header"))).toEqual([
+        mode.href
+      ])
+    })
+  }
+})
+
 test.describe("Learn copy without JavaScript", () => {
   test.use({ javaScriptEnabled: false })
 

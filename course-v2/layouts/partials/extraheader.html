@@ -1,0 +1,19 @@
+{{ define "extraheader" }}
+  {{- /* Overrides base-theme's extraheader.html for course-v2: one search link
+         per search variant (see search_variant_copies.html). The links stay
+         siblings with no wrapper, because the desktop header's `.right` is a
+         flex row whose `> a` rule styles direct children only. */ -}}
+  {{ $renderSearchIcon := index .Params "renderSearchIcon" | default true}}
+  {{ if $renderSearchIcon}}
+    {{ $variants := partial "search_variants.html" }}
+    {{ range $variants }}
+      {{ $href := "/search/" }}
+      {{ if eq . "learn" }}
+        {{ $href = partial "get_learn_search_url.html" dict }}
+      {{ end }}
+    <a class="nav-link search-icon text-white pr-6" href="{{ $href }}"{{ if gt (len $variants) 1 }} data-search-variant="{{ . }}"{{ end }}>
+      <i class="material-icons">search</i>
+    </a>
+    {{ end }}
+  {{end}}
+{{ end }}
