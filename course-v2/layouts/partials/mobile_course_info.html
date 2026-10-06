@@ -19,7 +19,11 @@
     </button>
   </div>
   {{ partial "search_variant_copies.html" (dict "partial" "course_info.html" "params" (dict "context" . "inPanel" true)) }}
-  {{ partial "search_variant_copies.html" (dict "partial" "topics.html" "params" (dict "context" . "inPanel" true "device" "mobile")) }}
-  {{ partial "learning_resource_types.html" (dict "context" . "inPanel" true) }}
-  {{ partial "download_course_link_button.html" (dict "context" . "inPanel" true) }}
+  {{- /* Same padding as course_info.html's content, as in the desktop drawer,
+         so these sections line up with the ones above. */}}
+  <div class="px-3">
+    {{ partial "search_variant_copies.html" (dict "partial" "topics.html" "params" (dict "context" . "inPanel" true "device" "mobile")) }}
+    {{ partial "learning_resource_types.html" (dict "context" . "inPanel" true) }}
+    {{ partial "download_course_link_button.html" (dict "context" . "inPanel" true) }}
+  </div>
 </div>
