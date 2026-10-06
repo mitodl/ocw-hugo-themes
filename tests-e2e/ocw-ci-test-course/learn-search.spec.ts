@@ -372,10 +372,12 @@ test.describe("The ocw-course-v2-learn-search flag", () => {
 
   /** Pretend this visitor's flags already chose a copy on an earlier visit. */
   const rememberLearnCopy = (page: Page) =>
-    page.addInitScript(
-      key => localStorage.setItem(key, "true"),
-      LEARN_SEARCH_STORAGE_KEY
-    )
+    page.addInitScript(key => {
+      // Init scripts also run in iframes, and the Appzi widget's srcdoc iframe
+      // shares this page's localStorage: seeding there would undo the bundle
+      // clearing the value.
+      if (window === window.top) localStorage.setItem(key, "true")
+    }, LEARN_SEARCH_STORAGE_KEY)
 
   const rememberedValue = (page: Page) =>
     page.evaluate(key => localStorage.getItem(key), LEARN_SEARCH_STORAGE_KEY)
