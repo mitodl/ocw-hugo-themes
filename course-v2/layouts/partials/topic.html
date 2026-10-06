@@ -1,5 +1,10 @@
 {{ $index := .index }}
 {{ $device := .device | default "desktop" }}
+{{- $searchVariant := .searchVariant | default "ocw" -}}
+{{- $isLearn := eq $searchVariant "learn" -}}
+{{- /* The MIT Learn copy's collapse IDs get a suffix: Bootstrap toggles every
+       element matching data-target, so shared IDs would toggle both copies. */ -}}
+{{- $idDevice := cond $isLearn (print $device "_learn") $device -}}
 {{ $context := .context }}
 {{ $subtopics := slice }}
 {{ $topicTitle := title .topic }}
@@ -12,9 +17,9 @@
   <button
     type="button"
     class="topic-toggle border-0 bg-transparent pl-0"
-    data-target="#subtopic-container_{{ $device }}_{{ $index }}"
+    data-target="#subtopic-container_{{ $idDevice }}_{{ $index }}"
     data-toggle="collapse"
-    aria-controls="subtopic-container_{{ $device }}_{{ $index }}"
+    aria-controls="subtopic-container_{{ $idDevice }}_{{ $index }}"
     aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}"
     aria-label="{{ $topicTitle }} subtopics"
   >
@@ -22,14 +27,14 @@
   </button>
   {{ end }}
   <span class="topic-text-wrapper">
-    {{ $topicUrl := partial "get_search_url.html" (dict "key" "topic" "value" $topicTitle) }}
+    {{ $topicUrl := partial "get_variant_search_url.html" (dict "searchVariant" $searchVariant "key" "topic" "value" (cond $isLearn .topic $topicTitle)) }}
     {{- partial "link.html" (dict "href" $topicUrl "class" "text-black course-info-topic" "text" $topicTitle "stripLinkOffline" true) -}}
   </span>
 </div>
 {{ if gt (len $subtopics) 0 }}
 <ul
   class="pl-4 subtopic-container collapse{{if eq $index 0 }} show{{ end }} list-unstyled"
-  id="subtopic-container_{{ $device }}_{{ $index }}"
+  id="subtopic-container_{{ $idDevice }}_{{ $index }}"
   aria-label="Subtopics"
 >
   {{ $scratch.Set "index" 0 }}
@@ -40,9 +45,9 @@
       {{ if gt (len ($specialities | default slice)) 0 }}
       <button
         class="topic-toggle border-0 bg-transparent pl-0"
-        data-target="#speciality-container_{{ $device }}_{{ $index }}_{{ $subtopicIndex }}"
+        data-target="#speciality-container_{{ $idDevice }}_{{ $index }}_{{ $subtopicIndex }}"
         data-toggle="collapse"
-        aria-controls="speciality-container_{{ $device }}_{{ $index }}_{{ $subtopicIndex }}"
+        aria-controls="speciality-container_{{ $idDevice }}_{{ $index }}_{{ $subtopicIndex }}"
         aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}"
         aria-label="{{ $subtopic }} specialties"
       >
@@ -51,13 +56,17 @@
       {{ end }}
       <span class="topic-text-wrapper">
         {{ $subTopicTitle := title $subtopic }}
-        {{ $subTopicUrl := partial "get_search_url.html" (dict "key" "topic" "value" $subTopicTitle) }}
+        {{ $subTopicUrl := partial "get_variant_search_url.html" (dict "searchVariant" $searchVariant "key" "topic" "value" (cond $isLearn $subtopic $subTopicTitle)) }}
         {{- partial "link.html" (dict "href" $subTopicUrl "class" "text-black course-info-topic" "text" $subTopicTitle "stripLinkOffline" true) -}}
       </span>
     </div>
+    {{- /* mit_learn_topics are two levels deep, so the Learn copy skips the empty
+           specialties list v2 renders under every leaf subtopic. Nested lists
+           have no margin, so this changes nothing visually. */ -}}
+    {{- if or (not $isLearn) (gt (len ($specialities | default slice)) 0) }}
     <ul
       class="collapse{{if eq $index 0 }} show{{ end }} list-unstyled"
-      id="speciality-container_{{ $device }}_{{ $index }}_{{ $subtopicIndex }}"
+      id="speciality-container_{{ $idDevice }}_{{ $index }}_{{ $subtopicIndex }}"
       aria-label="Specialties"
     >
       {{ range $speciality, $ignore := $specialities }}
@@ -70,6 +79,7 @@
       </li>
       {{ end }}
     </ul>
+    {{- end }}
     {{ $scratch.Set "index" (add 1 ($scratch.Get "index")) }}
   </li>
   {{ end }}

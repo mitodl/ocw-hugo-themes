@@ -4,6 +4,13 @@
 {{ $inPanel := .inPanel }}
 {{ $device := .device }}
 {{ $renderMarginTop := .renderMarginTop | default true}}
+{{- /* The MIT Learn copy (see search_variant_copies.html) lists
+       mit_learn_topics in the same markup, and is left out when a course has
+       none. */ -}}
+{{- $searchVariant := .searchVariant | default "ocw" -}}
+{{- $isLearn := eq $searchVariant "learn" -}}
+{{- $topicsData := cond $isLearn $courseData.mit_learn_topics $courseData.topics -}}
+{{- if or (not $isLearn) $topicsData }}
 <div class=" {{ if $renderMarginTop }}mt-4{{ end }}">
   <h3 class="course-info-section-label {{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
     Topics
@@ -11,15 +18,16 @@
   <ul class="list-unstyled pb-2 m-0 {{ if $inPanel }}panel-course-info-text{{ end }}">
     {{- $topics := (slice (slice "Social Science" "Political Science" "American Politics") (slice "Social Science" "Public Administration" "Public Policy")) -}}
 
-    {{ with $courseData.topics }}
+    {{ with $topicsData }}
       {{ $topics := partial "hierarchical_select_as_map.html" . }}
 
       {{- range $topic, $subtopics := $topics -}}
       <li>
-        {{- partial "topic.html" (dict "index" ($scratch.Get "index") "topic" $topic "subtopics" $subtopics "device" $device) -}}
+        {{- partial "topic.html" (dict "index" ($scratch.Get "index") "topic" $topic "subtopics" $subtopics "device" $device "searchVariant" $searchVariant) -}}
       </li>
       {{ $scratch.Set "index" (add 1 ($scratch.Get "index")) }}
       {{- end -}}
     {{ end }}
   </ul>
 </div>
+{{- end }}
