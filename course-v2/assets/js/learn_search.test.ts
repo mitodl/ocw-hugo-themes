@@ -1,6 +1,7 @@
 import type { PostHog } from "posthog-js"
 import {
   LEARN_SEARCH_FLAG,
+  LEARN_SEARCH_PENDING_ATTRIBUTE,
   LEARN_SEARCH_STORAGE_KEY,
   applyLearnSearch,
   initLearnSearch
@@ -27,6 +28,7 @@ const learnShown = () =>
 describe("learn_search", () => {
   afterEach(() => {
     document.documentElement.removeAttribute("data-search")
+    document.documentElement.removeAttribute(LEARN_SEARCH_PENDING_ATTRIBUTE)
     localStorage.clear()
     jest.restoreAllMocks()
   })
@@ -77,4 +79,31 @@ describe("learn_search", () => {
     expect(learnShown()).toBe(true)
     expect(localStorage.getItem(LEARN_SEARCH_STORAGE_KEY)).toBe("true")
   })
+
+  test.each([
+    { name: "with the flag on", flags: [LEARN_SEARCH_FLAG], context: {} },
+    { name: "with the flag off", flags: [], context: {} },
+    {
+      name:    "when flags fail to load",
+      flags:   [],
+      context: { errorsLoading: true }
+    }
+  ])(
+    "initLearnSearch reveals the Topics once PostHog answers, $name",
+    ({ flags, context }) => {
+      // The inline script in extrahead.html sets this before first paint.
+      document.documentElement.setAttribute(LEARN_SEARCH_PENDING_ATTRIBUTE, "")
+      const { posthog, sendFlags } = makePostHog()
+      initLearnSearch(posthog)
+      expect(
+        document.documentElement.hasAttribute(LEARN_SEARCH_PENDING_ATTRIBUTE)
+      ).toBe(true)
+
+      sendFlags(flags, context)
+
+      expect(
+        document.documentElement.hasAttribute(LEARN_SEARCH_PENDING_ATTRIBUTE)
+      ).toBe(false)
+    }
+  )
 })

@@ -456,6 +456,97 @@ test.describe("The ocw-course-v2-learn-search flag", () => {
   })
 })
 
+test.describe("Topics while PostHog loads", () => {
+  test.beforeEach(({ siteAlias }) => {
+    test.skip(siteAlias !== "course", "Online only")
+  })
+
+  // The inline script in extrahead.html shows the Topics after this long if
+  // PostHog never answers.
+  const FALLBACK_MS = 1500
+
+  /**
+   * Stub PostHog so it answers only when the test calls
+   * window.__answerFlags(enabled), and freeze the page's clock, so neither
+   * PostHog nor the fallback timer can reveal the Topics on their own.
+   */
+  const holdFlags = async (page: Page) => {
+    await page.clock.install()
+    await page.clock.pauseAt(Date.now() + 1000)
+    await page.addInitScript(flag => {
+      type FlagsCallback = (
+        flags: string[],
+        variants: Record<string, string | boolean>,
+        context?: { errorsLoading?: boolean }
+      ) => void
+      let client: unknown
+      Object.defineProperty(window, "posthog", {
+        configurable: true,
+        get:          () => client,
+        set:          (value: { onFeatureFlags: unknown }) => {
+          value.onFeatureFlags = (callback: FlagsCallback) => {
+            Object.assign(window, {
+              __answerFlags: (enabled: boolean) =>
+                callback(enabled ? [flag] : [], {}, { errorsLoading: false })
+            })
+            return () => undefined
+          }
+          client = value
+        }
+      })
+    }, LEARN_SEARCH_FLAG)
+  }
+
+  const topics = (page: Page) =>
+    homeCopy(page, "ocw").locator(".course-info-topics")
+
+  test("the Topics stay hidden, keeping their space, until PostHog answers", async ({
+    page,
+    siteAlias
+  }) => {
+    await holdFlags(page)
+    const course = new CoursePage(page, siteAlias)
+    await course.goto()
+    // jQuery runs $(...) ready callbacks from a zero-delay timer, so let those
+    // fire (well short of the fallback) until the bundle has subscribed.
+    await page.clock.runFor(10)
+    await expect
+      .poll(() =>
+        page.evaluate(() => typeof Reflect.get(window, "__answerFlags"))
+      )
+      .toBe("function")
+
+    await expect(topics(page)).toHaveCSS("visibility", "hidden")
+    const box = await topics(page).boundingBox()
+    expect(box?.height).toBeGreaterThan(0)
+    // Only the Topics wait; the rest of the course info shows at once.
+    await expect(
+      homeCopy(page, "ocw").locator(".course-info-instructor").first()
+    ).toBeVisible()
+
+    await page.evaluate(() =>
+      (
+        window as unknown as { __answerFlags: (on: boolean) => void }
+      ).__answerFlags(false)
+    )
+    await expect(topics(page)).toHaveCSS("visibility", "visible")
+  })
+
+  test("the Topics show after the fallback when PostHog never answers", async ({
+    page,
+    siteAlias
+  }) => {
+    await holdFlags(page)
+    const course = new CoursePage(page, siteAlias)
+    await course.goto()
+
+    await page.clock.runFor(FALLBACK_MS - 100)
+    await expect(topics(page)).toHaveCSS("visibility", "hidden")
+    await page.clock.runFor(100)
+    await expect(topics(page)).toHaveCSS("visibility", "visible")
+  })
+})
+
 test.describe("Learn copy without JavaScript", () => {
   test.use({ javaScriptEnabled: false })
 
@@ -469,6 +560,10 @@ test.describe("Learn copy without JavaScript", () => {
 
     await expect(homeCopy(page, "ocw")).toBeVisible()
     await expect(homeCopy(page, "learn")).toBeHidden()
+    // Nothing would ever reveal hidden Topics without JavaScript.
+    await expect(
+      homeCopy(page, "ocw").locator(".course-info-topics")
+    ).toHaveCSS("visibility", "visible")
   })
 })
 
@@ -485,4 +580,8 @@ test("offline packages render only the OCW course info, without wrappers", async
   await expect(
     page.locator(".course-detail-section .course-info-instructor")
   ).toHaveCount(3)
+  // Offline pages never get the inline script, so their Topics never wait.
+  await expect(
+    page.locator(".course-detail-section .course-info-topics")
+  ).toHaveCSS("visibility", "visible")
 })

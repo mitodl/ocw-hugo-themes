@@ -10,6 +10,9 @@ export const LEARN_SEARCH_FLAG = "ocw-course-v2-learn-search"
 // Also read before first paint by the inline script in
 // course-v2/layouts/partials/extrahead.html; keep the two in sync.
 export const LEARN_SEARCH_STORAGE_KEY = "learnSearchEnabled"
+// Set by that same inline script, which hides the Topics while it's present
+// and removes it itself after a short timeout in case PostHog never answers.
+export const LEARN_SEARCH_PENDING_ATTRIBUTE = "data-search-pending"
 
 export function applyLearnSearch(enabled: boolean): void {
   const root = document.documentElement
@@ -34,7 +37,10 @@ export function initLearnSearch(
 ): void {
   posthog.onFeatureFlags((flags, _variants, context) => {
     // Keep the last known value when flags fail to load (e.g. blocked).
-    if (context?.errorsLoading) return
-    applyLearnSearch(flags.includes(LEARN_SEARCH_FLAG))
+    if (!context?.errorsLoading) {
+      applyLearnSearch(flags.includes(LEARN_SEARCH_FLAG))
+    }
+    // PostHog has answered either way, so show the Topics.
+    document.documentElement.removeAttribute(LEARN_SEARCH_PENDING_ATTRIBUTE)
   })
 }

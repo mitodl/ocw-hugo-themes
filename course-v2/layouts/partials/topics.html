@@ -11,7 +11,7 @@
 {{- $isLearn := eq $searchVariant "learn" -}}
 {{- $topicsData := cond $isLearn $courseData.mit_learn_topics $courseData.topics -}}
 {{- if or (not $isLearn) $topicsData }}
-<div class=" {{ if $renderMarginTop }}mt-4{{ end }}">
+<div class="course-info-topics {{ if $renderMarginTop }}mt-4{{ end }}">
   <h3 class="course-info-section-label {{ if $inPanel }}panel-course-info-title {{ else }} text-muted {{ end }}">
     Topics
   </h3>
