@@ -1,6 +1,10 @@
 import { Locator, Page } from "@playwright/test"
 import { test, expect } from "../util/fixtures"
 import { CoursePage, COURSE_V3_CANONICAL_DOMAIN } from "../util"
+import {
+  LEARN_SEARCH_FLAG,
+  LEARN_SEARCH_STORAGE_KEY
+} from "../../course-v2/assets/js/learn_search"
 
 /**
  * Course v2 renders each search-linked block twice: an OCW copy and an MIT
@@ -335,6 +339,95 @@ test.describe("Learn copy of the header search icon", () => {
       ])
     })
   }
+})
+
+test.describe("The ocw-course-v2-learn-search flag", () => {
+  test.beforeEach(({ siteAlias }) => {
+    test.skip(siteAlias !== "course", "Online only")
+  })
+
+  /** Pretend this visitor's flags already chose a copy on an earlier visit. */
+  const rememberLearnCopy = (page: Page) =>
+    page.addInitScript(
+      key => localStorage.setItem(key, "true"),
+      LEARN_SEARCH_STORAGE_KEY
+    )
+
+  const rememberedValue = (page: Page) =>
+    page.evaluate(key => localStorage.getItem(key), LEARN_SEARCH_STORAGE_KEY)
+
+  /**
+   * Answer PostHog's onFeatureFlags with the flag on or off, the way
+   * ask-tim-v3.spec.ts does: intercept the client course-v2.tsx assigns to
+   * window.posthog and replace its onFeatureFlags.
+   */
+  const stubFlag = (page: Page, enabled: boolean) =>
+    page.addInitScript(
+      ({ enabled, flag }) => {
+        type FlagsCallback = (
+          flags: string[],
+          variants: Record<string, string | boolean>,
+          context?: { errorsLoading?: boolean }
+        ) => void
+        let client: unknown
+        Object.defineProperty(window, "posthog", {
+          configurable: true,
+          get:          () => client,
+          set:          (value: { onFeatureFlags: unknown }) => {
+            value.onFeatureFlags = (callback: FlagsCallback) => {
+              window.setTimeout(() =>
+                callback(enabled ? [flag] : [], {}, { errorsLoading: false })
+              )
+              return () => undefined
+            }
+            client = value
+          }
+        })
+      },
+      { enabled, flag: LEARN_SEARCH_FLAG }
+    )
+
+  test("a remembered Learn value shows the Learn copy before the bundle runs", async ({
+    page,
+    siteAlias
+  }) => {
+    await rememberLearnCopy(page)
+    // Without course_v2.js, only the inline script in <head> and the CSS can
+    // pick the copy.
+    await page.route("**/course_v2.js", route => route.abort())
+    const course = new CoursePage(page, siteAlias)
+    await course.goto()
+
+    await expect(homeCopy(page, "learn")).toBeVisible()
+    await expect(homeCopy(page, "ocw")).toBeHidden()
+  })
+
+  test("the flag turned on shows the Learn copy and remembers it", async ({
+    page,
+    siteAlias
+  }) => {
+    await stubFlag(page, true)
+    const course = new CoursePage(page, siteAlias)
+    await course.goto()
+
+    await expect(homeCopy(page, "learn")).toBeVisible()
+    await expect(homeCopy(page, "ocw")).toBeHidden()
+    expect(await rememberedValue(page)).toBe("true")
+  })
+
+  test("the flag turned off restores the OCW copy and forgets it", async ({
+    page,
+    siteAlias
+  }) => {
+    await rememberLearnCopy(page)
+    await stubFlag(page, false)
+    const course = new CoursePage(page, siteAlias)
+    await course.goto()
+
+    await expect(homeCopy(page, "ocw")).toBeVisible()
+    await expect(homeCopy(page, "learn")).toBeHidden()
+    await expect.poll(() => rememberedValue(page)).toBeNull()
+  })
 })
 
 test.describe("Learn copy without JavaScript", () => {

@@ -15,6 +15,7 @@ import {
 } from "./js/quiz_multiple_choice"
 import posthog from "posthog-js"
 import { initPostHog } from "../../base-theme/assets/js/posthog"
+import { initLearnSearch } from "./js/learn_search"
 
 export interface OCWWindow extends Window {
   initNanogallery2: () => void
@@ -26,6 +27,7 @@ declare let window: OCWWindow
 
 $(function() {
   window.posthog = initPostHog()
+  initLearnSearch(window.posthog)
   initCourseDescriptionExpander(document)
   initCourseInfoExpander(document)
   initDivToggle()

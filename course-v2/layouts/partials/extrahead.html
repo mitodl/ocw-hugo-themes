@@ -1,5 +1,15 @@
 {{- define "title" -}}{{ partial "title.html" . }}{{- end -}}
 {{- define "extrahead" -}}
+<script>
+  // Show the MIT Learn copy of the search links before first paint if the
+  // ocw-course-v2-learn-search flag was on last time;
+  // assets/js/learn_search.ts keeps this in sync with PostHog.
+  try {
+    if (localStorage.getItem("learnSearchEnabled") === "true") {
+      document.documentElement.setAttribute("data-search", "learn")
+    }
+  } catch (e) {}
+</script>
 {{- $css_urls := slice (partial "get_asset_webpack_url.html" "course_v2.css") (partial "get_asset_webpack_url.html" "common.css") -}}
 {{- $layout := .Params.layout -}}
 {{- if eq $layout "instructor_insights" -}}
