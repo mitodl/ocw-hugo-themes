@@ -294,25 +294,49 @@ test.describe("Learn copy of the topics", () => {
   }
 })
 
-test.describe("Learn copy of the header search icon", () => {
+/**
+ * Hrefs of the header's search links whose own computed display isn't `none`.
+ * The links' own display is checked, rather than visibility, because the
+ * mobile menu is collapsed and the desktop header is hidden on small screens.
+ * `.search-icon { display: flex }` must not beat the hide rule.
+ */
+const shownSearchLinks = (header: Locator) =>
+  header
+    .locator("a.search-icon")
+    .evaluateAll(links =>
+      links
+        .filter(link => getComputedStyle(link).display !== "none")
+        .map(link => link.getAttribute("href"))
+    )
+
+test.describe("Learn copy with an older course_v2.css", () => {
   test.beforeEach(({ siteAlias }) => {
     test.skip(siteAlias !== "course", "Online only")
   })
 
-  /**
-   * Hrefs of the header's search links whose own computed display isn't
-   * `none`. The links' own display is checked, rather than visibility, because
-   * the mobile menu is collapsed and the desktop header is hidden on small
-   * screens. `.search-icon { display: flex }` must not beat the hide rule.
-   */
-  const shownSearchLinks = (header: Locator) =>
-    header
-      .locator("a.search-icon")
-      .evaluateAll(links =>
-        links
-          .filter(link => getComputedStyle(link).display !== "none")
-          .map(link => link.getAttribute("href"))
-      )
+  // Site builds take templates from git but the webpack manifest from S3, so
+  // during a release a page can get the new markup with the previous
+  // release's course_v2.css. The page's own markup must still hide a copy.
+  test("the page hides the Learn copy without course_v2.css", async ({
+    page,
+    siteAlias
+  }) => {
+    await page.route("**/course_v2.css", route => route.abort())
+    const course = new CoursePage(page, siteAlias)
+    await course.goto()
+
+    await expect(homeCopy(page, "ocw")).toBeVisible()
+    await expect(homeCopy(page, "learn")).toBeHidden()
+    expect(await shownSearchLinks(page.locator("#desktop-header"))).toEqual([
+      "/search/"
+    ])
+  })
+})
+
+test.describe("Learn copy of the header search icon", () => {
+  test.beforeEach(({ siteAlias }) => {
+    test.skip(siteAlias !== "course", "Online only")
+  })
 
   const modes = [
     { name: "OCW", learn: false, href: "/search/" },

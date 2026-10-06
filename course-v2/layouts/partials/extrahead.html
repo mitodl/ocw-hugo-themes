@@ -1,5 +1,23 @@
 {{- define "title" -}}{{ partial "title.html" . }}{{- end -}}
 {{- define "extrahead" -}}
+{{- /* Picks the OCW or MIT Learn copy of the search links (see
+       search_variant_copies.html). These rules are inline rather than in
+       course_v2.css because site builds take templates from git but the
+       webpack manifest from S3, so during a release a page can get this
+       markup with the previous release's course_v2.css. */ -}}
+<style>
+  /* Wrappers produce no box, so each copy lays out like the unwrapped markup. */
+  .search-variant {
+    display: contents;
+  }
+
+  /* Hide the inactive copy. !important because some hidden elements carry
+     their own display rule, e.g. the header's .search-icon { display: flex }. */
+  html:not([data-search="learn"]) [data-search-variant="learn"],
+  html[data-search="learn"] [data-search-variant="ocw"] {
+    display: none !important;
+  }
+</style>
 <script>
   // Show the MIT Learn copy of the search links before first paint if the
   // ocw-course-v2-learn-search flag was on last time;

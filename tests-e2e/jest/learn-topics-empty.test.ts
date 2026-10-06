@@ -78,6 +78,18 @@ describe("Learn copy of a course with no mit_learn_topics", () => {
     expect(topicsHeadings(home("ocw"))).toHaveLength(1)
   })
 
+  test("the home page's Learn copy leaves out the empty Topics column", () => {
+    // An empty column would keep its inner .mt-4 margin, a blank gap under
+    // the course info on phones, where the columns stack.
+    const document = builtPage("")
+    const columns = (variant: string) =>
+      document.querySelectorAll(
+        `.course-detail-section > [data-search-variant="${variant}"] .row > .col-sm-6`
+      )
+    expect(columns("learn")).toHaveLength(1)
+    expect(columns("ocw")).toHaveLength(2)
+  })
+
   test("the drawers' Learn copies have no Topics section", () => {
     const document = builtPage("pages/section-1")
     expect(topicsHeadings(copies(document, "learn"))).toHaveLength(0)
