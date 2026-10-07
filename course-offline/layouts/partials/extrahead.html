@@ -2,4 +2,7 @@
 {{ define "extrahead" }}
 {{ $css_urls := slice (partial "get_asset_webpack_url.html" "course_offline.css") (partial "get_asset_webpack_url.html" "common.css") }}
 {{ partial "include_css.html" (dict "context" . "urls" $css_urls ) }}
+{{ with site.Data.course.site_url_path }}
+<meta name="ocw-site-url-path" content="{{ . }}">
+{{ end }}
 {{ end }}
