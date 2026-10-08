@@ -38,8 +38,8 @@ $(function() {
   checkAnswer()
   showSolution()
   initCourseDrawersClosingViaSwiping()
-  initMirrorHomeLinks()
   window.videojs = videojs
+  initMirrorHomeLinks()
 })
 
 let nanogallery2Loaded = false
