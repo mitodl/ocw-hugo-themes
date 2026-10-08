@@ -1,0 +1,13 @@
+{{- /* Search URL for one copy of a search-linked block: today's OCW search, or
+       MIT Learn search for the "learn" copy. Takes (dict "searchVariant" …
+       "key" … "value" …). This is an if/else rather than cond, because cond
+       evaluates both branches, and the Learn one reads an environment variable
+       that offline builds don't allowlist. */ -}}
+{{- $args := dict "key" .key "value" .value -}}
+{{- $url := "" -}}
+{{- if eq .searchVariant "learn" -}}
+  {{- $url = partial "get_learn_search_url.html" $args -}}
+{{- else -}}
+  {{- $url = partial "get_search_url.html" $args -}}
+{{- end -}}
+{{- return $url -}}
