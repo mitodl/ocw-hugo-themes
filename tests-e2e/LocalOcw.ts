@@ -131,16 +131,10 @@ class LocalOCW {
 
   /**
    * Build a test site to specified destination within rootDestinationDir.
-   *
-   * Pass `contentDir` to build the alias's theme and config against a modified
-   * copy of its test site content.
    */
   buildSite = (
     alias: TestSiteAlias,
-    {
-      execOptions,
-      contentDir
-    }: { execOptions?: SpawnOptions; contentDir?: string } = {}
+    { execOptions }: { execOptions?: SpawnOptions } = {}
   ) => {
     const site = TEST_SITES[alias]
     const destInTmp = `/${site.basePath}`
@@ -153,7 +147,7 @@ class LocalOCW {
         baseURL:     destInTmp
       },
       {
-        cwd: contentDir ?? fromRoot(`./test-sites/${site.contentDir}`),
+        cwd: fromRoot(`./test-sites/${site.contentDir}`),
         ...execOptions,
         env: {
           ...process.env,
