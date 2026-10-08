@@ -19,6 +19,7 @@ import "nanogallery2/src/jquery.nanogallery2.core.js"
 import "nanogallery2/src/css/nanogallery2.css"
 import "videojs-youtube"
 import videojs from "video.js"
+import { initMirrorHomeLinks } from "./js/mirror_home_link"
 
 export interface OCWWindow extends Window {
   $: JQueryStatic
@@ -38,6 +39,7 @@ $(function() {
   showSolution()
   initCourseDrawersClosingViaSwiping()
   window.videojs = videojs
+  initMirrorHomeLinks()
 })
 
 let nanogallery2Loaded = false
