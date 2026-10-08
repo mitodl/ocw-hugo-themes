@@ -1,10 +1,7 @@
 import { Locator, Page } from "@playwright/test"
 import { test, expect } from "../util/fixtures"
 import { CoursePage, COURSE_V3_CANONICAL_DOMAIN } from "../util"
-import {
-  LEARN_SEARCH_FLAG,
-  LEARN_SEARCH_STORAGE_KEY
-} from "../../course-v2/assets/js/learn_search"
+import { LEARN_SEARCH_FLAG } from "../../course-v2/assets/js/learn_search"
 
 /**
  * Course v2 renders each search-linked block twice: an OCW copy and an MIT
@@ -370,18 +367,6 @@ test.describe("The ocw-course-v2-learn-search flag", () => {
     test.skip(siteAlias !== "course", "Online only")
   })
 
-  /** Pretend this visitor's flags already chose a copy on an earlier visit. */
-  const rememberLearnCopy = (page: Page) =>
-    page.addInitScript(key => {
-      // Init scripts also run in iframes, and the Appzi widget's srcdoc iframe
-      // shares this page's localStorage: seeding there would undo the bundle
-      // clearing the value.
-      if (window === window.top) localStorage.setItem(key, "true")
-    }, LEARN_SEARCH_STORAGE_KEY)
-
-  const rememberedValue = (page: Page) =>
-    page.evaluate(key => localStorage.getItem(key), LEARN_SEARCH_STORAGE_KEY)
-
   /**
    * Answer PostHog's onFeatureFlags with the flag on or off, the way
    * ask-tim-v3.spec.ts does: intercept the client course-v2.tsx assigns to
@@ -413,22 +398,7 @@ test.describe("The ocw-course-v2-learn-search flag", () => {
       { enabled, flag: LEARN_SEARCH_FLAG }
     )
 
-  test("a remembered Learn value shows the Learn copy before the bundle runs", async ({
-    page,
-    siteAlias
-  }) => {
-    await rememberLearnCopy(page)
-    // Without course_v2.js, only the inline script in <head> and the CSS can
-    // pick the copy.
-    await page.route("**/course_v2.js", route => route.abort())
-    const course = new CoursePage(page, siteAlias)
-    await course.goto()
-
-    await expect(homeCopy(page, "learn")).toBeVisible()
-    await expect(homeCopy(page, "ocw")).toBeHidden()
-  })
-
-  test("the flag turned on shows the Learn copy and remembers it", async ({
+  test("the flag turned on shows the Learn copy", async ({
     page,
     siteAlias
   }) => {
@@ -438,21 +408,35 @@ test.describe("The ocw-course-v2-learn-search flag", () => {
 
     await expect(homeCopy(page, "learn")).toBeVisible()
     await expect(homeCopy(page, "ocw")).toBeHidden()
-    expect(await rememberedValue(page)).toBe("true")
   })
 
-  test("the flag turned off restores the OCW copy and forgets it", async ({
+  test("the flag turned off keeps the OCW copy", async ({
     page,
     siteAlias
   }) => {
-    await rememberLearnCopy(page)
     await stubFlag(page, false)
+    const course = new CoursePage(page, siteAlias)
+    await course.goto()
+    await expect(
+      homeCopy(page, "ocw").locator(".course-info-topics")
+    ).toHaveCSS("visibility", "visible")
+
+    await expect(homeCopy(page, "ocw")).toBeVisible()
+    await expect(homeCopy(page, "learn")).toBeHidden()
+  })
+
+  test("without the bundle, the OCW copy shows", async ({
+    page,
+    siteAlias
+  }) => {
+    // The inline script in <head> no longer picks a copy on its own, so the
+    // page falls back to OCW until learn_search.ts runs.
+    await page.route("**/course_v2.js", route => route.abort())
     const course = new CoursePage(page, siteAlias)
     await course.goto()
 
     await expect(homeCopy(page, "ocw")).toBeVisible()
     await expect(homeCopy(page, "learn")).toBeHidden()
-    await expect.poll(() => rememberedValue(page)).toBeNull()
   })
 })
 

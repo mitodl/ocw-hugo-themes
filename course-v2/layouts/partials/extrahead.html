@@ -25,17 +25,9 @@
   }
 </style>
 <script>
-  // Show the MIT Learn copy of the search links before first paint if the
-  // ocw-course-v2-learn-search flag was on last time;
-  // assets/js/learn_search.ts keeps this in sync with PostHog.
-  try {
-    if (localStorage.getItem("learnSearchEnabled") === "true") {
-      document.documentElement.setAttribute("data-search", "learn")
-    }
-  } catch (e) {}
   // Hide the Topics until PostHog answers, so a slow flag load can't swap
-  // them in view. learn_search.ts removes this once flags load, and the timer
-  // does if PostHog never answers.
+  // them in view. assets/js/learn_search.ts removes this once flags load, and
+  // the timer does if PostHog never answers.
   document.documentElement.setAttribute("data-search-pending", "")
   setTimeout(function () {
     document.documentElement.removeAttribute("data-search-pending")

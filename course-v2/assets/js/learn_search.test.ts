@@ -2,7 +2,6 @@ import type { PostHog } from "posthog-js"
 import {
   LEARN_SEARCH_FLAG,
   LEARN_SEARCH_PENDING_ATTRIBUTE,
-  LEARN_SEARCH_STORAGE_KEY,
   applyLearnSearch,
   initLearnSearch
 } from "./learn_search"
@@ -29,32 +28,14 @@ describe("learn_search", () => {
   afterEach(() => {
     document.documentElement.removeAttribute("data-search")
     document.documentElement.removeAttribute(LEARN_SEARCH_PENDING_ATTRIBUTE)
-    localStorage.clear()
-    jest.restoreAllMocks()
   })
 
-  test("applyLearnSearch(true) shows the Learn copy and remembers it", () => {
+  test("applyLearnSearch switches between the Learn and OCW copies", () => {
     applyLearnSearch(true)
-
     expect(learnShown()).toBe(true)
-    expect(localStorage.getItem(LEARN_SEARCH_STORAGE_KEY)).toBe("true")
-  })
 
-  test("applyLearnSearch(false) restores the OCW copy and forgets it", () => {
-    applyLearnSearch(true)
     applyLearnSearch(false)
-
     expect(learnShown()).toBe(false)
-    expect(localStorage.getItem(LEARN_SEARCH_STORAGE_KEY)).toBeNull()
-  })
-
-  test("applyLearnSearch still switches copies when storage is blocked", () => {
-    jest.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
-      throw new Error("storage blocked")
-    })
-
-    expect(() => applyLearnSearch(true)).not.toThrow()
-    expect(learnShown()).toBe(true)
   })
 
   test("initLearnSearch follows the flag each time flags load", () => {
@@ -66,18 +47,16 @@ describe("learn_search", () => {
 
     sendFlags(["some-other-flag"])
     expect(learnShown()).toBe(false)
-    expect(localStorage.getItem(LEARN_SEARCH_STORAGE_KEY)).toBeNull()
   })
 
-  test("initLearnSearch keeps the last known value when flags fail to load", () => {
-    applyLearnSearch(true)
+  test("initLearnSearch keeps the current copy when flags fail to load", () => {
     const { posthog, sendFlags } = makePostHog()
     initLearnSearch(posthog)
+    sendFlags([LEARN_SEARCH_FLAG])
 
     sendFlags([], { errorsLoading: true })
 
     expect(learnShown()).toBe(true)
-    expect(localStorage.getItem(LEARN_SEARCH_STORAGE_KEY)).toBe("true")
   })
 
   test.each([
