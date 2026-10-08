@@ -4,5 +4,6 @@
 {{ partial "include_css.html" (dict "context" . "urls" $css_urls ) }}
 {{ with site.Data.course.site_url_path }}
 <meta name="ocw-site-url-path" content="{{ . }}">
+<meta name="ocw-live-site-url" content="{{ partial "site_root_url.html" "/" }}">
 {{ end }}
 {{ end }}

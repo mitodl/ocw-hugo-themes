@@ -1,39 +1,41 @@
 /**
- * One offline build ships twice: as the course download zip, where the course
- * is the top of the tree, and synced into the mirror drive at the course's
- * site_url_path (e.g. courses/<slug>/), below the mirror's own home page. The
- * build points the OCW logo at the course home, which exists in both. Only the
- * page's location can tell the two apart, so this checks it in the browser.
+ * One offline build ships twice: synced into the mirror drive at the course's
+ * site_url_path (e.g. courses/<slug>/), below the mirror's own home page, and
+ * as the course download zip, where nothing sits above the course. The build
+ * points the OCW logo at the mirror home, relative to the page. Only the
+ * page's location can tell the two apart, so outside a mirror this points the
+ * logo at the live site instead of a file that does not exist.
  */
 
 /**
- * Returns the mirror home page above the course whose home page is at
- * `courseHomeUrl`, or null if the course is not sitting at `siteUrlPath`
- * inside a mirror.
+ * Whether `pageUrl` sits at `siteUrlPath` below the mirror home that the logo
+ * link resolves to, as it does in a mirror.
  */
-export const getMirrorHomeUrl = (
-  courseHomeUrl: string,
+export const isInMirror = (
+  pageUrl: string,
+  mirrorHomeUrl: string,
   siteUrlPath: string
-): string | null => {
+): boolean => {
   const segments = siteUrlPath.split("/").filter(Boolean)
-  if (segments.length === 0) return null
+  if (segments.length === 0) return false
 
-  const courseRoot = new URL("./", courseHomeUrl)
-  if (!courseRoot.pathname.endsWith(`/${segments.join("/")}/`)) return null
-
-  return new URL(`${"../".repeat(segments.length)}index.html`, courseRoot).href
+  const courseRoot = new URL(`${segments.join("/")}/`, mirrorHomeUrl)
+  return pageUrl.startsWith(courseRoot.href)
 }
 
+const getMetaContent = (name: string) =>
+  document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`)?.content
+
 export const initMirrorHomeLinks = () => {
-  const siteUrlPath = document.querySelector<HTMLMetaElement>(
-    'meta[name="ocw-site-url-path"]'
-  )?.content
-  if (!siteUrlPath) return
+  const siteUrlPath = getMetaContent("ocw-site-url-path")
+  const liveSiteUrl = getMetaContent("ocw-live-site-url")
+  if (!siteUrlPath || !liveSiteUrl) return
 
   for (const link of document.querySelectorAll<HTMLAnchorElement>(
     "a.ocw-logo-link"
   )) {
-    const mirrorHomeUrl = getMirrorHomeUrl(link.href, siteUrlPath)
-    if (mirrorHomeUrl) link.href = mirrorHomeUrl
+    if (!isInMirror(window.location.href, link.href, siteUrlPath)) {
+      link.href = liveSiteUrl
+    }
   }
 }

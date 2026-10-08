@@ -1,6 +1,15 @@
-{{/* Return a root-relative URL for the course home page.
-     Hugo's relativeURLs post-processor rewrites this to a correct
-     relative path on each page, keeping the link package-local.
-     Inside a mirror drive, mirror_home_link.ts repoints the logo
-     at the mirror's own home page. */}}
-{{ return "/index.html" }}
+{{/* Return the mirror drive home page, relative to each page.
+     The mirror holds each course at its site_url_path (e.g.
+     courses/<slug>/), so its home page is that many levels above the
+     package root. The URL stays root-relative so Hugo's relativeURLs
+     post-processor prefixes each page's path to the package root; the
+     "./" is needed because a bare "/../" is not rewritten correctly.
+     A downloaded zip has no mirror home above it, so
+     mirror_home_link.ts swaps in the live site there. */}}
+{{ $siteUrlPath := site.Data.course.site_url_path | default "" | strings.TrimPrefix "/" | strings.TrimSuffix "/" }}
+{{ $homeUrl := partial "site_root_url.html" "/" }}
+{{ if $siteUrlPath }}
+  {{ $depth := len (split $siteUrlPath "/") }}
+  {{ $homeUrl = printf "/./%sindex.html" (strings.Repeat $depth "../") }}
+{{ end }}
+{{ return $homeUrl }}

@@ -1,103 +1,120 @@
-import { getMirrorHomeUrl, initMirrorHomeLinks } from "./mirror_home_link"
+import { isInMirror, initMirrorHomeLinks } from "./mirror_home_link"
 
 const SITE_URL_PATH = "courses/1-00-intro-spring-2012"
 
-describe("getMirrorHomeUrl", () => {
+/**
+ * The logo href Hugo emits on a page two levels below the course root, as the
+ * browser resolves it from `pageUrl`.
+ */
+const logoHrefFrom = (pageUrl: string) =>
+  new URL("../.././../../index.html", pageUrl).href
+
+describe("isInMirror", () => {
   it.each([
-    [
-      "https://mirror.example.org/courses/1-00-intro-spring-2012/index.html",
-      "https://mirror.example.org/index.html"
-    ],
-    [
-      "https://mirror.example.org/ocw/courses/1-00-intro-spring-2012/index.html",
-      "https://mirror.example.org/ocw/index.html"
-    ],
-    [
-      "file:///media/ocw/courses/1-00-intro-spring-2012/index.html",
-      "file:///media/ocw/index.html"
-    ],
-    [
-      "file:///Volumes/OCW%20Mirror/courses/1-00-intro-spring-2012/index.html",
-      "file:///Volumes/OCW%20Mirror/index.html"
-    ]
-  ])("finds the mirror home above %s", (courseHomeUrl, expected) => {
-    expect(getMirrorHomeUrl(courseHomeUrl, SITE_URL_PATH)).toBe(expected)
+    "https://mirror.example.org/courses/1-00-intro-spring-2012/pages/syllabus/index.html",
+    "https://mirror.example.org/ocw/courses/1-00-intro-spring-2012/pages/syllabus/index.html",
+    "https://mirror.example.org/courses/1-00-intro-spring-2012/pages/syllabus/index.html#grading",
+    "file:///media/ocw/courses/1-00-intro-spring-2012/pages/syllabus/index.html",
+    "file:///Volumes/OCW%20Mirror/courses/1-00-intro-spring-2012/pages/syllabus/index.html"
+  ])("is true for %s", pageUrl => {
+    expect(isInMirror(pageUrl, logoHrefFrom(pageUrl), SITE_URL_PATH)).toBe(true)
+  })
+
+  it("is true on the course home page itself", () => {
+    const pageUrl =
+      "https://mirror.example.org/courses/1-00-intro-spring-2012/index.html"
+    const logoHref = new URL("./../../index.html", pageUrl).href
+    expect(isInMirror(pageUrl, logoHref, SITE_URL_PATH)).toBe(true)
   })
 
   it.each([
     // the course download zip, extracted wherever the user put it
-    "file:///Users/someone/Downloads/1.00-spring-2012/index.html",
+    "file:///Users/someone/Downloads/1.00-spring-2012/pages/syllabus/index.html",
     // a folder named after the course, but not under courses/
-    "file:///Users/someone/1-00-intro-spring-2012/index.html",
+    "file:///Users/someone/1-00-intro-spring-2012/pages/syllabus/index.html",
     // a different course whose slug merely ends with this one's
-    "https://mirror.example.org/courses/x-1-00-intro-spring-2012/index.html",
+    "https://mirror.example.org/courses/x-1-00-intro-spring-2012/pages/syllabus/index.html",
     // the right slug under a folder that is not courses/
-    "https://mirror.example.org/old-courses/1-00-intro-spring-2012/index.html"
-  ])("returns null when the course is not in a mirror (%s)", courseHomeUrl => {
-    expect(getMirrorHomeUrl(courseHomeUrl, SITE_URL_PATH)).toBeNull()
+    "https://mirror.example.org/old-courses/1-00-intro-spring-2012/pages/syllabus/index.html"
+  ])("is false for %s", pageUrl => {
+    expect(isInMirror(pageUrl, logoHrefFrom(pageUrl), SITE_URL_PATH)).toBe(
+      false
+    )
   })
 
   it("ignores leading and trailing slashes on site_url_path", () => {
+    const pageUrl =
+      "https://mirror.example.org/courses/1-00-intro-spring-2012/pages/syllabus/index.html"
     expect(
-      getMirrorHomeUrl(
-        "https://mirror.example.org/courses/1-00-intro-spring-2012/index.html",
+      isInMirror(
+        pageUrl,
+        logoHrefFrom(pageUrl),
         "/courses/1-00-intro-spring-2012/"
       )
-    ).toBe("https://mirror.example.org/index.html")
+    ).toBe(true)
   })
 
-  it("returns null when site_url_path is empty", () => {
-    expect(
-      getMirrorHomeUrl("https://mirror.example.org/index.html", "")
-    ).toBeNull()
+  it("is false when site_url_path is empty", () => {
+    const pageUrl = "https://mirror.example.org/pages/syllabus/index.html"
+    expect(isInMirror(pageUrl, logoHrefFrom(pageUrl), "")).toBe(false)
   })
 })
 
 describe("initMirrorHomeLinks", () => {
-  const courseHome =
-    "http://localhost/courses/1-00-intro-spring-2012/index.html"
+  const LIVE_SITE_URL = "https://ocw.mit.edu/"
+  const LOGO_HREF = "../.././../../index.html"
+  const COURSE_HOME_HREF = "../../index.html"
+  const METAS: Record<string, string> = {
+    "ocw-site-url-path": SITE_URL_PATH,
+    "ocw-live-site-url": LIVE_SITE_URL
+  }
 
-  const render = (siteUrlPath: string | null) => {
-    document.head.innerHTML =
-      siteUrlPath === null ?
-        "" :
-        `<meta name="ocw-site-url-path" content="${siteUrlPath}">`
+  const render = (pagePath: string, metas = METAS) => {
+    window.history.replaceState({}, "", pagePath)
+    document.head.innerHTML = Object.entries(metas)
+      .map(([name, content]) => `<meta name="${name}" content="${content}">`)
+      .join("")
     document.body.innerHTML = `
-      <a class="ocw-logo-link" href="${courseHome}">desktop logo</a>
-      <a class="ocw-logo-link" href="${courseHome}">mobile logo</a>
-      <a class="course-home" href="${courseHome}">Course Home</a>
+      <a class="ocw-logo-link" href="${LOGO_HREF}">desktop logo</a>
+      <a class="ocw-logo-link" href="${LOGO_HREF}">mobile logo</a>
+      <a class="course-title" href="${COURSE_HOME_HREF}">Course title</a>
     `
   }
 
   const hrefs = (selector: string) =>
     Array.from(document.querySelectorAll<HTMLAnchorElement>(selector)).map(
-      link => link.href
+      link => link.getAttribute("href")
     )
 
-  it("points the logo links at the mirror home", () => {
-    render(SITE_URL_PATH)
+  it("keeps the relative mirror home link inside a mirror", () => {
+    render("/courses/1-00-intro-spring-2012/pages/syllabus/index.html")
     initMirrorHomeLinks()
-    expect(hrefs(".ocw-logo-link")).toEqual([
-      "http://localhost/index.html",
-      "http://localhost/index.html"
-    ])
+    expect(hrefs(".ocw-logo-link")).toEqual([LOGO_HREF, LOGO_HREF])
   })
 
-  it("leaves other links to the course home alone", () => {
-    render(SITE_URL_PATH)
+  it("points the logo links at the live site outside a mirror", () => {
+    render("/Downloads/1.00-spring-2012/pages/syllabus/index.html")
     initMirrorHomeLinks()
-    expect(hrefs(".course-home")).toEqual([courseHome])
+    expect(hrefs(".ocw-logo-link")).toEqual([LIVE_SITE_URL, LIVE_SITE_URL])
   })
 
-  it("leaves the logo links alone outside a mirror", () => {
-    render("courses/some-other-course")
+  it("leaves the course title link alone", () => {
+    render("/Downloads/1.00-spring-2012/pages/syllabus/index.html")
     initMirrorHomeLinks()
-    expect(hrefs(".ocw-logo-link")).toEqual([courseHome, courseHome])
+    expect(hrefs(".course-title")).toEqual([COURSE_HOME_HREF])
   })
 
-  it("leaves the logo links alone without a site_url_path", () => {
-    render(null)
-    initMirrorHomeLinks()
-    expect(hrefs(".ocw-logo-link")).toEqual([courseHome, courseHome])
-  })
+  it.each(["ocw-site-url-path", "ocw-live-site-url"])(
+    "leaves the logo links alone without the %s meta tag",
+    missing => {
+      render(
+        "/Downloads/1.00-spring-2012/pages/syllabus/index.html",
+        Object.fromEntries(
+          Object.entries(METAS).filter(([name]) => name !== missing)
+        )
+      )
+      initMirrorHomeLinks()
+      expect(hrefs(".ocw-logo-link")).toEqual([LOGO_HREF, LOGO_HREF])
+    }
+  )
 })

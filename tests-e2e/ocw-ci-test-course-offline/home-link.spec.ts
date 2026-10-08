@@ -5,12 +5,14 @@ import { pathToFileURL } from "node:url"
 import { Page, test, expect } from "@playwright/test"
 import { fromRoot } from "../LocalOcw"
 import { offlineV2SiteDir } from "../util/offline-build"
+import { FIXTURES_PORT } from "../util/test_sites"
 
 /**
- * file://-only: one offline build ships twice, as the course download zip and,
- * synced to the course's site_url_path, inside the mirror drive. The OCW logo
- * has to lead somewhere that exists in both. See
- * course-offline/assets/js/mirror_home_link.ts.
+ * file://-only: one offline build ships twice, synced to the course's
+ * site_url_path inside the mirror drive and as the course download zip. The
+ * OCW logo leads to the mirror home, which only exists in the mirror, so a zip
+ * falls back to the live site. The course title always leads to the course
+ * home. See course-offline/assets/js/mirror_home_link.ts.
  */
 
 const { site_url_path: siteUrlPath, site_short_id: siteShortId } = JSON.parse(
@@ -20,7 +22,11 @@ const { site_url_path: siteUrlPath, site_short_id: siteShortId } = JSON.parse(
   )
 )
 
+/** The live site URL, from the STATIC_API_BASE_URL that LocalOcw builds with. */
+const LIVE_SITE_URL = `http://localhost:${FIXTURES_PORT}/`
+
 const logoLinks = (page: Page) => page.locator("a.ocw-logo-link")
+const courseTitleLink = (page: Page) => page.locator("#course-banner h1 a")
 
 let tmpRoot: string
 
@@ -35,8 +41,9 @@ test.afterEach(() => {
 })
 
 /**
- * Copies the offline build to `relDir` under the temp root and opens its
- * syllabus page from disk. Returns the course directory.
+ * Copies the offline build to `relDir` under the temp root, opens its syllabus
+ * page from disk and waits for the course bundle to run. Returns the course
+ * directory.
  */
 const openSyllabusFrom = async (page: Page, relDir: string) => {
   const courseDir = path.join(tmpRoot, relDir)
@@ -44,28 +51,29 @@ const openSyllabusFrom = async (page: Page, relDir: string) => {
   await page.goto(
     pathToFileURL(path.join(courseDir, "pages", "syllabus", "index.html")).href
   )
+  // Set in the same ready callback, just before initMirrorHomeLinks runs.
+  await page.waitForFunction(() => "videojs" in window)
   return courseDir
 }
 
-const expectLogoLinksTo = async (page: Page, href: string) => {
-  const links = logoLinks(page)
-  await expect(links).toHaveCount(2)
-  for (const link of await links.all()) {
-    await expect(link).toHaveAttribute("href", href)
-  }
+const expectCourseTitleLinksTo = async (page: Page, courseDir: string) => {
+  expect(
+    await courseTitleLink(page).evaluate((link: HTMLAnchorElement) => link.href)
+  ).toBe(pathToFileURL(path.join(courseDir, "index.html")).href)
 }
 
-test("In a downloaded zip, the logo links to the course home", async ({
+test("In a downloaded zip, the logo links to the live site", async ({
   page
 }) => {
   // <short_id>.zip extracts into a folder of the same name.
   const courseDir = await openSyllabusFrom(page, siteShortId)
-  await expectLogoLinksTo(page, "../../index.html")
 
-  await page.locator("#desktop-header a.ocw-logo-link").click()
-  await expect(page).toHaveURL(
-    pathToFileURL(path.join(courseDir, "index.html")).href
-  )
+  const links = logoLinks(page)
+  await expect(links).toHaveCount(2)
+  for (const link of await links.all()) {
+    await expect(link).toHaveAttribute("href", LIVE_SITE_URL)
+  }
+  await expectCourseTitleLinksTo(page, courseDir)
 })
 
 test("Inside a mirror drive, the logo links to the mirror home", async ({
@@ -75,9 +83,19 @@ test("Inside a mirror drive, the logo links to the mirror home", async ({
     path.join(tmpRoot, "index.html"),
     "<!doctype html><title>Mirror home</title>"
   )
-  await openSyllabusFrom(page, siteUrlPath)
+  const courseDir = await openSyllabusFrom(page, siteUrlPath)
   const mirrorHome = pathToFileURL(path.join(tmpRoot, "index.html")).href
-  await expectLogoLinksTo(page, mirrorHome)
+
+  const links = logoLinks(page)
+  await expect(links).toHaveCount(2)
+  for (const link of await links.all()) {
+    // relative, so it works wherever the mirror is mounted
+    expect(await link.getAttribute("href")).toMatch(/^\.\.?\//)
+    expect(
+      await link.evaluate((anchor: HTMLAnchorElement) => anchor.href)
+    ).toBe(mirrorHome)
+  }
+  await expectCourseTitleLinksTo(page, courseDir)
 
   await page.locator("#desktop-header a.ocw-logo-link").click()
   await expect(page).toHaveURL(mirrorHome)
