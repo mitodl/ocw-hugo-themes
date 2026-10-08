@@ -38,25 +38,55 @@ describe("learn_search", () => {
     expect(learnShown()).toBe(false)
   })
 
-  test("initLearnSearch follows the flag each time flags load", () => {
+  // The inline script in extrahead.html sets this before first paint.
+  const startPending = () =>
+    document.documentElement.setAttribute(LEARN_SEARCH_PENDING_ATTRIBUTE, "")
+
+  test.each([
+    { name: "on", flags: [LEARN_SEARCH_FLAG], expected: true },
+    { name: "off", flags: [], expected: false }
+  ])(
+    "initLearnSearch follows the flag when it's $name",
+    ({ flags, expected }) => {
+      startPending()
+      const { posthog, sendFlags } = makePostHog()
+      initLearnSearch(posthog)
+
+      sendFlags(flags)
+
+      expect(learnShown()).toBe(expected)
+    }
+  )
+
+  test("initLearnSearch keeps the OCW copy when flags fail to load", () => {
+    startPending()
     const { posthog, sendFlags } = makePostHog()
     initLearnSearch(posthog)
 
-    sendFlags([LEARN_SEARCH_FLAG])
-    expect(learnShown()).toBe(true)
+    sendFlags([LEARN_SEARCH_FLAG], { errorsLoading: true })
 
-    sendFlags(["some-other-flag"])
     expect(learnShown()).toBe(false)
   })
 
-  test("initLearnSearch keeps the current copy when flags fail to load", () => {
+  test("initLearnSearch ignores answers after the first", () => {
+    startPending()
     const { posthog, sendFlags } = makePostHog()
     initLearnSearch(posthog)
     sendFlags([LEARN_SEARCH_FLAG])
 
-    sendFlags([], { errorsLoading: true })
+    sendFlags([])
 
     expect(learnShown()).toBe(true)
+  })
+
+  test("initLearnSearch keeps the OCW copy when PostHog answers after the fallback", () => {
+    // The fallback timer has already removed the pending attribute.
+    const { posthog, sendFlags } = makePostHog()
+    initLearnSearch(posthog)
+
+    sendFlags([LEARN_SEARCH_FLAG])
+
+    expect(learnShown()).toBe(false)
   })
 
   test.each([
@@ -70,8 +100,7 @@ describe("learn_search", () => {
   ])(
     "initLearnSearch reveals the Topics once PostHog answers, $name",
     ({ flags, context }) => {
-      // The inline script in extrahead.html sets this before first paint.
-      document.documentElement.setAttribute(LEARN_SEARCH_PENDING_ATTRIBUTE, "")
+      startPending()
       const { posthog, sendFlags } = makePostHog()
       initLearnSearch(posthog)
       expect(

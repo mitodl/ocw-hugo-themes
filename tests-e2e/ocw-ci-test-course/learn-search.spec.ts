@@ -529,6 +529,35 @@ test.describe("Topics while PostHog loads", () => {
     await page.clock.runFor(100)
     await expect(topics(page)).toHaveCSS("visibility", "visible")
   })
+
+  test("a flag that turns on after the fallback keeps the OCW copy", async ({
+    page,
+    siteAlias
+  }) => {
+    await holdFlags(page)
+    const course = new CoursePage(page, siteAlias)
+    await course.goto()
+    await page.clock.runFor(FALLBACK_MS)
+    await expect(topics(page)).toHaveCSS("visibility", "visible")
+    await expect
+      .poll(() =>
+        page.evaluate(() => typeof Reflect.get(window, "__answerFlags"))
+      )
+      .toBe("function")
+
+    await page.evaluate(() =>
+      (
+        window as unknown as { __answerFlags: (on: boolean) => void }
+      ).__answerFlags(true)
+    )
+
+    await expect(homeCopy(page, "ocw")).toBeVisible()
+    await expect(homeCopy(page, "learn")).toBeHidden()
+    await expect(page.locator("html")).not.toHaveAttribute(
+      "data-search",
+      "learn"
+    )
+  })
 })
 
 test.describe("Learn copy without JavaScript", () => {
