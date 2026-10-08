@@ -4,7 +4,7 @@ import * as path from "node:path"
 import { pathToFileURL } from "node:url"
 import { Page, test, expect } from "@playwright/test"
 import { fromRoot } from "../LocalOcw"
-import { offlineV2FileUrl, offlineV2SiteDir } from "../util/offline-build"
+import { offlineV2SiteDir } from "../util/offline-build"
 
 /**
  * file://-only: one offline build ships twice, as the course download zip and,
@@ -13,57 +13,72 @@ import { offlineV2FileUrl, offlineV2SiteDir } from "../util/offline-build"
  * course-offline/assets/js/mirror_home_link.ts.
  */
 
+const { site_url_path: siteUrlPath, site_short_id: siteShortId } = JSON.parse(
+  fs.readFileSync(
+    fromRoot("./test-sites/ocw-ci-test-course/data/course.json"),
+    "utf8"
+  )
+)
+
 const logoLinks = (page: Page) => page.locator("a.ocw-logo-link")
 
-test("Logo links to the course home, not the live site", async ({ page }) => {
-  await page.goto(offlineV2FileUrl("/pages/syllabus"))
+let tmpRoot: string
+
+test.beforeEach(() => {
+  tmpRoot = fs.realpathSync(
+    fs.mkdtempSync(path.join(os.tmpdir(), "ocw-offline-"))
+  )
+})
+
+test.afterEach(() => {
+  fs.rmSync(tmpRoot, { recursive: true, force: true })
+})
+
+/**
+ * Copies the offline build to `relDir` under the temp root and opens its
+ * syllabus page from disk. Returns the course directory.
+ */
+const openSyllabusFrom = async (page: Page, relDir: string) => {
+  const courseDir = path.join(tmpRoot, relDir)
+  fs.cpSync(offlineV2SiteDir, courseDir, { recursive: true })
+  await page.goto(
+    pathToFileURL(path.join(courseDir, "pages", "syllabus", "index.html")).href
+  )
+  return courseDir
+}
+
+const expectLogoLinksTo = async (page: Page, href: string) => {
   const links = logoLinks(page)
   await expect(links).toHaveCount(2)
   for (const link of await links.all()) {
-    await expect(link).toHaveAttribute("href", "../../index.html")
+    await expect(link).toHaveAttribute("href", href)
   }
+}
+
+test("In a downloaded zip, the logo links to the course home", async ({
+  page
+}) => {
+  // <short_id>.zip extracts into a folder of the same name.
+  const courseDir = await openSyllabusFrom(page, siteShortId)
+  await expectLogoLinksTo(page, "../../index.html")
+
+  await page.locator("#desktop-header a.ocw-logo-link").click()
+  await expect(page).toHaveURL(
+    pathToFileURL(path.join(courseDir, "index.html")).href
+  )
 })
 
-test.describe("Inside a mirror drive", () => {
-  const { site_url_path: siteUrlPath } = JSON.parse(
-    fs.readFileSync(
-      fromRoot("./test-sites/ocw-ci-test-course/data/course.json"),
-      "utf8"
-    )
+test("Inside a mirror drive, the logo links to the mirror home", async ({
+  page
+}) => {
+  fs.writeFileSync(
+    path.join(tmpRoot, "index.html"),
+    "<!doctype html><title>Mirror home</title>"
   )
-  let mirrorRoot: string
+  await openSyllabusFrom(page, siteUrlPath)
+  const mirrorHome = pathToFileURL(path.join(tmpRoot, "index.html")).href
+  await expectLogoLinksTo(page, mirrorHome)
 
-  test.beforeAll(() => {
-    mirrorRoot = fs.realpathSync(
-      fs.mkdtempSync(path.join(os.tmpdir(), "ocw-mirror-"))
-    )
-    fs.writeFileSync(
-      path.join(mirrorRoot, "index.html"),
-      "<!doctype html><title>Mirror home</title>"
-    )
-    fs.cpSync(offlineV2SiteDir, path.join(mirrorRoot, siteUrlPath), {
-      recursive: true
-    })
-  })
-
-  test.afterAll(() => {
-    fs.rmSync(mirrorRoot, { recursive: true, force: true })
-  })
-
-  test("Logo links to the mirror home page", async ({ page }) => {
-    const mirrorHome = pathToFileURL(path.join(mirrorRoot, "index.html")).href
-    await page.goto(
-      pathToFileURL(
-        path.join(mirrorRoot, siteUrlPath, "pages", "syllabus", "index.html")
-      ).href
-    )
-    const links = logoLinks(page)
-    await expect(links).toHaveCount(2)
-    for (const link of await links.all()) {
-      await expect(link).toHaveAttribute("href", mirrorHome)
-    }
-
-    await page.locator("#desktop-header a.ocw-logo-link").click()
-    await expect(page).toHaveURL(mirrorHome)
-  })
+  await page.locator("#desktop-header a.ocw-logo-link").click()
+  await expect(page).toHaveURL(mirrorHome)
 })
