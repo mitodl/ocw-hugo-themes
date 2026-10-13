@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+Version 1.163.1
+---------------
+
+- fix: use full release versions in pinned action comments (#1893)
+- fix: link the offline course logo to the mirror drive home (#1890)
+- Update dependency jest-environment-jsdom to v30.5.2 (#1888)
+- Update dependency video.js to v8.24.1 (#1884)
+- Update dependency @mitodl/smoot-design to v6.38.0 (#1887)
+- Update zizmorcore/zizmor-action action to v0.6.4 (#1886)
+
 Version 1.162.0
 ---------------
 
