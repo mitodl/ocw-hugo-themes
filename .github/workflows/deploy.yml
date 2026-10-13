@@ -32,7 +32,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Node
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24.14.1
           cache: "yarn"
@@ -170,7 +170,7 @@ jobs:
           body="Netlify Deployments:<br>$(preview www "$WWW_OUTCOME" "https://ocw-hugo-themes-www-pr-${{ github.event.number }}--ocw-next.netlify.app/") <br> $(preview "Course v2" "$COURSE_V2_OUTCOME" "https://ocw-hugo-themes-course-v2-pr-${{ github.event.number }}--ocw-next.netlify.app/") <br> $(preview "Course v3" "$COURSE_V3_OUTCOME" "https://ocw-hugo-themes-course-v3-pr-${{ github.event.number }}--ocw-next.netlify.app/courses/o/${{ env.COURSE_V3_URL_SLUG }}/")"
           echo "body=$body" >> $GITHUB_OUTPUT
       - name: Find Comment
-        uses: peter-evans/find-comment@b30e6a3c0ed37e7c023ccd3f1db5c6c0b0c23aad # v4
+        uses: peter-evans/find-comment@b30e6a3c0ed37e7c023ccd3f1db5c6c0b0c23aad # v4.0.0
         id: fc
         if: ${{ steps.set-comment-body.outcome == 'success' }}
         continue-on-error: true
@@ -181,7 +181,7 @@ jobs:
 
       - name: Create comment
         if: ${{ steps.set-comment-body.outcome == 'success' && steps.fc.outputs.comment-id == 0 }}
-        uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5
+        uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
         continue-on-error: true
         with:
           issue-number: ${{ github.event.pull_request.number }}
@@ -189,7 +189,7 @@ jobs:
 
       - name: Update comment
         if: ${{ steps.set-comment-body.outcome == 'success' && steps.fc.outputs.comment-id != 0 }}
-        uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5
+        uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
         continue-on-error: true
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
@@ -222,7 +222,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Node
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24.14.1
           cache: "yarn"
