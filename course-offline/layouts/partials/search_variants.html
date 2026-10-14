@@ -1,0 +1,4 @@
+{{- /* Offline packages never load PostHog, so they only get the OCW copy of the
+       search links, rendered without a wrapper. See
+       course-v2/layouts/partials/search_variant_copies.html. */ -}}
+{{- return slice "ocw" -}}

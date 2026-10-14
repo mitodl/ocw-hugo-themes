@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+Version 1.164.0
+---------------
+
+- Link course v2 search to MIT Learn behind a PostHog flag (#1891)
+- feat: replace nanogallery2 with an accessible gallery in course-v3 (#1861)
+
 Version 1.163.1
 ---------------
 

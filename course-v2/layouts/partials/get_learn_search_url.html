@@ -1,0 +1,14 @@
+{{- /* MIT Learn search URL, filtered to OCW. Takes (dict "key" … "value" …),
+       with keys from data/learn_search.json; level values are mapped to
+       Learn's. Without a key it returns the OCW-filtered search page itself,
+       for the header search icon. */ -}}
+{{- $config := site.Data.learn_search -}}
+{{- $params := slice "offered_by" "ocw" -}}
+{{- with .key -}}
+  {{- $value := $.value -}}
+  {{- if eq . "level" -}}
+    {{- $value = index $config.level_values $value | default $value -}}
+  {{- end -}}
+  {{- $params = $params | append (index $config.query_keys .) $value -}}
+{{- end -}}
+{{- return printf "https://%s/search/?%s" (partial "course_v3_canonical_domain.html") (querify $params) -}}

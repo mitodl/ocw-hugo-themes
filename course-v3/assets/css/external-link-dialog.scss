@@ -1,0 +1,87 @@
+// The leaving-OCW warning as a native <dialog>, for v3 only. The markup is
+// course-v3/layouts/partials/external_link_modal.html; base-theme keeps its
+// Bootstrap modal for course-v2 and www, and base-theme/assets/css/modal.scss
+// and external-link.scss are untouched so those themes render identically.
+//
+// Two of those shared rules still reach this element and are relied on here:
+// #external-link-modal's .modal-footer block in external-link.scss (an id
+// selector, so it does not care that the root is now a <dialog>), which lays
+// the two buttons out and colours Continue. What is lost is modal.scss, whose
+// rules are all nested under `.modal` — a class this element deliberately does
+// not carry, because Bootstrap's own `.modal { display: none }` is
+// author-origin and would beat the UA's `dialog[open] { display: block }`,
+// leaving the dialog permanently invisible. Those few declarations are
+// restated below; keep them in step with base-theme/assets/css/modal.scss.
+
+dialog#external-link-modal {
+  // Undo the UA dialog box so it reads as the card it replaces.
+  padding: 0;
+  border: 0;
+  border-radius: 0.5rem;
+  max-width: 500px;
+  width: calc(100% - 1rem);
+  // Not inherited: a UA dialog resolves `color` to CanvasText (pure black),
+  // which is slightly darker than the rest of the site.
+  color: $body-color;
+  background: transparent;
+
+  &::backdrop {
+    // Matches Bootstrap's .modal-backdrop (#000 at .5 opacity), which this
+    // replaces. A real backdrop this time — Bootstrap's was appended to
+    // <body>, so over an open lightbox it sat below the top layer and dimmed
+    // nothing.
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  // Sits a little above centre on tall screens, as .modal-dialog-centered did
+  // via external-link.scss.
+  @media (min-height: $tall-screen-breakpoint) {
+    margin-top: 20rem;
+  }
+
+  // --- restated from base-theme/assets/css/modal.scss ---------------------
+  .modal-content {
+    border-radius: 0.5rem;
+
+    @include media-breakpoint-down(xs) {
+      padding: 0 !important;
+      font-size: $font-sm;
+    }
+  }
+
+  .modal-title {
+    font-size: $font-lg !important;
+    font-weight: 400;
+
+    @include media-breakpoint-down(xs) {
+      font-size: $font-md !important;
+    }
+  }
+
+  .modal-header-icon-img {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .modal-header-icon {
+    font-size: 1.9rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .modal-header {
+    border: none;
+    padding-bottom: 0;
+  }
+
+  .modal-footer {
+    border: none;
+  }
+}
+
+// Stop the page behind scrolling while the warning is up, the job Bootstrap's
+// `modal-open` body class used to do. Harmless when it is opened from inside
+// the lightbox, which already locks scrolling the same way.
+html:has(dialog#external-link-modal[open]) {
+  overflow: hidden;
+}

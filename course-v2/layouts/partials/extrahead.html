@@ -1,5 +1,38 @@
 {{- define "title" -}}{{ partial "title.html" . }}{{- end -}}
 {{- define "extrahead" -}}
+{{- /* Picks the OCW or MIT Learn copy of the search links (see
+       search_variant_copies.html). These rules are inline rather than in
+       course_v2.css because site builds take templates from git but the
+       webpack manifest from S3, so during a release a page can get this
+       markup with the previous release's course_v2.css. */ -}}
+<style>
+  /* Wrappers produce no box, so each copy lays out like the unwrapped markup. */
+  .search-variant {
+    display: contents;
+  }
+
+  /* Hide the inactive copy. !important because some hidden elements carry
+     their own display rule, e.g. the header's .search-icon { display: flex }. */
+  html:not([data-search="learn"]) [data-search-variant="learn"],
+  html[data-search="learn"] [data-search-variant="ocw"] {
+    display: none !important;
+  }
+
+  /* The copies differ only in their Topics, so hide those, keeping their
+     space, until PostHog says which copy this visitor gets. See the script. */
+  html[data-search-pending] .course-info-topics {
+    visibility: hidden;
+  }
+</style>
+<script>
+  // Hide the Topics until PostHog answers, so a slow flag load can't swap
+  // them in view. assets/js/learn_search.ts removes this once flags load, and
+  // the timer does if PostHog never answers.
+  document.documentElement.setAttribute("data-search-pending", "")
+  setTimeout(function () {
+    document.documentElement.removeAttribute("data-search-pending")
+  }, 1500)
+</script>
 {{- $css_urls := slice (partial "get_asset_webpack_url.html" "course_v2.css") (partial "get_asset_webpack_url.html" "common.css") -}}
 {{- $layout := .Params.layout -}}
 {{- if eq $layout "instructor_insights" -}}

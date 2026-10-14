@@ -31,6 +31,18 @@ test.describe("offline-v3 external resources — file:// path resolution", () =>
 
     const modal = page.locator("#external-link-modal")
     await expect(modal).toBeAttached()
-    await expect(modal).toHaveAttribute("role", "dialog")
+
+    // v3 renders this as a native <dialog>, which carries the dialog role
+    // implicitly — there is no role attribute to assert, as there was on
+    // base-theme's Bootstrap <div role="dialog">. Pin the element type and the
+    // label wiring instead, which is what actually has to survive into the
+    // package: the role follows from the tag, and external_link_modal.ts
+    // branches on `instanceof HTMLDialogElement` to pick the native path.
+    expect(await modal.evaluate(el => el.tagName)).toBe("DIALOG")
+    await expect(modal).toHaveAttribute(
+      "aria-labelledby",
+      "external-link-modal-title"
+    )
+    await expect(page.locator("#external-link-modal-title")).toBeAttached()
   })
 })

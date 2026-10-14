@@ -1,0 +1,60 @@
+{{/*
+  Returns a lookup of resource pages, keyed two ways:
+
+  1. path.Base of the resource's own `file` param, e.g. "example_jpg.jpg" -> the
+     resource Page. Matches an href that is the bare filename or a full resource
+     path ("/courses/foo/example_jpg.jpg"). For ocw-studio content that is every
+     item: its hrefs are "<uid-without-dashes>_<original-filename>", and the
+     resource's `file` carries the same prefix.
+
+  2. "uid:" followed by the resource's own `uid` with dashes stripped and
+     lowercased, e.g. "uid:c3e2834174a42a89c56c3a1a5bcc0eff" -> the resource
+     Page. Serves an item's `uuid` param, and an href whose leading 32 hex
+     characters are a uid even though the resource's `file` does not carry that
+     prefix. The "uid:" prefix keeps this namespace disjoint from the filename
+     keys, even if a filename were itself 32 hex characters with no extension.
+
+  Call it through partialCached so the index is built once per site rather than
+  once per lookup:
+
+    {{ $index := partialCached "image_resource_index.html" . "image-resource-index" }}
+    {{ $resource := index $index (path.Base $href) }}
+
+  This exists because looking a resource up with
+  `where .Site.Pages "Params.file" "like" (printf "%s$" $href)` is wrong in three
+  ways: the pattern is an unanchored regex (so "1.png" also matches "image1.png",
+  and "." matches any character), it scans every page in the site on every call,
+  and callers that assign inside the range end up with the last match rather than
+  the first.
+*/}}
+
+{{/* A scratch map filled in place with SetInMap, not merge: merge returns a
+     fresh copy of the whole map each time, which made building this quadratic
+     in the number of resources. */}}
+{{- $s := newScratch -}}
+{{- $s.Set "index" dict -}}
+{{/* Image resources only. `where "Params.file" "!=" ""` used to admit every
+     page with no file at all (nil is not ""), and path.Base of nothing is ".",
+     so the first such page became the "." entry — which an item with an empty
+     href then resolved to, taking that page's title as its accessible name.
+     Restricting to images also stops a uuid that belongs to, say, a PDF from
+     matching. `with .Params.file` keys only resources that have a file, nil or
+     empty alike. */}}
+{{- range where .Site.Pages "Params.resourcetype" "Image" -}}
+  {{- $page := . -}}
+  {{- with .Params.file -}}
+    {{- $key := path.Base . -}}
+    {{/* First match wins: resource filenames are unique in practice, and if
+         they are not, preferring the earliest keeps the result stable. */}}
+    {{- if not (index ($s.Get "index") $key) -}}
+      {{- $s.SetInMap "index" $key $page -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with .Params.uid -}}
+    {{- $uidKey := printf "uid:%s" (lower (replace . "-" "")) -}}
+    {{- if not (index ($s.Get "index") $uidKey) -}}
+      {{- $s.SetInMap "index" $uidKey $page -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $s.Get "index" -}}
