@@ -5,7 +5,7 @@
     </section>
 
     <section class="course-detail-section">
-      {{ partial "course_info.html" (dict "context" . "inPanel" false) }}
+      {{ partial "search_variant_copies.html" (dict "partial" "course_info.html" "params" (dict "context" . "inPanel" false)) }}
     </section>
 
     <section class="course-detail-section">

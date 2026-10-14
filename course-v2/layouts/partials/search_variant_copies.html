@@ -1,0 +1,16 @@
+{{- /* Renders .partial once per search variant (see search_variants.html),
+       passing it .params plus searchVariant. Each copy is wrapped so CSS can
+       show one of them. With a single variant the copy is rendered bare, so
+       offline output is unchanged. */ -}}
+{{- $name := .partial -}}
+{{- $params := .params -}}
+{{- $variants := partial "search_variants.html" -}}
+{{- if eq (len $variants) 1 -}}
+  {{- partial $name (merge $params (dict "searchVariant" (index $variants 0))) -}}
+{{- else -}}
+  {{- range $variants -}}
+    <div class="search-variant" data-search-variant="{{ . }}">
+      {{- partial $name (merge $params (dict "searchVariant" .)) -}}
+    </div>
+  {{- end -}}
+{{- end -}}
