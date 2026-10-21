@@ -47,10 +47,9 @@
 .image-gallery__link {
   display: block;
   line-height: 0;
-  // A tinted surface rather than white: images are letterboxed into the tile
-  // (see __thumb), and on white the padding read as part of the photo, so a
-  // pale landscape looked like it had been cropped oddly. A faint ground makes
-  // the tile the frame and the image the content.
+  // A faint ground rather than white, for wherever the tile shows through the
+  // image (see __thumb): before it loads, if it fails to, and behind a
+  // transparent one.
   background: #f3f4f6;
   border: 1px solid $medium-gray;
   overflow: hidden;
@@ -90,8 +89,10 @@
 
 .image-gallery__thumb {
   width: 100%;
-  // contain, not cover: these are course figures, and cropping one loses content.
-  object-fit: contain;
+  // cover, not contain: every tile is 4:3, and contain left bands of the tile's
+  // ground around any image of another shape. A thumbnail only has to identify
+  // its image; the lightbox shows the whole of it.
+  object-fit: cover;
   display: block;
   // A ratio rather than a fixed height, so tiles keep their proportions as the
   // column count changes instead of growing wider without growing taller. An
