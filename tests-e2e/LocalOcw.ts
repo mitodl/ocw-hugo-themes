@@ -29,7 +29,7 @@ const fromRoot = (...pathFromRoot: string[]) => {
  */
 const OCW_WWW_REWRITE: RedirectionRule = {
   type:      "rewrite",
-  match:     /^\/(?!(courses\/|api\/))/,
+  match:     /^\/(?!(courses\/|api\/|ocw-transition(?:\/|\?|$)))/,
   transform: url => `/ocw-ci-test-www${url}`
 }
 

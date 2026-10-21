@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="{{ site.LanguageCode }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ .Title }}</title>
+    <meta name="description" content="{{ site.Params.description }}">
+    {{ if eq (getenv "NOINDEX") "true" }}
+    <meta name="robots" content="noindex">
+    {{ end }}
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+    <link rel="stylesheet" href="https://use.typekit.net/lbk1xay.css">
+    <link rel="stylesheet" href="{{ partial "get_asset_webpack_url.html" "ocw_transition.css" }}">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    {{ partial "ocw-transition/header.html" . }}
+    <main id="main">
+      {{ $learnURL := partial "ocw-transition/learn-url.html" . }}
+      <section class="hero" aria-labelledby="welcome-title" style="--hero-background: url('{{ partial "get_asset_webpack_url.html" "images/ocw-transition-hero-background.svg" }}'); --hero-background-mobile: url('{{ partial "get_asset_webpack_url.html" "images/ocw-transition-hero-background-mobile.svg" }}')">
+        <div class="container hero-content">
+          <div class="hero-copy">
+            <h1 id="welcome-title">MIT OpenCourseWare<br>is now part of <br class="mobile-break"><span class="learn-name">MIT Learn.</span></h1>
+            <p>{{ site.Params.description }}</p>
+            <a class="button" href="{{ $learnURL }}/search/?offered_by=ocw">Explore free learning on MIT Learn {{ partial "ocw-transition/icon.html" "arrow" }}</a>
+            <ul class="reassurances">
+              {{ range slice "Still free" "Still openly licensed" "No account required" }}
+              <li>{{ partial "ocw-transition/icon.html" "check" }}{{ . }}</li>
+              {{ end }}
+            </ul>
+          </div>
+          <div class="hero-image">
+            <img src="{{ partial "get_asset_webpack_url.html" "images/ocw-transition-hero.jpg" }}" alt="Students talking outside MIT's Great Dome" width="1024" height="683" fetchpriority="high">
+          </div>
+        </div>
+      </section>
+      <section id="about-the-move" class="possibilities" aria-labelledby="possibilities-title">
+        <div class="container">
+          <form class="course-search" role="search" method="get" action="{{ $learnURL }}/search/">
+            <label for="course-query">{{ partial "ocw-transition/icon.html" "search" }}Looking for a specific course?</label>
+            <div class="search-fields">
+              <input id="course-query" type="search" name="q" placeholder="Search for courses, programs, and learning materials...">
+              <input type="hidden" name="offered_by" value="ocw">
+              <button class="button" type="submit">Search MIT Learn</button>
+            </div>
+          </form>
+          <h2 id="possibilities-title">The same open learning. More possibilities.</h2>
+          <div class="comparison">
+            <section class="comparison-panel">
+              <h3>Still free. Still open.</h3>
+              <ul>
+                {{ range slice "No account required." "Study, teach, and reuse these materials under the same open licenses." "Access these materials without an account." }}
+                <li><span class="list-icon">{{ partial "ocw-transition/icon.html" "check" }}</span>{{ . }}</li>
+                {{ end }}
+              </ul>
+            </section>
+            <section class="comparison-panel learn-panel">
+              <h3>More you can do on MIT Learn</h3>
+              <ul>
+                {{ range slice "Discover MITx courses and other learning opportunities across MIT." "Save courses and materials to private lists.*" "Follow topics that interest you.*" "Get personalized recommendations from AskTIM.*" }}
+                <li><span class="list-icon">{{ partial "ocw-transition/icon.html" "arrow" }}</span>{{ . }}</li>
+                {{ end }}
+              </ul>
+              <p class="account-note">*Requires a free MIT Learn account.</p>
+            </section>
+          </div>
+        </div>
+      </section>
+      <section class="educators" aria-labelledby="educators-title">
+        <div class="container educator-content">
+          {{ partial "ocw-transition/icon.html" "education" }}
+          <div>
+            <h2 id="educators-title">Teaching with these materials?</h2>
+            <p>Find guides and resources for using them in your courses.</p>
+          </div>
+          <a class="button" href="https://ocw.mit.edu/educator/">Explore educator resources {{ partial "ocw-transition/icon.html" "arrow" }}</a>
+        </div>
+      </section>
+      <section class="faq" aria-labelledby="faq-title">
+        <div class="container faq-content">
+          <div>
+            <h2 id="faq-title">Questions about moving to MIT Learn?</h2>
+            <p><span class="more-questions">More questions?</span> <br class="mobile-break">Visit the <a href="https://support.learn.mit.edu/">help center</a> or <a href="https://ocw.mit.edu/contact/">contact us</a>.</p>
+          </div>
+          <div class="faq-list">
+            {{ range .Params.faqs }}
+            <details>
+              <summary>{{ .question }}{{ partial "ocw-transition/icon.html" "faq-toggle" }}</summary>
+              <div class="faq-answer">{{ .answer | markdownify }}</div>
+            </details>
+            {{ end }}
+          </div>
+        </div>
+      </section>
+      <section class="donate" aria-labelledby="donate-title">
+        <div class="container donate-content">
+          <h2 id="donate-title">Support free MIT course materials</h2>
+          <p><em>Your Donation Makes a Difference</em></p>
+          <a class="button" href="https://giving.mit.edu/give/to/ocw/">
+            {{ partial "ocw-transition/icon.html" "heart" }}Give Now
+          </a>
+        </div>
+      </section>
+    </main>
+    {{ partial "ocw-transition/footer.html" . }}
+  </body>
+</html>
