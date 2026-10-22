@@ -182,7 +182,7 @@ input::placeholder {
 
 .hero-copy {
   > .button {
-    min-width: 340px;
+    min-width: 338px;
   }
 
   h1 {
@@ -259,13 +259,24 @@ input::placeholder {
 
 .possibilities {
   display: flow-root;
-  padding-bottom: 120px;
+  padding-bottom: 96px;
   background: $pale;
   box-shadow: inset 0 -1px $border;
 
   h2 {
-    margin: 106px 0 56px;
+    margin: 56px 0 16px;
     text-align: center;
+  }
+}
+
+.possibilities-intro {
+  margin-bottom: 56px;
+  text-align: center;
+  line-height: 26px;
+
+  a {
+    font-weight: 700;
+    vertical-align: top;
   }
 }
 
@@ -298,7 +309,9 @@ input::placeholder {
 }
 
 .search-fields {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  row-gap: 8px;
   flex: 1;
 
   input[type="search"] {
@@ -312,12 +325,21 @@ input::placeholder {
   }
 
   .button {
-    flex-shrink: 0;
+    grid-column: 2;
+    grid-row: 1;
     min-width: 184px;
     padding-inline: 24px;
     border-radius: 0 4px 4px 0;
     box-shadow: none;
   }
+}
+
+.search-note {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  color: $muted;
+  font-size: 12px;
+  line-height: 16px;
 }
 
 .comparison {
@@ -353,19 +375,21 @@ input::placeholder {
     gap: 16px;
     padding: 24px 0;
     font-weight: 500;
+    border-bottom: 1px solid $border;
   }
 
-  li:not(:last-child) {
-    border-bottom: 1px solid $border;
+  li:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
   }
 }
 
 .list-icon {
   display: inline-flex;
-  flex: 0 0 34px;
+  flex: 0 0 36px;
   align-items: center;
   justify-content: center;
-  height: 34px;
+  height: 36px;
   border-radius: 4px;
   color: #008000;
   background: $pale;
@@ -382,26 +406,18 @@ input::placeholder {
   background: $ink;
 
   li {
-    border-bottom: 1px solid #40464c;
+    border-bottom-color: #40464c;
   }
 
   .list-icon {
-    flex-basis: 36px;
-    height: 36px;
     color: #fff;
     background: transparent;
     border: 1px solid #40464c;
   }
 }
 
-.account-note {
-  font-weight: 500;
-  margin-top: 24px;
-  color: #8b959e;
-}
-
 .educators {
-  box-shadow: inset 0 -1px $red;
+  box-shadow: inset 0 -1px $ink;
   padding: 56px 0;
 }
 
@@ -441,6 +457,7 @@ input::placeholder {
 
 .faq {
   padding: 80px 0;
+  background: #f7f7f7;
 }
 
 .faq-content {
@@ -462,6 +479,7 @@ input::placeholder {
   padding: 1px;
 
   details {
+    background: #fff;
     box-shadow: 0 0 0 1px $border;
     border-radius: 4px;
   }
@@ -890,7 +908,7 @@ input::placeholder {
   }
 
   .search-fields {
-    flex-direction: column;
+    grid-template-columns: minmax(0, 1fr);
     gap: 16px;
 
     input[type="search"] {
@@ -904,6 +922,8 @@ input::placeholder {
     }
 
     .button {
+      grid-column: 1;
+      grid-row: 3;
       height: 40px;
       min-height: 40px;
       padding: 8px 12px 8px 16px;
@@ -913,13 +933,24 @@ input::placeholder {
     }
   }
 
+  .search-note {
+    font-size: 10px;
+    line-height: 14px;
+  }
+
   .possibilities {
     padding-bottom: 32px;
     box-shadow: none;
 
     h2 {
-      margin: 48px 0 32px;
+      margin: 48px 0 8px;
     }
+  }
+
+  .possibilities-intro {
+    margin-bottom: 32px;
+    font-size: 14px;
+    line-height: 22px;
   }
 
   .comparison {
@@ -946,11 +977,6 @@ input::placeholder {
       border-top: 0;
       border-bottom: 1px solid #dde1e6;
     }
-
-    &:first-child li:last-child {
-      padding-bottom: 0;
-      border-bottom: 0;
-    }
   }
 
   .learn-panel {
@@ -961,11 +987,9 @@ input::placeholder {
     }
   }
 
-  .account-note {
-    font-weight: 400;
-    margin-top: 16px;
-    font-size: 14px;
-    line-height: 22px;
+  .comparison-panel:first-child .list-icon {
+    flex-basis: 34px;
+    height: 34px;
   }
 
   .educators {
@@ -1029,11 +1053,6 @@ input::placeholder {
   }
 
   .faq-list {
-    details {
-      box-shadow: none;
-      background: #f3f4f8;
-    }
-
     summary {
       min-height: 56px;
       padding: 16px;
@@ -1049,7 +1068,7 @@ input::placeholder {
   }
 
   .donate {
-    padding: 24px 0 32px;
+    padding: 32px 0;
 
     h2 {
       font-size: 28px;

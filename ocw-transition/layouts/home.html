@@ -22,9 +22,9 @@
           <div class="hero-copy">
             <h1 id="welcome-title">MIT OpenCourseWare<br>is now part of <br class="mobile-break"><span class="learn-name">MIT Learn.</span></h1>
             <p>{{ site.Params.description }}</p>
-            <a class="button" href="{{ $learnURL }}/search/?offered_by=ocw">Explore free learning on MIT Learn {{ partial "ocw-transition/icon.html" "arrow" }}</a>
+            <a class="button" href="{{ $learnURL }}/search/?free=true&amp;offered_by=ocw&amp;offered_by=mitx&amp;sortby=-views">Browse free courses on MIT Learn {{ partial "ocw-transition/icon.html" "arrow" }}</a>
             <ul class="reassurances">
-              {{ range slice "Still free" "Still openly licensed" "No account required" }}
+              {{ range slice "Free" "Openly licensed" "No sign-up needed" }}
               <li>{{ partial "ocw-transition/icon.html" "check" }}{{ . }}</li>
               {{ end }}
             </ul>
@@ -39,29 +39,32 @@
           <form class="course-search" role="search" method="get" action="{{ $learnURL }}/search/">
             <label for="course-query">{{ partial "ocw-transition/icon.html" "search" }}Looking for a specific course?</label>
             <div class="search-fields">
-              <input id="course-query" type="search" name="q" placeholder="Search for courses, programs, and learning materials...">
+              <input id="course-query" type="search" name="q" aria-describedby="search-note" placeholder="Search for courses, programs, and learning materials...">
+              <input type="hidden" name="free" value="true">
               <input type="hidden" name="offered_by" value="ocw">
-              <button class="button" type="submit">Search MIT Learn</button>
+              <input type="hidden" name="offered_by" value="mitx">
+              <p id="search-note" class="search-note">Includes free courses from MIT OpenCourseWare and MITx.</p>
+              <button class="button" type="submit">Search free courses</button>
             </div>
           </form>
-          <h2 id="possibilities-title">The same open learning. More possibilities.</h2>
+          <h2 id="possibilities-title">Everything you value about OCW stays.</h2>
+          <p class="possibilities-intro">MIT Learn brings MIT’s learning resources together in one place, and adds the <br class="desktop-only">features learners have asked for. <br class="mobile-break"><a href="#about-the-move">Why we’re making this move</a></p>
           <div class="comparison">
             <section class="comparison-panel">
-              <h3>Still free. Still open.</h3>
+              <h3>Free and open</h3>
               <ul>
-                {{ range slice "No account required." "Study, teach, and reuse these materials under the same open licenses." "Access these materials without an account." }}
+                {{ range slice "Every course and course material, free for everyone." "Study, teach, and reuse them under the same open licenses." "Learn without signing up." }}
                 <li><span class="list-icon">{{ partial "ocw-transition/icon.html" "check" }}</span>{{ . }}</li>
                 {{ end }}
               </ul>
             </section>
             <section class="comparison-panel learn-panel">
-              <h3>More you can do on MIT Learn</h3>
+              <h3>New on MIT Learn, with a free account</h3>
               <ul>
-                {{ range slice "Discover MITx courses and other learning opportunities across MIT." "Save courses and materials to private lists.*" "Follow topics that interest you.*" "Get personalized recommendations from AskTIM.*" }}
+                {{ range slice "Save courses and materials to lists." "Follow topics that interest you." "Get personalized recommendations from AskTIM." }}
                 <li><span class="list-icon">{{ partial "ocw-transition/icon.html" "arrow" }}</span>{{ . }}</li>
                 {{ end }}
               </ul>
-              <p class="account-note">*Requires a free MIT Learn account.</p>
             </section>
           </div>
         </div>
@@ -79,7 +82,7 @@
       <section class="faq" aria-labelledby="faq-title">
         <div class="container faq-content">
           <div>
-            <h2 id="faq-title">Questions about moving to MIT Learn?</h2>
+            <h2 id="faq-title">Questions about the move.</h2>
             <p><span class="more-questions">More questions?</span> <br class="mobile-break">Visit the <a href="https://support.learn.mit.edu/">help center</a> or <a href="https://ocw.mit.edu/contact/">contact us</a>.</p>
           </div>
           <div class="faq-list">

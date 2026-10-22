@@ -18,7 +18,7 @@ test("the landing page respects NOINDEX", async ({ page }) => {
   }
 })
 
-test("search submits the query to Learn with the OCW filter", async ({
+test("search submits the query to Learn with free OCW and MITx filters", async ({
   page
 }) => {
   await page.route(`${learnSearchUrl}**`, route =>
@@ -41,7 +41,8 @@ test("search submits the query to Learn with the OCW filter", async ({
   expect(request.method()).toBe("GET")
   expect(url.pathname).toBe("/search/")
   expect(url.searchParams.get("q")).toBe(query)
-  expect(url.searchParams.get("offered_by")).toBe("ocw")
+  expect(url.searchParams.get("free")).toBe("true")
+  expect(url.searchParams.getAll("offered_by")).toEqual(["ocw", "mitx"])
 })
 
 test("the header links the MIT OpenCourseWare logo home", async ({ page }) => {
@@ -58,9 +59,9 @@ for (const width of [375, 768, 1440]) {
   test(`the landing page fits a ${width}px viewport`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 })
     await page.goto(siteUrl("ocw-transition"))
-    await page.evaluate(async () => {
-      await document.fonts.ready
-    })
+    await expect
+      .poll(() => page.evaluate(() => document.fonts.status))
+      .toBe("loaded")
 
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible()
     await expect(page.getByRole("search")).toBeVisible()
