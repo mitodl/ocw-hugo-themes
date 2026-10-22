@@ -162,10 +162,6 @@ const config: webpack.Configuration = {
         {
           from: "./base-theme/assets/images/",
           to:   "images/[name].[contenthash][ext]"
-        },
-        {
-          from: "./ocw-transition/assets/images/",
-          to:   "images/[name].[contenthash][ext]"
         }
       ]
     }),

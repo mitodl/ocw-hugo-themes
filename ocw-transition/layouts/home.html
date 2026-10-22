@@ -17,7 +17,7 @@
     {{ partial "ocw-transition/header.html" . }}
     <main id="main">
       {{ $learnURL := partial "ocw-transition/learn-url.html" . }}
-      <section class="hero" aria-labelledby="welcome-title" style="--hero-background: url('{{ partial "get_asset_webpack_url.html" "images/ocw-transition-hero-background.svg" }}'); --hero-background-mobile: url('{{ partial "get_asset_webpack_url.html" "images/ocw-transition-hero-background-mobile.svg" }}')">
+      <section class="hero" aria-labelledby="welcome-title" style="--hero-background: url('{{ (resources.Get "images/ocw-transition-hero-background.svg" | fingerprint).RelPermalink }}'); --hero-background-mobile: url('{{ (resources.Get "images/ocw-transition-hero-background-mobile.svg" | fingerprint).RelPermalink }}')">
         <div class="container hero-content">
           <div class="hero-copy">
             <h1 id="welcome-title">MIT OpenCourseWare<br>is now part of <br class="mobile-break"><span class="learn-name">MIT Learn.</span></h1>
@@ -30,7 +30,7 @@
             </ul>
           </div>
           <div class="hero-image">
-            <img src="{{ partial "get_asset_webpack_url.html" "images/ocw-transition-hero.jpg" }}" alt="Students talking outside MIT's Great Dome" width="1024" height="683" fetchpriority="high">
+            <img src="{{ (resources.Get "images/ocw-transition-hero.jpg" | fingerprint).RelPermalink }}" alt="Students talking outside MIT's Great Dome" width="1024" height="683" fetchpriority="high">
           </div>
         </div>
       </section>
