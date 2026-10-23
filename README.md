@@ -148,6 +148,14 @@ Run `yarn start course --help` , `yarn start www --help`, and see [Environment V
 
 **Customizing site content:** To customize site content, either edit the site markdown locally, or edit the site at https://ocw-studio-rc.odl.mit.edu/sites/. After editing content in Studio, run `yarn start course <course-short-id>` (or `yarn start www` if you're working on ocw-www). If you already had the site locally, you will need to `cd` to the content directory and manually fetch the updated content with `git pull`.
 
+### Running the OCW transition page
+
+Run `yarn start ocw-transition` to serve the page at <http://localhost:3000/> with live reload.
+
+The theme is in `ocw-transition/` and the Hugo site is in `sites/ocw-transition/`.
+
+`yarn build:webpack` builds the page to `base-theme/dist/ocw-transition/`, defaulting to `NOINDEX=true` for this page.
+
 ### Testing course-v3 Path Prefixes
 
 To build a course-v3 site at a prefixed path such as `/courses/o/...`, use:
@@ -210,7 +218,7 @@ To further explain the various environment variables and what they do:
 | `WEBPACK_ANALYZE`         | N/A                           | `true`                                              | Used in webpack build. If set to `true`, a dependency analysis of the bundle will be included in the build output.                                                                           |
 | `WEBPACK_HOST`            | N/A                           | `localhost`                                         | Host used by Hugo when querying the Webpack Dev Server. Can be set to your local IP to enable testing OCW on other devices (e.g., phones) within your network.                               |
 | `WEBPACK_PORT`            | N/A                           | `3001`                                              | Port used by Webpack Dev Server                                                                                                                                                              |
-| `NOINDEX`                 | `base-theme`                  | `true`                                              | Whether a noindex tag should be added to prevent indexing by web crawlers                                                                                                                    |
+| `NOINDEX`                 | `base-theme`, `ocw-transition` | `true`                                              | Whether a noindex tag should be added to prevent indexing by web crawlers                                                                                                                    |
 | `POSTHOG_API_HOST` | `www`, `course` | `https://app.posthog.com` | PostHog API URL
 | `POSTHOG_ENABLED` | `www`, `course` | `true` | Whether PostHog analytics are enabled |
 | `POSTHOG_ENV` | `www`, `course` | `production` | Environment for PostHog

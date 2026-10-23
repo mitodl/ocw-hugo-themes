@@ -20,7 +20,8 @@ const entryNames = {
   courseOffline:      "course_offline",
   courseOfflineV3:    "course_offline_v3",
   www:                "www",
-  wwwOffline:         "www_offline"
+  wwwOffline:         "www_offline",
+  ocwTransition:      "ocw_transition"
 }
 
 const config: webpack.Configuration = {
@@ -29,6 +30,9 @@ const config: webpack.Configuration = {
     extensions: [".ts", ".tsx", ".js"]
   },
   entry: {
+    [entryNames.ocwTransition]: [
+      fromRoot("./ocw-transition/assets/css/ocw-transition.scss")
+    ],
     [entryNames.courseV2]: [
       fromRoot("./base-theme/assets/expose-jQuery.ts"),
       fromRoot("./course-v2/assets/course-v2.tsx"),
