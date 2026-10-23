@@ -40,6 +40,7 @@ MANIFEST
 public/
 node_modules
 base-theme/data/webpack.json
+base-theme/data/webpack_dev.json
 ocw-to-hugo.*.log
 .hugo_build.lock
 test-sites/tmp

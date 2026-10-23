@@ -144,7 +144,9 @@ class LocalOCW {
         destination: path.join(this.rootDestinationDir, destInTmp),
         ignoreCache: true,
         config:      site.configPath,
-        baseURL:     destInTmp
+        baseURL:     destInTmp,
+        environment:
+          process.env.NODE_ENV === "development" ? "development" : "production"
       },
       {
         cwd: fromRoot(`./test-sites/${site.contentDir}`),
