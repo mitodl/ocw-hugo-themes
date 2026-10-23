@@ -136,7 +136,13 @@ const config: webpack.Configuration = {
       systemvars: true
     }),
     new WebpackManifestPlugin({
-      fileName: path.join(process.cwd(), "base-theme", "data/webpack.json")
+      fileName: path.join(
+        process.cwd(),
+        "base-theme/data",
+        process.env.NODE_ENV === "development" ?
+          "webpack_dev.json" :
+          "webpack.json"
+      )
     }),
     new CopyWebpackPlugin({
       patterns: [
