@@ -182,7 +182,7 @@ type StartOptions = {
 }
 
 /**
- * The `start course` and `start www` subcommands both
+ * This program has two subcommands: `start course` and `start www`. They both
  * do basically the same thing: start webpack + hugo dev servers.
  *
  * That logic is shared here.
@@ -249,22 +249,6 @@ start
   )
   .action(async (opts: StartOptions) => {
     startSiteAction(opts, ["--content-dir"])
-  })
-
-start
-  .command("ocw-transition")
-  .description("Start webpack + hugo dev servers for the OCW transition page.")
-  .action(() => {
-    const { logLevel, port } = program.opts()
-    startWebpackAnd({
-      name:    "hugo",
-      cwd:     path.resolve(__dirname, "../sites/ocw-transition"),
-      command: hugoServer({
-        config: "config.yaml,config.dev.yaml",
-        logLevel,
-        port:   parseInt(port, 10)
-      })
-    })
   })
 
 start.parse()

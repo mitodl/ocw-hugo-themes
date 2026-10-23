@@ -4,10 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ .Title }}</title>
-    <meta name="description" content="{{ site.Params.description }}">
-    {{ if eq (getenv "NOINDEX") "true" }}
+    <meta name="description" content="{{ .Params.description }}">
+    {{/* Unconditional: ocw-www's site pipeline sets NOINDEX=false on live. */}}
     <meta name="robots" content="noindex">
-    {{ end }}
     <link rel="preconnect" href="https://use.typekit.net" crossorigin>
     <link rel="stylesheet" href="https://use.typekit.net/lbk1xay.css">
     <link rel="stylesheet" href="{{ partial "get_asset_webpack_url.html" "ocw_transition.css" }}">
@@ -17,11 +16,11 @@
     {{ partial "ocw-transition/header.html" . }}
     <main id="main">
       {{ $learnURL := partial "ocw-transition/learn-url.html" . }}
-      <section class="hero" aria-labelledby="welcome-title" style="--hero-background: url('{{ (resources.Get "images/ocw-transition-hero-background.svg" | fingerprint).RelPermalink }}'); --hero-background-mobile: url('{{ (resources.Get "images/ocw-transition-hero-background-mobile.svg" | fingerprint).RelPermalink }}')">
+      <section class="hero" aria-labelledby="welcome-title" style="--hero-background: url('{{ (resources.Get "images/ocw-transition/ocw-transition-hero-background.svg" | fingerprint).RelPermalink }}'); --hero-background-mobile: url('{{ (resources.Get "images/ocw-transition/ocw-transition-hero-background-mobile.svg" | fingerprint).RelPermalink }}')">
         <div class="container hero-content">
           <div class="hero-copy">
             <h1 id="welcome-title">MIT OpenCourseWare<br>is now part of <br class="mobile-break"><span class="learn-name">MIT Learn.</span></h1>
-            <p>{{ site.Params.description }}</p>
+            <p>{{ .Params.description }}</p>
             <a class="button" href="{{ $learnURL }}/search/?free=true&amp;offered_by=ocw&amp;offered_by=mitx&amp;sortby=-views">Browse free courses on MIT Learn {{ partial "ocw-transition/icon.html" "arrow" }}</a>
             <ul class="reassurances">
               {{ range slice "Free" "Openly licensed" "No sign-up needed" }}
@@ -30,7 +29,7 @@
             </ul>
           </div>
           <div class="hero-image">
-            <img src="{{ (resources.Get "images/ocw-transition-hero.jpg" | fingerprint).RelPermalink }}" alt="Students talking outside MIT's Great Dome" width="1024" height="683" fetchpriority="high">
+            <img src="{{ (resources.Get "images/ocw-transition/ocw-transition-hero.jpg" | fingerprint).RelPermalink }}" alt="Students talking outside MIT's Great Dome" width="1024" height="683" fetchpriority="high">
           </div>
         </div>
       </section>

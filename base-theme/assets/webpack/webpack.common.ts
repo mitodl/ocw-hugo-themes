@@ -31,7 +31,7 @@ const config: webpack.Configuration = {
   },
   entry: {
     [entryNames.ocwTransition]: [
-      fromRoot("./ocw-transition/assets/css/ocw-transition.scss")
+      fromRoot("./www/assets/css/ocw-transition.scss")
     ],
     [entryNames.courseV2]: [
       fromRoot("./base-theme/assets/expose-jQuery.ts"),

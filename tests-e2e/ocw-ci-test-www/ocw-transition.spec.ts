@@ -1,21 +1,37 @@
 import { test, expect } from "@playwright/test"
 import { siteUrl } from "../util/test_sites"
-import { env } from "../../env"
 
-const learnHomeUrl = new URL("/", env.MIT_LEARN_BASE_URL).href
-const learnSearchUrl = new URL("/search/", learnHomeUrl).href
+const transitionUrl = siteUrl("www", "ocw-transition/")
+const learnSearchUrl = "https://learn.mit.edu/search/"
 
 test.use({ javaScriptEnabled: false })
 
-test("the landing page respects NOINDEX", async ({ page }) => {
-  await page.goto(siteUrl("ocw-transition"))
+test("the landing page is always noindex", async ({ page }) => {
+  await page.goto(transitionUrl)
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    "noindex"
+  )
+})
 
-  const robots = page.locator('meta[name="robots"]')
-  if (env.NOINDEX) {
-    await expect(robots).toHaveAttribute("content", "noindex")
-  } else {
-    await expect(robots).toHaveCount(0)
-  }
+test("the page loads only its own stylesheet and no scripts", async ({
+  page
+}) => {
+  await page.goto(transitionUrl)
+  const localStylesheets = await page
+    .locator('link[rel="stylesheet"][href^="/"]')
+    .evaluateAll(links => links.map(l => l.getAttribute("href")))
+  expect(localStylesheets).toHaveLength(1)
+  expect(localStylesheets[0]).toMatch(/\/ocw_transition\./)
+  await expect(page.locator("script")).toHaveCount(0)
+})
+
+test("the page is excluded from the www sitemap", async ({ request }) => {
+  const sitemap = await request.get(siteUrl("www", "sitemap-www.xml"))
+  expect(sitemap.ok()).toBe(true)
+  const body = await sitemap.text()
+  expect(body).toContain("<urlset")
+  expect(body).not.toContain("ocw-transition")
 })
 
 test("search submits the query to Learn with free OCW and MITx filters", async ({
@@ -24,7 +40,7 @@ test("search submits the query to Learn with free OCW and MITx filters", async (
   await page.route(`${learnSearchUrl}**`, route =>
     route.fulfill({ contentType: "text/html", body: "<title>Search</title>" })
   )
-  await page.goto(siteUrl("ocw-transition"))
+  await page.goto(transitionUrl)
 
   const search = page.getByRole("search")
   const query = "linear algebra & differential equations"
@@ -46,7 +62,7 @@ test("search submits the query to Learn with free OCW and MITx filters", async (
 })
 
 test("the header links the MIT OpenCourseWare logo home", async ({ page }) => {
-  await page.goto(siteUrl("ocw-transition"))
+  await page.goto(transitionUrl)
 
   const home = page
     .getByRole("banner")
@@ -58,7 +74,7 @@ test("the header links the MIT OpenCourseWare logo home", async ({ page }) => {
 for (const width of [375, 768, 1440]) {
   test(`the landing page fits a ${width}px viewport`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 })
-    await page.goto(siteUrl("ocw-transition"))
+    await page.goto(transitionUrl)
     await expect
       .poll(() => page.evaluate(() => document.fonts.status))
       .toBe("loaded")
