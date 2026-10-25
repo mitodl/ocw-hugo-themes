@@ -1,4 +1,3 @@
-import * as path from "node:path"
 import { env } from "../../env"
 
 const LOCAL_OCW_PORT = 3010
@@ -19,7 +18,6 @@ type TestSiteAlias =
   | "course-offline"
   | "course-v3"
   | "course-v3-offline"
-  | "ocw-transition"
   | "www"
 type TestSite = {
   name: string
@@ -69,15 +67,6 @@ const TEST_SITES: Record<TestSiteAlias, TestSite> = {
     contentDir: "ocw-ci-test-course",
     configPath: env.COURSE_V3_OFFLINE_HUGO_CONFIG_PATH,
     basePath:   "courses/o/ocw-ci-test-course-v3-offline"
-  },
-  "ocw-transition": {
-    name:       "ocw-transition",
-    contentDir: "../sites/ocw-transition",
-    configPath: path.resolve(
-      __dirname,
-      "../../sites/ocw-transition/config.yaml"
-    ),
-    basePath: "ocw-transition"
   },
   www: {
     name:       "ocw-ci-test-www",

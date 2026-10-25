@@ -83,9 +83,6 @@ jobs:
           STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL }}
 
-      - name: Copy transition page to www preview
-        run: cp -R base-theme/dist/ocw-transition ../ocw-www/public/
-
       - name: Run the course v2 hugo build
         run: (cd ../ocw-course; hugo --config $GITHUB_WORKSPACE/ocw-hugo-projects/ocw-course-v2/config.yaml  --destination public-v2 --themesDir ../ocw-hugo-themes)
         env:

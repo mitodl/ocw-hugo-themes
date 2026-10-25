@@ -25,11 +25,11 @@ const fromRoot = (...pathFromRoot: string[]) => {
 
 /**
  * Redirect all requests /path/to/thing to /ocw-ci-test-www/path/to/thing,
- * except requests to /courses/.
+ * except course, API, and already-prefixed www requests.
  */
 const OCW_WWW_REWRITE: RedirectionRule = {
   type:      "rewrite",
-  match:     /^\/(?!(courses\/|api\/|ocw-transition(?:\/|\?|$)))/,
+  match:     /^\/(?!(courses\/|api\/|ocw-ci-test-www(?:\/|\?|$)))/,
   transform: url => `/ocw-ci-test-www${url}`
 }
 
