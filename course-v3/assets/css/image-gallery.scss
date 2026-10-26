@@ -67,19 +67,26 @@
   // spill onto the neighbouring tile — and since that neighbour is a later
   // sibling it paints over the spill, leaving the indicator visibly chopped.
   //
-  // Two tones, white then black, so the indicator never depends on the
-  // photograph behind it: the black band's adjacent colour is our own white
-  // band at 21:1, which is what 1.4.11 asks of a focus indicator. A single
-  // black ring inset over a dark photo would have no guaranteed ratio at all.
-  // $link-blue (#32c5ff) is unusable for this — 1.99:1 on white.
+  // One black band, 0–3px in from the tile edge (a 3px outline at a -3px
+  // offset puts the band inside the border box, not around it). What 1.4.11
+  // asks of a focus indicator is 3:1 against an adjacent colour, and the band
+  // has one on its outer side: the grid's 2px gutter shows the page ground
+  // through, so black meets white at 21:1 there — between two tiles and at the
+  // edge of the grid alike.
   //
-  // Geometry: white occupies 0–3px in from the tile edge (inset shadow),
-  // black 3–6px (outline at a -3px offset). Contiguous, and nothing escapes
-  // the tile.
+  // On its inner side the band meets the photograph, where there is no
+  // guaranteed ratio. A white inset box-shadow used to sit there for exactly
+  // that reason, but an inset shadow paints under the element's own content
+  // and __thumb covers the tile edge to edge, so it only ever surfaced in the
+  // letterbox gutters `contain` left behind — and never since __thumb went to
+  // `cover`. Decoration that does nothing is worse than none, so it is gone.
+  // Giving the band a guaranteed inner neighbour again means a pseudo-element
+  // carrying both tones, since that is what paints above the image.
+  //
+  // $link-blue (#32c5ff) is unusable for any of this — 1.99:1 on white.
   &:focus-visible {
     outline: 3px solid $black;
     outline-offset: -3px;
-    box-shadow: inset 0 0 0 3px $white;
   }
 
   @media (prefers-reduced-motion: reduce) {
