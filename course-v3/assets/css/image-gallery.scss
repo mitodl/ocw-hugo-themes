@@ -63,27 +63,13 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
   }
 
-  // Drawn inward, not outward. The gutter is 2px, so an outward ring would
-  // spill onto the neighbouring tile — and since that neighbour is a later
-  // sibling it paints over the spill, leaving the indicator visibly chopped.
+  // Inward, not outward: the gutter is 2px, so an outward ring would spill onto
+  // the next tile, which is a later sibling and paints over it.
   //
-  // One black band, 0–3px in from the tile edge (a 3px outline at a -3px
-  // offset puts the band inside the border box, not around it). What 1.4.11
-  // asks of a focus indicator is 3:1 against an adjacent colour, and the band
-  // has one on its outer side: the grid's 2px gutter shows the page ground
-  // through, so black meets white at 21:1 there — between two tiles and at the
-  // edge of the grid alike.
-  //
-  // On its inner side the band meets the photograph, where there is no
-  // guaranteed ratio. A white inset box-shadow used to sit there for exactly
-  // that reason, but an inset shadow paints under the element's own content
-  // and __thumb covers the tile edge to edge, so it only ever surfaced in the
-  // letterbox gutters `contain` left behind — and never since __thumb went to
-  // `cover`. Decoration that does nothing is worse than none, so it is gone.
-  // Giving the band a guaranteed inner neighbour again means a pseudo-element
-  // carrying both tones, since that is what paints above the image.
-  //
-  // $link-blue (#32c5ff) is unusable for any of this — 1.99:1 on white.
+  // Black, not $link-blue (1.99:1 on white). Outside the ring is the gutter,
+  // showing the page ground at 21:1 — the 3:1 1.4.11 wants. Inside it is the
+  // photograph, with no guarantee; a band there has to be a pseudo-element,
+  // since nothing else paints above __thumb.
   &:focus-visible {
     outline: 3px solid $black;
     outline-offset: -3px;
