@@ -148,6 +148,8 @@ Run `yarn start course --help` , `yarn start www --help`, and see [Environment V
 
 **Customizing site content:** To customize site content, either edit the site markdown locally, or edit the site at https://ocw-studio-rc.odl.mit.edu/sites/. After editing content in Studio, run `yarn start course <course-short-id>` (or `yarn start www` if you're working on ocw-www). If you already had the site locally, you will need to `cd` to the content directory and manually fetch the updated content with `git pull`.
 
+**OCW transition page:** Run `yarn start www` and navigate to <http://localhost:3000/ocw-transition/>. Updates require deploying `ocw-hugo-themes` and publishing `ocw-www` via OCW Studio.
+
 ### Testing course-v3 Path Prefixes
 
 To build a course-v3 site at a prefixed path such as `/courses/o/...`, use:

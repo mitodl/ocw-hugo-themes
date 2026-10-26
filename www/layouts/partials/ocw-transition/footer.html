@@ -1,0 +1,45 @@
+<footer>
+  <div class="container connect">
+    <div>
+      <h2>Stay connected</h2>
+      <ul class="social-links">
+        {{ range slice
+          (dict "name" "Facebook" "url" "https://www.facebook.com/MITOCW" "icon" "facebook")
+          (dict "name" "Instagram" "url" "https://www.instagram.com/mitocw" "icon" "instagram")
+          (dict "name" "X" "url" "https://twitter.com/MITOCW" "icon" "x")
+          (dict "name" "YouTube" "url" "https://www.youtube.com/mitocw" "icon" "youtube")
+          (dict "name" "LinkedIn" "url" "https://www.linkedin.com/company/mit-opencourseware/" "icon" "linkedin")
+        }}
+        <li><a href="{{ .url }}" aria-label="{{ .name }}">{{ partial "ocw-transition/icon.html" .icon }}</a></li>
+        {{ end }}
+      </ul>
+    </div>
+    <form class="newsletter" action="https://ocw.mit.edu/newsletter/" method="get">
+      <label for="newsletter-email">Subscribe to the Newsletter</label>
+      <div class="newsletter-fields">
+        <div class="email-field">
+          <input id="newsletter-email" type="email" name="EMAIL" autocomplete="email" placeholder="Enter your email address" required>
+        </div>
+        <button class="button" type="submit">Sign Me Up</button>
+      </div>
+    </form>
+  </div>
+  <div class="footer-base">
+    <div class="container footer-bottom">
+      <div class="mit-address">
+        <a href="https://www.mit.edu/"><img src="{{ partial "get_asset_webpack_url.html" "images/mit-logo-black.svg" }}" alt="MIT" width="72" height="38" loading="lazy"></a>
+        <address>Massachusetts Institute of Technology<br>77 Massachusetts Avenue<br>Cambridge, MA 02139</address>
+      </div>
+      <div class="footer-links">
+        <nav aria-label="Footer">
+          <a href="{{ partial "home_url.html" }}">Home</a>
+          <a href="https://ocw.mit.edu/about/">About Us</a>
+          <a href="https://ocw.mit.edu/accessibility/">Accessibility</a>
+          <a href="https://ocw.mit.edu/terms/">Terms of Service</a>
+          <a href="https://support.learn.mit.edu/">Help</a>
+        </nav>
+        <p>&copy; {{ now.Year }} Massachusetts Institute of Technology</p>
+      </div>
+    </div>
+  </div>
+</footer>
