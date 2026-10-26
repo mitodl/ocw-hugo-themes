@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+Version 1.165.0
+---------------
+
+- fix: crop course-v3 gallery thumbnails to fill their tiles (#1899)
+- Fix local development previews (#1901)
+- Update dependency inquirer to v14 (#1883)
+- Update Node.js to v24.21.0 (#1882)
+- Update pre-commit hook zizmorcore/zizmor-pre-commit to v1.30.1 (#1897)
+
 Version 1.164.0
 ---------------
 
