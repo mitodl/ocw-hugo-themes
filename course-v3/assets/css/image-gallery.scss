@@ -47,10 +47,9 @@
 .image-gallery__link {
   display: block;
   line-height: 0;
-  // A tinted surface rather than white: images are letterboxed into the tile
-  // (see __thumb), and on white the padding read as part of the photo, so a
-  // pale landscape looked like it had been cropped oddly. A faint ground makes
-  // the tile the frame and the image the content.
+  // A faint ground rather than white, for wherever the tile shows through the
+  // image (see __thumb): before it loads, if it fails to, and behind a
+  // transparent one.
   background: #f3f4f6;
   border: 1px solid $medium-gray;
   overflow: hidden;
@@ -64,23 +63,16 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
   }
 
-  // Drawn inward, not outward. The gutter is 2px, so an outward ring would
-  // spill onto the neighbouring tile — and since that neighbour is a later
-  // sibling it paints over the spill, leaving the indicator visibly chopped.
+  // Inward, not outward: the gutter is 2px, so an outward ring would spill onto
+  // the next tile, which is a later sibling and paints over it.
   //
-  // Two tones, white then black, so the indicator never depends on the
-  // photograph behind it: the black band's adjacent colour is our own white
-  // band at 21:1, which is what 1.4.11 asks of a focus indicator. A single
-  // black ring inset over a dark photo would have no guaranteed ratio at all.
-  // $link-blue (#32c5ff) is unusable for this — 1.99:1 on white.
-  //
-  // Geometry: white occupies 0–3px in from the tile edge (inset shadow),
-  // black 3–6px (outline at a -3px offset). Contiguous, and nothing escapes
-  // the tile.
+  // Black, not $link-blue (1.99:1 on white). Outside the ring is the gutter,
+  // showing the page ground at 21:1 — the 3:1 1.4.11 wants. Inside it is the
+  // photograph, with no guarantee; a band there has to be a pseudo-element,
+  // since nothing else paints above __thumb.
   &:focus-visible {
     outline: 3px solid $black;
     outline-offset: -3px;
-    box-shadow: inset 0 0 0 3px $white;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -90,8 +82,10 @@
 
 .image-gallery__thumb {
   width: 100%;
-  // contain, not cover: these are course figures, and cropping one loses content.
-  object-fit: contain;
+  // cover, not contain: every tile is 4:3, and contain left bands of the tile's
+  // ground around any image of another shape. A thumbnail only has to identify
+  // its image; the lightbox shows the whole of it.
+  object-fit: cover;
   display: block;
   // A ratio rather than a fixed height, so tiles keep their proportions as the
   // column count changes instead of growing wider without growing taller. An

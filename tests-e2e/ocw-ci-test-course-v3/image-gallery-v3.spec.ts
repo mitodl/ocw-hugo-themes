@@ -209,6 +209,24 @@ test.describe("v3 image gallery", () => {
     ).toHaveCount(3)
   })
 
+  test("thumbnails fill their tiles rather than letterboxing", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
+
+    // Every tile is 4:3, so `contain` left bands of the tile's ground around
+    // any image of another shape. The lightbox still shows the whole image.
+    const thumbs = page.locator(".image-gallery img.image-gallery__thumb")
+    await expect(thumbs).toHaveCount(3)
+    for (const thumb of await thumbs.all()) {
+      await expect(thumb).toHaveCSS("object-fit", "cover")
+    }
+  })
+
   test("arrow keys keep working after focus has been in the caption", async ({
     page,
     siteAlias
