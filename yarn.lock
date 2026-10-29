@@ -18879,8 +18879,8 @@ __metadata:
   linkType: hard
 
 "video.js@npm:5.x || 6.x || 7.x || 8.x, video.js@npm:^7 || ^8, video.js@npm:^8.0.0":
-  version: 8.24.1
-  resolution: "video.js@npm:8.24.1"
+  version: 8.24.2
+  resolution: "video.js@npm:8.24.2"
   dependencies:
     "@babel/runtime": "npm:^7.28.4"
     "@videojs/http-streaming": "npm:^3.17.5"
@@ -18894,7 +18894,7 @@ __metadata:
     videojs-contrib-quality-levels: "npm:4.1.0"
     videojs-font: "npm:4.2.0"
     videojs-vtt.js: "npm:0.15.5"
-  checksum: 10c0/453aabb7448802d1bad82bf91f5a89f87cb92af930342250c6cc3f8d8f0702eefcd1273cd93f42685d11dee4deeccd7445f6b5bf3646daddeeae8d2348ae6183
+  checksum: 10c0/238fc23e73b972adef8a58447ea2266a5463fe7eff311863065b301579c607833672478c6108f7540abbfe204953bc56218570b76e82e635b2c16fbcff226ad0
   languageName: node
   linkType: hard
 
