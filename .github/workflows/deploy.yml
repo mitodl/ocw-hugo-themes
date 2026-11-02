@@ -206,6 +206,11 @@ jobs:
           enable-pull-request-comment: false
           enable-commit-comment: false
           production-deploy: true
+          # Not "production", the action's default for production-deploy: the
+          # release workflow reads the Production environment (GitHub matches
+          # names case-insensitively) to see which release is live, and a
+          # Netlify build of main is not a release.
+          github-deployment-environment: netlify-main
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
