@@ -15,10 +15,14 @@
 // As flex items the bar takes exactly the height it needs and the stage takes
 // what is left, so there is nothing to keep in sync.
 //
-// The dialog itself scrolls as a last resort. At 400% zoom (a 320x256 viewport,
-// WCAG 1.4.10) a long caption genuinely cannot share the screen with a usable
-// image, and vertical scrolling is what 1.4.10 asks for in that case — what it
-// forbids is content cut off with no way to reach it.
+// The dialog itself scrolls as a last resort. At 400% zoom (320x256 for WCAG
+// 1.4.10's 1280x1024 reference, 320x150 on a 1080p screen at 150% scaling) a
+// long caption genuinely cannot share the screen with a usable image, and
+// vertical scrolling is what 1.4.10 asks for in that case — what it forbids is
+// content cut off with no way to reach it. That is also why, in the narrow
+// layout at the end of this file, the controls are tied to the image area
+// rather than fixed to the screen: a caption scrolling under fixed controls is
+// exactly that.
 
 .image-gallery {
   display: grid;
@@ -170,12 +174,13 @@ html:has(dialog.image-gallery-lightbox[open]) {
   // grow into what remains. With an auto basis the stage took the image's
   // natural height, so the image's max-height: 100% never bound and a tall
   // image pushed the caption below the fold even at 100% zoom. It shrinks only
-  // as far as the floor below: past that, as at 400% zoom with a long caption,
-  // the dialog scrolls rather than squeezing the image to nothing.
+  // as far as the floor below: past that, as with a long caption in a short
+  // window, the dialog scrolls rather than squeezing the image to nothing. (The
+  // narrow layout at the end of this file has a floor of its own.)
   flex: 1 1 0;
-  // content-box so the floor measures the image area itself. Measured with the
-  // padding in, it left the image 14px tall at 400% zoom: the floor was 90px
-  // and the narrow-screen padding alone takes 76px of it.
+  // content-box so the floor measures the image area itself, not the padding
+  // around it as well. Measured with the padding in, it once left the image
+  // 14px tall.
   box-sizing: content-box;
   min-height: 35vh;
   min-height: 35dvh;
@@ -219,6 +224,11 @@ html:has(dialog.image-gallery-lightbox[open]) {
 }
 
 .image-gallery-lightbox__bar {
+  // Under the image on screen, though ahead of it in the markup: a screen
+  // reader reads the caption first, which is the order an accessibility review
+  // asked for (see build() in image_gallery_lightbox.ts). The narrow layout
+  // below places it by grid row instead.
+  order: 1;
   // Takes its natural height: nothing here is ever clipped or scrolled away.
   flex: 0 0 auto;
   padding: 20px 88px 24px;
@@ -300,7 +310,7 @@ html:has(dialog.image-gallery-lightbox[open]) {
 .image-gallery-lightbox__counter {
   // fixed, not absolute: the dialog is itself a scroll container now, and an
   // absolutely-positioned child scrolls away with the content. Fixed resolves
-  // against the viewport, which the dialog fills.
+  // against the viewport, which the dialog fills. (Wide layout only.)
   position: fixed;
   top: 20px;
   left: 24px;
@@ -312,7 +322,8 @@ html:has(dialog.image-gallery-lightbox[open]) {
 
 .image-gallery-lightbox__button {
   // fixed for the same reason as the counter: the controls stay reachable
-  // while a long caption scrolls past them.
+  // while a long caption scrolls past them. The 88px side padding on the stage
+  // and caption bar keeps every line clear of them. (Wide layout only.)
   position: fixed;
   display: grid;
   place-items: center;
@@ -369,31 +380,149 @@ html:has(dialog.image-gallery-lightbox[open]) {
   top: 20px;
 }
 
-// Reflow (1.4.10): at narrow widths or short heights the side padding starves the
-// image, so move the arrows into the bottom corners and reclaim the width.
+// Reflow (1.4.10) at narrow widths or short heights, which is where 200% and
+// 400% zoom land. The side padding would starve the image here, and controls
+// fixed to the screen cannot work: they used to sit in its corners, and once
+// the caption scrolled it ran underneath them. At 320x150 (400% zoom at 150%
+// display scaling) one or two caption lines were covered at every scroll
+// position, so they could not be read at all.
+//
+// So the controls keep their corners, but of the image area rather than the
+// screen. The dialog becomes a grid of two rows, the image area and the
+// caption bar, and the position, Close and the arrows share the image area's
+// cell, over the picture. They scroll with it, so they can never meet the
+// caption, and no row of the screen goes to them: rows of their own, above
+// the image and below the caption, cost the image 64px of a 150px screen at
+// 400% and left the arrows a scroll away even at 200%. They need no
+// positioning to paint over the picture: z-index applies to grid items as
+// they are.
 @media (max-width: 620px), (max-height: 450px) {
+  .image-gallery-lightbox[open] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    // The image area takes what the caption leaves, but never less than 55% of
+    // the screen: past that, as at 400% zoom with a long caption, the dialog
+    // scrolls rather than squeezing the image. (The stage's own 35% floor,
+    // which this replaces, left it 52px tall at 320x150, smaller on screen
+    // than at 100% zoom.)
+    // 120px is the least that fits Close above Next at full size, 48px each
+    // with 8px around them.
+    grid-template-rows: minmax(max(55vh, 120px), 1fr) auto;
+    grid-template-rows: minmax(max(55dvh, 120px), 1fr) auto;
+  }
+
   .image-gallery-lightbox__stage {
-    padding: 64px 12px 12px;
+    grid-area: 1 / 1;
+    min-height: 0;
+    padding: 0;
   }
 
-  .image-gallery-lightbox__bar {
-    // 74px of bottom padding keeps the last line of the caption clear of the
-    // arrows, which are fixed into the bottom corners at this breakpoint.
-    padding: 14px 16px 74px;
-  }
-
-  .image-gallery-lightbox__prev {
-    left: 16px;
-    top: auto;
-    bottom: 16px;
+  .image-gallery-lightbox__counter,
+  .image-gallery-lightbox__button {
+    grid-area: 1 / 1;
+    position: static;
+    z-index: 1;
+    margin: 8px;
     transform: none;
+  }
+
+  // Text over the photograph here, so it brings the buttons' ground rather
+  // than depending on whatever pixels are underneath.
+  .image-gallery-lightbox__counter {
+    align-self: start;
+    justify-self: start;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: #1c242c; // #afbcc7 on it is 8.1:1
+  }
+
+  .image-gallery-lightbox__close {
+    align-self: start;
+    justify-self: end;
+  }
+
+  // The bottom corners rather than halfway down the sides: at full size, a
+  // vertically centred Next overlaps Close once the image area is under 160px
+  // tall.
+  .image-gallery-lightbox__prev {
+    align-self: end;
+    justify-self: start;
   }
 
   .image-gallery-lightbox__next {
-    right: 16px;
-    top: auto;
-    bottom: 16px;
-    transform: none;
+    align-self: end;
+    justify-self: end;
+  }
+
+  .image-gallery-lightbox__bar {
+    grid-area: 2 / 1;
+    padding: 14px 16px;
+  }
+
+  // With a mouse or trackpad, a window this narrow or short is almost always
+  // one zoomed in, and zoom scaled the controls along with the image: at 400%
+  // each 48px button took a third of a 150px screen's height. So here they are
+  // sized to the window, which zooming shrinks, and stay the size they were at
+  // 100% (8vmin is 48px on a 600px-tall window). They stop at 24px, the least
+  // 2.5.8 allows a target; under 44px they no longer meet 2.5.5, which is AAA.
+  // A touch screen keeps the full size: a phone is narrow because it is small,
+  // and a finger needs the 48px whatever the screen.
+  //
+  // The caption goes down a size too, to leave the image more of the screen.
+  // It still grows with zoom, a step behind the rest: 13px at 200% is 1.7
+  // times the 15px of 100%.
+  @media (pointer: fine) {
+    .image-gallery-lightbox__button {
+      min-width: clamp(24px, 8vmin, 48px);
+      min-height: clamp(24px, 8vmin, 48px);
+
+      .material-icons {
+        font-size: clamp(12px, 4vmin, 24px);
+      }
+    }
+
+    // The text keeps its size; the ground around it comes down to the
+    // buttons' 24px, rather than standing taller than them.
+    .image-gallery-lightbox__counter {
+      padding: 2px 6px;
+    }
+
+    .image-gallery-lightbox__caption {
+      font-size: 0.8125rem;
+
+      .image-gallery__credit {
+        font-size: 0.75rem;
+      }
+    }
+
+    // Past about 300% zoom it went on growing until a long caption took most
+    // of the screen: two-thirds at 400% of a laptop's 790px-tall window, with
+    // its last lines a scroll away. So in a window under 290px tall it is
+    // sized to the window, with its bar's padding cut to match, and further
+    // zoom goes to the image. 4vh is 10.5px at 300% of that window, a little
+    // over twice its 100% size on screen. It stops at 8px, which 400% zoom
+    // makes twice that size on any screen, so text still reaches the 200%
+    // 1.4.4 asks for.
+    //
+    // 290px rather than 300px: 300px is what 200% leaves of a 600px-tall
+    // window (1080p at 150% display scaling), where a reviewer checks 1.4.4,
+    // so the caption keeps its 13px there. CSS cannot tell that window at 240%
+    // from a laptop's at 300%, so on it the caption is 1.6 times its 100% size
+    // from 240% to 300% zoom, a little smaller on screen than at 200%.
+    @media (max-height: 290px) {
+      .image-gallery-lightbox__bar {
+        padding: 6px 12px;
+      }
+
+      .image-gallery-lightbox__caption {
+        font-size: clamp(0.5rem, 4vh, 0.8125rem);
+
+        .image-gallery__credit {
+          margin-top: 2px;
+          font-size: inherit;
+        }
+      }
+    }
   }
 }
 
