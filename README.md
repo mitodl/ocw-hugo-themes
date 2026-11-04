@@ -107,24 +107,24 @@ Releases are tags only. There is no `release` or `release-candidate` branch to m
 1. Merge what you want to ship into `main` and wait for CI to pass.
 2. In Slack, in `#doof-ocw-hugo-themes`, run `/doof preview ocw-hugo-themes` to see what the release would contain. It changes nothing.
 3. Run `/doof release ocw-hugo-themes`. The pipeline picks the next version, bumps `VERSION`, adds the `CHANGELOG.md` entry, creates the `releases/<version>` branch and the release tag, and records an RC GitHub Deployment. It also opens a release issue titled `Release ocw-hugo-themes <version>`, labeled `ops:release`, with a checklist of the changes grouped by author. The bot announces the release in the channel and @-mentions the authors who still have unchecked boxes.
-4. Verify your own changes on QA once the theme assets have rebuilt, which takes a few minutes. `https://live-qa.ocw.mit.edu/static/hash.txt` shows the commit QA is serving. It should equal `git rev-parse <version>^{commit}`.
+4. Verify your own changes on QA. `https://live-qa.ocw.mit.edu/static/hash.txt` shows which commit of the theme assets QA is serving, and a few minutes after the cut it should equal `git rev-parse <version>^{commit}`. That confirms the theme assets (CSS, JavaScript, `webpack.json`) only. Pages are rendered by the site pipelines, so a template change shows up on a QA site only after that site is rebuilt: publish a QA site from `ocw-studio` or run the `mass-build-sites` pipeline, then check the page.
 5. Check your boxes in the release issue. When every box is checked the bot posts "ready to promote" in the channel. `/doof wait-for-checkboxes ocw-hugo-themes` reports each author as they finish.
 6. Promote by pressing the button, running `/doof promote ocw-hugo-themes`, or closing the release issue by hand. Closing the issue is the approval. The Production job then checks that the issue names this version and was opened by the release bot, creates `production/<version>` at the release commit, records the Production GitHub Deployment, comments on the closed issue with a link to it, merges `releases/<version>` back into `main` and deletes the branch.
-7. Confirm production once the assets have rebuilt: `https://ocw.mit.edu/static/hash.txt` should equal the same commit.
+7. Confirm production the same way: `https://ocw.mit.edu/static/hash.txt` should equal the same commit once the assets have rebuilt. Production pages pick up template changes when their sites are next published or mass built.
 
 ### Other commands
 
 - `/doof release-status ocw-hugo-themes`: see where the release issue stands.
 - `/doof release-notes ocw-hugo-themes`: list the unreleased commits.
 - `/doof release ocw-hugo-themes supersede <version>`: discard the in-flight release and cut a new one. A plain `/doof release` refuses while one is in flight.
-- `/doof abandon ocw-hugo-themes`: discard the in-flight release without starting another. Production never takes it.
+- `/doof abandon ocw-hugo-themes`: discard the in-flight release without starting another. It does not undo a release that was already promoted: once `production/<version>` exists, Production follows it even if the release never finished.
 - `/doof hotfix ocw-hugo-themes <sha>`: cut what production runs plus that one commit. It refuses while another release is in flight, or if the commit is already in production.
 
 ### If something looks wrong
 
 - The release issue closes but no `production/` tag appears: open the `promote-ocw-hugo-themes-production` job in the `ocw-hugo-themes-pipeline` pipeline of the `infrastructure` team in Concourse. It refuses a version older than the newest production tag, and an issue that was not opened by the release bot.
 - Never create or move a `production/` or release tag by hand. The workflow refuses to move one that already exists, and consumers follow the newest.
-- A release that was cut but not finished for 24 hours gets a Slack reminder. It usually means the merge-back failed.
+- A release that is cut but not finished gets a Slack reminder once a day, in a 10:00 to 10:30 America/New_York window, after 16 hours by default. It does not always mean the merge-back failed: the reminder says whether the release has not reached RC, is waiting to be promoted, or reached production without finishing, and the last one is the merge-back failure.
 - The cut fails at `bump-version`: the repo needs the `[tool.bumpversion]` table in `pyproject.toml`, which names `VERSION`.
 
 ## Local development
