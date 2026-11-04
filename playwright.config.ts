@@ -11,6 +11,28 @@ if (process.env.TESTS_IGNORE) {
 }
 
 /**
+ * Desktop Firefox, reporting a mouse. Playwright's headless Firefox on Linux,
+ * which is what CI runs, reports no pointing device at all, so (pointer: fine)
+ * and (hover: hover) never match there, as they do on a Mac or Windows. CI
+ * then gets the styles meant for touch screens, and tests of those meant for
+ * a mouse fail, such as the image gallery's smaller controls at high zoom.
+ * These prefs report a fine pointer that can hover (6 = fine 2 + hover 4).
+ *
+ * https://github.com/microsoft/playwright/issues/38835 is fixed in Playwright
+ * 1.62, so upgrading Playwright to 1.62 or later makes these prefs unneeded:
+ * remove them then.
+ */
+const desktopFirefox = {
+  ...devices["Desktop Firefox"],
+  launchOptions: {
+    firefoxUserPrefs: {
+      "ui.primaryPointerCapabilities": 6,
+      "ui.allPointerCapabilities":     6
+    }
+  }
+}
+
+/**
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig<SiteAliasOptions> = {
@@ -36,7 +58,7 @@ const config: PlaywrightTestConfig<SiteAliasOptions> = {
     {
       name:      "course-v2-online-firefox",
       testMatch: ["**/ocw-ci-test-course/*.spec.ts"],
-      use:       { ...devices["Desktop Firefox"], siteAlias: "course" }
+      use:       { ...desktopFirefox, siteAlias: "course" }
     },
     {
       name:      "course-v2-online-chrome",
@@ -51,7 +73,7 @@ const config: PlaywrightTestConfig<SiteAliasOptions> = {
     {
       name:      "course-v2-offline-firefox",
       testMatch: ["**/ocw-ci-test-course/*.spec.ts"],
-      use:       { ...devices["Desktop Firefox"], siteAlias: "course-offline" }
+      use:       { ...desktopFirefox, siteAlias: "course-offline" }
     },
     {
       name:      "course-v2-offline-chrome",
@@ -68,7 +90,7 @@ const config: PlaywrightTestConfig<SiteAliasOptions> = {
     {
       name:      "course-v3-online-firefox",
       testMatch: ["**/ocw-ci-test-course-v3/*.spec.ts"],
-      use:       { ...devices["Desktop Firefox"], siteAlias: "course-v3" }
+      use:       { ...desktopFirefox, siteAlias: "course-v3" }
     },
     {
       name:      "course-v3-online-chrome",
@@ -90,7 +112,7 @@ const config: PlaywrightTestConfig<SiteAliasOptions> = {
       name:       "course-v3-offline-firefox",
       testMatch:  ["**/ocw-ci-test-course-v3/*.spec.ts"],
       testIgnore: [...testsIgnore, "**/ask-tim-v3.spec.ts"],
-      use:        { ...devices["Desktop Firefox"], siteAlias: "course-v3-offline" }
+      use:        { ...desktopFirefox, siteAlias: "course-v3-offline" }
     },
     {
       name:       "course-v3-offline-chrome",
@@ -114,7 +136,7 @@ const config: PlaywrightTestConfig<SiteAliasOptions> = {
         "**/ocw-ci-test-course-v3/*.spec.ts"
       ],
       use: {
-        ...devices["Desktop Firefox"]
+        ...desktopFirefox
       }
     },
     {
