@@ -1,5 +1,6 @@
 import { test, expect } from "../util/fixtures"
 import { CoursePage, COURSE_V3_CANONICAL_DOMAIN } from "../util"
+import { V3_EXTERNAL_LINK_DIALOG_TITLE } from "../util/constants"
 
 /**
  * External resources whose external_url points at an OCW course are rewritten
@@ -42,8 +43,8 @@ test.describe("Course v3 external resource link rewriting", () => {
 
     // The canonical domain need not contain "ocw.mit.edu", so the
     // is-this-an-OCW-link check reads the authored URL. If it read the
-    // rewritten one, this link would gain a leaving-OCW warning and open in a
-    // new tab.
+    // rewritten one, this link would gain a leaving-the-site warning and
+    // open in a new tab.
     await expect(link).not.toHaveAttribute("target", "_blank")
     await expect(link).not.toHaveClass(/external-link/)
   })
@@ -60,7 +61,7 @@ test.describe("Course v3 external resource link rewriting", () => {
     // has_external_license_warning is true on this fixture, but the OCW branch
     // of external_resource_link ignores it. external_link_modal.ts binds to
     // a.external-link-warning, so this class is what decides whether clicking
-    // pops the leaving-OCW dialog.
+    // pops the warning dialog.
     await expect(link).toHaveAttribute(
       "href",
       `${CANONICAL}/courses/o/another-course-spring-2021/pages/readings/`
@@ -70,10 +71,28 @@ test.describe("Course v3 external resource link rewriting", () => {
     await link.click()
 
     await expect(
-      page.getByRole("heading", {
-        name: "You are leaving MIT OpenCourseWare"
-      })
+      page.getByRole("heading", { name: V3_EXTERNAL_LINK_DIALOG_TITLE })
     ).toBeHidden()
+  })
+
+  test("A link to the Learn domain stays warning-free even when the resource asks for a warning", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/external-resources/learn-link-warned")
+
+    const link = page.getByRole("link", { name: "Learn link warned" })
+
+    // v3 courses are served on the canonical domain, so a link there does not
+    // leave the site, and "You are leaving MIT Learn" would be false. The
+    // fixture hardcodes the pinned test domain; if the two drift apart, the
+    // href check fails here rather than the link silently going external.
+    // course-v3/layouts/partials/is_internal_host.html makes the call; v2
+    // keeps the warning (see external-resources.spec.ts).
+    await expect(link).toHaveAttribute("href", `${CANONICAL}/search?q=physics`)
+    await expect(link).not.toHaveClass(/external-link/)
+    await expect(link).not.toHaveAttribute("target", "_blank")
   })
 
   test("resource_link to an external resource is rewritten too", async ({
@@ -119,7 +138,7 @@ test.describe("Course v3 external resource link rewriting", () => {
 })
 
 test.describe("Course v3 external-link warning modal (real interaction)", () => {
-  test("clicking a warned external link opens the leaving-OCW modal", async ({
+  test("clicking a warned external link opens the leaving-Learn warning", async ({
     page,
     siteAlias
   }) => {
@@ -129,9 +148,16 @@ test.describe("Course v3 external-link warning modal (real interaction)", () => 
     const link = page.getByRole("link", { name: "Google.com" }).first()
     await link.click()
 
-    await expect(
-      page.getByRole("heading", { name: "You are leaving MIT OpenCourseWare" })
-    ).toBeVisible()
+    const dialog = page.getByRole("dialog", {
+      name: V3_EXTERNAL_LINK_DIALOG_TITLE
+    })
+    await expect(dialog).toBeVisible()
+    // v3 is served on MIT Learn, so the warning must not speak for OCW.
+    await expect(dialog).toContainText(
+      "MIT Learn is not responsible for any content on third-party sites"
+    )
+    await expect(dialog).not.toContainText("OCW")
+    await expect(dialog).not.toContainText("OpenCourseWare")
   })
 
   test("Stay Here dismisses the modal without navigating away", async ({
@@ -148,7 +174,7 @@ test.describe("Course v3 external-link warning modal (real interaction)", () => 
       .click()
 
     await expect(
-      page.getByRole("heading", { name: "You are leaving MIT OpenCourseWare" })
+      page.getByRole("heading", { name: V3_EXTERNAL_LINK_DIALOG_TITLE })
     ).toBeHidden()
     await expect(page).toHaveURL(/external-resources-page/)
   })
@@ -168,7 +194,7 @@ test.describe("Course v3 external-link warning modal (real interaction)", () => 
 
     await expect(page).toHaveURL(/first-test-page-title/)
     await expect(
-      page.getByRole("heading", { name: "You are leaving MIT OpenCourseWare" })
+      page.getByRole("heading", { name: V3_EXTERNAL_LINK_DIALOG_TITLE })
     ).toBeHidden()
   })
 })

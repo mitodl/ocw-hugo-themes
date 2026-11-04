@@ -1,6 +1,11 @@
 {{/*
-  The leaving-OCW confirmation, as a native <dialog>. Overrides base-theme's
-  Bootstrap-modal version for v3 only.
+  The leaving-the-site confirmation, as a native <dialog>. Overrides
+  base-theme's Bootstrap-modal version for v3 only.
+
+  The copy names MIT Learn, not OCW: v3 courses are served on learn.mit.edu,
+  while base-theme's copy is what course-v2 and www render on ocw.mit.edu.
+  Studio builds every course with both themes, so that copy must keep naming
+  OCW.
 
   Theme precedence puts course-v3 ahead of base-theme in ["course-v3",
   "base-theme"], and neither base-offline nor course-offline-v3 defines this
@@ -39,7 +44,7 @@
           aria-hidden="true"
         />
         <h1 class="modal-title" id="external-link-modal-title">
-          You are leaving MIT OpenCourseWare
+          You are leaving MIT Learn
         </h1>
       </div>
       <button type="button" class="border-0 p-0 bg-transparent d-flex" data-external-link-dismiss aria-label="Close">
@@ -48,9 +53,9 @@
     </div>
     <div class="modal-body">
       Please be advised that external sites may have terms and conditions,
-      including license rights, that differ from ours. MIT OCW is not responsible
-      for any content on third party sites, nor does a link suggest an endorsement
-      of those sites and/or their content.
+      including license rights, that differ from ours. MIT Learn is not
+      responsible for any content on third-party sites, nor does a link suggest
+      an endorsement of those sites and/or their content.
     </div>
     <div class="modal-footer">
       <button

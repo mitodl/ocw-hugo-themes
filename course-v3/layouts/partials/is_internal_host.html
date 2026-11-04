@@ -1,0 +1,16 @@
+{{/*
+  Overrides base-theme's version. v3 courses are served on
+  COURSE_V3_CANONICAL_DOMAIN (learn.mit.edu in production), so a link to that
+  host stays on the site, and a "You are leaving MIT Learn" warning on it would
+  be false. OCW hosts still count too, as in base-theme. course-offline-v3
+  defines no copy, so offline packages get this one.
+
+  The canonical domain must match exactly: other subdomains, such as
+  support.learn.mit.edu, are separate sites. Ports are ignored on both sides,
+  as in is_ocw_host.html. An unset canonical domain matches nothing, so a URL
+  with no host is never taken for an internal one.
+*/}}
+{{- $host := lower (index (split (urls.Parse .).Host ":") 0) -}}
+{{- $canonical := lower (index (split (partial "course_v3_canonical_domain.html") ":") 0) -}}
+{{- $isCanonical := and (ne $canonical "") (eq $host $canonical) -}}
+{{- return or (partial "is_ocw_host.html" .) $isCanonical -}}

@@ -187,3 +187,28 @@ test("Modal's continue button opens a new tab and closes the dialog", async ({
   await expect(dialog).toBeHidden()
   await expect(modalTitle).toBeHidden()
 })
+
+test("A warned link to MIT Learn keeps its warning, which still names OCW", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
+  await course.goto("/external-resources/learn-link-warned")
+
+  const link = page.getByRole("link", { name: "Learn link warned" })
+
+  // v2 is served on ocw.mit.edu, so a Learn link leaves the site. Only
+  // course-v3 counts the Learn domain as internal (is_internal_host.html);
+  // that must not leak into base-theme, which v2 and www render.
+  await expect(link).toHaveAttribute(
+    "href",
+    "https://learn-test.mit.edu/search?q=physics"
+  )
+  await expect(link).toHaveClass(/external-link-warning/)
+  await expect(link).toHaveAttribute("target", "_blank")
+
+  await link.click()
+  await expect(
+    page.getByRole("dialog", { name: EXTERNAL_LINK_DIALOG_TITLE })
+  ).toBeVisible()
+})

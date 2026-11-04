@@ -1,5 +1,6 @@
 import { test, expect } from "../util/fixtures"
 import { CoursePage, expectTriggerToOpenANewTab } from "../util"
+import { V3_EXTERNAL_LINK_DIALOG_TITLE } from "../util/constants"
 
 /**
  * Coverage for the server-rendered image gallery and its <dialog> lightbox.
@@ -823,7 +824,7 @@ test.describe("v3 image gallery", () => {
     await creditLink.click()
 
     const warningDialog = page.getByRole("dialog", {
-      name: "You are leaving MIT OpenCourseWare"
+      name: V3_EXTERNAL_LINK_DIALOG_TITLE
     })
     await expect(warningDialog).toBeVisible()
 
@@ -849,7 +850,7 @@ test.describe("v3 image gallery", () => {
     await expect(counter).toHaveText("1 / 3")
     await page.locator(".image-gallery-lightbox__caption a").click()
     await expect(
-      page.getByRole("dialog", { name: "You are leaving MIT OpenCourseWare" })
+      page.getByRole("dialog", { name: V3_EXTERNAL_LINK_DIALOG_TITLE })
     ).toBeVisible()
 
     // The warning is a modal <dialog> of its own, so the browser makes
@@ -890,7 +891,7 @@ test.describe("v3 image gallery", () => {
     // lightbox, and its arrow handler stopped seeing key events entirely.
     await expect(creditLink).toBeFocused()
     await expect(
-      page.getByRole("dialog", { name: "You are leaving MIT OpenCourseWare" })
+      page.getByRole("dialog", { name: V3_EXTERNAL_LINK_DIALOG_TITLE })
     ).toBeHidden()
 
     await page.keyboard.press("ArrowRight")
