@@ -90,6 +90,43 @@ of [`ocw-studio`](https://github.com/mitodl/ocw-studio) and it uses the
 `ocw-www` starter configuration in
 [`ocw-hugo-projects`](https://github.com/mitodl/ocw-hugo-projects/blob/main/ocw-www/ocw-studio.yaml).
 
+## Releasing
+
+Releases are tags only. There is no `release` or `release-candidate` branch to merge into: the Concourse release workflow cuts a release from `main` and a Slack command, `/doof`, drives it. (Doof, the bot that used to do this, is retired for this repo. The command kept its name.) The general workflow is described in the [Concourse release workflow handbook page](https://engineering.ol.mit.edu/handbook/delivering/release-process/concourse-release-workflow/); this section is what is different for a repo that deploys nothing itself.
+
+### What a release is
+
+- A version is a calendar version, `YYYY.M.D.N`, for example `2026.11.5.1`: the first release on a day is `.1`, and the month and day are not zero padded. The version lives in `VERSION` and is bumped by the release workflow. Do not edit it, and do not bump `package.json`'s `version`, which is no longer used.
+- Release tags (`2026.11.5.1`) are what `ocw-studio` follows on CI and QA, so a release reaches `live-qa.ocw.mit.edu` as soon as it is cut. Production tags (`production/2026.11.5.1`) are what it follows for `ocw.mit.edu`, and only the workflow creates one, after the release is approved. A `production/` tag points at the same commit as its release tag, so production gets exactly what QA ran.
+- Nothing is built or deployed by the release itself. `ocw-studio`'s theme-assets pipeline notices the new tag, builds the theme assets from it and publishes them, and the site pipelines check the repo out at that tag. See [Following release tags](https://github.com/mitodl/ocw-studio#following-release-tags-of-ocw-hugo-themes-and-ocw-hugo-projects) in the `ocw-studio` README.
+- The `v1.x` tags and the `release` and `release-candidate` branches are the old scheme. They stay as history but are not updated, and nothing reads them once `ocw-studio` runs with `OCW_HUGO_TAG_RELEASES=True`.
+- Release notes are in `CHANGELOG.md`, which each release updates. `RELEASE.rst` is no longer updated.
+
+### Cutting and promoting a release
+
+1. Merge what you want to ship into `main` and wait for CI to pass.
+2. In Slack, in `#doof-ocw-hugo-themes`, run `/doof preview ocw-hugo-themes` to see what the release would contain. It changes nothing.
+3. Run `/doof release ocw-hugo-themes`. The pipeline picks the next version, bumps `VERSION`, adds the `CHANGELOG.md` entry, creates the `releases/<version>` branch and the release tag, and records an RC GitHub Deployment. It also opens a release issue titled `Release ocw-hugo-themes <version>`, labeled `ops:release`, with a checklist of the changes grouped by author. The bot announces the release in the channel and @-mentions the authors who still have unchecked boxes.
+4. Verify your own changes on QA once the theme assets have rebuilt, which takes a few minutes. `https://live-qa.ocw.mit.edu/static/hash.txt` shows the commit QA is serving. It should equal `git rev-parse <version>^{commit}`.
+5. Check your boxes in the release issue. When every box is checked the bot posts "ready to promote" in the channel. `/doof wait-for-checkboxes ocw-hugo-themes` reports each author as they finish.
+6. Promote by pressing the button, running `/doof promote ocw-hugo-themes`, or closing the release issue by hand. Closing the issue is the approval. The Production job then checks that the issue names this version and was opened by the release bot, creates `production/<version>` at the release commit, records the Production GitHub Deployment, comments on the closed issue with a link to it, merges `releases/<version>` back into `main` and deletes the branch.
+7. Confirm production once the assets have rebuilt: `https://ocw.mit.edu/static/hash.txt` should equal the same commit.
+
+### Other commands
+
+- `/doof release-status ocw-hugo-themes`: see where the release issue stands.
+- `/doof release-notes ocw-hugo-themes`: list the unreleased commits.
+- `/doof release ocw-hugo-themes supersede <version>`: discard the in-flight release and cut a new one. A plain `/doof release` refuses while one is in flight.
+- `/doof abandon ocw-hugo-themes`: discard the in-flight release without starting another. Production never takes it.
+- `/doof hotfix ocw-hugo-themes <sha>`: cut what production runs plus that one commit. It refuses while another release is in flight, or if the commit is already in production.
+
+### If something looks wrong
+
+- The release issue closes but no `production/` tag appears: open the `promote-ocw-hugo-themes-production` job in the `ocw-hugo-themes-pipeline` pipeline of the `infrastructure` team in Concourse. It refuses a version older than the newest production tag, and an issue that was not opened by the release bot.
+- Never create or move a `production/` or release tag by hand. The workflow refuses to move one that already exists, and consumers follow the newest.
+- A release that was cut but not finished for 24 hours gets a Slack reminder. It usually means the merge-back failed.
+- The cut fails at `bump-version`: the repo needs the `[tool.bumpversion]` table in `pyproject.toml`, which names `VERSION`.
+
 ## Local development
 
 ### Dependencies
