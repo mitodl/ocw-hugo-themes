@@ -1,5 +1,4 @@
 @import "../../../base-theme/assets/css/variables.scss";
-@import "../../../base-theme/assets/css/breakpoints.scss";
 
 .course-licensing-section {
   border-radius: 0.25rem;
@@ -43,14 +42,6 @@
       text-decoration-thickness: auto;
       text-underline-offset: auto;
       text-underline-position: from-font;
-    }
-  }
-
-  .cc-icons {
-    gap: 1rem;
-
-    @include media-breakpoint-down(md) {
-      justify-content: center;
     }
   }
 }
