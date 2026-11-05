@@ -126,9 +126,9 @@ function build(): Lightbox {
   // leaves it (2.4.3).
   //
   // The order here moves nothing on screen. image-gallery.scss puts the
-  // caption bar back under the image, and places the controls over the image
-  // area at every size: on a wide screen they are position: fixed, and in the
-  // narrow layout they share its grid cell.
+  // caption bar back under the image and places the controls itself: they are
+  // position: fixed, except in a short window, where they share the image
+  // area's grid cell.
   //
   // The counter is also the live region, so changing slide says the new
   // position. It used to be a separate, visually hidden paragraph after Next,

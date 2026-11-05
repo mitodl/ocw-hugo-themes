@@ -103,7 +103,7 @@ const serveTallImage = (page: Page) =>
  * The reviewer's setup, Firefox on Windows at 150% display scaling, turns 200%
  * and 400% browser zoom into the first two of these CSS viewports; the third is
  * WCAG 1.4.10's own reference, 1280x1024 at 400%, and the fourth 300% of a
- * 14-inch MacBook's 1512x790 browser window. All are in the narrow layout.
+ * 14-inch MacBook's 1512x790 browser window. All are in the short layout.
  */
 const ZOOMED = [
   { zoom: "200% zoom at 150% display scaling", width: 640, height: 300 },
@@ -724,6 +724,71 @@ test.describe("v3 image gallery", () => {
     expect(nextBox.y + nextBox.height).toBeLessThanOrEqual(390)
   })
 
+  test("on an upright phone, the arrows sit below the caption, in the same place on every slide", async ({
+    browser,
+    siteAlias
+  }) => {
+    // In a short window the arrows sit in the corners of the image area, just
+    // above the caption, so they move with its length. A phone held upright is
+    // tall enough to keep them in the corners of the screen instead, and there
+    // they have to stay: Next is tapped over and over, and a thumb left where it
+    // was would otherwise tap the photo or the caption.
+    const context = await browser.newContext({
+      hasTouch: true,
+      viewport: { width: 390, height: 844 }
+    })
+    const page = await context.newPage()
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
+    // The first slide's caption is a one-line credit; give the second a long one.
+    await page.evaluate(caption => {
+      document
+        .querySelectorAll<HTMLTemplateElement>(
+          "a.image-gallery__link template"
+        )[1]
+        .content.querySelector(".image-gallery__caption-text")!.textContent =
+        caption
+    }, LONG_CAPTION)
+    await page.getByRole("link", { name: "A pretty dog" }).press("Enter")
+    await expect(page.locator("dialog.image-gallery-lightbox")).toBeVisible()
+    await page.evaluate(() => document.fonts.load('24px "Material Icons"'))
+
+    const caption = page.locator(".image-gallery-lightbox__caption")
+    const arrows = [
+      page.getByRole("button", { name: "Previous image" }),
+      page.getByRole("button", { name: "Next image" })
+    ]
+    const measure = async () => ({
+      caption: (await caption.boundingBox())!,
+      arrows:  await Promise.all(
+        arrows.map(async arrow => (await arrow.boundingBox())!)
+      )
+    })
+
+    const short = await measure()
+    await page.keyboard.press("ArrowRight")
+    await expect(
+      page.locator(".image-gallery-lightbox__counter-glyph")
+    ).toHaveText("2 / 3")
+    const long = await measure()
+    expect(long.caption.height).toBeGreaterThan(short.caption.height + 40)
+
+    for (const slide of [short, long]) {
+      for (const arrow of slide.arrows) {
+        expect(arrow.y).toBeGreaterThanOrEqual(
+          slide.caption.y + slide.caption.height
+        )
+        expect(arrow.y + arrow.height).toBeLessThanOrEqual(844)
+      }
+    }
+    long.arrows.forEach((arrow, i) => {
+      expect(arrow.y).toBeCloseTo(short.arrows[i].y, 0)
+    })
+    await context.close()
+  })
+
   for (const { zoom, width, height } of ZOOMED) {
     test(`at ${zoom}, no control ever sits over the caption`, async ({
       page,
@@ -1054,13 +1119,13 @@ test.describe("v3 image gallery", () => {
     })
   }
 
-  test("on a touch screen, the narrow layout keeps full-size buttons and caption", async ({
+  test("on a touch screen, the short layout keeps full-size buttons and caption", async ({
     browser,
     siteAlias
   }) => {
-    // The smaller controls and caption are for a window made narrow by zooming
-    // in. A phone is narrow because it is small, and a finger needs the full
-    // 48px whatever the size of the screen.
+    // The smaller controls and caption are for a window made short by zooming
+    // in. A phone held sideways is short because it is small, and a finger
+    // needs the full 48px whatever the size of the screen.
     const context = await browser.newContext({
       hasTouch: true,
       viewport: { width: 1280, height: 800 }
@@ -1077,7 +1142,7 @@ test.describe("v3 image gallery", () => {
     const fontSize = () => caption.evaluate(el => getComputedStyle(el).fontSize)
     const wide = await fontSize()
 
-    await page.setViewportSize({ width: 390, height: 844 })
+    await page.setViewportSize({ width: 844, height: 390 })
     expect(await fontSize()).toBe(wide)
     for (const button of await page
       .locator(".image-gallery-lightbox__button")

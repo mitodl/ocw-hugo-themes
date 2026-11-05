@@ -19,7 +19,7 @@
 // 1.4.10's 1280x1024 reference, 320x150 on a 1080p screen at 150% scaling) a
 // long caption genuinely cannot share the screen with a usable image, and
 // vertical scrolling is what 1.4.10 asks for in that case — what it forbids is
-// content cut off with no way to reach it. That is also why, in the narrow
+// content cut off with no way to reach it. That is also why, in the short
 // layout at the end of this file, the controls are tied to the image area
 // rather than fixed to the screen: a caption scrolling under fixed controls is
 // exactly that.
@@ -176,7 +176,7 @@ html:has(dialog.image-gallery-lightbox[open]) {
   // image pushed the caption below the fold even at 100% zoom. It shrinks only
   // as far as the floor below: past that, as with a long caption in a short
   // window, the dialog scrolls rather than squeezing the image to nothing. (The
-  // narrow layout at the end of this file has a floor of its own.)
+  // short layout at the end of this file has a floor of its own.)
   flex: 1 1 0;
   // content-box so the floor measures the image area itself, not the padding
   // around it as well. Measured with the padding in, it once left the image
@@ -226,7 +226,7 @@ html:has(dialog.image-gallery-lightbox[open]) {
 .image-gallery-lightbox__bar {
   // Under the image on screen, though ahead of it in the markup: a screen
   // reader reads the caption first, which is the order an accessibility review
-  // asked for (see build() in image_gallery_lightbox.ts). The narrow layout
+  // asked for (see build() in image_gallery_lightbox.ts). The short layout
   // below places it by grid row instead.
   order: 1;
   // Takes its natural height: nothing here is ever clipped or scrolled away.
@@ -310,7 +310,7 @@ html:has(dialog.image-gallery-lightbox[open]) {
 .image-gallery-lightbox__counter {
   // fixed, not absolute: the dialog is itself a scroll container now, and an
   // absolutely-positioned child scrolls away with the content. Fixed resolves
-  // against the viewport, which the dialog fills. (Wide layout only.)
+  // against the viewport, which the dialog fills. (Not in the short layout.)
   position: fixed;
   top: 20px;
   left: 24px;
@@ -322,8 +322,9 @@ html:has(dialog.image-gallery-lightbox[open]) {
 
 .image-gallery-lightbox__button {
   // fixed for the same reason as the counter: the controls stay reachable
-  // while a long caption scrolls past them. The 88px side padding on the stage
-  // and caption bar keeps every line clear of them. (Wide layout only.)
+  // while a long caption scrolls past them. On a wide screen the 88px side
+  // padding on the stage and caption bar keeps every line clear of them. (Not
+  // in the short layout.)
   position: fixed;
   display: grid;
   place-items: center;
@@ -380,12 +381,45 @@ html:has(dialog.image-gallery-lightbox[open]) {
   top: 20px;
 }
 
-// Reflow (1.4.10) at narrow widths or short heights, which is where 200% and
-// 400% zoom land. The side padding would starve the image here, and controls
-// fixed to the screen cannot work: they used to sit in its corners, and once
-// the caption scrolled it ran underneath them. At 320x150 (400% zoom at 150%
-// display scaling) one or two caption lines were covered at every scroll
-// position, so they could not be read at all.
+// Narrow screens, such as a phone held upright. The side padding would starve
+// the image here, so the arrows move from halfway down the sides into the
+// bottom corners of the screen, under the caption. There they stay put
+// whatever its length, which matters on a phone, where Next is tapped over and
+// over. A caption long enough to scroll passes under them, but in a window
+// taller than 450px every line can still be scrolled clear of them; a shorter
+// one gets the short layout below.
+@media (max-width: 620px) {
+  .image-gallery-lightbox__stage {
+    padding: 64px 12px 12px;
+  }
+
+  .image-gallery-lightbox__bar {
+    // 74px of bottom padding keeps the last line of the caption clear of the
+    // arrows.
+    padding: 14px 16px 74px;
+  }
+
+  .image-gallery-lightbox__prev {
+    left: 16px;
+    top: auto;
+    bottom: 16px;
+    transform: none;
+  }
+
+  .image-gallery-lightbox__next {
+    right: 16px;
+    top: auto;
+    bottom: 16px;
+    transform: none;
+  }
+}
+
+// Reflow (1.4.10) in short windows, which is where 200% and 400% zoom land,
+// and a phone held sideways. The stage's padding would starve the image here,
+// and controls fixed to the screen cannot work: they used to sit in its
+// corners, and once the caption scrolled it ran underneath them. At 320x150
+// (400% zoom at 150% display scaling) one or two caption lines were covered at
+// every scroll position, so they could not be read at all.
 //
 // So the controls keep their corners, but of the image area rather than the
 // screen. The dialog becomes a grid of two rows, the image area and the
@@ -396,7 +430,10 @@ html:has(dialog.image-gallery-lightbox[open]) {
 // 400% and left the arrows a scroll away even at 200%. They need no
 // positioning to paint over the picture: z-index applies to grid items as
 // they are.
-@media (max-width: 620px), (max-height: 450px) {
+//
+// This comes after the narrow layout and overrides everything it sets, so a
+// window that is both narrow and short, as one at 400% zoom is, gets this one.
+@media (max-height: 450px) {
   .image-gallery-lightbox[open] {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -459,14 +496,14 @@ html:has(dialog.image-gallery-lightbox[open]) {
     padding: 14px 16px;
   }
 
-  // With a mouse or trackpad, a window this narrow or short is almost always
-  // one zoomed in, and zoom scaled the controls along with the image: at 400%
-  // each 48px button took a third of a 150px screen's height. So here they are
-  // sized to the window, which zooming shrinks, and stay the size they were at
-  // 100% (8vmin is 48px on a 600px-tall window). They stop at 24px, the least
-  // 2.5.8 allows a target; under 44px they no longer meet 2.5.5, which is AAA.
-  // A touch screen keeps the full size: a phone is narrow because it is small,
-  // and a finger needs the 48px whatever the screen.
+  // With a mouse or trackpad, a window this short is almost always one zoomed
+  // in, and zoom scaled the controls along with the image: at 400% each 48px
+  // button took a third of a 150px screen's height. So here they are sized to
+  // the window, which zooming shrinks, and stay the size they were at 100%
+  // (8vmin is 48px on a 600px-tall window). They stop at 24px, the least 2.5.8
+  // allows a target; under 44px they no longer meet 2.5.5, which is AAA. A
+  // touch screen keeps the full size: a phone held sideways is short because it
+  // is small, and a finger needs the 48px whatever the screen.
   //
   // The caption goes down a size too, to leave the image more of the screen.
   // It still grows with zoom, a step behind the rest: 13px at 200% is 1.7
