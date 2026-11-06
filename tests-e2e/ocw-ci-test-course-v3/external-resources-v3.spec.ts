@@ -41,10 +41,8 @@ test.describe("Course v3 external resource link rewriting", () => {
 
     const link = page.getByRole("link", { name: "OCW course link" })
 
-    // The canonical domain need not contain "ocw.mit.edu", so the
-    // is-this-an-OCW-link check reads the authored URL. If it read the
-    // rewritten one, this link would gain a leaving-the-site warning and
-    // open in a new tab.
+    // The rewritten URL is on the canonical domain, which course-v3 counts as
+    // internal.
     await expect(link).not.toHaveAttribute("target", "_blank")
     await expect(link).not.toHaveClass(/external-link/)
   })
@@ -58,10 +56,10 @@ test.describe("Course v3 external resource link rewriting", () => {
 
     const link = page.getByRole("link", { name: "OCW course link warned" })
 
-    // has_external_license_warning is true on this fixture, but the OCW branch
-    // of external_resource_link ignores it. external_link_modal.ts binds to
-    // a.external-link-warning, so this class is what decides whether clicking
-    // pops the warning dialog.
+    // has_external_license_warning is true on this fixture, but the internal
+    // branch of external_resource_link ignores it. external_link_modal.ts binds
+    // to a.external-link-warning, so this class is what decides whether
+    // clicking pops the warning dialog.
     await expect(link).toHaveAttribute(
       "href",
       `${CANONICAL}/courses/o/another-course-spring-2021/pages/readings/`

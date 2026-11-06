@@ -13,18 +13,13 @@
   {{/* Prevents external links from being clicked before corresponding JS is fully loaded. */}}
   {{- $onClick = "event.preventDefault()" -}}
 {{- end -}}
-{{/* Decide "is this link internal" from the authored URL, not the rewritten
-     one: COURSE_V3_CANONICAL_DOMAIN need not contain ocw.mit.edu, and a
-     rewritten host must not flip an internal link into an external one with
-     a leaving-the-site warning.
-
-     Compare the parsed host, not the URL as a string — a URL that merely
+{{/* Compare the parsed host, not the URL as a string — a URL that merely
      mentions ocw.mit.edu in its path or query (https://evil.example.com/?next=
      ocw.mit.edu) must not lose its warning and its new tab.
 
      Which hosts count as internal depends on the theme; see
      is_internal_host.html. */}}
-{{- if not (partial "is_internal_host.html" $rawHref) -}}
+{{- if not (partial "is_internal_host.html" $href) -}}
   {{- partial "link" (dict
       "href" $href
       "text" $text

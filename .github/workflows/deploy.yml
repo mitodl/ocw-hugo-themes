@@ -100,6 +100,10 @@ jobs:
           OCW_COURSE_STARTER_SLUG: ${{ secrets.OCW_COURSE_STARTER_SLUG }}
           STATIC_API_BASE_URL: ${{ secrets.STATIC_API_BASE_URL }}
           RESOURCE_BASE_URL: ${{ secrets.RESOURCE_BASE_URL_V3 }}
+          # Production's value. course-v3 rewrites fully qualified OCW course
+          # links onto this domain and counts it as internal; unset, those
+          # links come out with no host.
+          COURSE_V3_CANONICAL_DOMAIN: learn.mit.edu
 
       # Netlify previews are best-effort, so a Netlify outage cannot block merging
       - name: Deploy www Preview to Netlify
