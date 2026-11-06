@@ -1,0 +1,13 @@
+{{/*
+  Seam: whether an authored external URL points at a host this build treats as
+  its own site. external_resource_link.html renders such links as internal: no
+  new tab and no leaving-the-site warning, whatever the resource asks for.
+
+  base-theme's sites are served on ocw.mit.edu, so only OCW hosts count: from
+  there, a link to MIT Learn does leave the site. course-v3 overrides this to
+  add the v3 canonical domain (MIT Learn). That override cannot live here
+  either way: the v2 offline and www configs do not allowlist
+  COURSE_V3_CANONICAL_DOMAIN in security.funcs.getenv, so reading it from
+  base-theme would break those builds.
+*/}}
+{{- return partial "is_ocw_host.html" . -}}
