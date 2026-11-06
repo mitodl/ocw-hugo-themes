@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="{{ site.LanguageCode }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ .Title }}</title>
+    <meta name="description" content="{{ .Description }}">
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+    <link rel="stylesheet" href="https://use.typekit.net/lbk1xay.css">
+    <link rel="stylesheet" href="{{ partial "get_asset_webpack_url.html" "ocw_transition.css" }}">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    {{ partial "ocw-transition/header.html" . }}
+    <main id="main">
+      {{ block "main" . }}{{ end }}
+    </main>
+    {{ partial "ocw-transition/footer.html" . }}
+  </body>
+</html>

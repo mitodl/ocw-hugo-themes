@@ -1,0 +1,35 @@
+{{ define "main" }}
+{{ $learnURL := partial "ocw-transition/learn-url.html" . }}
+<div class="why-page">
+  <section class="why-hero" aria-labelledby="why-title" style="--hero-background: url('{{ (resources.Get "images/ocw-transition-why-background.svg" | fingerprint).RelPermalink }}')">
+    <div class="container">
+      <nav class="why-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{ .FirstSection.RelPermalink }}">Home</a>
+        {{ partial "ocw-transition/icon.html" "chevron" }}
+        <span aria-current="page">Why MIT Learn?</span>
+      </nav>
+      <h1 id="why-title">{{ .Title }}</h1>
+      <p>{{ .Description }}</p>
+    </div>
+  </section>
+  <div class="container why-content">
+    <section id="about-ocw" class="why-intro" aria-label="About OCW">
+      {{ .Content }}
+      <p>Explore MIT Learn to find your next learning opportunity.</p>
+      <a class="button" href="{{ $learnURL }}/search/?free=true&amp;sortby=-views">Browse our courses on MIT Learn {{ partial "ocw-transition/icon.html" "arrow" }}</a>
+    </section>
+    <section class="why-faq" aria-labelledby="why-faq-title">
+      <h2 id="why-faq-title">Frequently asked questions</h2>
+      {{ range .FirstSection.Params.faqs }}
+      <section class="why-answer">
+        <h3>{{ .question }}</h3>
+        {{ $.RenderString (dict "display" "block") .answer }}
+      </section>
+      {{ end }}
+    </section>
+    <div class="why-browse">
+      <a class="button" href="{{ $learnURL }}/search/?free=true&amp;sortby=-views">Browse free courses on MIT Learn {{ partial "ocw-transition/icon.html" "arrow" }}</a>
+    </div>
+  </div>
+</div>
+{{ end }}

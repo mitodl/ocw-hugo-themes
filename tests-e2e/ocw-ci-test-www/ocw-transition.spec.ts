@@ -12,7 +12,7 @@ test("the transition page is not indexed", async ({ page }) => {
   await expect(robots).toHaveAttribute("content", "noindex")
 })
 
-test("search submits the query to Learn with free OCW and MITx filters", async ({
+test("search submits the query to Learn with the free filter", async ({
   page
 }) => {
   await page.route(`${learnSearchUrl}**`, route =>
@@ -36,7 +36,7 @@ test("search submits the query to Learn with free OCW and MITx filters", async (
   expect(url.pathname).toBe("/search/")
   expect(url.searchParams.get("q")).toBe(query)
   expect(url.searchParams.get("free")).toBe("true")
-  expect(url.searchParams.getAll("offered_by")).toEqual(["ocw", "mitx"])
+  expect(url.searchParams.getAll("offered_by")).toEqual([])
 })
 
 test("the header links the MIT OpenCourseWare logo home", async ({ page }) => {
