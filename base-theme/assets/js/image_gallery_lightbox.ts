@@ -47,12 +47,6 @@ const SWIPE_DEADZONE_PX = 10
 interface Slide {
   href: string
   alt: string
-  /**
-   * What to say about this slide in the live region. Same as `alt` when the
-   * resource has real alt text; otherwise the accessible name the shortcode
-   * put on the trigger. Kept separate from `alt` on purpose — see toSlide.
-   */
-  name: string
   captionHtml: string
 }
 
@@ -60,11 +54,13 @@ interface Lightbox {
   dialog: HTMLDialogElement
   image: HTMLImageElement
   caption: HTMLElement
-  /** The compact "2 / 8", for eyes only — see build() for why it is split. */
+  /** The compact "2 / 8", for eyes only — see paint() for why it is split. */
   counterGlyph: HTMLElement
-  /** The same position spelled out, for screen readers. */
+  /**
+   * The same position spelled out, for screen readers. The counter is the
+   * dialog's live region, so writing this is what announces a slide.
+   */
   counterLabel: HTMLElement
-  status: HTMLElement
   prev: HTMLButtonElement
   next: HTMLButtonElement
 }
@@ -99,21 +95,15 @@ function toSlide(link: HTMLAnchorElement): Slide {
   const caption = link.querySelector<HTMLTemplateElement>(
     "template.image-gallery__caption-data"
   )
-  const alt = img?.getAttribute("alt") || ""
   // When the resource has no image-alt the shortcode leaves alt empty and
   // labels the anchor instead, from data-ngdesc / the caption / the resource
-  // title. Without picking that up here the viewer announced "Image 2 of 10."
-  // and nothing else, even though the thumbnail that opened it was named.
-  //
-  // It feeds the live region only, never image.alt: the live region is a status
-  // message, so describing the slide with caption-ish text there is fair, while
-  // copying it into alt would assert it describes what the image *shows*. An
-  // empty alt is the honest encoding for "no description available", and
-  // faking one also hides the gap from anyone fixing the content later.
+  // title. That label is not copied onto the image: as alt it would assert it
+  // describes what the image *shows*. An empty alt is the honest encoding for
+  // "no description available", and faking one also hides the gap from anyone
+  // fixing the content later.
   return {
     href:        link.getAttribute("href") || "",
-    alt,
-    name:        alt || link.getAttribute("aria-label") || "",
+    alt:         img?.getAttribute("alt") || "",
     captionHtml: caption?.innerHTML.trim() || ""
   }
 }
@@ -126,34 +116,42 @@ function build(): Lightbox {
   // Focusable only programmatically, as somewhere for focus to land when the
   // element holding it is about to be replaced — see paint().
   dialog.setAttribute("tabindex", "-1")
-  // The three buttons come before the stage and the caption bar purely for
-  // focus order (2.4.3). They are position: fixed, so where they sit in the
-  // DOM has no bearing on where they appear or on what paints over what —
-  // verified: every box and the hit-test at each button are identical either
-  // way. What it does change is the tab cycle. With the caption first, its
-  // credit link was the *first* focusable in the dialog while sitting at the
-  // bottom of the screen; focus starts on Close, so reaching the link meant
-  // tabbing out of the dialog into the browser's own UI and back in again.
-  // Controls-then-caption matches how the viewer reads top to bottom, and
-  // every focusable inside the dialog is now reached before focus leaves it.
+  // A screen reader reads the dialog in DOM order, and this is the order an
+  // accessibility review asked for: position and Close, the caption and the
+  // image, then Previous and Next (1.3.2). The arrows used to come straight
+  // after Close, ahead of the content they act on, so a reader who had
+  // finished the caption had to go back up to reach Next. Close stays first,
+  // and focus starts there: the tab cycle is Close, any link in the caption,
+  // Previous, Next, so every focusable in the dialog is reached before focus
+  // leaves it (2.4.3).
+  //
+  // The order here moves nothing on screen. image-gallery.scss puts the
+  // caption bar back under the image and places the controls itself: they are
+  // position: fixed, except in a short window, where they share the image
+  // area's grid cell.
+  //
+  // The counter is also the live region, so changing slide says the new
+  // position. It used to be a separate, visually hidden paragraph after Next,
+  // which said the description too; the review asked for it to go, since it
+  // stayed in the reading order and a reader going through the dialog met both
+  // a second time.
   dialog.innerHTML = `
-    <p class="image-gallery-lightbox__counter"><span class="image-gallery-lightbox__counter-glyph" aria-hidden="true"></span><span class="image-gallery-lightbox__counter-label sr-only"></span></p>
+    <p class="image-gallery-lightbox__counter" role="status" aria-live="polite"><span class="image-gallery-lightbox__counter-glyph" aria-hidden="true"></span><span class="image-gallery-lightbox__counter-label sr-only"></span></p>
     <button class="image-gallery-lightbox__button image-gallery-lightbox__close" type="button" aria-label="Close image viewer" autofocus>
       <span class="material-icons" aria-hidden="true">close</span>
     </button>
+    <div class="image-gallery-lightbox__bar">
+      <p class="image-gallery-lightbox__caption"></p>
+    </div>
+    <div class="image-gallery-lightbox__stage">
+      <img class="image-gallery-lightbox__image" alt="" />
+    </div>
     <button class="image-gallery-lightbox__button image-gallery-lightbox__prev" type="button" aria-label="Previous image">
       <span class="material-icons" aria-hidden="true">chevron_left</span>
     </button>
     <button class="image-gallery-lightbox__button image-gallery-lightbox__next" type="button" aria-label="Next image">
       <span class="material-icons" aria-hidden="true">chevron_right</span>
-    </button>
-    <div class="image-gallery-lightbox__stage">
-      <img class="image-gallery-lightbox__image" alt="" />
-    </div>
-    <div class="image-gallery-lightbox__bar">
-      <p class="image-gallery-lightbox__caption"></p>
-    </div>
-    <p class="image-gallery-lightbox__status sr-only" role="status" aria-live="polite"></p>`
+    </button>`
   document.body.appendChild(dialog)
 
   const box: Lightbox = {
@@ -166,9 +164,8 @@ function build(): Lightbox {
     counterLabel: dialog.querySelector(
       ".image-gallery-lightbox__counter-label"
     )!,
-    status: dialog.querySelector(".image-gallery-lightbox__status")!,
-    prev:   dialog.querySelector(".image-gallery-lightbox__prev")!,
-    next:   dialog.querySelector(".image-gallery-lightbox__next")!
+    prev: dialog.querySelector(".image-gallery-lightbox__prev")!,
+    next: dialog.querySelector(".image-gallery-lightbox__next")!
   }
 
   // Reveal as soon as this slide's own bitmap is what would be painted. On
@@ -206,13 +203,14 @@ function build(): Lightbox {
 
   // No click-to-dismiss handler here: the dialog fills the viewport, so there
   // is no ::backdrop left to click, and its children tile the whole of it —
-  // stage, caption bar and the fixed controls — so a click never targets the
+  // stage, caption bar and the controls — so a click never targets the
   // dialog element itself. Escape and the close button are the ways out.
 
-  // The dialog is reused, so stale status text would still be there on reopen and
-  // an identical value is not a mutation — meaning no announcement. Clear it.
+  // The dialog is reused, so on a reopen at the same slide the position would
+  // still be there, and an identical value is not a mutation — meaning no
+  // announcement. Clear it.
   dialog.addEventListener("close", () => {
-    box.status.textContent = ""
+    box.counterLabel.textContent = ""
   })
 
   return box
@@ -327,14 +325,14 @@ function attachSwipe(dialog: HTMLDialogElement): void {
 }
 
 /**
- * Paint slide `index` (wrapping at both ends) without touching the live region,
- * and return the text that describes it.
+ * Paint slide `index` (wrapping at both ends), leaving the live region to
+ * announcePosition().
  */
-function paint(index: number): string {
+function paint(index: number): void {
   const box = lightbox!
   current = (index + slides.length) % slides.length
   const slide = slides[current]
-  const { image, caption, counterGlyph, counterLabel, prev, next } = box
+  const { image, caption, counterGlyph, prev, next } = box
 
   // Deliberately no srcset here, even though the thumbnail has one. Those
   // candidates carry Fastly width descriptors ("...&width=1280 1280w"), but
@@ -391,15 +389,13 @@ function paint(index: number): string {
   }
   caption.innerHTML = slide.captionHtml
   caption.hidden = !slide.captionHtml
-  // Two copies of the position on purpose, not a duplicate. The live region
-  // below announces the slide once as it changes and cannot be re-read, so
-  // this paragraph is the only durable answer to "which one am I on?" — which
-  // is exactly why it must stay in the accessibility tree rather than being
-  // aria-hidden wholesale. What is hidden is only the compact glyph: "2 / 8"
-  // is fine to see and poor to hear, since the slash is read out or dropped
-  // depending on the screen reader's symbol level.
+  // Two copies of the position on purpose, not a duplicate. Only this compact
+  // glyph is hidden from screen readers: "2 / 8" is fine to see and poor to
+  // hear, since the slash is read out or dropped depending on the screen
+  // reader's symbol level. The spelled-out copy, written by announcePosition(),
+  // is what announces each slide and what answers "which one am I on?" after
+  // that, which is why the counter must not be aria-hidden wholesale.
   counterGlyph.textContent = `${current + 1} / ${slides.length}`
-  counterLabel.textContent = `Image ${current + 1} of ${slides.length}`
 
   // The dialog scrolls when a long caption and a usable image cannot share the
   // viewport (400% zoom). Start each slide at the top, so arrowing onward shows
@@ -411,14 +407,27 @@ function paint(index: number): string {
   const single = slides.length < 2
   prev.hidden = single
   next.hidden = single
+}
 
-  return `Image ${current + 1} of ${slides.length}. ${slide.name}`
+/**
+ * Spell the current position out in the counter, the dialog's live region,
+ * which is what has a screen reader say "Image 2 of 8".
+ *
+ * Kept out of paint() for open()'s sake: it paints while the dialog is still
+ * closed, and a closed <dialog> is display:none. A live region written in an
+ * unrendered subtree is never announced, and showing it afterwards is not a
+ * mutation, so the opening slide would never be announced at all.
+ */
+function announcePosition(): void {
+  const { counterLabel } = lightbox!
+  counterLabel.textContent = `Image ${current + 1} of ${slides.length}`
 }
 
 /** Move to slide `index` while the dialog is already open. */
 function go(index: number): void {
   if (!lightbox || slides.length === 0) return
-  lightbox.status.textContent = paint(index)
+  paint(index)
+  announcePosition()
 }
 
 function open(link: HTMLAnchorElement, gallery: Element): void {
@@ -439,14 +448,10 @@ function open(link: HTMLAnchorElement, gallery: Element): void {
   // no element to restore focus to and closing drops focus onto <body>.
   link.focus({ preventScroll: true })
 
-  const message = paint(Math.max(0, links.indexOf(link)))
+  paint(Math.max(0, links.indexOf(link)))
   lightbox.dialog.showModal()
-
-  // Write the live region only once the dialog is open. A closed <dialog> is
-  // display:none, so an update made before showModal() lands in an unrendered
-  // subtree and is never announced — and making it visible afterwards is not a
-  // mutation, so it would never be announced at all.
-  lightbox.status.textContent = message
+  // Only once the dialog is open — see announcePosition().
+  announcePosition()
 }
 
 /**
