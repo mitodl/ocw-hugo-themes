@@ -203,6 +203,8 @@ jobs:
       - name: Deploy CI build to Netlify
         uses: nwtgck/actions-netlify@d22a32a27c918fe470bbc562e984f80ec48c2668 # v4.0
         if: ${{ github.event_name == 'push' }}
+        continue-on-error: true
+        timeout-minutes: 5
         with:
           publish-dir: "../ocw-www/public"
           github-token: ${{ secrets.GITHUB_TOKEN }}
