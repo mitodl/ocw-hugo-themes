@@ -1,2 +1,2 @@
-{{- $sitemapDomain := partial "sitemap_domain.html" -}}
-{{- return printf "https://%s%s" (strings.TrimSuffix "/" $sitemapDomain) .RelPermalink -}}
+{{- $siteDomain := partial "site_domain.html" -}}
+{{- return printf "https://%s%s" (strings.TrimSuffix "/" $siteDomain) .RelPermalink -}}

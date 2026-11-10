@@ -1,0 +1,10 @@
+{{/*
+  Seam: the domain this build's own pages are served on, used for the
+  canonical URL, og:url and the sitemap's <loc>s.
+
+  base-theme's sites are served on SITEMAP_DOMAIN. course-v3 overrides this
+  with COURSE_V3_CANONICAL_DOMAIN, which is not allowlisted in
+  security.funcs.getenv for the www and v2 offline configs, so it cannot be
+  read here.
+*/}}
+{{- return partial "sitemap_domain.html" -}}

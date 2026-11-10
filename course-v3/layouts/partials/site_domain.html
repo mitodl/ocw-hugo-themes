@@ -1,0 +1,6 @@
+{{/*
+  course-v3 sites are served on COURSE_V3_CANONICAL_DOMAIN under /courses/o/.
+  Falls back to SITEMAP_DOMAIN when it is not set, as base-theme does.
+*/}}
+{{- $domain := partial "course_v3_canonical_domain.html" | default (partial "sitemap_domain.html") -}}
+{{- return $domain -}}

@@ -1,4 +1,4 @@
-{{- $sitemapDomain := partial "sitemap_domain.html" -}}
+{{- $siteDomain := partial "site_domain.html" -}}
 {{- $disallowedUrls := slice "categories/" "tags/" "pages/" "resources/" "video_galleries/" -}}
 {{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -10,7 +10,7 @@
       {{- $trimmedBaseUrl := strings.TrimPrefix "/" site.BaseURL -}}
       {{- $trimmedPath := strings.TrimPrefix "/" (replace $path $trimmedBaseUrl "") -}}
       {{- if not (in $disallowedUrls $trimmedPath) -}}
-        {{- $url := printf "https://%v/%v" $sitemapDomain $path -}}
+        {{- $url := printf "https://%v/%v" $siteDomain $path -}}
   <url>
     <loc>{{ $url }}</loc>{{ if not .Lastmod.IsZero }}
     <lastmod>{{ safeHTML ( .Lastmod.Format "2006-01-02T15:04:05-07:00" ) }}</lastmod>{{ end }}{{ with .Sitemap.ChangeFreq }}
