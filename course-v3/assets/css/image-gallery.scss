@@ -421,15 +421,14 @@ html:has(dialog.image-gallery-lightbox[open]) {
 // (400% zoom at 150% display scaling) one or two caption lines were covered at
 // every scroll position, so they could not be read at all.
 //
-// So the controls keep their corners, but of the image area rather than the
-// screen. The dialog becomes a grid of two rows, the image area and the
-// caption bar, and the position, Close and the arrows share the image area's
-// cell, over the picture. They scroll with it, so they can never meet the
-// caption, and no row of the screen goes to them: rows of their own, above
-// the image and below the caption, cost the image 64px of a 150px screen at
-// 400% and left the arrows a scroll away even at 200%. They need no
-// positioning to paint over the picture: z-index applies to grid items as
-// they are.
+// So the controls are placed over the image area rather than the screen. The
+// dialog becomes a grid of two rows, the image area and the caption bar, and
+// the position, Close and the arrows share the image area's cell, over the
+// picture. They scroll with it, so they can never meet the caption, and no row
+// of the screen goes to them: rows of their own, above the image and below the
+// caption, cost the image 64px of a 150px screen at 400% and left the arrows a
+// scroll away even at 200%. They need no positioning to paint over the
+// picture: z-index applies to grid items as they are.
 //
 // This comes after the narrow layout and overrides everything it sets, so a
 // window that is both narrow and short, as one at 400% zoom is, gets this one.
@@ -478,16 +477,33 @@ html:has(dialog.image-gallery-lightbox[open]) {
     justify-self: end;
   }
 
-  // The bottom corners rather than halfway down the sides: at full size, a
-  // vertically centred Next overlaps Close once the image area is under 160px
-  // tall.
+  // The arrows sit halfway down the screen, as they do on a wide screen, but
+  // are placed from the top of the image area by the screen's height alone, so
+  // they stay put from slide to slide. A longer caption leaves the image area
+  // shorter: at its foot, Next moved by up to 45px between two of PE.710's
+  // slides on a phone held sideways, out from under a thumb tapping it, and
+  // centred in it, Next would move half as far.
+  //
+  // The clamp keeps them clear of the other controls and the caption. 64px,
+  // the highest they go, is just under Close: its 48px with 8px around it. At
+  // the lowest, they end 8px above the image area's floor, the shortest a
+  // long caption can leave it, so the caption always starts below them. In
+  // most short windows that lowest place is a little above the middle, and
+  // there they sit: 4px above it at 756x395, 12px at 844x390. The bare 64px
+  // is for browsers without clamp(), and the vh line for those without dvh.
+  .image-gallery-lightbox__prev,
+  .image-gallery-lightbox__next {
+    align-self: start;
+    margin-top: 64px;
+    margin-top: clamp(64px, 50vh - 24px, max(55vh, 120px) - 56px);
+    margin-top: clamp(64px, 50dvh - 24px, max(55dvh, 120px) - 56px);
+  }
+
   .image-gallery-lightbox__prev {
-    align-self: end;
     justify-self: start;
   }
 
   .image-gallery-lightbox__next {
-    align-self: end;
     justify-self: end;
   }
 
@@ -509,13 +525,34 @@ html:has(dialog.image-gallery-lightbox[open]) {
   // It still grows with zoom, a step behind the rest: 13px at 200% is 1.7
   // times the 15px of 100%.
   @media (pointer: fine) {
+    // clamp(24px, 8vmin, 48px), spelled out. The build's postcss-clamp turns
+    // each clamp() into max() and min() for older browsers, but puts one
+    // nested in another in place of the outer one: in the arrows' margin-top
+    // below, the whole value came out as the button size.
+    $button-size: max(24px, min(8vmin, 48px));
+
     .image-gallery-lightbox__button {
-      min-width: clamp(24px, 8vmin, 48px);
-      min-height: clamp(24px, 8vmin, 48px);
+      min-width: $button-size;
+      min-height: $button-size;
 
       .material-icons {
         font-size: clamp(12px, 4vmin, 24px);
       }
+    }
+
+    // The same bounds, for the smaller buttons.
+    .image-gallery-lightbox__prev,
+    .image-gallery-lightbox__next {
+      margin-top: clamp(
+        #{$button-size} + 16px,
+        50vh - #{$button-size} / 2,
+        max(55vh, 120px) - #{$button-size} - 8px
+      );
+      margin-top: clamp(
+        #{$button-size} + 16px,
+        50dvh - #{$button-size} / 2,
+        max(55dvh, 120px) - #{$button-size} - 8px
+      );
     }
 
     // The text keeps its size; the ground around it comes down to the

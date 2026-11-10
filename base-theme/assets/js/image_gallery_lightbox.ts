@@ -28,6 +28,8 @@ const LINK_SELECTOR = "a.image-gallery__link"
 const GALLERY_SELECTOR = ".image-gallery"
 /** Applied while the <img> still holds a bitmap from some other slide. */
 const LOADING_CLASS = "image-gallery-lightbox__image--loading"
+/** How long after showModal() the opening slide is announced (see open()). */
+const ANNOUNCE_DELAY_MS = 100
 
 /**
  * Swipe tuning. 40px matches Bootstrap 4's carousel SWIPE_THRESHOLD, which is
@@ -69,6 +71,8 @@ let lightbox: Lightbox | null = null
 let slides: Slide[] = []
 let current = 0
 let listening = false
+/** The opening slide's announcement, until it is made (see open()). */
+let announceTimer = 0
 
 /**
  * Every browser in the project's browserslist supports modal <dialog>, but check
@@ -111,7 +115,10 @@ function toSlide(link: HTMLAnchorElement): Slide {
 function build(): Lightbox {
   const dialog = document.createElement("dialog")
   dialog.className = DIALOG_CLASS
-  // Without a name the dialog announces only as "dialog".
+  // Without a name the dialog announces only as "dialog". The name leaves the
+  // position out: VoiceOver reads a dialog's name again whenever it changes,
+  // so a name that followed the slide had Next say "Image viewer Image 3 of
+  // 14" and then, from the counter, "Image 3 of 14".
   dialog.setAttribute("aria-label", "Image viewer")
   // Focusable only programmatically, as somewhere for focus to land when the
   // element holding it is about to be replaced — see paint().
@@ -208,8 +215,10 @@ function build(): Lightbox {
 
   // The dialog is reused, so on a reopen at the same slide the position would
   // still be there, and an identical value is not a mutation — meaning no
-  // announcement. Clear it.
+  // announcement. Clear it, and cancel an opening announcement still to come,
+  // which would write it back.
   dialog.addEventListener("close", () => {
+    window.clearTimeout(announceTimer)
     box.counterLabel.textContent = ""
   })
 
@@ -419,6 +428,9 @@ function paint(index: number): void {
  * mutation, so the opening slide would never be announced at all.
  */
 function announcePosition(): void {
+  // A change of slide before the opening announcement takes its place. Made
+  // late, the opening one would repeat the new position.
+  window.clearTimeout(announceTimer)
   const { counterLabel } = lightbox!
   counterLabel.textContent = `Image ${current + 1} of ${slides.length}`
 }
@@ -450,8 +462,13 @@ function open(link: HTMLAnchorElement, gallery: Element): void {
 
   paint(Math.max(0, links.indexOf(link)))
   lightbox.dialog.showModal()
-  // Only once the dialog is open — see announcePosition().
-  announcePosition()
+  // Only once the dialog is open — see announcePosition() — and in a later
+  // task. Written in this one, the position is already in the live region when
+  // the accessibility tree first sees it, so there is no change to announce:
+  // VoiceOver in Chrome said only "Image viewer, dialog". In Chrome any later
+  // task will do, even with a 0ms timer; the 100ms is headroom for the other
+  // browsers, which have not been checked.
+  announceTimer = window.setTimeout(announcePosition, ANNOUNCE_DELAY_MS)
 }
 
 /**

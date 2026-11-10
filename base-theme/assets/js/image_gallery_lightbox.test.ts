@@ -123,6 +123,16 @@ const counter = () =>
   document.querySelector<HTMLElement>(".image-gallery-lightbox__counter-glyph")
 const counterLabel = () =>
   document.querySelector<HTMLElement>(".image-gallery-lightbox__counter-label")
+/**
+ * An element's accessible name, which jsdom does not compute: the text of its
+ * aria-labelledby targets, else its aria-label.
+ */
+const accessibleName = (el: Element) => {
+  const ids = el.getAttribute("aria-labelledby")?.split(" ") ?? []
+  return ids.length ?
+    ids.map(id => document.getElementById(id)?.textContent ?? "").join(" ") :
+    el.getAttribute("aria-label") ?? ""
+}
 const links = () =>
   Array.from(
     document.querySelectorAll<HTMLAnchorElement>("a.image-gallery__link")
@@ -173,6 +183,10 @@ describe("initImageGalleryLightbox", () => {
     stubDialog()
     stubImageLoading()
     initImageGalleryLightbox()
+  })
+
+  afterEach(() => {
+    jest.useRealTimers()
   })
 
   it("does nothing until a gallery link is clicked", () => {
@@ -263,7 +277,29 @@ describe("initImageGalleryLightbox", () => {
     expect(image()!.getAttribute("src")).toBe("b.jpg")
   })
 
-  it("announces the position only once the dialog is open", () => {
+  it("keeps the dialog's name when the slide changes", () => {
+    renderGallery([
+      { href: "a.jpg", alt: "First" },
+      { href: "b.jpg", alt: "Second" }
+    ])
+    links()[0].click()
+    expect(accessibleName(dialog()!)).toBe("Image viewer")
+
+    // Regression test: a name that held the position changed with every
+    // slide, and VoiceOver reads a changed name out, so Next said "Image
+    // viewer Image 3 of 14" and then the counter said "Image 3 of 14".
+    document
+      .querySelector<HTMLButtonElement>(".image-gallery-lightbox__next")!
+      .click()
+    expect(accessibleName(dialog()!)).toBe("Image viewer")
+    document
+      .querySelector<HTMLButtonElement>(".image-gallery-lightbox__prev")!
+      .click()
+    expect(accessibleName(dialog()!)).toBe("Image viewer")
+  })
+
+  it("announces the position in a later task than the one that opens the dialog", () => {
+    jest.useFakeTimers()
     renderGallery([
       { href: "a.jpg", alt: "First" },
       { href: "b.jpg", alt: "Second" }
@@ -280,9 +316,14 @@ describe("initImageGalleryLightbox", () => {
     }
     links()[0].click()
 
-    // Regression test: an earlier version wrote the live region before
-    // showModal(), which lands in a display:none subtree and is never announced.
+    // Regression tests. Written before showModal(), the position lands in a
+    // display:none subtree and is never announced. Written just after it, in
+    // the same task, it is already in the live region when the accessibility
+    // tree first sees the region, so there is no change to announce either:
+    // VoiceOver in Chrome said only "Image viewer, dialog".
     expect(spokenAtOpen).toBe("")
+    expect(counterLabel()!.textContent).toBe("")
+    jest.runOnlyPendingTimers()
     expect(counterLabel()!.textContent).toBe("Image 1 of 2")
   })
 
@@ -463,8 +504,10 @@ describe("initImageGalleryLightbox", () => {
     })
 
     it("does not arm for a single-image gallery", () => {
+      jest.useFakeTimers()
       renderGallery([{ href: "only.jpg", alt: "Only" }])
       links()[0].click()
+      jest.runOnlyPendingTimers()
 
       // The arrows are hidden in this case, so a swipe re-announcing the same
       // slide would be noise.
@@ -529,12 +572,14 @@ describe("initImageGalleryLightbox", () => {
   })
 
   it("opens at the clicked image, not the first one", () => {
+    jest.useFakeTimers()
     renderGallery([
       { href: "a.jpg", alt: "First" },
       { href: "b.jpg", alt: "Second" },
       { href: "c.jpg", alt: "Third" }
     ])
     links()[2].click()
+    jest.runOnlyPendingTimers()
 
     expect(counter()!.textContent).toBe("3 / 3")
     expect(counterLabel()!.textContent).toBe("Image 3 of 3")
@@ -557,12 +602,14 @@ describe("initImageGalleryLightbox", () => {
   })
 
   it("spells the position out for screen readers, and keeps it readable", () => {
+    jest.useFakeTimers()
     renderGallery([
       { href: "a.jpg", alt: "First" },
       { href: "b.jpg", alt: "Second" },
       { href: "c.jpg", alt: "Third" }
     ])
     links()[1].click()
+    jest.runOnlyPendingTimers()
 
     // The compact form is hidden from assistive tech because "2 / 3" is read
     // out as "2 slash 3", or with the slash dropped, depending on the screen
@@ -704,14 +751,52 @@ describe("initImageGalleryLightbox", () => {
   })
 
   it("clears the live region on close so a reopen re-announces", () => {
+    jest.useFakeTimers()
     renderGallery([{ href: "a.jpg", alt: "First" }])
     links()[0].click()
+    jest.runOnlyPendingTimers()
     expect(counterLabel()!.textContent).toBe("Image 1 of 1")
 
     // Reopening at the same slide would otherwise write the same text again,
     // which is no change, so nothing would be announced.
     dialog()!.close()
     expect(counterLabel()!.textContent).toBe("")
+  })
+
+  it("drops an opening announcement still to come when the dialog closes", () => {
+    jest.useFakeTimers()
+    renderGallery([{ href: "a.jpg", alt: "First" }])
+    links()[0].click()
+    dialog()!.close()
+    jest.runOnlyPendingTimers()
+
+    // Written into the closed dialog, the position would still be there on a
+    // reopen at the same slide, and that reopen would say nothing.
+    expect(counterLabel()!.textContent).toBe("")
+  })
+
+  it("says only the new position when the slide changes before the opening announcement", () => {
+    jest.useFakeTimers()
+    renderGallery([
+      { href: "a.jpg", alt: "First" },
+      { href: "b.jpg", alt: "Second" }
+    ])
+    links()[0].click()
+    document
+      .querySelector<HTMLButtonElement>(".image-gallery-lightbox__next")!
+      .click()
+    expect(counterLabel()!.textContent).toBe("Image 2 of 2")
+
+    // The opening announcement is dropped, not made late: rewriting the label
+    // would say "Image 2 of 2" a second time.
+    const writes = new MutationObserver(() => undefined)
+    writes.observe(counterLabel()!, {
+      childList:     true,
+      characterData: true,
+      subtree:       true
+    })
+    jest.runOnlyPendingTimers()
+    expect(writes.takeRecords()).toHaveLength(0)
   })
 
   it("renders no caption or credit into the grid", () => {
