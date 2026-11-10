@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2026.11.10.1] - 2026-11-10
+
+### Changes
+
+- **Continue deployment on Netlify error** (#1913) by 1553279+pt2302@users.noreply.github.com
+- **Update OCW->Learn transition page** (#1911) by 1553279+pt2302@users.noreply.github.com
+- **fix: name MIT Learn, not OCW, in the v3 external-link warning** (#1907) by 87228907+zawan-ila@users.noreply.github.com
+- **Update Terms of Use footer for v3 on Learn** (#1910) by 1553279+pt2302@users.noreply.github.com
+
 ## [2026.11.4.1] - 2026-11-04
 
 ### Changes
