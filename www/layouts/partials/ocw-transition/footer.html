@@ -32,10 +32,10 @@
       </div>
       <div class="footer-links">
         <nav aria-label="Footer">
-          <a href="{{ partial "home_url.html" }}">Home</a>
-          <a href="https://ocw.mit.edu/about/">About Us</a>
-          <a href="https://ocw.mit.edu/accessibility/">Accessibility</a>
-          <a href="https://ocw.mit.edu/terms/">Terms of Service</a>
+          <a href="{{ partial "ocw-transition/learn-url.html" . }}/">Home</a>
+          <a href="{{ partial "ocw-transition/learn-url.html" . }}/about">About Us</a>
+          <a href="https://accessibility.mit.edu/">Accessibility</a>
+          <a href="{{ partial "ocw-transition/learn-url.html" . }}/terms#open-license">Terms of Service</a>
           <a href="https://support.learn.mit.edu/">Help</a>
         </nav>
         <p>&copy; {{ now.Year }} Massachusetts Institute of Technology</p>

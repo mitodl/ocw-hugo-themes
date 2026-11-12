@@ -16,8 +16,6 @@ body {
   color: $ink;
   background: #fff;
   font-family: "neue-haas-grotesk-text", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
   line-height: 1.5;
 }
@@ -691,7 +689,7 @@ input::placeholder {
 }
 
 .footer-base {
-  box-shadow: 0 -2px $ink;
+  border-top: 1px solid $ink;
 }
 
 .footer-bottom {
@@ -701,7 +699,9 @@ input::placeholder {
   justify-content: space-between;
   gap: 32px;
   padding-block: 32px;
+  font-family: neue-haas-grotesk-text, sans-serif;
   font-size: 14px;
+  font-weight: 400;
   line-height: 18px;
 }
 
@@ -1360,8 +1360,6 @@ input::placeholder {
     width: calc(100% - 64px);
     gap: 16px;
     padding-block: 26px;
-    font-size: 12px;
-    line-height: 16px;
   }
 
   .footer-links nav {
