@@ -1,3 +1,4 @@
+import { Page } from "@playwright/test"
 import { test, expect } from "../util/fixtures"
 import { CoursePage, expectTriggerToOpenANewTab } from "../util"
 import { V3_EXTERNAL_LINK_DIALOG_TITLE } from "../util/constants"
@@ -39,6 +40,134 @@ const lightboxSrc = (siteAlias: string, file: string) =>
       siteAlias === "course-v3-offline" ? "" : "\\?format=auto&quality=75"
     }$`
   )
+
+/**
+ * Record what the lightbox says through its live region, the counter, from
+ * before `page` first navigates: every text its spoken label is given while the
+ * dialog is open, after the task that opened it. Neither of the other writes is
+ * announced, so both are left out: one made while the dialog is closed lands
+ * in a display:none subtree, and one made in the task that opens it is already
+ * there when the accessibility tree first sees the region (see
+ * announcePosition() in image_gallery_lightbox.ts).
+ */
+async function recordAnnouncements(
+  page: Page
+): Promise<() => Promise<string[]>> {
+  await page.addInitScript(() => {
+    const said: string[] = []
+    Object.assign(window, { __lightboxAnnouncements: said })
+    let open = false
+    new MutationObserver(records => {
+      // Records come in the order the changes were made, so `open` says
+      // whether the dialog was showing when each write happened. Each call
+      // gets the changes of one task, so a write that follows the opening in
+      // the same call was made in the task that opened the dialog.
+      let openedInThisTask = false
+      for (const { type, target } of records) {
+        if (!(target instanceof HTMLElement)) continue
+        if (type === "attributes") {
+          if (target.matches("dialog.image-gallery-lightbox")) {
+            open = target.hasAttribute("open")
+            openedInThisTask = open
+          }
+        } else if (
+          open &&
+          !openedInThisTask &&
+          target.matches(".image-gallery-lightbox__counter-label") &&
+          target.textContent
+        ) {
+          said.push(target.textContent)
+        }
+      }
+    }).observe(document, {
+      childList:       true,
+      subtree:         true,
+      attributeFilter: ["open"]
+    })
+  })
+  return () =>
+    page.evaluate(
+      () =>
+        (window as unknown as { __lightboxAnnouncements: string[] })
+          .__lightboxAnnouncements
+    )
+}
+
+/**
+ * Serve example_jpg.jpg (the "A pretty dog" item) as an image of a known size,
+ * taller than any viewport these tests use. test-sites ship no image bytes.
+ */
+const serveTallImage = (page: Page) =>
+  page.route("**/example_jpg.jpg*", route =>
+    route.fulfill({
+      contentType: "image/svg+xml",
+      body:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600">' +
+        '<rect width="400" height="600" fill="#888"/></svg>'
+    })
+  )
+
+/**
+ * The reviewer's setup, Firefox on Windows at 150% display scaling, turns 200%
+ * and 400% browser zoom into the first two of these CSS viewports; the third is
+ * WCAG 1.4.10's own reference, 1280x1024 at 400%, and the last two 300% and
+ * 200% of a 14-inch MacBook's 1512x790 browser window. All are in the short
+ * layout.
+ */
+const ZOOMED = [
+  { zoom: "200% zoom at 150% display scaling", width: 640, height: 300 },
+  { zoom: "400% zoom at 150% display scaling", width: 320, height: 150 },
+  { zoom: "400% zoom of a 1280x1024 screen", width: 320, height: 256 },
+  { zoom: "300% zoom of a laptop window", width: 504, height: 263 },
+  { zoom: "200% zoom of a laptop window", width: 756, height: 395 }
+]
+
+/** The longest caption on PE.710, the course the reviewer tested. */
+const LONG_CAPTION =
+  "Step 3: The swing is completed with the follow-through. The racket ends " +
+  "over the opposite shoulder, and once again attention is focused on the " +
+  "opposite court in anticipation of the next shot."
+
+/**
+ * Open the lightbox at "A pretty dog", whose caption is a one-line credit, and
+ * move on to the second slide, given LONG_CAPTION first. Returns the caption's
+ * box and the arrows' on each slide, for checking that the arrows stay put.
+ */
+async function arrowsOnTwoSlides(page: Page) {
+  await page.evaluate(caption => {
+    document
+      .querySelectorAll<HTMLTemplateElement>(
+        "a.image-gallery__link template"
+      )[1]
+      .content.querySelector(".image-gallery__caption-text")!.textContent =
+      caption
+  }, LONG_CAPTION)
+  await page.getByRole("link", { name: "A pretty dog" }).press("Enter")
+  await expect(page.locator("dialog.image-gallery-lightbox")).toBeVisible()
+  await page.evaluate(() => document.fonts.load('24px "Material Icons"'))
+
+  const caption = page.locator(".image-gallery-lightbox__caption")
+  const arrows = [
+    page.getByRole("button", { name: "Previous image" }),
+    page.getByRole("button", { name: "Next image" })
+  ]
+  const measure = async () => ({
+    caption: (await caption.boundingBox())!,
+    arrows:  await Promise.all(
+      arrows.map(async arrow => (await arrow.boundingBox())!)
+    )
+  })
+
+  const short = await measure()
+  await page.keyboard.press("ArrowRight")
+  await expect(
+    page.locator(".image-gallery-lightbox__counter-glyph")
+  ).toHaveText("2 / 3")
+  const long = await measure()
+  // Otherwise the caption could not have moved anything.
+  expect(long.caption.height).toBeGreaterThan(short.caption.height + 20)
+  return { short, long }
+}
 
 test.describe("v3 image gallery", () => {
   test("renders a thumbnail rail with correctly resolved URLs", async ({
@@ -430,6 +559,7 @@ test.describe("v3 image gallery", () => {
     page,
     siteAlias
   }) => {
+    const announced = await recordAnnouncements(page)
     const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery-v3", {
       waitUntil: "domcontentloaded"
@@ -443,17 +573,74 @@ test.describe("v3 image gallery", () => {
     await expect(dialog).toBeVisible()
     // :modal is what gives us the focus trap and the inert background.
     expect(await dialog.evaluate(el => el.matches(":modal"))).toBe(true)
-    await expect(dialog).toHaveAttribute("aria-label", "Image viewer")
 
-    // The live region must be populated *after* showModal(); a write made while
-    // the dialog is still display:none is never announced.
-    // The first item has no image-alt, so the description half is empty.
-    await expect(page.locator(".image-gallery-lightbox__status")).toHaveText(
-      /^Image 1 of 3\./
-    )
+    await expect(dialog).toHaveAccessibleName("Image viewer")
+
+    // The live region must be written after showModal(), and in a later task.
+    // Written in the same task, the position was already there when the
+    // accessibility tree first saw the region, so there was no change to
+    // announce: VoiceOver in Chrome said only "Image viewer, dialog".
+    await expect.poll(announced).toEqual(["Image 1 of 3"])
     await expect(
       page.locator(".image-gallery-lightbox__counter-glyph")
     ).toHaveText("1 / 3")
+  })
+
+  test("keeps the dialog's name when the slide changes, so only the counter speaks", async ({
+    page,
+    siteAlias
+  }) => {
+    const announced = await recordAnnouncements(page)
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
+    await page.getByRole("link", { name: "A pretty dog" }).click()
+    const dialog = page.locator("dialog.image-gallery-lightbox")
+    await expect.poll(announced).toEqual(["Image 1 of 3"])
+
+    // A name that held the position changed with every slide, and VoiceOver
+    // reads a changed name out, so Next said "Image viewer Image 3 of 14" and
+    // then the counter said "Image 3 of 14".
+    await page.keyboard.press("ArrowRight")
+    await expect.poll(announced).toEqual(["Image 1 of 3", "Image 2 of 3"])
+    await expect(dialog).toHaveAccessibleName("Image viewer")
+    await page.keyboard.press("ArrowLeft")
+    await expect
+      .poll(announced)
+      .toEqual(["Image 1 of 3", "Image 2 of 3", "Image 1 of 3"])
+    await expect(dialog).toHaveAccessibleName("Image viewer")
+  })
+
+  test("reads position, Close, caption and image, then the arrows", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
+    await page
+      .getByRole("link", { name: "A diagram of a test pattern" })
+      .click()
+
+    // A screen reader reads the dialog in DOM order, and this is the order an
+    // accessibility review asked for. Previous and Next used to come straight
+    // after Close, ahead of the image and caption they act on, so a reader who
+    // had read the caption had to go back up to reach Next. A hidden
+    // paragraph after them, which announced each slide, repeated the position
+    // and the description; the counter is the live region now.
+    await expect(page.getByRole("dialog", { name: "Image viewer" }))
+      .toMatchAriaSnapshot(`
+      - dialog "Image viewer":
+        - /children: equal
+        - status: Image 2 of 3
+        - button "Close image viewer"
+        - paragraph: A caption from image metadata
+        - img "A diagram of a test pattern"
+        - button "Previous image"
+        - button "Next image"
+    `)
   })
 
   test("makes the page behind inert and returns focus to the trigger", async ({
@@ -540,6 +727,7 @@ test.describe("v3 image gallery", () => {
     page,
     siteAlias
   }) => {
+    const announced = await recordAnnouncements(page)
     const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery-v3", {
       waitUntil: "domcontentloaded"
@@ -561,9 +749,7 @@ test.describe("v3 image gallery", () => {
     await expect(
       page.locator(".image-gallery-lightbox__counter-glyph")
     ).toHaveText("2 / 3")
-    await expect(page.locator(".image-gallery-lightbox__status")).toHaveText(
-      "Image 2 of 3. A diagram of a test pattern"
-    )
+    await expect.poll(announced).toContain("Image 2 of 3")
 
     await page.keyboard.press("ArrowRight")
     await expect(image).toHaveAttribute(
@@ -573,9 +759,7 @@ test.describe("v3 image gallery", () => {
     await expect(
       page.locator(".image-gallery-lightbox__counter-glyph")
     ).toHaveText("3 / 3")
-    await expect(page.locator(".image-gallery-lightbox__status")).toHaveText(
-      "Image 3 of 3. A faint grayscale image of a rooftop and outbuildings."
-    )
+    await expect.poll(announced).toContain("Image 3 of 3")
 
     // Wraps rather than dead-ending.
     await page.keyboard.press("ArrowRight")
@@ -589,17 +773,9 @@ test.describe("v3 image gallery", () => {
     page,
     siteAlias
   }) => {
-    // A landscape phone, with an image taller than the whole screen. test-sites
-    // ship no image bytes, so serve one of a known size.
+    // A landscape phone, with an image taller than the whole screen.
     await page.setViewportSize({ width: 844, height: 390 })
-    await page.route("**/example_jpg.jpg*", route =>
-      route.fulfill({
-        contentType: "image/svg+xml",
-        body:
-          '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600">' +
-          '<rect width="400" height="600" fill="#888"/></svg>'
-      })
-    )
+    await serveTallImage(page)
     const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery-v3", {
       waitUntil: "domcontentloaded"
@@ -614,57 +790,469 @@ test.describe("v3 image gallery", () => {
       .toBe(600)
 
     // The image scales down to the space the caption leaves, rather than
-    // pushing the caption below the fold at its natural height.
+    // pushing the caption below the fold at its natural height. The arrows
+    // sit in the image area, so they fit on it too.
     const imageBox = (await image.boundingBox())!
     const barBox = (await page
       .locator(".image-gallery-lightbox__bar")
       .boundingBox())!
+    const nextBox = (await page
+      .getByRole("button", { name: "Next image" })
+      .boundingBox())!
     expect(imageBox.height).toBeLessThan(600)
     expect(barBox.y + barBox.height).toBeLessThanOrEqual(390)
+    expect(nextBox.y + nextBox.height).toBeLessThanOrEqual(390)
   })
 
-  test("at 400% zoom, scrolls rather than squeezing the image", async ({
-    page,
+  test("on an upright phone, the arrows sit below the caption, in the same place on every slide", async ({
+    browser,
     siteAlias
   }) => {
-    // 1280x1024 at 400%. With a caption this long, the image's floor and the
-    // caption cannot share the screen, so the dialog has to scroll (1.4.10)
-    // and the image keeps a usable size instead of the caption crushing it.
-    await page.setViewportSize({ width: 320, height: 256 })
-    await page.route("**/example_jpg.jpg*", route =>
-      route.fulfill({
-        contentType: "image/svg+xml",
-        body:
-          '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600">' +
-          '<rect width="400" height="600" fill="#888"/></svg>'
-      })
-    )
+    // A phone held upright is tall enough to keep the arrows in the bottom
+    // corners of the screen, under the caption, and there they have to stay:
+    // Next is tapped over and over, and a thumb left where it was would
+    // otherwise tap the photo or the caption.
+    const context = await browser.newContext({
+      hasTouch: true,
+      viewport: { width: 390, height: 844 }
+    })
+    const page = await context.newPage()
     const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery-v3", {
       waitUntil: "domcontentloaded"
     })
-    await page.evaluate(() => {
-      document
-        .querySelector<HTMLTemplateElement>("a.image-gallery__link template")!
-        .content.querySelector(".image-gallery__credit")!.textContent =
-        "A long credit line. ".repeat(40)
+    const { short, long } = await arrowsOnTwoSlides(page)
+
+    for (const slide of [short, long]) {
+      for (const arrow of slide.arrows) {
+        expect(arrow.y).toBeGreaterThanOrEqual(
+          slide.caption.y + slide.caption.height
+        )
+        expect(arrow.y + arrow.height).toBeLessThanOrEqual(844)
+      }
+    }
+    long.arrows.forEach((arrow, i) => {
+      expect(arrow.y).toBeCloseTo(short.arrows[i].y, 0)
+    })
+    await context.close()
+  })
+
+  for (const { name, width, height, hasTouch } of [
+    {
+      name:     "on a phone held sideways",
+      width:    844,
+      height:   390,
+      hasTouch: true
+    },
+    ...ZOOMED.map(({ zoom, width, height }) => ({
+      name:     `at ${zoom}`,
+      width,
+      height,
+      hasTouch: false
+    }))
+  ]) {
+    test(`${name}, the arrows sit halfway down the screen, in the same place on every slide`, async ({
+      browser,
+      siteAlias
+    }) => {
+      // In a short window the arrows share the image area with the picture,
+      // and a longer caption leaves that area shorter. At its foot they rode up
+      // and down with the caption's length, Next by up to 45px between two of
+      // PE.710's slides on a phone held sideways. They are placed by the
+      // screen's height alone now, halfway down it as on a wide screen.
+      const context = await browser.newContext({
+        hasTouch,
+        viewport: { width, height }
+      })
+      const page = await context.newPage()
+      const course = new CoursePage(page, siteAlias)
+      await course.goto("/pages/image-gallery-v3", {
+        waitUntil: "domcontentloaded"
+      })
+      const { short, long } = await arrowsOnTwoSlides(page)
+
+      long.arrows.forEach((arrow, i) => {
+        expect(arrow.y).toBeCloseTo(short.arrows[i].y, 0)
+      })
+      // Give or take 5% of the screen's height: they rise a little where a
+      // long caption would otherwise reach them.
+      for (const arrow of short.arrows) {
+        expect(
+          Math.abs(arrow.y + arrow.height / 2 - height / 2)
+        ).toBeLessThanOrEqual(height * 0.05)
+      }
+      await context.close()
+    })
+  }
+
+  for (const { zoom, width, height } of ZOOMED) {
+    test(`at ${zoom}, no control ever sits over the caption`, async ({
+      page,
+      siteAlias
+    }) => {
+      await page.setViewportSize({ width, height })
+      await serveTallImage(page)
+      const course = new CoursePage(page, siteAlias)
+      await course.goto("/pages/image-gallery-v3", {
+        waitUntil: "domcontentloaded"
+      })
+      // Long enough to overflow the largest of these windows, 756x395, by a
+      // couple of lines; 40 repeats only just fitted it.
+      await page.evaluate(() => {
+        document
+          .querySelector<HTMLTemplateElement>("a.image-gallery__link template")!
+          .content.querySelector(".image-gallery__credit")!.textContent =
+          "A long credit line. ".repeat(60)
+      })
+      // From the keyboard: on a screen this short the page's own sticky header
+      // can sit over the thumbnail and take the click.
+      await page.getByRole("link", { name: "A pretty dog" }).press("Enter")
+      const dialog = page.locator("dialog.image-gallery-lightbox")
+      await expect(dialog).toBeVisible()
+
+      // A caption this long cannot share the screen with the image, so the
+      // dialog scrolls, which is what 1.4.10 allows...
+      expect(await dialog.evaluate(d => d.scrollHeight > d.clientHeight)).toBe(
+        true
+      )
+
+      // ...but the controls were position: fixed, so the caption scrolled
+      // underneath them. At 320x150 one or two of its lines were covered at
+      // every scroll position and could not be read at all. Check them all.
+      const covered = await dialog.evaluate(d => {
+        const caption = d.querySelector(".image-gallery-lightbox__caption")!
+        const controls = Array.from(
+          d.querySelectorAll<HTMLElement>(
+            ".image-gallery-lightbox__counter, .image-gallery-lightbox__button"
+          )
+        ).filter(control => !control.hidden)
+        // Text runs rather than element boxes: the credit is display: block,
+        // so its box is full width whether or not its text reaches the edge.
+        const lines = () => {
+          const rects: DOMRect[] = []
+          const walker = document.createTreeWalker(
+            caption,
+            NodeFilter.SHOW_TEXT
+          )
+          for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+            if (!node.textContent!.trim()) continue
+            const range = document.createRange()
+            range.selectNodeContents(node)
+            for (const rect of Array.from(range.getClientRects())) {
+              if (rect.width > 1) rects.push(rect)
+            }
+          }
+          return rects
+        }
+        const found: string[] = []
+        for (let top = 0; top <= d.scrollHeight - d.clientHeight; top++) {
+          d.scrollTop = top
+          for (const control of controls) {
+            const box = control.getBoundingClientRect()
+            for (const line of lines()) {
+              if (line.bottom <= 0 || line.top >= window.innerHeight) continue
+              if (
+                line.left < box.right - 0.5 &&
+                box.left < line.right - 0.5 &&
+                line.top < box.bottom - 0.5 &&
+                box.top < line.bottom - 0.5
+              ) {
+                found.push(
+                  `${control.className} over the line at ${Math.round(
+                    line.top
+                  )}px when scrolled ${top}px`
+                )
+              }
+            }
+          }
+        }
+        return found.slice(0, 5)
+      })
+      expect(covered).toEqual([])
+    })
+
+    test(`at ${zoom}, the controls sit over the image area, clear of each other, on the first screen`, async ({
+      page,
+      siteAlias
+    }) => {
+      await page.setViewportSize({ width, height })
+      await serveTallImage(page)
+      const course = new CoursePage(page, siteAlias)
+      await course.goto("/pages/image-gallery-v3", {
+        waitUntil: "domcontentloaded"
+      })
+      await page.getByRole("link", { name: "A pretty dog" }).press("Enter")
+      await expect(page.locator("dialog.image-gallery-lightbox")).toBeVisible()
+
+      // They used to take rows of their own here, the position and Close above
+      // the image and the arrows below the caption. The top row took 64px of a
+      // 150px screen at 400%, and even at 200% the arrows were a scroll away.
+      // They now sit over the image area, as they do on a wide screen.
+      const box = async (part: string) =>
+        (await page.locator(`.image-gallery-lightbox__${part}`).boundingBox())!
+      const stage = await box("stage")
+      const controls = {
+        counter: await box("counter"),
+        close:   await box("close"),
+        prev:    await box("prev"),
+        next:    await box("next")
+      }
+      for (const control of Object.values(controls)) {
+        expect(control.x).toBeGreaterThanOrEqual(stage.x)
+        expect(control.x + control.width).toBeLessThanOrEqual(
+          stage.x + stage.width
+        )
+        expect(control.y).toBeGreaterThanOrEqual(Math.max(stage.y, 0))
+        expect(control.y + control.height).toBeLessThanOrEqual(
+          Math.min(stage.y + stage.height, height)
+        )
+      }
+
+      // None over another: the position and Close in the top corners, and
+      // each arrow under one of them.
+      const middleX = stage.x + stage.width / 2
+      const middleY = stage.y + stage.height / 2
+      const { counter, close, prev, next } = controls
+      expect(counter.x + counter.width).toBeLessThanOrEqual(middleX)
+      expect(counter.y + counter.height).toBeLessThanOrEqual(middleY)
+      expect(close.x).toBeGreaterThanOrEqual(middleX)
+      expect(close.y + close.height).toBeLessThanOrEqual(middleY)
+      expect(prev.x + prev.width).toBeLessThanOrEqual(middleX)
+      expect(prev.y).toBeGreaterThanOrEqual(counter.y + counter.height)
+      expect(next.x).toBeGreaterThanOrEqual(middleX)
+      expect(next.y).toBeGreaterThanOrEqual(close.y + close.height)
+
+      // The position is text over the photograph now, so it brings the same
+      // ground as the buttons beside it rather than depending on the pixels
+      // underneath for its contrast.
+      const ground = (selector: string) =>
+        page
+          .locator(selector)
+          .evaluate(el => getComputedStyle(el).backgroundColor)
+      expect(await ground(".image-gallery-lightbox__counter")).toBe(
+        await ground(".image-gallery-lightbox__close")
+      )
+    })
+
+    test(`at ${zoom}, the image gets most of the first screen, and the caption starts on it`, async ({
+      page,
+      siteAlias
+    }) => {
+      await page.setViewportSize({ width, height })
+      await serveTallImage(page)
+      const course = new CoursePage(page, siteAlias)
+      await course.goto("/pages/image-gallery-v3", {
+        waitUntil: "domcontentloaded"
+      })
+      await page.getByRole("link", { name: "A pretty dog" }).press("Enter")
+
+      const image = page.locator(".image-gallery-lightbox__image")
+      await expect
+        .poll(() =>
+          image.evaluate(img => (img as HTMLImageElement).naturalHeight)
+        )
+        .toBe(600)
+
+      // All of it on screen as the viewer opens...
+      const box = (await image.boundingBox())!
+      expect(box.y).toBeGreaterThanOrEqual(0)
+      expect(box.y + box.height).toBeLessThanOrEqual(height + 1)
+      // ...and most of that screen. The image area used to be held to 35% of
+      // the viewport height, so zooming in made the picture smaller on screen
+      // than at 100%: 52px of a 150px viewport.
+      expect(box.height).toBeGreaterThanOrEqual(height / 2)
+
+      // The caption starts right under it, as it does at 100%. Giving the image
+      // the whole first screen instead left a reader looking at a picture with
+      // no sign that a caption, or the arrows, existed below it.
+      const caption = (await page
+        .locator(".image-gallery-lightbox__caption")
+        .boundingBox())!
+      expect(caption.y).toBeLessThan(height)
+    })
+
+    test(`at ${zoom}, the buttons shrink back toward their size at 100%, down to 24px`, async ({
+      page,
+      siteAlias
+    }) => {
+      await page.setViewportSize({ width, height })
+      const course = new CoursePage(page, siteAlias)
+      await course.goto("/pages/image-gallery-v3", {
+        waitUntil: "domcontentloaded"
+      })
+      await page.getByRole("link", { name: "A pretty dog" }).press("Enter")
+      await expect(page.locator("dialog.image-gallery-lightbox")).toBeVisible()
+      // Until the icon font has loaded, each button is as wide as its icon's
+      // ligature name ("chevron_left").
+      await page.evaluate(() => document.fonts.load('24px "Material Icons"'))
+
+      // They were 48px at every zoom, so at 400% each took a third of a 150px
+      // screen's height. Zooming in now leaves them the size they were at 100%,
+      // 8% of the window's shorter side, until they reach 24px, the least 2.5.8
+      // allows a target. Every size here but the last has reached it; at the
+      // last, 8% of 395px is 31.6px.
+      const size = Math.min(48, Math.max(24, 0.08 * Math.min(width, height)))
+      for (const button of await page
+        .locator(".image-gallery-lightbox__button")
+        .all()) {
+        const box = (await button.boundingBox())!
+        expect(box.width).toBeCloseTo(size, 0)
+        expect(box.height).toBeCloseTo(size, 0)
+      }
+      // The position's ground keeps to their height rather than standing taller
+      // than the buttons beside it.
+      const counter = (await page
+        .locator(".image-gallery-lightbox__counter")
+        .boundingBox())!
+      expect(counter.height).toBeLessThanOrEqual(size)
+    })
+
+    test(`at ${zoom}, the caption is set a size smaller than at 100%`, async ({
+      page,
+      siteAlias
+    }) => {
+      await page.setViewportSize({ width: 1280, height: 600 })
+      const course = new CoursePage(page, siteAlias)
+      await course.goto("/pages/image-gallery-v3", {
+        waitUntil: "domcontentloaded"
+      })
+      await page.getByRole("link", { name: "A pretty dog" }).press("Enter")
+      await expect(page.locator("dialog.image-gallery-lightbox")).toBeVisible()
+      const sizes = () =>
+        page
+          .locator(".image-gallery-lightbox__caption")
+          .evaluate(caption =>
+            [caption, caption.querySelector(".image-gallery__credit")!].map(
+              el => parseFloat(getComputedStyle(el).fontSize)
+            )
+          )
+      const [caption, credit] = await sizes()
+
+      // So that it leaves the image more of the screen.
+      await page.setViewportSize({ width, height })
+      const [zoomedCaption, zoomedCredit] = await sizes()
+      expect(zoomedCaption).toBeLessThan(caption)
+      expect(zoomedCredit).toBeLessThan(credit)
+    })
+  }
+
+  test("from about 300% zoom, the caption shrinks with the window, down to 8px", async ({
+    page,
+    siteAlias
+  }) => {
+    await page.setViewportSize({ width: 640, height: 300 })
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
+    })
+    await page.getByRole("link", { name: "A pretty dog" }).press("Enter")
+    await expect(page.locator("dialog.image-gallery-lightbox")).toBeVisible()
+    const size = () =>
+      page
+        .locator(".image-gallery-lightbox__caption")
+        .evaluate(el => parseFloat(getComputedStyle(el).fontSize))
+
+    // 200% zoom at 150% display scaling, where a reviewer checks 1.4.4: the
+    // caption keeps the 13px it has from 200% on.
+    expect(await size()).toBe(13)
+
+    // Past that it went on growing with the zoom, until at 400% a long caption
+    // ran off the bottom of the screen. It now keeps to the window instead...
+    await page.setViewportSize({ width: 504, height: 263 })
+    expect(await size()).toBeLessThan(11)
+
+    // ...down to 8px, which 400% zoom makes twice its 15px at 100% on screen,
+    // whatever the screen.
+    await page.setViewportSize({ width: 320, height: 150 })
+    expect(await size()).toBe(8)
+  })
+
+  for (const { zoom, width, height } of [
+    { zoom: "300%", width: 504, height: 263 },
+    { zoom: "400%", width: 378, height: 198 }
+  ]) {
+    test(`at ${zoom} zoom of a laptop window, a long caption leaves the image most of the screen`, async ({
+      page,
+      siteAlias
+    }) => {
+      await page.setViewportSize({ width, height })
+      await serveTallImage(page)
+      const course = new CoursePage(page, siteAlias)
+      await course.goto("/pages/image-gallery-v3", {
+        waitUntil: "domcontentloaded"
+      })
+      // The fixture's first slide has a credit but no caption of its own.
+      await page.evaluate(caption => {
+        const span = (className: string, text: string) =>
+          Object.assign(document.createElement("span"), {
+            className,
+            textContent: text
+          })
+        document
+          .querySelector<HTMLTemplateElement>("a.image-gallery__link template")!
+          .content.replaceChildren(
+            span("image-gallery__caption-text", caption),
+            span(
+              "image-gallery__credit",
+              "Credit: Photo by MIT OpenCourseWare."
+            )
+          )
+      }, LONG_CAPTION)
+      await page.getByRole("link", { name: "A pretty dog" }).press("Enter")
+      const dialog = page.locator("dialog.image-gallery-lightbox")
+      const image = page.locator(".image-gallery-lightbox__image")
+      await expect
+        .poll(() =>
+          image.evaluate(img => (img as HTMLImageElement).naturalHeight)
+        )
+        .toBe(600)
+      await page.evaluate(() => document.fonts.ready)
+
+      // At 300% this caption took 42% of the screen; at 400% it took more than
+      // the image's share, and its last lines were a scroll away.
+      const bar = (await page
+        .locator(".image-gallery-lightbox__bar")
+        .boundingBox())!
+      expect(bar.height).toBeLessThanOrEqual(height / 3)
+      expect(await dialog.evaluate(d => d.scrollHeight - d.clientHeight)).toBe(
+        0
+      )
+    })
+  }
+
+  test("on a touch screen, the short layout keeps full-size buttons and caption", async ({
+    browser,
+    siteAlias
+  }) => {
+    // The smaller controls and caption are for a window made short by zooming
+    // in. A phone held sideways is short because it is small, and a finger
+    // needs the full 48px whatever the size of the screen.
+    const context = await browser.newContext({
+      hasTouch: true,
+      viewport: { width: 1280, height: 800 }
+    })
+    const page = await context.newPage()
+    const course = new CoursePage(page, siteAlias)
+    await course.goto("/pages/image-gallery-v3", {
+      waitUntil: "domcontentloaded"
     })
     await page.getByRole("link", { name: "A pretty dog" }).click()
+    await expect(page.locator("dialog.image-gallery-lightbox")).toBeVisible()
+    await page.evaluate(() => document.fonts.load('24px "Material Icons"'))
+    const caption = page.locator(".image-gallery-lightbox__caption")
+    const fontSize = () => caption.evaluate(el => getComputedStyle(el).fontSize)
+    const wide = await fontSize()
 
-    const image = page.locator(".image-gallery-lightbox__image")
-    await expect
-      .poll(() =>
-        image.evaluate(img => (img as HTMLImageElement).naturalHeight)
-      )
-      .toBe(600)
-
-    // The floor is 35% of the viewport for the image area itself: 89.6px.
-    expect((await image.boundingBox())!.height).toBeGreaterThanOrEqual(89)
-    expect(
-      await page
-        .locator("dialog.image-gallery-lightbox")
-        .evaluate(d => d.scrollHeight > d.clientHeight)
-    ).toBe(true)
+    await page.setViewportSize({ width: 844, height: 390 })
+    expect(await fontSize()).toBe(wide)
+    for (const button of await page
+      .locator(".image-gallery-lightbox__button")
+      .all()) {
+      const box = (await button.boundingBox())!
+      expect(box.width).toBeCloseTo(48, 0)
+      expect(box.height).toBeCloseTo(48, 0)
+    }
+    await context.close()
   })
 
   test("the stage yields the vertical axis and pinch-zoom to the browser", async ({
@@ -702,6 +1290,7 @@ test.describe("v3 image gallery", () => {
 
     const context = await browser.newContext({ hasTouch: true })
     const page = await context.newPage()
+    const announced = await recordAnnouncements(page)
     const course = new CoursePage(page, siteAlias)
     await course.goto("/pages/image-gallery-v3", {
       waitUntil: "domcontentloaded"
@@ -755,9 +1344,7 @@ test.describe("v3 image gallery", () => {
     await expect(
       page.locator(".image-gallery-lightbox__counter-glyph")
     ).toHaveText("2 / 3")
-    await expect(page.locator(".image-gallery-lightbox__status")).toHaveText(
-      "Image 2 of 3. A diagram of a test pattern"
-    )
+    await expect.poll(announced).toContain("Image 2 of 3")
 
     // Back the other way.
     await drag(left, right)

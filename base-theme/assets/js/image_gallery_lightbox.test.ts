@@ -114,8 +114,6 @@ function renderGallery(
 
 const dialog = () =>
   document.querySelector<HTMLDialogElement>("dialog.image-gallery-lightbox")
-const status = () =>
-  document.querySelector<HTMLElement>(".image-gallery-lightbox__status")
 const image = () =>
   document.querySelector<HTMLImageElement>(".image-gallery-lightbox__image")
 const isLoading = () =>
@@ -125,6 +123,16 @@ const counter = () =>
   document.querySelector<HTMLElement>(".image-gallery-lightbox__counter-glyph")
 const counterLabel = () =>
   document.querySelector<HTMLElement>(".image-gallery-lightbox__counter-label")
+/**
+ * An element's accessible name, which jsdom does not compute: the text of its
+ * aria-labelledby targets, else its aria-label.
+ */
+const accessibleName = (el: Element) => {
+  const ids = el.getAttribute("aria-labelledby")?.split(" ") ?? []
+  return ids.length ?
+    ids.map(id => document.getElementById(id)?.textContent ?? "").join(" ") :
+    el.getAttribute("aria-label") ?? ""
+}
 const links = () =>
   Array.from(
     document.querySelectorAll<HTMLAnchorElement>("a.image-gallery__link")
@@ -177,6 +185,10 @@ describe("initImageGalleryLightbox", () => {
     initImageGalleryLightbox()
   })
 
+  afterEach(() => {
+    jest.useRealTimers()
+  })
+
   it("does nothing until a gallery link is clicked", () => {
     renderGallery([{ href: "a.jpg" }])
     expect(dialog()).toBeNull()
@@ -217,28 +229,18 @@ describe("initImageGalleryLightbox", () => {
     expect(image()!.hasAttribute("sizes")).toBe(false)
   })
 
-  it("announces the trigger's accessible name when the image has no alt", () => {
+  it("leaves the image's alt empty when the resource has none", () => {
     renderGallery([
       { href: "a.jpg", alt: "First" },
       { href: "b.jpg", alt: "", linkLabel: "A pretty dog" }
     ])
     links()[1].click()
 
-    // The shortcode labels the anchor when the resource has no image-alt.
-    // Reusing it here keeps the announcement informative...
-    expect(status()!.textContent).toBe("Image 2 of 2. A pretty dog")
-    // ...without claiming it describes the image: an empty alt is the honest
-    // encoding for "no description available".
+    // The shortcode labels the anchor when the resource has no image-alt, but
+    // the label is not copied onto the image: it would claim to describe what
+    // the image shows, when an empty alt is the honest encoding for "no
+    // description available".
     expect(image()!.getAttribute("alt")).toBe("")
-  })
-
-  it("prefers real alt text over the trigger's label", () => {
-    renderGallery([
-      { href: "a.jpg", alt: "A cantilever beam", linkLabel: "ignore me" }
-    ])
-    links()[0].click()
-
-    expect(status()!.textContent).toBe("Image 1 of 1. A cantilever beam")
   })
 
   it("keeps a credit link as a real, focusable anchor inside the lightbox caption", () => {
@@ -275,17 +277,74 @@ describe("initImageGalleryLightbox", () => {
     expect(image()!.getAttribute("src")).toBe("b.jpg")
   })
 
-  it("announces position and description only once the dialog is open", () => {
+  it("keeps the dialog's name when the slide changes", () => {
+    renderGallery([
+      { href: "a.jpg", alt: "First" },
+      { href: "b.jpg", alt: "Second" }
+    ])
+    links()[0].click()
+    expect(accessibleName(dialog()!)).toBe("Image viewer")
+
+    // Regression test: a name that held the position changed with every
+    // slide, and VoiceOver reads a changed name out, so Next said "Image
+    // viewer Image 3 of 14" and then the counter said "Image 3 of 14".
+    document
+      .querySelector<HTMLButtonElement>(".image-gallery-lightbox__next")!
+      .click()
+    expect(accessibleName(dialog()!)).toBe("Image viewer")
+    document
+      .querySelector<HTMLButtonElement>(".image-gallery-lightbox__prev")!
+      .click()
+    expect(accessibleName(dialog()!)).toBe("Image viewer")
+  })
+
+  it("announces the position in a later task than the one that opens the dialog", () => {
+    jest.useFakeTimers()
+    renderGallery([
+      { href: "a.jpg", alt: "First" },
+      { href: "b.jpg", alt: "Second" }
+    ])
+    const proto = HTMLDialogElement.prototype as unknown as Record<
+      string,
+      (this: HTMLDialogElement) => void
+    >
+    const showModal = proto.showModal
+    let spokenAtOpen: string | null | undefined
+    proto.showModal = function() {
+      spokenAtOpen = counterLabel()?.textContent
+      showModal.call(this)
+    }
+    links()[0].click()
+
+    // Regression tests. Written before showModal(), the position lands in a
+    // display:none subtree and is never announced. Written just after it, in
+    // the same task, it is already in the live region when the accessibility
+    // tree first sees the region, so there is no change to announce either:
+    // VoiceOver in Chrome said only "Image viewer, dialog".
+    expect(spokenAtOpen).toBe("")
+    expect(counterLabel()!.textContent).toBe("")
+    jest.runOnlyPendingTimers()
+    expect(counterLabel()!.textContent).toBe("Image 1 of 2")
+  })
+
+  it("announces through the counter, with no hidden paragraph of its own", () => {
     renderGallery([
       { href: "a.jpg", alt: "First" },
       { href: "b.jpg", alt: "Second" }
     ])
     links()[0].click()
 
-    // Regression test: an earlier version wrote the live region before
-    // showModal(), which lands in a display:none subtree and is never announced.
-    expect(dialog()!.hasAttribute("open")).toBe(true)
-    expect(status()!.textContent).toBe("Image 1 of 2. First")
+    // A visually hidden paragraph used to announce each slide, as "Image 1 of
+    // 2. First". It stayed in the dialog's reading order, so a reader going
+    // through the dialog met the position and the description a second time,
+    // and an accessibility review asked for it to go. The counter says the
+    // position instead.
+    const regions = dialog()!.querySelectorAll("[role='status'], [aria-live]")
+    expect(regions).toHaveLength(1)
+    expect(regions[0]).toBe(
+      document.querySelector(".image-gallery-lightbox__counter")
+    )
+    expect(regions[0].getAttribute("role")).toBe("status")
   })
 
   it("focuses the link before opening, so focus can be restored on close", () => {
@@ -378,7 +437,7 @@ describe("initImageGalleryLightbox", () => {
         [200, 100],
         [80, 100]
       ])
-      expect(status()!.textContent).toBe("Image 2 of 3. Second")
+      expect(counterLabel()!.textContent).toBe("Image 2 of 3")
     })
 
     it("does nothing when the drag is too short to be deliberate", () => {
@@ -445,8 +504,10 @@ describe("initImageGalleryLightbox", () => {
     })
 
     it("does not arm for a single-image gallery", () => {
+      jest.useFakeTimers()
       renderGallery([{ href: "only.jpg", alt: "Only" }])
       links()[0].click()
+      jest.runOnlyPendingTimers()
 
       // The arrows are hidden in this case, so a swipe re-announcing the same
       // slide would be noise.
@@ -455,7 +516,7 @@ describe("initImageGalleryLightbox", () => {
         [80, 100]
       ])
       expect(counter()!.textContent).toBe("1 / 1")
-      expect(status()!.textContent).toBe("Image 1 of 1. Only")
+      expect(counterLabel()!.textContent).toBe("Image 1 of 1")
     })
   })
 
@@ -511,15 +572,17 @@ describe("initImageGalleryLightbox", () => {
   })
 
   it("opens at the clicked image, not the first one", () => {
+    jest.useFakeTimers()
     renderGallery([
       { href: "a.jpg", alt: "First" },
       { href: "b.jpg", alt: "Second" },
       { href: "c.jpg", alt: "Third" }
     ])
     links()[2].click()
+    jest.runOnlyPendingTimers()
 
     expect(counter()!.textContent).toBe("3 / 3")
-    expect(status()!.textContent).toBe("Image 3 of 3. Third")
+    expect(counterLabel()!.textContent).toBe("Image 3 of 3")
   })
 
   it("hides rather than disables the arrows for a single image", () => {
@@ -539,12 +602,14 @@ describe("initImageGalleryLightbox", () => {
   })
 
   it("spells the position out for screen readers, and keeps it readable", () => {
+    jest.useFakeTimers()
     renderGallery([
       { href: "a.jpg", alt: "First" },
       { href: "b.jpg", alt: "Second" },
       { href: "c.jpg", alt: "Third" }
     ])
     links()[1].click()
+    jest.runOnlyPendingTimers()
 
     // The compact form is hidden from assistive tech because "2 / 3" is read
     // out as "2 slash 3", or with the slash dropped, depending on the screen
@@ -552,9 +617,9 @@ describe("initImageGalleryLightbox", () => {
     expect(counter()!.textContent).toBe("2 / 3")
     expect(counter()!.getAttribute("aria-hidden")).toBe("true")
 
-    // But the position itself stays in the accessibility tree. The live region
-    // announces once and cannot be re-read, so this is the only durable answer
-    // to "which image am I on?" — hiding the whole paragraph would remove it.
+    // But the position itself stays in the accessibility tree. It is what the
+    // counter announces, and the only answer to "which image am I on?" that
+    // can be read again — hiding the whole paragraph would remove both.
     expect(counterLabel()!.textContent).toBe("Image 2 of 3")
     expect(counterLabel()!.getAttribute("aria-hidden")).toBeNull()
 
@@ -686,12 +751,52 @@ describe("initImageGalleryLightbox", () => {
   })
 
   it("clears the live region on close so a reopen re-announces", () => {
+    jest.useFakeTimers()
     renderGallery([{ href: "a.jpg", alt: "First" }])
     links()[0].click()
-    expect(status()!.textContent).not.toBe("")
+    jest.runOnlyPendingTimers()
+    expect(counterLabel()!.textContent).toBe("Image 1 of 1")
 
+    // Reopening at the same slide would otherwise write the same text again,
+    // which is no change, so nothing would be announced.
     dialog()!.close()
-    expect(status()!.textContent).toBe("")
+    expect(counterLabel()!.textContent).toBe("")
+  })
+
+  it("drops an opening announcement still to come when the dialog closes", () => {
+    jest.useFakeTimers()
+    renderGallery([{ href: "a.jpg", alt: "First" }])
+    links()[0].click()
+    dialog()!.close()
+    jest.runOnlyPendingTimers()
+
+    // Written into the closed dialog, the position would still be there on a
+    // reopen at the same slide, and that reopen would say nothing.
+    expect(counterLabel()!.textContent).toBe("")
+  })
+
+  it("says only the new position when the slide changes before the opening announcement", () => {
+    jest.useFakeTimers()
+    renderGallery([
+      { href: "a.jpg", alt: "First" },
+      { href: "b.jpg", alt: "Second" }
+    ])
+    links()[0].click()
+    document
+      .querySelector<HTMLButtonElement>(".image-gallery-lightbox__next")!
+      .click()
+    expect(counterLabel()!.textContent).toBe("Image 2 of 2")
+
+    // The opening announcement is dropped, not made late: rewriting the label
+    // would say "Image 2 of 2" a second time.
+    const writes = new MutationObserver(() => undefined)
+    writes.observe(counterLabel()!, {
+      childList:     true,
+      characterData: true,
+      subtree:       true
+    })
+    jest.runOnlyPendingTimers()
+    expect(writes.takeRecords()).toHaveLength(0)
   })
 
   it("renders no caption or credit into the grid", () => {
