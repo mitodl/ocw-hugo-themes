@@ -1,8 +1,10 @@
 {{ $context := .context }}
 {{ $imageData := partial "course-image-url.html" $context }}
 {{ $courseImageMetadata := index $imageData 1 }}
-{{- $sitemapDomain := partial "sitemap_domain.html" -}}
-{{- $absCourseImage := printf "https://%s/%s" (strings.TrimSuffix "/" $sitemapDomain) (strings.TrimPrefix "/" $courseImageMetadata.Params.file) -}}
+{{- $siteDomain := partial "site_domain.html" -}}
+{{/* The file is authored as /courses/<slug>/<file>, served at /courses/o/<slug>/<file>. */}}
+{{- $courseImagePath := partial "canonical_course_url.html" $courseImageMetadata.Params.file -}}
+{{- $absCourseImage := printf "https://%s/%s" (strings.TrimSuffix "/" $siteDomain) (strings.TrimPrefix "/" $courseImagePath) -}}
 <meta property="og:image" content="{{- $absCourseImage -}}" />
 <meta property="og:image:alt" content="{{ index $courseImageMetadata.Params.image_metadata "image-alt" | default $context.Site.Data.course.course_title | plainify }}" />
 <meta name="twitter:card" content="summary_large_image" />
