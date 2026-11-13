@@ -59,7 +59,7 @@ test.describe("Course v3 Video View Page", () => {
   test("Last meta block has no bottom margin on its last paragraph", async ({
     page
   }) => {
-    // The last meta block (instructor) should have no bottom margin on its last p
+    // The last meta block (license) should have no bottom margin on its last p
     const lastMetaBlock = page.locator(
       ".video-view-header > .video-view-meta-block:last-child"
     )
@@ -69,6 +69,18 @@ test.describe("Course v3 Video View Page", () => {
     if ((await lastParagraph.count()) > 0) {
       await expect(lastParagraph).toHaveCSS("margin-bottom", "0px")
     }
+  })
+
+  test("Video view displays license", async ({ page }) => {
+    const license = page.locator(".video-view-meta-block", {
+      hasText: "License:"
+    })
+    await expect(
+      license.getByRole("link", { name: "CC BY-NC-SA" })
+    ).toHaveAttribute(
+      "href",
+      "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    )
   })
 
   test("Video view content section exists", async ({ page }) => {
@@ -153,7 +165,7 @@ test.describe("Course v3 YouTube caption overlay", () => {
 })
 
 test.describe("Course v3 Video View Page - No Instructor", () => {
-  test("Description has no bottom margin when instructor is missing", async ({
+  test("Last meta block has no bottom margin when instructor is missing", async ({
     page,
     siteAlias
   }) => {
@@ -161,7 +173,7 @@ test.describe("Course v3 Video View Page - No Instructor", () => {
     const course = new CoursePage(page, siteAlias)
     await course.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p")
 
-    // When instructor is missing, description becomes the last meta block
+    // License is the last meta block
     const lastMetaBlock = page.locator(
       ".video-view-header > .video-view-meta-block:last-child"
     )
