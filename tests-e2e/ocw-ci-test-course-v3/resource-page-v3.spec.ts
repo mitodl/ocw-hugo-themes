@@ -63,6 +63,16 @@ test.describe("Course v3 Single Resource Page", () => {
 
     const title = page.locator(".resource-single-title")
     await expect(title).toHaveText("file.pdf")
+
+    const license = page.locator(".resource-type-field", {
+      hasText: "License:"
+    })
+    await expect(
+      license.getByRole("link", { name: "CC BY-NC-SA" })
+    ).toHaveAttribute(
+      "href",
+      "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    )
   })
 
   test("Resource page download link is package-local when offline", async ({

@@ -1,4 +1,5 @@
 {{ $downloadableLink := partial "get_resource_download_link.html" . }}   
+{{ $license := partial "resource_license.html" . }}
 <div class="resource-page-container w-100">
   {{- if ne .Params.resourcetype "Video" }}
     <div class="resource-single-content">
@@ -12,6 +13,12 @@
         <div class="resource-type-field">
           <span class="resource-type-label">Resource Type:</span>
           <span class="resource-type-value">{{ delimit (.Params.learning_resource_types | default slice) ", " }}</span>
+        </div>
+      {{- end -}}
+      {{- with $license -}}
+        <div class="resource-type-field">
+          <span class="resource-type-label">License:</span>
+          <span class="resource-type-value">{{ . }}</span>
         </div>
       {{- end -}}
       
@@ -64,6 +71,11 @@
         {{ with .Params.video_metadata.video_speakers }}
         <div class="video-view-meta-block">
           <div><strong>Instructors:</strong> {{ . }}</div>
+        </div>
+        {{ end }}
+        {{ with $license }}
+        <div class="video-view-meta-block">
+          <div><strong>License:</strong> {{ . }}</div>
         </div>
         {{ end }}
       </div>
