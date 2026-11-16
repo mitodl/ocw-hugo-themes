@@ -1,6 +1,9 @@
 import { test, expect } from "../util/fixtures"
 import { CoursePage } from "../util"
 import { VideoElement } from "../util/VideoElement"
+import * as path from "node:path"
+
+const CAPTIONS_FILENAME = "917263bef37857bd94ef67692405bcc9_erlp_sbca1s.vtt"
 
 test("Start and end times does not exist", async ({ page, siteAlias }) => {
   const course = new CoursePage(page, siteAlias)
@@ -20,6 +23,14 @@ test("Start time exists and transcript section can be expanded", async ({
   page,
   siteAlias
 }) => {
+  // Learn serves captions without CORS headers, so serve from fixture
+  await page.route(`**/${CAPTIONS_FILENAME}`, route =>
+    route.fulfill({
+      path:        path.join(__dirname, "test-data", CAPTIONS_FILENAME),
+      contentType: "text/vtt",
+      headers:     { "access-control-allow-origin": "*" }
+    })
+  )
   const course = new CoursePage(page, siteAlias)
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
   if (siteAlias === "course-offline") {
@@ -32,8 +43,7 @@ test("Start time exists and transcript section can be expanded", async ({
   const src = await page.locator("iframe.vjs-tech").getAttribute("src")
   expect(src).toMatch(/.*?start=13.*/)
 
-  // Open the transcript tab and select the only language option.
-  // The pane stays empty until a language is explicitly selected.
+  // Open the transcript tab and reselect its only language option.
   const videoElement = new VideoElement(page)
   await videoElement.tab({ name: /Transcript/i, exact: false }).click()
   await page.waitForSelector(".video-tab.container.transcript.show", {
