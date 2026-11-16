@@ -3,10 +3,7 @@ import { CoursePage } from "../util"
 import { VideoElement } from "../util/VideoElement"
 import * as path from "node:path"
 
-const CAPTIONS_FIXTURE = path.join(
-  __dirname,
-  "../../test-sites/__fixtures__/courses/ocw-ci-test-course/917263bef37857bd94ef67692405bcc9_erlp_sbca1s.vtt"
-)
+const CAPTIONS_FILENAME = "917263bef37857bd94ef67692405bcc9_erlp_sbca1s.vtt"
 
 test("Start and end times does not exist", async ({ page, siteAlias }) => {
   const course = new CoursePage(page, siteAlias)
@@ -27,14 +24,12 @@ test("Start time exists and transcript section can be expanded", async ({
   siteAlias
 }) => {
   // Learn serves captions without CORS headers, so serve from fixture
-  await page.route(
-    "**/917263bef37857bd94ef67692405bcc9_erlp_sbca1s.vtt",
-    route =>
-      route.fulfill({
-        path:        CAPTIONS_FIXTURE,
-        contentType: "text/vtt",
-        headers:     { "access-control-allow-origin": "*" }
-      })
+  await page.route(`**/${CAPTIONS_FILENAME}`, route =>
+    route.fulfill({
+      path:        path.join(__dirname, "test-data", CAPTIONS_FILENAME),
+      contentType: "text/vtt",
+      headers:     { "access-control-allow-origin": "*" }
+    })
   )
   const course = new CoursePage(page, siteAlias)
   await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p")
