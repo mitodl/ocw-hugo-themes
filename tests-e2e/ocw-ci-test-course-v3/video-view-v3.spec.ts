@@ -98,6 +98,45 @@ test.describe("Course v3 Video View Page", () => {
   })
 })
 
+test("Video license is in the last metadata block without an instructor", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
+  await course.goto("/resources/ocw_test_course_mit8_01f16_l26v02_360p", {
+    waitUntil: "domcontentloaded"
+  })
+
+  const header = page.locator(".video-view-header")
+  await expect(header.getByText("Instructors:", { exact: true })).toHaveCount(0)
+  const license = header
+    .locator(":scope > .video-view-meta-block")
+    .last()
+    .getByRole("link", { name: "CC BY-NC-SA", exact: true })
+  await expect(license).toHaveAttribute(
+    "href",
+    "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+  )
+})
+
+test("Final video description paragraph has no bottom margin", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
+  await course.goto("/resources/video-with-description", {
+    waitUntil: "domcontentloaded"
+  })
+
+  const lastParagraph = page
+    .locator(".video-view-header > .video-view-meta-block:last-child p")
+    .last()
+  await expect(lastParagraph).toHaveText(
+    "The lesson reviews the topics covered in the course."
+  )
+  await expect(lastParagraph).toHaveCSS("margin-bottom", "0px")
+})
+
 test.describe("Course v3 YouTube caption overlay", () => {
   test("Video.js caption layer is hidden for the YouTube tech, kept for local video", async ({
     page,
