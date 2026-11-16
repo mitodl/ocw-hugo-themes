@@ -1,4 +1,6 @@
 ---
+# The spacing test needs the description to be the final metadata block, so
+# this fixture intentionally omits license and video_speakers.
 content_type: resource
 resourcetype: Video
 title: Video With a Description
