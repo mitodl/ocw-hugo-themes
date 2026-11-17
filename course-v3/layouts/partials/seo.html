@@ -27,13 +27,16 @@
 
   <link rel="canonical" href="{{- $canonicalURL -}}" />
 
+  {{- $license := "https://creativecommons.org/licenses/by-nc-sa/4.0/" -}}
+  {{- if eq .Type "resources" -}}
+    {{- $license = .Params.license | default $license -}}
+  {{- end -}}
   {{- $jsonLd := dict
     "@context" "https://schema.org"
     "@type" "WebPage"
     "name" $title
     "url" $canonicalURL
     "description" $metaDataDescription
-    "license" "https://creativecommons.org/licenses/by-nc-sa/4.0/"
     "inLanguage" "en"
     "publisher" (dict
       "@type" "CollegeOrUniversity"
@@ -41,7 +44,11 @@
       "url" (printf "https://%s" (strings.TrimSuffix "/" $sitemapDomain))
     )
   -}}
+  {{/* Only CC licenses have a license page to link to */}}
+  {{- if hasPrefix $license "https://creativecommons.org/" -}}
+    {{- $jsonLd = merge $jsonLd (dict "license" $license) -}}
+  {{- end -}}
   <script type="application/ld+json">
-    {{- $jsonLd | jsonify (dict "indent" "  ") -}}
+    {{- $jsonLd | jsonify (dict "indent" "  ") | safeJS -}}
   </script>
 {{ end }}

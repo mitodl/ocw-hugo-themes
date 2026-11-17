@@ -56,13 +56,11 @@ test.describe("Course v3 SEO", () => {
         "content",
         expectedUrl
       )
-      const parsed = JSON.parse(
+      const jsonLd = JSON.parse(
         (await page
           .locator('script[type="application/ld+json"]')
           .textContent()) ?? ""
       )
-      // course-v3 currently emits its JSON-LD double-encoded, as a JSON string.
-      const jsonLd = typeof parsed === "string" ? JSON.parse(parsed) : parsed
       expect(jsonLd.url).toBe(expectedUrl)
       expect(jsonLd.publisher).toEqual({
         "@type": "CollegeOrUniversity",
