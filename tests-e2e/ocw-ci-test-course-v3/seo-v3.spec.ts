@@ -1,8 +1,15 @@
+import { Page } from "@playwright/test"
 import { env } from "../../env"
 import { test, expect } from "../util/fixtures"
 import { CoursePage, COURSE_V3_CANONICAL_DOMAIN, siteUrl } from "../util"
 
 const CANONICAL_COURSE_URL = `https://${COURSE_V3_CANONICAL_DOMAIN}/courses/o/ocw-ci-test-course/`
+
+const readJsonLd = async (page: Page) =>
+  JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent()) ??
+      ""
+  )
 
 test.describe("Course v3 SEO", () => {
   test("Course v3 homepage emits expected social metadata", async ({
@@ -56,11 +63,7 @@ test.describe("Course v3 SEO", () => {
         "content",
         expectedUrl
       )
-      const jsonLd = JSON.parse(
-        (await page
-          .locator('script[type="application/ld+json"]')
-          .textContent()) ?? ""
-      )
+      const jsonLd = await readJsonLd(page)
       expect(jsonLd.url).toBe(expectedUrl)
       expect(jsonLd.publisher).toEqual({
         "@type": "CollegeOrUniversity",
@@ -68,6 +71,28 @@ test.describe("Course v3 SEO", () => {
         url:     `https://${sitemapDomain}`
       })
     }
+  })
+
+  test("Course v3 JSON-LD states each page's own license", async ({
+    page,
+    siteAlias
+  }) => {
+    const course = new CoursePage(page, siteAlias)
+
+    await course.goto("/")
+    expect((await readJsonLd(page)).license).toBe(
+      "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    )
+
+    await course.goto("/resources/open_textbook_chapter_pdf")
+    expect((await readJsonLd(page)).license).toBe(
+      "https://creativecommons.org/licenses/by/4.0/"
+    )
+
+    await course.goto("/resources/journal_article_reprint_pdf")
+    const allRightsReserved = await readJsonLd(page)
+    expect(allRightsReserved["@type"]).toBe("WebPage")
+    expect(allRightsReserved).not.toHaveProperty("license")
   })
 
   test("Course v3 sitemap lists only canonical domain URLs", async ({
