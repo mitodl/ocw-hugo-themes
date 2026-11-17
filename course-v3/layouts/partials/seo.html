@@ -27,10 +27,7 @@
 
   <link rel="canonical" href="{{- $canonicalURL -}}" />
 
-  {{- $license := "https://creativecommons.org/licenses/by-nc-sa/4.0/" -}}
-  {{- if eq .Type "resources" -}}
-    {{- $license = .Params.license | default $license -}}
-  {{- end -}}
+  {{- $license := .Params.license | default "https://creativecommons.org/licenses/by-nc-sa/4.0/" -}}
   {{- $jsonLd := dict
     "@context" "https://schema.org"
     "@type" "WebPage"
