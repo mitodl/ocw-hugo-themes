@@ -79,7 +79,7 @@ test.describe("Course v3 SEO", () => {
   }) => {
     const course = new CoursePage(page, siteAlias)
 
-    await course.goto("/")
+    await course.goto("/pages/syllabus")
     expect((await readJsonLd(page)).license).toBe(
       "https://creativecommons.org/licenses/by-nc-sa/4.0/"
     )
@@ -89,10 +89,13 @@ test.describe("Course v3 SEO", () => {
       "https://creativecommons.org/licenses/by/4.0/"
     )
 
-    await course.goto("/resources/journal_article_reprint_pdf")
-    const allRightsReserved = await readJsonLd(page)
-    expect(allRightsReserved["@type"]).toBe("WebPage")
-    expect(allRightsReserved).not.toHaveProperty("license")
+    // The reprint makes the whole course All Rights Reserved.
+    for (const route of ["/resources/journal_article_reprint_pdf", "/"]) {
+      await course.goto(route)
+      const allRightsReserved = await readJsonLd(page)
+      expect(allRightsReserved["@type"]).toBe("WebPage")
+      expect(allRightsReserved).not.toHaveProperty("license")
+    }
   })
 
   test("Course v3 sitemap lists only canonical domain URLs", async ({

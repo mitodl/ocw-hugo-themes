@@ -84,6 +84,12 @@
     "Undergraduate",
     "Early Childhood"
   ],
+  "license": "https://en.wikipedia.org/wiki/All_rights_reserved",
+  "content_licenses": [
+    "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "https://creativecommons.org/licenses/by/4.0/",
+    "https://en.wikipedia.org/wiki/All_rights_reserved"
+  ],
   "hide_download": false,
   "image_src": "/courses/ocw-ci-test-course/example_jpg.jpg",
   "course_image_metadata": {

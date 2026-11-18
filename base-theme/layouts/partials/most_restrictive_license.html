@@ -1,0 +1,28 @@
+{{- $default := partial "default_license.html" -}}
+{{- $allRightsReserved := "https://en.wikipedia.org/wiki/All_rights_reserved" -}}
+{{- $publicDomain := "https://creativecommons.org/publicdomain/zero/1.0/" -}}
+{{- $prefix := "https://creativecommons.org/licenses/" -}}
+{{- $conditions := slice -}}
+{{- $reserved := false -}}
+{{- range . -}}
+  {{- $url := . | default "" -}}
+  {{- if not (index site.Data.licenses $url) -}}
+    {{- $url = $default -}}
+  {{- end -}}
+  {{- if eq $url $allRightsReserved -}}
+    {{- $reserved = true -}}
+  {{- else if hasPrefix $url $prefix -}}
+    {{- $slug := index (split (strings.TrimPrefix $prefix $url) "/") 0 -}}
+    {{- $conditions = union $conditions (split $slug "-") -}}
+  {{- end -}}
+{{- end -}}
+{{- $license := $default -}}
+{{- if $reserved -}}
+  {{- $license = $allRightsReserved -}}
+{{- else if $conditions -}}
+  {{- $slug := delimit (intersect (slice "by" "nc" "sa") $conditions) "-" -}}
+  {{- $license = printf "%s%s/4.0/" $prefix $slug -}}
+{{- else if . -}}
+  {{- $license = $publicDomain -}}
+{{- end -}}
+{{- return $license -}}
