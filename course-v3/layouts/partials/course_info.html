@@ -90,6 +90,17 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
             {{ end }}
           </div>
         </div>
+
+        {{ with partial "license_link.html" (partialCached "course_licenses.html" .context).license }}
+        <div class="align-self-start gap-1 d-flex flex-column">
+          <h3 class="m-0 course-subsection-heading">
+            License
+          </h3>
+          <div class="panel-course-info-text">
+            {{ . }}
+          </div>
+        </div>
+        {{ end }}
         {{ end }}
       </div>
       {{ end }}

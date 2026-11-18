@@ -1,0 +1,9 @@
+{{- $default := partial "default_license.html" -}}
+{{- $licenses := slice -}}
+{{- range where site.Pages "Params.content_type" "in" (slice "page" "resource") -}}
+  {{- $licenses = $licenses | append (.Params.license | default $default) -}}
+{{- end -}}
+{{- return dict
+  "license" (partial "most_restrictive_license.html" $licenses)
+  "content_licenses" (sort (uniq $licenses))
+-}}

@@ -1,4 +1,4 @@
-{{- $url := .Params.license | default "" -}}
+{{- $url := . | default "" -}}
 {{- with index site.Data.licenses $url -}}
   {{- if hasPrefix $url "https://creativecommons.org/" -}}
     <a href="{{ $url }}" target="_blank" rel="noopener noreferrer">{{ . }}</a>
