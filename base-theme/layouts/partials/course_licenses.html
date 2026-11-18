@@ -1,7 +1,6 @@
 {{- $default := partial "default_license.html" -}}
 {{- $licenses := slice -}}
-{{/* External resources are excluded: they describe other sites' content */}}
-{{- range where site.RegularPages "Type" "in" (slice "resources" "pages") -}}
+{{- range where site.Pages "Params.content_type" "in" (slice "page" "resource") -}}
   {{- $licenses = $licenses | append (.Params.license | default $default) -}}
 {{- end -}}
 {{- return dict

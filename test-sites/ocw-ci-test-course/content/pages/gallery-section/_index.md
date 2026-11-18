@@ -2,6 +2,7 @@
 content_type: page
 description: A section that renders its child pages inline, for the course-v3 gallery
 learning_resource_types: []
+license: https://creativecommons.org/licenses/by-sa/4.0/
 ocw_type: CourseSection
 show_section_pages: true
 title: Gallery Section

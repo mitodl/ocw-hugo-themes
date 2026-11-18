@@ -4,6 +4,7 @@ import { CoursePage, siteUrl } from "../util"
 const BY = "https://creativecommons.org/licenses/by/4.0/"
 const BY_NC = "https://creativecommons.org/licenses/by-nc/4.0/"
 const BY_NC_SA = "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+const BY_SA = "https://creativecommons.org/licenses/by-sa/4.0/"
 const PUBLIC_DOMAIN = "https://creativecommons.org/publicdomain/zero/1.0/"
 const ALL_RIGHTS_RESERVED = "https://en.wikipedia.org/wiki/All_rights_reserved"
 
@@ -42,7 +43,12 @@ test("course data.json has the course license", async ({
 
   const data = await response.json()
   expect(data.license).toBe(ALL_RIGHTS_RESERVED)
-  expect(data.content_licenses).toEqual([BY_NC_SA, BY, ALL_RIGHTS_RESERVED])
+  expect(data.content_licenses).toEqual([
+    BY_NC_SA,
+    BY_SA,
+    BY,
+    ALL_RIGHTS_RESERVED
+  ])
 })
 
 test("Course Info shows the course license", async ({ page, siteAlias }) => {
