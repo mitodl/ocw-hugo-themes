@@ -1,0 +1,18 @@
+{{/*
+  The date on every entry of the v2 course sitemap (hq#14339).
+
+  Leave it "" until ocw.mit.edu course pages redirect to MIT Learn for every
+  course. Then set it to that day ("YYYY-MM-DD"), so search engines revisit
+  the old URLs and find the redirects. Fastly keeps each course's sitemap.xml
+  on OCW for this. Setting it earlier dates pages that have not changed yet.
+*/}}
+{{- $cutoverDate := "" -}}
+
+{{- $lastmod := "" -}}
+{{- if $cutoverDate -}}
+  {{/* time.AsTime fails the build on a mistyped date. */}}
+  {{- $lastmod = (time.AsTime $cutoverDate).Format "2006-01-02" -}}
+{{- else if not .Lastmod.IsZero -}}
+  {{- $lastmod = .Lastmod.Format "2006-01-02T15:04:05-07:00" -}}
+{{- end -}}
+{{- return $lastmod -}}
