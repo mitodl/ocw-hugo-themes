@@ -58,7 +58,7 @@ test.describe("Course v3 Video View Page", () => {
 
   test("Video view displays license", async ({ page }) => {
     const license = page.locator(".video-view-meta-block", {
-      hasText: "License:"
+      hasText: "Video License:"
     })
     await expect(
       license.getByRole("link", { name: "CC BY-NC-SA" })
@@ -119,7 +119,7 @@ test("Video license is in the last metadata block without an instructor", async 
   )
 })
 
-test("Final video description paragraph has no bottom margin", async ({
+test("Final video description paragraph has no bottom margin before the license", async ({
   page,
   siteAlias
 }) => {
@@ -128,9 +128,11 @@ test("Final video description paragraph has no bottom margin", async ({
     waitUntil: "domcontentloaded"
   })
 
-  const lastParagraph = page
-    .locator(".video-view-header > .video-view-meta-block:last-child p")
-    .last()
+  const header = page.locator(".video-view-header")
+  await expect(
+    header.getByText("Video License:", { exact: true })
+  ).toBeVisible()
+  const lastParagraph = header.locator(".video-view-meta-block p").last()
   await expect(lastParagraph).toHaveText(
     "The lesson reviews the topics covered in the course."
   )

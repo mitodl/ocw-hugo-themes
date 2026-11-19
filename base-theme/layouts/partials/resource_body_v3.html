@@ -9,16 +9,20 @@
           <div class="resource-description-content">{{ .Content }}</div>
         </div>
       {{- end -}}
-      {{- if .Params.learning_resource_types -}}
-        <div class="resource-type-field">
-          <span class="resource-type-label">Resource Type:</span>
-          <span class="resource-type-value">{{ delimit (.Params.learning_resource_types | default slice) ", " }}</span>
-        </div>
-      {{- end -}}
-      {{- with $license -}}
-        <div class="resource-type-field">
-          <span class="resource-type-label">License:</span>
-          <span class="resource-type-value">{{ . }}</span>
+      {{- if or .Params.learning_resource_types $license -}}
+        <div class="resource-type-fields">
+          {{- with .Params.learning_resource_types -}}
+            <div class="resource-type-field">
+              <span class="resource-type-label">Resource Type:</span>
+              <span class="resource-type-value">{{ delimit . ", " }}</span>
+            </div>
+          {{- end -}}
+          {{- with $license -}}
+            <div class="resource-type-field">
+              <span class="resource-type-label">Resource License:</span>
+              <span class="resource-type-value">{{ . }}</span>
+            </div>
+          {{- end -}}
         </div>
       {{- end -}}
       
@@ -64,7 +68,7 @@
           <h1 class="video-view-title">{{ .Title }}</h1>
         </div>
         {{ if .Content }}
-        <div class="video-view-meta-block">
+        <div class="video-view-meta-block video-view-description">
           <div>{{ .Content }}</div>
         </div>
         {{ end }}
@@ -75,7 +79,7 @@
         {{ end }}
         {{ with $license }}
         <div class="video-view-meta-block">
-          <div><strong>License:</strong> {{ . }}</div>
+          <div><strong>Video License:</strong> {{ . }}</div>
         </div>
         {{ end }}
       </div>

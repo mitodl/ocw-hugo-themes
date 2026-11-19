@@ -65,7 +65,7 @@ test.describe("Course v3 Single Resource Page", () => {
     await expect(title).toHaveText("file.pdf")
 
     const license = page.locator(".resource-type-field", {
-      hasText: "License:"
+      hasText: "Resource License:"
     })
     await expect(
       license.getByRole("link", { name: "CC BY-NC-SA" })

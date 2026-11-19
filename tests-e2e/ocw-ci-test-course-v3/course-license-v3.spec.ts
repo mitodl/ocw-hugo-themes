@@ -58,9 +58,23 @@ test("Course Info shows the course license", async ({ page, siteAlias }) => {
 
   const heading = page
     .locator("#desktop-course-drawer")
-    .getByRole("heading", { name: "License", exact: true })
+    .getByRole("heading", { name: "Course License", exact: true })
   await expect(heading).toBeVisible()
   const value = heading.locator("xpath=following-sibling::div[1]")
   await expect(value).toHaveText("All Rights Reserved")
   await expect(value.getByRole("link")).toHaveCount(0)
+})
+
+test("Course Home shows the course license", async ({ page, siteAlias }) => {
+  await page.setViewportSize({ width: 1280, height: 800 })
+  const course = new CoursePage(page, siteAlias)
+  await course.goto()
+
+  const heading = page
+    .locator("#course-content-section")
+    .getByRole("heading", { name: "Course License", exact: true })
+  await expect(heading).toBeVisible()
+  await expect(heading.locator("xpath=following-sibling::div[1]")).toHaveText(
+    "All Rights Reserved"
+  )
 })
