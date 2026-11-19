@@ -23,9 +23,8 @@
   width: 100%;
   color: $black;
 
-  // Remove bottom margin from last p in the last meta block
-  > .video-view-meta-block:last-child p:last-of-type {
-    margin-bottom: 0 !important;
+  > .video-view-description > div > p:last-child {
+    margin-bottom: 0;
   }
 }
 

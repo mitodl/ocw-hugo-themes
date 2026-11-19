@@ -295,13 +295,18 @@ $resource-card-text-primary: #212326; // Text Primary
   gap: 24px;
 }
 
-.resource-type-field {
-  display: flex;
-  align-items: center;
+.resource-type-fields {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: baseline;
   gap: 24px;
   font-size: 14px;
   line-height: 18px;
   color: $black;
+
+  .resource-type-field {
+    display: contents;
+  }
 
   .resource-type-label {
     font-weight: 500;
@@ -309,6 +314,7 @@ $resource-card-text-primary: #212326; // Text Primary
 
   .resource-type-value {
     font-weight: 400;
+    overflow-wrap: anywhere;
   }
 }
 
