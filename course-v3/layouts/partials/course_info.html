@@ -11,6 +11,8 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
   {{ $departments = partial "get_departments.html" . }}
 {{ end }}
 
+{{ $license := partial "license_link.html" (partialCached "course_licenses.html" .context).license }}
+
 <div class="course-info d-flex flex-column align-self-stretch align-items-start">
   <div class="align-self-stretch d-flex justify-content-between align-items-center">
     <h2 class="course-section-heading m-0 text-black">
@@ -31,7 +33,7 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
   </div>
   <div class="align-self-stretch">
     <div class="info-container d-flex m-0 align-items-start flex-column flex-sm-row align-self-stretch">
-      {{ if or $instructors $departments $inPanel }}
+      {{ if or $instructors $departments $license $inPanel }}
       <div class="p-0 d-flex flex-column align-self-stretch align-items-center justify-content-start instructors-departments">
         {{ if $instructors }}
         <div class="align-self-stretch d-flex flex-column align-items-start instructors">
@@ -90,17 +92,17 @@ $isDesktopCourseDrawer := .isDesktopCourseDrawer | default false }}
             {{ end }}
           </div>
         </div>
+        {{ end }}
 
-        {{ with partial "license_link.html" (partialCached "course_licenses.html" .context).license }}
+        {{ with $license }}
         <div class="align-self-start gap-1 d-flex flex-column">
           <h3 class="m-0 course-subsection-heading">
-            License
+            Course License
           </h3>
-          <div class="panel-course-info-text">
+          <div class="{{ if $inPanel }}panel-course-info-text{{ end }}">
             {{ . }}
           </div>
         </div>
-        {{ end }}
         {{ end }}
       </div>
       {{ end }}

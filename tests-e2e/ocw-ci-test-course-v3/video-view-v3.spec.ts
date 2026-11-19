@@ -58,7 +58,7 @@ test.describe("Course v3 Video View Page", () => {
 
   test("Video view displays license", async ({ page }) => {
     const license = page.locator(".video-view-meta-block", {
-      hasText: "License:"
+      hasText: "Video License:"
     })
     await expect(
       license.getByRole("link", { name: "CC BY-NC-SA" })
