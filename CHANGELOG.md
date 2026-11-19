@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2026.11.16.1] - 2026-11-16
+
+### Changes
+
+- **Fix e2e test failure by serving captions from fixture** (#1917) by 1553279+pt2302@users.noreply.github.com
+- **Add license to v3 resource pages** (#1916) by 1553279+pt2302@users.noreply.github.com
+- **chore: point v3 course canonical and sitemap URLs at learn.mit.edu** (#1912) by umar.hassan8@gmail.com
+- **Update OCW->Learn transition page footer** (#1915) by 1553279+pt2302@users.noreply.github.com
+- **fix: course-v3 gallery lightbox reading order and zoom layout** (#1905) by 87228907+zawan-ila@users.noreply.github.com
+
 ## [2026.11.10.1] - 2026-11-10
 
 ### Changes
