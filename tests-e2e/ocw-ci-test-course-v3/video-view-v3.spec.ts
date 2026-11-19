@@ -129,7 +129,9 @@ test("Final video description paragraph has no bottom margin before the license"
   })
 
   const header = page.locator(".video-view-header")
-  await expect(header.getByText("Video License:", { exact: true })).toBeVisible()
+  await expect(
+    header.getByText("Video License:", { exact: true })
+  ).toBeVisible()
   const lastParagraph = header.locator(".video-view-meta-block p").last()
   await expect(lastParagraph).toHaveText(
     "The lesson reviews the topics covered in the course."
