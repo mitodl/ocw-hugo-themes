@@ -99,7 +99,7 @@ Releases are tags only. There is no `release` or `release-candidate` branch to m
 - A version is a calendar version, `YYYY.M.D.N`, for example `2026.11.5.1`: the first release on a day is `.1`, and the month and day are not zero padded. The version lives in `VERSION` and is bumped by the release workflow. Do not edit it, and do not bump `package.json`'s `version`, which is no longer used.
 - Release tags (`2026.11.5.1`) are what `ocw-studio` follows on CI and QA, so a release reaches `live-qa.ocw.mit.edu` as soon as it is cut. Production tags (`production/2026.11.5.1`) are what it follows for `ocw.mit.edu`, and only the workflow creates one, after the release is approved. A `production/` tag points at the same commit as its release tag, so production gets exactly what QA ran.
 - Nothing is built or deployed by the release itself. `ocw-studio`'s theme-assets pipeline notices the new tag, builds the theme assets from it and publishes them, and the site pipelines check the repo out at that tag. See [Following release tags](https://github.com/mitodl/ocw-studio#following-release-tags-of-ocw-hugo-themes-and-ocw-hugo-projects) in the `ocw-studio` README.
-- The `v1.x` tags and the `release` and `release-candidate` branches are the old scheme. They stay as history but are not updated, and nothing reads them once `ocw-studio` runs with `OCW_HUGO_TAG_RELEASES=True`.
+- The `v1.x` tags are the old scheme. They stay as history but are not updated, and `ocw-studio` never matches them. The old `release` and `release-candidate` branches have been deleted; their last commit is `v1.165.0`, which is on `main`.
 - Release notes are in `CHANGELOG.md`, which each release updates. `RELEASE.rst` is no longer updated.
 
 ### Cutting and promoting a release
