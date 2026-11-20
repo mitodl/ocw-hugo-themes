@@ -245,6 +245,10 @@ test("Watch on YouTube follows the resource video tabs only in offline builds", 
   await expect(watchLink).toHaveAttribute("href", YOUTUBE_CLIP_URL)
   await expect(watchLink).toHaveAttribute("target", "_blank")
   await expect(await getFirstAfter(watchLink, panels.last())).toBeVisible()
+
+  await watchLink.focus()
+  await expect(watchLink).toHaveCSS("background-color", "rgb(108, 117, 125)")
+  await expect(watchLink).toHaveCSS("color", "rgb(255, 255, 255)")
 })
 
 test("Watch on YouTube uses the plain video URL when no start time is set", async ({
@@ -281,6 +285,10 @@ test("Watch on YouTube follows the embedded video controls only in offline build
   await expect(watchLink).toHaveAttribute("href", YOUTUBE_CLIP_URL)
   await expect(watchLink).toHaveAttribute("target", "_blank")
   await expect(await getFirstAfter(watchLink, viewVideoPage)).toBeVisible()
+
+  await watchLink.hover()
+  await expect(watchLink).toHaveCSS("background-color", "rgb(108, 117, 125)")
+  await expect(watchLink).toHaveCSS("color", "rgb(255, 255, 255)")
 })
 
 // Use domcontentloaded to avoid waiting on embedded YouTube iframes

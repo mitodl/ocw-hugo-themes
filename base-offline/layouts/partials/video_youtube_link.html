@@ -2,7 +2,7 @@
 {{ with trim (.Params.video_metadata.youtube_id | default "") " " }}
   <div class="my-3">
     <a
-      class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center px-3 py-2 text-decoration-none"
+      class="video-youtube-link btn btn-sm btn-outline-secondary d-inline-flex align-items-center px-3 py-2 text-decoration-none"
       href="https://www.youtube.com/watch?v={{ . }}{{ if findRE `^[0-9]+$` $startTime }}&amp;t={{ $startTime }}s{{ end }}"
       target="_blank"
       rel="noopener noreferrer"
