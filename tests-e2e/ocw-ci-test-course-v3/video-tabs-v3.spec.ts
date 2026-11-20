@@ -225,6 +225,7 @@ const DOWNLOADABLE_RESOURCE =
   "/resources/ocw_test_course_mit8_01f16_l01v01_360p"
 const ARCHIVE_URL = "http://www.archive.org/download/MIT18.06S05_MP4/01.mp4"
 const YOUTUBE_WATCH_URL = "https://www.youtube.com/watch?v=YWyHAlAuRL0"
+const YOUTUBE_CLIP_URL = `${YOUTUBE_WATCH_URL}&t=13s`
 
 test("Watch on YouTube follows the resource video tabs only in offline builds", async ({
   page,
@@ -241,9 +242,22 @@ test("Watch on YouTube follows the resource video tabs only in offline builds", 
 
   const panels = video.tabPanel({ includeHidden: true })
   await expect(panels).toHaveCount(3)
-  await expect(watchLink).toHaveAttribute("href", YOUTUBE_WATCH_URL)
+  await expect(watchLink).toHaveAttribute("href", YOUTUBE_CLIP_URL)
   await expect(watchLink).toHaveAttribute("target", "_blank")
   await expect(await getFirstAfter(watchLink, panels.last())).toBeVisible()
+})
+
+test("Watch on YouTube uses the plain video URL when no start time is set", async ({
+  page,
+  siteAlias
+}) => {
+  test.skip(siteAlias !== "course-v3-offline", "The link is shown only offline")
+  const course = new CoursePage(page, siteAlias)
+  await course.goto(NO_DOWNLOADS_RESOURCE, { waitUntil: "domcontentloaded" })
+  await expect(new VideoElement(page).watchOnYouTubeLink()).toHaveAttribute(
+    "href",
+    YOUTUBE_WATCH_URL
+  )
 })
 
 test("Watch on YouTube follows the embedded video controls only in offline builds", async ({
@@ -264,7 +278,7 @@ test("Watch on YouTube follows the embedded video controls only in offline build
   const viewVideoPage = video.container.getByRole("link", {
     name: "View video page"
   })
-  await expect(watchLink).toHaveAttribute("href", YOUTUBE_WATCH_URL)
+  await expect(watchLink).toHaveAttribute("href", YOUTUBE_CLIP_URL)
   await expect(watchLink).toHaveAttribute("target", "_blank")
   await expect(await getFirstAfter(watchLink, viewVideoPage)).toBeVisible()
 })
