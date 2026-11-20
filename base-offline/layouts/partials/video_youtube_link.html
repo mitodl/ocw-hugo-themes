@@ -1,6 +1,12 @@
 {{ with trim (.Params.video_metadata.youtube_id | default "") " " }}
   <div class="my-3">
-    <a class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center px-3 py-2 text-decoration-none" href="https://www.youtube.com/watch?v={{ . }}">
+    <a
+      class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center px-3 py-2 text-decoration-none"
+      href="https://www.youtube.com/watch?v={{ . }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Watch on YouTube (opens in a new tab)"
+    >
       <span>Watch on YouTube</span>
       <i class="material-icons md-18 ml-2" aria-hidden="true">arrow_forward</i>
     </a>

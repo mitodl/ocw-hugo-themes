@@ -131,6 +131,7 @@ test("Watch on YouTube follows the resource video tabs only in offline builds", 
   const panels = video.tabPanel({ includeHidden: true })
   await expect(panels).toHaveCount(3)
   await expect(watchLink).toHaveAttribute("href", YOUTUBE_WATCH_URL)
+  await expect(watchLink).toHaveAttribute("target", "_blank")
   await expect(await getFirstAfter(watchLink, panels.last())).toBeVisible()
 })
 
@@ -153,6 +154,7 @@ test("Watch on YouTube follows the embedded video controls only in offline build
     name: "View video page"
   })
   await expect(watchLink).toHaveAttribute("href", YOUTUBE_WATCH_URL)
+  await expect(watchLink).toHaveAttribute("target", "_blank")
   await expect(await getFirstAfter(watchLink, viewVideoPage)).toBeVisible()
 })
 
