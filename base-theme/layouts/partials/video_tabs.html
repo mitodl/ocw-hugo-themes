@@ -12,3 +12,5 @@
 {{ if and $context.Params.optional_tab_title $context.Params.optional_text }}
   {{ partial "video_expandable_tab.html" (dict "context" $context "tabClass" "optional-tab" "tabTitle" $context.Params.optional_tab_title "tabContent" $context.Params.optional_text) }}
 {{ end }}
+
+{{ partial "video_youtube_link.html" $context }}

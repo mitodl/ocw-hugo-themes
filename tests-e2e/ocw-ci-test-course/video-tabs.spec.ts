@@ -1,10 +1,12 @@
 import { env } from "../../env"
 import { test, expect } from "../util/fixtures"
-import { CoursePage } from "../util"
+import { CoursePage, getFirstAfter } from "../util"
 import { VideoElement } from "../util/VideoElement"
 import { TEST_SITES } from "../util/test_sites"
 
 const resourceBaseUrl = env.RESOURCE_BASE_URL
+const YOUTUBE_WATCH_URL = "https://www.youtube.com/watch?v=YWyHAlAuRL0"
+const YOUTUBE_CLIP_URL = `${YOUTUBE_WATCH_URL}&t=13s`
 
 test("that the Download Button works for multiple embed videos in a page", async ({
   page,
@@ -110,6 +112,74 @@ test("Verify that the 'Download video' and 'Download transcript' links are keybo
     "href",
     transcriptDownloadUrl
   )
+})
+
+test("Watch on YouTube follows the resource video tabs only in offline builds", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
+  await course.goto("resources/ocw_test_course_mit8_01f16_l01v01_360p", {
+    waitUntil: "domcontentloaded"
+  })
+  const video = new VideoElement(page)
+  const watchLink = video.watchOnYouTubeLink()
+  if (siteAlias !== "course-offline") {
+    await expect(watchLink).toHaveCount(0)
+    return
+  }
+
+  const panels = video.tabPanel({ includeHidden: true })
+  await expect(panels).toHaveCount(3)
+  await expect(watchLink).toHaveAttribute("href", YOUTUBE_CLIP_URL)
+  await expect(watchLink).toHaveAttribute("target", "_blank")
+  await expect(await getFirstAfter(watchLink, panels.last())).toBeVisible()
+
+  await watchLink.focus()
+  await expect(watchLink).toHaveCSS("background-color", "rgb(108, 117, 125)")
+  await expect(watchLink).toHaveCSS("color", "rgb(255, 255, 255)")
+})
+
+test("Watch on YouTube uses the plain video URL when no start time is set", async ({
+  page,
+  siteAlias
+}) => {
+  test.skip(siteAlias !== "course-offline", "The link is shown only offline")
+  const course = new CoursePage(page, siteAlias)
+  await course.goto("resources/video-no-downloads", {
+    waitUntil: "domcontentloaded"
+  })
+  await expect(new VideoElement(page).watchOnYouTubeLink()).toHaveAttribute(
+    "href",
+    YOUTUBE_WATCH_URL
+  )
+})
+
+test("Watch on YouTube follows the embedded video controls only in offline builds", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
+  await course.goto("pages/video-series-overview", {
+    waitUntil: "domcontentloaded"
+  })
+  const video = new VideoElement(page)
+  const watchLink = video.watchOnYouTubeLink()
+  if (siteAlias !== "course-offline") {
+    await expect(watchLink).toHaveCount(0)
+    return
+  }
+
+  const viewVideoPage = video.container.getByRole("link", {
+    name: "View video page"
+  })
+  await expect(watchLink).toHaveAttribute("href", YOUTUBE_CLIP_URL)
+  await expect(watchLink).toHaveAttribute("target", "_blank")
+  await expect(await getFirstAfter(watchLink, viewVideoPage)).toBeVisible()
+
+  await watchLink.hover()
+  await expect(watchLink).toHaveCSS("background-color", "rgb(108, 117, 125)")
+  await expect(watchLink).toHaveCSS("color", "rgb(255, 255, 255)")
 })
 
 test("Embed video redirects to video page using keyboard navigation", async ({

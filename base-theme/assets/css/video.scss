@@ -181,6 +181,12 @@
   max-width: $video-player-max-width;
 }
 
+.video-youtube-link:hover,
+.video-youtube-link:focus {
+  background-color: $secondary;
+  color: $white !important;
+}
+
 .video-page {
   margin-bottom: 15px;
 

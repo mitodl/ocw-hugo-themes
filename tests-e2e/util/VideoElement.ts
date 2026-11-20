@@ -29,6 +29,10 @@ export class VideoElement {
     return this.container.getByRole("tabpanel", opts)
   }
 
+  watchOnYouTubeLink(): Locator {
+    return this.container.getByRole("link", { name: "Watch on YouTube" })
+  }
+
   downloadButton(): Locator {
     return this.container.getByRole("button", {
       name: `Show Downloads`
