@@ -1,5 +1,5 @@
 import { test, expect } from "../util/fixtures"
-import { CoursePage } from "../util"
+import { CoursePage, getFirstAfter } from "../util"
 import { VideoElement } from "../util/VideoElement"
 
 const MULTI_LANG_RESOURCE =
@@ -224,6 +224,48 @@ const CAPTIONS_ONLY_RESOURCE = "/resources/video-captions-only"
 const DOWNLOADABLE_RESOURCE =
   "/resources/ocw_test_course_mit8_01f16_l01v01_360p"
 const ARCHIVE_URL = "http://www.archive.org/download/MIT18.06S05_MP4/01.mp4"
+const YOUTUBE_WATCH_URL = "https://www.youtube.com/watch?v=YWyHAlAuRL0"
+
+test("Watch on YouTube follows the resource video tabs only in offline builds", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
+  await course.goto(DOWNLOADABLE_RESOURCE, { waitUntil: "domcontentloaded" })
+  const video = new VideoElement(page)
+  const watchLink = video.watchOnYouTubeLink()
+  if (siteAlias !== "course-v3-offline") {
+    await expect(watchLink).toHaveCount(0)
+    return
+  }
+
+  const panels = video.tabPanel({ includeHidden: true })
+  await expect(panels).toHaveCount(3)
+  await expect(watchLink).toHaveAttribute("href", YOUTUBE_WATCH_URL)
+  await expect(await getFirstAfter(watchLink, panels.last())).toBeVisible()
+})
+
+test("Watch on YouTube follows the embedded video controls only in offline builds", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
+  await course.goto("/pages/video-series-overview", {
+    waitUntil: "domcontentloaded"
+  })
+  const video = new VideoElement(page)
+  const watchLink = video.watchOnYouTubeLink()
+  if (siteAlias !== "course-v3-offline") {
+    await expect(watchLink).toHaveCount(0)
+    return
+  }
+
+  const viewVideoPage = video.container.getByRole("link", {
+    name: "View video page"
+  })
+  await expect(watchLink).toHaveAttribute("href", YOUTUBE_WATCH_URL)
+  await expect(await getFirstAfter(watchLink, viewVideoPage)).toBeVisible()
+})
 
 // Use domcontentloaded to avoid waiting on embedded YouTube iframes
 test.describe("Course v3 video download button visibility", () => {

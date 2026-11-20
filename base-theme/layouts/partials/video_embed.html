@@ -25,4 +25,5 @@
   {{ $resourceUrl := partial "page_url.html" (dict "context" $context "url" .Permalink) }}
   {{ partial "video_expandable_tab.html" (dict "context" $context "tabTitle" "View video page" "downloadLink" $downloadLink "transcriptLinks" $transcriptLinks "resourceUrl" $resourceUrl) }}
   {{ end }}
+  {{ partial "video_youtube_link.html" $resource }}
 </div>
