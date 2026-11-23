@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2026.11.23.1] - 2026-11-23
+
+### Changes
+
+- **docs: the legacy release branches are deleted** (#1924) by feoh@feoh.org
+- **Distinguish v3 license labels and show course license on Course Home** (#1922) by 1553279+pt2302@users.noreply.github.com
+- **Add course-level license to v3 Course Info and data.json** (#1921) by 1553279+pt2302@users.noreply.github.com
+- **chore: support a cutover lastmod date in v2 course sitemaps** (#1920) by 87228907+zawan-ila@users.noreply.github.com
+- **Fix JSON-LD encoding and resource license on v3 pages** (#1919) by 1553279+pt2302@users.noreply.github.com
+
 ## [2026.11.16.1] - 2026-11-16
 
 ### Changes
