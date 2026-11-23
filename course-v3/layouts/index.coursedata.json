@@ -1,10 +1,25 @@
 {{- $courseData := .Site.Data.course | default dict -}}
-{{- $courseImageUrl := index (partial "course-image-url.html" .) 0 -}}
-{{- $courseImageMetadata := index (partial "course-image-url.html" .) 1 -}}
+{{- $courseImage := partial "course-image-url.html" . -}}
+{{- $courseImageUrl := index $courseImage 0 -}}
+{{- $courseImageMetadata := (index $courseImage 1).Params -}}
+{{- $hasCourseImage := false -}}
+{{- with $courseData.course_image -}}{{- with .content -}}{{- $hasCourseImage = true -}}{{- end -}}{{- end -}}
+{{- if $hasCourseImage -}}
+{{- $courseImageMetadata = partial "coursedata_paths.html" $courseImageMetadata -}}
+{{- else -}}
+{{- /* course-image-url.html stands in a literal "None" file for a course without an image. */ -}}
+{{- $courseImageUrl = "" -}}
+{{- $courseImageMetadata = merge $courseImageMetadata (dict "file" "") -}}
+{{- end -}}
 {{- $instructors := slice -}}
 {{- with $courseData.instructors -}}
 {{- $instructors = partial "get_instructors.html" .content -}}
 {{- end -}}
-{{- $computed := dict "course_description_html" ($courseData.course_description | default "" | $.RenderString) "image_src" $courseImageUrl "course_image_metadata" $courseImageMetadata.Params "instructors" $instructors -}}
+{{- $computed := dict "course_description_html" ($courseData.course_description | default "" | $.RenderString) "image_src" $courseImageUrl "course_image_metadata" $courseImageMetadata "instructors" $instructors -}}
+{{- /* Studio writes site_url_path as courses/<slug>; v3 serves the course at courses/o/<slug>. */ -}}
+{{- with $courseData.site_url_path -}}
+{{- $sitePath := partial "coursedata_path.html" (printf "/%s" (strings.TrimPrefix "/" .)) -}}
+{{- $computed = merge $computed (dict "site_url_path" (strings.TrimPrefix "/" $sitePath)) -}}
+{{- end -}}
 {{- merge $courseData $computed (partialCached "course_licenses.html" .) | jsonify (dict "noHTMLEscape" true "indent" "  ") -}}
 
