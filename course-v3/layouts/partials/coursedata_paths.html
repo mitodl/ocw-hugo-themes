@@ -1,8 +1,13 @@
 {{/*
   Returns a copy of a page's or resource's params with the authored file paths
-  mapped to where the v3 build serves them (see coursedata_path.html), for the
-  data.json output. The v3 HTML makes the same correction when it renders these
-  fields; without this, data.json would keep the v2 paths Studio wrote.
+  mapped to where the v3 build serves them, for the data.json output. The v3 HTML
+  makes the same correction when it renders these fields; without this, data.json
+  would keep the v2 paths Studio wrote.
+
+  Each value goes through canonical_course_url.html, as the v3 og:image does,
+  rather than resource_url.html: it keeps the course slug, so a path into another
+  course stays in that course, and it returns anything that is not an OCW course
+  path unchanged (relative paths, other hosts, /courses/o/ paths, non-strings).
 
   Mapped fields:
     file
@@ -20,7 +25,7 @@
 {{- $mapped := dict -}}
 
 {{- with $params.file -}}
-  {{- $mapped = merge $mapped (dict "file" (partial "coursedata_path.html" .)) -}}
+  {{- $mapped = merge $mapped (dict "file" (partial "canonical_course_url.html" .)) -}}
 {{- end -}}
 
 {{- with $params.video_files -}}
@@ -29,7 +34,7 @@
     {{- $mappedVideoFiles := dict -}}
     {{- range $key := slice "video_thumbnail_file" "video_captions_file" "video_transcript_file" -}}
       {{- with index $videoFiles $key -}}
-        {{- $mappedVideoFiles = merge $mappedVideoFiles (dict $key (partial "coursedata_path.html" .)) -}}
+        {{- $mappedVideoFiles = merge $mappedVideoFiles (dict $key (partial "canonical_course_url.html" .)) -}}
       {{- end -}}
     {{- end -}}
     {{- range $key := slice "video_captions_resources" "video_transcript_resources" -}}
@@ -40,7 +45,7 @@
           {{- $resource := . -}}
           {{- if reflect.IsMap $resource -}}
             {{- with $resource.file -}}
-              {{- $resource = merge $resource (dict "file" (partial "coursedata_path.html" .)) -}}
+              {{- $resource = merge $resource (dict "file" (partial "canonical_course_url.html" .)) -}}
             {{- end -}}
           {{- end -}}
           {{- $mappedResources = $mappedResources | append $resource -}}

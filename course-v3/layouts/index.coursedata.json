@@ -18,7 +18,7 @@
 {{- $computed := dict "course_description_html" ($courseData.course_description | default "" | $.RenderString) "image_src" $courseImageUrl "course_image_metadata" $courseImageMetadata "instructors" $instructors -}}
 {{- /* Studio writes site_url_path as courses/<slug>; v3 serves the course at courses/o/<slug>. */ -}}
 {{- with $courseData.site_url_path -}}
-{{- $sitePath := partial "coursedata_path.html" (printf "/%s" (strings.TrimPrefix "/" .)) -}}
+{{- $sitePath := partial "canonical_course_url.html" (printf "/%s" (strings.TrimPrefix "/" .)) -}}
 {{- $computed = merge $computed (dict "site_url_path" (strings.TrimPrefix "/" $sitePath)) -}}
 {{- end -}}
 {{- merge $courseData $computed (partialCached "course_licenses.html" .) | jsonify (dict "noHTMLEscape" true "indent" "  ") -}}
