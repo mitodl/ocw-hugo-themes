@@ -14,7 +14,9 @@
   The path is otherwise passed through as authored, including the absence of
   Hugo's canonical trailing slash — the resulting 301 per link is accepted.
 
-  Query strings and fragments are preserved.
+  Query strings and fragments are preserved. The path and fragment keep their
+  percent-encoding: .Path and .Fragment are decoded, so a URL rebuilt from them
+  would turn %20 into a space and %23 into #.
 
   Anything that is not an OCW course path is returned untouched: other hosts,
   non-course paths such as /terms, the /courses/ listing itself, and URLs
@@ -31,11 +33,12 @@
 {{/* Empty host means root-relative, i.e. this site. Otherwise compare the
      parsed host, so ocw.mit.edu.example.com is not taken for an OCW URL. */}}
 {{- $isOcwHost := or (eq $url.Host "") (partial "is_ocw_host.html" $input) -}}
-{{- $slugAndRest := strings.TrimPrefix "/courses/" $url.Path -}}
+{{- $path := $url.EscapedPath -}}
+{{- $slugAndRest := strings.TrimPrefix "/courses/" $path -}}
 {{- $isCoursePath := and
-  (strings.HasPrefix $url.Path "/courses/")
+  (strings.HasPrefix $path "/courses/")
   (gt (len $slugAndRest) 0)
-  (not (or (eq $url.Path "/courses/o") (strings.HasPrefix $url.Path "/courses/o/")))
+  (not (or (eq $path "/courses/o") (strings.HasPrefix $path "/courses/o/")))
 -}}
 
 {{- if and $isOcwHost $isCoursePath -}}
@@ -48,7 +51,7 @@
   {{- with $url.RawQuery -}}
     {{- $result = printf "%s?%s" $result . -}}
   {{- end -}}
-  {{- with $url.Fragment -}}
+  {{- with $url.EscapedFragment -}}
     {{- $result = printf "%s#%s" $result . -}}
   {{- end -}}
 {{- end -}}

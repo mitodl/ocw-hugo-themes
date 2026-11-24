@@ -62,6 +62,29 @@ const resources: Record<string, Record<string, unknown>> = {
       video_transcript_file: "/courses/o/demo/already-v3.pdf"
     }
   },
+  // Studio publishes file paths percent-encoded; the escapes must survive.
+  escaped: {
+    title:        "Escaped file names",
+    uid:          "88888888-8888-8888-8888-888888888888",
+    resourcetype: "Video",
+    file:         "/courses/demo/scribe%20templates.zip",
+    video_files:  {
+      video_thumbnail_file:     "/courses/demo/reading%282%29.jpg",
+      video_captions_resources: [
+        { file: "/courses/demo/lecture%231.vtt", language: "en" },
+        { file: "/courses/demo/notes%3Fdraft.vtt", language: "es" },
+        { file: "/courses/demo/50%25.vtt", language: "fr" },
+        { file: "/courses/demo/a%2Bb.vtt", language: "de" },
+        { file: "/courses/demo/a%2Fb.vtt", language: "it" }
+      ],
+      video_transcript_resources: [
+        {
+          file:     "https://ocw.mit.edu/courses/demo/a%20b.pdf?q=x%20y#page%202",
+          language: "en"
+        }
+      ]
+    }
+  },
   odd: {
     title:        "Odd shapes",
     uid:          "55555555-5555-5555-5555-555555555555",
@@ -223,6 +246,27 @@ describe("course-v3 data.json", () => {
       video_thumbnail_file:  "/courses/o/demo/thumbnail.jpg",
       video_captions_file:   "/courses/o/demo/legacy.vtt",
       video_transcript_file: "/courses/o/demo/already-v3.pdf"
+    })
+  })
+
+  test("file paths keep their percent-encoding", async () => {
+    const escaped = await site.read("resources/escaped")
+    expect(escaped.file).toBe("/courses/o/demo/scribe%20templates.zip")
+    expect(escaped.video_files).toEqual({
+      video_thumbnail_file:     "/courses/o/demo/reading%282%29.jpg",
+      video_captions_resources: [
+        { file: "/courses/o/demo/lecture%231.vtt", language: "en" },
+        { file: "/courses/o/demo/notes%3Fdraft.vtt", language: "es" },
+        { file: "/courses/o/demo/50%25.vtt", language: "fr" },
+        { file: "/courses/o/demo/a%2Bb.vtt", language: "de" },
+        { file: "/courses/o/demo/a%2Fb.vtt", language: "it" }
+      ],
+      video_transcript_resources: [
+        {
+          file:     "https://learn.mit.edu/courses/o/demo/a%20b.pdf?q=x%20y#page%202",
+          language: "en"
+        }
+      ]
     })
   })
 
