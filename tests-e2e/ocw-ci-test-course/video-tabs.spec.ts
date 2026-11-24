@@ -7,6 +7,7 @@ import { TEST_SITES } from "../util/test_sites"
 const resourceBaseUrl = env.RESOURCE_BASE_URL
 const YOUTUBE_WATCH_URL = "https://www.youtube.com/watch?v=YWyHAlAuRL0"
 const YOUTUBE_CLIP_URL = `${YOUTUBE_WATCH_URL}&t=13s`
+const BUTTON_BLUE = "rgb(18, 111, 154)"
 
 test("that the Download Button works for multiple embed videos in a page", async ({
   page,
@@ -135,9 +136,11 @@ test("Watch on YouTube follows the resource video tabs only in offline builds", 
   await expect(watchLink).toHaveAttribute("target", "_blank")
   await expect(await getFirstAfter(watchLink, panels.last())).toBeVisible()
 
+  await expect(watchLink).toHaveCSS("color", BUTTON_BLUE)
+  await expect(watchLink).toHaveCSS("border-top-color", BUTTON_BLUE)
+  await expect(watchLink).toHaveCSS("background-color", "rgba(0, 0, 0, 0)")
   await watchLink.focus()
-  await expect(watchLink).toHaveCSS("background-color", "rgb(108, 117, 125)")
-  await expect(watchLink).toHaveCSS("color", "rgb(255, 255, 255)")
+  await expect(watchLink).not.toHaveCSS("box-shadow", "none")
 })
 
 test("Watch on YouTube uses the plain video URL when no start time is set", async ({
@@ -178,8 +181,12 @@ test("Watch on YouTube follows the embedded video controls only in offline build
   await expect(await getFirstAfter(watchLink, viewVideoPage)).toBeVisible()
 
   await watchLink.hover()
-  await expect(watchLink).toHaveCSS("background-color", "rgb(108, 117, 125)")
+  await expect(watchLink).toHaveCSS("background-color", BUTTON_BLUE)
   await expect(watchLink).toHaveCSS("color", "rgb(255, 255, 255)")
+  await page.mouse.down()
+  await expect(watchLink).toHaveCSS("background-color", BUTTON_BLUE)
+  await page.mouse.move(0, 0)
+  await page.mouse.up()
 })
 
 test("Embed video redirects to video page using keyboard navigation", async ({

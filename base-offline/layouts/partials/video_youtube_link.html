@@ -3,14 +3,14 @@
   {{ $startTime := trim (.context.Params.start_time | default "" | string) " " }}
   <div class="my-3">
     <a
-      class="video-youtube-link btn btn-sm btn-outline-secondary d-inline-flex align-items-center px-3 py-2 text-decoration-none"
+      class="video-youtube-link d-inline-flex align-items-center text-decoration-none {{ partial "video_youtube_link_classes.html" . }}"
       href="https://www.youtube.com/watch?v={{ $youtubeID }}{{ if findRE `^[0-9]+$` $startTime }}&amp;t={{ $startTime }}s{{ end }}"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Watch on YouTube (opens in a new tab)"
     >
       <span>Watch on YouTube</span>
-      <i class="material-icons md-18 ml-2" aria-hidden="true">arrow_forward</i>
+      <i class="material-icons md-18" aria-hidden="true">arrow_forward</i>
     </a>
   </div>
 {{ end }}
