@@ -1,9 +1,10 @@
-{{ $startTime := trim (.Params.start_time | default "" | string) " " }}
-{{ with trim (.Params.video_metadata.youtube_id | default "") " " }}
+{{ $youtubeID := trim (.context.Params.video_metadata.youtube_id | default "") " " }}
+{{ if and $youtubeID (not (partial "local_video_file.html" .downloadLink)) }}
+  {{ $startTime := trim (.context.Params.start_time | default "" | string) " " }}
   <div class="my-3">
     <a
       class="video-youtube-link btn btn-sm btn-outline-secondary d-inline-flex align-items-center px-3 py-2 text-decoration-none"
-      href="https://www.youtube.com/watch?v={{ . }}{{ if findRE `^[0-9]+$` $startTime }}&amp;t={{ $startTime }}s{{ end }}"
+      href="https://www.youtube.com/watch?v={{ $youtubeID }}{{ if findRE `^[0-9]+$` $startTime }}&amp;t={{ $startTime }}s{{ end }}"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Watch on YouTube (opens in a new tab)"

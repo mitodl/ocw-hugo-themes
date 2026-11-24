@@ -13,8 +13,9 @@ const hugoCli = path.join(
 const archiveUrl = "https://archive.example/video.mp4"
 const videos = {
   bundled: {
-    file:        "https://files.example/course/bundled.mp4",
-    video_files: { archive_url: archiveUrl }
+    file:           "https://files.example/course/bundled.mp4",
+    video_files:    { archive_url: archiveUrl },
+    video_metadata: { youtube_id: "test-video" }
   },
   missing: {
     file:        "/course/missing.mp4",
@@ -26,7 +27,7 @@ const videos = {
 }
 
 test.each([true, false])(
-  "offline video downloads resolve available files (bundle present: %s)",
+  "offline video links reflect the packaged files (bundle present: %s)",
   async hasBundle => {
     const source = await fs.mkdtemp(path.join(os.tmpdir(), "ocw-video-links-"))
     try {
@@ -40,7 +41,9 @@ test.each([true, false])(
     "resource" (dict "Params" $params)) -}}
   {{- $links = merge $links (dict $name $link) -}}
 {{- end -}}
-{{- $links | jsonify -}}`
+{{- $resource := dict "Params" site.Params.videos.bundled -}}
+{{- $watch := partial "video_youtube_link.html" (dict "context" $resource "downloadLink" $links.bundled) -}}
+{{- dict "downloads" $links "watch" $watch | jsonify -}}`
       )
       await fs.writeFile(
         path.join(source, "hugo.json"),
@@ -73,10 +76,11 @@ test.each([true, false])(
 
       await execFileAsync(process.execPath, [hugoCli, "--source", source])
 
-      const links = JSON.parse(
+      const { downloads, watch } = JSON.parse(
         await fs.readFile(path.join(source, "public/index.json"), "utf8")
       )
-      expect(links).toEqual({
+      expect(watch.includes("Watch on YouTube")).toBe(!hasBundle)
+      expect(downloads).toEqual({
         bundled:     hasBundle ? "../../static_resources/bundled.mp4" : archiveUrl,
         missing:     archiveUrl,
         unavailable: "",
