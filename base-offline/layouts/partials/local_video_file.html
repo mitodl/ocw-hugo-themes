@@ -1,0 +1,2 @@
+{{- $bundle := site.GetPage "/static_resources" -}}
+{{- return (and . $bundle ($bundle.Resources.Get (path.Base (urls.Parse .).Path))) -}}

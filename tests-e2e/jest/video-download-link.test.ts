@@ -13,12 +13,14 @@ const hugoCli = path.join(
 const archiveUrl = "https://archive.example/video.mp4"
 const videos = {
   bundled: {
-    file:        "https://files.example/course/bundled.mp4",
-    video_files: { archive_url: archiveUrl }
+    file:           "https://files.example/course/bundled.mp4",
+    video_files:    { archive_url: archiveUrl },
+    video_metadata: { youtube_id: "test-video" }
   },
   missing: {
-    file:        "/course/missing.mp4",
-    video_files: { archive_url: archiveUrl }
+    file:           "/course/missing.mp4",
+    video_files:    { archive_url: archiveUrl },
+    video_metadata: { youtube_id: "missing-video" }
   },
   unavailable: { file: "/course/missing.mp4" },
   archive:     { video_files: { archive_url: archiveUrl } },
@@ -26,7 +28,7 @@ const videos = {
 }
 
 test.each([true, false])(
-  "offline video downloads resolve available files (bundle present: %s)",
+  "offline video links reflect the packaged files (bundle present: %s)",
   async hasBundle => {
     const source = await fs.mkdtemp(path.join(os.tmpdir(), "ocw-video-links-"))
     try {
@@ -35,10 +37,12 @@ test.each([true, false])(
         path.join(source, "layouts/index.json"),
         `{{- $links := dict -}}
 {{- range $name, $params := site.Params.videos -}}
-  {{- $link := partial "get_video_download_link.html" (dict
-    "context" (dict "RelPermalink" "/courses/offline/resources/video/")
-    "resource" (dict "Params" $params)) -}}
-  {{- $links = merge $links (dict $name $link) -}}
+  {{- $resource := dict "Params" $params "RelPermalink" "/courses/offline/resources/video/" -}}
+  {{- $download := partial "get_video_download_link.html" (dict "context" $resource "resource" $resource) -}}
+  {{- $watch := partial "video_youtube_link.html" (dict "context" $resource "downloadLink" $download) -}}
+  {{- $links = merge $links (dict $name (dict
+    "download" $download
+    "watch" (in $watch "Watch on YouTube"))) -}}
 {{- end -}}
 {{- $links | jsonify -}}`
       )
@@ -56,6 +60,11 @@ test.each([true, false])(
               {
                 source: path.join(repoRoot, "base-offline/layouts/partials"),
                 target: "layouts/partials"
+              },
+              {
+                source:       path.join(repoRoot, "base-theme/layouts/partials"),
+                target:       "layouts/partials",
+                includeFiles: "video_youtube_link_classes.html"
               }
             ]
           }
@@ -77,11 +86,16 @@ test.each([true, false])(
         await fs.readFile(path.join(source, "public/index.json"), "utf8")
       )
       expect(links).toEqual({
-        bundled:     hasBundle ? "../../static_resources/bundled.mp4" : archiveUrl,
-        missing:     archiveUrl,
-        unavailable: "",
-        archive:     archiveUrl,
-        empty:       ""
+        bundled: {
+          download: hasBundle ?
+            "../../static_resources/bundled.mp4" :
+            archiveUrl,
+          watch: !hasBundle
+        },
+        missing:     { download: archiveUrl, watch: true },
+        unavailable: { download: "", watch: false },
+        archive:     { download: archiveUrl, watch: false },
+        empty:       { download: "", watch: false }
       })
       if (hasBundle) {
         expect(
