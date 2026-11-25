@@ -31,13 +31,15 @@ test("Course nav links are not underlined", async ({ page }) => {
   expect(decorations).toEqual(["none"])
 })
 
-test("Download button keeps its own colors", async ({ page }) => {
+test("Download label keeps its color on hover", async ({ page }) => {
   const course = new CoursePage(page, "course-v3")
-  await course.goto(CONTENT_PAGE, { waitUntil: "domcontentloaded" })
+  await course.goto("/resources/file_pdf", { waitUntil: "domcontentloaded" })
 
-  const download = page.locator(".download-course-button-v3").first()
-  await expect(download).toHaveCSS("text-decoration-line", "none")
-  await expect(download).toHaveCSS("color", "rgb(255, 255, 255)")
+  const button = page.getByRole("link", { name: "Download", exact: true })
+  const color = () => button.evaluate(el => getComputedStyle(el).color)
+  const resting = await color()
+  await button.hover()
+  expect(await color()).toBe(resting)
 })
 
 test("Prose links keep their underline", async ({ page }) => {

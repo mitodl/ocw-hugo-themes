@@ -47,13 +47,8 @@
         </a>
         <div class="resource-single-title">{{.Params.title }}</div>
         {{- if $downloadableLink -}}
-          <a class="resource-download-button" href="{{- $downloadableLink -}}" download>
-            <img
-              class="resource-download-icon"
-              src="{{ partial "get_asset_webpack_url.html" "images/resource-download.svg" }}"
-              aria-hidden="true"
-            />
-            <span>Download</span>
+          <a class="resource-download-button text-white" href="{{- $downloadableLink -}}" download>
+            {{ partial "icon.html" "ri-download-line" }} Download
           </a>
         {{ end }}
       </div>

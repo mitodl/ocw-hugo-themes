@@ -1,34 +1,27 @@
 import { test, expect } from "../util/fixtures"
-import { CoursePage } from "../util"
+import { CoursePage, expectLocalPackageHref } from "../util"
 
-test.describe("Course v3 download page", () => {
-  test("download page loads with the expected heading", async ({
+test.describe("Course v3 downloads", () => {
+  test("the course ZIP and its instructions are offered only online", async ({
     page,
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/download")
+    await course.goto("/download", { waitUntil: "domcontentloaded" })
+    if (siteAlias === "course-v3-offline") {
+      await expect(page.locator('a:has-text("Download Course")')).toHaveCount(0)
+      const body = page.locator("body")
+      await expect(body).not.toContainText("download the course")
+      await expect(body).not.toContainText("click on the index.html file")
+      return
+    }
 
-    const heading =
-      siteAlias === "course-v3-offline" ? "Browse Resources" : "Download"
-    await expect(page.locator("body")).toContainText(heading)
-  })
-
-  test("the online-only Download Course CTA text never leaks into the offline build", async ({
-    page,
-    siteAlias
-  }) => {
-    test.skip(
-      siteAlias !== "course-v3-offline",
-      "This is a negative assertion specific to the offline build"
+    const zip = page.getByRole("link", { name: "Download Course", exact: true })
+    await expect(zip).toBeVisible()
+    await expect(zip).toHaveAttribute(
+      "href",
+      /\/courses\/o\/ocw-ci-test-course\/ocw-ci-test-course\.zip$/
     )
-    const course = new CoursePage(page, siteAlias)
-    await course.goto("/download")
-
-    await expect(page.locator('a:has-text("Download course")')).toHaveCount(0)
-    const bodyText = await page.locator("body").textContent()
-    expect(bodyText).not.toContain("download the course")
-    expect(bodyText).not.toContain("click on the index.html file")
   })
 
   test("grouped resource lists render and expand to reveal package-appropriate links", async ({
@@ -59,23 +52,28 @@ test.describe("Course v3 download page", () => {
     }
   })
 
-  test("Browse Resources CTA on the home page is present and package-appropriate when offline", async ({
+  test("the home page resource button opens the download page with Enter", async ({
     page,
     siteAlias
   }) => {
-    test.skip(
-      siteAlias !== "course-v3-offline",
-      "This CTA text only replaces the online Download CTA in the offline build"
-    )
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/")
-
-    const browseBtn = page
-      .locator('.download-course-button-v3, a:has-text("Browse Resources")')
+    await course.goto("/", { waitUntil: "domcontentloaded" })
+    const offline = siteAlias === "course-v3-offline"
+    const button = page
+      .getByRole("button", {
+        name:  offline ? "Browse Resources" : "Download Course",
+        exact: true
+      })
       .first()
-    await expect(browseBtn).toBeVisible()
-    const href = await browseBtn.getAttribute("href")
-    expect(href).not.toMatch(/^https?:\/\//)
-    expect(href).toContain("download")
+    if (offline) {
+      await expectLocalPackageHref(button)
+    }
+    await button.press("Enter")
+    await expect(
+      page.getByRole("heading", {
+        name:  offline ? "Browse Resources" : "Download",
+        exact: true
+      })
+    ).toBeVisible()
   })
 })

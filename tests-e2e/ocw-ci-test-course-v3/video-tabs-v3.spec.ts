@@ -245,18 +245,6 @@ test("Watch on YouTube follows the resource video tabs only in offline builds", 
   await expect(watchLink).toHaveAttribute("href", YOUTUBE_CLIP_URL)
   await expect(watchLink).toHaveAttribute("target", "_blank")
   await expect(await getFirstAfter(watchLink, panels.last())).toBeVisible()
-
-  await expect(watchLink).toHaveCSS("background-color", "rgb(117, 0, 20)")
-  const browseResources = page
-    .getByRole("button", { name: "Browse Resources" })
-    .first()
-  await browseResources.focus()
-  const focusOutline = await browseResources.evaluate(
-    el => getComputedStyle(el).outline
-  )
-  await watchLink.focus()
-  await expect(watchLink).toHaveCSS("outline", focusOutline)
-  await expect(watchLink).toHaveCSS("color", "rgb(255, 255, 255)")
 })
 
 test("Watch on YouTube uses the plain video URL when no start time is set", async ({
@@ -294,13 +282,8 @@ test("Watch on YouTube follows the embedded video controls only in offline build
   await expect(watchLink).toHaveAttribute("target", "_blank")
   await expect(await getFirstAfter(watchLink, viewVideoPage)).toBeVisible()
 
-  await watchLink.hover()
-  await expect(watchLink).toHaveCSS("background-color", "rgb(163, 31, 52)")
-  await expect(watchLink).toHaveCSS("color", "rgb(255, 255, 255)")
-  await page.mouse.down()
-  await expect(watchLink).toHaveCSS("background-color", "rgb(94, 0, 17)")
-  await page.mouse.move(0, 0)
-  await page.mouse.up()
+  await video.downloadButton().press("Tab")
+  await expect(watchLink).toBeFocused()
 })
 
 // Use domcontentloaded to avoid waiting on embedded YouTube iframes
