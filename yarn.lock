@@ -2711,8 +2711,8 @@ __metadata:
   linkType: hard
 
 "@mitodl/smoot-design@npm:^6.36.0":
-  version: 6.38.0
-  resolution: "@mitodl/smoot-design@npm:6.38.0"
+  version: 6.43.0
+  resolution: "@mitodl/smoot-design@npm:6.43.0"
   dependencies:
     "@ai-sdk/react": "npm:1.2.12"
     "@emotion/cache": "npm:^11.14.0"
@@ -2737,7 +2737,7 @@ __metadata:
     "@remixicon/react": ^4.2.0
     react: ^18 || ^19
     react-dom: ^18 || ^19
-  checksum: 10c0/6e20bbae8bbc0a4f0d4e5368bd9856f3f58427d0a9bf54ca368d6f41203eb0788d07493acd4594c9df09cbfe9d5f0fc153727221d96560021dac46c1b43ef9ab
+  checksum: 10c0/db02295b9c12feca76c9691dd45747237372179bcb95d6f92212858a1898738f6e56aa11217911360d59de446977676152d14f8146d378475a7f818206be1077
   languageName: node
   linkType: hard
 
