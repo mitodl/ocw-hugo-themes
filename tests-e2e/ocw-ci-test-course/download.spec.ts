@@ -1,27 +1,54 @@
 import { test, expect } from "../util/fixtures"
-import { CoursePage } from "../util"
+import { CoursePage, expectLocalPackageHref } from "../util"
 
-test("Download button exists for test course", async ({ page, siteAlias }) => {
+test("Download page offers the course ZIP online and Browse Resources offline", async ({
+  page,
+  siteAlias
+}) => {
   const course = new CoursePage(page, siteAlias)
-  await course.goto("/download")
+  await course.goto("/download", { waitUntil: "domcontentloaded" })
+  const downloadButton = page.getByRole("link", {
+    name:  "Download Course",
+    exact: true
+  })
 
   if (siteAlias === "course-offline") {
-    // Offline v2 replaces the download CTA with a "Browse Resources" button.
-    await expect(
-      page.getByRole("link", { name: "Download course" })
-    ).toHaveCount(0)
-    // Rendered as `<a role="button" ...>` (Bootstrap's pattern for a link
-    // styled as a button), so its accessible role is "button", not "link".
+    await expect(downloadButton).toHaveCount(0)
     const browseButton = page.getByRole("button", {
       name: "Browse Resources"
     })
     await expect(browseButton).toBeVisible()
-    const href = await browseButton.getAttribute("href")
-    expect(href).not.toMatch(/^https?:\/\//)
-  } else {
-    const downloadButton = page.getByRole("link", { name: "Download course" })
-    await expect(downloadButton).toBeVisible()
+    await expectLocalPackageHref(browseButton)
+    return
   }
+
+  await expect(downloadButton).toBeVisible()
+  await expect(downloadButton).toHaveAttribute(
+    "href",
+    /\/courses\/ocw-ci-test-course\/ocw-ci-test-course\.zip$/
+  )
+})
+
+test("Download File links to the resource and is reachable with Tab", async ({
+  page,
+  siteAlias
+}) => {
+  const course = new CoursePage(page, siteAlias)
+  await course.goto("/resources/file_txt", { waitUntil: "domcontentloaded" })
+  const button = page.getByRole("link", { name: "Download File", exact: true })
+  await expect(button).toHaveAttribute(
+    "href",
+    siteAlias === "course-offline" ?
+      "../../static_resources/file.txt" :
+      /\/courses\/ocw-ci-test-course\/file\.txt$/
+  )
+
+  const thumbnail = page.getByRole("link", {
+    name:  "Download file",
+    exact: true
+  })
+  await thumbnail.press("Tab")
+  await expect(button).toBeFocused()
 })
 
 test("List of resources appears on download page", async ({

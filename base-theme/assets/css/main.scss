@@ -449,3 +449,10 @@ button:focus:not(.focus-visible) {
 button.btn:focus:not(.focus-visible) {
   outline: 0;
 }
+
+@media (forced-colors: active) {
+  a.btn-primary:focus-visible,
+  a.btn-outline-primary:focus-visible {
+    outline: revert;
+  }
+}

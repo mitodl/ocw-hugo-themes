@@ -36,25 +36,22 @@ test.describe("Course v3 Single Resource Page", () => {
     )
   })
 
-  test("Resource page displays download button correctly", async ({
+  test("The Download button and thumbnail point to the course PDF", async ({
     page,
     siteAlias
   }) => {
     const course = new CoursePage(page, siteAlias)
-    await course.goto("/resources/file_pdf")
+    await course.goto("/resources/file_pdf", { waitUntil: "domcontentloaded" })
 
-    const downloadButton = page.locator(".resource-download-button")
-    await expect(downloadButton).toBeVisible()
-
-    // Check styling
-    await expect(downloadButton).toHaveCSS(
-      "background-color",
-      "rgb(117, 0, 20)"
-    ) // #750014
-
-    // Check valid href
-    const href = await downloadButton.getAttribute("href")
-    expect(href).toMatch(/.pdf$/)
+    const pdf =
+      siteAlias === "course-v3-offline" ?
+        "../../static_resources/file2.pdf" :
+        /\/courses\/o\/ocw-ci-test-course\/file2\.pdf$/
+    for (const name of ["Download", "Download file.pdf"]) {
+      const link = page.getByRole("link", { name, exact: true })
+      await expect(link).toHaveAttribute("download", "")
+      await expect(link).toHaveAttribute("href", pdf)
+    }
   })
 
   test("Resource page displays metadata", async ({ page, siteAlias }) => {
@@ -73,26 +70,6 @@ test.describe("Course v3 Single Resource Page", () => {
       "href",
       "https://creativecommons.org/licenses/by-nc-sa/4.0/"
     )
-  })
-
-  test("Resource page download link is package-local when offline", async ({
-    page,
-    siteAlias
-  }) => {
-    test.skip(
-      siteAlias !== "course-v3-offline",
-      "Package-local paths only exist in the offline build"
-    )
-    const course = new CoursePage(page, siteAlias)
-    await course.goto("/resources/file_pdf")
-
-    const downloadBtn = page
-      .locator(".resource-download-button, .resource-single-thumbnail-link")
-      .first()
-    const href = await downloadBtn.getAttribute("href")
-    expect(href).not.toMatch(/^https?:\/\//)
-    expect(href).not.toMatch(/^\//)
-    expect(href).toContain("static_resources/")
   })
 
   test.describe("additional resource types", () => {

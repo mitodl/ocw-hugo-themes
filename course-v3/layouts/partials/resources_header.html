@@ -22,11 +22,9 @@
         </ol>
         {{- end -}}
       </div>
-      <div class="download-course-button-wrap">
-        <a class="download-course-button" href="{{ $downloadCourseUrl }}">
-          <span aria-hidden="true" class="material-icons">file_download</span> Download course
-        </a>
-      </div>
+      <a class="download-course-button" href="{{ $downloadCourseUrl }}">
+        {{ partial "icon.html" "ri-download-line" }} Download Course
+      </a>
     </div>
   </div>
   <div class="alert-warning p-2 limited-pointer-only">

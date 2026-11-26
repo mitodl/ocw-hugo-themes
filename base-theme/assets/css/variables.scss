@@ -17,7 +17,6 @@ $highlight-red: #a31f34;
 $burgundy: #851124;
 $blue: #126f9a;
 $mit-red-dark: #750014;
-$mit-red-dark-hover: #8b0018;
 $mit-red-dark-active: #5e0011;
 $link-blue: #32c5ff;
 $success-message-color: #569a5a;
@@ -65,7 +64,7 @@ $news-sidear-bg-color: #0f0f0f;
 
 //resource-page
 $border-gray: #e5e5e5;
-$resource-download-btn-color: #007fff;
+$resource-download-btn-color: $blue;
 $resource-download-btn-hover-color: #a31f34;
 
 //resource
