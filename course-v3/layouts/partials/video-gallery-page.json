@@ -5,10 +5,10 @@
 {{- range $index, $uuid := .Params.videos.content -}}
 {{- range $ctx.Site.Pages -}}
 {{- if eq (replace .Params.uid "-" "") (replace $uuid "-" "") -}}
-{{- $videos = $videos | append .Params -}}
+{{- $videos = $videos | append (partial "coursedata_paths.html" .Params) -}}
 {{- end -}}
 {{- end -}}
 {{- end -}}
 {{- $computed = merge $computed (dict "videos" $videos) -}}
 {{- end -}}
-{{- merge .Params $computed (dict "content" .Content) | jsonify (dict "noHTMLEscape" true "indent" "  ") -}}
+{{- merge (partial "coursedata_paths.html" .Params) $computed (dict "content" .Content) | jsonify (dict "noHTMLEscape" true "indent" "  ") -}}
